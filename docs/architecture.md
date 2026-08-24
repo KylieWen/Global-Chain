@@ -2,7 +2,7 @@
 
 ## 当前基线（2026-08-24）
 
-项目已完成最小工程骨架初始化：Git 已初始化但尚未形成首个提交，根目录已有 `package.json`、pnpm workspace、锁文件、Next.js/TypeScript Web 占位应用、共享包占位目录、测试配置和数据管线目录。当前仍没有业务页面、数据库迁移内容、外部数据集或真实数据接入。本文既是目标架构，也是后续实现的约束；其中尚未实现的部分必须以代码和测试为准逐步更新。
+项目已完成最小工程骨架、通用数据契约、mock 商品 fixture，以及只读 fixture loader 和领域查询层。当前仍没有业务页面、数据库迁移内容、外部数据集或真实数据接入。本文既是目标架构，也是后续实现的约束；其中尚未实现的部分必须以代码和测试为准逐步更新。
 
 ## 总体决策
 
@@ -20,7 +20,7 @@
 
 - 应用：已初始化 TypeScript + React + Next.js（单一 Web/服务端应用，适合服务端渲染和静态/动态混合）。
 - 包管理：已使用 pnpm workspace；首版保持模块化单体，不引入 Turborepo。
-- 数据库：PostgreSQL；用 SQL migration 管理结构，必要时使用物化视图或预计算表支持图表读取。
+- 数据库：目标为 PostgreSQL；当前尚未创建迁移，运行时由 `packages/db` 的只读 fixture loader 提供开发数据。
 - 数据处理：Python（pandas/polars + Pydantic）或 TypeScript CLI；优先选择团队已熟悉且便于批量校验的方案，不在 MVP 同时引入两套复杂框架。
 - 校验：TypeScript 侧 Zod，数据处理侧 Pydantic/JSON Schema；同一领域 schema 生成或双向测试保持一致。
 - 可视化：先采用成熟的 React 图表库；地图能力在确认数据与 UX 后再引入 MapLibre 等库，不为本次文档阶段安装依赖。
@@ -50,6 +50,8 @@ Node、pnpm、Next.js、React、TypeScript、ESLint 和 Vitest 的实际版本�
 ### 发布与审计
 
 负责数据批次、内容版本、校验结果、审批/发布状态和回滚指针。Web 层只读取 `published` 版本，预览环境可读取 `draft` 但必须显式标识。
+
+当前实现：`loadFixtureRepositoryFromManifest` 默认只加载 `published`；读取 `draft` 必须显式传入 `allowedStatuses`。`packages/domain` 不依赖文件系统，只依赖只读 `FixtureRepository`，并提供商品目录、拆解树、供应链故事、节点详情、国家账本和 provenance 查询。
 
 ## 存储分离与连接
 
@@ -104,4 +106,4 @@ Node、pnpm、Next.js、React、TypeScript、ESLint 和 Vitest 的实际版本�
 
 ## 当前不做的架构工作
 
-不创建地图页面、不接入外部数据、不安装大量依赖、不创建复杂数据库、不实现手机专属页面，也不进行大规模重构。以上属于后续路线图中的独立阶段。
+不创建地图页面、不接入外部数据、不创建数据库迁移或 PostgreSQL 查询、不实现手机专属页面，也不进行大规模重构。以上属于后续路线图中的独立阶段。loader 与领域查询的详细使用方式见 `docs/phase4-data-access.md`。

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-smartphone",
+      "path": "smartphone/fixture.json"
+    },
+    {
+      "productId": "coffee",
+      "path": "coffee/fixture.json"
+    }
+  ]
+}

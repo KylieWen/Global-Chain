@@ -11,6 +11,12 @@ importers:
       '@globe-chain/contracts':
         specifier: workspace:*
         version: link:packages/contracts
+      '@globe-chain/db':
+        specifier: workspace:*
+        version: link:packages/db
+      '@globe-chain/domain':
+        specifier: workspace:*
+        version: link:packages/domain
       vitest:
         specifier: ^2.1.9
         version: 2.1.9(@types/node@22.20.1)(supports-color@7.2.0)
@@ -56,9 +62,34 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
-  packages/db: {}
+  packages/db:
+    dependencies:
+      '@globe-chain/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      '@globe-chain/domain':
+        specifier: workspace:*
+        version: link:../domain
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@types/node':
+        specifier: 22.20.1
+        version: 22.20.1
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
 
-  packages/domain: {}
+  packages/domain:
+    dependencies:
+      '@globe-chain/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+    devDependencies:
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
 
   packages/map: {}
 

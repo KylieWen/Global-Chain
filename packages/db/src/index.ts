@@ -1,2 +1,1 @@
-/** Placeholder boundary for database access and migrations. */
-export {};
+export * from "./fixture-loader";

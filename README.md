@@ -1,14 +1,14 @@
 # GlobeChain
 
-GlobeChain 是一个被动式全球商品供应链与贸易数据可视化平台。本仓库当前处于第 1 阶段：最小工程骨架初始化。
+GlobeChain 是一个被动式全球商品供应链与贸易数据可视化平台。本仓库已完成工程骨架、通用数据契约、mock 商品 fixture 和只读领域查询基础。
 
 ## 当前工程边界
 
 - 使用 pnpm workspace 和模块化单体结构。
 - `apps/web` 是最小 Next.js App Router + TypeScript Web 应用。
-- `packages/*` 只提供共享边界占位入口，暂不实现业务逻辑。
+- `packages/contracts` 提供 Zod 数据契约；`packages/domain` 提供只读仓储接口和领域查询；`packages/db` 提供 fixture 文件加载适配器。
 - `pipelines` 只提供未来 Python 数据管线的目录和配置占位。
-- 当前不包含商品页面、地图、数据库查询、外部 API、AI/LLM、聊天、问答或运行时文本生成。
+- 当前不包含商品页面、地图、PostgreSQL 查询、外部 API、AI/LLM、聊天、问答或运行时文本生成。
 - 当前不接入外部业务数据，不安装 Polars、DuckDB 等数据处理依赖。
 
 ## 前置工具
@@ -45,7 +45,7 @@ pnpm run test
 pnpm run build
 ```
 
-这些命令都应从仓库根目录执行。当前测试只有工程配置 smoke test，不代表业务功能已经实现。
+这些命令都应从仓库根目录执行。当前测试覆盖契约、fixture 完整性、loader 状态边界和领域查询；仍不代表已经接入官方业务数据。
 
 ## 数据管线方向
 
@@ -66,7 +66,7 @@ pipelines/data/raw
 - 智能手机商品拆解页面或电池供应链页面
 - 国家贸易账本、贸易数字或外汇储备数据
 - 地图和实时物流
-- 数据库 schema、迁移执行或数据库查询
+- 数据库 schema、迁移执行或 PostgreSQL 查询
 - 外部数据接入
 - AI、LLM、聊天、问答或运行时生成文本
 - 品牌/型号、工厂、批次、成本或利润模型
