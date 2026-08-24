@@ -1,0 +1,268 @@
+{
+  "schemaVersion": "product-fixture.v1",
+  "productId": "generic-smartphone",
+  "datasetVersion": {
+    "id": "dataset-smartphone-mock-2023",
+    "name": "智能手机 MVP 合成演示数据集",
+    "version": "mock-2023.1",
+    "publishedAt": "2026-08-24",
+    "sourceIds": ["source-synthetic-demo"],
+    "coverage": 0,
+    "status": "draft",
+    "notes": "仅用于 schema、查询和界面联调；不含官方统计事实。"
+  },
+  "sources": [
+    {
+      "id": "source-synthetic-demo",
+      "name": "GlobeChain synthetic fixture authoring",
+      "publisher": "GlobeChain project",
+      "url": null,
+      "license": "Internal synthetic demo",
+      "publishedAt": "2026-08-24",
+      "retrievedAt": "2026-08-24",
+      "datasetVersion": "mock-2023.1",
+      "notes": "人工编写的合成示例来源，不是外部数据源。"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence-synthetic-demo",
+      "sourceId": "source-synthetic-demo",
+      "locator": "data/samples/smartphone/fixture.json",
+      "excerpt": "Synthetic demonstration route",
+      "notes": "该证据只说明内容为演示配置。"
+    }
+  ],
+  "entities": [
+    {
+      "id": "country-au",
+      "kind": "country",
+      "name": "澳大利亚",
+      "iso2": "AU",
+      "iso3": "AUS",
+      "parentId": null,
+      "sourceIds": ["source-synthetic-demo"],
+      "dataStatus": "unknown",
+      "method": "mock",
+      "datasetVersionId": "dataset-smartphone-mock-2023",
+      "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}
+    },
+    {
+      "id": "country-cd",
+      "kind": "country",
+      "name": "刚果民主共和国",
+      "iso2": "CD",
+      "iso3": "COD",
+      "parentId": null,
+      "sourceIds": ["source-synthetic-demo"],
+      "dataStatus": "unknown",
+      "method": "mock",
+      "datasetVersionId": "dataset-smartphone-mock-2023",
+      "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}
+    },
+    {
+      "id": "country-cl",
+      "kind": "country",
+      "name": "智利",
+      "iso2": "CL",
+      "iso3": "CHL",
+      "parentId": null,
+      "sourceIds": ["source-synthetic-demo"],
+      "dataStatus": "unknown",
+      "method": "mock",
+      "datasetVersionId": "dataset-smartphone-mock-2023",
+      "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}
+    },
+    {
+      "id": "country-cn",
+      "kind": "country",
+      "name": "中国",
+      "iso2": "CN",
+      "iso3": "CHN",
+      "parentId": null,
+      "sourceIds": ["source-synthetic-demo"],
+      "dataStatus": "unknown",
+      "method": "mock",
+      "datasetVersionId": "dataset-smartphone-mock-2023",
+      "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}
+    },
+    {
+      "id": "country-de",
+      "kind": "country",
+      "name": "德国",
+      "iso2": "DE",
+      "iso3": "DEU",
+      "parentId": null,
+      "sourceIds": ["source-synthetic-demo"],
+      "dataStatus": "unknown",
+      "method": "mock",
+      "datasetVersionId": "dataset-smartphone-mock-2023",
+      "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}
+    },
+    {
+      "id": "country-id",
+      "kind": "country",
+      "name": "印度尼西亚",
+      "iso2": "ID",
+      "iso3": "IDN",
+      "parentId": null,
+      "sourceIds": ["source-synthetic-demo"],
+      "dataStatus": "unknown",
+      "method": "mock",
+      "datasetVersionId": "dataset-smartphone-mock-2023",
+      "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}
+    },
+    {
+      "id": "country-jp",
+      "kind": "country",
+      "name": "日本",
+      "iso2": "JP",
+      "iso3": "JPN",
+      "parentId": null,
+      "sourceIds": ["source-synthetic-demo"],
+      "dataStatus": "unknown",
+      "method": "mock",
+      "datasetVersionId": "dataset-smartphone-mock-2023",
+      "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}
+    },
+    {
+      "id": "country-kr",
+      "kind": "country",
+      "name": "韩国",
+      "iso2": "KR",
+      "iso3": "KOR",
+      "parentId": null,
+      "sourceIds": ["source-synthetic-demo"],
+      "dataStatus": "unknown",
+      "method": "mock",
+      "datasetVersionId": "dataset-smartphone-mock-2023",
+      "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}
+    },
+    {
+      "id": "country-us",
+      "kind": "country",
+      "name": "美国",
+      "iso2": "US",
+      "iso3": "USA",
+      "parentId": null,
+      "sourceIds": ["source-synthetic-demo"],
+      "dataStatus": "unknown",
+      "method": "mock",
+      "datasetVersionId": "dataset-smartphone-mock-2023",
+      "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}
+    }
+  ],
+  "items": [
+    {"id": "generic-smartphone", "slug": "generic-smartphone", "name": "智能手机（通用商品）", "itemType": "final_product", "parentItemId": null, "category": "电子产品", "description": "不对应品牌或型号的通用成品对象。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "battery", "slug": "battery", "name": "电池", "itemType": "component", "parentItemId": "generic-smartphone", "category": "电子产品", "description": "手机电池组件及其代表性上游路径。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "lithium", "slug": "lithium", "name": "锂及锂化合物", "itemType": "raw_material", "parentItemId": "battery", "category": "矿物能源", "description": "电池相关锂原料。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "cobalt", "slug": "cobalt", "name": "钴及钴化合物", "itemType": "raw_material", "parentItemId": "battery", "category": "矿物能源", "description": "电池正极相关钴原料。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "nickel", "slug": "nickel", "name": "镍及镍化合物", "itemType": "raw_material", "parentItemId": "battery", "category": "矿物能源", "description": "电池正极相关镍原料。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "graphite", "slug": "graphite", "name": "石墨", "itemType": "raw_material", "parentItemId": "battery", "category": "工业品", "description": "负极相关石墨原料。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "copper", "slug": "copper", "name": "铜", "itemType": "raw_material", "parentItemId": "battery", "category": "工业品", "description": "导电材料和铜箔相关原料。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "aluminum", "slug": "aluminum", "name": "铝", "itemType": "raw_material", "parentItemId": "battery", "category": "工业品", "description": "铝箔或结构材料相关原料。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "cathode-material", "slug": "cathode-material", "name": "正极材料", "itemType": "material", "parentItemId": "battery", "category": "化工品", "description": "正极活性材料的示意节点。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "anode-material", "slug": "anode-material", "name": "负极材料", "itemType": "material", "parentItemId": "battery", "category": "化工品", "description": "负极材料的示意节点。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "cell", "slug": "cell", "name": "电芯", "itemType": "component", "parentItemId": "battery", "category": "电子产品", "description": "电芯制造节点。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "battery-module", "slug": "battery-module", "name": "电池模组", "itemType": "component", "parentItemId": "battery", "category": "电子产品", "description": "电芯组合和保护电路的示意节点。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "display", "slug": "display", "name": "显示屏", "itemType": "component", "parentItemId": "generic-smartphone", "category": "电子产品", "description": "显示组件示意节点。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "processor-memory", "slug": "processor-memory", "name": "处理器与存储器", "itemType": "component", "parentItemId": "generic-smartphone", "category": "电子产品", "description": "计算与存储组件示意节点。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "camera", "slug": "camera", "name": "摄像头", "itemType": "component", "parentItemId": "generic-smartphone", "category": "电子产品", "description": "摄像头组件示意节点。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "pcb-connector", "slug": "pcb-connector", "name": "PCB 与连接器", "itemType": "component", "parentItemId": "generic-smartphone", "category": "工业品", "description": "电路板和连接器示意节点。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "enclosure-structure", "slug": "enclosure-structure", "name": "外壳与结构件", "itemType": "component", "parentItemId": "generic-smartphone", "category": "工业品", "description": "外壳和结构件示意节点。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "sensor-audio", "slug": "sensor-audio", "name": "传感器与音频部件", "itemType": "component", "parentItemId": "generic-smartphone", "category": "电子产品", "description": "传感器、扬声器和麦克风示意节点。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}}
+  ],
+  "processStages": [
+    {"id": "extraction", "code": "extraction", "label": "原料开采", "order": 0, "description": "矿产或初级原料获得。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023"},
+    {"id": "refining", "code": "refining", "label": "精炼", "order": 1, "description": "原料提纯和化合物制备。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023"},
+    {"id": "material_processing", "code": "material_processing", "label": "材料加工", "order": 2, "description": "正极、负极和箔材等材料加工。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023"},
+    {"id": "component_manufacturing", "code": "component_manufacturing", "label": "部件制造", "order": 3, "description": "电芯及其他组件制造。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023"},
+    {"id": "assembly", "code": "assembly", "label": "组装", "order": 4, "description": "电池模组和整机组装。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023"},
+    {"id": "distribution", "code": "distribution", "label": "出口与分销", "order": 5, "description": "成品离开组装地并进入市场。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023"},
+    {"id": "consumption", "code": "consumption", "label": "消费市场", "order": 6, "description": "成品进入示意消费市场。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023"}
+  ],
+  "productionActivities": [
+    {"id": "activity-au-lithium", "locationEntityId": "country-au", "processStageId": "extraction", "inputItemIds": [], "outputItemIds": ["lithium"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "示意原料节点。"},
+    {"id": "activity-cd-cobalt", "locationEntityId": "country-cd", "processStageId": "extraction", "inputItemIds": [], "outputItemIds": ["cobalt"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "示意原料节点。"},
+    {"id": "activity-id-nickel", "locationEntityId": "country-id", "processStageId": "extraction", "inputItemIds": [], "outputItemIds": ["nickel"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "示意原料节点。"},
+    {"id": "activity-cn-graphite", "locationEntityId": "country-cn", "processStageId": "extraction", "inputItemIds": [], "outputItemIds": ["graphite"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "示意原料节点。"},
+    {"id": "activity-cl-copper", "locationEntityId": "country-cl", "processStageId": "extraction", "inputItemIds": [], "outputItemIds": ["copper"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "示意原料节点。"},
+    {"id": "activity-au-aluminum", "locationEntityId": "country-au", "processStageId": "extraction", "inputItemIds": [], "outputItemIds": ["aluminum"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "示意原料节点。"},
+    {"id": "activity-cn-cathode", "locationEntityId": "country-cn", "processStageId": "refining", "inputItemIds": ["lithium", "cobalt", "nickel"], "outputItemIds": ["cathode-material"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成正极材料加工活动。"},
+    {"id": "activity-cn-anode", "locationEntityId": "country-cn", "processStageId": "material_processing", "inputItemIds": ["graphite", "copper", "aluminum"], "outputItemIds": ["anode-material"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成负极及箔材加工活动。"},
+    {"id": "activity-kr-cell", "locationEntityId": "country-kr", "processStageId": "component_manufacturing", "inputItemIds": ["cathode-material", "anode-material"], "outputItemIds": ["cell"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成电芯制造活动。"},
+    {"id": "activity-kr-module", "locationEntityId": "country-kr", "processStageId": "assembly", "inputItemIds": ["cell"], "outputItemIds": ["battery-module"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成电池模组活动。"},
+    {"id": "activity-jp-components", "locationEntityId": "country-jp", "processStageId": "component_manufacturing", "inputItemIds": [], "outputItemIds": ["display", "processor-memory", "camera"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成电子组件活动。"},
+    {"id": "activity-cn-assembly", "locationEntityId": "country-cn", "processStageId": "assembly", "inputItemIds": ["battery-module", "display", "processor-memory", "camera", "pcb-connector", "enclosure-structure", "sensor-audio"], "outputItemIds": ["generic-smartphone"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "不对应具体品牌或型号的合成组装活动。"},
+    {"id": "activity-us-distribution", "locationEntityId": "country-us", "processStageId": "distribution", "inputItemIds": ["generic-smartphone"], "outputItemIds": ["generic-smartphone"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成出口/分销节点。"},
+    {"id": "activity-de-consumption", "locationEntityId": "country-de", "processStageId": "consumption", "inputItemIds": ["generic-smartphone"], "outputItemIds": ["generic-smartphone"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成消费市场节点。"}
+  ],
+  "classificationCodes": [
+    {"id": "hs-2022-851713", "system": "HS", "version": "2022", "code": "851713", "level": 6, "label": "智能手机（演示映射）", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023"},
+    {"id": "hs-2022-850760", "system": "HS", "version": "2022", "code": "850760", "level": 6, "label": "锂离子蓄电池（演示映射）", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-smartphone-mock-2023"}
+  ],
+  "classificationCrosswalks": [
+    {"id": "crosswalk-smartphone-hs", "itemId": "generic-smartphone", "classificationCodeId": "hs-2022-851713", "mappingType": "curated", "confidence": null, "notes": "示意分类映射，待官方数据源评审。", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023"},
+    {"id": "crosswalk-battery-hs", "itemId": "battery", "classificationCodeId": "hs-2022-850760", "mappingType": "curated", "confidence": null, "notes": "示意分类映射，待官方数据源评审。", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023"}
+  ],
+  "storyGraph": {
+    "productId": "generic-smartphone",
+    "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"},
+    "nodes": [
+      {"id": "node-au-lithium", "nodeType": "entity", "label": "澳大利亚 · 锂原料", "entityId": "country-au", "itemId": "lithium", "itemType": "raw_material", "processStageId": "extraction", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": null},
+      {"id": "node-cd-cobalt", "nodeType": "entity", "label": "刚果民主共和国 · 钴原料", "entityId": "country-cd", "itemId": "cobalt", "itemType": "raw_material", "processStageId": "extraction", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": null},
+      {"id": "node-id-nickel", "nodeType": "entity", "label": "印度尼西亚 · 镍原料", "entityId": "country-id", "itemId": "nickel", "itemType": "raw_material", "processStageId": "extraction", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": null},
+      {"id": "node-cn-graphite", "nodeType": "entity", "label": "中国 · 石墨原料", "entityId": "country-cn", "itemId": "graphite", "itemType": "raw_material", "processStageId": "extraction", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": null},
+      {"id": "node-cl-copper", "nodeType": "entity", "label": "智利 · 铜原料", "entityId": "country-cl", "itemId": "copper", "itemType": "raw_material", "processStageId": "extraction", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": null},
+      {"id": "node-au-aluminum", "nodeType": "entity", "label": "澳大利亚 · 铝原料", "entityId": "country-au", "itemId": "aluminum", "itemType": "raw_material", "processStageId": "extraction", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": null},
+      {"id": "node-cn-cathode", "nodeType": "entity", "label": "中国 · 正极材料", "entityId": "country-cn", "itemId": "cathode-material", "itemType": "material", "processStageId": "refining", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": null},
+      {"id": "node-cn-anode", "nodeType": "entity", "label": "中国 · 负极材料", "entityId": "country-cn", "itemId": "anode-material", "itemType": "material", "processStageId": "material_processing", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": null},
+      {"id": "node-kr-cell", "nodeType": "entity", "label": "韩国 · 电芯", "entityId": "country-kr", "itemId": "cell", "itemType": "component", "processStageId": "component_manufacturing", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": null},
+      {"id": "node-kr-module", "nodeType": "entity", "label": "韩国 · 电池模组", "entityId": "country-kr", "itemId": "battery-module", "itemType": "component", "processStageId": "assembly", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": null},
+      {"id": "node-jp-components", "nodeType": "entity", "label": "日本 · 电子组件", "entityId": "country-jp", "itemId": "display", "itemType": "component", "processStageId": "component_manufacturing", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": null},
+      {"id": "node-cn-assembly", "nodeType": "entity", "label": "中国 · 手机组装", "entityId": "country-cn", "itemId": "generic-smartphone", "itemType": "final_product", "processStageId": "assembly", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": null},
+      {"id": "node-us-export", "nodeType": "market", "label": "美国 · 进口/分销市场", "entityId": "country-us", "itemId": "generic-smartphone", "itemType": "final_product", "processStageId": "distribution", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": null},
+      {"id": "node-de-consumption", "nodeType": "market", "label": "德国 · 消费市场", "entityId": "country-de", "itemId": "generic-smartphone", "itemType": "final_product", "processStageId": "consumption", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": null}
+    ],
+    "flows": [
+      {"id": "flow-lithium-refining", "fromEntityId": "node-au-lithium", "toEntityId": "node-cn-cathode", "itemId": "lithium", "processStageId": "refining", "relationType": "input", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成示意流，不表示唯一来源。"},
+      {"id": "flow-cobalt-refining", "fromEntityId": "node-cd-cobalt", "toEntityId": "node-cn-cathode", "itemId": "cobalt", "processStageId": "refining", "relationType": "input", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成示意流，不表示唯一来源。"},
+      {"id": "flow-nickel-refining", "fromEntityId": "node-id-nickel", "toEntityId": "node-cn-cathode", "itemId": "nickel", "processStageId": "refining", "relationType": "input", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成示意流，不表示唯一来源。"},
+      {"id": "flow-graphite-anode", "fromEntityId": "node-cn-graphite", "toEntityId": "node-cn-anode", "itemId": "graphite", "processStageId": "material_processing", "relationType": "input", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成示意流，不表示唯一来源。"},
+      {"id": "flow-copper-anode", "fromEntityId": "node-cl-copper", "toEntityId": "node-cn-anode", "itemId": "copper", "processStageId": "material_processing", "relationType": "input", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成示意流，不表示唯一来源。"},
+      {"id": "flow-aluminum-anode", "fromEntityId": "node-au-aluminum", "toEntityId": "node-cn-anode", "itemId": "aluminum", "processStageId": "material_processing", "relationType": "input", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成示意流，不表示唯一来源。"},
+      {"id": "flow-cathode-cell", "fromEntityId": "node-cn-cathode", "toEntityId": "node-kr-cell", "itemId": "cathode-material", "processStageId": "component_manufacturing", "relationType": "input", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成示意流，不表示唯一来源。"},
+      {"id": "flow-anode-cell", "fromEntityId": "node-cn-anode", "toEntityId": "node-kr-cell", "itemId": "anode-material", "processStageId": "component_manufacturing", "relationType": "input", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成示意流，不表示唯一来源。"},
+      {"id": "flow-cell-module", "fromEntityId": "node-kr-cell", "toEntityId": "node-kr-module", "itemId": "cell", "processStageId": "assembly", "relationType": "assembly", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成示意流，不表示唯一来源。"},
+      {"id": "flow-module-assembly", "fromEntityId": "node-kr-module", "toEntityId": "node-cn-assembly", "itemId": "battery-module", "processStageId": "assembly", "relationType": "input", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "合成示意流，不表示唯一来源。"},
+      {"id": "flow-components-assembly", "fromEntityId": "node-jp-components", "toEntityId": "node-cn-assembly", "itemId": "display", "processStageId": "assembly", "relationType": "input", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "电子组件路线被简化为一个代表性节点。"},
+      {"id": "flow-assembly-export", "fromEntityId": "node-cn-assembly", "toEntityId": "node-us-export", "itemId": "generic-smartphone", "processStageId": "distribution", "relationType": "trade", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "出口方向示意，不是贸易统计金额。"},
+      {"id": "flow-export-consumption", "fromEntityId": "node-us-export", "toEntityId": "node-de-consumption", "itemId": "generic-smartphone", "processStageId": "consumption", "relationType": "consumption", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-smartphone-mock-2023", "notes": "消费市场方向示意，不是销量统计。"}
+    ],
+    "steps": [
+      {"id": "step-raw-materials", "order": 0, "title": "多国原料节点", "description": "锂、钴、镍、石墨、铜和铝以分支形式进入示意路径。", "nodeIds": ["node-au-lithium", "node-cd-cobalt", "node-id-nickel", "node-cn-graphite", "node-cl-copper", "node-au-aluminum"], "flowIds": ["flow-lithium-refining", "flow-cobalt-refining", "flow-nickel-refining", "flow-graphite-anode", "flow-copper-anode", "flow-aluminum-anode"], "evidenceIds": ["evidence-synthetic-demo"], "contentStatus": "draft", "contentVersionId": null},
+      {"id": "step-materials", "order": 1, "title": "精炼与正负极材料", "description": "原料在示意加工节点形成正极和负极材料。", "nodeIds": ["node-cn-cathode", "node-cn-anode"], "flowIds": ["flow-cathode-cell", "flow-anode-cell"], "evidenceIds": ["evidence-synthetic-demo"], "contentStatus": "draft", "contentVersionId": null},
+      {"id": "step-cell", "order": 2, "title": "电芯制造", "description": "正负极材料进入电芯制造节点。", "nodeIds": ["node-kr-cell"], "flowIds": ["flow-cell-module"], "evidenceIds": ["evidence-synthetic-demo"], "contentStatus": "draft", "contentVersionId": null},
+      {"id": "step-module", "order": 3, "title": "电池模组", "description": "电芯组合为电池模组。", "nodeIds": ["node-kr-module"], "flowIds": ["flow-module-assembly"], "evidenceIds": ["evidence-synthetic-demo"], "contentStatus": "draft", "contentVersionId": null},
+      {"id": "step-assembly", "order": 4, "title": "整机组装", "description": "电池模组与其他组件在示意组装节点形成通用智能手机。", "nodeIds": ["node-jp-components", "node-cn-assembly"], "flowIds": ["flow-components-assembly"], "evidenceIds": ["evidence-synthetic-demo"], "contentStatus": "draft", "contentVersionId": null},
+      {"id": "step-distribution", "order": 5, "title": "出口与分销", "description": "成品从组装节点进入示意进口/分销市场。", "nodeIds": ["node-us-export"], "flowIds": ["flow-assembly-export"], "evidenceIds": ["evidence-synthetic-demo"], "contentStatus": "draft", "contentVersionId": null},
+      {"id": "step-consumption", "order": 6, "title": "消费市场", "description": "成品进入示意消费市场。", "nodeIds": ["node-de-consumption"], "flowIds": ["flow-export-consumption"], "evidenceIds": ["evidence-synthetic-demo"], "contentStatus": "draft", "contentVersionId": null}
+    ],
+    "datasetVersionId": "dataset-smartphone-mock-2023",
+    "contentVersionId": null,
+    "warnings": ["这是合成演示路径，不代表唯一、完整或实时的手机供应链。"]
+  },
+  "tradeObservations": [
+    {"id": "trade-cn-smartphone-export", "reporterEntityId": "country-cn", "partnerEntityId": "country-us", "direction": "export", "classificationSystem": "HS", "classificationVersion": "2022", "classificationCode": "851713", "itemId": "generic-smartphone", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "statisticalConcept": "customs", "sourceId": "source-synthetic-demo", "datasetVersionId": "dataset-smartphone-mock-2023", "method": "mock", "dataStatus": "unknown", "qualityNote": "未接入官方贸易统计；仅保留结构示例。"},
+    {"id": "trade-us-smartphone-import", "reporterEntityId": "country-us", "partnerEntityId": "country-cn", "direction": "import", "classificationSystem": "HS", "classificationVersion": "2022", "classificationCode": "851713", "itemId": "generic-smartphone", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "statisticalConcept": "customs", "sourceId": "source-synthetic-demo", "datasetVersionId": "dataset-smartphone-mock-2023", "method": "mock", "dataStatus": "unknown", "qualityNote": "未接入官方贸易统计；仅保留结构示例。"}
+  ],
+  "macroIndicators": [
+    {"id": "macro-cn-trade-balance", "entityId": "country-cn", "indicator": "trade_balance", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": "USD", "unit": "current USD", "sourceId": "source-synthetic-demo", "datasetVersionId": "dataset-smartphone-mock-2023", "method": "mock", "dataStatus": "unknown", "notes": "尚未接入宏观贸易数据。"},
+    {"id": "macro-us-reserves", "entityId": "country-us", "indicator": "official_reserves", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": "USD", "unit": "current USD", "sourceId": "source-synthetic-demo", "datasetVersionId": "dataset-smartphone-mock-2023", "method": "mock", "dataStatus": "unknown", "notes": "尚未接入外汇储备数据。"}
+  ],
+  "warnings": [
+    "合成演示数据，不代表真实供应链、贸易金额、成本或利润。",
+    "2023 年仅用于契约与界面联调，尚未选定 MVP 的官方统计年份。",
+    "代表性供应链流与官方贸易统计分开存储，未知值不会被转换为 0。"
+  ]
+}

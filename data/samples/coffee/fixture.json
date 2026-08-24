@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "product-fixture.v1",
+  "productId": "coffee",
+  "datasetVersion": {
+    "id": "dataset-coffee-mock-2023",
+    "name": "咖啡商品合成演示数据集",
+    "version": "mock-2023.1",
+    "publishedAt": "2026-08-24",
+    "sourceIds": ["source-synthetic-demo"],
+    "coverage": 0,
+    "status": "draft",
+    "notes": "用于验证第二个商品复用通用 fixture schema；不含官方统计事实。"
+  },
+  "sources": [
+    {
+      "id": "source-synthetic-demo",
+      "name": "GlobeChain synthetic fixture authoring",
+      "publisher": "GlobeChain project",
+      "url": null,
+      "license": "Internal synthetic demo",
+      "publishedAt": "2026-08-24",
+      "retrievedAt": "2026-08-24",
+      "datasetVersion": "mock-2023.1",
+      "notes": "人工编写的合成示例来源，不是外部数据源。"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence-coffee-synthetic",
+      "sourceId": "source-synthetic-demo",
+      "locator": "data/samples/coffee/fixture.json",
+      "excerpt": "Synthetic coffee route",
+      "notes": "该证据只说明内容为演示配置。"
+    }
+  ],
+  "entities": [
+    {"id": "country-br", "kind": "country", "name": "巴西", "iso2": "BR", "iso3": "BRA", "parentId": null, "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-coffee-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "country-vn", "kind": "country", "name": "越南", "iso2": "VN", "iso3": "VNM", "parentId": null, "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-coffee-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "country-de", "kind": "country", "name": "德国", "iso2": "DE", "iso3": "DEU", "parentId": null, "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-coffee-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "country-us", "kind": "country", "name": "美国", "iso2": "US", "iso3": "USA", "parentId": null, "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-coffee-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}}
+  ],
+  "items": [
+    {"id": "coffee", "slug": "coffee", "name": "咖啡（通用商品）", "itemType": "final_product", "parentItemId": null, "category": "食品", "description": "不对应品牌或产地的通用咖啡商品对象。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-coffee-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "coffee-bean", "slug": "coffee-bean", "name": "咖啡豆", "itemType": "raw_material", "parentItemId": "coffee", "category": "农产品", "description": "咖啡果实加工后的原料豆示意节点。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-coffee-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "roasted-coffee", "slug": "roasted-coffee", "name": "烘焙咖啡", "itemType": "component", "parentItemId": "coffee", "category": "食品", "description": "烘焙和基础包装前的示意中间品。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-coffee-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}},
+    {"id": "coffee-packaging", "slug": "coffee-packaging", "name": "咖啡包装", "itemType": "component", "parentItemId": "coffee", "category": "其他消费品", "description": "包装材料的示意节点。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-coffee-mock-2023", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}}
+  ],
+  "processStages": [
+    {"id": "extraction", "code": "extraction", "label": "种植与初级获得", "order": 0, "description": "农产品原料获得。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-coffee-mock-2023"},
+    {"id": "refining", "code": "refining", "label": "分选与处理", "order": 1, "description": "原料分选和基础处理。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-coffee-mock-2023"},
+    {"id": "material_processing", "code": "material_processing", "label": "烘焙加工", "order": 2, "description": "咖啡豆烘焙形成中间品。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-coffee-mock-2023"},
+    {"id": "component_manufacturing", "code": "component_manufacturing", "label": "组件准备", "order": 3, "description": "包装等辅助组件准备。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-coffee-mock-2023"},
+    {"id": "assembly", "code": "assembly", "label": "成品组装", "order": 4, "description": "烘焙咖啡与包装形成商品。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-coffee-mock-2023"},
+    {"id": "distribution", "code": "distribution", "label": "出口与分销", "order": 5, "description": "成品进入分销市场。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-coffee-mock-2023"},
+    {"id": "consumption", "code": "consumption", "label": "消费市场", "order": 6, "description": "成品进入消费市场。", "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-coffee-mock-2023"}
+  ],
+  "productionActivities": [
+    {"id": "activity-br-beans", "locationEntityId": "country-br", "processStageId": "extraction", "inputItemIds": [], "outputItemIds": ["coffee-bean"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-coffee-mock-2023", "notes": "示意咖啡豆来源节点。"},
+    {"id": "activity-vn-beans", "locationEntityId": "country-vn", "processStageId": "extraction", "inputItemIds": [], "outputItemIds": ["coffee-bean"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-coffee-mock-2023", "notes": "示意咖啡豆来源节点。"},
+    {"id": "activity-de-roast", "locationEntityId": "country-de", "processStageId": "material_processing", "inputItemIds": ["coffee-bean"], "outputItemIds": ["roasted-coffee"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-coffee-mock-2023", "notes": "示意烘焙加工节点。"},
+    {"id": "activity-de-package", "locationEntityId": "country-de", "processStageId": "assembly", "inputItemIds": ["roasted-coffee", "coffee-packaging"], "outputItemIds": ["coffee"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-coffee-mock-2023", "notes": "示意成品准备节点。"},
+    {"id": "activity-us-distribution", "locationEntityId": "country-us", "processStageId": "distribution", "inputItemIds": ["coffee"], "outputItemIds": ["coffee"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-coffee-mock-2023", "notes": "示意分销节点。"},
+    {"id": "activity-us-consumption", "locationEntityId": "country-us", "processStageId": "consumption", "inputItemIds": ["coffee"], "outputItemIds": ["coffee"], "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-coffee-mock-2023", "notes": "示意消费市场节点。"}
+  ],
+  "classificationCodes": [
+    {"id": "hs-2022-090121", "system": "HS", "version": "2022", "code": "090121", "level": 6, "label": "咖啡（演示映射）", "validPeriod": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "dataStatus": "unknown", "method": "mock", "datasetVersionId": "dataset-coffee-mock-2023"}
+  ],
+  "classificationCrosswalks": [
+    {"id": "crosswalk-coffee-hs", "itemId": "coffee", "classificationCodeId": "hs-2022-090121", "mappingType": "curated", "confidence": null, "notes": "示意分类映射，待官方数据源评审。", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-coffee-mock-2023"}
+  ],
+  "storyGraph": {
+    "productId": "coffee",
+    "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"},
+    "nodes": [
+      {"id": "node-br-beans", "nodeType": "entity", "label": "巴西 · 咖啡豆", "entityId": "country-br", "itemId": "coffee-bean", "itemType": "raw_material", "processStageId": "extraction", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-coffee-mock-2023", "notes": null},
+      {"id": "node-vn-beans", "nodeType": "entity", "label": "越南 · 咖啡豆", "entityId": "country-vn", "itemId": "coffee-bean", "itemType": "raw_material", "processStageId": "extraction", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-coffee-mock-2023", "notes": null},
+      {"id": "node-de-roast", "nodeType": "entity", "label": "德国 · 烘焙加工", "entityId": "country-de", "itemId": "roasted-coffee", "itemType": "component", "processStageId": "material_processing", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-coffee-mock-2023", "notes": null},
+      {"id": "node-de-product", "nodeType": "entity", "label": "德国 · 成品准备", "entityId": "country-de", "itemId": "coffee", "itemType": "final_product", "processStageId": "assembly", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-coffee-mock-2023", "notes": null},
+      {"id": "node-us-market", "nodeType": "market", "label": "美国 · 消费市场", "entityId": "country-us", "itemId": "coffee", "itemType": "final_product", "processStageId": "consumption", "sourceIds": ["source-synthetic-demo"], "method": "mock", "dataStatus": "unknown", "datasetVersionId": "dataset-coffee-mock-2023", "notes": null}
+    ],
+    "flows": [
+      {"id": "flow-br-roast", "fromEntityId": "node-br-beans", "toEntityId": "node-de-roast", "itemId": "coffee-bean", "processStageId": "material_processing", "relationType": "input", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-coffee-mock-2023", "notes": "合成示意流。"},
+      {"id": "flow-vn-roast", "fromEntityId": "node-vn-beans", "toEntityId": "node-de-roast", "itemId": "coffee-bean", "processStageId": "material_processing", "relationType": "input", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-coffee-mock-2023", "notes": "合成示意流。"},
+      {"id": "flow-roast-product", "fromEntityId": "node-de-roast", "toEntityId": "node-de-product", "itemId": "roasted-coffee", "processStageId": "assembly", "relationType": "assembly", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-coffee-mock-2023", "notes": "合成示意流。"},
+      {"id": "flow-product-market", "fromEntityId": "node-de-product", "toEntityId": "node-us-market", "itemId": "coffee", "processStageId": "distribution", "relationType": "trade", "flowKind": "representative_supply", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "method": "mock", "sourceIds": ["source-synthetic-demo"], "confidence": null, "dataStatus": "unknown", "datasetVersionId": "dataset-coffee-mock-2023", "notes": "合成示意流，不是贸易统计金额。"}
+    ],
+    "steps": [
+      {"id": "step-coffee-origin", "order": 0, "title": "原料来源", "description": "两个原料节点用于演示多来源商品。", "nodeIds": ["node-br-beans", "node-vn-beans"], "flowIds": ["flow-br-roast", "flow-vn-roast"], "evidenceIds": ["evidence-coffee-synthetic"], "contentStatus": "draft", "contentVersionId": null},
+      {"id": "step-coffee-processing", "order": 1, "title": "加工与成品准备", "description": "咖啡豆经过烘焙和成品准备。", "nodeIds": ["node-de-roast", "node-de-product"], "flowIds": ["flow-roast-product"], "evidenceIds": ["evidence-coffee-synthetic"], "contentStatus": "draft", "contentVersionId": null},
+      {"id": "step-coffee-market", "order": 2, "title": "消费市场", "description": "成品进入示意消费市场。", "nodeIds": ["node-us-market"], "flowIds": ["flow-product-market"], "evidenceIds": ["evidence-coffee-synthetic"], "contentStatus": "draft", "contentVersionId": null}
+    ],
+    "datasetVersionId": "dataset-coffee-mock-2023",
+    "contentVersionId": null,
+    "warnings": ["这是合成演示路径，不代表唯一、完整或实时的咖啡供应链。"]
+  },
+  "tradeObservations": [
+    {"id": "trade-br-coffee-export", "reporterEntityId": "country-br", "partnerEntityId": "country-us", "direction": "export", "classificationSystem": "HS", "classificationVersion": "2022", "classificationCode": "090121", "itemId": "coffee", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "statisticalConcept": "customs", "sourceId": "source-synthetic-demo", "datasetVersionId": "dataset-coffee-mock-2023", "method": "mock", "dataStatus": "unknown", "qualityNote": "未接入官方贸易统计；仅保留结构示例。"}
+  ],
+  "macroIndicators": [
+    {"id": "macro-br-trade-balance", "entityId": "country-br", "indicator": "trade_balance", "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"}, "value": null, "quantity": null, "currency": null, "unit": null, "sourceId": "source-synthetic-demo", "datasetVersionId": "dataset-coffee-mock-2023", "method": "mock", "dataStatus": "unknown", "notes": "尚未接入宏观贸易数据。"}
+  ],
+  "warnings": [
+    "合成演示数据，不代表真实供应链、贸易金额、成本或利润。",
+    "该 fixture 仅用于证明新增商品无需改变核心 schema。",
+    "2023 年仅用于契约与界面联调，尚未选定 MVP 的官方统计年份。"
+  ]
+}
