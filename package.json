@@ -11,10 +11,11 @@
     "build": "pnpm --filter @globe-chain/web build",
     "start": "pnpm --filter @globe-chain/web start",
     "lint": "pnpm --filter @globe-chain/web lint",
-    "typecheck": "pnpm --filter @globe-chain/web typecheck",
+    "typecheck": "pnpm --filter @globe-chain/web typecheck && pnpm --filter @globe-chain/contracts typecheck",
     "test": "vitest run"
   },
   "devDependencies": {
+    "@globe-chain/contracts": "workspace:*",
     "vitest": "^2.1.9"
   }
 }
