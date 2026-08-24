@@ -1,0 +1,52 @@
+# Node / pnpm
+node_modules/
+.pnpm-store/
+.next/
+out/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs and local tooling
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+.python-version
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+pip-wheel-metadata/
+
+# Local data and secrets
+*.sqlite
+*.sqlite3
+*.db
+secrets/
+.local/
+
+# OS / editor
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo

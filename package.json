@@ -1,0 +1,20 @@
+{
+  "name": "globe-chain",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @globe-chain/web dev",
+    "build": "pnpm --filter @globe-chain/web build",
+    "start": "pnpm --filter @globe-chain/web start",
+    "lint": "pnpm --filter @globe-chain/web lint",
+    "typecheck": "pnpm --filter @globe-chain/web typecheck",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.9"
+  }
+}
