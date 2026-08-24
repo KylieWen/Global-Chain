@@ -47,6 +47,7 @@ export default async function ProductProvenancePage({
             <li><strong>代表性流 ≠ 唯一现实路线：</strong>路线是经过整理的内容关系，不是订单或实时物流。</li>
             <li><strong>贸易金额 ≠ 企业利润：</strong>官方统计和成本/利润模型分开，当前不做利润推断。</li>
             <li><strong>unknown ≠ 0：</strong>没有数值时显示未知，不参与需要数值的汇总。</li>
+            <li><strong>0 是事实值：</strong>只有来源明确观测为零时才显示“0 · 真实为零”。</li>
             <li><strong>draft ≠ published：</strong>演示数据有明确状态，生产默认只读 published。</li>
           </ul>
         </section>

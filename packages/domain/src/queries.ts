@@ -1,7 +1,10 @@
 import type {
+  ClassificationCode,
   DatasetVersion,
   Evidence,
+  FactStatus,
   GeoEntity,
+  IndicatorDefinition,
   Item,
   MacroIndicatorObservation,
   Period,
@@ -32,6 +35,8 @@ type ReadonlyStoryStep = DeepReadonly<StoryStep>;
 type ReadonlySupplyFlow = DeepReadonly<SupplyFlow>;
 type ReadonlyTradeObservation = DeepReadonly<TradeObservation>;
 type ReadonlyMacroIndicatorObservation = DeepReadonly<MacroIndicatorObservation>;
+type ReadonlyIndicatorDefinition = DeepReadonly<IndicatorDefinition>;
+type ReadonlyClassificationCode = DeepReadonly<ClassificationCode>;
 
 export interface PeriodFilter {
   granularity?: Period["granularity"];
@@ -120,6 +125,10 @@ export interface CountryLedgerView {
   readonly tradeObservations: readonly ReadonlyTradeObservation[];
   readonly resolvedTradeObservations: readonly ResolvedTradeObservationView[];
   readonly macroIndicators: readonly ReadonlyMacroIndicatorObservation[];
+  readonly resolvedMacroIndicators: readonly ResolvedMacroIndicatorView[];
+  readonly tradeClassifications: readonly ReadonlyClassificationCode[];
+  readonly tradeAvailability: "available" | "unknown";
+  readonly tradeAvailabilityNote: string | null;
   readonly relatedNodes: readonly ResolvedStoryNodeView[];
   readonly relatedFlows: readonly ResolvedSupplyFlowView[];
   readonly datasetVersion: ReadonlyDatasetVersion;
@@ -132,6 +141,37 @@ export interface ResolvedTradeObservationView {
   readonly reporter: ReadonlyGeoEntity | null;
   readonly partner: ReadonlyGeoEntity | null;
   readonly item: ReadonlyItem | null;
+  readonly classification: ReadonlyClassificationCode | null;
+  /** Alias retained for consumers that prefer the explicit field name. */
+  readonly classificationCode: ReadonlyClassificationCode | null;
+  readonly source: ReadonlySource | null;
+  readonly partnerScope: "world_total" | "entity" | "unspecified" | "not_applicable";
+  readonly valueDataStatus: FactStatus;
+  readonly quantityDataStatus: FactStatus;
+}
+
+export interface IndicatorDefinitionView {
+  readonly key: string;
+  readonly label: string;
+  readonly shortLabel: string | null;
+  readonly description: string | null;
+  readonly category: string | null;
+  readonly displayOrder: number | null;
+  readonly displayUnit: string | null;
+  readonly displayCurrency: string | null;
+  readonly valueMeaning: string | null;
+  readonly sourceIndicatorCode: string | null;
+  readonly statisticalConcept: MacroIndicatorObservation["statisticalConcept"];
+  readonly formula: string | null;
+  readonly source: ReadonlySource | null;
+  readonly metadataStatus: "defined" | "fallback";
+  readonly raw: ReadonlyIndicatorDefinition | null;
+}
+
+export interface ResolvedMacroIndicatorView {
+  readonly observation: ReadonlyMacroIndicatorObservation;
+  readonly definition: IndicatorDefinitionView;
+  readonly source: ReadonlySource | null;
 }
 
 export interface CountryLedgerOptions extends PeriodFilter {
@@ -147,6 +187,8 @@ export interface ProvenanceView {
   readonly datasetVersion: ReadonlyDatasetVersion;
   readonly sources: readonly ReadonlySource[];
   readonly evidence: readonly ReadonlyEvidence[];
+  readonly indicatorDefinitions: readonly ReadonlyIndicatorDefinition[];
+  readonly missingDataNotes: readonly string[];
   readonly warnings: readonly string[];
 }
 
@@ -180,6 +222,104 @@ function freezeArray<T>(values: readonly T[]): readonly T[] {
 
 function mergeWarnings(...warningLists: ReadonlyArray<readonly string[]>): readonly string[] {
   return freezeArray([...new Set(warningLists.flat())]);
+}
+
+function sourceForId(
+  fixture: ReadonlyProductFixture,
+  sourceId: string | null | undefined
+): ReadonlySource | null {
+  return sourceId ? fixture.sources.find((source) => source.id === sourceId) ?? null : null;
+}
+
+function definitionForIndicator(
+  fixture: ReadonlyProductFixture,
+  observation: ReadonlyMacroIndicatorObservation
+): IndicatorDefinitionView {
+  const configured = fixture.indicatorDefinitions.find(
+    (definition) => definition.indicator === observation.indicator
+  );
+  if (!configured) {
+    return Object.freeze({
+      key: observation.indicator,
+      label: observation.indicator,
+      shortLabel: null,
+      description: observation.notes ?? null,
+      category: null,
+      displayOrder: null,
+      displayUnit: null,
+      displayCurrency: null,
+      valueMeaning: null,
+      sourceIndicatorCode: null,
+      statisticalConcept: observation.statisticalConcept ?? null,
+      formula: null,
+      source: sourceForId(fixture, observation.sourceId),
+      metadataStatus: "fallback",
+      raw: null
+    });
+  }
+
+  return Object.freeze({
+    key: configured.indicator,
+    label: configured.label,
+    shortLabel: configured.shortLabel ?? null,
+    description: configured.description ?? null,
+    category: configured.category ?? null,
+    displayOrder: configured.displayOrder ?? null,
+    displayUnit: configured.displayUnit ?? null,
+    displayCurrency: configured.displayCurrency ?? null,
+    valueMeaning: configured.valueMeaning ?? null,
+    sourceIndicatorCode: configured.sourceIndicatorCode ?? null,
+    statisticalConcept:
+      configured.statisticalConcept ?? observation.statisticalConcept ?? null,
+    formula: configured.formula ?? null,
+    source: sourceForId(fixture, configured.sourceIds[0]),
+    metadataStatus: "defined",
+    raw: configured
+  });
+}
+
+function resolveMacroIndicator(
+  fixture: ReadonlyProductFixture,
+  observation: ReadonlyMacroIndicatorObservation
+): ResolvedMacroIndicatorView {
+  return Object.freeze({
+    observation,
+    definition: definitionForIndicator(fixture, observation),
+    source: sourceForId(fixture, observation.sourceId)
+  });
+}
+
+function classificationForObservation(
+  fixture: ReadonlyProductFixture,
+  observation: ReadonlyTradeObservation
+): ReadonlyClassificationCode | null {
+  return (
+    fixture.classificationCodes.find(
+      (classification) =>
+        classification.system === observation.classificationSystem &&
+        classification.version === observation.classificationVersion &&
+        classification.code === observation.classificationCode
+    ) ?? null
+  );
+}
+
+function tradePartnerScope(
+  observation: ReadonlyTradeObservation
+): "world_total" | "entity" | "unspecified" | "not_applicable" {
+  if (observation.partnerScope) return observation.partnerScope;
+  if (observation.partnerEntityId) return "entity";
+  return "unspecified";
+}
+
+function tradeValueDataStatus(observation: ReadonlyTradeObservation): FactStatus {
+  return observation.valueDataStatus ?? observation.dataStatus;
+}
+
+function tradeQuantityDataStatus(observation: ReadonlyTradeObservation): FactStatus {
+  return observation.quantityDataStatus ??
+    (observation.quantity === null || observation.quantity === undefined
+      ? "unknown"
+      : observation.dataStatus);
 }
 
 function matchesPeriod(period: ReadonlyPeriod, filter?: PeriodFilter): boolean {
@@ -509,8 +649,24 @@ export function getCountryLedger(
   const macroIndicators = fixture.macroIndicators.filter(
     (observation) => observation.entityId === entityId && matchesPeriod(observation.period, options)
   );
-  const resolvedTradeObservations = tradeObservations.map((observation) =>
-    Object.freeze({
+  const sortedMacroIndicators = [...macroIndicators].sort((left, right) => {
+    const leftDefinition = definitionForIndicator(fixture, left);
+    const rightDefinition = definitionForIndicator(fixture, right);
+    const leftOrder = leftDefinition.displayOrder ?? Number.MAX_SAFE_INTEGER;
+    const rightOrder = rightDefinition.displayOrder ?? Number.MAX_SAFE_INTEGER;
+    return leftOrder - rightOrder || left.indicator.localeCompare(right.indicator) || left.id.localeCompare(right.id);
+  });
+  const sortedTradeObservations = [...tradeObservations].sort(
+    (left, right) =>
+      left.direction.localeCompare(right.direction) ||
+      left.classificationSystem.localeCompare(right.classificationSystem) ||
+      left.classificationVersion.localeCompare(right.classificationVersion) ||
+      left.classificationCode.localeCompare(right.classificationCode) ||
+      left.id.localeCompare(right.id)
+  );
+  const resolvedTradeObservations = sortedTradeObservations.map((observation) => {
+    const classification = classificationForObservation(fixture, observation);
+    return Object.freeze({
       observation,
       reporter: fixture.entities.find((candidate) => candidate.id === observation.reporterEntityId) ?? null,
       partner: observation.partnerEntityId
@@ -518,9 +674,40 @@ export function getCountryLedger(
         : null,
       item: observation.itemId
         ? fixture.items.find((candidate) => candidate.id === observation.itemId) ?? null
-        : null
-    })
+        : null,
+      classification,
+      classificationCode: classification,
+      source: sourceForId(fixture, observation.sourceId),
+      partnerScope: tradePartnerScope(observation),
+      valueDataStatus: tradeValueDataStatus(observation),
+      quantityDataStatus: tradeQuantityDataStatus(observation)
+    });
+  });
+  const sortedResolvedTradeObservations = [...resolvedTradeObservations].sort(
+    (left, right) =>
+      left.observation.direction.localeCompare(right.observation.direction) ||
+      left.observation.classificationSystem.localeCompare(right.observation.classificationSystem) ||
+      left.observation.classificationVersion.localeCompare(right.observation.classificationVersion) ||
+      left.observation.classificationCode.localeCompare(right.observation.classificationCode) ||
+      left.observation.id.localeCompare(right.observation.id)
   );
+  const resolvedMacroIndicators = sortedMacroIndicators.map((observation) =>
+    resolveMacroIndicator(fixture, observation)
+  );
+  const tradeItemId = options?.itemId ?? product.id;
+  const tradeClassificationIds = new Set(
+    fixture.classificationCrosswalks
+      .filter((mapping) => mapping.itemId === tradeItemId && matchesPeriod(mapping.period, options))
+      .map((mapping) => mapping.classificationCodeId)
+  );
+  const tradeClassifications = fixture.classificationCodes
+    .filter((classification) => tradeClassificationIds.has(classification.id))
+    .sort(
+      (left, right) =>
+        left.system.localeCompare(right.system) ||
+        left.version.localeCompare(right.version) ||
+        left.code.localeCompare(right.code)
+    );
   const relatedNodes = story.nodes.filter((node) => node.entity?.id === entityId);
   const relatedFlows = story.flows.filter(
     (flow) => flow.from.entity?.id === entityId || flow.to.entity?.id === entityId
@@ -530,9 +717,16 @@ export function getCountryLedger(
     product,
     entity,
     period: fixture.storyGraph.period,
-    tradeObservations: freezeArray(tradeObservations),
-    resolvedTradeObservations: freezeArray(resolvedTradeObservations),
-    macroIndicators: freezeArray(macroIndicators),
+    tradeObservations: freezeArray(sortedTradeObservations),
+    resolvedTradeObservations: freezeArray(sortedResolvedTradeObservations),
+    macroIndicators: freezeArray(sortedMacroIndicators),
+    resolvedMacroIndicators: freezeArray(resolvedMacroIndicators),
+    tradeClassifications: freezeArray(tradeClassifications),
+    tradeAvailability: sortedTradeObservations.length > 0 ? "available" : "unknown",
+    tradeAvailabilityNote:
+      sortedTradeObservations.length > 0
+        ? null
+        : "当前数据集没有该国家在所选期间的商品贸易观察；这不表示贸易额为 0。",
     relatedNodes: freezeArray(relatedNodes),
     relatedFlows: freezeArray(relatedFlows),
     datasetVersion: fixture.datasetVersion,
@@ -558,11 +752,16 @@ export function getProvenance(
     if (evidenceIdSet) return evidenceIdSet.has(record.id);
     return !sourceIdSet || sourceIdSet.has(record.sourceId);
   });
+  const indicatorDefinitions = fixture.indicatorDefinitions.filter(
+    (definition) => !sourceIdSet || definition.sourceIds.some((sourceId) => sourceIdSet.has(sourceId))
+  );
 
   return Object.freeze({
     datasetVersion: fixture.datasetVersion,
     sources: freezeArray(sources),
     evidence: freezeArray(evidence),
+    indicatorDefinitions: freezeArray(indicatorDefinitions),
+    missingDataNotes: freezeArray(fixture.missingDataNotes),
     warnings: mergeWarnings(fixture.warnings, fixture.storyGraph.warnings)
   });
 }

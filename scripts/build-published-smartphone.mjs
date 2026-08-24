@@ -40,6 +40,72 @@ const SOURCE_IDS = {
   iea: "source-iea-battery-supply-chain"
 };
 
+// Published presentation metadata lives with the dataset build, rather than
+// in the Web layer. Adding another macro indicator only requires another
+// configuration entry and its observations.
+const INDICATOR_CONFIG = [
+  {
+    indicator: "merchandise_exports_current_usd",
+    label: "商品出口总额",
+    shortLabel: "商品出口",
+    description: "一国在该统计期间报告的商品出口总额，按当前美元计价。",
+    category: "商品贸易",
+    displayOrder: 10,
+    displayUnit: "current USD",
+    displayCurrency: "USD",
+    valueMeaning: "海关/商品贸易统计金额，不是企业收入、成本或利润。",
+    sourceIndicatorCode: "TX.VAL.MRCH.CD.WT",
+    statisticalConcept: "customs",
+    formula: null,
+    method: "official"
+  },
+  {
+    indicator: "merchandise_imports_current_usd",
+    label: "商品进口总额",
+    shortLabel: "商品进口",
+    description: "一国在该统计期间报告的商品进口总额，按当前美元计价。",
+    category: "商品贸易",
+    displayOrder: 20,
+    displayUnit: "current USD",
+    displayCurrency: "USD",
+    valueMeaning: "海关/商品贸易统计金额，不是企业收入、成本或利润。",
+    sourceIndicatorCode: "TM.VAL.MRCH.CD.WT",
+    statisticalConcept: "customs",
+    formula: null,
+    method: "official"
+  },
+  {
+    indicator: "merchandise_trade_balance_current_usd",
+    label: "商品贸易差额",
+    shortLabel: "贸易差额",
+    description: "同一 WDI 快照中商品出口总额减商品进口总额的确定性派生值。",
+    category: "商品贸易",
+    displayOrder: 30,
+    displayUnit: "current USD",
+    displayCurrency: "USD",
+    valueMeaning: "正值表示顺差，负值表示逆差；不表示企业利润或国内增加值。",
+    sourceIndicatorCode: "TX.VAL.MRCH.CD.WT; TM.VAL.MRCH.CD.WT",
+    statisticalConcept: "customs",
+    formula: "商品贸易差额 = 商品出口总额 - 商品进口总额",
+    method: "derived"
+  },
+  {
+    indicator: "official_reserves_including_gold_current_usd",
+    label: "官方储备总额（含黄金）",
+    shortLabel: "官方储备（含黄金）",
+    description: "World Bank WDI 的 Total reserves (includes gold, current US$)。",
+    category: "官方储备",
+    displayOrder: 40,
+    displayUnit: "current USD",
+    displayCurrency: "USD",
+    valueMeaning: "该指标含黄金，不等同于狭义的不含黄金外汇储备。",
+    sourceIndicatorCode: "FI.RES.TOTL.CD",
+    statisticalConcept: "official_reserve",
+    formula: null,
+    method: "official"
+  }
+];
+
 const countryByIso3 = new Map([
   ["AUS", { id: "country-au", name: "澳大利亚", iso2: "AU", iso3: "AUS", m49: "036" }],
   ["COD", { id: "country-cd", name: "刚果民主共和国", iso2: "CD", iso3: "COD", m49: "180" }],
@@ -74,6 +140,17 @@ function sourceIds(...ids) {
   return [...new Set(ids)];
 }
 
+function buildIndicatorDefinitions() {
+  return INDICATOR_CONFIG.map((definition) => ({
+    id: `indicator-definition-${definition.indicator}`,
+    ...definition,
+    period: period(),
+    sourceIds: [SOURCE_IDS.wdi],
+    dataStatus: "observed",
+    datasetVersionId: DATASET_ID
+  }));
+}
+
 function sourceDefinition(raw, id, definition, sourceDatasetVersion = DATASET_VERSION) {
   const retrievedAt = raw.fetchedAt ?? "2026-08-25T00:00:00.000Z";
   return {
@@ -101,7 +178,16 @@ function parseComtradeRows(raw) {
   return raw.payload?.data ?? [];
 }
 
-function makeMacroObservation({ id, entityId, indicator, value, method, sourceId, notes }) {
+function makeMacroObservation({
+  id,
+  entityId,
+  indicator,
+  value,
+  method,
+  sourceId,
+  statisticalConcept,
+  notes
+}) {
   const hasValue = typeof value === "number" && Number.isFinite(value);
   return {
     id,
@@ -112,6 +198,7 @@ function makeMacroObservation({ id, entityId, indicator, value, method, sourceId
     quantity: null,
     currency: "USD",
     unit: "current USD",
+    statisticalConcept,
     sourceId,
     datasetVersionId: DATASET_ID,
     method,
@@ -136,24 +223,28 @@ function buildMacroIndicators(wdiRaw) {
     const reserveRow = reserveRows.get(iso3);
     const wdiVersion = wdiRaw.indicators?.merchandise_exports_current_usd?.payload?.[0]?.lastupdated;
     const commonNote = `World Bank WDI ${YEAR}; source indicator last updated ${wdiVersion ?? "not provided"}. Values are current US$ and are not company revenue or profit.`;
+    const exportObservationId = `macro-${iso3.toLowerCase()}-merchandise-exports`;
+    const importObservationId = `macro-${iso3.toLowerCase()}-merchandise-imports`;
 
     records.push(
       makeMacroObservation({
-        id: `macro-${iso3.toLowerCase()}-merchandise-exports`,
+        id: exportObservationId,
         entityId: country.id,
         indicator: "merchandise_exports_current_usd",
         value: exportsValue,
         method: "official",
         sourceId: SOURCE_IDS.wdi,
+        statisticalConcept: "customs",
         notes: `${commonNote} Indicator TX.VAL.MRCH.CD.WT.`
       }),
       makeMacroObservation({
-        id: `macro-${iso3.toLowerCase()}-merchandise-imports`,
+        id: importObservationId,
         entityId: country.id,
         indicator: "merchandise_imports_current_usd",
         value: importsValue,
         method: "official",
         sourceId: SOURCE_IDS.wdi,
+        statisticalConcept: "customs",
         notes: `${commonNote} Indicator TM.VAL.MRCH.CD.WT.`
       })
     );
@@ -170,8 +261,9 @@ function buildMacroIndicators(wdiRaw) {
         value: balance,
         method: "derived",
         sourceId: SOURCE_IDS.wdi,
+        statisticalConcept: "customs",
         notes:
-          `Derived as merchandise exports minus merchandise imports for ${YEAR}; inputs are the same WDI snapshot (${wdiVersion ?? "version not provided"}). Positive values indicate a surplus; this is not profit or domestic value added.`
+          `Derived as merchandise exports minus merchandise imports for ${YEAR}. Input observation IDs: ${exportObservationId}, ${importObservationId}. Input datasetVersion: ${DATASET_ID}; WDI source version: ${wdiVersion ?? "version not provided"}. No additional rounding is applied after subtraction. Positive values indicate a surplus; this is not profit or domestic value added.`
       })
     );
 
@@ -183,6 +275,7 @@ function buildMacroIndicators(wdiRaw) {
         value: reserveValue,
         method: "official",
         sourceId: SOURCE_IDS.wdi,
+        statisticalConcept: "official_reserve",
         notes:
           `World Bank WDI ${YEAR}, FI.RES.TOTL.CD. Official reserves include gold; this is not the narrower foreign-exchange-only reserve concept.${reserveRow?.obs_status ? ` WDI obs_status=${reserveRow.obs_status}.` : ""}`
       })
@@ -207,12 +300,17 @@ function makeTradeObservation(row, reporter) {
   const amount = typeof row.primaryValue === "number" && Number.isFinite(row.primaryValue)
     ? row.primaryValue
     : null;
-  const estimationFlag = Number(row.legacyEstimationFlag ?? 0);
+  const valueDataStatus = amount === null ? "unknown" : "observed";
   const quantityEstimated = row.isQtyEstimated === true;
-  const quantity = estimationFlag === 0 && !quantityEstimated && typeof row.qty === "number" && Number.isFinite(row.qty)
-    ? row.qty
+  const sourceQuantity = typeof row.qty === "number" && Number.isFinite(row.qty) ? row.qty : null;
+  const quantity = !quantityEstimated && sourceQuantity !== null
+    ? sourceQuantity
     : null;
-  const dataStatus = estimationFlag !== 0 || quantityEstimated ? "estimated" : "observed";
+  const quantityDataStatus = quantityEstimated
+    ? "estimated"
+    : quantity === null
+      ? "unknown"
+      : "observed";
   const id = `trade-${reporter.iso3.toLowerCase()}-smartphone-${direction}`;
   const quality = {
     source: "UN Comtrade Preview API",
@@ -224,7 +322,12 @@ function makeTradeObservation(row, reporter) {
     primaryValueField: "primaryValue",
     legacyEstimationFlag: row.legacyEstimationFlag ?? null,
     isQtyEstimated: row.isQtyEstimated ?? null,
+    isNetWgtEstimated: row.isNetWgtEstimated ?? null,
     qtyUnitCode: row.qtyUnitCode ?? null,
+    valueDataStatus,
+    quantityDataStatus,
+    quantityPublicationRule:
+      "primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values",
     isReported: row.isReported ?? null,
     isAggregate: row.isAggregate ?? null,
     note: "A missing reporter/flow row is not interpreted as zero."
@@ -235,6 +338,8 @@ function makeTradeObservation(row, reporter) {
     // partnerCode=0 is the Comtrade world total, not one of the nine local
     // country entities, so it is represented as null in the domain contract.
     partnerEntityId: null,
+    partnerCode: row.partnerCode === undefined || row.partnerCode === null ? null : Number(row.partnerCode),
+    partnerScope: "world_total",
     direction,
     classificationSystem: "HS",
     classificationVersion: "2022",
@@ -244,23 +349,60 @@ function makeTradeObservation(row, reporter) {
     value: amount,
     quantity,
     currency: amount === null ? null : "USD",
-    unit: quantity === null ? null : "items",
+    unit: sourceQuantity === null ? null : "items",
     statisticalConcept: "customs",
     sourceId: SOURCE_IDS.comtrade,
     datasetVersionId: DATASET_ID,
     method: "official",
-    dataStatus: amount === null ? "unknown" : dataStatus,
+    dataStatus: valueDataStatus,
+    valueDataStatus,
+    quantityDataStatus,
     qualityNote: JSON.stringify(quality)
   };
+}
+
+function assertComtradeRowScope(row) {
+  const reporterCodes = new Set(
+    [...countryByIso3.values()].map((country) => Number(country.reporterCode ?? country.m49))
+  );
+  const checks = [
+    [row.typeCode === "C", "typeCode=C"],
+    [row.freqCode === "A", "freqCode=A"],
+    [String(row.period) === YEAR && Number(row.refYear) === Number(YEAR), `period=${YEAR}`],
+    [row.classificationSearchCode === "HS" && row.classificationCode === "H6", "HS 2022/H6 classification"],
+    [String(row.cmdCode) === "851713", "cmdCode=851713"],
+    [Number(row.partnerCode) === 0, "partnerCode=0 world total"],
+    [Number(row.partner2Code) === 0, "partner2Code=0"],
+    [row.customsCode === "C00", "customsCode=C00"],
+    [Number(row.motCode) === 0, "motCode=0"],
+    [["M", "X"].includes(row.flowCode), "flowCode M or X"],
+    [reporterCodes.has(Number(row.reporterCode)), "configured reporterCode"],
+    [Number(row.qtyUnitCode) === 5, "qtyUnitCode=5 (items)"]
+  ];
+  const failed = checks.filter(([matches]) => !matches).map(([, label]) => label);
+  if (failed.length > 0) {
+    throw new Error(
+      `Comtrade row is outside the reviewed published scope (${failed.join(", ")}): ${JSON.stringify({
+        reporterCode: row.reporterCode,
+        flowCode: row.flowCode,
+        period: row.period,
+        cmdCode: row.cmdCode,
+        partnerCode: row.partnerCode,
+        classificationCode: row.classificationCode,
+        customsCode: row.customsCode
+      })}`
+    );
+  }
 }
 
 function buildTradeObservations(comtradeRaw) {
   const byId = new Map();
   for (const row of parseComtradeRows(comtradeRaw)) {
+    assertComtradeRowScope(row);
     const reporter = [...countryByIso3.values()].find((country) =>
       Number(country.reporterCode ?? country.m49) === Number(row.reporterCode)
     );
-    if (!reporter || !["M", "X"].includes(row.flowCode)) continue;
+    if (!reporter) throw new Error(`Unexpected Comtrade reporterCode: ${row.reporterCode}`);
     const observation = makeTradeObservation(row, reporter);
     // A preview response should contain at most one world-total row per
     // reporter/flow. Keep deterministic first-seen behavior if upstream ever
@@ -279,11 +421,11 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
     sourceDefinition(wdiRaw, SOURCE_IDS.wdi, {
       name: "World Development Indicators",
       publisher: "World Bank",
-      url: "https://data.worldbank.org/indicator/TX.VAL.MRCH.CD.WT",
+      url: "https://databank.worldbank.org/source/world-development-indicators",
       license: "CC BY 4.0 (World Bank public license; indicator-specific terms apply)",
       publishedAt: wdiLastUpdated,
       notes:
-        "WDI indicators TX.VAL.MRCH.CD.WT, TM.VAL.MRCH.CD.WT and FI.RES.TOTL.CD. Underlying publishers shown by WDI include WTO for merchandise trade and IMF International Financial Statistics for reserves. API snapshot and hash are in data/published/raw/world-bank-wdi-2023.json."
+        "WDI indicators TX.VAL.MRCH.CD.WT, TM.VAL.MRCH.CD.WT and FI.RES.TOTL.CD. Underlying publishers shown by WDI include WTO for merchandise trade and IMF International Financial Statistics for reserves. API snapshot and hash are in data/published/raw/world-bank-wdi-2023.json. Public licence information: https://datacatalog.worldbank.org/public-licenses; indicator-specific exceptions remain controlling."
     }, `WDI-${wdiLastUpdated ?? YEAR}`),
     sourceDefinition(comtradeRaw, SOURCE_IDS.comtrade, {
       name: "UN Comtrade Public API",
@@ -292,7 +434,7 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
       license: "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
       publishedAt: null,
       notes:
-        `HS 2022 code 851713, world-total partner, annual customs observations for ${YEAR}. Preserve UN attribution and comply with the current terms at https://comtradeplus.un.org/LicenseAgreement and https://comtradeplus.un.org/PolicyOnUseAndRedissemination. Snapshot retrieved ${comtradeRetrieved}; primaryValue and quality flags are retained in the fixture.`
+        `HS 2022 code 851713, world-total partner, annual customs observations for ${YEAR}. Monetary primaryValue status is assessed separately from quantity and net-weight estimation flags; source-estimated quantities are not published as precise quantities. Preserve UN attribution and comply with the current terms at https://comtradeplus.un.org/LicenseAgreement, https://comtradeplus.un.org/PolicyOnUseAndRedissemination and https://www.un.org/en/about-us/terms-of-use. Snapshot retrieved ${comtradeRetrieved}; primaryValue and quality flags are retained in the fixture.`
     }, `un-comtrade-hs2022-851713-${YEAR}`),
     {
       id: SOURCE_IDS.m49,
@@ -482,6 +624,15 @@ function buildFixture(sample, wdiRaw, comtradeRaw) {
   applyStoryMetadata(fixture);
   fixture.tradeObservations = buildTradeObservations(comtradeRaw);
   fixture.macroIndicators = buildMacroIndicators(wdiRaw);
+  fixture.indicatorDefinitions = buildIndicatorDefinitions();
+  fixture.missingDataNotes = [
+    "UN Comtrade 的 partnerCode=0 表示世界总计，不是一个具体国家；页面不会把它链接成某个国家。",
+    "2023 年 UN Comtrade HS 2022/851713 查询没有返回刚果民主共和国（COD）的行；缺少观察保持未知，不解释为贸易额为 0。",
+    "FI.RES.TOTL.CD 是 World Bank WDI 的 Total reserves（includes gold, current US$），本数据集显示为官方储备总额（含黄金）。",
+    "商品海关贸易金额不等于企业利润、生产成本、国内增加值或手机零售价格。",
+    "UN Comtrade 的 primaryValue 金额状态与数量/净重估算标记分开处理；isQtyEstimated=true 的数量不作为精确数量发布。",
+    "unknown、未披露、估算和真实为零是不同语义；没有观察时不会补写 0。"
+  ];
   fixture.warnings = [
     "本数据集使用 2023 完整自然年；不混合其他年份或财年。",
     "智能手机单品贸易为 HS 2022 六位码 851713、世界总计伙伴的海关观察；缺失国家/流向不填零。",
@@ -498,8 +649,36 @@ function assertBuildInvariants(fixture, comtradeRaw) {
   if (fixture.storyGraph.datasetVersionId !== DATASET_ID) throw new Error("Story graph dataset mismatch");
   if (fixture.tradeObservations.some((row) => row.period.label !== YEAR)) throw new Error("Trade period mismatch");
   if (fixture.macroIndicators.some((row) => row.period.label !== YEAR)) throw new Error("Macro period mismatch");
-  if (fixture.tradeObservations.some((row) => row.value === 0 && row.dataStatus !== "observed")) {
-    throw new Error("Estimated/unknown trade observation cannot be represented as zero");
+  if (fixture.tradeObservations.some((row) => row.partnerScope !== "world_total" || row.partnerCode !== 0 || row.partnerEntityId !== null)) {
+    throw new Error("Published Comtrade observations must retain partnerCode=0 world-total scope");
+  }
+  if (fixture.tradeObservations.some((row) => row.valueDataStatus !== row.dataStatus)) {
+    throw new Error("Trade monetary status must match the observation dataStatus");
+  }
+  if (
+    fixture.tradeObservations.some(
+      (row) => row.quantityDataStatus === "estimated" && row.quantity !== null
+    )
+  ) {
+    throw new Error("Source-estimated quantities must not be published as precise values");
+  }
+  if (
+    fixture.tradeObservations.some(
+      (row) => row.quantityDataStatus === "observed" && typeof row.quantity !== "number"
+    )
+  ) {
+    throw new Error("Observed quantities must retain their numeric source value");
+  }
+  if (
+    fixture.macroIndicators
+      .filter((row) => row.indicator === "merchandise_trade_balance_current_usd")
+      .some(
+        (row) =>
+          !row.notes?.includes("Input observation IDs:") ||
+          !row.notes.includes("No additional rounding is applied")
+      )
+  ) {
+    throw new Error("Trade-balance observations must retain input IDs and rounding provenance");
   }
   const returnedReporters = new Set((comtradeRaw.payload?.data ?? []).map((row) => `${row.reporterCode}:${row.flowCode}`));
   const codRows = fixture.tradeObservations.filter((row) => row.reporterEntityId === "country-cd");

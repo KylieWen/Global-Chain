@@ -100,6 +100,15 @@ export type GeoEntityKind = z.infer<typeof GeoEntityKindSchema>;
 export const DirectionSchema = z.enum(["import", "export"]);
 export type Direction = z.infer<typeof DirectionSchema>;
 
+/** Scope of a trade observation's partner dimension. */
+export const PartnerScopeSchema = z.enum([
+  "world_total",
+  "entity",
+  "unspecified",
+  "not_applicable"
+]);
+export type PartnerScope = z.infer<typeof PartnerScopeSchema>;
+
 export const StatisticalConceptSchema = z.enum([
   "customs",
   "balance_of_payments",

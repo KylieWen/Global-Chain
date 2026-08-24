@@ -7,7 +7,11 @@ import {
   ProcessStageSchema,
   ProductionActivitySchema
 } from "./catalog";
-import { MacroIndicatorObservationSchema, TradeObservationSchema } from "./observations";
+import {
+  IndicatorDefinitionSchema,
+  MacroIndicatorObservationSchema,
+  TradeObservationSchema
+} from "./observations";
 import { DatasetVersionSchema, EvidenceSchema, SourceSchema } from "./provenance";
 import { IdSchema, NonEmptyStringSchema } from "./primitives";
 import { StoryGraphSchema } from "./story";
@@ -28,6 +32,10 @@ export const ProductFixtureSchema = z
     storyGraph: StoryGraphSchema,
     tradeObservations: z.array(TradeObservationSchema),
     macroIndicators: z.array(MacroIndicatorObservationSchema),
+    /** Optional for backwards compatibility with draft/mock fixtures. */
+    indicatorDefinitions: z.array(IndicatorDefinitionSchema).default([]),
+    /** Human-readable release notes for known missing or semantically limited data. */
+    missingDataNotes: z.array(NonEmptyStringSchema).default([]),
     warnings: z.array(NonEmptyStringSchema)
   })
   .superRefine((fixture, context) => {
@@ -77,6 +85,19 @@ export const ProductFixtureSchema = z
       ["macroIndicators"],
       "Macro indicator"
     );
+    checkUnique(
+      fixture.indicatorDefinitions.map((definition) => definition.id),
+      ["indicatorDefinitions"],
+      "Indicator definition"
+    );
+    const indicatorKeys = fixture.indicatorDefinitions.map((definition) => definition.indicator);
+    if (new Set(indicatorKeys).size !== indicatorKeys.length) {
+      context.addIssue({
+        code: "custom",
+        path: ["indicatorDefinitions"],
+        message: "Indicator definition keys must be unique"
+      });
+    }
 
     const checkSourceReferences = (
       sourceIds: string[],
@@ -381,6 +402,19 @@ export const ProductFixtureSchema = z
           message: "Macro indicator references an unknown dataset version"
         });
       }
+    });
+
+    fixture.indicatorDefinitions.forEach((definition, index) => {
+      checkSourceReferences(
+        definition.sourceIds,
+        ["indicatorDefinitions", index, "sourceIds"],
+        "Indicator definition"
+      );
+      checkDatasetReference(
+        definition.datasetVersionId,
+        ["indicatorDefinitions", index, "datasetVersionId"],
+        "Indicator definition"
+      );
     });
 
     if (fixture.storyGraph.productId !== fixture.productId) {

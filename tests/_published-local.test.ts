@@ -16,9 +16,16 @@ describe("local published fixture", () => {
     expect(fixture.entities.every((entity) => /^\d{3}$/.test(entity.m49 ?? ""))).toBe(true);
     expect(
       fixture.tradeObservations
-        .filter((row) => row.dataStatus === "estimated")
-        .every((row) => row.quantity === null && row.unit === null)
+        .filter((row) => row.quantityDataStatus === "estimated")
+        .every((row) => row.quantity === null && row.unit === "items")
     ).toBe(true);
+    expect(
+      fixture.tradeObservations
+        .filter((row) => row.quantityDataStatus === "observed")
+        .every((row) => typeof row.quantity === "number" && row.unit === "items")
+    ).toBe(true);
+    expect(fixture.tradeObservations.every((row) => row.dataStatus === "observed")).toBe(true);
+    expect(fixture.tradeObservations.every((row) => row.valueDataStatus === "observed")).toBe(true);
     expect(fixture.macroIndicators.filter((row) => row.indicator === "merchandise_trade_balance_current_usd")).toHaveLength(9);
   });
 });

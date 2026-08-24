@@ -3,10 +3,12 @@ import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../../lib/data";
 import { Breadcrumbs, PageIntro, SiteShell } from "../../../../../components/site-shell";
 import {
+  MetadataItem,
   PeriodLabel,
   ProvenancePanel,
   StatCard,
   StatusBadge,
+  StatusLegend,
   UnknownValue,
   ValueDisplay,
   WarningList
@@ -17,6 +19,17 @@ type SearchParams = Record<string, string | string[] | undefined>;
 
 function firstParam(value: string | string[] | undefined): string | undefined {
   return Array.isArray(value) ? value[0] : value;
+}
+
+function statisticalConceptLabel(value: string | null | undefined): string {
+  const labels: Record<string, string> = {
+    customs: "海关/商品贸易统计",
+    balance_of_payments: "国际收支",
+    official_reserve: "官方储备",
+    national_accounts: "国民账户",
+    other: "其他"
+  };
+  return value ? labels[value] ?? value : "未提供";
 }
 
 export default async function CountryLedgerPage({
@@ -34,11 +47,13 @@ export default async function CountryLedgerPage({
   if (!overview) notFound();
   const ledger = queries.getCountryLedger(productId, entityId, {
     label,
-    granularity: overview.period.granularity
+    granularity: overview.period.granularity,
+    itemId: productId
   });
   const provenance = queries.getProvenance(productId);
   if (!ledger || !provenance) notFound();
   const firstRelatedNode = ledger.relatedNodes[0];
+  const tradeClassification = ledger.tradeClassifications[0];
 
   return (
     <SiteShell>
@@ -52,67 +67,125 @@ export default async function CountryLedgerPage({
         <PageIntro
           eyebrow="Country trade ledger"
           title={`${ledger.entity.name} · 国家账本`}
-          description="贸易观察和宏观指标与代表性供应链流分开存储。这里展示已发布或明确标记状态的事实，不从路线推导利润或因果结论。"
+          description="宏观商品贸易、官方储备与 HS 单品海关观察按各自统计口径展示。没有观察不补零，海关贸易金额也不解释为企业利润、成本或手机价格。"
           actions={<Link className="button button-secondary" href={firstRelatedNode ? nodePath(productId, firstRelatedNode.node.id) : supplyChainPath(productId)}>返回节点路径</Link>}
         />
 
         <div className="stat-grid">
-          <StatCard label="报告国" value={ledger.entity.iso3 ?? ledger.entity.name} detail={ledger.entity.iso2 ?? "未提供 ISO2"} />
-          <StatCard label="统计期间" value={<PeriodLabel period={ledger.period} />} detail={ledger.period.start} />
-          <StatCard label="贸易观察" value={ledger.tradeObservations.length} detail="当前商品 fixture" />
-          <StatCard label="宏观指标" value={ledger.macroIndicators.length} detail="不自动计算余额" />
+          <StatCard label="国家/地区代码" value={ledger.entity.iso3 ?? ledger.entity.name} detail={`ISO2 ${ledger.entity.iso2 ?? "未知"} · UN M49 ${ledger.entity.m49 ?? "未知"}`} />
+          <StatCard label="统计期间" value={<PeriodLabel period={ledger.period} />} detail={`${ledger.period.start} 至 ${ledger.period.end}`} />
+          <StatCard label="数据集版本" value={ledger.datasetVersion.version} detail={ledger.datasetVersion.status} />
+          <StatCard label={`${ledger.product.name}贸易观察`} value={ledger.tradeObservations.length} detail={ledger.tradeAvailability === "available" ? "已发布观察" : "未知，不是零"} />
         </div>
 
         <WarningList warnings={ledger.warnings} />
 
-        <section className="section-block" aria-labelledby="trade-title">
-          <div className="section-heading">
-            <div><p className="eyebrow">Trade observations</p><h2 id="trade-title">进出口观察</h2></div>
-            <span className="section-caption">金额、数量和单位按事实原样呈现</span>
-          </div>
-          {ledger.resolvedTradeObservations.length === 0 ? <div className="empty-state">当前期间没有已发布的贸易观察。</div> : (
-            <div className="table-wrap">
-              <table className="data-table">
-                <thead>
-                  <tr><th>方向</th><th>伙伴</th><th>商品</th><th>分类</th><th>金额</th><th>数量</th><th>状态</th></tr>
-                </thead>
-                <tbody>
-                  {ledger.resolvedTradeObservations.map((view) => {
-                    const observation = view.observation;
-                    return (
-                      <tr key={observation.id}>
-                        <td><span className={`direction-pill direction-${observation.direction}`}>{observation.direction === "export" ? "出口" : "进口"}</span></td>
-                        <td>{view.partner ? <Link className="text-link" href={ledgerPath(productId, view.partner.id)}>{view.partner.name}</Link> : <UnknownValue label="世界总计/未提供" />}</td>
-                        <td>{view.item?.name ?? <UnknownValue />}</td>
-                        <td>{observation.classificationSystem} {observation.classificationCode}</td>
-                        <td><ValueDisplay value={observation.value} status={observation.dataStatus} currency={observation.currency} /></td>
-                        <td><ValueDisplay value={observation.quantity} status={observation.dataStatus} unit={observation.unit} /></td>
-                        <td><StatusBadge status={observation.dataStatus} method={observation.method} /></td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </section>
-
         <section className="section-block" aria-labelledby="macro-title">
           <div className="section-heading">
-            <div><p className="eyebrow">Macro indicators</p><h2 id="macro-title">宏观指标</h2></div>
-            <span className="section-caption">外汇储备等指标不与商品贸易额混为一谈</span>
+            <div><p className="eyebrow">Macro ledger</p><h2 id="macro-title">国家宏观贸易账本</h2></div>
+            <span className="section-caption">名称、单位、统计概念和解释来自 published 指标定义</span>
           </div>
-          {ledger.macroIndicators.length === 0 ? <div className="empty-state">当前期间没有已发布的宏观指标。</div> : (
-            <div className="metric-list">
-              {ledger.macroIndicators.map((observation) => (
-                <article className="metric-row" key={observation.id}>
-                  <div><span className="card-kicker">{observation.indicator}</span><h3>{observation.notes ?? "未提供指标说明"}</h3></div>
-                  <ValueDisplay value={observation.value} status={observation.dataStatus} currency={observation.currency} unit={observation.unit} />
-                  <StatusBadge status={observation.dataStatus} method={observation.method} />
+          {ledger.resolvedMacroIndicators.length === 0 ? <div className="empty-state">当前期间没有已发布的宏观指标。</div> : (
+            <div className="metric-list interpreted-metrics">
+              {ledger.resolvedMacroIndicators.map(({ observation, definition, source }) => (
+                <article className="metric-row interpreted-metric" key={observation.id}>
+                  <div className="metric-main">
+                    <span className="card-kicker">{definition.category ?? "宏观指标"}</span>
+                    <h3>{definition.label}</h3>
+                    {definition.description ? <p>{definition.description}</p> : null}
+                    <strong className="metric-value"><ValueDisplay value={observation.value} status={observation.dataStatus} currency={observation.currency} unit={observation.unit} /></strong>
+                  </div>
+                  <div className="fact-metadata-grid">
+                    <MetadataItem label="年份/期间" value={<PeriodLabel period={observation.period} />} />
+                    <MetadataItem label="来源指标代码" value={definition.sourceIndicatorCode ?? <UnknownValue label="未提供" />} />
+                    <MetadataItem label="统计概念" value={statisticalConceptLabel(observation.statisticalConcept ?? definition.statisticalConcept)} />
+                    <MetadataItem label="币种" value={observation.currency ?? <UnknownValue label="未提供" />} />
+                    <MetadataItem label="单位" value={observation.unit ?? <UnknownValue label="未提供" />} />
+                    <MetadataItem label="来源" value={source?.name ?? <UnknownValue label="未提供" />} />
+                    <MetadataItem label="method" value={observation.method} />
+                    <MetadataItem label="datasetVersion" value={observation.datasetVersionId ? `${ledger.datasetVersion.version} (${observation.datasetVersionId})` : <UnknownValue label="未提供" />} />
+                    <MetadataItem label="dataStatus" value={<StatusBadge status={observation.dataStatus} />} />
+                  </div>
+                  <div className="interpretation-notes">
+                    {definition.valueMeaning ? <p><strong>数值含义：</strong>{definition.valueMeaning}</p> : null}
+                    {definition.formula ? <p><strong>计算公式：</strong>{definition.formula}</p> : null}
+                    {observation.notes ? <p><strong>观察说明：</strong>{observation.notes}</p> : null}
+                  </div>
                 </article>
               ))}
             </div>
           )}
+        </section>
+
+        <section className="section-block" aria-labelledby="trade-title">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Product trade observations</p>
+              <h2 id="trade-title">
+                {ledger.product.name} {tradeClassification ? `${tradeClassification.system} ${tradeClassification.version} / ${tradeClassification.code}` : "分类未提供"} 进出口观察
+              </h2>
+            </div>
+            <span className="section-caption">observed、estimated、unknown 与真实零值保持不同语义</span>
+          </div>
+          {ledger.resolvedTradeObservations.length === 0 ? (
+            <div className="empty-state missing-observation">
+              <strong>当前期间没有已发布的{ledger.product.name}贸易观察。</strong>
+              <p>{ledger.tradeAvailabilityNote}</p>
+              <p>本数据切片不会为没有返回记录的国家生成数值为 0 的行。</p>
+            </div>
+          ) : (
+            <div className="trade-observation-list">
+              {ledger.resolvedTradeObservations.map((view) => {
+                const observation = view.observation;
+                const partner = view.partnerScope === "world_total" ? (
+                  <span>
+                    世界总计
+                    <small className="block-note">
+                      {observation.partnerCode === null || observation.partnerCode === undefined
+                        ? "来源伙伴代码未提供"
+                        : `partnerCode=${observation.partnerCode}，不是具体国家`}
+                    </small>
+                  </span>
+                ) : view.partner ? (
+                  <Link className="text-link" href={ledgerPath(productId, view.partner.id)}>{view.partner.name}</Link>
+                ) : <UnknownValue label="伙伴未提供" />;
+                return (
+                  <article className="trade-observation-card" key={observation.id}>
+                    <div className="trade-observation-heading">
+                      <div>
+                        <span className={`direction-pill direction-${observation.direction}`}>{observation.direction === "export" ? "出口" : "进口"}</span>
+                        <h3>{view.item?.name ?? "未映射商品"}</h3>
+                        <p>{view.classification?.system ?? observation.classificationSystem} {view.classification?.version ?? observation.classificationVersion} / {view.classification?.code ?? observation.classificationCode} · {view.classification?.label ?? "分类标签未提供"}</p>
+                      </div>
+                      <div className="fact-status-stack">
+                        <small>金额状态</small>
+                        <StatusBadge status={view.valueDataStatus} method={observation.method} />
+                      </div>
+                    </div>
+                    <div className="trade-values">
+                      <div><span>金额</span><strong><ValueDisplay value={observation.value} status={view.valueDataStatus} currency={observation.currency} /></strong></div>
+                      <div><span>数量</span><strong><ValueDisplay value={observation.quantity} status={view.quantityDataStatus} unit={observation.unit} /></strong></div>
+                    </div>
+                    <div className="fact-metadata-grid">
+                      <MetadataItem label="报告国" value={view.reporter?.name ?? <UnknownValue />} />
+                      <MetadataItem label="伙伴" value={partner} />
+                      <MetadataItem label="期间" value={<PeriodLabel period={observation.period} />} />
+                      <MetadataItem label="统计概念" value={statisticalConceptLabel(observation.statisticalConcept)} />
+                      <MetadataItem label="币种" value={observation.currency ?? <UnknownValue label="未提供" />} />
+                      <MetadataItem label="单位" value={observation.unit ?? <UnknownValue label="未提供" />} />
+                      <MetadataItem label="来源" value={view.source?.name ?? <UnknownValue label="未提供" />} />
+                      <MetadataItem label="method" value={observation.method} />
+                      <MetadataItem label="datasetVersion" value={observation.datasetVersionId ? `${ledger.datasetVersion.version} (${observation.datasetVersionId})` : <UnknownValue label="未提供" />} />
+                      <MetadataItem label="金额 dataStatus" value={<StatusBadge status={view.valueDataStatus} />} />
+                      <MetadataItem label="数量 dataStatus" value={<StatusBadge status={view.quantityDataStatus} />} />
+                    </div>
+                    {observation.qualityNote ? <details className="quality-details"><summary>查看来源质量标记</summary><code>{observation.qualityNote}</code></details> : null}
+                  </article>
+                );
+              })}
+            </div>
+          )}
+          <div className="legend-block"><h3>状态含义</h3><StatusLegend /></div>
         </section>
 
         <section className="section-block" aria-labelledby="related-title">

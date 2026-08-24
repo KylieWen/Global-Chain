@@ -12,6 +12,7 @@ import {
   NullableIdSchema,
   NullableStringSchema,
   PeriodSchema,
+  PartnerScopeSchema,
   SourceIdsSchema,
   StatisticalConceptSchema,
   RelationTypeSchema,
@@ -52,6 +53,10 @@ export const TradeObservationSchema = z
     id: IdSchema,
     reporterEntityId: IdSchema,
     partnerEntityId: NullableIdSchema,
+    /** Source-native partner code when one is available (0 means world total in Comtrade). */
+    partnerCode: z.number().int().nonnegative().nullable().optional(),
+    /** Structured scope prevents a null partner entity from being guessed as a world total. */
+    partnerScope: PartnerScopeSchema.nullable().optional(),
     direction: DirectionSchema,
     classificationSystem: NonEmptyStringSchema,
     classificationVersion: NonEmptyStringSchema,
@@ -67,6 +72,10 @@ export const TradeObservationSchema = z
     datasetVersionId: NullableIdSchema,
     method: DataMethodSchema,
     dataStatus: FactStatusSchema,
+    /** Monetary value status; defaults to dataStatus for older fixtures. */
+    valueDataStatus: FactStatusSchema.optional(),
+    /** Quantity status is independent from monetary and weight estimation flags. */
+    quantityDataStatus: FactStatusSchema.optional(),
     qualityNote: NullableStringSchema
   })
   .superRefine((observation, context) => {
@@ -84,9 +93,111 @@ export const TradeObservationSchema = z
         message: "Non-mock trade observations must reference a dataset version"
       });
     }
+    if (observation.partnerScope === "entity" && !observation.partnerEntityId) {
+      context.addIssue({
+        code: "custom",
+        path: ["partnerEntityId"],
+        message: "Entity partner scope requires partnerEntityId"
+      });
+    }
+    if (
+      observation.partnerEntityId &&
+      observation.partnerScope &&
+      observation.partnerScope !== "entity"
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["partnerScope"],
+        message: "A specific partner entity requires entity partner scope"
+      });
+    }
+    if (observation.valueDataStatus && observation.valueDataStatus !== observation.dataStatus) {
+      context.addIssue({
+        code: "custom",
+        path: ["valueDataStatus"],
+        message: "Trade observation dataStatus must match valueDataStatus"
+      });
+    }
+    const valueStatus = observation.valueDataStatus ?? observation.dataStatus;
+    const quantityStatus = observation.quantityDataStatus ??
+      (observation.quantity === null || observation.quantity === undefined
+        ? "unknown"
+        : observation.dataStatus);
+    if (
+      (valueStatus === "unknown" || valueStatus === "withheld") &&
+      observation.value !== null &&
+      observation.value !== undefined
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["value"],
+        message: `${valueStatus} monetary values must be null`
+      });
+    }
+    if (
+      valueStatus === "observed" &&
+      (observation.value === null || observation.value === undefined)
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["value"],
+        message: "Observed monetary values must provide a numeric value"
+      });
+    }
+    if (
+      (quantityStatus === "unknown" || quantityStatus === "withheld") &&
+      observation.quantity !== null &&
+      observation.quantity !== undefined
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["quantity"],
+        message: `${quantityStatus} quantities must be null`
+      });
+    }
+    if (
+      quantityStatus === "observed" &&
+      (observation.quantity === null || observation.quantity === undefined)
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["quantity"],
+        message: "Observed quantities must provide a numeric quantity"
+      });
+    }
     validateMeasuredValue(observation, context);
   });
 export type TradeObservation = z.infer<typeof TradeObservationSchema>;
+
+/**
+ * Display and interpretation metadata for an open-ended macro indicator key.
+ * Definitions are optional at the fixture boundary so older draft fixtures keep
+ * loading, while published datasets can provide a complete, data-driven label
+ * and provenance description.
+ */
+export const IndicatorDefinitionSchema = z
+  .object({
+    id: IdSchema,
+    indicator: NonEmptyStringSchema,
+    label: NonEmptyStringSchema,
+    shortLabel: NullableStringSchema,
+    description: NullableStringSchema,
+    category: NullableStringSchema,
+    displayOrder: z.number().int().nonnegative().nullable().optional(),
+    displayUnit: NullableStringSchema,
+    displayCurrency: CurrencySchema.nullable().optional(),
+    valueMeaning: NullableStringSchema,
+    sourceIndicatorCode: NullableStringSchema,
+    statisticalConcept: StatisticalConceptSchema.nullable().optional(),
+    formula: NullableStringSchema,
+    period: PeriodSchema.nullable().optional(),
+    sourceIds: SourceIdsSchema,
+    method: DataMethodSchema,
+    dataStatus: FactStatusSchema,
+    datasetVersionId: NullableIdSchema
+  })
+  .superRefine(validateFactMetadata);
+export type IndicatorDefinition = z.infer<typeof IndicatorDefinitionSchema>;
 
 export const MacroIndicatorObservationSchema = z
   .object({
@@ -98,6 +209,7 @@ export const MacroIndicatorObservationSchema = z
     quantity: NonNegativeNumberSchema.nullable().optional(),
     currency: CurrencySchema.nullable().optional(),
     unit: UnitSchema.nullable().optional(),
+    statisticalConcept: StatisticalConceptSchema.nullable().optional(),
     sourceId: NullableIdSchema,
     datasetVersionId: NullableIdSchema,
     method: DataMethodSchema,
@@ -117,6 +229,27 @@ export const MacroIndicatorObservationSchema = z
         code: "custom",
         path: ["datasetVersionId"],
         message: "Non-mock macro observations must reference a dataset version"
+      });
+    }
+    if (
+      (observation.dataStatus === "unknown" || observation.dataStatus === "withheld") &&
+      observation.value !== null &&
+      observation.value !== undefined
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["value"],
+        message: `${observation.dataStatus} macro values must be null`
+      });
+    }
+    if (
+      observation.dataStatus === "observed" &&
+      (observation.value === null || observation.value === undefined)
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["value"],
+        message: "Observed macro values must provide a numeric value"
       });
     }
     validateMeasuredValue(observation, context);
