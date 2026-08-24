@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "GlobeChain",
-  description: "GlobeChain engineering foundation"
+  description: "以可追溯数据阅读全球商品供应链与贸易链路"
 };
 
 export default function RootLayout({

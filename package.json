@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "pnpm --filter @globe-chain/web dev",
+    "dev:preview": "node scripts/dev-preview.mjs",
     "build": "pnpm --filter @globe-chain/web build",
     "start": "pnpm --filter @globe-chain/web start",
     "lint": "pnpm --filter @globe-chain/web lint",
