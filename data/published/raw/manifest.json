@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "published-source-run.v1",
+  "retrievedAt": "2026-08-24T16:53:04.820Z",
+  "year": "2023",
+  "countries": [
+    {
+      "iso3": "AUS",
+      "iso2": "AU",
+      "name": "Australia",
+      "reporterCode": 36
+    },
+    {
+      "iso3": "COD",
+      "iso2": "CD",
+      "name": "Democratic Republic of the Congo",
+      "reporterCode": 180
+    },
+    {
+      "iso3": "CHL",
+      "iso2": "CL",
+      "name": "Chile",
+      "reporterCode": 152
+    },
+    {
+      "iso3": "CHN",
+      "iso2": "CN",
+      "name": "China",
+      "reporterCode": 156
+    },
+    {
+      "iso3": "DEU",
+      "iso2": "DE",
+      "name": "Germany",
+      "reporterCode": 276
+    },
+    {
+      "iso3": "IDN",
+      "iso2": "ID",
+      "name": "Indonesia",
+      "reporterCode": 360
+    },
+    {
+      "iso3": "JPN",
+      "iso2": "JP",
+      "name": "Japan",
+      "reporterCode": 392
+    },
+    {
+      "iso3": "KOR",
+      "iso2": "KR",
+      "name": "Republic of Korea",
+      "reporterCode": 410
+    },
+    {
+      "iso3": "USA",
+      "iso2": "US",
+      "name": "United States of America",
+      "reporterCode": 842
+    }
+  ],
+  "indicators": {
+    "merchandise_exports_current_usd": "TX.VAL.MRCH.CD.WT",
+    "merchandise_imports_current_usd": "TM.VAL.MRCH.CD.WT",
+    "official_reserves_including_gold_current_usd": "FI.RES.TOTL.CD"
+  },
+  "classification": {
+    "system": "HS",
+    "version": "2022",
+    "code": "851713"
+  },
+  "files": [
+    "world-bank-wdi-2023.json",
+    "un-comtrade-hs2022-851713-2023.json"
+  ],
+  "notes": [
+    "Raw snapshots are immutable unless --replace is explicitly supplied.",
+    "The build step consumes these snapshots and never calls the source APIs at runtime."
+  ],
+  "payloadSha256": "abb7d58888b196dec574be2f0cb2e378082b6312fdcaf61d1dfbce8719b37fdd"
+}

@@ -9,6 +9,9 @@
   "scripts": {
     "dev": "pnpm --filter @globe-chain/web dev",
     "dev:preview": "node scripts/dev-preview.mjs",
+    "data:fetch": "node scripts/fetch-published-sources.mjs",
+    "data:build:smartphone": "node scripts/build-published-smartphone.mjs",
+    "data:rebuild:smartphone": "pnpm run data:fetch && pnpm run data:build:smartphone",
     "build": "pnpm --filter @globe-chain/web build",
     "start": "pnpm --filter @globe-chain/web start",
     "lint": "pnpm --filter @globe-chain/web lint",

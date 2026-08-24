@@ -1,0 +1,504 @@
+{
+  "schemaVersion": "raw-source-bundle.v1",
+  "sourceId": "source-world-bank-wdi",
+  "fetchedAt": "2026-08-24T16:53:04.820Z",
+  "payloadSha256": "4f350f64b92c5f4c8c215b3565ac87645f45a7b6d3d4e051bd90167ad40b6f44",
+  "indicators": {
+    "merchandise_exports_current_usd": {
+      "indicatorCode": "TX.VAL.MRCH.CD.WT",
+      "request": {
+        "method": "GET",
+        "url": "https://api.worldbank.org/v2/country/AUS;COD;CHL;CHN;DEU;IDN;JPN;KOR;USA/indicator/TX.VAL.MRCH.CD.WT?date=2023&format=json&per_page=100"
+      },
+      "responseSha256": "9ce3caa8ad4787367afc643e295f08271235c88a4256f32a54514488a7f1765a",
+      "recordCount": 9,
+      "payload": [
+        {
+          "page": 1,
+          "pages": 1,
+          "per_page": 100,
+          "total": 9,
+          "sourceid": "2",
+          "lastupdated": "2026-07-13"
+        },
+        [
+          {
+            "indicator": {
+              "id": "TX.VAL.MRCH.CD.WT",
+              "value": "Merchandise exports (current US$)"
+            },
+            "country": {
+              "id": "AU",
+              "value": "Australia"
+            },
+            "countryiso3code": "AUS",
+            "date": "2023",
+            "value": 371407000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "TX.VAL.MRCH.CD.WT",
+              "value": "Merchandise exports (current US$)"
+            },
+            "country": {
+              "id": "CL",
+              "value": "Chile"
+            },
+            "countryiso3code": "CHL",
+            "date": "2023",
+            "value": 92972000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "TX.VAL.MRCH.CD.WT",
+              "value": "Merchandise exports (current US$)"
+            },
+            "country": {
+              "id": "CN",
+              "value": "China"
+            },
+            "countryiso3code": "CHN",
+            "date": "2023",
+            "value": 3379044000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "TX.VAL.MRCH.CD.WT",
+              "value": "Merchandise exports (current US$)"
+            },
+            "country": {
+              "id": "CD",
+              "value": "Congo, Dem. Rep."
+            },
+            "countryiso3code": "COD",
+            "date": "2023",
+            "value": 27727000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "TX.VAL.MRCH.CD.WT",
+              "value": "Merchandise exports (current US$)"
+            },
+            "country": {
+              "id": "DE",
+              "value": "Germany"
+            },
+            "countryiso3code": "DEU",
+            "date": "2023",
+            "value": 1702278000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "TX.VAL.MRCH.CD.WT",
+              "value": "Merchandise exports (current US$)"
+            },
+            "country": {
+              "id": "ID",
+              "value": "Indonesia"
+            },
+            "countryiso3code": "IDN",
+            "date": "2023",
+            "value": 258857000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "TX.VAL.MRCH.CD.WT",
+              "value": "Merchandise exports (current US$)"
+            },
+            "country": {
+              "id": "JP",
+              "value": "Japan"
+            },
+            "countryiso3code": "JPN",
+            "date": "2023",
+            "value": 717256000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "TX.VAL.MRCH.CD.WT",
+              "value": "Merchandise exports (current US$)"
+            },
+            "country": {
+              "id": "KR",
+              "value": "Korea, Rep."
+            },
+            "countryiso3code": "KOR",
+            "date": "2023",
+            "value": 632226000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "TX.VAL.MRCH.CD.WT",
+              "value": "Merchandise exports (current US$)"
+            },
+            "country": {
+              "id": "US",
+              "value": "United States"
+            },
+            "countryiso3code": "USA",
+            "date": "2023",
+            "value": 2018059000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          }
+        ]
+      ]
+    },
+    "merchandise_imports_current_usd": {
+      "indicatorCode": "TM.VAL.MRCH.CD.WT",
+      "request": {
+        "method": "GET",
+        "url": "https://api.worldbank.org/v2/country/AUS;COD;CHL;CHN;DEU;IDN;JPN;KOR;USA/indicator/TM.VAL.MRCH.CD.WT?date=2023&format=json&per_page=100"
+      },
+      "responseSha256": "cb4a6cf8a35e7aef64917dde3215339ce596b22957cf496ae9edbd3beeb3462c",
+      "recordCount": 9,
+      "payload": [
+        {
+          "page": 1,
+          "pages": 1,
+          "per_page": 100,
+          "total": 9,
+          "sourceid": "2",
+          "lastupdated": "2026-07-13"
+        },
+        [
+          {
+            "indicator": {
+              "id": "TM.VAL.MRCH.CD.WT",
+              "value": "Merchandise imports (current US$)"
+            },
+            "country": {
+              "id": "AU",
+              "value": "Australia"
+            },
+            "countryiso3code": "AUS",
+            "date": "2023",
+            "value": 287406000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "TM.VAL.MRCH.CD.WT",
+              "value": "Merchandise imports (current US$)"
+            },
+            "country": {
+              "id": "CL",
+              "value": "Chile"
+            },
+            "countryiso3code": "CHL",
+            "date": "2023",
+            "value": 85250000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "TM.VAL.MRCH.CD.WT",
+              "value": "Merchandise imports (current US$)"
+            },
+            "country": {
+              "id": "CN",
+              "value": "China"
+            },
+            "countryiso3code": "CHN",
+            "date": "2023",
+            "value": 2556941000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "TM.VAL.MRCH.CD.WT",
+              "value": "Merchandise imports (current US$)"
+            },
+            "country": {
+              "id": "CD",
+              "value": "Congo, Dem. Rep."
+            },
+            "countryiso3code": "COD",
+            "date": "2023",
+            "value": 25529000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "TM.VAL.MRCH.CD.WT",
+              "value": "Merchandise imports (current US$)"
+            },
+            "country": {
+              "id": "DE",
+              "value": "Germany"
+            },
+            "countryiso3code": "DEU",
+            "date": "2023",
+            "value": 1467598000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "TM.VAL.MRCH.CD.WT",
+              "value": "Merchandise imports (current US$)"
+            },
+            "country": {
+              "id": "ID",
+              "value": "Indonesia"
+            },
+            "countryiso3code": "IDN",
+            "date": "2023",
+            "value": 221886000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "TM.VAL.MRCH.CD.WT",
+              "value": "Merchandise imports (current US$)"
+            },
+            "country": {
+              "id": "JP",
+              "value": "Japan"
+            },
+            "countryiso3code": "JPN",
+            "date": "2023",
+            "value": 787199000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "TM.VAL.MRCH.CD.WT",
+              "value": "Merchandise imports (current US$)"
+            },
+            "country": {
+              "id": "KR",
+              "value": "Korea, Rep."
+            },
+            "countryiso3code": "KOR",
+            "date": "2023",
+            "value": 642572000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "TM.VAL.MRCH.CD.WT",
+              "value": "Merchandise imports (current US$)"
+            },
+            "country": {
+              "id": "US",
+              "value": "United States"
+            },
+            "countryiso3code": "USA",
+            "date": "2023",
+            "value": 3168237000000,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          }
+        ]
+      ]
+    },
+    "official_reserves_including_gold_current_usd": {
+      "indicatorCode": "FI.RES.TOTL.CD",
+      "request": {
+        "method": "GET",
+        "url": "https://api.worldbank.org/v2/country/AUS;COD;CHL;CHN;DEU;IDN;JPN;KOR;USA/indicator/FI.RES.TOTL.CD?date=2023&format=json&per_page=100"
+      },
+      "responseSha256": "3349e0981e8dbc3cf6b6de49e56baca5f2480ac8df75cb711d9452b61d557cca",
+      "recordCount": 9,
+      "payload": [
+        {
+          "page": 1,
+          "pages": 1,
+          "per_page": 100,
+          "total": 9,
+          "sourceid": "2",
+          "lastupdated": "2026-07-13"
+        },
+        [
+          {
+            "indicator": {
+              "id": "FI.RES.TOTL.CD",
+              "value": "Total reserves (includes gold, current US$)"
+            },
+            "country": {
+              "id": "AU",
+              "value": "Australia"
+            },
+            "countryiso3code": "AUS",
+            "date": "2023",
+            "value": 61703347652.0138,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "FI.RES.TOTL.CD",
+              "value": "Total reserves (includes gold, current US$)"
+            },
+            "country": {
+              "id": "CL",
+              "value": "Chile"
+            },
+            "countryiso3code": "CHL",
+            "date": "2023",
+            "value": 46377347796.8251,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "FI.RES.TOTL.CD",
+              "value": "Total reserves (includes gold, current US$)"
+            },
+            "country": {
+              "id": "CN",
+              "value": "China"
+            },
+            "countryiso3code": "CHN",
+            "date": "2023",
+            "value": 3449544415518.98,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "FI.RES.TOTL.CD",
+              "value": "Total reserves (includes gold, current US$)"
+            },
+            "country": {
+              "id": "CD",
+              "value": "Congo, Dem. Rep."
+            },
+            "countryiso3code": "COD",
+            "date": "2023",
+            "value": 5104181646.5526,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "FI.RES.TOTL.CD",
+              "value": "Total reserves (includes gold, current US$)"
+            },
+            "country": {
+              "id": "DE",
+              "value": "Germany"
+            },
+            "countryiso3code": "DEU",
+            "date": "2023",
+            "value": 322699586274.527,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "FI.RES.TOTL.CD",
+              "value": "Total reserves (includes gold, current US$)"
+            },
+            "country": {
+              "id": "ID",
+              "value": "Indonesia"
+            },
+            "countryiso3code": "IDN",
+            "date": "2023",
+            "value": 146358992701.848,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "FI.RES.TOTL.CD",
+              "value": "Total reserves (includes gold, current US$)"
+            },
+            "country": {
+              "id": "JP",
+              "value": "Japan"
+            },
+            "countryiso3code": "JPN",
+            "date": "2023",
+            "value": 1294636035263.82,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "FI.RES.TOTL.CD",
+              "value": "Total reserves (includes gold, current US$)"
+            },
+            "country": {
+              "id": "KR",
+              "value": "Korea, Rep."
+            },
+            "countryiso3code": "KOR",
+            "date": "2023",
+            "value": 420930029064.025,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          },
+          {
+            "indicator": {
+              "id": "FI.RES.TOTL.CD",
+              "value": "Total reserves (includes gold, current US$)"
+            },
+            "country": {
+              "id": "US",
+              "value": "United States"
+            },
+            "countryiso3code": "USA",
+            "date": "2023",
+            "value": 773426187289.127,
+            "unit": "",
+            "obs_status": "",
+            "decimal": 0
+          }
+        ]
+      ]
+    }
+  },
+  "notes": "World Bank World Development Indicators observations for 2023. Indicator publishers are WTO (merchandise trade) and IMF IFS (total reserves including gold)."
+}

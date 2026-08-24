@@ -1,0 +1,3142 @@
+{
+  "schemaVersion": "product-fixture.v1",
+  "productId": "generic-smartphone",
+  "datasetVersion": {
+    "id": "dataset-smartphone-published-2023",
+    "name": "GlobeChain 通用智能手机 2023 published 数据集",
+    "version": "globe-chain-smartphone-2023.1",
+    "publishedAt": "2026-08-25",
+    "sourceIds": [
+      "source-world-bank-wdi",
+      "source-un-comtrade",
+      "source-un-m49",
+      "source-usgs-mineral-commodities",
+      "source-iea-battery-supply-chain"
+    ],
+    "coverage": null,
+    "status": "published",
+    "notes": "2023 完整自然年；宏观指标来自 WDI，智能手机单品观察来自 UN Comtrade HS 2022 851713，路线为数量未知的代表性策展内容。"
+  },
+  "sources": [
+    {
+      "id": "source-world-bank-wdi",
+      "name": "World Development Indicators",
+      "publisher": "World Bank",
+      "url": "https://data.worldbank.org/indicator/TX.VAL.MRCH.CD.WT",
+      "license": "CC BY 4.0 (World Bank public license; indicator-specific terms apply)",
+      "publishedAt": "2026-07-13",
+      "notes": "WDI indicators TX.VAL.MRCH.CD.WT, TM.VAL.MRCH.CD.WT and FI.RES.TOTL.CD. Underlying publishers shown by WDI include WTO for merchandise trade and IMF International Financial Statistics for reserves. API snapshot and hash are in data/published/raw/world-bank-wdi-2023.json.",
+      "retrievedAt": "2026-08-24T16:53:04.820Z",
+      "datasetVersion": "WDI-2026-07-13"
+    },
+    {
+      "id": "source-un-comtrade",
+      "name": "UN Comtrade Public API",
+      "publisher": "United Nations Statistics Division",
+      "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=36%2C180%2C152%2C156%2C276%2C360%2C392%2C410%2C842&cmdCode=851713&flowCode=X%2CM&partnerCode=0&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500",
+      "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+      "publishedAt": null,
+      "notes": "HS 2022 code 851713, world-total partner, annual customs observations for 2023. Preserve UN attribution and comply with the current terms at https://comtradeplus.un.org/LicenseAgreement and https://comtradeplus.un.org/PolicyOnUseAndRedissemination. Snapshot retrieved 2026-08-24T16:53:04.820Z; primaryValue and quality flags are retained in the fixture.",
+      "retrievedAt": "2026-08-24T16:53:04.820Z",
+      "datasetVersion": "un-comtrade-hs2022-851713-2023"
+    },
+    {
+      "id": "source-un-m49",
+      "name": "UN M49 geographic area codes",
+      "publisher": "United Nations Statistics Division",
+      "url": "https://unstats.un.org/unsd/methodology/m49/",
+      "license": "United Nations terms of use; reference mapping only",
+      "publishedAt": null,
+      "retrievedAt": "2026-08-25",
+      "datasetVersion": "UN-M49-2026",
+      "notes": "Provides the numeric country/area crosswalk used with ISO3 and UN Comtrade reporter codes. It is a statistical reference dimension, not a political boundary determination."
+    },
+    {
+      "id": "source-usgs-mineral-commodities",
+      "name": "Mineral Commodity Summaries",
+      "publisher": "U.S. Geological Survey",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2024/mcs2024.pdf",
+      "license": "U.S. Government work; public-domain status and USGS terms apply",
+      "publishedAt": "2024-01-31",
+      "retrievedAt": "2026-08-25",
+      "datasetVersion": "MCS-2024",
+      "notes": "Used only as background evidence for representative mineral roles. It does not prove a specific smartphone batch, company, bilateral shipment or unique route."
+    },
+    {
+      "id": "source-iea-battery-supply-chain",
+      "name": "Global supply chains of EV batteries",
+      "publisher": "International Energy Agency",
+      "url": "https://www.iea.org/reports/global-supply-chains-of-ev-batteries",
+      "license": "IEA terms of use; link-only citation in this fixture, not a CC BY relicense",
+      "publishedAt": "2022-07-01",
+      "retrievedAt": "2026-08-25",
+      "datasetVersion": "IEA-2022",
+      "notes": "Used as contextual evidence for concentration and battery-chain stages. The curated story remains representative and quantity-free."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence-usgs-mineral-roles",
+      "sourceId": "source-usgs-mineral-commodities",
+      "locator": "Mineral Commodity Summaries 2024 PDF: Lithium, Cobalt, Nickel, Graphite, Copper and Aluminum commodity chapters",
+      "excerpt": null,
+      "notes": "Supports country/material role context only; no claim of a unique phone supply route."
+    },
+    {
+      "id": "evidence-iea-battery-chain",
+      "sourceId": "source-iea-battery-supply-chain",
+      "locator": "Executive summary and supply-chain concentration sections",
+      "excerpt": null,
+      "notes": "Supports the existence of multi-stage battery material, cell and module value-chain stages; no quantity is inferred."
+    },
+    {
+      "id": "evidence-un-m49-crosswalk",
+      "sourceId": "source-un-m49",
+      "locator": "UN M49 country or area codes table; numeric codes 036, 152, 156, 180, 276, 360, 392, 410 and 840",
+      "excerpt": null,
+      "notes": "Supports the country/area dimension crosswalk used in this fixture."
+    }
+  ],
+  "entities": [
+    {
+      "id": "country-au",
+      "kind": "country",
+      "name": "澳大利亚",
+      "iso2": "AU",
+      "iso3": "AUS",
+      "parentId": null,
+      "sourceIds": [
+        "source-world-bank-wdi",
+        "source-un-m49"
+      ],
+      "dataStatus": "observed",
+      "method": "official",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "m49": "036"
+    },
+    {
+      "id": "country-cd",
+      "kind": "country",
+      "name": "刚果民主共和国",
+      "iso2": "CD",
+      "iso3": "COD",
+      "parentId": null,
+      "sourceIds": [
+        "source-world-bank-wdi",
+        "source-un-m49"
+      ],
+      "dataStatus": "observed",
+      "method": "official",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "m49": "180"
+    },
+    {
+      "id": "country-cl",
+      "kind": "country",
+      "name": "智利",
+      "iso2": "CL",
+      "iso3": "CHL",
+      "parentId": null,
+      "sourceIds": [
+        "source-world-bank-wdi",
+        "source-un-m49"
+      ],
+      "dataStatus": "observed",
+      "method": "official",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "m49": "152"
+    },
+    {
+      "id": "country-cn",
+      "kind": "country",
+      "name": "中国",
+      "iso2": "CN",
+      "iso3": "CHN",
+      "parentId": null,
+      "sourceIds": [
+        "source-world-bank-wdi",
+        "source-un-m49"
+      ],
+      "dataStatus": "observed",
+      "method": "official",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "m49": "156"
+    },
+    {
+      "id": "country-de",
+      "kind": "country",
+      "name": "德国",
+      "iso2": "DE",
+      "iso3": "DEU",
+      "parentId": null,
+      "sourceIds": [
+        "source-world-bank-wdi",
+        "source-un-m49"
+      ],
+      "dataStatus": "observed",
+      "method": "official",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "m49": "276"
+    },
+    {
+      "id": "country-id",
+      "kind": "country",
+      "name": "印度尼西亚",
+      "iso2": "ID",
+      "iso3": "IDN",
+      "parentId": null,
+      "sourceIds": [
+        "source-world-bank-wdi",
+        "source-un-m49"
+      ],
+      "dataStatus": "observed",
+      "method": "official",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "m49": "360"
+    },
+    {
+      "id": "country-jp",
+      "kind": "country",
+      "name": "日本",
+      "iso2": "JP",
+      "iso3": "JPN",
+      "parentId": null,
+      "sourceIds": [
+        "source-world-bank-wdi",
+        "source-un-m49"
+      ],
+      "dataStatus": "observed",
+      "method": "official",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "m49": "392"
+    },
+    {
+      "id": "country-kr",
+      "kind": "country",
+      "name": "韩国",
+      "iso2": "KR",
+      "iso3": "KOR",
+      "parentId": null,
+      "sourceIds": [
+        "source-world-bank-wdi",
+        "source-un-m49"
+      ],
+      "dataStatus": "observed",
+      "method": "official",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "m49": "410"
+    },
+    {
+      "id": "country-us",
+      "kind": "country",
+      "name": "美国",
+      "iso2": "US",
+      "iso3": "USA",
+      "parentId": null,
+      "sourceIds": [
+        "source-world-bank-wdi",
+        "source-un-m49"
+      ],
+      "dataStatus": "observed",
+      "method": "official",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "m49": "840"
+    }
+  ],
+  "items": [
+    {
+      "id": "generic-smartphone",
+      "slug": "generic-smartphone",
+      "name": "智能手机（通用商品）",
+      "itemType": "final_product",
+      "parentItemId": null,
+      "category": "电子产品",
+      "description": "不对应品牌或型号的通用成品对象。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "battery",
+      "slug": "battery",
+      "name": "电池",
+      "itemType": "component",
+      "parentItemId": "generic-smartphone",
+      "category": "电子产品",
+      "description": "手机电池组件及其代表性上游路径。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "lithium",
+      "slug": "lithium",
+      "name": "锂及锂化合物",
+      "itemType": "raw_material",
+      "parentItemId": "battery",
+      "category": "矿物能源",
+      "description": "电池相关锂原料。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "cobalt",
+      "slug": "cobalt",
+      "name": "钴及钴化合物",
+      "itemType": "raw_material",
+      "parentItemId": "battery",
+      "category": "矿物能源",
+      "description": "电池正极相关钴原料。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "nickel",
+      "slug": "nickel",
+      "name": "镍及镍化合物",
+      "itemType": "raw_material",
+      "parentItemId": "battery",
+      "category": "矿物能源",
+      "description": "电池正极相关镍原料。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "graphite",
+      "slug": "graphite",
+      "name": "石墨",
+      "itemType": "raw_material",
+      "parentItemId": "battery",
+      "category": "工业品",
+      "description": "负极相关石墨原料。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "copper",
+      "slug": "copper",
+      "name": "铜",
+      "itemType": "raw_material",
+      "parentItemId": "battery",
+      "category": "工业品",
+      "description": "导电材料和铜箔相关原料。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "aluminum",
+      "slug": "aluminum",
+      "name": "铝",
+      "itemType": "raw_material",
+      "parentItemId": "battery",
+      "category": "工业品",
+      "description": "铝箔或结构材料相关原料。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "cathode-material",
+      "slug": "cathode-material",
+      "name": "正极材料",
+      "itemType": "material",
+      "parentItemId": "battery",
+      "category": "化工品",
+      "description": "正极活性材料的示意节点。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "anode-material",
+      "slug": "anode-material",
+      "name": "负极材料",
+      "itemType": "material",
+      "parentItemId": "battery",
+      "category": "化工品",
+      "description": "负极材料的示意节点。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "cell",
+      "slug": "cell",
+      "name": "电芯",
+      "itemType": "component",
+      "parentItemId": "battery",
+      "category": "电子产品",
+      "description": "电芯制造节点。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "battery-module",
+      "slug": "battery-module",
+      "name": "电池模组",
+      "itemType": "component",
+      "parentItemId": "battery",
+      "category": "电子产品",
+      "description": "电芯组合和保护电路的示意节点。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "display",
+      "slug": "display",
+      "name": "显示屏",
+      "itemType": "component",
+      "parentItemId": "generic-smartphone",
+      "category": "电子产品",
+      "description": "显示组件示意节点。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "processor-memory",
+      "slug": "processor-memory",
+      "name": "处理器与存储器",
+      "itemType": "component",
+      "parentItemId": "generic-smartphone",
+      "category": "电子产品",
+      "description": "计算与存储组件示意节点。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "camera",
+      "slug": "camera",
+      "name": "摄像头",
+      "itemType": "component",
+      "parentItemId": "generic-smartphone",
+      "category": "电子产品",
+      "description": "摄像头组件示意节点。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "pcb-connector",
+      "slug": "pcb-connector",
+      "name": "PCB 与连接器",
+      "itemType": "component",
+      "parentItemId": "generic-smartphone",
+      "category": "工业品",
+      "description": "电路板和连接器示意节点。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "enclosure-structure",
+      "slug": "enclosure-structure",
+      "name": "外壳与结构件",
+      "itemType": "component",
+      "parentItemId": "generic-smartphone",
+      "category": "工业品",
+      "description": "外壳和结构件示意节点。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    },
+    {
+      "id": "sensor-audio",
+      "slug": "sensor-audio",
+      "name": "传感器与音频部件",
+      "itemType": "component",
+      "parentItemId": "generic-smartphone",
+      "category": "电子产品",
+      "description": "传感器、扬声器和麦克风示意节点。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      }
+    }
+  ],
+  "processStages": [
+    {
+      "id": "extraction",
+      "code": "extraction",
+      "label": "原料开采",
+      "order": 0,
+      "description": "矿产或初级原料获得。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023"
+    },
+    {
+      "id": "refining",
+      "code": "refining",
+      "label": "精炼",
+      "order": 1,
+      "description": "原料提纯和化合物制备。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023"
+    },
+    {
+      "id": "material_processing",
+      "code": "material_processing",
+      "label": "材料加工",
+      "order": 2,
+      "description": "正极、负极和箔材等材料加工。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023"
+    },
+    {
+      "id": "component_manufacturing",
+      "code": "component_manufacturing",
+      "label": "部件制造",
+      "order": 3,
+      "description": "电芯及其他组件制造。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023"
+    },
+    {
+      "id": "assembly",
+      "code": "assembly",
+      "label": "组装",
+      "order": 4,
+      "description": "电池模组和整机组装。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023"
+    },
+    {
+      "id": "distribution",
+      "code": "distribution",
+      "label": "出口与分销",
+      "order": 5,
+      "description": "成品离开组装地并进入市场。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023"
+    },
+    {
+      "id": "consumption",
+      "code": "consumption",
+      "label": "消费市场",
+      "order": 6,
+      "description": "成品进入示意消费市场。",
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023"
+    }
+  ],
+  "productionActivities": [
+    {
+      "id": "activity-au-lithium",
+      "locationEntityId": "country-au",
+      "processStageId": "extraction",
+      "inputItemIds": [],
+      "outputItemIds": [
+        "lithium"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+    },
+    {
+      "id": "activity-cd-cobalt",
+      "locationEntityId": "country-cd",
+      "processStageId": "extraction",
+      "inputItemIds": [],
+      "outputItemIds": [
+        "cobalt"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+    },
+    {
+      "id": "activity-id-nickel",
+      "locationEntityId": "country-id",
+      "processStageId": "extraction",
+      "inputItemIds": [],
+      "outputItemIds": [
+        "nickel"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+    },
+    {
+      "id": "activity-cn-graphite",
+      "locationEntityId": "country-cn",
+      "processStageId": "extraction",
+      "inputItemIds": [],
+      "outputItemIds": [
+        "graphite"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+    },
+    {
+      "id": "activity-cl-copper",
+      "locationEntityId": "country-cl",
+      "processStageId": "extraction",
+      "inputItemIds": [],
+      "outputItemIds": [
+        "copper"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+    },
+    {
+      "id": "activity-au-aluminum",
+      "locationEntityId": "country-au",
+      "processStageId": "extraction",
+      "inputItemIds": [],
+      "outputItemIds": [
+        "aluminum"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+    },
+    {
+      "id": "activity-cn-cathode",
+      "locationEntityId": "country-cn",
+      "processStageId": "refining",
+      "inputItemIds": [
+        "lithium",
+        "cobalt",
+        "nickel"
+      ],
+      "outputItemIds": [
+        "cathode-material"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+    },
+    {
+      "id": "activity-cn-anode",
+      "locationEntityId": "country-cn",
+      "processStageId": "material_processing",
+      "inputItemIds": [
+        "graphite",
+        "copper",
+        "aluminum"
+      ],
+      "outputItemIds": [
+        "anode-material"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+    },
+    {
+      "id": "activity-kr-cell",
+      "locationEntityId": "country-kr",
+      "processStageId": "component_manufacturing",
+      "inputItemIds": [
+        "cathode-material",
+        "anode-material"
+      ],
+      "outputItemIds": [
+        "cell"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+    },
+    {
+      "id": "activity-kr-module",
+      "locationEntityId": "country-kr",
+      "processStageId": "assembly",
+      "inputItemIds": [
+        "cell"
+      ],
+      "outputItemIds": [
+        "battery-module"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+    },
+    {
+      "id": "activity-jp-components",
+      "locationEntityId": "country-jp",
+      "processStageId": "component_manufacturing",
+      "inputItemIds": [],
+      "outputItemIds": [
+        "display",
+        "processor-memory",
+        "camera"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+    },
+    {
+      "id": "activity-cn-assembly",
+      "locationEntityId": "country-cn",
+      "processStageId": "assembly",
+      "inputItemIds": [
+        "battery-module",
+        "display",
+        "processor-memory",
+        "camera",
+        "pcb-connector",
+        "enclosure-structure",
+        "sensor-audio"
+      ],
+      "outputItemIds": [
+        "generic-smartphone"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+    },
+    {
+      "id": "activity-us-distribution",
+      "locationEntityId": "country-us",
+      "processStageId": "distribution",
+      "inputItemIds": [
+        "generic-smartphone"
+      ],
+      "outputItemIds": [
+        "generic-smartphone"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+    },
+    {
+      "id": "activity-de-consumption",
+      "locationEntityId": "country-de",
+      "processStageId": "consumption",
+      "inputItemIds": [
+        "generic-smartphone"
+      ],
+      "outputItemIds": [
+        "generic-smartphone"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-iea-battery-supply-chain"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+    }
+  ],
+  "classificationCodes": [
+    {
+      "id": "hs-2022-851713",
+      "system": "HS",
+      "version": "2022",
+      "code": "851713",
+      "level": 6,
+      "label": "Smartphones（智能手机）",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-un-comtrade"
+      ],
+      "dataStatus": "observed",
+      "method": "official",
+      "datasetVersionId": "dataset-smartphone-published-2023"
+    },
+    {
+      "id": "hs-2022-850760",
+      "system": "HS",
+      "version": "2022",
+      "code": "850760",
+      "level": 6,
+      "label": "Lithium-ion accumulators（锂离子蓄电池）",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-un-comtrade"
+      ],
+      "dataStatus": "observed",
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023"
+    }
+  ],
+  "classificationCrosswalks": [
+    {
+      "id": "crosswalk-smartphone-hs",
+      "itemId": "generic-smartphone",
+      "classificationCodeId": "hs-2022-851713",
+      "mappingType": "exact",
+      "confidence": 1,
+      "notes": "HS 2022 six-digit code 851713 is used for the smartphone product slice.",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-un-comtrade"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-smartphone-published-2023"
+    },
+    {
+      "id": "crosswalk-battery-hs",
+      "itemId": "battery",
+      "classificationCodeId": "hs-2022-850760",
+      "mappingType": "aggregate",
+      "confidence": null,
+      "notes": "HS 2022 850760 is a broader lithium-ion accumulator category; it is not asserted to equal all smartphone batteries.",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "sourceIds": [
+        "source-usgs-mineral-commodities"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-smartphone-published-2023"
+    }
+  ],
+  "storyGraph": {
+    "productId": "generic-smartphone",
+    "period": {
+      "granularity": "annual",
+      "start": "2023-01-01",
+      "end": "2023-12-31",
+      "label": "2023"
+    },
+    "nodes": [
+      {
+        "id": "node-au-lithium",
+        "nodeType": "entity",
+        "label": "澳大利亚 · 锂原料",
+        "entityId": "country-au",
+        "itemId": "lithium",
+        "itemType": "raw_material",
+        "processStageId": "extraction",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+      },
+      {
+        "id": "node-cd-cobalt",
+        "nodeType": "entity",
+        "label": "刚果民主共和国 · 钴原料",
+        "entityId": "country-cd",
+        "itemId": "cobalt",
+        "itemType": "raw_material",
+        "processStageId": "extraction",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+      },
+      {
+        "id": "node-id-nickel",
+        "nodeType": "entity",
+        "label": "印度尼西亚 · 镍原料",
+        "entityId": "country-id",
+        "itemId": "nickel",
+        "itemType": "raw_material",
+        "processStageId": "extraction",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+      },
+      {
+        "id": "node-cn-graphite",
+        "nodeType": "entity",
+        "label": "中国 · 石墨原料",
+        "entityId": "country-cn",
+        "itemId": "graphite",
+        "itemType": "raw_material",
+        "processStageId": "extraction",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+      },
+      {
+        "id": "node-cl-copper",
+        "nodeType": "entity",
+        "label": "智利 · 铜原料",
+        "entityId": "country-cl",
+        "itemId": "copper",
+        "itemType": "raw_material",
+        "processStageId": "extraction",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+      },
+      {
+        "id": "node-au-aluminum",
+        "nodeType": "entity",
+        "label": "澳大利亚 · 铝原料",
+        "entityId": "country-au",
+        "itemId": "aluminum",
+        "itemType": "raw_material",
+        "processStageId": "extraction",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+      },
+      {
+        "id": "node-cn-cathode",
+        "nodeType": "entity",
+        "label": "中国 · 正极材料",
+        "entityId": "country-cn",
+        "itemId": "cathode-material",
+        "itemType": "material",
+        "processStageId": "refining",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+      },
+      {
+        "id": "node-cn-anode",
+        "nodeType": "entity",
+        "label": "中国 · 负极材料",
+        "entityId": "country-cn",
+        "itemId": "anode-material",
+        "itemType": "material",
+        "processStageId": "material_processing",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+      },
+      {
+        "id": "node-kr-cell",
+        "nodeType": "entity",
+        "label": "韩国 · 电芯",
+        "entityId": "country-kr",
+        "itemId": "cell",
+        "itemType": "component",
+        "processStageId": "component_manufacturing",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+      },
+      {
+        "id": "node-kr-module",
+        "nodeType": "entity",
+        "label": "韩国 · 电池模组",
+        "entityId": "country-kr",
+        "itemId": "battery-module",
+        "itemType": "component",
+        "processStageId": "assembly",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+      },
+      {
+        "id": "node-jp-components",
+        "nodeType": "entity",
+        "label": "日本 · 电子组件",
+        "entityId": "country-jp",
+        "itemId": "display",
+        "itemType": "component",
+        "processStageId": "component_manufacturing",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+      },
+      {
+        "id": "node-cn-assembly",
+        "nodeType": "entity",
+        "label": "中国 · 手机组装",
+        "entityId": "country-cn",
+        "itemId": "generic-smartphone",
+        "itemType": "final_product",
+        "processStageId": "assembly",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+      },
+      {
+        "id": "node-us-export",
+        "nodeType": "market",
+        "label": "美国 · 进口/分销市场",
+        "entityId": "country-us",
+        "itemId": "generic-smartphone",
+        "itemType": "final_product",
+        "processStageId": "distribution",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+      },
+      {
+        "id": "node-de-consumption",
+        "nodeType": "market",
+        "label": "德国 · 消费市场",
+        "entityId": "country-de",
+        "itemId": "generic-smartphone",
+        "itemType": "final_product",
+        "processStageId": "consumption",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+      }
+    ],
+    "flows": [
+      {
+        "id": "flow-lithium-refining",
+        "fromEntityId": "node-au-lithium",
+        "toEntityId": "node-cn-cathode",
+        "itemId": "lithium",
+        "processStageId": "refining",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "method": "curated",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "confidence": null,
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+      },
+      {
+        "id": "flow-cobalt-refining",
+        "fromEntityId": "node-cd-cobalt",
+        "toEntityId": "node-cn-cathode",
+        "itemId": "cobalt",
+        "processStageId": "refining",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "method": "curated",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "confidence": null,
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+      },
+      {
+        "id": "flow-nickel-refining",
+        "fromEntityId": "node-id-nickel",
+        "toEntityId": "node-cn-cathode",
+        "itemId": "nickel",
+        "processStageId": "refining",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "method": "curated",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "confidence": null,
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+      },
+      {
+        "id": "flow-graphite-anode",
+        "fromEntityId": "node-cn-graphite",
+        "toEntityId": "node-cn-anode",
+        "itemId": "graphite",
+        "processStageId": "material_processing",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "method": "curated",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "confidence": null,
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+      },
+      {
+        "id": "flow-copper-anode",
+        "fromEntityId": "node-cl-copper",
+        "toEntityId": "node-cn-anode",
+        "itemId": "copper",
+        "processStageId": "material_processing",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "method": "curated",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "confidence": null,
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+      },
+      {
+        "id": "flow-aluminum-anode",
+        "fromEntityId": "node-au-aluminum",
+        "toEntityId": "node-cn-anode",
+        "itemId": "aluminum",
+        "processStageId": "material_processing",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "method": "curated",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "confidence": null,
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+      },
+      {
+        "id": "flow-cathode-cell",
+        "fromEntityId": "node-cn-cathode",
+        "toEntityId": "node-kr-cell",
+        "itemId": "cathode-material",
+        "processStageId": "component_manufacturing",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "method": "curated",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "confidence": null,
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+      },
+      {
+        "id": "flow-anode-cell",
+        "fromEntityId": "node-cn-anode",
+        "toEntityId": "node-kr-cell",
+        "itemId": "anode-material",
+        "processStageId": "component_manufacturing",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "method": "curated",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "confidence": null,
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+      },
+      {
+        "id": "flow-cell-module",
+        "fromEntityId": "node-kr-cell",
+        "toEntityId": "node-kr-module",
+        "itemId": "cell",
+        "processStageId": "assembly",
+        "relationType": "assembly",
+        "flowKind": "representative_supply",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "method": "curated",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "confidence": null,
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+      },
+      {
+        "id": "flow-module-assembly",
+        "fromEntityId": "node-kr-module",
+        "toEntityId": "node-cn-assembly",
+        "itemId": "battery-module",
+        "processStageId": "assembly",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "method": "curated",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "confidence": null,
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+      },
+      {
+        "id": "flow-components-assembly",
+        "fromEntityId": "node-jp-components",
+        "toEntityId": "node-cn-assembly",
+        "itemId": "display",
+        "processStageId": "assembly",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "method": "curated",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "confidence": null,
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+      },
+      {
+        "id": "flow-assembly-export",
+        "fromEntityId": "node-cn-assembly",
+        "toEntityId": "node-us-export",
+        "itemId": "generic-smartphone",
+        "processStageId": "distribution",
+        "relationType": "trade",
+        "flowKind": "representative_supply",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "method": "curated",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "confidence": null,
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+      },
+      {
+        "id": "flow-export-consumption",
+        "fromEntityId": "node-us-export",
+        "toEntityId": "node-de-consumption",
+        "itemId": "generic-smartphone",
+        "processStageId": "consumption",
+        "relationType": "consumption",
+        "flowKind": "representative_supply",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "method": "curated",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain"
+        ],
+        "confidence": null,
+        "dataStatus": "unknown",
+        "datasetVersionId": "dataset-smartphone-published-2023",
+        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+      }
+    ],
+    "steps": [
+      {
+        "id": "step-raw-materials",
+        "order": 0,
+        "title": "多国原料节点",
+        "description": "锂、钴、镍、石墨、铜和铝以分支形式进入示意路径。",
+        "nodeIds": [
+          "node-au-lithium",
+          "node-cd-cobalt",
+          "node-id-nickel",
+          "node-cn-graphite",
+          "node-cl-copper",
+          "node-au-aluminum"
+        ],
+        "flowIds": [
+          "flow-lithium-refining",
+          "flow-cobalt-refining",
+          "flow-nickel-refining",
+          "flow-graphite-anode",
+          "flow-copper-anode",
+          "flow-aluminum-anode"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-mineral-roles",
+          "evidence-iea-battery-chain"
+        ],
+        "contentStatus": "published",
+        "contentVersionId": "content-smartphone-route-2023-1"
+      },
+      {
+        "id": "step-materials",
+        "order": 1,
+        "title": "精炼与正负极材料",
+        "description": "原料在示意加工节点形成正极和负极材料。",
+        "nodeIds": [
+          "node-cn-cathode",
+          "node-cn-anode"
+        ],
+        "flowIds": [
+          "flow-cathode-cell",
+          "flow-anode-cell"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-mineral-roles",
+          "evidence-iea-battery-chain"
+        ],
+        "contentStatus": "published",
+        "contentVersionId": "content-smartphone-route-2023-1"
+      },
+      {
+        "id": "step-cell",
+        "order": 2,
+        "title": "电芯制造",
+        "description": "正负极材料进入电芯制造节点。",
+        "nodeIds": [
+          "node-kr-cell"
+        ],
+        "flowIds": [
+          "flow-cell-module"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-mineral-roles",
+          "evidence-iea-battery-chain"
+        ],
+        "contentStatus": "published",
+        "contentVersionId": "content-smartphone-route-2023-1"
+      },
+      {
+        "id": "step-module",
+        "order": 3,
+        "title": "电池模组",
+        "description": "电芯组合为电池模组。",
+        "nodeIds": [
+          "node-kr-module"
+        ],
+        "flowIds": [
+          "flow-module-assembly"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-mineral-roles",
+          "evidence-iea-battery-chain"
+        ],
+        "contentStatus": "published",
+        "contentVersionId": "content-smartphone-route-2023-1"
+      },
+      {
+        "id": "step-assembly",
+        "order": 4,
+        "title": "整机组装",
+        "description": "电池模组与其他组件在示意组装节点形成通用智能手机。",
+        "nodeIds": [
+          "node-jp-components",
+          "node-cn-assembly"
+        ],
+        "flowIds": [
+          "flow-components-assembly"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-mineral-roles",
+          "evidence-iea-battery-chain"
+        ],
+        "contentStatus": "published",
+        "contentVersionId": "content-smartphone-route-2023-1"
+      },
+      {
+        "id": "step-distribution",
+        "order": 5,
+        "title": "出口与分销",
+        "description": "成品从组装节点进入示意进口/分销市场。",
+        "nodeIds": [
+          "node-us-export"
+        ],
+        "flowIds": [
+          "flow-assembly-export"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-mineral-roles",
+          "evidence-iea-battery-chain"
+        ],
+        "contentStatus": "published",
+        "contentVersionId": "content-smartphone-route-2023-1"
+      },
+      {
+        "id": "step-consumption",
+        "order": 6,
+        "title": "消费市场",
+        "description": "成品进入示意消费市场。",
+        "nodeIds": [
+          "node-de-consumption"
+        ],
+        "flowIds": [
+          "flow-export-consumption"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-mineral-roles",
+          "evidence-iea-battery-chain"
+        ],
+        "contentStatus": "published",
+        "contentVersionId": "content-smartphone-route-2023-1"
+      }
+    ],
+    "datasetVersionId": "dataset-smartphone-published-2023",
+    "contentVersionId": "content-smartphone-route-2023-1",
+    "warnings": [
+      "这是代表性供应链路径，不代表某一品牌、型号、企业、批次或唯一真实路线。",
+      "路线关系没有数量值；未知数量保持为 unknown，不应解读为零。"
+    ]
+  },
+  "tradeObservations": [
+    {
+      "id": "trade-aus-smartphone-export",
+      "reporterEntityId": "country-au",
+      "partnerEntityId": null,
+      "direction": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 597424737.144,
+      "quantity": null,
+      "currency": "USD",
+      "unit": null,
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "estimated",
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":4,\"isQtyEstimated\":false,\"qtyUnitCode\":5,\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-aus-smartphone-import",
+      "reporterEntityId": "country-au",
+      "partnerEntityId": null,
+      "direction": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 4408403531.668,
+      "quantity": 8327728,
+      "currency": "USD",
+      "unit": "items",
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":0,\"isQtyEstimated\":false,\"qtyUnitCode\":5,\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-chl-smartphone-export",
+      "reporterEntityId": "country-cl",
+      "partnerEntityId": null,
+      "direction": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 5434139.443,
+      "quantity": null,
+      "currency": "USD",
+      "unit": null,
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "estimated",
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":4,\"isQtyEstimated\":false,\"qtyUnitCode\":5,\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-chl-smartphone-import",
+      "reporterEntityId": "country-cl",
+      "partnerEntityId": null,
+      "direction": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 1444502353.375,
+      "quantity": null,
+      "currency": "USD",
+      "unit": null,
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "estimated",
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":2,\"isQtyEstimated\":true,\"qtyUnitCode\":5,\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-chn-smartphone-export",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": null,
+      "direction": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 136676579198,
+      "quantity": null,
+      "currency": "USD",
+      "unit": null,
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "estimated",
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":4,\"isQtyEstimated\":false,\"qtyUnitCode\":5,\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-chn-smartphone-import",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": null,
+      "direction": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 1313088888,
+      "quantity": null,
+      "currency": "USD",
+      "unit": null,
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "estimated",
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":4,\"isQtyEstimated\":false,\"qtyUnitCode\":5,\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-deu-smartphone-export",
+      "reporterEntityId": "country-de",
+      "partnerEntityId": null,
+      "direction": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 3566915477.25,
+      "quantity": null,
+      "currency": "USD",
+      "unit": null,
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "estimated",
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":6,\"isQtyEstimated\":true,\"qtyUnitCode\":5,\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-deu-smartphone-import",
+      "reporterEntityId": "country-de",
+      "partnerEntityId": null,
+      "direction": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 12698537896.635,
+      "quantity": null,
+      "currency": "USD",
+      "unit": null,
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "estimated",
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":6,\"isQtyEstimated\":true,\"qtyUnitCode\":5,\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-idn-smartphone-export",
+      "reporterEntityId": "country-id",
+      "partnerEntityId": null,
+      "direction": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 311761027.786,
+      "quantity": null,
+      "currency": "USD",
+      "unit": null,
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "estimated",
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":2,\"isQtyEstimated\":true,\"qtyUnitCode\":5,\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-idn-smartphone-import",
+      "reporterEntityId": "country-id",
+      "partnerEntityId": null,
+      "direction": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 1971324902,
+      "quantity": null,
+      "currency": "USD",
+      "unit": null,
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "estimated",
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":2,\"isQtyEstimated\":true,\"qtyUnitCode\":5,\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-jpn-smartphone-export",
+      "reporterEntityId": "country-jp",
+      "partnerEntityId": null,
+      "direction": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 80249121.602,
+      "quantity": null,
+      "currency": "USD",
+      "unit": null,
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "estimated",
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":4,\"isQtyEstimated\":false,\"qtyUnitCode\":5,\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-jpn-smartphone-import",
+      "reporterEntityId": "country-jp",
+      "partnerEntityId": null,
+      "direction": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 17497448896.512,
+      "quantity": null,
+      "currency": "USD",
+      "unit": null,
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "estimated",
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":4,\"isQtyEstimated\":false,\"qtyUnitCode\":5,\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-kor-smartphone-export",
+      "reporterEntityId": "country-kr",
+      "partnerEntityId": null,
+      "direction": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 3022413747,
+      "quantity": null,
+      "currency": "USD",
+      "unit": null,
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "estimated",
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":6,\"isQtyEstimated\":true,\"qtyUnitCode\":5,\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-kor-smartphone-import",
+      "reporterEntityId": "country-kr",
+      "partnerEntityId": null,
+      "direction": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 4337974234,
+      "quantity": null,
+      "currency": "USD",
+      "unit": null,
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "estimated",
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":6,\"isQtyEstimated\":true,\"qtyUnitCode\":5,\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-usa-smartphone-export",
+      "reporterEntityId": "country-us",
+      "partnerEntityId": null,
+      "direction": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 9218673261,
+      "quantity": null,
+      "currency": "USD",
+      "unit": null,
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "estimated",
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":4,\"isQtyEstimated\":false,\"qtyUnitCode\":5,\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-usa-smartphone-import",
+      "reporterEntityId": "country-us",
+      "partnerEntityId": null,
+      "direction": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 59633365200,
+      "quantity": null,
+      "currency": "USD",
+      "unit": null,
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "estimated",
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":4,\"isQtyEstimated\":false,\"qtyUnitCode\":5,\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    }
+  ],
+  "macroIndicators": [
+    {
+      "id": "macro-aus-merchandise-exports",
+      "entityId": "country-au",
+      "indicator": "merchandise_exports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 371407000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TX.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-aus-merchandise-imports",
+      "entityId": "country-au",
+      "indicator": "merchandise_imports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 287406000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TM.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-aus-merchandise-balance",
+      "entityId": "country-au",
+      "indicator": "merchandise_trade_balance_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 84001000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "derived",
+      "dataStatus": "observed",
+      "notes": "Derived as merchandise exports minus merchandise imports for 2023; inputs are the same WDI snapshot (2026-07-13). Positive values indicate a surplus; this is not profit or domestic value added."
+    },
+    {
+      "id": "macro-aus-official-reserves-including-gold",
+      "entityId": "country-au",
+      "indicator": "official_reserves_including_gold_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 61703347652.0138,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023, FI.RES.TOTL.CD. Official reserves include gold; this is not the narrower foreign-exchange-only reserve concept."
+    },
+    {
+      "id": "macro-cod-merchandise-exports",
+      "entityId": "country-cd",
+      "indicator": "merchandise_exports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 27727000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TX.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-cod-merchandise-imports",
+      "entityId": "country-cd",
+      "indicator": "merchandise_imports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 25529000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TM.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-cod-merchandise-balance",
+      "entityId": "country-cd",
+      "indicator": "merchandise_trade_balance_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 2198000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "derived",
+      "dataStatus": "observed",
+      "notes": "Derived as merchandise exports minus merchandise imports for 2023; inputs are the same WDI snapshot (2026-07-13). Positive values indicate a surplus; this is not profit or domestic value added."
+    },
+    {
+      "id": "macro-cod-official-reserves-including-gold",
+      "entityId": "country-cd",
+      "indicator": "official_reserves_including_gold_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 5104181646.5526,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023, FI.RES.TOTL.CD. Official reserves include gold; this is not the narrower foreign-exchange-only reserve concept."
+    },
+    {
+      "id": "macro-chl-merchandise-exports",
+      "entityId": "country-cl",
+      "indicator": "merchandise_exports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 92972000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TX.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-chl-merchandise-imports",
+      "entityId": "country-cl",
+      "indicator": "merchandise_imports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 85250000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TM.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-chl-merchandise-balance",
+      "entityId": "country-cl",
+      "indicator": "merchandise_trade_balance_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 7722000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "derived",
+      "dataStatus": "observed",
+      "notes": "Derived as merchandise exports minus merchandise imports for 2023; inputs are the same WDI snapshot (2026-07-13). Positive values indicate a surplus; this is not profit or domestic value added."
+    },
+    {
+      "id": "macro-chl-official-reserves-including-gold",
+      "entityId": "country-cl",
+      "indicator": "official_reserves_including_gold_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 46377347796.8251,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023, FI.RES.TOTL.CD. Official reserves include gold; this is not the narrower foreign-exchange-only reserve concept."
+    },
+    {
+      "id": "macro-chn-merchandise-exports",
+      "entityId": "country-cn",
+      "indicator": "merchandise_exports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 3379044000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TX.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-chn-merchandise-imports",
+      "entityId": "country-cn",
+      "indicator": "merchandise_imports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 2556941000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TM.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-chn-merchandise-balance",
+      "entityId": "country-cn",
+      "indicator": "merchandise_trade_balance_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 822103000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "derived",
+      "dataStatus": "observed",
+      "notes": "Derived as merchandise exports minus merchandise imports for 2023; inputs are the same WDI snapshot (2026-07-13). Positive values indicate a surplus; this is not profit or domestic value added."
+    },
+    {
+      "id": "macro-chn-official-reserves-including-gold",
+      "entityId": "country-cn",
+      "indicator": "official_reserves_including_gold_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 3449544415518.98,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023, FI.RES.TOTL.CD. Official reserves include gold; this is not the narrower foreign-exchange-only reserve concept."
+    },
+    {
+      "id": "macro-deu-merchandise-exports",
+      "entityId": "country-de",
+      "indicator": "merchandise_exports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 1702278000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TX.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-deu-merchandise-imports",
+      "entityId": "country-de",
+      "indicator": "merchandise_imports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 1467598000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TM.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-deu-merchandise-balance",
+      "entityId": "country-de",
+      "indicator": "merchandise_trade_balance_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 234680000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "derived",
+      "dataStatus": "observed",
+      "notes": "Derived as merchandise exports minus merchandise imports for 2023; inputs are the same WDI snapshot (2026-07-13). Positive values indicate a surplus; this is not profit or domestic value added."
+    },
+    {
+      "id": "macro-deu-official-reserves-including-gold",
+      "entityId": "country-de",
+      "indicator": "official_reserves_including_gold_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 322699586274.527,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023, FI.RES.TOTL.CD. Official reserves include gold; this is not the narrower foreign-exchange-only reserve concept."
+    },
+    {
+      "id": "macro-idn-merchandise-exports",
+      "entityId": "country-id",
+      "indicator": "merchandise_exports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 258857000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TX.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-idn-merchandise-imports",
+      "entityId": "country-id",
+      "indicator": "merchandise_imports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 221886000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TM.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-idn-merchandise-balance",
+      "entityId": "country-id",
+      "indicator": "merchandise_trade_balance_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 36971000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "derived",
+      "dataStatus": "observed",
+      "notes": "Derived as merchandise exports minus merchandise imports for 2023; inputs are the same WDI snapshot (2026-07-13). Positive values indicate a surplus; this is not profit or domestic value added."
+    },
+    {
+      "id": "macro-idn-official-reserves-including-gold",
+      "entityId": "country-id",
+      "indicator": "official_reserves_including_gold_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 146358992701.848,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023, FI.RES.TOTL.CD. Official reserves include gold; this is not the narrower foreign-exchange-only reserve concept."
+    },
+    {
+      "id": "macro-jpn-merchandise-exports",
+      "entityId": "country-jp",
+      "indicator": "merchandise_exports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 717256000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TX.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-jpn-merchandise-imports",
+      "entityId": "country-jp",
+      "indicator": "merchandise_imports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 787199000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TM.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-jpn-merchandise-balance",
+      "entityId": "country-jp",
+      "indicator": "merchandise_trade_balance_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": -69943000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "derived",
+      "dataStatus": "observed",
+      "notes": "Derived as merchandise exports minus merchandise imports for 2023; inputs are the same WDI snapshot (2026-07-13). Positive values indicate a surplus; this is not profit or domestic value added."
+    },
+    {
+      "id": "macro-jpn-official-reserves-including-gold",
+      "entityId": "country-jp",
+      "indicator": "official_reserves_including_gold_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 1294636035263.82,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023, FI.RES.TOTL.CD. Official reserves include gold; this is not the narrower foreign-exchange-only reserve concept."
+    },
+    {
+      "id": "macro-kor-merchandise-exports",
+      "entityId": "country-kr",
+      "indicator": "merchandise_exports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 632226000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TX.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-kor-merchandise-imports",
+      "entityId": "country-kr",
+      "indicator": "merchandise_imports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 642572000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TM.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-kor-merchandise-balance",
+      "entityId": "country-kr",
+      "indicator": "merchandise_trade_balance_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": -10346000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "derived",
+      "dataStatus": "observed",
+      "notes": "Derived as merchandise exports minus merchandise imports for 2023; inputs are the same WDI snapshot (2026-07-13). Positive values indicate a surplus; this is not profit or domestic value added."
+    },
+    {
+      "id": "macro-kor-official-reserves-including-gold",
+      "entityId": "country-kr",
+      "indicator": "official_reserves_including_gold_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 420930029064.025,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023, FI.RES.TOTL.CD. Official reserves include gold; this is not the narrower foreign-exchange-only reserve concept."
+    },
+    {
+      "id": "macro-usa-merchandise-exports",
+      "entityId": "country-us",
+      "indicator": "merchandise_exports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 2018059000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TX.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-usa-merchandise-imports",
+      "entityId": "country-us",
+      "indicator": "merchandise_imports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 3168237000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023; source indicator last updated 2026-07-13. Values are current US$ and are not company revenue or profit. Indicator TM.VAL.MRCH.CD.WT."
+    },
+    {
+      "id": "macro-usa-merchandise-balance",
+      "entityId": "country-us",
+      "indicator": "merchandise_trade_balance_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": -1150178000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "derived",
+      "dataStatus": "observed",
+      "notes": "Derived as merchandise exports minus merchandise imports for 2023; inputs are the same WDI snapshot (2026-07-13). Positive values indicate a surplus; this is not profit or domestic value added."
+    },
+    {
+      "id": "macro-usa-official-reserves-including-gold",
+      "entityId": "country-us",
+      "indicator": "official_reserves_including_gold_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 773426187289.127,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "sourceId": "source-world-bank-wdi",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI 2023, FI.RES.TOTL.CD. Official reserves include gold; this is not the narrower foreign-exchange-only reserve concept."
+    }
+  ],
+  "warnings": [
+    "本数据集使用 2023 完整自然年；不混合其他年份或财年。",
+    "智能手机单品贸易为 HS 2022 六位码 851713、世界总计伙伴的海关观察；缺失国家/流向不填零。",
+    "官方储备指标 FI.RES.TOTL.CD 包含黄金，不等同于狭义外汇储备。",
+    "电池供应链是有来源的代表性策展路径，不代表唯一真实路线，也不提供成本、增加值或利润分配。",
+    "Comtrade 估算和质量标记保存在 qualityNote，并影响 dataStatus；运行时不请求外部 API。"
+  ]
+}

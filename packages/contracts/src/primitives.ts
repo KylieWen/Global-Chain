@@ -7,6 +7,7 @@ export const NullableStringSchema = NonEmptyStringSchema.nullable().optional();
 
 export const Iso2Schema = z.string().regex(/^[A-Z]{2}$/, "Expected an ISO 3166-1 alpha-2 code");
 export const Iso3Schema = z.string().regex(/^[A-Z]{3}$/, "Expected an ISO 3166-1 alpha-3 code");
+export const M49Schema = z.string().regex(/^\d{3}$/, "Expected a UN M49 numeric code");
 
 export const PeriodGranularitySchema = z.enum(["annual", "quarterly", "monthly"]);
 export type PeriodGranularity = z.infer<typeof PeriodGranularitySchema>;

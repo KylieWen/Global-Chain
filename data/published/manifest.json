@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-smartphone",
+      "path": "smartphone/fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-smartphone-2023.1",
+  "generatedAt": "2026-08-25",
+  "fixtureSha256": "49e97037036ffb745a517207df04fb9becf19ae18d27b83d81cd163fa133b002",
+  "sourceSnapshots": [
+    "raw/world-bank-wdi-2023.json",
+    "raw/un-comtrade-hs2022-851713-2023.json"
+  ],
+  "notes": [
+    "Generated from immutable local raw snapshots; no runtime API calls.",
+    "The published fixture intentionally omits countries/flows absent from the Comtrade response rather than filling zero."
+  ]
+}
