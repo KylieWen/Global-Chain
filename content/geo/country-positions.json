@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "country-map-positions.v1",
+  "positions": {
+    "country-au": { "longitude": 133.8, "latitude": -25.3 },
+    "country-cd": { "longitude": 23.6, "latitude": -2.9 },
+    "country-cl": { "longitude": -71.5, "latitude": -35.7 },
+    "country-cn": { "longitude": 104.2, "latitude": 35.9 },
+    "country-de": { "longitude": 10.4, "latitude": 51.2 },
+    "country-id": { "longitude": 117.2, "latitude": -2.5 },
+    "country-jp": { "longitude": 138.0, "latitude": 36.2 },
+    "country-kr": { "longitude": 127.8, "latitude": 36.3 },
+    "country-us": { "longitude": -100.0, "latitude": 39.8 }
+  },
+  "limitations": [
+    "位置是国家级示意点，不是边界、港口或工厂坐标。",
+    "地图只显示当前 published 数据集中有记录的国家，不代表全球覆盖完整。",
+    "国家位置不证明具体商品从该国进入某一部手机。"
+  ]
+}

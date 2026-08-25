@@ -434,6 +434,19 @@ p { line-height: 1.7; }
 .version-card-top strong { color: var(--navy); font-size: 1rem; }
 .version-card p { margin: 0; color: var(--ink-soft); font-size: 0.8rem; }
 .version-meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; color: var(--muted); font-size: 0.7rem; }
+.map-shell { overflow-x: auto; padding: 1rem; border: 1px solid var(--line); border-radius: 1rem; background: linear-gradient(135deg, #f3f8ff, #fff); }
+.world-map { display: block; min-width: 760px; width: 100%; height: auto; }
+.world-map rect { fill: #f9fcff; stroke: #cbd9ea; }
+.map-graticule { fill: none; stroke: #e2eaf4; stroke-width: 1; stroke-dasharray: 3 5; }
+.map-country-node circle { fill: var(--blue); stroke: #fff; stroke-width: 3; }
+.map-country-node:hover circle { fill: var(--orange); }
+.map-country-node text { fill: var(--navy); font-size: 12px; font-weight: 750; }
+.map-note { margin: 0.75rem 0 0; color: var(--ink-soft); font-size: 0.76rem; }
+.map-country-list { display: grid; gap: 0.55rem; }
+.map-country-row { display: grid; grid-template-columns: minmax(10rem, 1fr) minmax(14rem, 1.5fr) auto; gap: 1rem; align-items: center; padding: 0.8rem 1rem; border: 1px solid var(--line); border-radius: 0.7rem; background: #fff; }
+.map-country-row:hover { border-color: #9bb6e9; background: #f8fbff; }
+.map-country-row span { color: var(--ink-soft); font-size: 0.76rem; }
+@media (max-width: 640px) { .map-country-row { grid-template-columns: 1fr; gap: 0.3rem; } }
 @media (max-width: 900px) { .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .category-grid { grid-template-columns: 1fr; } }
 @media (max-width: 900px) { .country-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
