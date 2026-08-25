@@ -68,6 +68,18 @@ export interface ProductOverviewView {
   readonly datasetVersion: ReadonlyDatasetVersion;
   readonly sources: readonly ReadonlySource[];
   readonly warnings: readonly string[];
+  readonly componentCoverage: readonly ComponentCoverageView[];
+}
+
+export type ComponentCoverageStatus = "route_published" | "partial_route" | "catalog_only";
+
+export interface ComponentCoverageView {
+  readonly item: ReadonlyItem;
+  readonly status: ComponentCoverageStatus;
+  readonly nodeCount: number;
+  readonly flowCount: number;
+  readonly evidenceGapCount: number;
+  readonly evidenceLevels: readonly EvidenceLevelView["code"][];
 }
 
 export interface ProductBreakdownNode {
@@ -954,11 +966,29 @@ export function getProductOverview(
   const product = getProductItem(fixture);
   if (!product) return null;
 
+  const directChildren = fixture.items.filter((item) => item.parentItemId === product.id);
+  const componentCoverage = directChildren.map((item) => {
+    const story = createStoryView(fixture, { focusItemId: item.id });
+    const nodeCount = story.nodes.length;
+    const flowCount = story.flows.length;
+    const evidenceLevels = [...new Set([
+      ...story.nodes.map((node) => node.evidenceLevel.code),
+      ...story.flows.map((flow) => flow.evidenceLevel.code)
+    ])];
+    return Object.freeze({
+      item,
+      status: nodeCount > 0 && flowCount > 0 ? "route_published" : nodeCount > 0 || flowCount > 0 ? "partial_route" : "catalog_only",
+      nodeCount,
+      flowCount,
+      evidenceGapCount: story.evidenceGaps.length,
+      evidenceLevels: freezeArray(evidenceLevels)
+    });
+  });
+
   return Object.freeze({
     product,
-    directChildren: freezeArray(
-      fixture.items.filter((item) => item.parentItemId === product.id)
-    ),
+    directChildren: freezeArray(directChildren),
+    componentCoverage: freezeArray(componentCoverage),
     period: fixture.storyGraph.period,
     datasetVersion: fixture.datasetVersion,
     sources: freezeArray(fixture.sources),

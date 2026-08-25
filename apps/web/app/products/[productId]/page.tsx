@@ -28,15 +28,7 @@ export default async function ProductOverviewPage({
   const breakdown = queries.getProductBreakdown(productId);
   const provenance = queries.getProvenance(productId);
   if (!overview || !breakdown || !provenance) notFound();
-  const childRoutes = overview.directChildren.map((item) => {
-    try {
-      const story = queries.getSupplyChainStory(productId, { focusItemId: item.id, granularity: overview.period.granularity });
-      return [item.id, Boolean(story && (story.nodes.length > 0 || story.flows.length > 0))] as const;
-    } catch {
-      return [item.id, false] as const;
-    }
-  });
-  const routeAvailability = new Map(childRoutes);
+  const coverageByItemId = new Map(overview.componentCoverage.map((coverage) => [coverage.item.id, coverage]));
   const mismatches = contextMismatch(pageContext, { period: overview.period.label, datasetVersion: overview.datasetVersion.version, contentVersion: provenance.route.contentVersion?.version });
 
   return (
@@ -80,7 +72,8 @@ export default async function ProductOverviewPage({
           </div>
           <div className="component-grid">
             {overview.directChildren.map((item) => {
-              const hasRoute = routeAvailability.get(item.id) ?? false;
+              const coverage = coverageByItemId.get(item.id);
+              const hasRoute = coverage?.status === "route_published";
               return hasRoute ? <Link className="component-card" href={supplyChainPath(productId, item.id, pageContext)} key={item.id}>
                 <span className="card-kicker">{item.category}</span>
                 <h3>{item.name}</h3>
@@ -95,6 +88,20 @@ export default async function ProductOverviewPage({
                 <span className="card-footer">尚无已发布供应链路线</span>
               </article>;
             })}
+          </div>
+        </section>
+
+        <section className="section-block" aria-labelledby="coverage-title">
+          <div className="section-heading"><div><p className="eyebrow">Data layer coverage</p><h2 id="coverage-title">组件数据覆盖矩阵</h2></div><span className="section-caption">路线覆盖、证据缺口和证据等级分开显示</span></div>
+          <div className="coverage-list">
+            {overview.componentCoverage.map((coverage) => (
+              <article className="coverage-row" key={coverage.item.id}>
+                <div><strong>{coverage.item.name}</strong><span className="muted">{coverage.item.category}</span></div>
+                <span className={`coverage-status coverage-status-${coverage.status}`}>{coverage.status === "route_published" ? "已有已发布路线" : coverage.status === "partial_route" ? "路线不完整" : "仅有目录记录"}</span>
+                <span className="muted">节点 {coverage.nodeCount} · 连接 {coverage.flowCount} · 缺口 {coverage.evidenceGapCount}</span>
+                <span className="muted">证据：{coverage.evidenceLevels.length ? coverage.evidenceLevels.join("、") : "尚无路线证据"}</span>
+              </article>
+            ))}
           </div>
         </section>
 
