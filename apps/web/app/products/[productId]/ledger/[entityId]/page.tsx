@@ -44,7 +44,7 @@ export default async function CountryLedgerPage({
   const query = await searchParams;
   const pageContext = readPageContext(query);
   const label = firstParam(query.label);
-  const queries = await getQueryService();
+  const queries = await getQueryService(pageContext.datasetVersion);
   const overview = queries.getProductOverview(productId);
   if (!overview) notFound();
   const ledger = queries.getCountryLedger(productId, entityId, {

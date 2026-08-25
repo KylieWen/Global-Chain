@@ -4,16 +4,17 @@ import {
   createProductQueryService,
   type ProductQueryService
 } from "@globe-chain/domain";
-import { getManifestPath } from "./data-manifest";
+import { getManifestPath, getPublishedReleaseManifestPath } from "./data-manifest";
 import { getWebDataMode } from "./runtime";
 
 let queryServicePromise: Promise<ProductQueryService> | undefined;
 let queryServiceCacheKey: string | undefined;
 
 /** Server-only composition root for the current read-only data source. */
-export function getQueryService(): Promise<ProductQueryService> {
+export function getQueryService(datasetVersion?: string): Promise<ProductQueryService> {
   const mode = getWebDataMode();
-  const manifestPath = getManifestPath(mode);
+  const requestedRelease = mode === "published" ? getPublishedReleaseManifestPath(datasetVersion) : undefined;
+  const manifestPath = requestedRelease ?? getManifestPath(mode);
   const cacheKey = `${mode}:${manifestPath}`;
 
   if (!queryServicePromise || queryServiceCacheKey !== cacheKey) {

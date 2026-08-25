@@ -26,7 +26,7 @@ export default async function SupplyChainNodePage({
 }) {
   const { productId, nodeId } = await params;
   const pageContext = readPageContext(await searchParams);
-  const queries = await getQueryService();
+  const queries = await getQueryService(pageContext.datasetVersion);
   const overview = queries.getProductOverview(productId);
   const node = queries.getSupplyChainNode(productId, nodeId);
   if (!overview || !node) notFound();

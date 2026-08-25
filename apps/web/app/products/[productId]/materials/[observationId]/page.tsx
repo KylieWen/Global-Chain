@@ -9,7 +9,7 @@ import { contextMismatch, readPageContext, type SearchParamsLike } from "../../.
 export default async function MaterialObservationDetailPage({ params, searchParams }: { params: Promise<{ productId: string; observationId: string }>; searchParams: Promise<SearchParamsLike> }) {
   const { productId, observationId } = await params;
   const pageContext = readPageContext(await searchParams);
-  const queries = await getQueryService();
+  const queries = await getQueryService(pageContext.datasetVersion);
   const overview = queries.getProductOverview(productId);
   const view = queries.getMaterialTradeObservation(productId, observationId);
   if (!overview || !view) notFound();

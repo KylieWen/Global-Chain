@@ -5,6 +5,7 @@ import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../../co
 import { PeriodLabel, PublicationBadge, StatCard, WarningList, ProvenancePanel } from "../../../../components/data-display";
 import { evidenceGapsPath, materialObservationsPath, productPath, researchExportPath, supplyChainPath } from "../../../../lib/paths";
 import { contextMismatch, readPageContext, type SearchParamsLike } from "../../../../lib/context";
+import { listPublishedDatasetVersions } from "../../../../lib/data-manifest";
 
 export default async function ProductProvenancePage({
   params,
@@ -15,12 +16,13 @@ export default async function ProductProvenancePage({
 }) {
   const { productId } = await params;
   const pageContext = readPageContext(await searchParams);
-  const queries = await getQueryService();
+  const queries = await getQueryService(pageContext.datasetVersion);
   const overview = queries.getProductOverview(productId);
   const provenance = queries.getProvenance(productId);
   const materialObservations = queries.getMaterialTradeObservations(productId);
+  const releaseVersions = listPublishedDatasetVersions();
   if (!overview || !provenance) notFound();
-  const mismatches = contextMismatch(pageContext, { period: overview.period.start, datasetVersion: provenance.datasetVersion.version, contentVersion: provenance.route.contentVersion?.version });
+  const mismatches = contextMismatch(pageContext, { period: overview.period.label, datasetVersion: provenance.datasetVersion.version, contentVersion: provenance.route.contentVersion?.version });
 
   return (
     <SiteShell>
@@ -30,7 +32,7 @@ export default async function ProductProvenancePage({
           { label: overview.product.name, href: productPath(productId, pageContext) },
           { label: "来源与版本" }
         ]} />
-        <ContextBanner period={overview.period.start} datasetVersion={provenance.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
+        <ContextBanner period={overview.period.label} datasetVersion={provenance.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
         <PageIntro
           eyebrow="Provenance & version"
           title="来源、口径与版本"
@@ -55,6 +57,17 @@ export default async function ProductProvenancePage({
         </div>
 
         <WarningList warnings={provenance.warnings} />
+
+        <section className="section-block" aria-labelledby="release-selector-title">
+          <div className="section-heading"><div><p className="eyebrow">Published releases</p><h2 id="release-selector-title">选择研究版本</h2></div><span className="section-caption">历史版本只读，不会覆盖 active release</span></div>
+          <p className="muted">选择版本后，商品、供应链、账本、材料观察和证据页面都会读取对应的不可变 fixture。版本参数不再只是提示，而是实际查询选择。</p>
+          <div className="filter-links">
+            {releaseVersions.map((version) => {
+              const href = productPath(productId, { period: overview.period.label, datasetVersion: version });
+              return <Link className={version === provenance.datasetVersion.version ? "filter-chip active" : "filter-chip"} href={href} key={version}>{version}{version === provenance.datasetVersion.version ? " · 当前" : ""}</Link>;
+            })}
+          </div>
+        </section>
 
         <section className="section-block method-strip" aria-labelledby="research-export-title">
           <div><p className="eyebrow">Versioned research export</p><h2 id="research-export-title">可复核研究快照</h2></div>

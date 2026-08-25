@@ -12,7 +12,7 @@ export default async function MaterialObservationsPage({ params, searchParams }:
   const { productId } = await params;
   const filters = await searchParams;
   const pageContext = readPageContext(filters);
-  const queries = await getQueryService();
+  const queries = await getQueryService(pageContext.datasetVersion);
   const overview = queries.getProductOverview(productId);
   const all = queries.getMaterialTradeObservations(productId);
   const observations = queries.getMaterialTradeObservations(productId, { materialItemId: filters.material, partnerScope: filters.partnerScope, flow: filters.flow, classificationMappingType: filters.mapping });

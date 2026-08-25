@@ -21,11 +21,11 @@ export default async function ProductEvidenceGapsPage({
 }) {
   const { productId } = await params;
   const pageContext = readPageContext(await searchParams);
-  const queries = await getQueryService();
+  const queries = await getQueryService(pageContext.datasetVersion);
   const overview = queries.getProductOverview(productId);
   const provenance = queries.getProvenance(productId);
   if (!overview || !provenance) notFound();
-  const mismatches = contextMismatch(pageContext, { period: overview.period.start, datasetVersion: provenance.datasetVersion.version, contentVersion: provenance.route.contentVersion?.version });
+  const mismatches = contextMismatch(pageContext, { period: overview.period.label, datasetVersion: provenance.datasetVersion.version, contentVersion: provenance.route.contentVersion?.version });
 
   return (
     <SiteShell>
@@ -35,7 +35,7 @@ export default async function ProductEvidenceGapsPage({
           { label: overview.product.name, href: productPath(productId, pageContext) },
           { label: "证据缺口登记册" }
         ]} />
-        <ContextBanner period={overview.period.start} datasetVersion={provenance.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
+        <ContextBanner period={overview.period.label} datasetVersion={provenance.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
         <PageIntro
           eyebrow="Evidence gap registry"
           title={`${overview.product.name} · 证据缺口登记册`}

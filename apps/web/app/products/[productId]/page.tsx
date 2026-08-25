@@ -23,7 +23,7 @@ export default async function ProductOverviewPage({
 }) {
   const { productId } = await params;
   const pageContext = readPageContext(await searchParams);
-  const queries = await getQueryService();
+  const queries = await getQueryService(pageContext.datasetVersion);
   const overview = queries.getProductOverview(productId);
   const breakdown = queries.getProductBreakdown(productId);
   const provenance = queries.getProvenance(productId);
@@ -37,13 +37,13 @@ export default async function ProductOverviewPage({
     }
   });
   const routeAvailability = new Map(childRoutes);
-  const mismatches = contextMismatch(pageContext, { period: overview.period.start, datasetVersion: overview.datasetVersion.version, contentVersion: provenance.route.contentVersion?.version });
+  const mismatches = contextMismatch(pageContext, { period: overview.period.label, datasetVersion: overview.datasetVersion.version, contentVersion: provenance.route.contentVersion?.version });
 
   return (
     <SiteShell>
       <div className="content-column">
         <Breadcrumbs items={[{ label: "商品目录", href: "/products" }, { label: overview.product.name }]} />
-        <ContextBanner period={overview.period.start} datasetVersion={overview.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
+        <ContextBanner period={overview.period.label} datasetVersion={overview.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
         <PageIntro
           eyebrow={`${overview.product.category} / ${overview.product.slug}`}
           title={overview.product.name}
