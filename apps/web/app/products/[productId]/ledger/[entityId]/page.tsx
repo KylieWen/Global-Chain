@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../../lib/data";
-import { Breadcrumbs, PageIntro, SiteShell } from "../../../../../components/site-shell";
+import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../../../components/site-shell";
+import { contextMismatch, readPageContext } from "../../../../../lib/context";
 import {
   MetadataItem,
   PeriodLabel,
@@ -41,6 +42,7 @@ export default async function CountryLedgerPage({
 }) {
   const { productId, entityId } = await params;
   const query = await searchParams;
+  const pageContext = readPageContext(query);
   const label = firstParam(query.label);
   const queries = await getQueryService();
   const overview = queries.getProductOverview(productId);
@@ -52,6 +54,11 @@ export default async function CountryLedgerPage({
   });
   const provenance = queries.getProvenance(productId);
   if (!ledger || !provenance) notFound();
+  const contextMismatches = contextMismatch(pageContext, {
+    period: ledger.period.label,
+    datasetVersion: ledger.datasetVersion.version,
+    contentVersion: provenance.route.contentVersion?.version
+  });
   const firstRelatedNode = ledger.relatedNodes[0];
   const tradeClassification = ledger.tradeClassifications[0];
 
@@ -60,15 +67,16 @@ export default async function CountryLedgerPage({
       <div className="content-column wide-column">
         <Breadcrumbs items={[
           { label: "商品目录", href: "/products" },
-          { label: overview.product.name, href: productPath(productId) },
+          { label: overview.product.name, href: productPath(productId, pageContext) },
           { label: "国家贸易账本" },
           { label: ledger.entity.name }
         ]} />
+        <ContextBanner period={ledger.period.label} datasetVersion={ledger.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={contextMismatches} />
         <PageIntro
           eyebrow="Country trade ledger"
           title={`${ledger.entity.name} · 国家账本`}
           description="宏观商品贸易、官方储备与 HS 单品海关观察按各自统计口径展示。没有观察不补零，海关贸易金额也不解释为企业利润、成本或手机价格。"
-          actions={<Link className="button button-secondary" href={firstRelatedNode ? nodePath(productId, firstRelatedNode.node.id) : supplyChainPath(productId)}>返回节点路径</Link>}
+          actions={<Link className="button button-secondary" href={firstRelatedNode ? nodePath(productId, firstRelatedNode.node.id, pageContext) : supplyChainPath(productId, undefined, pageContext)}>返回节点路径</Link>}
         />
 
         <div className="stat-grid">
@@ -147,7 +155,7 @@ export default async function CountryLedgerPage({
                     </small>
                   </span>
                 ) : view.partner ? (
-                  <Link className="text-link" href={ledgerPath(productId, view.partner.id)}>{view.partner.name}</Link>
+                        <Link className="text-link" href={ledgerPath(productId, view.partner.id, pageContext)}>{view.partner.name}</Link>
                 ) : <UnknownValue label="伙伴未提供" />;
                 return (
                   <article className="trade-observation-card" key={observation.id}>
@@ -191,12 +199,12 @@ export default async function CountryLedgerPage({
         <section className="section-block" aria-labelledby="related-title">
           <div className="section-heading">
             <div><p className="eyebrow">Cross-module context</p><h2 id="related-title">关联供应链节点</h2></div>
-            <Link className="text-link" href={supplyChainPath(productId)}>查看完整路径 →</Link>
+            <Link className="text-link" href={supplyChainPath(productId, undefined, pageContext)}>查看完整路径 →</Link>
           </div>
           {ledger.relatedNodes.length === 0 ? <div className="empty-state">当前国家没有关联的代表性节点。</div> : (
             <div className="node-grid compact-grid">
               {ledger.relatedNodes.map((node) => (
-                <Link className="node-card" href={nodePath(productId, node.node.id)} key={node.node.id}>
+                <Link className="node-card" href={nodePath(productId, node.node.id, pageContext)} key={node.node.id}>
                   <span className="node-type">{node.node.nodeType}</span>
                   <h3>{node.node.label}</h3>
                   <p>{node.item?.name ?? "未知货物"} · {node.processStage?.label ?? "未知环节"}</p>

@@ -13,13 +13,16 @@ import {
   ValueDisplay
 } from "./data-display";
 import { ledgerPath, nodePath } from "../lib/paths";
+import type { PageContext } from "../lib/context";
 
 export function FlowTable({
   flows,
-  productId
+  productId,
+  context
 }: {
   flows: readonly ResolvedSupplyFlowView[];
   productId: string;
+  context?: PageContext;
 }) {
   if (flows.length === 0) {
     return <div className="empty-state">当前筛选下没有已发布的供应链流。</div>;
@@ -42,9 +45,9 @@ export function FlowTable({
             <tr key={view.flow.id}>
               <td>
                 <div className="flow-endpoints">
-                  <span><small>从</small><EndpointLink endpoint={view.from} productId={productId} /></span>
+                  <span><small>从</small><EndpointLink endpoint={view.from} productId={productId} context={context} /></span>
                   <span aria-hidden="true">→</span>
-                  <span><small>到</small><EndpointLink endpoint={view.to} productId={productId} /></span>
+                  <span><small>到</small><EndpointLink endpoint={view.to} productId={productId} context={context} /></span>
                 </div>
               </td>
               <td>
@@ -105,16 +108,18 @@ export function FlowTable({
 
 function EndpointLink({
   endpoint,
-  productId
+  productId,
+  context
 }: {
   endpoint: ResolvedSupplyFlowView["from"];
   productId: string;
+  context?: PageContext;
 }) {
   if (endpoint.node) {
-    return <Link className="text-link" href={nodePath(productId, endpoint.node.node.id)}>{endpoint.node.node.label}</Link>;
+    return <Link className="text-link" href={nodePath(productId, endpoint.node.node.id, context)}>{endpoint.node.node.label}</Link>;
   }
   return endpoint.entity ? (
-    <Link className="text-link" href={ledgerPath(productId, endpoint.entity.id)}>{endpoint.entity.name}</Link>
+    <Link className="text-link" href={ledgerPath(productId, endpoint.entity.id, context)}>{endpoint.entity.name}</Link>
   ) : <UnknownValue label={endpoint.referenceId} />;
 }
 

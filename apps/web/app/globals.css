@@ -347,6 +347,10 @@ p { line-height: 1.7; }
 .missing-observation p { margin: 0.45rem 0 0; }
 .legend-block { margin-top: 1rem; }
 .legend-block h3 { color: var(--ink-soft); font-size: 0.8rem; }
+.context-banner { display: grid; gap: 0.35rem; margin: 0 auto 1rem; padding: 0.7rem 0.9rem; width: min(100% - 2rem, 1280px); border: 1px solid var(--line); border-radius: 0.7rem; color: var(--ink-soft); background: #f7f9fc; font-size: 0.75rem; }
+.context-banner strong { color: var(--navy); }
+.context-banner-warning { border-color: #d99b54; background: #fff8ef; }
+.context-banner ul { margin: 0; padding-left: 1.2rem; color: #75481e; }
 
 @media (max-width: 900px) {
   .site-header-inner { gap: 1rem; }

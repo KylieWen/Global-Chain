@@ -1,41 +1,47 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../lib/data";
-import { Breadcrumbs, PageIntro, SiteShell } from "../../../../components/site-shell";
+import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../../components/site-shell";
 import { PeriodLabel, PublicationBadge, StatCard, WarningList, ProvenancePanel } from "../../../../components/data-display";
 import { evidenceGapsPath, materialObservationsPath, productPath, researchExportPath, supplyChainPath } from "../../../../lib/paths";
+import { contextMismatch, readPageContext, type SearchParamsLike } from "../../../../lib/context";
 
 export default async function ProductProvenancePage({
-  params
+  params,
+  searchParams
 }: {
   params: Promise<{ productId: string }>;
+  searchParams: Promise<SearchParamsLike>;
 }) {
   const { productId } = await params;
+  const pageContext = readPageContext(await searchParams);
   const queries = await getQueryService();
   const overview = queries.getProductOverview(productId);
   const provenance = queries.getProvenance(productId);
   const materialObservations = queries.getMaterialTradeObservations(productId);
   if (!overview || !provenance) notFound();
+  const mismatches = contextMismatch(pageContext, { period: overview.period.start, datasetVersion: provenance.datasetVersion.version, contentVersion: provenance.route.contentVersion?.version });
 
   return (
     <SiteShell>
       <div className="content-column">
         <Breadcrumbs items={[
           { label: "商品目录", href: "/products" },
-          { label: overview.product.name, href: productPath(productId) },
+          { label: overview.product.name, href: productPath(productId, pageContext) },
           { label: "来源与版本" }
         ]} />
+        <ContextBanner period={overview.period.start} datasetVersion={provenance.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
         <PageIntro
           eyebrow="Provenance & version"
           title="来源、口径与版本"
           description="这页同时说明统计数据与代表性供应链内容的来源、方法、期间、数据版本和内容版本。"
           actions={(
             <>
-              <Link className="button button-primary" href={supplyChainPath(productId)}>返回供应链路径</Link>
-              <Link className="button button-secondary" href={evidenceGapsPath(productId)}>证据缺口登记册</Link>
-              <Link className="button button-secondary" href={materialObservationsPath(productId)}>材料观察浏览器</Link>
+              <Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>返回供应链路径</Link>
+              <Link className="button button-secondary" href={evidenceGapsPath(productId, pageContext)}>证据缺口登记册</Link>
+              <Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料观察浏览器</Link>
               <a className="button button-secondary" href={researchExportPath(productId)}>下载研究快照（JSON）</a>
-              <Link className="button button-secondary" href={productPath(productId)}>返回商品概览</Link>
+              <Link className="button button-secondary" href={productPath(productId, pageContext)}>返回商品概览</Link>
             </>
           )}
         />

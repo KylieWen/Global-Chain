@@ -77,3 +77,22 @@ export function PageIntro({
     </div>
   );
 }
+
+export function ContextBanner({
+  period,
+  datasetVersion,
+  contentVersion,
+  mismatches = []
+}: {
+  period: string;
+  datasetVersion: string;
+  contentVersion?: string | null;
+  mismatches?: readonly string[];
+}) {
+  return (
+    <section className={`context-banner${mismatches.length ? " context-banner-warning" : ""}`} aria-label="研究上下文">
+      <span><strong>研究上下文</strong> · 期间 {period} · 数据集 {datasetVersion} · 内容 {contentVersion ?? "未提供"}</span>
+      {mismatches.length ? <ul>{mismatches.map((message) => <li key={message}>{message}</li>)}</ul> : null}
+    </section>
+  );
+}

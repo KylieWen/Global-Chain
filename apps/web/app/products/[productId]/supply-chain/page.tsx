@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../lib/data";
-import { Breadcrumbs, PageIntro, SiteShell } from "../../../../components/site-shell";
+import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../../components/site-shell";
+import { contextMismatch, readPageContext } from "../../../../lib/context";
 import {
   EvidenceLevelBadge,
   EvidenceLevelLegend,
@@ -34,6 +35,7 @@ export default async function SupplyChainPage({
   const { productId } = await params;
   const query = await searchParams;
   const focusItemId = firstParam(query.focus);
+  const pageContext = readPageContext(query);
   const label = firstParam(query.label);
   const queries = await getQueryService();
   const overview = queries.getProductOverview(productId);
@@ -50,6 +52,11 @@ export default async function SupplyChainPage({
     notFound();
   }
   if (!story) notFound();
+  const contextMismatches = contextMismatch(pageContext, {
+    period: story.period.label,
+    datasetVersion: story.datasetVersion.version,
+    contentVersion: story.route.contentVersion?.version
+  });
 
   const focusName = focusItemId
     ? overview.directChildren.find((item) => item.id === focusItemId)?.name
@@ -72,17 +79,18 @@ export default async function SupplyChainPage({
       <div className="content-column wide-column">
         <Breadcrumbs items={[
           { label: "商品目录", href: "/products" },
-          { label: overview.product.name, href: productPath(productId) },
+          { label: overview.product.name, href: productPath(productId, pageContext) },
           { label: "供应链路径" }
         ]} />
+        <ContextBanner period={story.period.label} datasetVersion={story.datasetVersion.version} contentVersion={story.route.contentVersion?.version} mismatches={contextMismatches} />
         <PageIntro
           eyebrow="Representative supply chain"
           title={`${overview.product.name} · ${focusName}`}
           description={story.route.representativeStatement ?? "这是经过整理的代表性供应链内容，不宣称唯一、完整或实时。"}
           actions={(
             <>
-              <Link className="button button-secondary" href={provenancePath(productId)}>来源与版本</Link>
-              <Link className="button button-secondary" href={evidenceGapsPath(productId)}>证据缺口登记册</Link>
+              <Link className="button button-secondary" href={provenancePath(productId, pageContext)}>来源与版本</Link>
+              <Link className="button button-secondary" href={evidenceGapsPath(productId, pageContext)}>证据缺口登记册</Link>
             </>
           )}
         />
@@ -118,11 +126,11 @@ export default async function SupplyChainPage({
           <div>
             <span className="filter-label">聚焦商品</span>
             <div className="filter-links">
-              <Link className={!focusItemId ? "filter-chip active" : "filter-chip"} href={supplyChainPath(productId)}>全部</Link>
+              <Link className={!focusItemId ? "filter-chip active" : "filter-chip"} href={supplyChainPath(productId, undefined, pageContext)}>全部</Link>
               {overview.directChildren.map((item) => (
                 <Link
                   className={focusItemId === item.id ? "filter-chip active" : "filter-chip"}
-                  href={supplyChainPath(productId, item.id)}
+                  href={supplyChainPath(productId, item.id, pageContext)}
                   key={item.id}
                 >
                   {item.name}
@@ -163,7 +171,7 @@ export default async function SupplyChainPage({
                         <span className="metadata-label">本步骤节点</span>
                         <div className="step-node-list">
                           {view.nodes.map((node) => (
-                            <Link className="step-node-chip" href={nodePath(productId, node.node.id)} key={node.node.id}>
+                              <Link className="step-node-chip" href={nodePath(productId, node.node.id, pageContext)} key={node.node.id}>
                               {node.node.label}
                             </Link>
                           ))}
@@ -175,7 +183,7 @@ export default async function SupplyChainPage({
                         <MetadataItem label="证据" value={`${view.evidence.length} 条`} />
                       </div>
                     </div>
-                    <FlowTable flows={view.flows} productId={productId} />
+                    <FlowTable flows={view.flows} productId={productId} context={pageContext} />
                     <details className="step-evidence-details">
                       <summary>查看本步骤的直接证据定位</summary>
                       <ResolvedEvidenceList evidence={view.evidence} compact />
@@ -193,7 +201,7 @@ export default async function SupplyChainPage({
               <p className="eyebrow">Evidence gap registry</p>
               <h2 id="route-gaps-title">当前路线的证据缺口</h2>
             </div>
-            <Link className="text-link" href={evidenceGapsPath(productId)}>查看完整登记册 →</Link>
+            <Link className="text-link" href={evidenceGapsPath(productId, pageContext)}>查看完整登记册 →</Link>
           </div>
           <p className="section-caption">缺口不会被默认补成零；国家角色、双边流向和代表性策展连接分别记录。</p>
           <EvidenceGapRegistry gaps={story.evidenceGaps} compact />
@@ -225,8 +233,8 @@ export default async function SupplyChainPage({
                   <MetadataItem label="contentVersion" value={node.contentVersion?.version ?? <UnknownValue label="未提供" />} />
                 </div>
                 <div className="node-links">
-                  <Link className="text-link" href={nodePath(productId, node.node.id)}>节点详情 →</Link>
-                  {node.entity ? <Link className="text-link" href={ledgerPath(productId, node.entity.id)}>国家账本 →</Link> : null}
+                  <Link className="text-link" href={nodePath(productId, node.node.id, pageContext)}>节点详情 →</Link>
+                  {node.entity ? <Link className="text-link" href={ledgerPath(productId, node.entity.id, pageContext)}>国家账本 →</Link> : null}
                 </div>
               </article>
             ))}

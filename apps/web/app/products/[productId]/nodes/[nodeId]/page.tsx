@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../../lib/data";
-import { Breadcrumbs, PageIntro, SiteShell } from "../../../../../components/site-shell";
+import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../../../components/site-shell";
+import { contextMismatch, readPageContext } from "../../../../../lib/context";
 import {
   EvidenceGapRegistry,
   EvidenceLevelBadge,
@@ -17,15 +18,23 @@ import { FlowTable, NodeFlowSummary } from "../../../../../components/flow-table
 import { evidenceGapsPath, ledgerPath, productPath, supplyChainPath } from "../../../../../lib/paths";
 
 export default async function SupplyChainNodePage({
-  params
+  params,
+  searchParams
 }: {
   params: Promise<{ productId: string; nodeId: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { productId, nodeId } = await params;
+  const pageContext = readPageContext(await searchParams);
   const queries = await getQueryService();
   const overview = queries.getProductOverview(productId);
   const node = queries.getSupplyChainNode(productId, nodeId);
   if (!overview || !node) notFound();
+  const contextMismatches = contextMismatch(pageContext, {
+    period: node.node.period.label,
+    datasetVersion: node.datasetVersion.version,
+    contentVersion: node.node.contentVersion?.version
+  });
 
   const contentVersionsById = new Map<
     string,
@@ -54,18 +63,19 @@ export default async function SupplyChainNodePage({
       <div className="content-column wide-column">
         <Breadcrumbs items={[
           { label: "商品目录", href: "/products" },
-          { label: overview.product.name, href: productPath(productId) },
-          { label: "供应链路径", href: supplyChainPath(productId) },
+          { label: overview.product.name, href: productPath(productId, pageContext) },
+          { label: "供应链路径", href: supplyChainPath(productId, undefined, pageContext) },
           { label: node.node.node.label }
         ]} />
+        <ContextBanner period={node.node.period.label} datasetVersion={node.datasetVersion.version} contentVersion={node.node.contentVersion?.version} mismatches={contextMismatches} />
         <PageIntro
           eyebrow="Supply-chain node"
           title={node.node.node.label}
           description="节点详情连接代表性流、生产活动、国家实体和来源；它不代表唯一工厂、订单或批次。"
           actions={(
             <>
-              {node.node.entity ? <Link className="button button-primary" href={ledgerPath(productId, node.node.entity.id)}>打开国家账本</Link> : null}
-              <Link className="button button-secondary" href={evidenceGapsPath(productId)}>完整证据缺口</Link>
+              {node.node.entity ? <Link className="button button-primary" href={ledgerPath(productId, node.node.entity.id, pageContext)}>打开国家账本</Link> : null}
+              <Link className="button button-secondary" href={evidenceGapsPath(productId, pageContext)}>完整证据缺口</Link>
             </>
           )}
         />
@@ -96,14 +106,14 @@ export default async function SupplyChainNodePage({
           <div className="section-heading">
             <div><p className="eyebrow">Inbound relations</p><h2 id="incoming-title">进入节点的流</h2></div>
           </div>
-          <FlowTable flows={node.incomingFlows} productId={productId} />
+          <FlowTable flows={node.incomingFlows} productId={productId} context={pageContext} />
         </section>
 
         <section className="section-block" aria-labelledby="outgoing-title">
           <div className="section-heading">
             <div><p className="eyebrow">Outbound relations</p><h2 id="outgoing-title">离开节点的流</h2></div>
           </div>
-          <FlowTable flows={node.outgoingFlows} productId={productId} />
+          <FlowTable flows={node.outgoingFlows} productId={productId} context={pageContext} />
         </section>
 
         <section className="section-block" aria-labelledby="activities-title">

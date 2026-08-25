@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../lib/data";
-import { Breadcrumbs, PageIntro, SiteShell } from "../../../../components/site-shell";
+import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../../components/site-shell";
 import {
   EvidenceGapRegistry,
   PeriodLabel,
@@ -10,35 +10,41 @@ import {
   WarningList
 } from "../../../../components/data-display";
 import { materialObservationsPath, productPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
+import { contextMismatch, readPageContext, type SearchParamsLike } from "../../../../lib/context";
 
 export default async function ProductEvidenceGapsPage({
-  params
+  params,
+  searchParams
 }: {
   params: Promise<{ productId: string }>;
+  searchParams: Promise<SearchParamsLike>;
 }) {
   const { productId } = await params;
+  const pageContext = readPageContext(await searchParams);
   const queries = await getQueryService();
   const overview = queries.getProductOverview(productId);
   const provenance = queries.getProvenance(productId);
   if (!overview || !provenance) notFound();
+  const mismatches = contextMismatch(pageContext, { period: overview.period.start, datasetVersion: provenance.datasetVersion.version, contentVersion: provenance.route.contentVersion?.version });
 
   return (
     <SiteShell>
       <div className="content-column wide-column">
         <Breadcrumbs items={[
           { label: "商品目录", href: "/products" },
-          { label: overview.product.name, href: productPath(productId) },
+          { label: overview.product.name, href: productPath(productId, pageContext) },
           { label: "证据缺口登记册" }
         ]} />
+        <ContextBanner period={overview.period.start} datasetVersion={provenance.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
         <PageIntro
           eyebrow="Evidence gap registry"
           title={`${overview.product.name} · 证据缺口登记册`}
           description="逐节点、逐连接记录当前主张、可接受证据和不可推断内容。登记册只展示已发布数据与内容配置，不会在运行时补齐事实。"
           actions={(
             <>
-              <Link className="button button-primary" href={supplyChainPath(productId)}>供应链路径</Link>
-              <Link className="button button-secondary" href={provenancePath(productId)}>来源与版本</Link>
-              <Link className="button button-secondary" href={materialObservationsPath(productId)}>材料贸易观察</Link>
+              <Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>供应链路径</Link>
+              <Link className="button button-secondary" href={provenancePath(productId, pageContext)}>来源与版本</Link>
+              <Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link>
             </>
           )}
         />

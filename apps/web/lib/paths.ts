@@ -1,40 +1,42 @@
+import { contextQuery, type PageContext } from "./context";
+
 function segment(value: string): string {
   return encodeURIComponent(value);
 }
 
-export function productPath(productId: string): string {
-  return `/products/${segment(productId)}`;
+export function productPath(productId: string, context?: PageContext): string {
+  return `/products/${segment(productId)}${contextQuery(context)}`;
 }
 
-export function supplyChainPath(productId: string, focusItemId?: string): string {
-  const path = `${productPath(productId)}/supply-chain`;
-  return focusItemId ? `${path}?focus=${segment(focusItemId)}` : path;
+export function supplyChainPath(productId: string, focusItemId?: string, context?: PageContext): string {
+  const query = { ...context, ...(focusItemId ? { focus: focusItemId } : {}) };
+  return `/products/${segment(productId)}/supply-chain${contextQuery(query)}`;
 }
 
-export function nodePath(productId: string, nodeId: string): string {
-  return `${productPath(productId)}/nodes/${segment(nodeId)}`;
+export function nodePath(productId: string, nodeId: string, context?: PageContext): string {
+  return `/products/${segment(productId)}/nodes/${segment(nodeId)}${contextQuery(context)}`;
 }
 
-export function ledgerPath(productId: string, entityId: string): string {
-  return `${productPath(productId)}/ledger/${segment(entityId)}`;
+export function ledgerPath(productId: string, entityId: string, context?: PageContext): string {
+  return `/products/${segment(productId)}/ledger/${segment(entityId)}${contextQuery(context)}`;
 }
 
-export function provenancePath(productId: string): string {
-  return `${productPath(productId)}/provenance`;
+export function provenancePath(productId: string, context?: PageContext): string {
+  return `/products/${segment(productId)}/provenance${contextQuery(context)}`;
 }
 
 export function researchExportPath(productId: string): string {
   return `/api/products/${segment(productId)}/research-export`;
 }
 
-export function evidenceGapsPath(productId: string): string {
-  return `${productPath(productId)}/evidence-gaps`;
+export function evidenceGapsPath(productId: string, context?: PageContext): string {
+  return `/products/${segment(productId)}/evidence-gaps${contextQuery(context)}`;
 }
 
-export function materialObservationsPath(productId: string): string {
-  return `${productPath(productId)}/materials`;
+export function materialObservationsPath(productId: string, context?: PageContext): string {
+  return `/products/${segment(productId)}/materials${contextQuery(context)}`;
 }
 
-export function materialObservationPath(productId: string, observationId: string): string {
-  return `${materialObservationsPath(productId)}/${segment(observationId)}`;
+export function materialObservationPath(productId: string, observationId: string, context?: PageContext): string {
+  return `/products/${segment(productId)}/materials/${segment(observationId)}${contextQuery(context)}`;
 }
