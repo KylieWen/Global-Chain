@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../lib/data";
 import { Breadcrumbs, PageIntro, SiteShell } from "../../../../components/site-shell";
 import { PeriodLabel, PublicationBadge, StatCard, WarningList, ProvenancePanel } from "../../../../components/data-display";
-import { evidenceGapsPath, productPath, supplyChainPath } from "../../../../lib/paths";
+import { evidenceGapsPath, materialObservationsPath, productPath, supplyChainPath } from "../../../../lib/paths";
 
 export default async function ProductProvenancePage({
   params
@@ -33,6 +33,7 @@ export default async function ProductProvenancePage({
             <>
               <Link className="button button-primary" href={supplyChainPath(productId)}>返回供应链路径</Link>
               <Link className="button button-secondary" href={evidenceGapsPath(productId)}>证据缺口登记册</Link>
+              <Link className="button button-secondary" href={materialObservationsPath(productId)}>材料观察浏览器</Link>
               <Link className="button button-secondary" href={productPath(productId)}>返回商品概览</Link>
             </>
           )}

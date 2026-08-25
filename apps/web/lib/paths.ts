@@ -26,3 +26,11 @@ export function provenancePath(productId: string): string {
 export function evidenceGapsPath(productId: string): string {
   return `${productPath(productId)}/evidence-gaps`;
 }
+
+export function materialObservationsPath(productId: string): string {
+  return `${productPath(productId)}/materials`;
+}
+
+export function materialObservationPath(productId: string, observationId: string): string {
+  return `${materialObservationsPath(productId)}/${segment(observationId)}`;
+}

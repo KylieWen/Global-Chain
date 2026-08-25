@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getQueryService } from "../../../lib/data";
 import { Breadcrumbs, PageIntro, SiteShell } from "../../../components/site-shell";
 import { ProductTree } from "../../../components/product-tree";
-import { provenancePath, supplyChainPath } from "../../../lib/paths";
+import { materialObservationsPath, provenancePath, supplyChainPath } from "../../../lib/paths";
 import {
   PeriodLabel,
   ProvenancePanel,
@@ -33,7 +33,7 @@ export default async function ProductOverviewPage({
           eyebrow={`${overview.product.category} / ${overview.product.slug}`}
           title={overview.product.name}
           description={overview.product.description ?? "这是一个由数据配置驱动的通用商品对象。"}
-          actions={<Link className="button button-primary" href={supplyChainPath(productId)}>查看供应链全图</Link>}
+          actions={<><Link className="button button-primary" href={supplyChainPath(productId)}>查看供应链全图</Link><Link className="button button-secondary" href={materialObservationsPath(productId)}>材料贸易观察</Link></>}
         />
 
         <div className="stat-grid">

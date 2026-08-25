@@ -571,7 +571,7 @@ function buildMaterialTradeObservations(raw) {
       flow: row.flowCode === "M" ? "import" : "export", classificationSystem: "HS", classificationVersion: "2022", classificationCode: code,
       classificationMappingType: ["283691", "250410"].includes(code) ? "exact" : "aggregate", period: PERIOD, currency: amount === null ? null : "USD", value: amount,
       quantity: estimated ? null : (typeof row.qty === "number" ? row.qty : null), valueDataStatus: amount === null ? "unknown" : "observed", quantityDataStatus: estimated ? "estimated" : (row.qty == null ? "unknown" : "observed"),
-      quality: { isQtyEstimated: row.isQtyEstimated ?? null, isAggregate: row.isAggregate ?? null, isReported: row.isReported ?? null, rawResponseSha256: response.responseSha256 },
+      quality: { isQtyEstimated: row.isQtyEstimated ?? null, isAggregate: row.isAggregate ?? null, isReported: row.isReported ?? null, requestUrl: response.url, retrievedAt: response.retrievedAt, rawResponseSha256: response.responseSha256 },
       sourceId: SOURCE_IDS.comtrade, datasetVersionId: DATASET_ID, method: "official", evidenceLevel: "bilateral_supported",
       limitation: "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
     };

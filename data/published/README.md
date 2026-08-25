@@ -170,6 +170,11 @@ source/evidence 说明如何形成代表性连接，但它本身不是外部事�
 原始快照为 `raw/un-comtrade-hs2022-materials-2023.json`，仍受 UN Comtrade 当前许可与
 再传播政策约束。
 
+Web 的 `/products/{productId}/materials` 通过领域查询读取这一层，可按材料、伙伴范围、
+进口/出口和分类映射精度筛选；观察详情页同时解析来源、证据等级和匹配的证据缺口。
+页面只做只读解释，不会把材料观察写回路线，也不会把 `bilateral_supported` 自动传播到
+任何代表性供应链边。
+
 ## 原始快照与重建
 
 原始快照应记录：来源 URL、完整查询参数、获取时间（含时区；以 raw manifest 的

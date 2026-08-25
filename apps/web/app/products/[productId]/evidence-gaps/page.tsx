@@ -9,7 +9,7 @@ import {
   StatCard,
   WarningList
 } from "../../../../components/data-display";
-import { productPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
+import { materialObservationsPath, productPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
 
 export default async function ProductEvidenceGapsPage({
   params
@@ -38,6 +38,7 @@ export default async function ProductEvidenceGapsPage({
             <>
               <Link className="button button-primary" href={supplyChainPath(productId)}>供应链路径</Link>
               <Link className="button button-secondary" href={provenancePath(productId)}>来源与版本</Link>
+              <Link className="button button-secondary" href={materialObservationsPath(productId)}>材料贸易观察</Link>
             </>
           )}
         />

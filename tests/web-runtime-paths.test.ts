@@ -1,6 +1,8 @@
 import { afterEach, describe, expect, it } from "vitest";
 import {
   ledgerPath,
+  materialObservationPath,
+  materialObservationsPath,
   nodePath,
   productPath,
   provenancePath,
@@ -60,6 +62,12 @@ describe("Web runtime boundary and route helpers", () => {
     );
     expect(provenancePath(productId)).toBe(
       "/products/product%2Fwith%3Freserved%23chars/provenance"
+    );
+    expect(materialObservationsPath(productId)).toBe(
+      "/products/product%2Fwith%3Freserved%23chars/materials"
+    );
+    expect(materialObservationPath(productId, "observation/one")).toBe(
+      "/products/product%2Fwith%3Freserved%23chars/materials/observation%2Fone"
     );
   });
 });

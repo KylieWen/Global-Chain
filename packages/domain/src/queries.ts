@@ -9,6 +9,7 @@ import type {
   IndicatorDefinition,
   Item,
   MacroIndicatorObservation,
+  MaterialTradeObservation,
   Period,
   ProductionActivity,
   ProcessStage,
@@ -18,7 +19,6 @@ import type {
   SupplyChainEvidenceLevel,
   SupplyFlow,
   TradeObservation
-  ,MaterialTradeObservation
 } from "@globe-chain/contracts";
 import type {
   DeepReadonly,
@@ -212,6 +212,16 @@ export interface MaterialTradeObservationView {
   readonly item: ReadonlyItem | null;
   readonly source: ReadonlySource | null;
   readonly partnerScope: ReadonlyMaterialTradeObservation["partnerScope"];
+  readonly evidenceLevel: EvidenceLevelView;
+  readonly relatedEvidenceGaps: readonly ResolvedEvidenceGapView[];
+}
+
+export interface MaterialTradeObservationOptions extends PeriodFilter {
+  readonly materialItemId?: string;
+  readonly reporterEntityId?: string;
+  readonly partnerScope?: ReadonlyMaterialTradeObservation["partnerScope"];
+  readonly flow?: ReadonlyMaterialTradeObservation["flow"];
+  readonly classificationMappingType?: ReadonlyMaterialTradeObservation["classificationMappingType"];
 }
 
 export interface ResolvedTradeObservationView {
@@ -299,7 +309,8 @@ export interface ProductQueryService {
   ): CountryLedgerView | null;
   getProvenance(productId: string, options?: ProvenanceOptions): ProvenanceView | null;
   getEvidenceGaps(productId: string): readonly ResolvedEvidenceGapView[];
-  getMaterialTradeObservations(productId: string): readonly MaterialTradeObservationView[];
+  getMaterialTradeObservations(productId: string, options?: MaterialTradeObservationOptions): readonly MaterialTradeObservationView[];
+  getMaterialTradeObservation(productId: string, observationId: string): MaterialTradeObservationView | null;
 }
 
 export class DomainQueryError extends Error {
@@ -1170,17 +1181,35 @@ export function getEvidenceGaps(
   return fixture ? resolveAllEvidenceGaps(fixture) : freezeArray([]);
 }
 
-export function getMaterialTradeObservations(repository: FixtureRepository, productId: string): readonly MaterialTradeObservationView[] {
+export function getMaterialTradeObservations(repository: FixtureRepository, productId: string, options?: MaterialTradeObservationOptions): readonly MaterialTradeObservationView[] {
   const fixture = getFixtureOrNull(repository, productId);
   if (!fixture) return freezeArray([]);
-  return freezeArray((fixture.materialTradeObservations ?? []).map((observation) => Object.freeze({
+  const gaps = resolveAllEvidenceGaps(fixture);
+  return freezeArray((fixture.materialTradeObservations ?? []).filter((observation) =>
+    (!options?.materialItemId || observation.materialItemId === options.materialItemId) &&
+    (!options?.reporterEntityId || observation.reporterEntityId === options.reporterEntityId) &&
+    (!options?.partnerScope || observation.partnerScope === options.partnerScope) &&
+    (!options?.flow || observation.flow === options.flow) &&
+    (!options?.classificationMappingType || observation.classificationMappingType === options.classificationMappingType) &&
+    matchesPeriod(observation.period, options)
+  ).map((observation) => Object.freeze({
     observation,
     reporter: fixture.entities.find((entity) => entity.id === observation.reporterEntityId) ?? null,
     partner: observation.partnerEntityId ? fixture.entities.find((entity) => entity.id === observation.partnerEntityId) ?? null : null,
     item: fixture.items.find((item) => item.id === observation.materialItemId) ?? null,
     source: sourceForId(fixture, observation.sourceId),
-    partnerScope: observation.partnerScope
-  })));
+    partnerScope: observation.partnerScope,
+    evidenceLevel: evidenceLevelView(observation.evidenceLevel),
+    relatedEvidenceGaps: freezeArray(gaps.filter(({ gap, node, flow }) =>
+      node?.item?.id === observation.materialItemId ||
+      flow?.item?.id === observation.materialItemId ||
+      gap.classificationCandidates.some((candidate) => candidate.system === observation.classificationSystem && candidate.version === observation.classificationVersion && candidate.code === observation.classificationCode)
+    ))
+  })).sort((left, right) => left.observation.materialItemId.localeCompare(right.observation.materialItemId) || left.observation.partnerCode - right.observation.partnerCode || left.observation.flow.localeCompare(right.observation.flow)));
+}
+
+export function getMaterialTradeObservation(repository: FixtureRepository, productId: string, observationId: string): MaterialTradeObservationView | null {
+  return getMaterialTradeObservations(repository, productId).find((view) => view.observation.observationId === observationId) ?? null;
 }
 
 export function createProductQueryService(
@@ -1201,7 +1230,8 @@ export function createProductQueryService(
     ) => getCountryLedger(repository, productId, entityId, options),
     getProvenance: (productId: string, options?: ProvenanceOptions) =>
       getProvenance(repository, productId, options),
-    getEvidenceGaps: (productId: string) => getEvidenceGaps(repository, productId)
-    ,getMaterialTradeObservations: (productId: string) => getMaterialTradeObservations(repository, productId)
+    getEvidenceGaps: (productId: string) => getEvidenceGaps(repository, productId),
+    getMaterialTradeObservations: (productId: string, options?: MaterialTradeObservationOptions) => getMaterialTradeObservations(repository, productId, options),
+    getMaterialTradeObservation: (productId: string, observationId: string) => getMaterialTradeObservation(repository, productId, observationId)
   });
 }
