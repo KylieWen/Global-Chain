@@ -995,7 +995,7 @@
       "flowId": "flow-copper-cell",
       "currentClaim": "智利铜矿角色与韩国代表性电芯节点之间的连接省略冶炼、精炼和铜箔集流体阶段。",
       "currentEvidenceLevel": "representative",
-      "missingEvidence": "缺少逐阶段国家角色、转换关系和具体双边观察；当前仅有智利铜矿生产角色。",
+      "missingEvidence": "已补充中国对世界总计与 Comtrade 统计区 842 的 HS 2022/7403 材料贸易观察；仍缺少逐阶段国家角色、转换关系、铜矿到铜箔的直接双边链路和手机用途证据。",
       "acceptableEvidenceTypes": ["country_role", "bilateral_flow", "process_context", "classification"],
       "candidateSources": [
         {
@@ -1065,7 +1065,7 @@
       "flowId": "flow-aluminum-cell",
       "currentClaim": "澳大利亚铝上游角色与韩国代表性电芯节点之间的连接省略氧化铝、原铝和铝箔集流体阶段。",
       "currentEvidenceLevel": "representative",
-      "missingEvidence": "缺少逐阶段国家角色、转换关系和具体双边观察；当前来源只支持澳大利亚上游角色。",
+      "missingEvidence": "已补充中国对世界总计与 Comtrade 统计区 842 的 HS 2022/7601 材料贸易观察；仍缺少铝土矿、氧化铝、原铝到铝箔的逐阶段转换关系和手机用途证据。",
       "acceptableEvidenceTypes": ["country_role", "bilateral_flow", "process_context", "classification"],
       "candidateSources": [
         {

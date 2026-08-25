@@ -81,6 +81,15 @@
     "UN Comtrade reporter/partner code 842 is the USA statistical area including Puerto Rico and the US Virgin Islands; it is not ISO/M49 code 840."
   ],
   "sourceSnapshots": {
+    "materialComtrade": {
+      "file": "un-comtrade-hs2022-materials-2023.json",
+      "sourceId": "source-un-comtrade",
+      "sourceVersion": { "classification": "HS 2022", "period": "2023", "api": "UN Comtrade Public Preview API" },
+      "queryScope": "China reporter 156; partnerCode=0 world total and partnerCode=842 USA statistical area; HS 7403, 7601, 283691, 8105, 7502, 250410; imports and exports",
+      "licenseAgreement": "https://comtradeplus.un.org/LicenseAgreement",
+      "redistributionPolicy": "https://comtradeplus.un.org/PolicyOnUseAndRedissemination",
+      "limitations": ["Classification observations do not establish smartphone or battery end use.", "Estimated quantities are retained as unknown quantities in published observations."]
+    },
     "bilateralComtrade": {
       "file": "un-comtrade-hs2022-851713-bilateral-2023.json",
       "sourceId": "source-un-comtrade",

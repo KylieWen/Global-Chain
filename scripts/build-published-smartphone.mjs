@@ -1239,6 +1239,18 @@ function assertBuildInvariants(fixture, comtradeRaw) {
   if (fixture.tradeObservations.some((row) => row.valueDataStatus !== row.dataStatus)) {
     throw new Error("Trade monetary status must match the observation dataStatus");
   }
+  const materialObservations = fixture.materialTradeObservations ?? [];
+  if (materialObservations.length === 0) throw new Error("Material observations are required for the published material layer");
+  for (const row of materialObservations) {
+    if (row.period.label !== YEAR || row.datasetVersionId !== DATASET_ID) throw new Error(`Material observation period/dataset mismatch: ${row.observationId}`);
+    if (row.partnerCode === 0 && (row.partnerScope !== "world_total" || row.partnerEntityId !== null)) throw new Error(`Material world total invariant failed: ${row.observationId}`);
+    if (row.partnerCode !== 0 && (row.partnerScope !== "entity" || !row.partnerEntityId)) throw new Error(`Material bilateral partner invariant failed: ${row.observationId}`);
+    if (row.evidenceLevel !== "bilateral_supported") throw new Error(`Material observation evidence level mismatch: ${row.observationId}`);
+    if (row.classificationMappingType === "aggregate" || row.classificationMappingType === "approximate") {
+      if (!row.limitation.includes("不证明材料进入手机")) throw new Error(`Material classification limitation missing: ${row.observationId}`);
+    }
+    if (row.quantityDataStatus === "estimated" && row.quantity !== null) throw new Error(`Estimated material quantity must be null: ${row.observationId}`);
+  }
   if (
     fixture.tradeObservations.some(
       (row) => row.quantityDataStatus === "estimated" && row.quantity !== null
