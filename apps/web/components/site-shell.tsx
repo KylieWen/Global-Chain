@@ -20,6 +20,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <Link href="/products">商品目录</Link>
             <Link href="/categories">商品门类</Link>
             <Link href="/countries">国家目录</Link>
+            <Link href="/versions">数据版本</Link>
           </nav>
           <span className={`mode-pill ${preview ? "mode-preview" : "mode-published"}`}>
             {preview ? "预览数据" : "已发布数据"}
