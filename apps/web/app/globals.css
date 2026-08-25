@@ -416,6 +416,15 @@ p { line-height: 1.7; }
 .coverage-status-route_published { color: #047857; }
 .coverage-status-partial_route { color: #b45309; }
 .coverage-status-catalog_only { color: #64748b; }
+.country-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.country-card { display: flex; flex-direction: column; min-height: 12rem; padding: 1.1rem; border: 1px solid var(--line); border-radius: 0.9rem; background: #fff; }
+.country-card:hover { border-color: #9bb6e9; box-shadow: 0 10px 24px rgb(40 75 135 / 10%); }
+.country-card-top { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; }
+.country-card h3 { margin-top: 1rem; color: var(--navy); font-size: 1.2rem; }
+.country-card p { color: var(--ink-soft); font-size: 0.8rem; }
+.country-card-meta { display: flex; flex-wrap: wrap; gap: 0.35rem 0.7rem; margin-top: auto; color: var(--muted); font-size: 0.7rem; }
+@media (max-width: 900px) { .country-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .country-grid { grid-template-columns: 1fr; } }
 @media (max-width: 900px) { .coverage-row { grid-template-columns: 1fr 1fr; } }
 
 @media (max-width: 900px) {

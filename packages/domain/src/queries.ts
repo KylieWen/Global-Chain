@@ -62,6 +62,14 @@ export interface ProductCatalogView {
   readonly warnings: readonly string[];
 }
 
+export interface CountryCatalogView {
+  readonly entity: ReadonlyGeoEntity;
+  readonly productIds: readonly string[];
+  readonly relatedNodeCount: number;
+  readonly hasTradeLedger: boolean;
+  readonly datasetVersion: ReadonlyDatasetVersion;
+}
+
 export interface ProductOverviewView {
   readonly product: ReadonlyItem;
   readonly directChildren: readonly ReadonlyItem[];
@@ -351,6 +359,7 @@ export interface ResolvedEvidenceGapView {
 
 export interface ProductQueryService {
   listProducts(): readonly ProductCatalogView[];
+  listCountries(): readonly CountryCatalogView[];
   getProductOverview(productId: string): ProductOverviewView | null;
   getProductBreakdown(productId: string): ProductBreakdownNode | null;
   getSupplyChainStory(
@@ -966,6 +975,25 @@ export function listProducts(repository: FixtureRepository): readonly ProductCat
   return freezeArray(products);
 }
 
+export function listCountries(repository: FixtureRepository): readonly CountryCatalogView[] {
+  const products = repository.listProductIds().map((productId) => repository.getProductFixture(productId)).filter((fixture): fixture is NonNullable<typeof fixture> => Boolean(fixture));
+  const byEntity = new Map<string, CountryCatalogView>();
+  products.forEach((fixture) => {
+    fixture.entities.filter((entity) => entity.kind === "country").forEach((entity) => {
+      const relatedNodeCount = fixture.storyGraph.nodes.filter((node) => node.entityId === entity.id).length;
+      const current = byEntity.get(entity.id);
+      byEntity.set(entity.id, {
+        entity,
+        productIds: freezeArray([...(current?.productIds ?? []), fixture.productId]),
+        relatedNodeCount: (current?.relatedNodeCount ?? 0) + relatedNodeCount,
+        hasTradeLedger: (current?.hasTradeLedger ?? false) || fixture.tradeObservations.some((observation) => observation.reporterEntityId === entity.id) || fixture.macroIndicators.some((observation) => observation.entityId === entity.id),
+        datasetVersion: fixture.datasetVersion
+      });
+    });
+  });
+  return freezeArray([...byEntity.values()].sort((left, right) => left.entity.name.localeCompare(right.entity.name)));
+}
+
 export function getProductOverview(
   repository: FixtureRepository,
   productId: string
@@ -1374,6 +1402,7 @@ export function createProductQueryService(
 ): ProductQueryService {
   return Object.freeze({
     listProducts: () => listProducts(repository),
+    listCountries: () => listCountries(repository),
     getProductOverview: (productId: string) => getProductOverview(repository, productId),
     getProductBreakdown: (productId: string) => getProductBreakdown(repository, productId),
     getSupplyChainStory: (productId: string, options?: SupplyChainStoryOptions) =>
