@@ -1,5 +1,6 @@
 import type {
   ClassificationCode,
+  ClassificationCrosswalk,
   ContentVersion,
   DatasetVersion,
   Evidence,
@@ -80,6 +81,14 @@ export interface ComponentCoverageView {
   readonly flowCount: number;
   readonly evidenceGapCount: number;
   readonly evidenceLevels: readonly EvidenceLevelView["code"][];
+  readonly classificationMappings: readonly ComponentClassificationView[];
+}
+
+export interface ComponentClassificationView {
+  readonly classification: ReadonlyClassificationCode;
+  readonly mappingType: Readonly<ClassificationCrosswalk>['mappingType'];
+  readonly limitation: string;
+  readonly supportsEndUse: boolean;
 }
 
 export interface ProductBreakdownNode {
@@ -975,13 +984,34 @@ export function getProductOverview(
       ...story.nodes.map((node) => node.evidenceLevel.code),
       ...story.flows.map((flow) => flow.evidenceLevel.code)
     ])];
+    const itemIds = new Set<string>([item.id]);
+    let frontier = [item.id];
+    while (frontier.length > 0) {
+      const children = fixture.items.filter((candidate) => frontier.includes(candidate.parentItemId ?? ""));
+      children.forEach((child) => itemIds.add(child.id));
+      frontier = children.map((child) => child.id);
+    }
+    const classificationMappings = fixture.classificationCrosswalks
+      .filter((mapping) => itemIds.has(mapping.itemId))
+      .map((mapping) => {
+        const classification = fixture.classificationCodes.find((code) => code.id === mapping.classificationCodeId);
+        if (!classification) return null;
+        return Object.freeze({
+          classification,
+          mappingType: mapping.mappingType,
+          limitation: mapping.limitation ?? mapping.notes ?? "该分类不证明产品最终用途或指定供应链关系。",
+          supportsEndUse: mapping.mappingType === "exact" && item.id === fixture.productId
+        });
+      })
+      .filter((value): value is ComponentClassificationView => value !== null);
     return Object.freeze({
       item,
       status: nodeCount > 0 && flowCount > 0 ? "route_published" : nodeCount > 0 || flowCount > 0 ? "partial_route" : "catalog_only",
       nodeCount,
       flowCount,
       evidenceGapCount: story.evidenceGaps.length,
-      evidenceLevels: freezeArray(evidenceLevels)
+      evidenceLevels: freezeArray(evidenceLevels),
+      classificationMappings: freezeArray(classificationMappings)
     });
   });
 

@@ -107,6 +107,7 @@ export const ClassificationCrosswalkSchema = z
     mappingType: ClassificationMappingTypeSchema,
     confidence: z.number().finite().min(0).max(1).nullable().optional(),
     notes: NullableStringSchema,
+    limitation: NullableStringSchema,
     period: PeriodSchema,
     sourceIds: SourceIdsSchema,
     method: DataMethodSchema,

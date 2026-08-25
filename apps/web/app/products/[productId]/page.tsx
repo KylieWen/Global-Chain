@@ -100,6 +100,10 @@ export default async function ProductOverviewPage({
                 <span className={`coverage-status coverage-status-${coverage.status}`}>{coverage.status === "route_published" ? "已有已发布路线" : coverage.status === "partial_route" ? "路线不完整" : "仅有目录记录"}</span>
                 <span className="muted">节点 {coverage.nodeCount} · 连接 {coverage.flowCount} · 缺口 {coverage.evidenceGapCount}</span>
                 <span className="muted">证据：{coverage.evidenceLevels.length ? coverage.evidenceLevels.join("、") : "尚无路线证据"}</span>
+                {coverage.classificationMappings.length > 0 && <div className="muted">
+                  分类候选：{coverage.classificationMappings.map(({ classification, mappingType }) => `${classification.system} ${classification.version}/${classification.code} · ${mappingType}`).join("；")}
+                  <br />限制：{coverage.classificationMappings.map(({ limitation }) => limitation).join("；")}
+                </div>}
               </article>
             ))}
           </div>

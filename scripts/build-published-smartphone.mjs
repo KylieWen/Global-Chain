@@ -1184,6 +1184,9 @@ function applyCatalogMetadata(fixture) {
       notes: smartphone
         ? "HS 2022 six-digit code 851713 is used for the smartphone product slice."
         : "HS 2022 850760 is a broader lithium-ion accumulator category; it is not asserted to equal all smartphone batteries.",
+      limitation: smartphone
+        ? "该分类支持智能手机商品切片本身，不证明其中任一芯片、品牌、型号或工厂来源。"
+        : "该分类是较宽的电池类别，不证明进入当前手机、电芯或指定工厂。",
       period: period(),
       sourceIds: smartphone ? [SOURCE_IDS.comtrade] : [SOURCE_IDS.routeMethod],
       method: "curated",
@@ -1196,6 +1199,13 @@ function applyCatalogMetadata(fixture) {
     ["760711", "铝箔候选（含其他用途）"], ["760719", "其他铝箔候选（含其他用途）"],
     ["382499", "其他化学制品候选（正极材料近似分类）"], ["380110", "人造石墨候选"], ["380190", "其他石墨/碳基制剂候选"]
   ];
+  const processorMemoryDefinitions = [
+    ["854231", "电子集成电路/处理器候选（宽分类）", "application-processor", "aggregate"],
+    ["854232", "存储器集成电路候选（宽分类）", "dram", "aggregate"],
+    ["854232", "存储器集成电路候选（宽分类）", "nand-flash", "aggregate"],
+    ["854239", "其他电子集成电路候选（宽分类）", "baseband-chip", "aggregate"],
+    ["848620", "半导体制造设备候选（非芯片用途证明）", "semiconductor-wafer", "aggregate"]
+  ];
   const existingCodes = new Set(fixture.classificationCodes.map((code) => code.code));
   fixture.classificationCodes.push(...intermediateDefinitions.filter(([code]) => !existingCodes.has(code)).map(([code, label]) => ({
     id: `hs2022-${code}`, system: "HS", version: "2022", code, level: 6, label, validPeriod: period(), sourceIds: [SOURCE_IDS.comtrade], dataStatus: "observed", method: "official", datasetVersionId: DATASET_ID
@@ -1206,6 +1216,25 @@ function applyCatalogMetadata(fixture) {
     const classificationCodeId = `hs2022-${code}`;
     if (!itemId || existingMappings.has(`${itemId}:${classificationCodeId}`)) return [];
     return [{ id: `crosswalk-${itemId}-${code}`, itemId, classificationCodeId, mappingType: intermediateMappingType(code), confidence: null, notes: "中间加工候选分类；不证明电池级规格或智能手机用途。", period: period(), sourceIds: [SOURCE_IDS.comtrade], method: "curated", dataStatus: "observed", datasetVersionId: DATASET_ID }];
+  }));
+  const processorCodeLabels = new Map(processorMemoryDefinitions.map(([code, label]) => [code, label]));
+  fixture.classificationCodes.push(...[...processorCodeLabels.entries()].filter(([code]) => !existingCodes.has(code)).map(([code, label]) => ({
+    id: `hs2022-${code}`, system: "HS", version: "2022", code, level: 6, label, validPeriod: period(), sourceIds: [SOURCE_IDS.comtrade], dataStatus: "observed", method: "curated", datasetVersionId: DATASET_ID
+  })));
+  const processorMappings = new Set(fixture.classificationCrosswalks.map((mapping) => `${mapping.itemId}:${mapping.classificationCodeId}`));
+  fixture.classificationCrosswalks.push(...processorMemoryDefinitions.flatMap(([code, _label, itemId, mappingType]) => {
+    const key = `${itemId}:hs2022-${code}`;
+    if (processorMappings.has(key)) return [];
+    return [{
+      id: `crosswalk-${itemId}-${code}`,
+      itemId,
+      classificationCodeId: `hs2022-${code}`,
+      mappingType,
+      confidence: null,
+      notes: "处理器/存储器或半导体设备候选分类；不证明进入手机、指定芯片、品牌、工厂或连续路线。",
+      limitation: "海关分类只证明该统计分类商品贸易，不证明手机用途或指定供应链关系。",
+      period: period(), sourceIds: [SOURCE_IDS.comtrade], method: "curated", dataStatus: "observed", datasetVersionId: DATASET_ID
+    }];
   }));
 }
 

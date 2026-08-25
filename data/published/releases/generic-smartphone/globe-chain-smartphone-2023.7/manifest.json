@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-smartphone",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-smartphone-2023.7",
+  "generatedAt": "2026-08-25",
+  "fixtureSha256": "9f9860bedf48690916a89c578de961b35a66c93546e66274987354eeddee5be9",
+  "routeContentVersion": "smartphone-route-2023.3",
+  "routeContentSha256": "5c0c03afebb61f420bef483e7c6cd4cf1f53b97e41ede16577be1b72b6712a66",
+  "contentSources": [
+    "../../content/routes/generic-smartphone-2023.json",
+    "../../content/routes/generic-smartphone-processor-memory-2023.json",
+    "../../content/evidence/industry-roles-2023.json",
+    "../../content/evidence/semiconductor-roles-2023.json",
+    "../../content/evidence-gaps/generic-smartphone-processor-memory-2023.json",
+    "../../content/evidence-gaps/generic-smartphone-2023.json"
+  ],
+  "sourceSnapshots": [
+    "raw/world-bank-wdi-2023.json",
+    "raw/un-comtrade-hs2022-851713-2023.json",
+    "raw/un-comtrade-hs2022-851713-bilateral-2023.json",
+    "raw/un-comtrade-hs2022-materials-2023.json",
+    "raw/un-comtrade-hs2022-material-role-pairs-2023.json",
+    "raw/un-comtrade-hs2022-material-intermediate-2023.json"
+  ],
+  "notes": [
+    "Numeric observations are generated from immutable local raw snapshots; reviewed route topology and evidence bindings come from the versioned content source. No runtime API calls are made.",
+    "The published fixture intentionally omits countries/flows absent from the Comtrade response rather than filling zero.",
+    "The fixture now contains specific bilateral HS 851713 customs observations, kept separate from world totals and from the representative supply-chain edges.",
+    "All current supply-chain edges remain representative and quantity-free because customs trade does not prove assembly, consumption or entry into this curated route.",
+    "Evidence gaps are versioned content and cover every current node and edge."
+  ],
+  "release": {
+    "productId": "generic-smartphone",
+    "datasetVersion": "globe-chain-smartphone-2023.7",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2023.7",
+    "immutable": true
+  }
+}
