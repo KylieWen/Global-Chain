@@ -23,6 +23,10 @@ export function provenancePath(productId: string): string {
   return `${productPath(productId)}/provenance`;
 }
 
+export function researchExportPath(productId: string): string {
+  return `/api/products/${segment(productId)}/research-export`;
+}
+
 export function evidenceGapsPath(productId: string): string {
   return `${productPath(productId)}/evidence-gaps`;
 }

@@ -6,6 +6,7 @@ import {
   nodePath,
   productPath,
   provenancePath,
+  researchExportPath,
   supplyChainPath
 } from "../apps/web/lib/paths";
 import { getWebDataMode } from "../apps/web/lib/runtime";
@@ -62,6 +63,9 @@ describe("Web runtime boundary and route helpers", () => {
     );
     expect(provenancePath(productId)).toBe(
       "/products/product%2Fwith%3Freserved%23chars/provenance"
+    );
+    expect(researchExportPath(productId)).toBe(
+      "/api/products/product%2Fwith%3Freserved%23chars/research-export"
     );
     expect(materialObservationsPath(productId)).toBe(
       "/products/product%2Fwith%3Freserved%23chars/materials"

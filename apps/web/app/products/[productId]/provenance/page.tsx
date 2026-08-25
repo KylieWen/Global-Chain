@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../lib/data";
 import { Breadcrumbs, PageIntro, SiteShell } from "../../../../components/site-shell";
 import { PeriodLabel, PublicationBadge, StatCard, WarningList, ProvenancePanel } from "../../../../components/data-display";
-import { evidenceGapsPath, materialObservationsPath, productPath, supplyChainPath } from "../../../../lib/paths";
+import { evidenceGapsPath, materialObservationsPath, productPath, researchExportPath, supplyChainPath } from "../../../../lib/paths";
 
 export default async function ProductProvenancePage({
   params
@@ -34,6 +34,7 @@ export default async function ProductProvenancePage({
               <Link className="button button-primary" href={supplyChainPath(productId)}>返回供应链路径</Link>
               <Link className="button button-secondary" href={evidenceGapsPath(productId)}>证据缺口登记册</Link>
               <Link className="button button-secondary" href={materialObservationsPath(productId)}>材料观察浏览器</Link>
+              <a className="button button-secondary" href={researchExportPath(productId)}>下载研究快照（JSON）</a>
               <Link className="button button-secondary" href={productPath(productId)}>返回商品概览</Link>
             </>
           )}
@@ -48,6 +49,13 @@ export default async function ProductProvenancePage({
         </div>
 
         <WarningList warnings={provenance.warnings} />
+
+        <section className="section-block method-strip" aria-labelledby="research-export-title">
+          <div><p className="eyebrow">Versioned research export</p><h2 id="research-export-title">可复核研究快照</h2></div>
+          <p>JSON 导出包含商品维度、供应链、国家贸易观察、材料贸易观察、来源、逐条证据和证据缺口，并同时保留数据集版本与内容版本。它是当前 published 输入的确定性只读快照，不会补齐未知值或生成新结论。</p>
+          <a className="text-link" href={researchExportPath(productId)}>下载 {provenance.datasetVersion.version} 研究快照 →</a>
+        </section>
+
         <ProvenancePanel provenance={provenance} />
 
         <section className="section-block" aria-labelledby="material-observations-title">

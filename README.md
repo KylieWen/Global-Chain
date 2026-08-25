@@ -8,7 +8,7 @@ GlobeChain 是一个被动式全球商品供应链与贸易数据可视化平台
 - `apps/web` 是最小 Next.js App Router + TypeScript Web 应用。
 - `packages/contracts` 提供 Zod 数据契约；`packages/domain` 提供只读仓储接口和领域查询；`packages/db` 提供 fixture 文件加载适配器。
 - `pipelines` 只提供未来 Python 数据管线的目录和配置占位。
-- `apps/web` 已提供商品目录、商品拆解、供应链路径、节点详情、国家账本和来源版本页面；当前仍不包含地图、PostgreSQL 查询、运行时外部 API、AI/LLM、聊天、问答或运行时文本生成。
+- `apps/web` 已提供商品目录、商品拆解、供应链路径、节点详情、国家账本、来源版本页面和带 provenance 的研究快照下载；当前仍不包含地图、PostgreSQL 查询、运行时外部 API、AI/LLM、聊天、问答或运行时文本生成。
 - 外部数据只在显式的本地快照脚本中抓取，不在 Web 请求期间访问；当前不安装 Polars、DuckDB 等数据处理依赖。
 
 ## 前置工具
@@ -41,6 +41,14 @@ pnpm run dev:preview
 ```
 
 默认 Web 应用位于 `apps/web`，启动后可访问根页面；健康检查路由为 `/api/health`。预览横幅会明确提示当前数据不是正式发布事实。
+
+Published 商品的确定性研究快照可从以下通用路径下载：
+
+```text
+/api/products/{productId}/research-export
+```
+
+快照同时携带统计数据集版本和路线内容版本，并保留来源、证据缺口以及 `unknown`、估算、保密和真实零值的原始语义。
 
 ## 质量检查
 

@@ -284,6 +284,41 @@ export interface ProvenanceView {
   readonly warnings: readonly string[];
 }
 
+export interface ProductResearchExportView {
+  readonly formatVersion: "product-research-export.v1";
+  readonly productId: string;
+  readonly release: {
+    readonly datasetVersion: ReadonlyDatasetVersion;
+    readonly contentVersions: readonly ReadonlyContentVersion[];
+    readonly period: ReadonlyPeriod;
+  };
+  readonly includedModules: readonly (
+    | "catalog"
+    | "supply_chain"
+    | "trade_ledger"
+    | "material_trade"
+    | "provenance"
+    | "evidence_gaps"
+  )[];
+  readonly recordCounts: {
+    readonly entities: number;
+    readonly items: number;
+    readonly storyNodes: number;
+    readonly storyFlows: number;
+    readonly tradeObservations: number;
+    readonly materialTradeObservations: number;
+    readonly macroIndicators: number;
+    readonly sources: number;
+    readonly evidence: number;
+    readonly evidenceGaps: number;
+  };
+  readonly interpretationRules: readonly {
+    readonly code: string;
+    readonly statement: string;
+  }[];
+  readonly snapshot: ReadonlyProductFixture;
+}
+
 export interface ResolvedEvidenceGapView {
   readonly gap: ReadonlyEvidenceGap;
   readonly node: ResolvedStoryNodeView | null;
@@ -308,6 +343,7 @@ export interface ProductQueryService {
     options?: CountryLedgerOptions
   ): CountryLedgerView | null;
   getProvenance(productId: string, options?: ProvenanceOptions): ProvenanceView | null;
+  getProductResearchExport(productId: string): ProductResearchExportView | null;
   getEvidenceGaps(productId: string): readonly ResolvedEvidenceGapView[];
   getMaterialTradeObservations(productId: string, options?: MaterialTradeObservationOptions): readonly MaterialTradeObservationView[];
   getMaterialTradeObservation(productId: string, observationId: string): MaterialTradeObservationView | null;
@@ -1212,6 +1248,67 @@ export function getMaterialTradeObservation(repository: FixtureRepository, produ
   return getMaterialTradeObservations(repository, productId).find((view) => view.observation.observationId === observationId) ?? null;
 }
 
+export function getProductResearchExport(
+  repository: FixtureRepository,
+  productId: string
+): ProductResearchExportView | null {
+  const fixture = getFixtureOrNull(repository, productId);
+  if (!fixture) return null;
+
+  return Object.freeze({
+    formatVersion: "product-research-export.v1",
+    productId,
+    release: Object.freeze({
+      datasetVersion: fixture.datasetVersion,
+      contentVersions: freezeArray(fixture.contentVersions),
+      period: fixture.storyGraph.period
+    }),
+    includedModules: Object.freeze([
+      "catalog",
+      "supply_chain",
+      "trade_ledger",
+      "material_trade",
+      "provenance",
+      "evidence_gaps"
+    ] as const),
+    recordCounts: Object.freeze({
+      entities: fixture.entities.length,
+      items: fixture.items.length,
+      storyNodes: fixture.storyGraph.nodes.length,
+      storyFlows: fixture.storyGraph.flows.length,
+      tradeObservations: fixture.tradeObservations.length,
+      materialTradeObservations: fixture.materialTradeObservations.length,
+      macroIndicators: fixture.macroIndicators.length,
+      sources: fixture.sources.length,
+      evidence: fixture.evidence.length,
+      evidenceGaps: fixture.evidenceGaps.length
+    }),
+    interpretationRules: freezeArray([
+      Object.freeze({
+        code: "representative_is_not_unique",
+        statement: "代表性供应链连接不等于某件具体商品的唯一、完整或已观测路线。"
+      }),
+      Object.freeze({
+        code: "customs_trade_is_not_end_use",
+        statement: "海关分类商品贸易不自动证明该商品进入当前产品、指定工厂或连续物料谱系。"
+      }),
+      Object.freeze({
+        code: "trade_value_is_not_profit",
+        statement: "贸易金额不等于企业利润、成本、国内增加值或单件商品价格。"
+      }),
+      Object.freeze({
+        code: "unknown_is_not_zero",
+        statement: "unknown、withheld、estimated 与来源明确报告的真实零值必须分别解释。"
+      }),
+      Object.freeze({
+        code: "versions_are_independent",
+        statement: "统计数据集版本与策展内容版本独立演进，使用时必须同时保留。"
+      })
+    ]),
+    snapshot: fixture
+  });
+}
+
 export function createProductQueryService(
   repository: FixtureRepository
 ): ProductQueryService {
@@ -1230,6 +1327,8 @@ export function createProductQueryService(
     ) => getCountryLedger(repository, productId, entityId, options),
     getProvenance: (productId: string, options?: ProvenanceOptions) =>
       getProvenance(repository, productId, options),
+    getProductResearchExport: (productId: string) =>
+      getProductResearchExport(repository, productId),
     getEvidenceGaps: (productId: string) => getEvidenceGaps(repository, productId),
     getMaterialTradeObservations: (productId: string, options?: MaterialTradeObservationOptions) => getMaterialTradeObservations(repository, productId, options),
     getMaterialTradeObservation: (productId: string, observationId: string) => getMaterialTradeObservation(repository, productId, observationId)
