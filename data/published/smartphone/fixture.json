@@ -976,6 +976,416 @@
       "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=276&cmdCode=851713&flowCode=X%2CM&partnerCode=156&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500; rawResponseSha256=7350c89283d15588601f7dd393f375cc64ed512647e24dddade1928fd8dc0c2a; canonicalDataSha256=5ff3ad77b303053fa380888418ecccb00e01ee235c26da1e4569d0be41e382de",
       "excerpt": null,
       "notes": "Direct bilateral customs evidence. It may support a narrowly worded HS 851713 bilateral trade claim, but not the current assembly-to-market supply-chain edge in full."
+    },
+    {
+      "id": "evidence-comtrade-material-aus-chn-lithium-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-au",
+        "itemIds": [
+          "lithium"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "283691",
+            "mappingType": "exact",
+            "description": "Australia → China lithium carbonate"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Direct material customs observation for Australia → China lithium carbonate, reporterCode=36, partnerCode=156, flow=import.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only the reported HS classification, endpoints, direction and period.",
+          "Does not prove smartphone, battery, factory or continuous material use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=36&partnerCode=156&cmdCode=283691&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=0957dde6fe8890a75dae81739154df28d33607a23457ea60ab3fe8f6ef20a8f9",
+      "excerpt": null,
+      "notes": "Direct material bilateral customs evidence; it is not evidence of end use or a unique supply-chain route."
+    },
+    {
+      "id": "evidence-comtrade-material-cod-chn-cobalt-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cd",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "cobalt"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "8105",
+            "mappingType": "aggregate",
+            "description": "DRC → China cobalt aggregate"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Direct material customs observation for DRC → China cobalt aggregate, reporterCode=180, partnerCode=156, flow=export.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only the reported HS classification, endpoints, direction and period.",
+          "Does not prove smartphone, battery, factory or continuous material use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=180&partnerCode=156&cmdCode=8105&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=bd0c14399c2f9ef1d349ada69fbc07c653284a27c529d29891824fe89e06a929",
+      "excerpt": null,
+      "notes": "Direct material bilateral customs evidence; it is not evidence of end use or a unique supply-chain route."
+    },
+    {
+      "id": "evidence-comtrade-material-idn-chn-nickel-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-id",
+        "itemIds": [
+          "nickel"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "7502",
+            "mappingType": "aggregate",
+            "description": "Indonesia → China unwrought nickel aggregate"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Direct material customs observation for Indonesia → China unwrought nickel aggregate, reporterCode=360, partnerCode=156, flow=import.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only the reported HS classification, endpoints, direction and period.",
+          "Does not prove smartphone, battery, factory or continuous material use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=360&partnerCode=156&cmdCode=7502&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=68d1f9bb1c27879aa672ed0e6aff7f775ea56b0355df7cd5462434a3edf271c7",
+      "excerpt": null,
+      "notes": "Direct material bilateral customs evidence; it is not evidence of end use or a unique supply-chain route."
+    },
+    {
+      "id": "evidence-comtrade-material-idn-chn-nickel-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-id",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "nickel"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "7502",
+            "mappingType": "aggregate",
+            "description": "Indonesia → China unwrought nickel aggregate"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Direct material customs observation for Indonesia → China unwrought nickel aggregate, reporterCode=360, partnerCode=156, flow=export.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only the reported HS classification, endpoints, direction and period.",
+          "Does not prove smartphone, battery, factory or continuous material use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=360&partnerCode=156&cmdCode=7502&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=68d1f9bb1c27879aa672ed0e6aff7f775ea56b0355df7cd5462434a3edf271c7",
+      "excerpt": null,
+      "notes": "Direct material bilateral customs evidence; it is not evidence of end use or a unique supply-chain route."
+    },
+    {
+      "id": "evidence-comtrade-material-chl-chn-copper-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-cl",
+        "itemIds": [
+          "copper"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "7403",
+            "mappingType": "aggregate",
+            "description": "Chile → China copper aggregate"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Direct material customs observation for Chile → China copper aggregate, reporterCode=152, partnerCode=156, flow=import.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only the reported HS classification, endpoints, direction and period.",
+          "Does not prove smartphone, battery, factory or continuous material use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=152&partnerCode=156&cmdCode=7403&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=7510697a76c164015b80333eefac58b8f4cf6a16f44ed623ce5b8be865de62e8",
+      "excerpt": null,
+      "notes": "Direct material bilateral customs evidence; it is not evidence of end use or a unique supply-chain route."
+    },
+    {
+      "id": "evidence-comtrade-material-chl-chn-copper-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cl",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "copper"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "7403",
+            "mappingType": "aggregate",
+            "description": "Chile → China copper aggregate"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Direct material customs observation for Chile → China copper aggregate, reporterCode=152, partnerCode=156, flow=export.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only the reported HS classification, endpoints, direction and period.",
+          "Does not prove smartphone, battery, factory or continuous material use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=152&partnerCode=156&cmdCode=7403&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=7510697a76c164015b80333eefac58b8f4cf6a16f44ed623ce5b8be865de62e8",
+      "excerpt": null,
+      "notes": "Direct material bilateral customs evidence; it is not evidence of end use or a unique supply-chain route."
+    },
+    {
+      "id": "evidence-comtrade-material-aus-chn-aluminum-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-au",
+        "itemIds": [
+          "aluminum"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "7601",
+            "mappingType": "aggregate",
+            "description": "Australia → China unwrought aluminum aggregate"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Direct material customs observation for Australia → China unwrought aluminum aggregate, reporterCode=36, partnerCode=156, flow=import.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only the reported HS classification, endpoints, direction and period.",
+          "Does not prove smartphone, battery, factory or continuous material use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=36&partnerCode=156&cmdCode=7601&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=6835757d6618ea9b8a1d4739a15542ba710e9604ca5ba7b148416863eb326506",
+      "excerpt": null,
+      "notes": "Direct material bilateral customs evidence; it is not evidence of end use or a unique supply-chain route."
+    },
+    {
+      "id": "evidence-comtrade-material-aus-chn-aluminum-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-au",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "aluminum"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "7601",
+            "mappingType": "aggregate",
+            "description": "Australia → China unwrought aluminum aggregate"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Direct material customs observation for Australia → China unwrought aluminum aggregate, reporterCode=36, partnerCode=156, flow=export.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only the reported HS classification, endpoints, direction and period.",
+          "Does not prove smartphone, battery, factory or continuous material use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=36&partnerCode=156&cmdCode=7601&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=6835757d6618ea9b8a1d4739a15542ba710e9604ca5ba7b148416863eb326506",
+      "excerpt": null,
+      "notes": "Direct material bilateral customs evidence; it is not evidence of end use or a unique supply-chain route."
+    },
+    {
+      "id": "evidence-comtrade-material-chn-kor-graphite-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-kr",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "graphite"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "250410",
+            "mappingType": "exact",
+            "description": "China → Korea natural graphite"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Direct material customs observation for China → Korea natural graphite, reporterCode=156, partnerCode=410, flow=import.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only the reported HS classification, endpoints, direction and period.",
+          "Does not prove smartphone, battery, factory or continuous material use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=0e36c6d57be3cf40610f2e88b9ba81944ed47d1ac92a5457391eec4fa4b9e12b",
+      "excerpt": null,
+      "notes": "Direct material bilateral customs evidence; it is not evidence of end use or a unique supply-chain route."
+    },
+    {
+      "id": "evidence-comtrade-material-chn-kor-graphite-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-kr",
+        "itemIds": [
+          "graphite"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "250410",
+            "mappingType": "exact",
+            "description": "China → Korea natural graphite"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Direct material customs observation for China → Korea natural graphite, reporterCode=156, partnerCode=410, flow=export.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only the reported HS classification, endpoints, direction and period.",
+          "Does not prove smartphone, battery, factory or continuous material use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=0e36c6d57be3cf40610f2e88b9ba81944ed47d1ac92a5457391eec4fa4b9e12b",
+      "excerpt": null,
+      "notes": "Direct material bilateral customs evidence; it is not evidence of end use or a unique supply-chain route."
     }
   ],
   "entities": [
@@ -5857,7 +6267,7 @@
       "flowId": "flow-lithium-refining",
       "currentClaim": "澳大利亚锂角色与中国代表性正极材料阶段之间存在策展连接。",
       "currentEvidenceLevel": "representative",
-      "missingEvidence": "缺少 2023 年具体伙伴、方向明确且分类适合的澳大利亚至中国锂商品双边海关观察；仍需区分矿石和锂化合物。",
+      "missingEvidence": "已补充 2023 年澳大利亚报告方与中国具体伙伴的 HS 2022/283691 观察；仍需区分矿石和锂化合物，并缺少进入正极材料或手机的用途证据。",
       "acceptableEvidenceTypes": [
         "bilateral_flow",
         "trade_observation",
@@ -5898,12 +6308,14 @@
           "limitation": "不能证明该碳酸锂进入中国正极材料或智能手机。"
         }
       ],
-      "status": "open",
+      "status": "partial",
       "nonInferences": [
         "不得用澳大利亚和中国各自的世界总计观察拼接双边流向。",
         "不得将任一锂化合物双边贸易观察升级为手机供应链用途事实。"
       ],
-      "evidenceIds": [],
+      "evidenceIds": [
+        "evidence-comtrade-material-aus-chn-lithium-import"
+      ],
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
@@ -5920,7 +6332,7 @@
       "flowId": "flow-cobalt-refining",
       "currentClaim": "刚果民主共和国钴角色与中国代表性正极材料阶段之间存在策展连接。",
       "currentEvidenceLevel": "representative",
-      "missingEvidence": "缺少 2023 年刚果民主共和国至中国、具体伙伴和方向明确的钴矿或钴中间品双边海关观察。",
+      "missingEvidence": "已补充 2023 年刚果民主共和国报告方与中国具体伙伴的 HS 2022/8105 出口观察；钴矿/中间品的更窄分类和手机用途仍未由该记录支持。",
       "acceptableEvidenceTypes": [
         "bilateral_flow",
         "trade_observation",
@@ -5969,12 +6381,14 @@
           "limitation": "不是硫酸钴专属 HS 六位码，不能将全部观察归为钴化合物。"
         }
       ],
-      "status": "open",
+      "status": "partial",
       "nonInferences": [
         "不得从两国世界总计数据构造双边事实。",
         "不得把钴分类贸易直接解释为中国手机正极材料投入。"
       ],
-      "evidenceIds": [],
+      "evidenceIds": [
+        "evidence-comtrade-material-cod-chn-cobalt-export"
+      ],
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
@@ -5991,7 +6405,7 @@
       "flowId": "flow-nickel-refining",
       "currentClaim": "印度尼西亚镍角色与中国代表性正极材料阶段之间存在策展连接。",
       "currentEvidenceLevel": "representative",
-      "missingEvidence": "缺少 2023 年印度尼西亚至中国、具体伙伴和方向明确的镍矿、中间品、精炼镍或镍化合物观察。",
+      "missingEvidence": "已补充 2023 年印度尼西亚报告方与中国具体伙伴的 HS 2022/7502 观察；镍矿、中间品、精炼镍和镍化合物的更窄分类及手机用途仍未由该记录支持。",
       "acceptableEvidenceTypes": [
         "bilateral_flow",
         "trade_observation",
@@ -6056,12 +6470,15 @@
           "limitation": "不能由商品定义推断具体正极配方、买方或手机用途。"
         }
       ],
-      "status": "open",
+      "status": "partial",
       "nonInferences": [
         "不得把普通镍贸易升级为手机电池事实。",
         "不得把不同加工阶段的独立观察视为同一批物料。"
       ],
-      "evidenceIds": [],
+      "evidenceIds": [
+        "evidence-comtrade-material-idn-chn-nickel-export",
+        "evidence-comtrade-material-idn-chn-nickel-import"
+      ],
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
@@ -6907,158 +7324,6 @@
   ],
   "materialTradeObservations": [
     {
-      "observationId": "material-graphite-0-M-0",
-      "materialItemId": "graphite",
-      "reporterEntityId": "country-cn",
-      "partnerEntityId": null,
-      "reporterCode": 156,
-      "partnerCode": 0,
-      "partnerScope": "world_total",
-      "flow": "import",
-      "classificationSystem": "HS",
-      "classificationVersion": "2022",
-      "classificationCode": "250410",
-      "classificationMappingType": "exact",
-      "period": {
-        "granularity": "annual",
-        "start": "2023-01-01",
-        "end": "2023-12-31",
-        "label": "2023"
-      },
-      "currency": "USD",
-      "value": 53740122,
-      "quantity": null,
-      "valueDataStatus": "observed",
-      "quantityDataStatus": "estimated",
-      "quality": {
-        "isQtyEstimated": true,
-        "isAggregate": true,
-        "isReported": false,
-        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
-        "retrievedAt": "2026-08-25T07:11:18.201Z",
-        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
-      },
-      "sourceId": "source-un-comtrade",
-      "datasetVersionId": "dataset-smartphone-published-2023",
-      "method": "official",
-      "evidenceLevel": "bilateral_supported",
-      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
-    },
-    {
-      "observationId": "material-lithium-0-M-1",
-      "materialItemId": "lithium",
-      "reporterEntityId": "country-cn",
-      "partnerEntityId": null,
-      "reporterCode": 156,
-      "partnerCode": 0,
-      "partnerScope": "world_total",
-      "flow": "import",
-      "classificationSystem": "HS",
-      "classificationVersion": "2022",
-      "classificationCode": "283691",
-      "classificationMappingType": "exact",
-      "period": {
-        "granularity": "annual",
-        "start": "2023-01-01",
-        "end": "2023-12-31",
-        "label": "2023"
-      },
-      "currency": "USD",
-      "value": 6329250472,
-      "quantity": null,
-      "valueDataStatus": "observed",
-      "quantityDataStatus": "estimated",
-      "quality": {
-        "isQtyEstimated": true,
-        "isAggregate": true,
-        "isReported": false,
-        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
-        "retrievedAt": "2026-08-25T07:11:18.201Z",
-        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
-      },
-      "sourceId": "source-un-comtrade",
-      "datasetVersionId": "dataset-smartphone-published-2023",
-      "method": "official",
-      "evidenceLevel": "bilateral_supported",
-      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
-    },
-    {
-      "observationId": "material-copper-0-M-2",
-      "materialItemId": "copper",
-      "reporterEntityId": "country-cn",
-      "partnerEntityId": null,
-      "reporterCode": 156,
-      "partnerCode": 0,
-      "partnerScope": "world_total",
-      "flow": "import",
-      "classificationSystem": "HS",
-      "classificationVersion": "2022",
-      "classificationCode": "7403",
-      "classificationMappingType": "aggregate",
-      "period": {
-        "granularity": "annual",
-        "start": "2023-01-01",
-        "end": "2023-12-31",
-        "label": "2023"
-      },
-      "currency": "USD",
-      "value": 34227560359,
-      "quantity": null,
-      "valueDataStatus": "observed",
-      "quantityDataStatus": "estimated",
-      "quality": {
-        "isQtyEstimated": true,
-        "isAggregate": true,
-        "isReported": false,
-        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
-        "retrievedAt": "2026-08-25T07:11:18.201Z",
-        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
-      },
-      "sourceId": "source-un-comtrade",
-      "datasetVersionId": "dataset-smartphone-published-2023",
-      "method": "official",
-      "evidenceLevel": "bilateral_supported",
-      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
-    },
-    {
-      "observationId": "material-nickel-0-M-3",
-      "materialItemId": "nickel",
-      "reporterEntityId": "country-cn",
-      "partnerEntityId": null,
-      "reporterCode": 156,
-      "partnerCode": 0,
-      "partnerScope": "world_total",
-      "flow": "import",
-      "classificationSystem": "HS",
-      "classificationVersion": "2022",
-      "classificationCode": "7502",
-      "classificationMappingType": "aggregate",
-      "period": {
-        "granularity": "annual",
-        "start": "2023-01-01",
-        "end": "2023-12-31",
-        "label": "2023"
-      },
-      "currency": "USD",
-      "value": 2186111670,
-      "quantity": null,
-      "valueDataStatus": "observed",
-      "quantityDataStatus": "estimated",
-      "quality": {
-        "isQtyEstimated": true,
-        "isAggregate": true,
-        "isReported": false,
-        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
-        "retrievedAt": "2026-08-25T07:11:18.201Z",
-        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
-      },
-      "sourceId": "source-un-comtrade",
-      "datasetVersionId": "dataset-smartphone-published-2023",
-      "method": "official",
-      "evidenceLevel": "bilateral_supported",
-      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
-    },
-    {
       "observationId": "material-aluminum-0-M-4",
       "materialItemId": "aluminum",
       "reporterEntityId": "country-cn",
@@ -7079,196 +7344,6 @@
       },
       "currency": "USD",
       "value": 6002153562,
-      "quantity": null,
-      "valueDataStatus": "observed",
-      "quantityDataStatus": "estimated",
-      "quality": {
-        "isQtyEstimated": true,
-        "isAggregate": true,
-        "isReported": false,
-        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
-        "retrievedAt": "2026-08-25T07:11:18.201Z",
-        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
-      },
-      "sourceId": "source-un-comtrade",
-      "datasetVersionId": "dataset-smartphone-published-2023",
-      "method": "official",
-      "evidenceLevel": "bilateral_supported",
-      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
-    },
-    {
-      "observationId": "material-cobalt-0-M-5",
-      "materialItemId": "cobalt",
-      "reporterEntityId": "country-cn",
-      "partnerEntityId": null,
-      "reporterCode": 156,
-      "partnerCode": 0,
-      "partnerScope": "world_total",
-      "flow": "import",
-      "classificationSystem": "HS",
-      "classificationVersion": "2022",
-      "classificationCode": "8105",
-      "classificationMappingType": "aggregate",
-      "period": {
-        "granularity": "annual",
-        "start": "2023-01-01",
-        "end": "2023-12-31",
-        "label": "2023"
-      },
-      "currency": "USD",
-      "value": 2657032206,
-      "quantity": null,
-      "valueDataStatus": "observed",
-      "quantityDataStatus": "estimated",
-      "quality": {
-        "isQtyEstimated": true,
-        "isAggregate": true,
-        "isReported": false,
-        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
-        "retrievedAt": "2026-08-25T07:11:18.201Z",
-        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
-      },
-      "sourceId": "source-un-comtrade",
-      "datasetVersionId": "dataset-smartphone-published-2023",
-      "method": "official",
-      "evidenceLevel": "bilateral_supported",
-      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
-    },
-    {
-      "observationId": "material-graphite-0-X-6",
-      "materialItemId": "graphite",
-      "reporterEntityId": "country-cn",
-      "partnerEntityId": null,
-      "reporterCode": 156,
-      "partnerCode": 0,
-      "partnerScope": "world_total",
-      "flow": "export",
-      "classificationSystem": "HS",
-      "classificationVersion": "2022",
-      "classificationCode": "250410",
-      "classificationMappingType": "exact",
-      "period": {
-        "granularity": "annual",
-        "start": "2023-01-01",
-        "end": "2023-12-31",
-        "label": "2023"
-      },
-      "currency": "USD",
-      "value": 261377599,
-      "quantity": null,
-      "valueDataStatus": "observed",
-      "quantityDataStatus": "estimated",
-      "quality": {
-        "isQtyEstimated": true,
-        "isAggregate": true,
-        "isReported": false,
-        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
-        "retrievedAt": "2026-08-25T07:11:18.201Z",
-        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
-      },
-      "sourceId": "source-un-comtrade",
-      "datasetVersionId": "dataset-smartphone-published-2023",
-      "method": "official",
-      "evidenceLevel": "bilateral_supported",
-      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
-    },
-    {
-      "observationId": "material-lithium-0-X-7",
-      "materialItemId": "lithium",
-      "reporterEntityId": "country-cn",
-      "partnerEntityId": null,
-      "reporterCode": 156,
-      "partnerCode": 0,
-      "partnerScope": "world_total",
-      "flow": "export",
-      "classificationSystem": "HS",
-      "classificationVersion": "2022",
-      "classificationCode": "283691",
-      "classificationMappingType": "exact",
-      "period": {
-        "granularity": "annual",
-        "start": "2023-01-01",
-        "end": "2023-12-31",
-        "label": "2023"
-      },
-      "currency": "USD",
-      "value": 518292226,
-      "quantity": null,
-      "valueDataStatus": "observed",
-      "quantityDataStatus": "estimated",
-      "quality": {
-        "isQtyEstimated": true,
-        "isAggregate": true,
-        "isReported": false,
-        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
-        "retrievedAt": "2026-08-25T07:11:18.201Z",
-        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
-      },
-      "sourceId": "source-un-comtrade",
-      "datasetVersionId": "dataset-smartphone-published-2023",
-      "method": "official",
-      "evidenceLevel": "bilateral_supported",
-      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
-    },
-    {
-      "observationId": "material-copper-0-X-8",
-      "materialItemId": "copper",
-      "reporterEntityId": "country-cn",
-      "partnerEntityId": null,
-      "reporterCode": 156,
-      "partnerCode": 0,
-      "partnerScope": "world_total",
-      "flow": "export",
-      "classificationSystem": "HS",
-      "classificationVersion": "2022",
-      "classificationCode": "7403",
-      "classificationMappingType": "aggregate",
-      "period": {
-        "granularity": "annual",
-        "start": "2023-01-01",
-        "end": "2023-12-31",
-        "label": "2023"
-      },
-      "currency": "USD",
-      "value": 2422184729,
-      "quantity": null,
-      "valueDataStatus": "observed",
-      "quantityDataStatus": "estimated",
-      "quality": {
-        "isQtyEstimated": true,
-        "isAggregate": true,
-        "isReported": false,
-        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
-        "retrievedAt": "2026-08-25T07:11:18.201Z",
-        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
-      },
-      "sourceId": "source-un-comtrade",
-      "datasetVersionId": "dataset-smartphone-published-2023",
-      "method": "official",
-      "evidenceLevel": "bilateral_supported",
-      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
-    },
-    {
-      "observationId": "material-nickel-0-X-9",
-      "materialItemId": "nickel",
-      "reporterEntityId": "country-cn",
-      "partnerEntityId": null,
-      "reporterCode": 156,
-      "partnerCode": 0,
-      "partnerScope": "world_total",
-      "flow": "export",
-      "classificationSystem": "HS",
-      "classificationVersion": "2022",
-      "classificationCode": "7502",
-      "classificationMappingType": "aggregate",
-      "period": {
-        "granularity": "annual",
-        "start": "2023-01-01",
-        "end": "2023-12-31",
-        "label": "2023"
-      },
-      "currency": "USD",
-      "value": 806817374,
       "quantity": null,
       "valueDataStatus": "observed",
       "quantityDataStatus": "estimated",
@@ -7325,6 +7400,120 @@
       "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
     },
     {
+      "observationId": "material-aluminum-842-M-4",
+      "materialItemId": "aluminum",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": "country-us",
+      "reporterCode": 156,
+      "partnerCode": 842,
+      "partnerScope": "entity",
+      "flow": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "7601",
+      "classificationMappingType": "aggregate",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 12670864,
+      "quantity": null,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "estimated",
+      "quality": {
+        "isQtyEstimated": true,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T07:11:29.836Z",
+        "rawResponseSha256": "1930a97c2cd9fbed0e64657c27dd8c314b3188b275c7a124f2b21c4e64390f78"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-aluminum-842-X-10",
+      "materialItemId": "aluminum",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": "country-us",
+      "reporterCode": 156,
+      "partnerCode": 842,
+      "partnerScope": "entity",
+      "flow": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "7601",
+      "classificationMappingType": "aggregate",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 2840508,
+      "quantity": 684352,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "isQtyEstimated": false,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T07:11:29.836Z",
+        "rawResponseSha256": "1930a97c2cd9fbed0e64657c27dd8c314b3188b275c7a124f2b21c4e64390f78"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-cobalt-0-M-5",
+      "materialItemId": "cobalt",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": null,
+      "reporterCode": 156,
+      "partnerCode": 0,
+      "partnerScope": "world_total",
+      "flow": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "8105",
+      "classificationMappingType": "aggregate",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 2657032206,
+      "quantity": null,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "estimated",
+      "quality": {
+        "isQtyEstimated": true,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T07:11:18.201Z",
+        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
       "observationId": "material-cobalt-0-X-11",
       "materialItemId": "cobalt",
       "reporterEntityId": "country-cn",
@@ -7345,6 +7534,310 @@
       },
       "currency": "USD",
       "value": 197703112,
+      "quantity": null,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "estimated",
+      "quality": {
+        "isQtyEstimated": true,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T07:11:18.201Z",
+        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-cobalt-842-M-5",
+      "materialItemId": "cobalt",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": "country-us",
+      "reporterCode": 156,
+      "partnerCode": 842,
+      "partnerScope": "entity",
+      "flow": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "8105",
+      "classificationMappingType": "aggregate",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 46821618,
+      "quantity": null,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "estimated",
+      "quality": {
+        "isQtyEstimated": true,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T07:11:29.836Z",
+        "rawResponseSha256": "1930a97c2cd9fbed0e64657c27dd8c314b3188b275c7a124f2b21c4e64390f78"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-cobalt-842-X-11",
+      "materialItemId": "cobalt",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": "country-us",
+      "reporterCode": 156,
+      "partnerCode": 842,
+      "partnerScope": "entity",
+      "flow": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "8105",
+      "classificationMappingType": "aggregate",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 16451045,
+      "quantity": 452344,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "isQtyEstimated": false,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T07:11:29.836Z",
+        "rawResponseSha256": "1930a97c2cd9fbed0e64657c27dd8c314b3188b275c7a124f2b21c4e64390f78"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-copper-0-M-2",
+      "materialItemId": "copper",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": null,
+      "reporterCode": 156,
+      "partnerCode": 0,
+      "partnerScope": "world_total",
+      "flow": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "7403",
+      "classificationMappingType": "aggregate",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 34227560359,
+      "quantity": null,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "estimated",
+      "quality": {
+        "isQtyEstimated": true,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T07:11:18.201Z",
+        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-copper-0-X-8",
+      "materialItemId": "copper",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": null,
+      "reporterCode": 156,
+      "partnerCode": 0,
+      "partnerScope": "world_total",
+      "flow": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "7403",
+      "classificationMappingType": "aggregate",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 2422184729,
+      "quantity": null,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "estimated",
+      "quality": {
+        "isQtyEstimated": true,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T07:11:18.201Z",
+        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-copper-842-M-2",
+      "materialItemId": "copper",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": "country-us",
+      "reporterCode": 156,
+      "partnerCode": 842,
+      "partnerScope": "entity",
+      "flow": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "7403",
+      "classificationMappingType": "aggregate",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 21816043,
+      "quantity": null,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "estimated",
+      "quality": {
+        "isQtyEstimated": true,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T07:11:29.836Z",
+        "rawResponseSha256": "1930a97c2cd9fbed0e64657c27dd8c314b3188b275c7a124f2b21c4e64390f78"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-copper-842-X-8",
+      "materialItemId": "copper",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": "country-us",
+      "reporterCode": 156,
+      "partnerCode": 842,
+      "partnerScope": "entity",
+      "flow": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "7403",
+      "classificationMappingType": "aggregate",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 2804,
+      "quantity": 104,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "isQtyEstimated": false,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T07:11:29.836Z",
+        "rawResponseSha256": "1930a97c2cd9fbed0e64657c27dd8c314b3188b275c7a124f2b21c4e64390f78"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-graphite-0-M-0",
+      "materialItemId": "graphite",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": null,
+      "reporterCode": 156,
+      "partnerCode": 0,
+      "partnerScope": "world_total",
+      "flow": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "250410",
+      "classificationMappingType": "exact",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 53740122,
+      "quantity": null,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "estimated",
+      "quality": {
+        "isQtyEstimated": true,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T07:11:18.201Z",
+        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-graphite-0-X-6",
+      "materialItemId": "graphite",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": null,
+      "reporterCode": 156,
+      "partnerCode": 0,
+      "partnerScope": "world_total",
+      "flow": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "250410",
+      "classificationMappingType": "exact",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 261377599,
       "quantity": null,
       "valueDataStatus": "observed",
       "quantityDataStatus": "estimated",
@@ -7401,196 +7894,6 @@
       "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
     },
     {
-      "observationId": "material-lithium-842-M-1",
-      "materialItemId": "lithium",
-      "reporterEntityId": "country-cn",
-      "partnerEntityId": "country-us",
-      "reporterCode": 156,
-      "partnerCode": 842,
-      "partnerScope": "entity",
-      "flow": "import",
-      "classificationSystem": "HS",
-      "classificationVersion": "2022",
-      "classificationCode": "283691",
-      "classificationMappingType": "exact",
-      "period": {
-        "granularity": "annual",
-        "start": "2023-01-01",
-        "end": "2023-12-31",
-        "label": "2023"
-      },
-      "currency": "USD",
-      "value": 6338,
-      "quantity": null,
-      "valueDataStatus": "observed",
-      "quantityDataStatus": "estimated",
-      "quality": {
-        "isQtyEstimated": true,
-        "isAggregate": false,
-        "isReported": true,
-        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
-        "retrievedAt": "2026-08-25T07:11:29.836Z",
-        "rawResponseSha256": "1930a97c2cd9fbed0e64657c27dd8c314b3188b275c7a124f2b21c4e64390f78"
-      },
-      "sourceId": "source-un-comtrade",
-      "datasetVersionId": "dataset-smartphone-published-2023",
-      "method": "official",
-      "evidenceLevel": "bilateral_supported",
-      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
-    },
-    {
-      "observationId": "material-copper-842-M-2",
-      "materialItemId": "copper",
-      "reporterEntityId": "country-cn",
-      "partnerEntityId": "country-us",
-      "reporterCode": 156,
-      "partnerCode": 842,
-      "partnerScope": "entity",
-      "flow": "import",
-      "classificationSystem": "HS",
-      "classificationVersion": "2022",
-      "classificationCode": "7403",
-      "classificationMappingType": "aggregate",
-      "period": {
-        "granularity": "annual",
-        "start": "2023-01-01",
-        "end": "2023-12-31",
-        "label": "2023"
-      },
-      "currency": "USD",
-      "value": 21816043,
-      "quantity": null,
-      "valueDataStatus": "observed",
-      "quantityDataStatus": "estimated",
-      "quality": {
-        "isQtyEstimated": true,
-        "isAggregate": true,
-        "isReported": false,
-        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
-        "retrievedAt": "2026-08-25T07:11:29.836Z",
-        "rawResponseSha256": "1930a97c2cd9fbed0e64657c27dd8c314b3188b275c7a124f2b21c4e64390f78"
-      },
-      "sourceId": "source-un-comtrade",
-      "datasetVersionId": "dataset-smartphone-published-2023",
-      "method": "official",
-      "evidenceLevel": "bilateral_supported",
-      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
-    },
-    {
-      "observationId": "material-nickel-842-M-3",
-      "materialItemId": "nickel",
-      "reporterEntityId": "country-cn",
-      "partnerEntityId": "country-us",
-      "reporterCode": 156,
-      "partnerCode": 842,
-      "partnerScope": "entity",
-      "flow": "import",
-      "classificationSystem": "HS",
-      "classificationVersion": "2022",
-      "classificationCode": "7502",
-      "classificationMappingType": "aggregate",
-      "period": {
-        "granularity": "annual",
-        "start": "2023-01-01",
-        "end": "2023-12-31",
-        "label": "2023"
-      },
-      "currency": "USD",
-      "value": 4276313,
-      "quantity": 43587,
-      "valueDataStatus": "observed",
-      "quantityDataStatus": "observed",
-      "quality": {
-        "isQtyEstimated": false,
-        "isAggregate": true,
-        "isReported": false,
-        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
-        "retrievedAt": "2026-08-25T07:11:29.836Z",
-        "rawResponseSha256": "1930a97c2cd9fbed0e64657c27dd8c314b3188b275c7a124f2b21c4e64390f78"
-      },
-      "sourceId": "source-un-comtrade",
-      "datasetVersionId": "dataset-smartphone-published-2023",
-      "method": "official",
-      "evidenceLevel": "bilateral_supported",
-      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
-    },
-    {
-      "observationId": "material-aluminum-842-M-4",
-      "materialItemId": "aluminum",
-      "reporterEntityId": "country-cn",
-      "partnerEntityId": "country-us",
-      "reporterCode": 156,
-      "partnerCode": 842,
-      "partnerScope": "entity",
-      "flow": "import",
-      "classificationSystem": "HS",
-      "classificationVersion": "2022",
-      "classificationCode": "7601",
-      "classificationMappingType": "aggregate",
-      "period": {
-        "granularity": "annual",
-        "start": "2023-01-01",
-        "end": "2023-12-31",
-        "label": "2023"
-      },
-      "currency": "USD",
-      "value": 12670864,
-      "quantity": null,
-      "valueDataStatus": "observed",
-      "quantityDataStatus": "estimated",
-      "quality": {
-        "isQtyEstimated": true,
-        "isAggregate": true,
-        "isReported": false,
-        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
-        "retrievedAt": "2026-08-25T07:11:29.836Z",
-        "rawResponseSha256": "1930a97c2cd9fbed0e64657c27dd8c314b3188b275c7a124f2b21c4e64390f78"
-      },
-      "sourceId": "source-un-comtrade",
-      "datasetVersionId": "dataset-smartphone-published-2023",
-      "method": "official",
-      "evidenceLevel": "bilateral_supported",
-      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
-    },
-    {
-      "observationId": "material-cobalt-842-M-5",
-      "materialItemId": "cobalt",
-      "reporterEntityId": "country-cn",
-      "partnerEntityId": "country-us",
-      "reporterCode": 156,
-      "partnerCode": 842,
-      "partnerScope": "entity",
-      "flow": "import",
-      "classificationSystem": "HS",
-      "classificationVersion": "2022",
-      "classificationCode": "8105",
-      "classificationMappingType": "aggregate",
-      "period": {
-        "granularity": "annual",
-        "start": "2023-01-01",
-        "end": "2023-12-31",
-        "label": "2023"
-      },
-      "currency": "USD",
-      "value": 46821618,
-      "quantity": null,
-      "valueDataStatus": "observed",
-      "quantityDataStatus": "estimated",
-      "quality": {
-        "isQtyEstimated": true,
-        "isAggregate": true,
-        "isReported": false,
-        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
-        "retrievedAt": "2026-08-25T07:11:29.836Z",
-        "rawResponseSha256": "1930a97c2cd9fbed0e64657c27dd8c314b3188b275c7a124f2b21c4e64390f78"
-      },
-      "sourceId": "source-un-comtrade",
-      "datasetVersionId": "dataset-smartphone-published-2023",
-      "method": "official",
-      "evidenceLevel": "bilateral_supported",
-      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
-    },
-    {
       "observationId": "material-graphite-842-X-6",
       "materialItemId": "graphite",
       "reporterEntityId": "country-cn",
@@ -7616,6 +7919,120 @@
       "quantityDataStatus": "observed",
       "quality": {
         "isQtyEstimated": false,
+        "isAggregate": false,
+        "isReported": true,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T07:11:29.836Z",
+        "rawResponseSha256": "1930a97c2cd9fbed0e64657c27dd8c314b3188b275c7a124f2b21c4e64390f78"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-lithium-0-M-1",
+      "materialItemId": "lithium",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": null,
+      "reporterCode": 156,
+      "partnerCode": 0,
+      "partnerScope": "world_total",
+      "flow": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "283691",
+      "classificationMappingType": "exact",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 6329250472,
+      "quantity": null,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "estimated",
+      "quality": {
+        "isQtyEstimated": true,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T07:11:18.201Z",
+        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-lithium-0-X-7",
+      "materialItemId": "lithium",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": null,
+      "reporterCode": 156,
+      "partnerCode": 0,
+      "partnerScope": "world_total",
+      "flow": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "283691",
+      "classificationMappingType": "exact",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 518292226,
+      "quantity": null,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "estimated",
+      "quality": {
+        "isQtyEstimated": true,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T07:11:18.201Z",
+        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-lithium-842-M-1",
+      "materialItemId": "lithium",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": "country-us",
+      "reporterCode": 156,
+      "partnerCode": 842,
+      "partnerScope": "entity",
+      "flow": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "283691",
+      "classificationMappingType": "exact",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 6338,
+      "quantity": null,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "estimated",
+      "quality": {
+        "isQtyEstimated": true,
         "isAggregate": false,
         "isReported": true,
         "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
@@ -7667,17 +8084,17 @@
       "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
     },
     {
-      "observationId": "material-copper-842-X-8",
-      "materialItemId": "copper",
+      "observationId": "material-nickel-0-M-3",
+      "materialItemId": "nickel",
       "reporterEntityId": "country-cn",
-      "partnerEntityId": "country-us",
+      "partnerEntityId": null,
       "reporterCode": 156,
-      "partnerCode": 842,
-      "partnerScope": "entity",
-      "flow": "export",
+      "partnerCode": 0,
+      "partnerScope": "world_total",
+      "flow": "import",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
-      "classificationCode": "7403",
+      "classificationCode": "7502",
       "classificationMappingType": "aggregate",
       "period": {
         "granularity": "annual",
@@ -7686,8 +8103,84 @@
         "label": "2023"
       },
       "currency": "USD",
-      "value": 2804,
-      "quantity": 104,
+      "value": 2186111670,
+      "quantity": null,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "estimated",
+      "quality": {
+        "isQtyEstimated": true,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T07:11:18.201Z",
+        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-nickel-0-X-9",
+      "materialItemId": "nickel",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": null,
+      "reporterCode": 156,
+      "partnerCode": 0,
+      "partnerScope": "world_total",
+      "flow": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "7502",
+      "classificationMappingType": "aggregate",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 806817374,
+      "quantity": null,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "estimated",
+      "quality": {
+        "isQtyEstimated": true,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T07:11:18.201Z",
+        "rawResponseSha256": "d189bffa64bbb91daee7d766dbe1b6ff3bc1e02b050f6aa33d3aeda818edb91a"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-nickel-842-M-3",
+      "materialItemId": "nickel",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": "country-us",
+      "reporterCode": 156,
+      "partnerCode": 842,
+      "partnerScope": "entity",
+      "flow": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "7502",
+      "classificationMappingType": "aggregate",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 4276313,
+      "quantity": 43587,
       "valueDataStatus": "observed",
       "quantityDataStatus": "observed",
       "quality": {
@@ -7743,12 +8236,50 @@
       "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
     },
     {
-      "observationId": "material-aluminum-842-X-10",
+      "observationId": "material-role-aus-chn-aluminum-M-0",
       "materialItemId": "aluminum",
-      "reporterEntityId": "country-cn",
-      "partnerEntityId": "country-us",
-      "reporterCode": 156,
-      "partnerCode": 842,
+      "reporterEntityId": "country-au",
+      "partnerEntityId": "country-cn",
+      "reporterCode": 36,
+      "partnerCode": 156,
+      "partnerScope": "entity",
+      "flow": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "7601",
+      "classificationMappingType": "aggregate",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 5391205.83,
+      "quantity": null,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "estimated",
+      "quality": {
+        "isQtyEstimated": true,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=36&partnerCode=156&cmdCode=7601&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T10:31:18.942Z",
+        "rawResponseSha256": "6835757d6618ea9b8a1d4739a15542ba710e9604ca5ba7b148416863eb326506"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该国家角色配对观察仅证明报告方与具体伙伴之间发生该 HS 分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-role-aus-chn-aluminum-X-1",
+      "materialItemId": "aluminum",
+      "reporterEntityId": "country-au",
+      "partnerEntityId": "country-cn",
+      "reporterCode": 36,
+      "partnerCode": 156,
       "partnerScope": "entity",
       "flow": "export",
       "classificationSystem": "HS",
@@ -7762,31 +8293,221 @@
         "label": "2023"
       },
       "currency": "USD",
-      "value": 2840508,
-      "quantity": 684352,
+      "value": 61224224.005,
+      "quantity": 26144050,
       "valueDataStatus": "observed",
       "quantityDataStatus": "observed",
       "quality": {
         "isQtyEstimated": false,
         "isAggregate": true,
         "isReported": false,
-        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
-        "retrievedAt": "2026-08-25T07:11:29.836Z",
-        "rawResponseSha256": "1930a97c2cd9fbed0e64657c27dd8c314b3188b275c7a124f2b21c4e64390f78"
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=36&partnerCode=156&cmdCode=7601&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T10:31:18.942Z",
+        "rawResponseSha256": "6835757d6618ea9b8a1d4739a15542ba710e9604ca5ba7b148416863eb326506"
       },
       "sourceId": "source-un-comtrade",
       "datasetVersionId": "dataset-smartphone-published-2023",
       "method": "official",
       "evidenceLevel": "bilateral_supported",
-      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+      "limitation": "该国家角色配对观察仅证明报告方与具体伙伴之间发生该 HS 分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
     },
     {
-      "observationId": "material-cobalt-842-X-11",
-      "materialItemId": "cobalt",
+      "observationId": "material-role-aus-chn-lithium-M-0",
+      "materialItemId": "lithium",
+      "reporterEntityId": "country-au",
+      "partnerEntityId": "country-cn",
+      "reporterCode": 36,
+      "partnerCode": 156,
+      "partnerScope": "entity",
+      "flow": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "283691",
+      "classificationMappingType": "exact",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 3611316.844,
+      "quantity": 280544.09,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "isQtyEstimated": false,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=36&partnerCode=156&cmdCode=283691&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T10:31:05.935Z",
+        "rawResponseSha256": "0957dde6fe8890a75dae81739154df28d33607a23457ea60ab3fe8f6ef20a8f9"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该国家角色配对观察仅证明报告方与具体伙伴之间发生该 HS 分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-role-chl-chn-copper-M-0",
+      "materialItemId": "copper",
+      "reporterEntityId": "country-cl",
+      "partnerEntityId": "country-cn",
+      "reporterCode": 152,
+      "partnerCode": 156,
+      "partnerScope": "entity",
+      "flow": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "7403",
+      "classificationMappingType": "aggregate",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 122778.16,
+      "quantity": 14075.439,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "isQtyEstimated": false,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=152&partnerCode=156&cmdCode=7403&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T10:31:15.379Z",
+        "rawResponseSha256": "7510697a76c164015b80333eefac58b8f4cf6a16f44ed623ce5b8be865de62e8"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该国家角色配对观察仅证明报告方与具体伙伴之间发生该 HS 分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-role-chl-chn-copper-X-1",
+      "materialItemId": "copper",
+      "reporterEntityId": "country-cl",
+      "partnerEntityId": "country-cn",
+      "reporterCode": 152,
+      "partnerCode": 156,
+      "partnerScope": "entity",
+      "flow": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "7403",
+      "classificationMappingType": "aggregate",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 6059154642.997,
+      "quantity": 727846838.5,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "isQtyEstimated": false,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=152&partnerCode=156&cmdCode=7403&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T10:31:15.379Z",
+        "rawResponseSha256": "7510697a76c164015b80333eefac58b8f4cf6a16f44ed623ce5b8be865de62e8"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该国家角色配对观察仅证明报告方与具体伙伴之间发生该 HS 分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-role-chn-kor-graphite-M-0",
+      "materialItemId": "graphite",
       "reporterEntityId": "country-cn",
-      "partnerEntityId": "country-us",
+      "partnerEntityId": "country-kr",
       "reporterCode": 156,
-      "partnerCode": 842,
+      "partnerCode": 410,
+      "partnerScope": "entity",
+      "flow": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "250410",
+      "classificationMappingType": "exact",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 330660,
+      "quantity": 81546,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "isQtyEstimated": false,
+        "isAggregate": false,
+        "isReported": true,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T10:31:21.538Z",
+        "rawResponseSha256": "0e36c6d57be3cf40610f2e88b9ba81944ed47d1ac92a5457391eec4fa4b9e12b"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该国家角色配对观察仅证明报告方与具体伙伴之间发生该 HS 分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-role-chn-kor-graphite-X-1",
+      "materialItemId": "graphite",
+      "reporterEntityId": "country-cn",
+      "partnerEntityId": "country-kr",
+      "reporterCode": 156,
+      "partnerCode": 410,
+      "partnerScope": "entity",
+      "flow": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "250410",
+      "classificationMappingType": "exact",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 105440306,
+      "quantity": 52118220,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "isQtyEstimated": false,
+        "isAggregate": false,
+        "isReported": true,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T10:31:21.538Z",
+        "rawResponseSha256": "0e36c6d57be3cf40610f2e88b9ba81944ed47d1ac92a5457391eec4fa4b9e12b"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该国家角色配对观察仅证明报告方与具体伙伴之间发生该 HS 分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-role-cod-chn-cobalt-X-0",
+      "materialItemId": "cobalt",
+      "reporterEntityId": "country-cd",
+      "partnerEntityId": "country-cn",
+      "reporterCode": 180,
+      "partnerCode": 156,
       "partnerScope": "entity",
       "flow": "export",
       "classificationSystem": "HS",
@@ -7800,23 +8521,99 @@
         "label": "2023"
       },
       "currency": "USD",
-      "value": 16451045,
-      "quantity": 452344,
+      "value": 11954333.286,
+      "quantity": 3759339,
       "valueDataStatus": "observed",
       "quantityDataStatus": "observed",
       "quality": {
         "isQtyEstimated": false,
         "isAggregate": true,
         "isReported": false,
-        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=7403,7601,283691,8105,7502,250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
-        "retrievedAt": "2026-08-25T07:11:29.836Z",
-        "rawResponseSha256": "1930a97c2cd9fbed0e64657c27dd8c314b3188b275c7a124f2b21c4e64390f78"
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=180&partnerCode=156&cmdCode=8105&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T10:31:10.622Z",
+        "rawResponseSha256": "bd0c14399c2f9ef1d349ada69fbc07c653284a27c529d29891824fe89e06a929"
       },
       "sourceId": "source-un-comtrade",
       "datasetVersionId": "dataset-smartphone-published-2023",
       "method": "official",
       "evidenceLevel": "bilateral_supported",
-      "limitation": "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+      "limitation": "该国家角色配对观察仅证明报告方与具体伙伴之间发生该 HS 分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-role-idn-chn-nickel-M-0",
+      "materialItemId": "nickel",
+      "reporterEntityId": "country-id",
+      "partnerEntityId": "country-cn",
+      "reporterCode": 360,
+      "partnerCode": 156,
+      "partnerScope": "entity",
+      "flow": "import",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "7502",
+      "classificationMappingType": "aggregate",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 211920,
+      "quantity": 10737,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "isQtyEstimated": false,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=360&partnerCode=156&cmdCode=7502&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T10:31:12.998Z",
+        "rawResponseSha256": "68d1f9bb1c27879aa672ed0e6aff7f775ea56b0355df7cd5462434a3edf271c7"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该国家角色配对观察仅证明报告方与具体伙伴之间发生该 HS 分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    },
+    {
+      "observationId": "material-role-idn-chn-nickel-X-1",
+      "materialItemId": "nickel",
+      "reporterEntityId": "country-id",
+      "partnerEntityId": "country-cn",
+      "reporterCode": 360,
+      "partnerCode": 156,
+      "partnerScope": "entity",
+      "flow": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "7502",
+      "classificationMappingType": "aggregate",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "currency": "USD",
+      "value": 27952497.91,
+      "quantity": 1445131.7,
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "isQtyEstimated": false,
+        "isAggregate": true,
+        "isReported": false,
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=360&partnerCode=156&cmdCode=7502&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "retrievedAt": "2026-08-25T10:31:12.998Z",
+        "rawResponseSha256": "68d1f9bb1c27879aa672ed0e6aff7f775ea56b0355df7cd5462434a3edf271c7"
+      },
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "evidenceLevel": "bilateral_supported",
+      "limitation": "该国家角色配对观察仅证明报告方与具体伙伴之间发生该 HS 分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
     }
   ],
   "indicatorDefinitions": [

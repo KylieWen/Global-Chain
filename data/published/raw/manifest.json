@@ -90,6 +90,15 @@
       "redistributionPolicy": "https://comtradeplus.un.org/PolicyOnUseAndRedissemination",
       "limitations": ["Classification observations do not establish smartphone or battery end use.", "Estimated quantities are retained as unknown quantities in published observations."]
     },
+    "materialRolePairsComtrade": {
+      "file": "un-comtrade-hs2022-material-role-pairs-2023.json",
+      "sourceId": "source-un-comtrade",
+      "sourceVersion": { "classification": "HS 2022", "period": "2023", "api": "UN Comtrade Public Preview API" },
+      "queryScope": "Australia/DRC/Indonesia/Chile reporters paired with China, plus China paired with Korea; selected material HS classifications; imports and exports",
+      "licenseAgreement": "https://comtradeplus.un.org/LicenseAgreement",
+      "redistributionPolicy": "https://comtradeplus.un.org/PolicyOnUseAndRedissemination",
+      "limitations": ["A bilateral material observation does not establish smartphone or battery end use.", "Missing directional rows are not zero."]
+    },
     "bilateralComtrade": {
       "file": "un-comtrade-hs2022-851713-bilateral-2023.json",
       "sourceId": "source-un-comtrade",

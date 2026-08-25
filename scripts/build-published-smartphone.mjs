@@ -30,6 +30,7 @@ const BILATERAL_SNAPSHOT_PATH = resolve(
   "un-comtrade-hs2022-851713-bilateral-2023.json"
 );
 const MATERIAL_SNAPSHOT_PATH = resolve(RAW_DIR, "un-comtrade-hs2022-materials-2023.json");
+const MATERIAL_ROLE_PAIRS_SNAPSHOT_PATH = resolve(RAW_DIR, "un-comtrade-hs2022-material-role-pairs-2023.json");
 const OUTPUT_DIR = resolve(ROOT, "data/published/smartphone");
 const OUTPUT_PATH = resolve(OUTPUT_DIR, "fixture.json");
 const MANIFEST_PATH = resolve(ROOT, "data/published/manifest.json");
@@ -54,8 +55,14 @@ const SOURCE_IDS = {
 };
 
 const entityByComtradeCode = new Map([
+  [36, "country-au"],
+  [152, "country-cl"],
+  [180, "country-cd"],
   [156, "country-cn"],
   [276, "country-de"],
+  [360, "country-id"],
+  [410, "country-kr"],
+  [392, "country-jp"],
   // 842 is the source-native USA statistical area (including Puerto Rico and
   // the US Virgin Islands), not ISO/M49 840. The quality note retains that
   // wider source scope when linking it to the current country dimension.
@@ -578,6 +585,27 @@ function buildMaterialTradeObservations(raw) {
   }));
 }
 
+function buildMaterialRolePairObservations(raw) {
+  return (raw.responses ?? []).flatMap((response) => (response.payload?.data ?? []).map((row, index) => {
+    const amount = typeof row.primaryValue === "number" ? row.primaryValue : null;
+    const estimated = row.isQtyEstimated === true;
+    const partnerCode = Number(row.partnerCode);
+    return {
+      observationId: `material-role-${response.id}-${row.flowCode}-${index}`,
+      materialItemId: response.materialItemId,
+      reporterEntityId: entityByComtradeCode.get(Number(row.reporterCode)),
+      partnerEntityId: entityByComtradeCode.get(partnerCode),
+      reporterCode: Number(row.reporterCode), partnerCode, partnerScope: "entity",
+      flow: row.flowCode === "M" ? "import" : "export", classificationSystem: "HS", classificationVersion: "2022", classificationCode: String(row.cmdCode),
+      classificationMappingType: ["283691", "250410"].includes(String(row.cmdCode)) ? "exact" : "aggregate", period: PERIOD, currency: amount === null ? null : "USD", value: amount,
+      quantity: estimated ? null : (typeof row.qty === "number" ? row.qty : null), valueDataStatus: amount === null ? "unknown" : "observed", quantityDataStatus: estimated ? "estimated" : (row.qty == null ? "unknown" : "observed"),
+      quality: { isQtyEstimated: row.isQtyEstimated ?? null, isAggregate: row.isAggregate ?? null, isReported: row.isReported ?? null, requestUrl: response.url, retrievedAt: response.retrievedAt, rawResponseSha256: response.responseSha256 },
+      sourceId: SOURCE_IDS.comtrade, datasetVersionId: DATASET_ID, method: "official", evidenceLevel: "bilateral_supported",
+      limitation: "该国家角色配对观察仅证明报告方与具体伙伴之间发生该 HS 分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    };
+  }));
+}
+
 function makeBilateralEvidence(bilateralRaw) {
   const routeEvidence = [
     {
@@ -680,7 +708,34 @@ function countryRoleScope(entityId, itemId, processStageId, scopeDescription, li
   };
 }
 
-function makeSourceAndEvidence(wdiRaw, comtradeRaw, bilateralRaw, industryRoleContent) {
+function makeMaterialRolePairEvidence(raw) {
+  const seen = new Set();
+  return (raw.responses ?? []).flatMap((response) => (response.payload?.data ?? []).map((row) => {
+    const direction = row.flowCode === "M" ? "import" : "export";
+    const id = `evidence-comtrade-material-${response.id}-${direction}`;
+    if (seen.has(id)) return null;
+    seen.add(id);
+    const reporterEntityId = entityByComtradeCode.get(Number(row.reporterCode));
+    const partnerEntityId = entityByComtradeCode.get(Number(row.partnerCode));
+    const fromEntityId = direction === "export" ? reporterEntityId : partnerEntityId;
+    const toEntityId = direction === "export" ? partnerEntityId : reporterEntityId;
+    return {
+      id, sourceId: SOURCE_IDS.comtrade, supportType: "bilateral_flow",
+      scope: {
+        entityIds: [], fromEntityId, toEntityId, itemIds: [response.materialItemId], processStageIds: [],
+        classificationCodes: [{ system: "HS", version: "2022", code: String(row.cmdCode), mappingType: ["283691", "250410"].includes(String(row.cmdCode)) ? "exact" : "aggregate", description: response.label }],
+        direction, period: period(), scopeDescription: `Direct material customs observation for ${response.label}, reporterCode=${row.reporterCode}, partnerCode=${row.partnerCode}, flow=${direction}.`,
+        supportsCountryRole: false, supportsBilateralFlow: true, supportsProcessContext: false,
+        limitations: ["Supports only the reported HS classification, endpoints, direction and period.", "Does not prove smartphone, battery, factory or continuous material use."]
+      },
+      locator: `${response.url}; rawResponseSha256=${response.responseSha256}`,
+      excerpt: null,
+      notes: "Direct material bilateral customs evidence; it is not evidence of end use or a unique supply-chain route."
+    };
+  }).filter(Boolean));
+}
+
+function makeSourceAndEvidence(wdiRaw, comtradeRaw, bilateralRaw, materialRolePairsRaw, industryRoleContent) {
   const wdiRetrieved = wdiRaw.fetchedAt ?? "2026-08-25";
   const comtradeRetrieved = comtradeRaw.fetchedAt ?? "2026-08-25";
   const comtradeUrl = comtradeRaw.request?.url ?? "https://comtradeapi.un.org/public/v1/preview/C/A/HS";
@@ -970,7 +1025,8 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw, bilateralRaw, industryRoleCo
   }
   evidence.push(
     ...(industryRoleContent.evidence ?? []).map(clone),
-    ...makeBilateralEvidence(bilateralRaw)
+    ...makeBilateralEvidence(bilateralRaw),
+    ...makeMaterialRolePairEvidence(materialRolePairsRaw)
   );
   return { sources, evidence };
 }
@@ -1090,6 +1146,7 @@ function buildFixture(
   comtradeRaw,
   bilateralRaw,
   materialRaw,
+  materialRolePairsRaw,
   industryRoleContent,
   gapRegistry
 ) {
@@ -1119,6 +1176,7 @@ function buildFixture(
     wdiRaw,
     comtradeRaw,
     bilateralRaw,
+    materialRolePairsRaw,
     industryRoleContent
   );
   fixture.sources = sources;
@@ -1131,6 +1189,8 @@ function buildFixture(
     ...buildBilateralTradeObservations(bilateralRaw)
   ].sort((left, right) => left.id.localeCompare(right.id));
   fixture.materialTradeObservations = buildMaterialTradeObservations(materialRaw);
+  fixture.materialTradeObservations = [...fixture.materialTradeObservations, ...buildMaterialRolePairObservations(materialRolePairsRaw)]
+    .sort((left, right) => left.observationId.localeCompare(right.observationId));
   fixture.macroIndicators = buildMacroIndicators(wdiRaw);
   fixture.indicatorDefinitions = buildIndicatorDefinitions();
   fixture.missingDataNotes = [
@@ -1312,6 +1372,7 @@ async function main() {
     comtradeRaw,
     bilateralRaw,
     materialRaw,
+    materialRolePairsRaw,
     industryRoleContent,
     gapRegistry
   ] = await Promise.all([
@@ -1321,6 +1382,7 @@ async function main() {
     readJson(resolve(RAW_DIR, "un-comtrade-hs2022-851713-2023.json")),
     readJson(BILATERAL_SNAPSHOT_PATH),
     readJson(MATERIAL_SNAPSHOT_PATH),
+    readJson(MATERIAL_ROLE_PAIRS_SNAPSHOT_PATH),
     readJson(INDUSTRY_ROLE_EVIDENCE_PATH),
     readJson(EVIDENCE_GAP_REGISTRY_PATH)
   ]);
@@ -1342,6 +1404,7 @@ async function main() {
     comtradeRaw,
     bilateralRaw,
     materialRaw,
+    materialRolePairsRaw,
     industryRoleContent,
     gapRegistry
   );
@@ -1367,6 +1430,7 @@ async function main() {
       "raw/un-comtrade-hs2022-851713-2023.json",
       "raw/un-comtrade-hs2022-851713-bilateral-2023.json"
       ,"raw/un-comtrade-hs2022-materials-2023.json"
+      ,"raw/un-comtrade-hs2022-material-role-pairs-2023.json"
     ],
     notes: [
       "Numeric observations are generated from immutable local raw snapshots; reviewed route topology and evidence bindings come from the versioned content source. No runtime API calls are made.",

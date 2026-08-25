@@ -739,7 +739,7 @@
       "flowId": "flow-lithium-refining",
       "currentClaim": "澳大利亚锂角色与中国代表性正极材料阶段之间存在策展连接。",
       "currentEvidenceLevel": "representative",
-      "missingEvidence": "缺少 2023 年具体伙伴、方向明确且分类适合的澳大利亚至中国锂商品双边海关观察；仍需区分矿石和锂化合物。",
+      "missingEvidence": "已补充 2023 年澳大利亚报告方与中国具体伙伴的 HS 2022/283691 观察；仍需区分矿石和锂化合物，并缺少进入正极材料或手机的用途证据。",
       "acceptableEvidenceTypes": ["bilateral_flow", "trade_observation", "classification"],
       "candidateSources": [
         {
@@ -776,12 +776,12 @@
           "limitation": "不能证明该碳酸锂进入中国正极材料或智能手机。"
         }
       ],
-      "status": "open",
+      "status": "partial",
       "nonInferences": [
         "不得用澳大利亚和中国各自的世界总计观察拼接双边流向。",
         "不得将任一锂化合物双边贸易观察升级为手机供应链用途事实。"
       ],
-      "evidenceIds": [],
+      "evidenceIds": ["evidence-comtrade-material-aus-chn-lithium-import"],
       "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
       "method": "curated",
       "datasetVersionId": "dataset-smartphone-published-2023",
@@ -793,7 +793,7 @@
       "flowId": "flow-cobalt-refining",
       "currentClaim": "刚果民主共和国钴角色与中国代表性正极材料阶段之间存在策展连接。",
       "currentEvidenceLevel": "representative",
-      "missingEvidence": "缺少 2023 年刚果民主共和国至中国、具体伙伴和方向明确的钴矿或钴中间品双边海关观察。",
+      "missingEvidence": "已补充 2023 年刚果民主共和国报告方与中国具体伙伴的 HS 2022/8105 出口观察；钴矿/中间品的更窄分类和手机用途仍未由该记录支持。",
       "acceptableEvidenceTypes": ["bilateral_flow", "trade_observation", "classification"],
       "candidateSources": [
         {
@@ -838,12 +838,12 @@
           "limitation": "不是硫酸钴专属 HS 六位码，不能将全部观察归为钴化合物。"
         }
       ],
-      "status": "open",
+      "status": "partial",
       "nonInferences": [
         "不得从两国世界总计数据构造双边事实。",
         "不得把钴分类贸易直接解释为中国手机正极材料投入。"
       ],
-      "evidenceIds": [],
+      "evidenceIds": ["evidence-comtrade-material-cod-chn-cobalt-export"],
       "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
       "method": "curated",
       "datasetVersionId": "dataset-smartphone-published-2023",
@@ -855,7 +855,7 @@
       "flowId": "flow-nickel-refining",
       "currentClaim": "印度尼西亚镍角色与中国代表性正极材料阶段之间存在策展连接。",
       "currentEvidenceLevel": "representative",
-      "missingEvidence": "缺少 2023 年印度尼西亚至中国、具体伙伴和方向明确的镍矿、中间品、精炼镍或镍化合物观察。",
+      "missingEvidence": "已补充 2023 年印度尼西亚报告方与中国具体伙伴的 HS 2022/7502 观察；镍矿、中间品、精炼镍和镍化合物的更窄分类及手机用途仍未由该记录支持。",
       "acceptableEvidenceTypes": ["bilateral_flow", "trade_observation", "classification"],
       "candidateSources": [
         {
@@ -916,12 +916,12 @@
           "limitation": "不能由商品定义推断具体正极配方、买方或手机用途。"
         }
       ],
-      "status": "open",
+      "status": "partial",
       "nonInferences": [
         "不得把普通镍贸易升级为手机电池事实。",
         "不得把不同加工阶段的独立观察视为同一批物料。"
       ],
-      "evidenceIds": [],
+      "evidenceIds": ["evidence-comtrade-material-idn-chn-nickel-export", "evidence-comtrade-material-idn-chn-nickel-import"],
       "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
       "method": "curated",
       "datasetVersionId": "dataset-smartphone-published-2023",
