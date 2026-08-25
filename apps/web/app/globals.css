@@ -246,18 +246,34 @@ p { line-height: 1.7; }
 
 .filter-strip { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; padding: 1rem 1.15rem; border: 1px solid var(--line); border-radius: 0.9rem; background: #fff; }
 .route-graph-shell { overflow-x: auto; padding: 1rem; border: 1px solid var(--line); border-radius: 1rem; background: linear-gradient(135deg, #f8fbff, #fff); }
+.graph-filter-bar { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 0.75rem; }
 .route-graph { display: block; min-width: 860px; width: 100%; height: auto; }
 .graph-stage-label { fill: var(--muted); font-size: 12px; font-weight: 800; }
 .graph-node rect { fill: #fff; stroke: #c7d5e7; stroke-width: 1.4; transition: fill 160ms ease, stroke 160ms ease; }
 .graph-node:hover rect { fill: #f1f6ff; stroke: var(--blue); }
+.graph-node.selected rect { fill: #eaf1ff; stroke: var(--blue); stroke-width: 2.4; }
 .graph-node-country { fill: var(--blue); font-size: 11px; font-weight: 800; }
 .graph-node-label { fill: var(--navy); font-size: 12px; font-weight: 750; }
 .graph-node-status { fill: var(--muted); font-size: 10px; }
 .graph-node-link { display: block; width: 100%; height: 100%; }
 .graph-edge { stroke: #9aa9bf; stroke-width: 2; stroke-dasharray: 5 4; }
+.graph-edge-group { cursor: pointer; }
+.graph-edge-group.selected .graph-edge { stroke-width: 3.5; }
+.graph-edge-hit-area { stroke: transparent; stroke-width: 16; }
 .graph-edge-bilateral_supported { stroke: var(--blue); stroke-dasharray: none; }
 .graph-edge-role_supported { stroke: var(--teal); }
 .route-graph-note { margin: 0.75rem 0 0; color: var(--ink-soft); font-size: 0.76rem; }
+.graph-selection-empty { margin-top: 0.75rem; padding: 0.9rem 1rem; border: 1px dashed var(--line-strong); border-radius: 0.8rem; color: var(--muted); background: #fafbfd; font-size: 0.8rem; }
+.graph-selection { display: grid; gap: 0.8rem; margin-top: 0.75rem; padding: 1rem 1.1rem; border: 1px solid #cbdcf3; border-radius: 0.9rem; background: #f5f9ff; }
+.graph-selection-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+.graph-selection-heading h3 { margin-bottom: 0; color: var(--navy); }
+.graph-clear-button { padding: 0.3rem 0.55rem; border: 1px solid var(--line-strong); border-radius: 0.5rem; color: var(--ink-soft); background: #fff; cursor: pointer; }
+.graph-selection-meta { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.graph-selection-meta span { padding: 0.25rem 0.5rem; border-radius: 999px; color: var(--ink-soft); background: #fff; font-size: 0.7rem; }
+.graph-selection p { margin: 0; color: var(--ink-soft); font-size: 0.8rem; }
+.graph-selection-evidence { display: grid; gap: 0.45rem; }
+.graph-selection-evidence > div { display: grid; gap: 0.15rem; padding: 0.55rem 0.65rem; border-radius: 0.55rem; background: #fff; font-size: 0.72rem; }
+.graph-selection-evidence small { color: var(--muted); overflow-wrap: anywhere; }
 .filter-label { display: block; margin-bottom: 0.5rem; color: var(--muted); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
 .filter-links { display: flex; flex-wrap: wrap; gap: 0.45rem; }
 .filter-chip { padding: 0.4rem 0.65rem; border: 1px solid var(--line); border-radius: 999px; color: var(--ink-soft); font-size: 0.76rem; }
