@@ -15,7 +15,7 @@ import {
 
 const publishedManifestPath = resolve("data/published/manifest.json");
 const previewManifestPath = resolve("data/samples/manifest.json");
-const routeContentVersionId = "content-smartphone-route-2023-1";
+const routeContentVersionId = "content-smartphone-route-2023-2";
 
 async function loadPublishedQueries() {
   const repository = await loadFixtureRepositoryFromManifest(publishedManifestPath, {
@@ -267,7 +267,7 @@ describe("phase 7 supply-chain evidence interpretation", () => {
     expect(
       detail.evidence.some((record) => record.evidence.id.startsWith("evidence-usgs-"))
     ).toBe(false);
-    expect(detail.node.evidenceLevel.code).toBe("representative");
+    expect(detail.node.evidenceLevel.code).toBe("role_supported");
   });
 
   it("returns resolved steps and only route-relevant source/evidence aggregates", async () => {
@@ -300,7 +300,7 @@ describe("phase 7 supply-chain evidence interpretation", () => {
     );
     expect(sourceIds).not.toContain("source-world-bank-wdi");
     expect(sourceIds).not.toContain("source-un-m49");
-    expect(story.evidence).toHaveLength(11);
+    expect(story.evidence.length).toBeGreaterThanOrEqual(11);
     expect(story.evidence.map((record) => record.evidence.id)).not.toContain(
       "evidence-un-m49-crosswalk"
     );

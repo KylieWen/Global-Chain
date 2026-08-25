@@ -4,7 +4,7 @@
   "datasetVersion": {
     "id": "dataset-smartphone-published-2023",
     "name": "GlobeChain 通用智能手机 2023 published 数据集",
-    "version": "globe-chain-smartphone-2023.1",
+    "version": "globe-chain-smartphone-2023.2",
     "publishedAt": "2026-08-25",
     "sourceIds": [
       "source-world-bank-wdi",
@@ -12,7 +12,10 @@
       "source-un-m49",
       "source-usgs-mineral-commodities",
       "source-iea-battery-supply-chain",
-      "source-globe-chain-route-methodology"
+      "source-globe-chain-route-methodology",
+      "source-nbs-china-2023-statistical-communique",
+      "source-iea-batteries-secure-energy-transitions-2024",
+      "source-jeita-meti-electronics-production-2023"
     ],
     "coverage": null,
     "status": "published",
@@ -37,7 +40,7 @@
       "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=36%2C180%2C152%2C156%2C276%2C360%2C392%2C410%2C842&cmdCode=851713&flowCode=X%2CM&partnerCode=0&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500",
       "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
       "publishedAt": null,
-      "notes": "HS 2022 code 851713, world-total partner, annual customs observations for 2023. Monetary primaryValue status is assessed separately from quantity and net-weight estimation flags; source-estimated quantities are not published as precise quantities. Preserve UN attribution and comply with the current terms at https://comtradeplus.un.org/LicenseAgreement, https://comtradeplus.un.org/PolicyOnUseAndRedissemination and https://www.un.org/en/about-us/terms-of-use. Snapshot retrieved 2026-08-24T16:53:04.820Z; primaryValue and quality flags are retained in the fixture.",
+      "notes": "HS 2022 code 851713 annual customs observations for 2023, including separate partnerCode=0 world totals and specific China↔USA statistical area / China↔Germany reporter-partner rows. Mirror reports remain separate. Monetary primaryValue status is assessed separately from quantity and net-weight estimation flags; source-estimated quantities are not published as precise quantities. Preserve UN attribution and comply with the current terms at https://comtradeplus.un.org/LicenseAgreement, https://comtradeplus.un.org/PolicyOnUseAndRedissemination and https://www.un.org/en/about-us/terms-of-use. World-total snapshot retrieved 2026-08-24T16:53:04.820Z; bilateral snapshot retrieved 2026-08-25T05:09:37.034Z; raw response and canonical data hashes are retained locally.",
       "retrievedAt": "2026-08-24T16:53:04.820Z",
       "datasetVersion": "un-comtrade-hs2022-851713-2023"
     },
@@ -82,8 +85,41 @@
       "license": "Project-authored methodology; repository terms apply",
       "publishedAt": "2026-08-25",
       "retrievedAt": "2026-08-25T00:00:00+08:00",
-      "datasetVersion": "smartphone-route-2023.1",
+      "datasetVersion": "smartphone-route-2023.2",
       "notes": "Documents how reviewed country-role evidence and contextual stage evidence are connected into a quantity-free representative route. It is a curation method, not an external factual source and not proof of bilateral trade."
+    },
+    {
+      "id": "source-nbs-china-2023-statistical-communique",
+      "name": "中华人民共和国2023年国民经济和社会发展统计公报",
+      "publisher": "中华人民共和国国家统计局",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202402/t20240228_1947915.html",
+      "license": "国家统计局网站版权与使用条件适用；未确认可按开放许可再传播，仅引用必要事实摘要并链接原页面",
+      "publishedAt": "2024-02-29",
+      "retrievedAt": "2026-08-25",
+      "datasetVersion": "NBS-STATISTICAL-COMMUNIQUE-2023",
+      "notes": "表3发布规模以上工业主要产品产量。移动通信手持机是比智能手机更宽的统计产品门类，也不直接描述具体组装工序。"
+    },
+    {
+      "id": "source-iea-batteries-secure-energy-transitions-2024",
+      "name": "Batteries and Secure Energy Transitions",
+      "publisher": "International Energy Agency",
+      "url": "https://www.iea.org/reports/batteries-and-secure-energy-transitions",
+      "license": "CC BY 4.0；须保留 IEA 归属、报告标题、链接和许可声明，不得暗示 IEA 认可 GlobeChain 的路线解释",
+      "publishedAt": "2024-04-25",
+      "retrievedAt": "2026-08-25",
+      "datasetVersion": "IEA-BSET-2024",
+      "notes": "报告属于能源转型与电动汽车电池语境。它可以支持韩国在一般电池金属/电芯供应链中具有角色，但不能证明手机电池、韩国具体产量、企业、工厂、模组或跨境供应关系。"
+    },
+    {
+      "id": "source-jeita-meti-electronics-production-2023",
+      "name": "December 2023 Production by the Japanese Electronics Industry",
+      "publisher": "Japan Electronics and Information Technology Industries Association (JEITA); source data attributed to Ministry of Economy, Trade and Industry (METI)",
+      "url": "https://www.jeita.or.jp/english/stat/electronic/2023/product_12.html",
+      "license": "JEITA 页面标注 Copyright © JEITA All Rights Reserved；未确认开放再传播许可，仅引用必要事实摘要并链接原页面，底层 METI 数据的复用条件仍需单独核对",
+      "publishedAt": null,
+      "retrievedAt": "2026-08-25",
+      "datasetVersion": "JEITA-METI-ELECTRONICS-PRELIMINARY-2023",
+      "notes": "JEITA 说明月度机械统计为初步值，之后可能修订；2023 年 12 月页面给出全年累计金额。"
     }
   ],
   "evidence": [
@@ -91,6 +127,34 @@
       "id": "evidence-usgs-australia-lithium-role",
       "sourceId": "source-usgs-mineral-commodities",
       "supportType": "country_role",
+      "scope": {
+        "entityIds": [
+          "country-au"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "lithium"
+        ],
+        "processStageIds": [
+          "extraction"
+        ],
+        "classificationCodes": [],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Supports Australia's lithium mine-production role in the 2023 context.",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Does not identify a destination, material grade, battery use or smartphone use."
+        ]
+      },
       "locator": "Mineral Commodity Summaries 2024 PDF, Lithium chapter, World Mine Production and Reserves table: Australia",
       "excerpt": null,
       "notes": "Supports Australia's lithium production role for the 2023 context only; it does not identify a destination country or smartphone use."
@@ -99,6 +163,34 @@
       "id": "evidence-usgs-drc-cobalt-role",
       "sourceId": "source-usgs-mineral-commodities",
       "supportType": "country_role",
+      "scope": {
+        "entityIds": [
+          "country-cd"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "cobalt"
+        ],
+        "processStageIds": [
+          "extraction"
+        ],
+        "classificationCodes": [],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Supports the Democratic Republic of the Congo's cobalt mine-production role in the 2023 context.",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Does not identify a destination, refining chain, battery use or smartphone use."
+        ]
+      },
       "locator": "Mineral Commodity Summaries 2024 PDF, Cobalt chapter, World Mine Production and Reserves table: Congo (Kinshasa)",
       "excerpt": null,
       "notes": "Supports the Democratic Republic of the Congo's cobalt production role only; no bilateral shipment is established."
@@ -107,6 +199,34 @@
       "id": "evidence-usgs-indonesia-nickel-role",
       "sourceId": "source-usgs-mineral-commodities",
       "supportType": "country_role",
+      "scope": {
+        "entityIds": [
+          "country-id"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "nickel"
+        ],
+        "processStageIds": [
+          "extraction"
+        ],
+        "classificationCodes": [],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Supports Indonesia's nickel mine-production role in the 2023 context.",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Does not identify a destination, intermediate product, battery use or smartphone use."
+        ]
+      },
       "locator": "Mineral Commodity Summaries 2024 PDF, Nickel chapter, World Mine Production and Reserves table: Indonesia",
       "excerpt": null,
       "notes": "Supports Indonesia's nickel production role only; no bilateral shipment is established."
@@ -115,6 +235,34 @@
       "id": "evidence-usgs-china-graphite-role",
       "sourceId": "source-usgs-mineral-commodities",
       "supportType": "country_role",
+      "scope": {
+        "entityIds": [
+          "country-cn"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "graphite"
+        ],
+        "processStageIds": [
+          "extraction"
+        ],
+        "classificationCodes": [],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Supports China's natural-graphite mine-production role in the 2023 context.",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Does not support processed graphite, anode production, a factory or smartphone use."
+        ]
+      },
       "locator": "Mineral Commodity Summaries 2024 PDF, Graphite (Natural) chapter, World Mine Production and Reserves table: China",
       "excerpt": null,
       "notes": "Supports China's natural-graphite production role only; it does not prove use in a particular anode or smartphone."
@@ -123,6 +271,34 @@
       "id": "evidence-usgs-chile-copper-role",
       "sourceId": "source-usgs-mineral-commodities",
       "supportType": "country_role",
+      "scope": {
+        "entityIds": [
+          "country-cl"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "copper"
+        ],
+        "processStageIds": [
+          "extraction"
+        ],
+        "classificationCodes": [],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Supports Chile's copper mine-production role in the 2023 context.",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Does not support refining, foil manufacture, current collectors or smartphone use."
+        ]
+      },
       "locator": "Mineral Commodity Summaries 2024 PDF, Copper chapter, World Mine Production and Reserves table: Chile",
       "excerpt": null,
       "notes": "Supports Chile's copper mine-production role only; downstream refining and foil manufacture are not evidenced by this record."
@@ -131,6 +307,34 @@
       "id": "evidence-usgs-australia-aluminum-role",
       "sourceId": "source-usgs-mineral-commodities",
       "supportType": "country_role",
+      "scope": {
+        "entityIds": [
+          "country-au"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "aluminum"
+        ],
+        "processStageIds": [
+          "extraction"
+        ],
+        "classificationCodes": [],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Supports Australia's upstream bauxite/alumina role in the 2023 context.",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "The internal aluminum item is broad; the evidence does not mean metallic aluminum is mined or prove foil/current-collector use."
+        ]
+      },
       "locator": "Mineral Commodity Summaries 2024 PDF, Bauxite and Alumina and Aluminum chapters, world production tables: Australia",
       "excerpt": null,
       "notes": "Supports an Australian upstream bauxite/alumina role. The current broad aluminum item must not be read as metallic aluminum being directly mined."
@@ -139,6 +343,40 @@
       "id": "evidence-iea-battery-chain",
       "sourceId": "source-iea-battery-supply-chain",
       "supportType": "process_context",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "battery",
+          "cathode-material",
+          "anode-material",
+          "cell",
+          "battery-module"
+        ],
+        "processStageIds": [
+          "refining",
+          "material_processing",
+          "component_manufacturing",
+          "assembly"
+        ],
+        "classificationCodes": [],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "General contextual support for multi-stage battery supply chains.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": true,
+        "limitations": [
+          "The report concerns EV batteries and does not establish a smartphone-specific route.",
+          "It does not support the current route's country-to-country connections or quantities."
+        ]
+      },
       "locator": "Executive summary and supply-chain concentration sections",
       "excerpt": null,
       "notes": "Supports the existence of multi-stage EV-battery material, cell and module stages as context only; no smartphone-specific country route or quantity is inferred."
@@ -147,6 +385,38 @@
       "id": "evidence-un-m49-crosswalk",
       "sourceId": "source-un-m49",
       "supportType": "classification",
+      "scope": {
+        "entityIds": [
+          "country-au",
+          "country-cd",
+          "country-cl",
+          "country-cn",
+          "country-de",
+          "country-id",
+          "country-jp",
+          "country-kr",
+          "country-us"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [],
+        "processStageIds": [],
+        "classificationCodes": [],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Geographic reference codes for the fixture country dimension.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "A geographic code crosswalk is not evidence for a production or trade claim."
+        ]
+      },
       "locator": "UN M49 country or area codes table; numeric codes 036, 152, 156, 180, 276, 360, 392, 410 and 840",
       "excerpt": null,
       "notes": "Supports the country/area dimension crosswalk used in this fixture."
@@ -155,6 +425,41 @@
       "id": "evidence-comtrade-china-smartphone-world-total",
       "sourceId": "source-un-comtrade",
       "supportType": "trade_observation",
+      "scope": {
+        "entityIds": [
+          "country-cn"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "generic-smartphone"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones"
+          }
+        ],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "China's HS 2022/851713 imports from and exports to partnerCode=0 (world total).",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "partnerCode=0 is the world total, not a specific country.",
+          "Does not support assembly or a bilateral route."
+        ]
+      },
       "locator": "UN Comtrade snapshot query for 2023, reporterCode=156, partnerCode=0, HS 2022 code 851713, flowCode=M/X; observations trade-chn-smartphone-import and trade-chn-smartphone-export",
       "excerpt": null,
       "notes": "Supports only China's reported smartphone imports from and exports to the world total. It does not prove assembly location or a bilateral flow to the United States or Germany."
@@ -163,6 +468,42 @@
       "id": "evidence-comtrade-united-states-smartphone-world-total",
       "sourceId": "source-un-comtrade",
       "supportType": "trade_observation",
+      "scope": {
+        "entityIds": [
+          "country-us"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "generic-smartphone"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones"
+          }
+        ],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "US Comtrade statistical area's HS 2022/851713 imports from and exports to partnerCode=0 (world total).",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "partnerCode=0 is the world total, not China.",
+          "ReporterCode 842 includes Puerto Rico and the US Virgin Islands.",
+          "Does not prove distribution or consumption."
+        ]
+      },
       "locator": "UN Comtrade snapshot query for 2023, reporterCode=842, partnerCode=0, HS 2022 code 851713, flowCode=M/X; observations trade-usa-smartphone-import and trade-usa-smartphone-export",
       "excerpt": null,
       "notes": "Supports only United States smartphone trade with the world total. It does not identify China as partner and does not prove distribution activity."
@@ -171,6 +512,41 @@
       "id": "evidence-comtrade-germany-smartphone-world-total",
       "sourceId": "source-un-comtrade",
       "supportType": "trade_observation",
+      "scope": {
+        "entityIds": [
+          "country-de"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "generic-smartphone"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones"
+          }
+        ],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Germany's HS 2022/851713 imports from and exports to partnerCode=0 (world total).",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "partnerCode=0 is the world total, not China.",
+          "Imports do not equal final consumption."
+        ]
+      },
       "locator": "UN Comtrade snapshot query for 2023, reporterCode=276, partnerCode=0, HS 2022 code 851713, flowCode=M/X; observations trade-deu-smartphone-import and trade-deu-smartphone-export",
       "excerpt": null,
       "notes": "Supports only Germany's smartphone trade with the world total. Imports do not equal final consumption and do not identify China as partner."
@@ -179,9 +555,427 @@
       "id": "evidence-globe-chain-route-methodology",
       "sourceId": "source-globe-chain-route-methodology",
       "supportType": "curation_method",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [],
+        "processStageIds": [],
+        "classificationCodes": [],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "GlobeChain's method for representing evidence-limited, quantity-free supply-chain connections.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Project methodology is not external factual evidence for a country role or bilateral flow."
+        ]
+      },
       "locator": "content/routes/generic-smartphone-2023.json and data/published/README.md, representative supply-route methodology and limitations",
       "excerpt": null,
       "notes": "Explains why the route uses representative connections. It is not evidence of a factual bilateral shipment."
+    },
+    {
+      "id": "evidence-nbs-china-mobile-handset-production-role-2023",
+      "sourceId": "source-nbs-china-2023-statistical-communique",
+      "supportType": "country_role",
+      "scope": {
+        "entityIds": [
+          "country-cn"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "generic-smartphone"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "National Bureau of Statistics of China product category",
+            "version": "2023 statistical communiqué",
+            "code": "移动通信手持机",
+            "mappingType": "aggregate",
+            "description": "移动通信手持机；统计门类宽于智能手机"
+          }
+        ],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "支持中国在 2023 年具有移动通信手持机生产角色；公布产量为 156642.2 万台。",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "移动通信手持机门类宽于智能手机，不能把全部产量解释为智能手机。",
+          "统计产品产量不直接证明具体组装企业、工厂、品牌、型号或批次。",
+          "不能证明零部件来源、出口目的地或任意双边供应链边。"
+        ]
+      },
+      "locator": "表3『2023年规模以上工业主要产品产量及其增长速度』，产品名称『移动通信手持机』，产量 156642.2 万台，同比增长 6.9%",
+      "excerpt": "移动通信手持机，单位万台，产量156642.2，比上年增长6.9%。",
+      "notes": "若页面节点继续声称『智能手机组装』而不是更宽的『移动通信手持机生产』，本证据只能部分覆盖该主张，不能单独关闭组装证据缺口。"
+    },
+    {
+      "id": "evidence-iea-korea-generic-battery-cell-role-2023",
+      "sourceId": "source-iea-batteries-secure-energy-transitions-2024",
+      "supportType": "country_role",
+      "scope": {
+        "entityIds": [
+          "country-kr"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "cell"
+        ],
+        "processStageIds": [
+          "component_manufacturing"
+        ],
+        "classificationCodes": [],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "支持韩国在报告所述当期全球一般电池金属与电芯供应链中具有国家角色；不限定手机用途。",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": true,
+        "limitations": [
+          "来源重点是能源转型和电动汽车电池，不是手机电池供应链。",
+          "来源只给出韩国在若干电池金属和电芯环节中不超过 10% 的宽泛描述，不能推断精确的韩国电芯产量。",
+          "不支持韩国电池模组角色、具体企业或工厂，也不支持向中国手机组装节点供货。"
+        ]
+      },
+      "locator": "Executive summary, section 'Policy support has given a boost for batteries deployment in many markets but the supply chain for batteries is very concentrated'",
+      "excerpt": "Europe, the United States and Korea each hold 10% or less of the supply chain for some battery metals and cells today.",
+      "notes": "该证据可以支持通用电芯产业角色，但 generic-smartphone 应用关联仍为 representative/unknown。"
+    },
+    {
+      "id": "evidence-jeita-japan-electronics-lcd-production-role-2023",
+      "sourceId": "source-jeita-meti-electronics-production-2023",
+      "supportType": "country_role",
+      "scope": {
+        "entityIds": [
+          "country-jp"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "display"
+        ],
+        "processStageIds": [
+          "component_manufacturing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "JEITA/METI machinery statistics",
+            "version": "2023 preliminary cumulative production",
+            "code": "Liquid crystal devices (LCDs)",
+            "mappingType": "aggregate",
+            "description": "日本国内液晶器件生产金额的宽泛统计门类，未按智能手机用途拆分"
+          }
+        ],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "支持日本在 2023 年具有电子组件/器件及液晶器件生产角色；LCD 全年累计金额为 680074 百万日元。",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "LCD 统计是宽泛门类，不能证明这些器件是智能手机显示屏。",
+          "不能支持处理器/内存、摄像头等未在该证据范围内的输出。",
+          "数据为初步机械统计，可能后续修订。",
+          "不能证明供应中国、具体企业、工厂、品牌、型号或双边流向。"
+        ]
+      },
+      "locator": "December 2023 table, 'Electronic components and devices' and 'Liquid crystal devices (LCDs)', column '2023 total to date'",
+      "excerpt": "Electronic components and devices: 6,974,491 million yen; Liquid crystal devices (LCDs): 680,074 million yen for 2023 total to date.",
+      "notes": "若节点仅陈述日本 LCD/电子器件生产角色，可使用 role_supported；手机显示用途以及日本到中国连接仍必须保持 representative/unknown。"
+    },
+    {
+      "id": "evidence-comtrade-united-states-smartphone-import-market-role-2023",
+      "sourceId": "source-un-comtrade",
+      "supportType": "trade_observation",
+      "scope": {
+        "entityIds": [
+          "country-us"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "generic-smartphone"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "Harmonized System",
+            "version": "HS 2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "支持美国在 2023 年是 HS 2022/851713 的世界总计进口市场；partnerCode=0 表示世界总计。",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "partnerCode=0 不是具体伙伴，不能证明智能手机来自中国。",
+          "海关进口观察不证明美国境内的具体分销活动、最终消费、企业、利润或手机价格。",
+          "不得与中国世界总计出口观察拼接为中美双边事实。"
+        ]
+      },
+      "locator": "Published UN Comtrade snapshot: reporterCode=842, partnerCode=0, flowCode=M, HS 2022 code 851713; observation trade-usa-smartphone-import",
+      "notes": "复用现有 source-un-comtrade；该 source 的许可为 UN Comtrade License Agreement and Policy on Use and Re-dissemination，不是 CC BY。"
+    },
+    {
+      "id": "evidence-comtrade-germany-smartphone-import-market-role-2023",
+      "sourceId": "source-un-comtrade",
+      "supportType": "trade_observation",
+      "scope": {
+        "entityIds": [
+          "country-de"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "generic-smartphone"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "Harmonized System",
+            "version": "HS 2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "支持德国在 2023 年是 HS 2022/851713 的世界总计进口市场；partnerCode=0 表示世界总计。",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "partnerCode=0 不是具体伙伴，不能证明智能手机来自中国。",
+          "海关进口金额不等于最终消费量，也不证明具体消费者、企业、利润或手机价格。",
+          "不得与中国世界总计出口观察拼接为中德双边事实。",
+          "来源数量字段带估算标记，不能作为精确数量发布。"
+        ]
+      },
+      "locator": "Published UN Comtrade snapshot: reporterCode=276, partnerCode=0, flowCode=M, HS 2022 code 851713; observation trade-deu-smartphone-import",
+      "notes": "复用现有 source-un-comtrade；该 source 的许可为 UN Comtrade License Agreement and Policy on Use and Re-dissemination，不是 CC BY。"
+    },
+    {
+      "id": "evidence-comtrade-china-united-states-smartphone-bilateral-export-2023",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [
+          "country-cn",
+          "country-us"
+        ],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-us",
+        "itemIds": [
+          "generic-smartphone"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Source-reported export observation for reporterCode=156, partnerCode=842, HS 2022/851713 in 2023.",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only the exact customs category, reporter, partner, direction and period; not an assembly or consumption claim.",
+          "Does not prove a brand, model, factory, component origin, cost, profit or a physical batch route.",
+          "The mirror reporter observation is independent and is not averaged or substituted for this observation."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=156&cmdCode=851713&flowCode=X%2CM&partnerCode=842&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500; rawResponseSha256=e30f7b73ecb7209dae1e219b98ad839c011cbf4025465607bdafd1912b636c1b; canonicalDataSha256=fcc2948609a24481307122836c773ede529e6405361cdcb3ece0cd6c267d60aa",
+      "excerpt": null,
+      "notes": "Direct bilateral customs evidence. It may support a narrowly worded HS 851713 bilateral trade claim, but not the current assembly-to-market supply-chain edge in full."
+    },
+    {
+      "id": "evidence-comtrade-united-states-china-smartphone-bilateral-import-2023",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [
+          "country-cn",
+          "country-us"
+        ],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-us",
+        "itemIds": [
+          "generic-smartphone"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Source-reported import observation for reporterCode=842, partnerCode=156, HS 2022/851713 in 2023.",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only the exact customs category, reporter, partner, direction and period; not an assembly or consumption claim.",
+          "Does not prove a brand, model, factory, component origin, cost, profit or a physical batch route.",
+          "The mirror reporter observation is independent and is not averaged or substituted for this observation."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=842&cmdCode=851713&flowCode=X%2CM&partnerCode=156&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500; rawResponseSha256=ee4ea4ff06d3b0d687ca1f45ff80dad21770f565821dafc9ffbbc7b7972952f5; canonicalDataSha256=4fee67d8795a892ed9e470437cf558addcce6d08dc960903df5b6e1cf62bcd53",
+      "excerpt": null,
+      "notes": "Direct bilateral customs evidence. It may support a narrowly worded HS 851713 bilateral trade claim, but not the current assembly-to-market supply-chain edge in full."
+    },
+    {
+      "id": "evidence-comtrade-china-germany-smartphone-bilateral-export-2023",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [
+          "country-cn",
+          "country-de"
+        ],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-de",
+        "itemIds": [
+          "generic-smartphone"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Source-reported export observation for reporterCode=156, partnerCode=276, HS 2022/851713 in 2023.",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only the exact customs category, reporter, partner, direction and period; not an assembly or consumption claim.",
+          "Does not prove a brand, model, factory, component origin, cost, profit or a physical batch route.",
+          "The mirror reporter observation is independent and is not averaged or substituted for this observation."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=156&cmdCode=851713&flowCode=X%2CM&partnerCode=276&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500; rawResponseSha256=485dc715d918d008967db376c125f12341ff546d3d02cbc602d6af6aa6901bd3; canonicalDataSha256=641312e2665525055cbbf44c26a950d692a24e258f18f843e07b3db6b747aae9",
+      "excerpt": null,
+      "notes": "Direct bilateral customs evidence. It may support a narrowly worded HS 851713 bilateral trade claim, but not the current assembly-to-market supply-chain edge in full."
+    },
+    {
+      "id": "evidence-comtrade-germany-china-smartphone-bilateral-import-2023",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [
+          "country-cn",
+          "country-de"
+        ],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-de",
+        "itemIds": [
+          "generic-smartphone"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Source-reported import observation for reporterCode=276, partnerCode=156, HS 2022/851713 in 2023.",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only the exact customs category, reporter, partner, direction and period; not an assembly or consumption claim.",
+          "Does not prove a brand, model, factory, component origin, cost, profit or a physical batch route.",
+          "The mirror reporter observation is independent and is not averaged or substituted for this observation."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=276&cmdCode=851713&flowCode=X%2CM&partnerCode=156&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500; rawResponseSha256=7350c89283d15588601f7dd393f375cc64ed512647e24dddade1928fd8dc0c2a; canonicalDataSha256=5ff3ad77b303053fa380888418ecccb00e01ee235c26da1e4569d0be41e382de",
+      "excerpt": null,
+      "notes": "Direct bilateral customs evidence. It may support a narrowly worded HS 851713 bilateral trade claim, but not the current assembly-to-market supply-chain edge in full."
     }
   ],
   "entities": [
@@ -885,7 +1679,7 @@
         "label": "2023"
       },
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "contentVersionId": "content-smartphone-route-2023-1"
+      "contentVersionId": "content-smartphone-route-2023-2"
     },
     {
       "id": "activity-cd-cobalt",
@@ -914,7 +1708,7 @@
         "label": "2023"
       },
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "contentVersionId": "content-smartphone-route-2023-1"
+      "contentVersionId": "content-smartphone-route-2023-2"
     },
     {
       "id": "activity-id-nickel",
@@ -943,7 +1737,7 @@
         "label": "2023"
       },
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "contentVersionId": "content-smartphone-route-2023-1"
+      "contentVersionId": "content-smartphone-route-2023-2"
     },
     {
       "id": "activity-cn-graphite",
@@ -972,7 +1766,7 @@
         "label": "2023"
       },
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "contentVersionId": "content-smartphone-route-2023-1"
+      "contentVersionId": "content-smartphone-route-2023-2"
     },
     {
       "id": "activity-cl-copper",
@@ -1001,7 +1795,7 @@
         "label": "2023"
       },
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "contentVersionId": "content-smartphone-route-2023-1"
+      "contentVersionId": "content-smartphone-route-2023-2"
     },
     {
       "id": "activity-au-aluminum",
@@ -1030,7 +1824,7 @@
         "label": "2023"
       },
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "contentVersionId": "content-smartphone-route-2023-1"
+      "contentVersionId": "content-smartphone-route-2023-2"
     },
     {
       "id": "activity-cn-cathode",
@@ -1063,7 +1857,7 @@
         "label": "2023"
       },
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "contentVersionId": "content-smartphone-route-2023-1"
+      "contentVersionId": "content-smartphone-route-2023-2"
     },
     {
       "id": "activity-cn-anode",
@@ -1094,7 +1888,7 @@
         "label": "2023"
       },
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "contentVersionId": "content-smartphone-route-2023-1"
+      "contentVersionId": "content-smartphone-route-2023-2"
     },
     {
       "id": "activity-kr-cell",
@@ -1128,7 +1922,7 @@
         "label": "2023"
       },
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "contentVersionId": "content-smartphone-route-2023-1"
+      "contentVersionId": "content-smartphone-route-2023-2"
     },
     {
       "id": "activity-kr-module",
@@ -1159,7 +1953,7 @@
         "label": "2023"
       },
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "contentVersionId": "content-smartphone-route-2023-1"
+      "contentVersionId": "content-smartphone-route-2023-2"
     },
     {
       "id": "activity-jp-components",
@@ -1188,7 +1982,7 @@
         "label": "2023"
       },
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "contentVersionId": "content-smartphone-route-2023-1"
+      "contentVersionId": "content-smartphone-route-2023-2"
     },
     {
       "id": "activity-cn-assembly",
@@ -1225,7 +2019,7 @@
         "label": "2023"
       },
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "contentVersionId": "content-smartphone-route-2023-1"
+      "contentVersionId": "content-smartphone-route-2023-2"
     },
     {
       "id": "activity-us-distribution",
@@ -1256,7 +2050,7 @@
         "label": "2023"
       },
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "contentVersionId": "content-smartphone-route-2023-1"
+      "contentVersionId": "content-smartphone-route-2023-2"
     },
     {
       "id": "activity-de-consumption",
@@ -1287,7 +2081,7 @@
         "label": "2023"
       },
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "contentVersionId": "content-smartphone-route-2023-1"
+      "contentVersionId": "content-smartphone-route-2023-2"
     }
   ],
   "classificationCodes": [
@@ -1393,7 +2187,7 @@
       "当前 13 条边均无直接双边流向证据，全部标记为 representative，不得解释为 observed bilateral flow。",
       "路线不包含数量、金额、实时物流、企业、工厂、成本、增加值或利润分配。",
       "IEA 来源讨论的是电动汽车电池供应链，只用于一般电池阶段背景，不证明手机电池的特定国家路线。",
-      "日本电子组件、中国手机组装、美国分销和德国消费角色目前仅为代表性节点；Comtrade 世界总计观察只能提供国家进出口背景。",
+      "日本电子组件/LCD、中国移动通信手持机生产、美国和德国智能手机进口市场的国家角色已有有限证据；手机用途、具体企业、分销/消费和相邻双边路线仍保持代表性或未知。",
       "铜和铝以电芯相关材料的简化输入展示，省略冶炼、箔材加工和具体集流体制造阶段。"
     ],
     "nodes": [
@@ -1424,7 +2218,7 @@
           "label": "2023"
         },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "node-cd-cobalt",
@@ -1453,7 +2247,7 @@
           "label": "2023"
         },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "node-id-nickel",
@@ -1482,7 +2276,7 @@
           "label": "2023"
         },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "node-cn-graphite",
@@ -1511,7 +2305,7 @@
           "label": "2023"
         },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "node-cl-copper",
@@ -1540,7 +2334,7 @@
           "label": "2023"
         },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "node-au-aluminum",
@@ -1569,7 +2363,7 @@
           "label": "2023"
         },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "node-cn-cathode",
@@ -1598,7 +2392,7 @@
           "label": "2023"
         },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "node-cn-anode",
@@ -1627,28 +2421,30 @@
           "label": "2023"
         },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "node-kr-cell",
         "nodeType": "entity",
-        "label": "韩国 · 电芯（代表性）",
+        "label": "韩国 · 电芯制造角色（代表性）",
         "entityId": "country-kr",
         "itemId": "cell",
         "itemType": "component",
         "processStageId": "component_manufacturing",
         "sourceIds": [
+          "source-iea-batteries-secure-energy-transitions-2024",
           "source-iea-battery-supply-chain",
           "source-globe-chain-route-methodology"
         ],
         "evidenceIds": [
+          "evidence-iea-korea-generic-battery-cell-role-2023",
           "evidence-iea-battery-chain",
           "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
         "dataStatus": "unknown",
-        "evidenceLevel": "representative",
-        "notes": "IEA 资料支持电芯阶段背景，但不证明该韩国节点生产某台手机所用电芯。",
+        "evidenceLevel": "role_supported",
+        "notes": "公开资料支持韩国在通用电池/电芯供应链中的国家角色；不证明手机专用电芯、具体企业或跨境流向。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1656,7 +2452,7 @@
           "label": "2023"
         },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "node-kr-module",
@@ -1685,26 +2481,28 @@
           "label": "2023"
         },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "node-jp-components",
         "nodeType": "entity",
-        "label": "日本 · 电子组件（以显示屏为代表）",
+        "label": "日本 · 电子组件/LCD 生产角色（代表性）",
         "entityId": "country-jp",
         "itemId": "display",
         "itemType": "component",
         "processStageId": "component_manufacturing",
         "sourceIds": [
+          "source-jeita-meti-electronics-production-2023",
           "source-globe-chain-route-methodology"
         ],
         "evidenceIds": [
+          "evidence-jeita-japan-electronics-lcd-production-role-2023",
           "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
         "dataStatus": "unknown",
-        "evidenceLevel": "representative",
-        "notes": "当前来源未直接支持日本电子组件进入中国手机组装；该节点仅保留为代表性策展内容。",
+        "evidenceLevel": "role_supported",
+        "notes": "公开统计支持日本在宽泛电子组件/LCD 生产中的国家角色；不证明显示屏用于手机或进入中国组装。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1712,28 +2510,30 @@
           "label": "2023"
         },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "node-cn-assembly",
         "nodeType": "entity",
-        "label": "中国 · 手机组装（代表性）",
+        "label": "中国 · 移动通信手持机生产角色（代表性）",
         "entityId": "country-cn",
         "itemId": "generic-smartphone",
         "itemType": "final_product",
         "processStageId": "assembly",
         "sourceIds": [
+          "source-nbs-china-2023-statistical-communique",
           "source-un-comtrade",
           "source-globe-chain-route-methodology"
         ],
         "evidenceIds": [
+          "evidence-nbs-china-mobile-handset-production-role-2023",
           "evidence-comtrade-china-smartphone-world-total",
           "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
         "dataStatus": "unknown",
-        "evidenceLevel": "representative",
-        "notes": "Comtrade 只支持中国对世界的智能手机进出口背景，不证明组装地点、企业或与美国/德国的直接路线。",
+        "evidenceLevel": "role_supported",
+        "notes": "国家统计支持中国在更宽的移动通信手持机生产门类中具有角色；该门类宽于智能手机，不证明具体组装企业、工厂或双边路线。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1741,7 +2541,7 @@
           "label": "2023"
         },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "node-us-export",
@@ -1756,13 +2556,14 @@
           "source-globe-chain-route-methodology"
         ],
         "evidenceIds": [
+          "evidence-comtrade-united-states-smartphone-import-market-role-2023",
           "evidence-comtrade-united-states-smartphone-world-total",
           "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
         "dataStatus": "unknown",
-        "evidenceLevel": "representative",
-        "notes": "Comtrade 支持美国从世界进口智能手机的背景，不证明从中国直接进口，也不证明具体分销链。",
+        "evidenceLevel": "role_supported",
+        "notes": "具体世界总计进口观察支持美国在 HS 851713 进口市场中的国家角色；不证明中国来源、具体分销链或最终消费。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1770,7 +2571,7 @@
           "label": "2023"
         },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "node-de-consumption",
@@ -1785,13 +2586,14 @@
           "source-globe-chain-route-methodology"
         ],
         "evidenceIds": [
+          "evidence-comtrade-germany-smartphone-import-market-role-2023",
           "evidence-comtrade-germany-smartphone-world-total",
           "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
         "dataStatus": "unknown",
-        "evidenceLevel": "representative",
-        "notes": "Comtrade 世界总计进口额不等于德国最终消费量；消费角色仍为代表性策展内容。",
+        "evidenceLevel": "role_supported",
+        "notes": "具体世界总计进口观察支持德国在 HS 851713 进口市场中的国家角色；不等于最终消费，也不证明中国来源或转口链。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1799,7 +2601,7 @@
           "label": "2023"
         },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       }
     ],
     "flows": [
@@ -1839,7 +2641,7 @@
         "unit": null,
         "confidence": null,
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "flow-cobalt-refining",
@@ -1877,7 +2679,7 @@
         "unit": null,
         "confidence": null,
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "flow-nickel-refining",
@@ -1915,7 +2717,7 @@
         "unit": null,
         "confidence": null,
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "flow-graphite-anode",
@@ -1953,7 +2755,7 @@
         "unit": null,
         "confidence": null,
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "flow-copper-cell",
@@ -1989,7 +2791,7 @@
         "unit": null,
         "confidence": null,
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "flow-aluminum-cell",
@@ -2025,7 +2827,7 @@
         "unit": null,
         "confidence": null,
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "flow-cathode-cell",
@@ -2061,7 +2863,7 @@
         "unit": null,
         "confidence": null,
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "flow-anode-cell",
@@ -2097,7 +2899,7 @@
         "unit": null,
         "confidence": null,
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "flow-cell-module",
@@ -2133,7 +2935,7 @@
         "unit": null,
         "confidence": null,
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "flow-module-assembly",
@@ -2169,7 +2971,7 @@
         "unit": null,
         "confidence": null,
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "flow-components-assembly",
@@ -2203,7 +3005,7 @@
         "unit": null,
         "confidence": null,
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "flow-assembly-export",
@@ -2240,7 +3042,7 @@
         "unit": null,
         "confidence": null,
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "flow-assembly-germany-market",
@@ -2277,7 +3079,7 @@
         "unit": null,
         "confidence": null,
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       }
     ],
     "steps": [
@@ -2313,7 +3115,7 @@
         ],
         "method": "curated",
         "contentStatus": "published",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "step-materials",
@@ -2334,7 +3136,7 @@
         ],
         "method": "curated",
         "contentStatus": "published",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "step-cell",
@@ -2353,7 +3155,7 @@
         ],
         "method": "curated",
         "contentStatus": "published",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "step-module",
@@ -2372,7 +3174,7 @@
         ],
         "method": "curated",
         "contentStatus": "published",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "step-assembly",
@@ -2392,7 +3194,7 @@
         ],
         "method": "curated",
         "contentStatus": "published",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "step-distribution",
@@ -2412,7 +3214,7 @@
         ],
         "method": "curated",
         "contentStatus": "published",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       },
       {
         "id": "step-consumption",
@@ -2432,11 +3234,11 @@
         ],
         "method": "curated",
         "contentStatus": "published",
-        "contentVersionId": "content-smartphone-route-2023-1"
+        "contentVersionId": "content-smartphone-route-2023-2"
       }
     ],
     "datasetVersionId": "dataset-smartphone-published-2023",
-    "contentVersionId": "content-smartphone-route-2023-1",
+    "contentVersionId": "content-smartphone-route-2023-2",
     "warnings": [
       "这是一条用于解释主要国家角色与生产阶段的代表性策展路线，不代表某一品牌、型号、企业、工厂、批次或唯一真实路线。",
       "当前发布路线的所有边均为 representative；没有一条边具有 direct bilateral evidence。",
@@ -2447,10 +3249,13 @@
     {
       "id": "trade-aus-smartphone-export",
       "reporterEntityId": "country-au",
+      "reporterCode": 36,
       "partnerEntityId": null,
       "partnerCode": 0,
+      "partner2Code": 0,
       "partnerScope": "world_total",
       "direction": "export",
+      "flowCode": "X",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
       "classificationCode": "851713",
@@ -2472,15 +3277,25 @@
       "dataStatus": "observed",
       "valueDataStatus": "observed",
       "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 4,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": true,
+        "isReported": false,
+        "isAggregate": true
+      },
       "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":4,\"isQtyEstimated\":false,\"isNetWgtEstimated\":true,\"qtyUnitCode\":5,\"valueDataStatus\":\"observed\",\"quantityDataStatus\":\"observed\",\"quantityPublicationRule\":\"primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values\",\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
     },
     {
       "id": "trade-aus-smartphone-import",
       "reporterEntityId": "country-au",
+      "reporterCode": 36,
       "partnerEntityId": null,
       "partnerCode": 0,
+      "partner2Code": 0,
       "partnerScope": "world_total",
       "direction": "import",
+      "flowCode": "M",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
       "classificationCode": "851713",
@@ -2502,15 +3317,25 @@
       "dataStatus": "observed",
       "valueDataStatus": "observed",
       "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 0,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": false,
+        "isReported": false,
+        "isAggregate": true
+      },
       "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":0,\"isQtyEstimated\":false,\"isNetWgtEstimated\":false,\"qtyUnitCode\":5,\"valueDataStatus\":\"observed\",\"quantityDataStatus\":\"observed\",\"quantityPublicationRule\":\"primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values\",\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
     },
     {
       "id": "trade-chl-smartphone-export",
       "reporterEntityId": "country-cl",
+      "reporterCode": 152,
       "partnerEntityId": null,
       "partnerCode": 0,
+      "partner2Code": 0,
       "partnerScope": "world_total",
       "direction": "export",
+      "flowCode": "X",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
       "classificationCode": "851713",
@@ -2532,15 +3357,25 @@
       "dataStatus": "observed",
       "valueDataStatus": "observed",
       "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 4,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": true,
+        "isReported": false,
+        "isAggregate": true
+      },
       "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":4,\"isQtyEstimated\":false,\"isNetWgtEstimated\":true,\"qtyUnitCode\":5,\"valueDataStatus\":\"observed\",\"quantityDataStatus\":\"observed\",\"quantityPublicationRule\":\"primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values\",\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
     },
     {
       "id": "trade-chl-smartphone-import",
       "reporterEntityId": "country-cl",
+      "reporterCode": 152,
       "partnerEntityId": null,
       "partnerCode": 0,
+      "partner2Code": 0,
       "partnerScope": "world_total",
       "direction": "import",
+      "flowCode": "M",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
       "classificationCode": "851713",
@@ -2562,15 +3397,185 @@
       "dataStatus": "observed",
       "valueDataStatus": "observed",
       "quantityDataStatus": "estimated",
+      "quality": {
+        "legacyEstimationFlag": 2,
+        "isQtyEstimated": true,
+        "isNetWgtEstimated": false,
+        "isReported": false,
+        "isAggregate": true
+      },
       "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":2,\"isQtyEstimated\":true,\"isNetWgtEstimated\":false,\"qtyUnitCode\":5,\"valueDataStatus\":\"observed\",\"quantityDataStatus\":\"estimated\",\"quantityPublicationRule\":\"primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values\",\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-chn-156-276-smartphone-export",
+      "reporterEntityId": "country-cn",
+      "reporterCode": 156,
+      "partnerEntityId": "country-de",
+      "partnerCode": 276,
+      "partner2Code": 0,
+      "partnerScope": "entity",
+      "direction": "export",
+      "flowCode": "X",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 1112346811,
+      "quantity": 3417858,
+      "currency": "USD",
+      "unit": "items",
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 0,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": false,
+        "isReported": true,
+        "isAggregate": false
+      },
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"observationScope\":\"specific bilateral reporter-partner observation\",\"pairId\":\"chn-deu\",\"reporterCode\":156,\"partnerCode\":276,\"reporterScope\":null,\"partnerScope\":null,\"flowCode\":\"X\",\"valuation\":\"FOB\",\"classification\":\"HS 2022\",\"cmdCode\":\"851713\",\"customsCode\":\"C00\",\"currency\":\"USD\",\"primaryValueField\":\"primaryValue\",\"qtyUnitCode\":5,\"isQtyEstimated\":false,\"isNetWgtEstimated\":false,\"isReported\":true,\"isAggregate\":false,\"legacyEstimationFlag\":0,\"requestUrl\":\"https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=156&cmdCode=851713&flowCode=X%2CM&partnerCode=276&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500\",\"requestedAt\":\"2026-08-25T05:09:44.669Z\",\"rawResponseSha256\":\"485dc715d918d008967db376c125f12341ff546d3d02cbc602d6af6aa6901bd3\",\"canonicalDataSha256\":\"641312e2665525055cbbf44c26a950d692a24e258f18f843e07b3db6b747aae9\",\"interpretation\":\"This proves only the reported HS 851713 customs observation for the exact reporter, partner, direction and period. It does not prove assembly, final consumption, a factory, or entry into a particular supply chain. Mirror reports remain separate because CIF/FOB valuation and reporting systems differ.\"}"
+    },
+    {
+      "id": "trade-chn-156-276-smartphone-import",
+      "reporterEntityId": "country-cn",
+      "reporterCode": 156,
+      "partnerEntityId": "country-de",
+      "partnerCode": 276,
+      "partner2Code": 0,
+      "partnerScope": "entity",
+      "direction": "import",
+      "flowCode": "M",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 21567,
+      "quantity": 76,
+      "currency": "USD",
+      "unit": "items",
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 0,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": false,
+        "isReported": true,
+        "isAggregate": false
+      },
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"observationScope\":\"specific bilateral reporter-partner observation\",\"pairId\":\"chn-deu\",\"reporterCode\":156,\"partnerCode\":276,\"reporterScope\":null,\"partnerScope\":null,\"flowCode\":\"M\",\"valuation\":\"CIF\",\"classification\":\"HS 2022\",\"cmdCode\":\"851713\",\"customsCode\":\"C00\",\"currency\":\"USD\",\"primaryValueField\":\"primaryValue\",\"qtyUnitCode\":5,\"isQtyEstimated\":false,\"isNetWgtEstimated\":false,\"isReported\":true,\"isAggregate\":false,\"legacyEstimationFlag\":0,\"requestUrl\":\"https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=156&cmdCode=851713&flowCode=X%2CM&partnerCode=276&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500\",\"requestedAt\":\"2026-08-25T05:09:44.669Z\",\"rawResponseSha256\":\"485dc715d918d008967db376c125f12341ff546d3d02cbc602d6af6aa6901bd3\",\"canonicalDataSha256\":\"641312e2665525055cbbf44c26a950d692a24e258f18f843e07b3db6b747aae9\",\"interpretation\":\"This proves only the reported HS 851713 customs observation for the exact reporter, partner, direction and period. It does not prove assembly, final consumption, a factory, or entry into a particular supply chain. Mirror reports remain separate because CIF/FOB valuation and reporting systems differ.\"}"
+    },
+    {
+      "id": "trade-chn-156-842-smartphone-export",
+      "reporterEntityId": "country-cn",
+      "reporterCode": 156,
+      "partnerEntityId": "country-us",
+      "partnerCode": 842,
+      "partner2Code": 0,
+      "partnerScope": "entity",
+      "direction": "export",
+      "flowCode": "X",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 38369590318,
+      "quantity": 96728203,
+      "currency": "USD",
+      "unit": "items",
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 4,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": true,
+        "isReported": true,
+        "isAggregate": false
+      },
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"observationScope\":\"specific bilateral reporter-partner observation\",\"pairId\":\"chn-usa-area\",\"reporterCode\":156,\"partnerCode\":842,\"reporterScope\":null,\"partnerScope\":\"USA, Puerto Rico and US Virgin Islands (source-native Comtrade code 842; not ISO/M49 840)\",\"flowCode\":\"X\",\"valuation\":\"FOB\",\"classification\":\"HS 2022\",\"cmdCode\":\"851713\",\"customsCode\":\"C00\",\"currency\":\"USD\",\"primaryValueField\":\"primaryValue\",\"qtyUnitCode\":5,\"isQtyEstimated\":false,\"isNetWgtEstimated\":true,\"isReported\":true,\"isAggregate\":false,\"legacyEstimationFlag\":4,\"requestUrl\":\"https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=156&cmdCode=851713&flowCode=X%2CM&partnerCode=842&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500\",\"requestedAt\":\"2026-08-25T05:09:37.037Z\",\"rawResponseSha256\":\"e30f7b73ecb7209dae1e219b98ad839c011cbf4025465607bdafd1912b636c1b\",\"canonicalDataSha256\":\"fcc2948609a24481307122836c773ede529e6405361cdcb3ece0cd6c267d60aa\",\"interpretation\":\"This proves only the reported HS 851713 customs observation for the exact reporter, partner, direction and period. It does not prove assembly, final consumption, a factory, or entry into a particular supply chain. Mirror reports remain separate because CIF/FOB valuation and reporting systems differ.\"}"
+    },
+    {
+      "id": "trade-chn-156-842-smartphone-import",
+      "reporterEntityId": "country-cn",
+      "reporterCode": 156,
+      "partnerEntityId": "country-us",
+      "partnerCode": 842,
+      "partner2Code": 0,
+      "partnerScope": "entity",
+      "direction": "import",
+      "flowCode": "M",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 272544,
+      "quantity": 824,
+      "currency": "USD",
+      "unit": "items",
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 0,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": false,
+        "isReported": true,
+        "isAggregate": false
+      },
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"observationScope\":\"specific bilateral reporter-partner observation\",\"pairId\":\"chn-usa-area\",\"reporterCode\":156,\"partnerCode\":842,\"reporterScope\":null,\"partnerScope\":\"USA, Puerto Rico and US Virgin Islands (source-native Comtrade code 842; not ISO/M49 840)\",\"flowCode\":\"M\",\"valuation\":\"CIF\",\"classification\":\"HS 2022\",\"cmdCode\":\"851713\",\"customsCode\":\"C00\",\"currency\":\"USD\",\"primaryValueField\":\"primaryValue\",\"qtyUnitCode\":5,\"isQtyEstimated\":false,\"isNetWgtEstimated\":false,\"isReported\":true,\"isAggregate\":false,\"legacyEstimationFlag\":0,\"requestUrl\":\"https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=156&cmdCode=851713&flowCode=X%2CM&partnerCode=842&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500\",\"requestedAt\":\"2026-08-25T05:09:37.037Z\",\"rawResponseSha256\":\"e30f7b73ecb7209dae1e219b98ad839c011cbf4025465607bdafd1912b636c1b\",\"canonicalDataSha256\":\"fcc2948609a24481307122836c773ede529e6405361cdcb3ece0cd6c267d60aa\",\"interpretation\":\"This proves only the reported HS 851713 customs observation for the exact reporter, partner, direction and period. It does not prove assembly, final consumption, a factory, or entry into a particular supply chain. Mirror reports remain separate because CIF/FOB valuation and reporting systems differ.\"}"
     },
     {
       "id": "trade-chn-smartphone-export",
       "reporterEntityId": "country-cn",
+      "reporterCode": 156,
       "partnerEntityId": null,
       "partnerCode": 0,
+      "partner2Code": 0,
       "partnerScope": "world_total",
       "direction": "export",
+      "flowCode": "X",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
       "classificationCode": "851713",
@@ -2592,15 +3597,25 @@
       "dataStatus": "observed",
       "valueDataStatus": "observed",
       "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 4,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": true,
+        "isReported": false,
+        "isAggregate": true
+      },
       "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":4,\"isQtyEstimated\":false,\"isNetWgtEstimated\":true,\"qtyUnitCode\":5,\"valueDataStatus\":\"observed\",\"quantityDataStatus\":\"observed\",\"quantityPublicationRule\":\"primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values\",\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
     },
     {
       "id": "trade-chn-smartphone-import",
       "reporterEntityId": "country-cn",
+      "reporterCode": 156,
       "partnerEntityId": null,
       "partnerCode": 0,
+      "partner2Code": 0,
       "partnerScope": "world_total",
       "direction": "import",
+      "flowCode": "M",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
       "classificationCode": "851713",
@@ -2622,15 +3637,105 @@
       "dataStatus": "observed",
       "valueDataStatus": "observed",
       "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 4,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": true,
+        "isReported": false,
+        "isAggregate": true
+      },
       "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":4,\"isQtyEstimated\":false,\"isNetWgtEstimated\":true,\"qtyUnitCode\":5,\"valueDataStatus\":\"observed\",\"quantityDataStatus\":\"observed\",\"quantityPublicationRule\":\"primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values\",\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-deu-276-156-smartphone-export",
+      "reporterEntityId": "country-de",
+      "reporterCode": 276,
+      "partnerEntityId": "country-cn",
+      "partnerCode": 156,
+      "partner2Code": 0,
+      "partnerScope": "entity",
+      "direction": "export",
+      "flowCode": "X",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 515823.419,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "items",
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "estimated",
+      "quality": {
+        "legacyEstimationFlag": 6,
+        "isQtyEstimated": true,
+        "isNetWgtEstimated": true,
+        "isReported": false,
+        "isAggregate": true
+      },
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"observationScope\":\"specific bilateral reporter-partner observation\",\"pairId\":\"deu-chn\",\"reporterCode\":276,\"partnerCode\":156,\"reporterScope\":null,\"partnerScope\":null,\"flowCode\":\"X\",\"valuation\":\"FOB\",\"classification\":\"HS 2022\",\"cmdCode\":\"851713\",\"customsCode\":\"C00\",\"currency\":\"USD\",\"primaryValueField\":\"primaryValue\",\"qtyUnitCode\":5,\"isQtyEstimated\":true,\"isNetWgtEstimated\":true,\"isReported\":false,\"isAggregate\":true,\"legacyEstimationFlag\":6,\"requestUrl\":\"https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=276&cmdCode=851713&flowCode=X%2CM&partnerCode=156&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500\",\"requestedAt\":\"2026-08-25T05:09:47.634Z\",\"rawResponseSha256\":\"7350c89283d15588601f7dd393f375cc64ed512647e24dddade1928fd8dc0c2a\",\"canonicalDataSha256\":\"5ff3ad77b303053fa380888418ecccb00e01ee235c26da1e4569d0be41e382de\",\"interpretation\":\"This proves only the reported HS 851713 customs observation for the exact reporter, partner, direction and period. It does not prove assembly, final consumption, a factory, or entry into a particular supply chain. Mirror reports remain separate because CIF/FOB valuation and reporting systems differ.\"}"
+    },
+    {
+      "id": "trade-deu-276-156-smartphone-import",
+      "reporterEntityId": "country-de",
+      "reporterCode": 276,
+      "partnerEntityId": "country-cn",
+      "partnerCode": 156,
+      "partner2Code": 0,
+      "partnerScope": "entity",
+      "direction": "import",
+      "flowCode": "M",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 8652969331.273,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "items",
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "estimated",
+      "quality": {
+        "legacyEstimationFlag": 6,
+        "isQtyEstimated": true,
+        "isNetWgtEstimated": true,
+        "isReported": false,
+        "isAggregate": true
+      },
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"observationScope\":\"specific bilateral reporter-partner observation\",\"pairId\":\"deu-chn\",\"reporterCode\":276,\"partnerCode\":156,\"reporterScope\":null,\"partnerScope\":null,\"flowCode\":\"M\",\"valuation\":\"CIF\",\"classification\":\"HS 2022\",\"cmdCode\":\"851713\",\"customsCode\":\"C00\",\"currency\":\"USD\",\"primaryValueField\":\"primaryValue\",\"qtyUnitCode\":5,\"isQtyEstimated\":true,\"isNetWgtEstimated\":true,\"isReported\":false,\"isAggregate\":true,\"legacyEstimationFlag\":6,\"requestUrl\":\"https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=276&cmdCode=851713&flowCode=X%2CM&partnerCode=156&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500\",\"requestedAt\":\"2026-08-25T05:09:47.634Z\",\"rawResponseSha256\":\"7350c89283d15588601f7dd393f375cc64ed512647e24dddade1928fd8dc0c2a\",\"canonicalDataSha256\":\"5ff3ad77b303053fa380888418ecccb00e01ee235c26da1e4569d0be41e382de\",\"interpretation\":\"This proves only the reported HS 851713 customs observation for the exact reporter, partner, direction and period. It does not prove assembly, final consumption, a factory, or entry into a particular supply chain. Mirror reports remain separate because CIF/FOB valuation and reporting systems differ.\"}"
     },
     {
       "id": "trade-deu-smartphone-export",
       "reporterEntityId": "country-de",
+      "reporterCode": 276,
       "partnerEntityId": null,
       "partnerCode": 0,
+      "partner2Code": 0,
       "partnerScope": "world_total",
       "direction": "export",
+      "flowCode": "X",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
       "classificationCode": "851713",
@@ -2652,15 +3757,25 @@
       "dataStatus": "observed",
       "valueDataStatus": "observed",
       "quantityDataStatus": "estimated",
+      "quality": {
+        "legacyEstimationFlag": 6,
+        "isQtyEstimated": true,
+        "isNetWgtEstimated": true,
+        "isReported": false,
+        "isAggregate": true
+      },
       "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":6,\"isQtyEstimated\":true,\"isNetWgtEstimated\":true,\"qtyUnitCode\":5,\"valueDataStatus\":\"observed\",\"quantityDataStatus\":\"estimated\",\"quantityPublicationRule\":\"primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values\",\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
     },
     {
       "id": "trade-deu-smartphone-import",
       "reporterEntityId": "country-de",
+      "reporterCode": 276,
       "partnerEntityId": null,
       "partnerCode": 0,
+      "partner2Code": 0,
       "partnerScope": "world_total",
       "direction": "import",
+      "flowCode": "M",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
       "classificationCode": "851713",
@@ -2682,15 +3797,25 @@
       "dataStatus": "observed",
       "valueDataStatus": "observed",
       "quantityDataStatus": "estimated",
+      "quality": {
+        "legacyEstimationFlag": 6,
+        "isQtyEstimated": true,
+        "isNetWgtEstimated": true,
+        "isReported": false,
+        "isAggregate": true
+      },
       "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":6,\"isQtyEstimated\":true,\"isNetWgtEstimated\":true,\"qtyUnitCode\":5,\"valueDataStatus\":\"observed\",\"quantityDataStatus\":\"estimated\",\"quantityPublicationRule\":\"primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values\",\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
     },
     {
       "id": "trade-idn-smartphone-export",
       "reporterEntityId": "country-id",
+      "reporterCode": 360,
       "partnerEntityId": null,
       "partnerCode": 0,
+      "partner2Code": 0,
       "partnerScope": "world_total",
       "direction": "export",
+      "flowCode": "X",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
       "classificationCode": "851713",
@@ -2712,15 +3837,25 @@
       "dataStatus": "observed",
       "valueDataStatus": "observed",
       "quantityDataStatus": "estimated",
+      "quality": {
+        "legacyEstimationFlag": 2,
+        "isQtyEstimated": true,
+        "isNetWgtEstimated": false,
+        "isReported": false,
+        "isAggregate": true
+      },
       "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":2,\"isQtyEstimated\":true,\"isNetWgtEstimated\":false,\"qtyUnitCode\":5,\"valueDataStatus\":\"observed\",\"quantityDataStatus\":\"estimated\",\"quantityPublicationRule\":\"primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values\",\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
     },
     {
       "id": "trade-idn-smartphone-import",
       "reporterEntityId": "country-id",
+      "reporterCode": 360,
       "partnerEntityId": null,
       "partnerCode": 0,
+      "partner2Code": 0,
       "partnerScope": "world_total",
       "direction": "import",
+      "flowCode": "M",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
       "classificationCode": "851713",
@@ -2742,15 +3877,25 @@
       "dataStatus": "observed",
       "valueDataStatus": "observed",
       "quantityDataStatus": "estimated",
+      "quality": {
+        "legacyEstimationFlag": 2,
+        "isQtyEstimated": true,
+        "isNetWgtEstimated": false,
+        "isReported": false,
+        "isAggregate": true
+      },
       "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":2,\"isQtyEstimated\":true,\"isNetWgtEstimated\":false,\"qtyUnitCode\":5,\"valueDataStatus\":\"observed\",\"quantityDataStatus\":\"estimated\",\"quantityPublicationRule\":\"primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values\",\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
     },
     {
       "id": "trade-jpn-smartphone-export",
       "reporterEntityId": "country-jp",
+      "reporterCode": 392,
       "partnerEntityId": null,
       "partnerCode": 0,
+      "partner2Code": 0,
       "partnerScope": "world_total",
       "direction": "export",
+      "flowCode": "X",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
       "classificationCode": "851713",
@@ -2772,15 +3917,25 @@
       "dataStatus": "observed",
       "valueDataStatus": "observed",
       "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 4,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": true,
+        "isReported": false,
+        "isAggregate": true
+      },
       "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":4,\"isQtyEstimated\":false,\"isNetWgtEstimated\":true,\"qtyUnitCode\":5,\"valueDataStatus\":\"observed\",\"quantityDataStatus\":\"observed\",\"quantityPublicationRule\":\"primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values\",\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
     },
     {
       "id": "trade-jpn-smartphone-import",
       "reporterEntityId": "country-jp",
+      "reporterCode": 392,
       "partnerEntityId": null,
       "partnerCode": 0,
+      "partner2Code": 0,
       "partnerScope": "world_total",
       "direction": "import",
+      "flowCode": "M",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
       "classificationCode": "851713",
@@ -2802,15 +3957,25 @@
       "dataStatus": "observed",
       "valueDataStatus": "observed",
       "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 4,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": true,
+        "isReported": false,
+        "isAggregate": true
+      },
       "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":4,\"isQtyEstimated\":false,\"isNetWgtEstimated\":true,\"qtyUnitCode\":5,\"valueDataStatus\":\"observed\",\"quantityDataStatus\":\"observed\",\"quantityPublicationRule\":\"primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values\",\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
     },
     {
       "id": "trade-kor-smartphone-export",
       "reporterEntityId": "country-kr",
+      "reporterCode": 410,
       "partnerEntityId": null,
       "partnerCode": 0,
+      "partner2Code": 0,
       "partnerScope": "world_total",
       "direction": "export",
+      "flowCode": "X",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
       "classificationCode": "851713",
@@ -2832,15 +3997,25 @@
       "dataStatus": "observed",
       "valueDataStatus": "observed",
       "quantityDataStatus": "estimated",
+      "quality": {
+        "legacyEstimationFlag": 6,
+        "isQtyEstimated": true,
+        "isNetWgtEstimated": true,
+        "isReported": false,
+        "isAggregate": true
+      },
       "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":6,\"isQtyEstimated\":true,\"isNetWgtEstimated\":true,\"qtyUnitCode\":5,\"valueDataStatus\":\"observed\",\"quantityDataStatus\":\"estimated\",\"quantityPublicationRule\":\"primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values\",\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
     },
     {
       "id": "trade-kor-smartphone-import",
       "reporterEntityId": "country-kr",
+      "reporterCode": 410,
       "partnerEntityId": null,
       "partnerCode": 0,
+      "partner2Code": 0,
       "partnerScope": "world_total",
       "direction": "import",
+      "flowCode": "M",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
       "classificationCode": "851713",
@@ -2862,15 +4037,105 @@
       "dataStatus": "observed",
       "valueDataStatus": "observed",
       "quantityDataStatus": "estimated",
+      "quality": {
+        "legacyEstimationFlag": 6,
+        "isQtyEstimated": true,
+        "isNetWgtEstimated": true,
+        "isReported": false,
+        "isAggregate": true
+      },
       "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":6,\"isQtyEstimated\":true,\"isNetWgtEstimated\":true,\"qtyUnitCode\":5,\"valueDataStatus\":\"observed\",\"quantityDataStatus\":\"estimated\",\"quantityPublicationRule\":\"primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values\",\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
+    },
+    {
+      "id": "trade-usa-842-156-smartphone-export",
+      "reporterEntityId": "country-us",
+      "reporterCode": 842,
+      "partnerEntityId": "country-cn",
+      "partnerCode": 156,
+      "partner2Code": 0,
+      "partnerScope": "entity",
+      "direction": "export",
+      "flowCode": "X",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 271920070,
+      "quantity": 2241700,
+      "currency": "USD",
+      "unit": "items",
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 4,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": true,
+        "isReported": true,
+        "isAggregate": false
+      },
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"observationScope\":\"specific bilateral reporter-partner observation\",\"pairId\":\"usa-area-chn\",\"reporterCode\":842,\"partnerCode\":156,\"reporterScope\":\"USA, Puerto Rico and US Virgin Islands (source-native Comtrade code 842; not ISO/M49 840)\",\"partnerScope\":null,\"flowCode\":\"X\",\"valuation\":\"FOB\",\"classification\":\"HS 2022\",\"cmdCode\":\"851713\",\"customsCode\":\"C00\",\"currency\":\"USD\",\"primaryValueField\":\"primaryValue\",\"qtyUnitCode\":5,\"isQtyEstimated\":false,\"isNetWgtEstimated\":true,\"isReported\":true,\"isAggregate\":false,\"legacyEstimationFlag\":4,\"requestUrl\":\"https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=842&cmdCode=851713&flowCode=X%2CM&partnerCode=156&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500\",\"requestedAt\":\"2026-08-25T05:09:40.177Z\",\"rawResponseSha256\":\"ee4ea4ff06d3b0d687ca1f45ff80dad21770f565821dafc9ffbbc7b7972952f5\",\"canonicalDataSha256\":\"4fee67d8795a892ed9e470437cf558addcce6d08dc960903df5b6e1cf62bcd53\",\"interpretation\":\"This proves only the reported HS 851713 customs observation for the exact reporter, partner, direction and period. It does not prove assembly, final consumption, a factory, or entry into a particular supply chain. Mirror reports remain separate because CIF/FOB valuation and reporting systems differ.\"}"
+    },
+    {
+      "id": "trade-usa-842-156-smartphone-import",
+      "reporterEntityId": "country-us",
+      "reporterCode": 842,
+      "partnerEntityId": "country-cn",
+      "partnerCode": 156,
+      "partner2Code": 0,
+      "partnerScope": "entity",
+      "direction": "import",
+      "flowCode": "M",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "851713",
+      "itemId": "generic-smartphone",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "value": 45203156861,
+      "quantity": 119757767,
+      "currency": "USD",
+      "unit": "items",
+      "statisticalConcept": "customs",
+      "sourceId": "source-un-comtrade",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "method": "official",
+      "dataStatus": "observed",
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 4,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": true,
+        "isReported": true,
+        "isAggregate": false
+      },
+      "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"observationScope\":\"specific bilateral reporter-partner observation\",\"pairId\":\"usa-area-chn\",\"reporterCode\":842,\"partnerCode\":156,\"reporterScope\":\"USA, Puerto Rico and US Virgin Islands (source-native Comtrade code 842; not ISO/M49 840)\",\"partnerScope\":null,\"flowCode\":\"M\",\"valuation\":\"CIF\",\"classification\":\"HS 2022\",\"cmdCode\":\"851713\",\"customsCode\":\"C00\",\"currency\":\"USD\",\"primaryValueField\":\"primaryValue\",\"qtyUnitCode\":5,\"isQtyEstimated\":false,\"isNetWgtEstimated\":true,\"isReported\":true,\"isAggregate\":false,\"legacyEstimationFlag\":4,\"requestUrl\":\"https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=842&cmdCode=851713&flowCode=X%2CM&partnerCode=156&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500\",\"requestedAt\":\"2026-08-25T05:09:40.177Z\",\"rawResponseSha256\":\"ee4ea4ff06d3b0d687ca1f45ff80dad21770f565821dafc9ffbbc7b7972952f5\",\"canonicalDataSha256\":\"4fee67d8795a892ed9e470437cf558addcce6d08dc960903df5b6e1cf62bcd53\",\"interpretation\":\"This proves only the reported HS 851713 customs observation for the exact reporter, partner, direction and period. It does not prove assembly, final consumption, a factory, or entry into a particular supply chain. Mirror reports remain separate because CIF/FOB valuation and reporting systems differ.\"}"
     },
     {
       "id": "trade-usa-smartphone-export",
       "reporterEntityId": "country-us",
+      "reporterCode": 842,
       "partnerEntityId": null,
       "partnerCode": 0,
+      "partner2Code": 0,
       "partnerScope": "world_total",
       "direction": "export",
+      "flowCode": "X",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
       "classificationCode": "851713",
@@ -2892,15 +4157,25 @@
       "dataStatus": "observed",
       "valueDataStatus": "observed",
       "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 4,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": true,
+        "isReported": false,
+        "isAggregate": true
+      },
       "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":4,\"isQtyEstimated\":false,\"isNetWgtEstimated\":true,\"qtyUnitCode\":5,\"valueDataStatus\":\"observed\",\"quantityDataStatus\":\"observed\",\"quantityPublicationRule\":\"primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values\",\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
     },
     {
       "id": "trade-usa-smartphone-import",
       "reporterEntityId": "country-us",
+      "reporterCode": 842,
       "partnerEntityId": null,
       "partnerCode": 0,
+      "partner2Code": 0,
       "partnerScope": "world_total",
       "direction": "import",
+      "flowCode": "M",
       "classificationSystem": "HS",
       "classificationVersion": "2022",
       "classificationCode": "851713",
@@ -2922,6 +4197,13 @@
       "dataStatus": "observed",
       "valueDataStatus": "observed",
       "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 4,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": true,
+        "isReported": false,
+        "isAggregate": true
+      },
       "qualityNote": "{\"source\":\"UN Comtrade Preview API\",\"partnerCode\":0,\"partner\":\"World total\",\"cmdCode\":\"851713\",\"classification\":\"HS 2022\",\"customsCode\":\"C00\",\"primaryValueField\":\"primaryValue\",\"legacyEstimationFlag\":4,\"isQtyEstimated\":false,\"isNetWgtEstimated\":true,\"qtyUnitCode\":5,\"valueDataStatus\":\"observed\",\"quantityDataStatus\":\"observed\",\"quantityPublicationRule\":\"primaryValue status is independent from quantity/net-weight flags; source-estimated quantities are not published as precise values\",\"isReported\":false,\"isAggregate\":true,\"note\":\"A missing reporter/flow row is not interpreted as zero.\"}"
     }
   ],
@@ -3688,13 +4970,1936 @@
     "智能手机单品贸易为 HS 2022 六位码 851713、世界总计伙伴的海关观察；缺失国家/流向不填零。",
     "官方储备指标 FI.RES.TOTL.CD 包含黄金，不等同于狭义外汇储备。",
     "电池供应链是有来源的代表性策展路径，不代表唯一真实路线，也不提供成本、增加值或利润分配。",
-    "Comtrade 估算和质量标记保存在 qualityNote，并影响 dataStatus；运行时不请求外部 API。",
-    "所有现有路线边均为 representative 且数量未知；没有 observed 或 bilateral_supported 的供应链边。"
+    "Comtrade 估算和质量标记保存在 qualityNote，并影响独立的金额/数量状态；运行时不请求外部 API。",
+    "所有现有路线边均为 representative 且数量未知；双边海关 evidence 和 observations 不等于路线边已被证明。"
+  ],
+  "evidenceGaps": [
+    {
+      "gapId": "gap-node-au-lithium-country-role",
+      "nodeId": "node-au-lithium",
+      "flowId": null,
+      "currentClaim": "澳大利亚在 2023 年背景下具有锂矿生产角色。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "该国家生产角色已有来源支持；材料品级、加工地和下游去向仍由其他缺口记录管理。",
+      "acceptableEvidenceTypes": [
+        "country_role"
+      ],
+      "candidateSources": [
+        {
+          "name": "Mineral Commodity Summaries 2024",
+          "publisher": "U.S. Geological Survey",
+          "url": "https://pubs.usgs.gov/periodicals/mcs2024/mcs2024.pdf",
+          "license": "U.S. Government work; public-domain status and USGS terms apply",
+          "notes": "用于验证 2023 年国家矿产生产角色，不提供双边流向或手机用途。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "253090",
+          "label": "第 25 章其他未列名矿物质",
+          "mappingType": "approximate",
+          "limitation": "HS 2022 没有锂矿或锂精矿专属六位码；该代码包含大量非锂矿物，不能作为锂矿数量或手机用途的精确观察。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "282520",
+          "label": "锂的氧化物及氢氧化物",
+          "mappingType": "aggregate",
+          "limitation": "可识别该化学品分类，但不能证明其为电池级、进入智能手机或源自当前节点的矿石。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "283691",
+          "label": "碳酸锂",
+          "mappingType": "aggregate",
+          "limitation": "海关分类不区分电池级与其他用途，也不提供从矿山到手机的物料谱系。"
+        }
+      ],
+      "status": "closed",
+      "nonInferences": [
+        "不得推断澳大利亚锂必然出口至中国。",
+        "不得推断该锂进入任一智能手机、电池、企业、工厂或批次。"
+      ],
+      "evidenceIds": [
+        "evidence-usgs-australia-lithium-role"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-cd-cobalt-country-role",
+      "nodeId": "node-cd-cobalt",
+      "flowId": null,
+      "currentClaim": "刚果民主共和国在 2023 年背景下具有钴矿生产角色。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "国家生产角色已有来源支持；精炼阶段、出口伙伴和终端用途仍未由该证据支持。",
+      "acceptableEvidenceTypes": [
+        "country_role"
+      ],
+      "candidateSources": [
+        {
+          "name": "Mineral Commodity Summaries 2024",
+          "publisher": "U.S. Geological Survey",
+          "url": "https://pubs.usgs.gov/periodicals/mcs2024/mcs2024.pdf",
+          "license": "U.S. Government work; public-domain status and USGS terms apply",
+          "notes": "用于验证国家钴生产角色，不提供双边运输或电池用途。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "260500",
+          "label": "钴矿砂及其精矿",
+          "mappingType": "aggregate",
+          "limitation": "分类不区分具体矿山、品级或下游用途，不能证明进入正极材料或手机。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "810520",
+          "label": "钴锍、其他冶金中间品、未锻轧钴及粉末",
+          "mappingType": "aggregate",
+          "limitation": "一个六位码合并多个加工阶段，不能确定具体材料形态或电池用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "282200",
+          "label": "钴的氧化物及氢氧化物；商品氧化钴",
+          "mappingType": "aggregate",
+          "limitation": "不能凭该分类识别电池级材料、指定正极配方或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "283329",
+          "label": "其他未列名硫酸盐",
+          "mappingType": "approximate",
+          "limitation": "HS 六位层级不是硫酸钴专属码，包含其他硫酸盐，需更细国家税号才能缩窄。"
+        }
+      ],
+      "status": "closed",
+      "nonInferences": [
+        "不得推断刚果民主共和国的钴必然出口至中国。",
+        "不得推断海关分类中的钴进入当前正极节点或智能手机。"
+      ],
+      "evidenceIds": [
+        "evidence-usgs-drc-cobalt-role"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-id-nickel-country-role",
+      "nodeId": "node-id-nickel",
+      "flowId": null,
+      "currentClaim": "印度尼西亚在 2023 年背景下具有镍矿生产角色。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "国家生产角色已有来源支持；矿石到中间品、精炼品或电池级材料的具体转换和去向仍未获得支持。",
+      "acceptableEvidenceTypes": [
+        "country_role"
+      ],
+      "candidateSources": [
+        {
+          "name": "Mineral Commodity Summaries 2024",
+          "publisher": "U.S. Geological Survey",
+          "url": "https://pubs.usgs.gov/periodicals/mcs2024/mcs2024.pdf",
+          "license": "U.S. Government work; public-domain status and USGS terms apply",
+          "notes": "用于验证国家镍生产角色，不提供手机电池的直接物料追踪。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "260400",
+          "label": "镍矿砂及其精矿",
+          "mappingType": "aggregate",
+          "limitation": "不区分具体矿山、矿石工艺路线或是否适用于电池。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "750110",
+          "label": "镍锍",
+          "mappingType": "aggregate",
+          "limitation": "只能证明该分类商品贸易，不能证明进入正极材料或智能手机。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "750120",
+          "label": "氧化镍烧结物及其他镍冶金中间产品",
+          "mappingType": "aggregate",
+          "limitation": "包含多类中间产品，MHP 等商品的实际归类还取决于组成和海关裁定。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "750210",
+          "label": "未锻轧非合金镍",
+          "mappingType": "aggregate",
+          "limitation": "不识别电池级纯度、下游配方或最终用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "282540",
+          "label": "镍的氧化物及氢氧化物",
+          "mappingType": "aggregate",
+          "limitation": "不能单凭代码确定材料品级或电池用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "283324",
+          "label": "硫酸镍",
+          "mappingType": "aggregate",
+          "limitation": "商品定义较明确，但仍不证明电池级规格、具体买方或手机用途。"
+        }
+      ],
+      "status": "closed",
+      "nonInferences": [
+        "不得推断印度尼西亚镍必然出口至中国。",
+        "不得把镍矿或中间品贸易直接解释为手机电池材料。"
+      ],
+      "evidenceIds": [
+        "evidence-usgs-indonesia-nickel-role"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-cn-graphite-country-role",
+      "nodeId": "node-cn-graphite",
+      "flowId": null,
+      "currentClaim": "中国在 2023 年背景下具有天然石墨生产角色。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "天然石墨生产角色已有支持；球形化、纯化、包覆和负极材料制造角色不能由该矿产证据自动推出。",
+      "acceptableEvidenceTypes": [
+        "country_role"
+      ],
+      "candidateSources": [
+        {
+          "name": "Mineral Commodity Summaries 2024",
+          "publisher": "U.S. Geological Survey",
+          "url": "https://pubs.usgs.gov/periodicals/mcs2024/mcs2024.pdf",
+          "license": "U.S. Government work; public-domain status and USGS terms apply",
+          "notes": "用于验证天然石墨生产角色，不验证负极材料工厂或用途。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "250410",
+          "label": "粉状或片状天然石墨",
+          "mappingType": "aggregate",
+          "limitation": "不区分纯度、球形化或电池用途，不能证明进入负极材料或手机。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "250490",
+          "label": "其他形态天然石墨",
+          "mappingType": "aggregate",
+          "limitation": "包含多种形态和用途，不是电池负极专属分类。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "380110",
+          "label": "人造石墨",
+          "mappingType": "aggregate",
+          "limitation": "包含非电池用途，且不能证明与当前天然石墨节点存在物料连续性。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "380190",
+          "label": "其他石墨或碳基制剂及半制品",
+          "mappingType": "approximate",
+          "limitation": "范围宽泛，球形化、包覆石墨和复合负极材料可能因配方与裁定进入不同分类。"
+        }
+      ],
+      "status": "closed",
+      "nonInferences": [
+        "不得由天然石墨生产角色推断中国特定负极材料产量。",
+        "不得推断天然或人造石墨进入任一智能手机。"
+      ],
+      "evidenceIds": [
+        "evidence-usgs-china-graphite-role"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-cl-copper-country-role",
+      "nodeId": "node-cl-copper",
+      "flowId": null,
+      "currentClaim": "智利在 2023 年背景下具有铜矿生产角色。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "铜矿生产角色已有支持；精炼铜、铜箔和电池集流体阶段尚未由该记录支持。",
+      "acceptableEvidenceTypes": [
+        "country_role"
+      ],
+      "candidateSources": [
+        {
+          "name": "Mineral Commodity Summaries 2024",
+          "publisher": "U.S. Geological Survey",
+          "url": "https://pubs.usgs.gov/periodicals/mcs2024/mcs2024.pdf",
+          "license": "U.S. Government work; public-domain status and USGS terms apply",
+          "notes": "用于验证铜矿生产角色，不验证铜箔制造或电池用途。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "260300",
+          "label": "铜矿砂及其精矿",
+          "mappingType": "aggregate",
+          "limitation": "不提供矿山、冶炼厂、铜箔厂或智能手机用途的物料谱系。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "740200",
+          "label": "未精炼铜；电解精炼用铜阳极",
+          "mappingType": "aggregate",
+          "limitation": "包含中间冶金形态，不能与某批铜矿或下游铜箔自动关联。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "740311",
+          "label": "未锻轧精炼铜阴极及其截面",
+          "mappingType": "aggregate",
+          "limitation": "不区分最终用途，不能证明加工为电池铜箔。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "741011",
+          "label": "厚度不超过 0.15 毫米的无背衬精炼铜箔",
+          "mappingType": "approximate",
+          "limitation": "是电池铜集流体候选分类但包含其他用途，不能证明负极集流体或智能手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "741012",
+          "label": "厚度不超过 0.15 毫米的无背衬铜合金箔",
+          "mappingType": "approximate",
+          "limitation": "包含非电池用途和多种合金，不能识别具体集流体。"
+        }
+      ],
+      "status": "closed",
+      "nonInferences": [
+        "不得将智利铜矿生产角色等同于智利铜箔生产角色。",
+        "不得把不同 HS 阶段的独立贸易观察串成同一批手机材料。"
+      ],
+      "evidenceIds": [
+        "evidence-usgs-chile-copper-role"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-au-aluminum-country-role",
+      "nodeId": "node-au-aluminum",
+      "flowId": null,
+      "currentClaim": "澳大利亚在 2023 年背景下具有铝土矿和氧化铝等铝上游生产角色。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "上游国家角色已有支持；当前宽泛 aluminum 项仍需拆分铝土矿、氧化铝、原铝、铝箔和集流体。",
+      "acceptableEvidenceTypes": [
+        "country_role",
+        "classification"
+      ],
+      "candidateSources": [
+        {
+          "name": "Mineral Commodity Summaries 2024",
+          "publisher": "U.S. Geological Survey",
+          "url": "https://pubs.usgs.gov/periodicals/mcs2024/mcs2024.pdf",
+          "license": "U.S. Government work; public-domain status and USGS terms apply",
+          "notes": "用于验证铝土矿和氧化铝上游角色，不表示开采金属铝。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "260600",
+          "label": "铝矿砂及其精矿",
+          "mappingType": "aggregate",
+          "limitation": "主要覆盖铝土矿类上游商品，但不证明后续加工地、集流体或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "281820",
+          "label": "非人造刚玉的氧化铝",
+          "mappingType": "aggregate",
+          "limitation": "包含不同品级和用途，不能与某批铝土矿或电池铝箔自动关联。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "760110",
+          "label": "未锻轧非合金铝",
+          "mappingType": "aggregate",
+          "limitation": "不区分后续箔材或其他终端用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "760120",
+          "label": "未锻轧铝合金",
+          "mappingType": "aggregate",
+          "limitation": "不识别电池用规格或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "760711",
+          "label": "厚度不超过 0.2 毫米的无背衬轧制铝箔",
+          "mappingType": "approximate",
+          "limitation": "是正极集流体候选分类但包含多种非电池用途，不能证明手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "760719",
+          "label": "厚度不超过 0.2 毫米的其他无背衬铝箔",
+          "mappingType": "approximate",
+          "limitation": "范围覆盖多种箔材，无法识别具体电池集流体。"
+        }
+      ],
+      "status": "closed",
+      "nonInferences": [
+        "不得把铝土矿开采表述为金属铝开采。",
+        "不得将澳大利亚上游角色直接连接为韩国手机电芯中的铝集流体事实。"
+      ],
+      "evidenceIds": [
+        "evidence-usgs-australia-aluminum-role"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-cn-cathode-country-role",
+      "nodeId": "node-cn-cathode",
+      "flowId": null,
+      "currentClaim": "中国正极材料节点是基于一般电池价值链背景设置的代表性加工节点。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少直接支持 2023 年中国手机电池正极材料生产角色、具体化学体系和产出范围的权威记录。",
+      "acceptableEvidenceTypes": [
+        "country_role",
+        "process_context",
+        "classification"
+      ],
+      "candidateSources": [
+        {
+          "name": "Global supply chains of EV batteries",
+          "publisher": "International Energy Agency",
+          "url": "https://www.iea.org/reports/global-supply-chains-of-ev-batteries",
+          "license": "IEA terms of use; link-only citation, not a CC BY relicense",
+          "notes": "可提供一般电池材料阶段和集中度背景，但不是手机电池的直接证据。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "284190",
+          "label": "其他未列名含氧金属酸盐或过氧金属酸盐",
+          "mappingType": "approximate",
+          "limitation": "可能覆盖部分正极活性材料但范围宽泛，不是 NMC、NCA、LCO 或 LFP 专属码，也不证明手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "284290",
+          "label": "其他未列名无机酸盐或过氧酸盐",
+          "mappingType": "approximate",
+          "limitation": "分类范围宽泛且归类依材料组成而异，不能精确识别正极材料或智能手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "382499",
+          "label": "其他未列名化学产品、混合物及制剂",
+          "mappingType": "approximate",
+          "limitation": "兜底分类包含大量非电池商品，不能单独支持正极材料生产或流向主张。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "不得将电动汽车电池报告直接当作手机电池证据。",
+        "不得由宽泛化学品贸易推断正极材料产量、配方或买方。"
+      ],
+      "evidenceIds": [
+        "evidence-iea-battery-chain",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-cn-anode-country-role",
+      "nodeId": "node-cn-anode",
+      "flowId": null,
+      "currentClaim": "中国负极材料节点是基于一般电池价值链背景设置的代表性加工节点。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少直接支持 2023 年中国手机电池负极材料加工角色、材料类型和产出范围的权威记录。",
+      "acceptableEvidenceTypes": [
+        "country_role",
+        "process_context",
+        "classification"
+      ],
+      "candidateSources": [
+        {
+          "name": "Global supply chains of EV batteries",
+          "publisher": "International Energy Agency",
+          "url": "https://www.iea.org/reports/global-supply-chains-of-ev-batteries",
+          "license": "IEA terms of use; link-only citation, not a CC BY relicense",
+          "notes": "仅提供一般电池负极阶段背景，需要另找手机电池或跨用途产业角色证据。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "380110",
+          "label": "人造石墨",
+          "mappingType": "aggregate",
+          "limitation": "包含多种非电池用途，不能识别负极品级、加工企业或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "380190",
+          "label": "其他石墨或碳基制剂及半制品",
+          "mappingType": "approximate",
+          "limitation": "球形化、纯化、包覆石墨和复合负极材料可能因配方与裁定落入不同项目。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "不得由天然石墨产量直接推断负极材料产量。",
+        "不得由 HS 380110 或 380190 推断商品进入手机电池。"
+      ],
+      "evidenceIds": [
+        "evidence-iea-battery-chain",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-kr-cell-country-role",
+      "nodeId": "node-kr-cell",
+      "flowId": null,
+      "currentClaim": "韩国在通用电池/电芯供应链中具有国家角色，但手机用途仍未确认。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "通用电池/电芯国家角色已有来源；手机专用用途、企业、产量和跨境供应仍缺少直接证据。",
+      "acceptableEvidenceTypes": [
+        "country_role",
+        "process_context",
+        "trade_observation"
+      ],
+      "candidateSources": [
+        {
+          "name": "Global supply chains of EV batteries",
+          "publisher": "International Energy Agency",
+          "url": "https://www.iea.org/reports/global-supply-chains-of-ev-batteries",
+          "license": "IEA terms of use; link-only citation, not a CC BY relicense",
+          "notes": "只支持一般电芯阶段背景；需另找手机电芯制造角色来源。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "850760",
+          "label": "锂离子蓄电池",
+          "mappingType": "aggregate",
+          "limitation": "不能区分电芯、模组或电池包，也不能区分手机、电动车和储能用途。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "不得把韩国企业总部所在地等同于任一电芯的生产地。",
+        "不得把 HS 850760 贸易额等同于手机电芯产量。"
+      ],
+      "evidenceIds": [
+        "evidence-iea-korea-generic-battery-cell-role-2023",
+        "evidence-iea-battery-chain",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-kr-module-country-role",
+      "nodeId": "node-kr-module",
+      "flowId": null,
+      "currentClaim": "韩国电池模组节点是代表性的电池组装阶段。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少能区分手机电池模组、电池包和电芯并支持韩国生产角色的 2023 年来源。",
+      "acceptableEvidenceTypes": [
+        "country_role",
+        "process_context",
+        "trade_observation"
+      ],
+      "candidateSources": [
+        {
+          "name": "Global supply chains of EV batteries",
+          "publisher": "International Energy Agency",
+          "url": "https://www.iea.org/reports/global-supply-chains-of-ev-batteries",
+          "license": "IEA terms of use; link-only citation, not a CC BY relicense",
+          "notes": "可解释一般模组阶段，不能验证韩国手机电池模组节点。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "850760",
+          "label": "锂离子蓄电池",
+          "mappingType": "aggregate",
+          "limitation": "HS 六位码通常不能区分电芯、模组或整包，更不能识别手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "850790",
+          "label": "其他未列名蓄电池零件",
+          "mappingType": "approximate",
+          "limitation": "宽泛零件分类，不能直接代表手机电池模组。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "不得把电动汽车模组阶段直接当作手机模组证据。",
+        "不得由 HS 850760 推断韩国生产了当前路线中的模组。"
+      ],
+      "evidenceIds": [
+        "evidence-iea-battery-chain",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-jp-components-country-role",
+      "nodeId": "node-jp-components",
+      "flowId": null,
+      "currentClaim": "日本在宽泛电子组件/LCD 生产中具有国家角色；手机用途和下游连接仍未知。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "日本电子组件/LCD 国家角色已有统计支持；手机显示用途、具体企业和对中国的双边供应仍缺少直接证据。",
+      "acceptableEvidenceTypes": [
+        "country_role",
+        "trade_observation"
+      ],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "候选海关观察仍需选择与显示组件相符的 HS 2022 分类，并结合产业角色来源。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "partial",
+      "nonInferences": [
+        "不得把日本企业品牌或总部所在地等同于日本生产。",
+        "不得推断日本组件必然进入中国组装的手机。"
+      ],
+      "evidenceIds": [
+        "evidence-jeita-japan-electronics-lcd-production-role-2023"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-cn-assembly-country-role",
+      "nodeId": "node-cn-assembly",
+      "flowId": null,
+      "currentClaim": "中国在更宽的移动通信手持机生产门类中具有国家角色；具体智能手机组装范围仍未知。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "国家生产统计覆盖移动通信手持机而非严格智能手机，具体组装企业、工厂、产量拆分和双边供应仍缺少直接证据。",
+      "acceptableEvidenceTypes": [
+        "country_role",
+        "trade_observation"
+      ],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "HS 851713 出口可提供贸易背景，但不能单独证明组装地点或国内增加值。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "851713",
+          "label": "智能手机",
+          "mappingType": "exact",
+          "limitation": "商品分类相符，但出口记录不等于中国完成组装，也不证明企业、工厂、利润或零部件原产地。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "不得把中国对世界出口直接当作中国组装事实。",
+        "不得用出口额推断企业利润、手机价格或国内增加值。"
+      ],
+      "evidenceIds": [
+        "evidence-nbs-china-mobile-handset-production-role-2023",
+        "evidence-comtrade-china-smartphone-world-total",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-us-import-market-observation",
+      "nodeId": "node-us-export",
+      "flowId": null,
+      "currentClaim": "美国在 2023 年具有 HS 2022/851713 世界总计进口市场角色。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "世界总计进口市场观察已存在；具体来源国、分销链和最终消费仍由其他关系缺口管理。",
+      "acceptableEvidenceTypes": [
+        "trade_observation"
+      ],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "partnerCode=0 只表示世界总计，不识别中国或其他具体伙伴。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "851713",
+          "label": "智能手机",
+          "mappingType": "exact",
+          "limitation": "进口海关观察不等于最终消费、分销数量、企业销售或手机价格。"
+        }
+      ],
+      "status": "closed",
+      "nonInferences": [
+        "不得把 partnerCode=0 解释为中国。",
+        "不得把海关进口额解释为美国最终消费或企业利润。"
+      ],
+      "evidenceIds": [
+        "evidence-comtrade-united-states-smartphone-import-market-role-2023",
+        "evidence-comtrade-united-states-smartphone-world-total"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-de-import-market-observation",
+      "nodeId": "node-de-consumption",
+      "flowId": null,
+      "currentClaim": "德国在 2023 年具有 HS 2022/851713 世界总计进口市场角色。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "世界总计进口市场观察已存在；具体来源国、转口、库存和最终消费仍未由该观察支持。",
+      "acceptableEvidenceTypes": [
+        "trade_observation"
+      ],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "partnerCode=0 只提供世界总计进口背景，不证明与中国的直接流向。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "851713",
+          "label": "智能手机",
+          "mappingType": "exact",
+          "limitation": "进口记录不等于德国居民最终消费，也不排除转口、库存变化或企业间交易。"
+        }
+      ],
+      "status": "closed",
+      "nonInferences": [
+        "不得把德国自世界进口解释为中国到德国的双边事实。",
+        "不得把进口额等同于德国最终消费金额。"
+      ],
+      "evidenceIds": [
+        "evidence-comtrade-germany-smartphone-import-market-role-2023",
+        "evidence-comtrade-germany-smartphone-world-total"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-lithium-bilateral-customs",
+      "nodeId": null,
+      "flowId": "flow-lithium-refining",
+      "currentClaim": "澳大利亚锂角色与中国代表性正极材料阶段之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少 2023 年具体伙伴、方向明确且分类适合的澳大利亚至中国锂商品双边海关观察；仍需区分矿石和锂化合物。",
+      "acceptableEvidenceTypes": [
+        "bilateral_flow",
+        "trade_observation",
+        "classification"
+      ],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "必须使用具体中国 partnerCode；partnerCode=0 的世界总计不能关闭该缺口。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "253090",
+          "label": "第 25 章其他未列名矿物质",
+          "mappingType": "approximate",
+          "limitation": "不是锂矿专属码且混入大量非锂矿物，不能据此报告精确锂矿贸易或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "282520",
+          "label": "锂的氧化物及氢氧化物",
+          "mappingType": "aggregate",
+          "limitation": "不区分电池级与其他用途，也不能证明来自当前澳大利亚矿产节点。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "283691",
+          "label": "碳酸锂",
+          "mappingType": "aggregate",
+          "limitation": "不能证明该碳酸锂进入中国正极材料或智能手机。"
+        }
+      ],
+      "status": "open",
+      "nonInferences": [
+        "不得用澳大利亚和中国各自的世界总计观察拼接双边流向。",
+        "不得将任一锂化合物双边贸易观察升级为手机供应链用途事实。"
+      ],
+      "evidenceIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-cobalt-bilateral-customs",
+      "nodeId": null,
+      "flowId": "flow-cobalt-refining",
+      "currentClaim": "刚果民主共和国钴角色与中国代表性正极材料阶段之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少 2023 年刚果民主共和国至中国、具体伙伴和方向明确的钴矿或钴中间品双边海关观察。",
+      "acceptableEvidenceTypes": [
+        "bilateral_flow",
+        "trade_observation",
+        "classification"
+      ],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "需保存 reporter、具体 partner、方向、期间、代码和质量标记。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "260500",
+          "label": "钴矿砂及其精矿",
+          "mappingType": "aggregate",
+          "limitation": "不能识别品级、矿山、买方或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "810520",
+          "label": "钴锍、其他冶金中间品、未锻轧钴及粉末",
+          "mappingType": "aggregate",
+          "limitation": "合并多个加工阶段，不能直接代表正极材料投入。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "282200",
+          "label": "钴的氧化物及氢氧化物；商品氧化钴",
+          "mappingType": "aggregate",
+          "limitation": "不证明电池级规格或智能手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "283329",
+          "label": "其他未列名硫酸盐",
+          "mappingType": "approximate",
+          "limitation": "不是硫酸钴专属 HS 六位码，不能将全部观察归为钴化合物。"
+        }
+      ],
+      "status": "open",
+      "nonInferences": [
+        "不得从两国世界总计数据构造双边事实。",
+        "不得把钴分类贸易直接解释为中国手机正极材料投入。"
+      ],
+      "evidenceIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-nickel-bilateral-customs",
+      "nodeId": null,
+      "flowId": "flow-nickel-refining",
+      "currentClaim": "印度尼西亚镍角色与中国代表性正极材料阶段之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少 2023 年印度尼西亚至中国、具体伙伴和方向明确的镍矿、中间品、精炼镍或镍化合物观察。",
+      "acceptableEvidenceTypes": [
+        "bilateral_flow",
+        "trade_observation",
+        "classification"
+      ],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "必须按具体材料形态分别查询；不能把所有镍商品合并成电池材料。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "260400",
+          "label": "镍矿砂及其精矿",
+          "mappingType": "aggregate",
+          "limitation": "不区分矿石工艺路线或电池适用性。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "750110",
+          "label": "镍锍",
+          "mappingType": "aggregate",
+          "limitation": "只能证明镍锍贸易，不能证明进入手机正极材料。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "750120",
+          "label": "氧化镍烧结物及其他镍冶金中间产品",
+          "mappingType": "aggregate",
+          "limitation": "包含多种中间品，实际归类依组成和海关裁定。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "750210",
+          "label": "未锻轧非合金镍",
+          "mappingType": "aggregate",
+          "limitation": "不证明电池级纯度或终端用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "282540",
+          "label": "镍的氧化物及氢氧化物",
+          "mappingType": "aggregate",
+          "limitation": "不区分电池级和其他工业用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "283324",
+          "label": "硫酸镍",
+          "mappingType": "aggregate",
+          "limitation": "不能由商品定义推断具体正极配方、买方或手机用途。"
+        }
+      ],
+      "status": "open",
+      "nonInferences": [
+        "不得把普通镍贸易升级为手机电池事实。",
+        "不得把不同加工阶段的独立观察视为同一批物料。"
+      ],
+      "evidenceIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-graphite-process-link",
+      "nodeId": null,
+      "flowId": "flow-graphite-anode",
+      "currentClaim": "天然或加工石墨与负极材料之间存在一般工艺联系，当前中国境内连接为代表性策展关系。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "已有天然石墨国家角色和一般电池阶段背景，但缺少中国境内从天然或人造石墨到具体负极材料产出的直接证据。",
+      "acceptableEvidenceTypes": [
+        "country_role",
+        "process_context",
+        "classification"
+      ],
+      "candidateSources": [
+        {
+          "name": "Global supply chains of EV batteries",
+          "publisher": "International Energy Agency",
+          "url": "https://www.iea.org/reports/global-supply-chains-of-ev-batteries",
+          "license": "IEA terms of use; link-only citation, not a CC BY relicense",
+          "notes": "只提供一般电池材料阶段背景，不提供中国境内物料追踪。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "250410",
+          "label": "粉状或片状天然石墨",
+          "mappingType": "aggregate",
+          "limitation": "不能识别纯化、球形化、包覆或负极用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "250490",
+          "label": "其他形态天然石墨",
+          "mappingType": "aggregate",
+          "limitation": "不证明国内转化为电池负极材料。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "380110",
+          "label": "人造石墨",
+          "mappingType": "aggregate",
+          "limitation": "包含非电池用途，且不能关联当前天然石墨节点。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "380190",
+          "label": "其他石墨或碳基制剂及半制品",
+          "mappingType": "approximate",
+          "limitation": "宽泛分类不能准确识别负极材料，更不能证明智能手机用途。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "国内加工关系不能用国际海关双边数据证明。",
+        "不得由天然石墨产量或人造石墨贸易推断手机负极材料流向。"
+      ],
+      "evidenceIds": [
+        "evidence-usgs-china-graphite-role",
+        "evidence-iea-battery-chain",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-copper-intermediate-stages",
+      "nodeId": null,
+      "flowId": "flow-copper-cell",
+      "currentClaim": "智利铜矿角色与韩国代表性电芯节点之间的连接省略冶炼、精炼和铜箔集流体阶段。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少逐阶段国家角色、转换关系和具体双边观察；当前仅有智利铜矿生产角色。",
+      "acceptableEvidenceTypes": [
+        "country_role",
+        "bilateral_flow",
+        "process_context",
+        "classification"
+      ],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "可逐代码观察分类商品贸易，但不能将多个阶段记录拼成同一批材料。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "260300",
+          "label": "铜矿砂及其精矿",
+          "mappingType": "aggregate",
+          "limitation": "不能识别后续冶炼、铜箔或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "740200",
+          "label": "未精炼铜；电解精炼用铜阳极",
+          "mappingType": "aggregate",
+          "limitation": "不提供与上游矿石或下游铜箔的批次关联。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "740311",
+          "label": "未锻轧精炼铜阴极及其截面",
+          "mappingType": "aggregate",
+          "limitation": "不区分是否继续加工为电池铜箔。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "741011",
+          "label": "厚度不超过 0.15 毫米的无背衬精炼铜箔",
+          "mappingType": "approximate",
+          "limitation": "虽是电池铜集流体候选，但包含其他用途，不能证明进入韩国电芯或智能手机。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "741012",
+          "label": "厚度不超过 0.15 毫米的无背衬铜合金箔",
+          "mappingType": "approximate",
+          "limitation": "包含多种合金和用途，不能识别负极集流体。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "不得把智利铜矿直接表述为韩国电芯使用的铜箔。",
+        "不得把 260300、740311 和 741011 的独立记录串成同一批材料。"
+      ],
+      "evidenceIds": [
+        "evidence-usgs-chile-copper-role",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-aluminum-intermediate-stages",
+      "nodeId": null,
+      "flowId": "flow-aluminum-cell",
+      "currentClaim": "澳大利亚铝上游角色与韩国代表性电芯节点之间的连接省略氧化铝、原铝和铝箔集流体阶段。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少逐阶段国家角色、转换关系和具体双边观察；当前来源只支持澳大利亚上游角色。",
+      "acceptableEvidenceTypes": [
+        "country_role",
+        "bilateral_flow",
+        "process_context",
+        "classification"
+      ],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "需分别调查铝矿、氧化铝、原铝和箔材，不能将阶段观察拼成单一物料链。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "260600",
+          "label": "铝矿砂及其精矿",
+          "mappingType": "aggregate",
+          "limitation": "不能证明转化为氧化铝、原铝或电池集流体。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "281820",
+          "label": "非人造刚玉的氧化铝",
+          "mappingType": "aggregate",
+          "limitation": "不区分不同品级和下游用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "760110",
+          "label": "未锻轧非合金铝",
+          "mappingType": "aggregate",
+          "limitation": "不证明加工为铝箔或进入手机电池。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "760120",
+          "label": "未锻轧铝合金",
+          "mappingType": "aggregate",
+          "limitation": "不识别电池用规格或最终用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "760711",
+          "label": "厚度不超过 0.2 毫米的无背衬轧制铝箔",
+          "mappingType": "approximate",
+          "limitation": "是正极集流体候选但包含其他用途，不能证明进入韩国电芯或智能手机。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "760719",
+          "label": "厚度不超过 0.2 毫米的其他无背衬铝箔",
+          "mappingType": "approximate",
+          "limitation": "宽泛箔材分类不能识别具体电池集流体。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "不得把澳大利亚铝土矿直接表述为韩国电芯使用的铝箔。",
+        "不得把不同阶段的海关观察视为同一批铝材料。"
+      ],
+      "evidenceIds": [
+        "evidence-usgs-australia-aluminum-role",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-cathode-cell-bilateral",
+      "nodeId": null,
+      "flowId": "flow-cathode-cell",
+      "currentClaim": "中国代表性正极材料节点与韩国代表性电芯节点之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少能够明确识别正极材料且支持 2023 年中国至韩国方向的直接双边证据。",
+      "acceptableEvidenceTypes": [
+        "bilateral_flow",
+        "trade_observation",
+        "classification"
+      ],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "HS 六位层级通常不能精确识别 NMC、NCA、LCO 或 LFP，需要谨慎使用更细国家税号或产业来源。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "284190",
+          "label": "其他未列名含氧金属酸盐或过氧金属酸盐",
+          "mappingType": "approximate",
+          "limitation": "范围宽泛，不是正极材料专属码，也不证明电芯或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "284290",
+          "label": "其他未列名无机酸盐或过氧酸盐",
+          "mappingType": "approximate",
+          "limitation": "归类随化学组成而异，不能作为统一正极材料观察。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "382499",
+          "label": "其他未列名化学产品、混合物及制剂",
+          "mappingType": "approximate",
+          "limitation": "兜底分类包含大量非电池商品，不能支持完整路线主张。"
+        }
+      ],
+      "status": "open",
+      "nonInferences": [
+        "不得由宽泛化学品双边贸易自动升级该正极材料边。",
+        "不得推断任何观察进入当前韩国电芯或智能手机。"
+      ],
+      "evidenceIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-anode-cell-bilateral",
+      "nodeId": null,
+      "flowId": "flow-anode-cell",
+      "currentClaim": "中国代表性负极材料节点与韩国代表性电芯节点之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少能够识别负极材料且支持 2023 年中国至韩国方向的直接双边证据。",
+      "acceptableEvidenceTypes": [
+        "bilateral_flow",
+        "trade_observation",
+        "classification"
+      ],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "需要结合更细税号或产业来源；HS 六位码不能稳定识别球形化、包覆或复合负极材料。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "380110",
+          "label": "人造石墨",
+          "mappingType": "aggregate",
+          "limitation": "包含多种非电池用途，不能证明负极材料或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "380190",
+          "label": "其他石墨或碳基制剂及半制品",
+          "mappingType": "approximate",
+          "limitation": "范围宽泛且归类依加工和配方而异，不能支持具体负极路线。"
+        }
+      ],
+      "status": "open",
+      "nonInferences": [
+        "不得把石墨商品贸易自动解释为负极材料贸易。",
+        "不得推断任何观察进入当前韩国电芯或智能手机。"
+      ],
+      "evidenceIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-cell-module-process",
+      "nodeId": null,
+      "flowId": "flow-cell-module",
+      "currentClaim": "电芯到电池模组是一般生产阶段关系，当前韩国境内连接为代表性策展关系。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "已有一般电池阶段背景，但缺少 2023 年韩国手机电池电芯到模组的直接生产记录。",
+      "acceptableEvidenceTypes": [
+        "country_role",
+        "process_context"
+      ],
+      "candidateSources": [
+        {
+          "name": "Global supply chains of EV batteries",
+          "publisher": "International Energy Agency",
+          "url": "https://www.iea.org/reports/global-supply-chains-of-ev-batteries",
+          "license": "IEA terms of use; link-only citation, not a CC BY relicense",
+          "notes": "只支持一般阶段联系，不支持韩国手机电池的具体企业、工厂或批次。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "850760",
+          "label": "锂离子蓄电池",
+          "mappingType": "aggregate",
+          "limitation": "不能区分电芯和模组，也不能用于证明韩国境内生产转换。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "不得用国际海关数据证明韩国境内电芯到模组转换。",
+        "不得推断具体企业、工厂、数量或手机批次。"
+      ],
+      "evidenceIds": [
+        "evidence-iea-battery-chain",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-module-assembly-bilateral",
+      "nodeId": null,
+      "flowId": "flow-module-assembly",
+      "currentClaim": "韩国代表性电池模组节点与中国代表性手机组装节点之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少 2023 年韩国至中国、能够区分手机电池模组的具体双边证据。",
+      "acceptableEvidenceTypes": [
+        "bilateral_flow",
+        "trade_observation",
+        "classification"
+      ],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "HS 850760 不能区分手机、电动车或储能，也不能区分电芯、模组和电池包。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "850760",
+          "label": "锂离子蓄电池",
+          "mappingType": "aggregate",
+          "limitation": "即使存在具体伙伴观察，也不能证明是手机模组或进入当前中国组装节点。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "850790",
+          "label": "其他未列名蓄电池零件",
+          "mappingType": "approximate",
+          "limitation": "宽泛零件分类，不能代表完整手机电池模组。"
+        }
+      ],
+      "status": "open",
+      "nonInferences": [
+        "不得把 HS 850760 双边贸易直接升级为手机电池模组流向。",
+        "不得推断具体企业、组装厂、数量或手机型号。"
+      ],
+      "evidenceIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-components-assembly-bilateral",
+      "nodeId": null,
+      "flowId": "flow-components-assembly",
+      "currentClaim": "日本代表性显示组件节点与中国代表性手机组装节点之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少 2023 年日本至中国、商品分类与显示组件匹配并能支持路线范围的直接双边证据。",
+      "acceptableEvidenceTypes": [
+        "bilateral_flow",
+        "trade_observation",
+        "classification"
+      ],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "需先审核显示组件的分类范围，再查询具体 partnerCode；贸易观察仍不证明进入手机。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "open",
+      "nonInferences": [
+        "不得将日本和中国的世界总计贸易观察拼成双边事实。",
+        "不得由显示组件分类贸易推断进入任一手机或组装厂。"
+      ],
+      "evidenceIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-assembly-us-bilateral",
+      "nodeId": null,
+      "flowId": "flow-assembly-export",
+      "currentClaim": "中国代表性手机组装节点与美国进口市场节点之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少 2023 年中国与美国之间使用具体伙伴代码的 HS 2022/851713 直接双边观察及镜像差异说明。",
+      "acceptableEvidenceTypes": [
+        "bilateral_flow",
+        "trade_observation"
+      ],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "应分别保存中国出口口径和美国进口口径；partnerCode=0 不能关闭该缺口。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "851713",
+          "label": "智能手机",
+          "mappingType": "exact",
+          "limitation": "双边海关观察可证明该商品分类贸易，但仍不证明组装厂、品牌、利润、最终消费或唯一供应路线。"
+        }
+      ],
+      "status": "open",
+      "nonInferences": [
+        "不得用中国和美国的两个世界总计观察拼接双边事实。",
+        "不得把双边海关金额等同于企业利润、手机价格或最终消费。"
+      ],
+      "evidenceIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-assembly-germany-bilateral",
+      "nodeId": null,
+      "flowId": "flow-assembly-germany-market",
+      "currentClaim": "中国代表性手机组装节点与德国进口/消费市场节点之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少 2023 年中国与德国之间使用具体伙伴代码的 HS 2022/851713 直接双边观察及镜像差异说明。",
+      "acceptableEvidenceTypes": [
+        "bilateral_flow",
+        "trade_observation"
+      ],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "应分别保存中国出口口径和德国进口口径；进口仍不等于消费。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "851713",
+          "label": "智能手机",
+          "mappingType": "exact",
+          "limitation": "双边海关观察不证明中国组装、德国最终消费、品牌、利润或唯一供应路线。"
+        }
+      ],
+      "status": "open",
+      "nonInferences": [
+        "不得用中国和德国的两个世界总计观察拼接双边事实。",
+        "不得把德国双边进口额等同于德国最终消费金额。"
+      ],
+      "evidenceIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-lithium-smartphone-traceability",
+      "nodeId": null,
+      "flowId": "flow-lithium-refining",
+      "currentClaim": "当前锂连接不追踪具体矿山、材料批次、正极工厂、电芯或智能手机。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "公开海关和国家生产统计通常不能建立从澳大利亚锂原料到某台智能手机的端到端批次谱系。",
+      "acceptableEvidenceTypes": [
+        "bilateral_flow",
+        "process_context"
+      ],
+      "candidateSources": [
+        {
+          "name": "Supplier-specific chain-of-custody disclosures",
+          "publisher": "Relevant mines, refiners, cell makers and device manufacturers",
+          "url": null,
+          "license": "Publisher-specific terms; public availability and re-dissemination rights must be reviewed",
+          "notes": "只有覆盖连续供应商和批次的披露才可能缩小缺口；公开信息通常不完整。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "not_publicly_observable",
+      "nonInferences": [
+        "不得由双边 HS 贸易观察推断特定智能手机用途。",
+        "不得用国家产业角色代替企业级供应链追踪。"
+      ],
+      "evidenceIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-cobalt-smartphone-traceability",
+      "nodeId": null,
+      "flowId": "flow-cobalt-refining",
+      "currentClaim": "当前钴连接不追踪具体矿山、冶炼批次、正极材料、电芯或智能手机。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "公开国家统计和海关数据通常不能建立刚果民主共和国钴到某台智能手机的端到端批次谱系。",
+      "acceptableEvidenceTypes": [
+        "bilateral_flow",
+        "process_context"
+      ],
+      "candidateSources": [
+        {
+          "name": "Supplier-specific chain-of-custody disclosures",
+          "publisher": "Relevant mines, refiners, cell makers and device manufacturers",
+          "url": null,
+          "license": "Publisher-specific terms; public availability and re-dissemination rights must be reviewed",
+          "notes": "尽责管理报告可能提供部分供应商范围，但通常不足以追踪至具体产品批次。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "not_publicly_observable",
+      "nonInferences": [
+        "不得由钴矿或中间品双边贸易推断其进入智能手机。",
+        "不得用供应商名单推断每一批材料的物理流向。"
+      ],
+      "evidenceIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-nickel-smartphone-traceability",
+      "nodeId": null,
+      "flowId": "flow-nickel-refining",
+      "currentClaim": "当前镍连接不追踪具体矿山、中间品、正极材料、电芯或智能手机。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "公开国家统计和海关数据通常不能建立印度尼西亚镍到某台智能手机的端到端批次谱系。",
+      "acceptableEvidenceTypes": [
+        "bilateral_flow",
+        "process_context"
+      ],
+      "candidateSources": [
+        {
+          "name": "Supplier-specific chain-of-custody disclosures",
+          "publisher": "Relevant mines, refiners, cell makers and device manufacturers",
+          "url": null,
+          "license": "Publisher-specific terms; public availability and re-dissemination rights must be reviewed",
+          "notes": "需要连续覆盖矿石、中间品、精炼、前驱体和终端产品，公开披露通常不足。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "not_publicly_observable",
+      "nonInferences": [
+        "不得由镍分类贸易推断电池级规格或智能手机用途。",
+        "不得将不同镍加工阶段的统计记录拼成批次谱系。"
+      ],
+      "evidenceIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-graphite-smartphone-traceability",
+      "nodeId": null,
+      "flowId": "flow-graphite-anode",
+      "currentClaim": "当前石墨连接不追踪天然或人造石墨、负极加工批次、电芯或智能手机。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "公开统计通常不能建立中国境内从石墨生产到某台智能手机的端到端物料谱系。",
+      "acceptableEvidenceTypes": [
+        "country_role",
+        "process_context"
+      ],
+      "candidateSources": [
+        {
+          "name": "Supplier-specific chain-of-custody disclosures",
+          "publisher": "Relevant graphite processors, anode makers, cell makers and device manufacturers",
+          "url": null,
+          "license": "Publisher-specific terms; public availability and re-dissemination rights must be reviewed",
+          "notes": "国际海关数据无法观察同一国家内部的生产转换；企业披露通常也不包含批次级连续链。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "not_publicly_observable",
+      "nonInferences": [
+        "不得由国内生产角色推断特定工厂间流转。",
+        "不得由石墨分类推断负极材料或智能手机用途。"
+      ],
+      "evidenceIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-copper-smartphone-traceability",
+      "nodeId": null,
+      "flowId": "flow-copper-cell",
+      "currentClaim": "当前铜连接不追踪铜矿、精炼铜、铜箔集流体、电芯或智能手机的连续批次。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "公开海关数据无法把多个加工阶段的独立记录连接成从智利矿山到韩国电芯或智能手机的物理谱系。",
+      "acceptableEvidenceTypes": [
+        "bilateral_flow",
+        "process_context"
+      ],
+      "candidateSources": [
+        {
+          "name": "Supplier-specific chain-of-custody disclosures",
+          "publisher": "Relevant mines, smelters, foil makers, cell makers and device manufacturers",
+          "url": null,
+          "license": "Publisher-specific terms; public availability and re-dissemination rights must be reviewed",
+          "notes": "需要连续覆盖冶炼、精炼和箔材加工；公开披露通常不提供批次级关联。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "not_publicly_observable",
+      "nonInferences": [
+        "不得把铜矿、精炼铜和铜箔贸易记录串成同一物料。",
+        "不得由 741011 或 741012 推断手机电池集流体用途。"
+      ],
+      "evidenceIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-aluminum-smartphone-traceability",
+      "nodeId": null,
+      "flowId": "flow-aluminum-cell",
+      "currentClaim": "当前铝连接不追踪铝土矿、氧化铝、原铝、铝箔集流体、电芯或智能手机的连续批次。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "公开海关数据无法把多个加工阶段的独立记录连接成从澳大利亚上游原料到韩国电芯或智能手机的物理谱系。",
+      "acceptableEvidenceTypes": [
+        "bilateral_flow",
+        "process_context"
+      ],
+      "candidateSources": [
+        {
+          "name": "Supplier-specific chain-of-custody disclosures",
+          "publisher": "Relevant miners, refiners, smelters, foil makers, cell makers and device manufacturers",
+          "url": null,
+          "license": "Publisher-specific terms; public availability and re-dissemination rights must be reviewed",
+          "notes": "需要连续覆盖铝土矿、氧化铝、电解铝和箔材加工；公开披露通常不完整。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "not_publicly_observable",
+      "nonInferences": [
+        "不得把铝矿、氧化铝、原铝和铝箔贸易记录串成同一物料。",
+        "不得由 760711 或 760719 推断手机电池集流体用途。"
+      ],
+      "evidenceIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    }
   ],
   "contentVersions": [
     {
-      "id": "content-smartphone-route-2023-1",
-      "version": "smartphone-route-2023.1",
+      "id": "content-smartphone-route-2023-2",
+      "version": "smartphone-route-2023.2",
       "status": "published",
       "publishedAt": "2026-08-25",
       "notes": "Reviewed representative route content for the 2023 generic-smartphone battery vertical slice."
@@ -3817,10 +7022,10 @@
     "商品海关贸易金额不等于企业利润、生产成本、国内增加值或手机零售价格。",
     "UN Comtrade 的 primaryValue 金额状态与数量/净重估算标记分开处理；isQtyEstimated=true 的数量不作为精确数量发布。",
     "unknown、未披露、估算和真实为零是不同语义；没有观察时不会补写 0。",
-    "当前供应链路线的 13 条边全部是 representative 策展连接，没有任何一条具有直接双边流向证据。",
+    "当前供应链路线的 13 条边全部是 representative 策展连接；新增双边 HS 851713 海关观察只支持有限的分类商品贸易主张，不自动证明组装节点到市场节点的完整路线。",
     "USGS 证据支持的是澳大利亚锂、刚果民主共和国钴、印度尼西亚镍、中国石墨、智利铜和澳大利亚铝相关上游角色，不证明这些国家之间的具体运输。",
-    "日本电子组件、中国手机组装、美国分销和德国消费节点当前没有直接角色证据，保持 representative + unknown。",
-    "中国、美国和德国的 Comtrade partnerCode=0 观察仅提供各自对世界总计的贸易背景；把两个世界总计观察并列不能构成双边贸易证据。",
+    "新增国家角色证据分别说明中国移动通信手持机生产、韩国通用电芯供应链、日本宽泛电子组件/LCD 生产以及美德进口市场；每条证据的商品和用途局限保存在 scope 中，相邻边不升级。",
+    "partnerCode=0 世界总计观察与具体 partnerCode 双边观察分开保存；两个世界总计观察仍不能拼成双边事实，镜像双边报告也不平均或合并。",
     "铜和铝在当前路线中作为简化的电芯相关材料输入，中间冶炼和箔材加工阶段尚未发布。"
   ]
 }

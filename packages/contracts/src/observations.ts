@@ -118,9 +118,15 @@ export const TradeObservationSchema = z
   .object({
     id: IdSchema,
     reporterEntityId: IdSchema,
+    /** Source-native reporter code; may differ from the local geographic code. */
+    reporterCode: z.number().int().nonnegative().nullable().optional(),
     partnerEntityId: NullableIdSchema,
     /** Source-native partner code when one is available (0 means world total in Comtrade). */
     partnerCode: z.number().int().nonnegative().nullable().optional(),
+    /** Source-native second-partner code (0 commonly means not applicable/world). */
+    partner2Code: z.number().int().nonnegative().nullable().optional(),
+    /** Source-native flow code (M import / X export) when available. */
+    flowCode: z.enum(["M", "X"]).nullable().optional(),
     /** Structured scope prevents a null partner entity from being guessed as a world total. */
     partnerScope: PartnerScopeSchema.nullable().optional(),
     direction: DirectionSchema,
@@ -142,6 +148,20 @@ export const TradeObservationSchema = z
     valueDataStatus: FactStatusSchema.optional(),
     /** Quantity status is independent from monetary and weight estimation flags. */
     quantityDataStatus: FactStatusSchema.optional(),
+    /** Quality flags retained independently from value and quantity status. */
+    quality: z
+      .object({
+        legacyEstimationFlag: z.number().int().nullable().optional(),
+        isQtyEstimated: z.boolean().nullable().optional(),
+        isNetWgtEstimated: z.boolean().nullable().optional(),
+        isReported: z.boolean().nullable().optional(),
+        isAggregate: z.boolean().nullable().optional(),
+        sourceDatasetCode: z.union([z.string(), z.number()]).nullable().optional(),
+        sourcePublicationDate: z.string().nullable().optional(),
+        sourceRevision: z.string().nullable().optional()
+      })
+      .nullable()
+      .optional(),
     qualityNote: NullableStringSchema
   })
   .superRefine((observation, context) => {

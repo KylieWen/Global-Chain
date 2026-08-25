@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../../lib/data";
 import { Breadcrumbs, PageIntro, SiteShell } from "../../../../../components/site-shell";
 import {
+  EvidenceGapRegistry,
   EvidenceLevelBadge,
   MetadataItem,
   PeriodLabel,
@@ -13,7 +14,7 @@ import {
   WarningList
 } from "../../../../../components/data-display";
 import { FlowTable, NodeFlowSummary } from "../../../../../components/flow-table";
-import { ledgerPath, productPath, supplyChainPath } from "../../../../../lib/paths";
+import { evidenceGapsPath, ledgerPath, productPath, supplyChainPath } from "../../../../../lib/paths";
 
 export default async function SupplyChainNodePage({
   params
@@ -44,6 +45,7 @@ export default async function SupplyChainNodePage({
     sources: node.sources,
     evidence: node.evidence.map((record) => record.evidence),
     resolvedEvidence: node.evidence,
+    evidenceGaps: node.evidenceGaps,
     warnings: node.warnings
   };
 
@@ -60,7 +62,12 @@ export default async function SupplyChainNodePage({
           eyebrow="Supply-chain node"
           title={node.node.node.label}
           description="节点详情连接代表性流、生产活动、国家实体和来源；它不代表唯一工厂、订单或批次。"
-          actions={node.node.entity ? <Link className="button button-primary" href={ledgerPath(productId, node.node.entity.id)}>打开国家账本</Link> : undefined}
+          actions={(
+            <>
+              {node.node.entity ? <Link className="button button-primary" href={ledgerPath(productId, node.node.entity.id)}>打开国家账本</Link> : null}
+              <Link className="button button-secondary" href={evidenceGapsPath(productId)}>完整证据缺口</Link>
+            </>
+          )}
         />
 
         <WarningList warnings={node.warnings} />
@@ -142,6 +149,14 @@ export default async function SupplyChainNodePage({
             <span className="section-caption">只展示查询层精确关联到本节点、相邻边与活动的证据</span>
           </div>
           <ResolvedEvidenceList evidence={node.evidence} />
+        </section>
+
+        <section className="section-block evidence-gap-section" aria-labelledby="node-gaps-title">
+          <div className="section-heading">
+            <div><p className="eyebrow">Evidence gaps</p><h2 id="node-gaps-title">节点及相邻连接的证据缺口</h2></div>
+            <span className="section-caption">角色证据不会自动升级进入或离开节点的边</span>
+          </div>
+          <EvidenceGapRegistry gaps={node.evidenceGaps} />
         </section>
 
         <ProvenancePanel provenance={nodeProvenance} />

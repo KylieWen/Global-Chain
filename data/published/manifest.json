@@ -6,21 +6,26 @@
       "path": "smartphone/fixture.json"
     }
   ],
-  "datasetVersion": "globe-chain-smartphone-2023.1",
+  "datasetVersion": "globe-chain-smartphone-2023.2",
   "generatedAt": "2026-08-25",
-  "fixtureSha256": "158358eca14289a15c4db67c7015fa5260e726d417dfe3fcce8a31d187e17d2d",
-  "routeContentVersion": "smartphone-route-2023.1",
-  "routeContentSha256": "ea3213c3f454c97fc672b23189fb21c54d9e5e66516b7862215d4d824e14a06d",
+  "fixtureSha256": "9ae95a657996a3643aab97288821d0a22e70298c2a543db6a24a614dffe891ad",
+  "routeContentVersion": "smartphone-route-2023.2",
+  "routeContentSha256": "50183698bdf466728f773157b7688a57f44fd5138203022032441cde43024afc",
   "contentSources": [
-    "../../content/routes/generic-smartphone-2023.json"
+    "../../content/routes/generic-smartphone-2023.json",
+    "../../content/evidence/industry-roles-2023.json",
+    "../../content/evidence-gaps/generic-smartphone-2023.json"
   ],
   "sourceSnapshots": [
     "raw/world-bank-wdi-2023.json",
-    "raw/un-comtrade-hs2022-851713-2023.json"
+    "raw/un-comtrade-hs2022-851713-2023.json",
+    "raw/un-comtrade-hs2022-851713-bilateral-2023.json"
   ],
   "notes": [
     "Numeric observations are generated from immutable local raw snapshots; reviewed route topology and evidence bindings come from the versioned content source. No runtime API calls are made.",
     "The published fixture intentionally omits countries/flows absent from the Comtrade response rather than filling zero.",
-    "All current supply-chain edges are representative and quantity-free; none has direct bilateral evidence."
+    "The fixture now contains specific bilateral HS 851713 customs observations, kept separate from world totals and from the representative supply-chain edges.",
+    "All current supply-chain edges remain representative and quantity-free because customs trade does not prove assembly, consumption or entry into this curated route.",
+    "Evidence gaps are versioned content and cover every current node and edge."
   ]
 }

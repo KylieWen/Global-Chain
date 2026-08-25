@@ -2,8 +2,8 @@
   "schemaVersion": "route-content.v1",
   "productId": "generic-smartphone",
   "contentVersion": {
-    "id": "content-smartphone-route-2023-1",
-    "version": "smartphone-route-2023.1",
+    "id": "content-smartphone-route-2023-2",
+    "version": "smartphone-route-2023.2",
     "status": "published",
     "publishedAt": "2026-08-25",
     "notes": "Reviewed representative route content for the 2023 generic-smartphone battery vertical slice."
@@ -19,7 +19,7 @@
     "当前 13 条边均无直接双边流向证据，全部标记为 representative，不得解释为 observed bilateral flow。",
     "路线不包含数量、金额、实时物流、企业、工厂、成本、增加值或利润分配。",
     "IEA 来源讨论的是电动汽车电池供应链，只用于一般电池阶段背景，不证明手机电池的特定国家路线。",
-    "日本电子组件、中国手机组装、美国分销和德国消费角色目前仅为代表性节点；Comtrade 世界总计观察只能提供国家进出口背景。",
+    "日本电子组件/LCD、中国移动通信手持机生产、美国和德国智能手机进口市场的国家角色已有有限证据；手机用途、具体企业、分销/消费和相邻双边路线仍保持代表性或未知。",
     "铜和铝以电芯相关材料的简化输入展示，省略冶炼、箔材加工和具体集流体制造阶段。"
   ],
   "nodes": [
@@ -146,17 +146,17 @@
     {
       "id": "node-kr-cell",
       "nodeType": "entity",
-      "label": "韩国 · 电芯（代表性）",
+      "label": "韩国 · 电芯制造角色（代表性）",
       "entityId": "country-kr",
       "itemId": "cell",
       "itemType": "component",
       "processStageId": "component_manufacturing",
-      "sourceIds": ["source-iea-battery-supply-chain", "source-globe-chain-route-methodology"],
-      "evidenceIds": ["evidence-iea-battery-chain", "evidence-globe-chain-route-methodology"],
+      "sourceIds": ["source-iea-batteries-secure-energy-transitions-2024", "source-iea-battery-supply-chain", "source-globe-chain-route-methodology"],
+      "evidenceIds": ["evidence-iea-korea-generic-battery-cell-role-2023", "evidence-iea-battery-chain", "evidence-globe-chain-route-methodology"],
       "method": "curated",
       "dataStatus": "unknown",
-      "evidenceLevel": "representative",
-      "notes": "IEA 资料支持电芯阶段背景，但不证明该韩国节点生产某台手机所用电芯。"
+      "evidenceLevel": "role_supported",
+      "notes": "公开资料支持韩国在通用电池/电芯供应链中的国家角色；不证明手机专用电芯、具体企业或跨境流向。"
     },
     {
       "id": "node-kr-module",
@@ -176,32 +176,32 @@
     {
       "id": "node-jp-components",
       "nodeType": "entity",
-      "label": "日本 · 电子组件（以显示屏为代表）",
+      "label": "日本 · 电子组件/LCD 生产角色（代表性）",
       "entityId": "country-jp",
       "itemId": "display",
       "itemType": "component",
       "processStageId": "component_manufacturing",
-      "sourceIds": ["source-globe-chain-route-methodology"],
-      "evidenceIds": ["evidence-globe-chain-route-methodology"],
+      "sourceIds": ["source-jeita-meti-electronics-production-2023", "source-globe-chain-route-methodology"],
+      "evidenceIds": ["evidence-jeita-japan-electronics-lcd-production-role-2023", "evidence-globe-chain-route-methodology"],
       "method": "curated",
       "dataStatus": "unknown",
-      "evidenceLevel": "representative",
-      "notes": "当前来源未直接支持日本电子组件进入中国手机组装；该节点仅保留为代表性策展内容。"
+      "evidenceLevel": "role_supported",
+      "notes": "公开统计支持日本在宽泛电子组件/LCD 生产中的国家角色；不证明显示屏用于手机或进入中国组装。"
     },
     {
       "id": "node-cn-assembly",
       "nodeType": "entity",
-      "label": "中国 · 手机组装（代表性）",
+      "label": "中国 · 移动通信手持机生产角色（代表性）",
       "entityId": "country-cn",
       "itemId": "generic-smartphone",
       "itemType": "final_product",
       "processStageId": "assembly",
-      "sourceIds": ["source-un-comtrade", "source-globe-chain-route-methodology"],
-      "evidenceIds": ["evidence-comtrade-china-smartphone-world-total", "evidence-globe-chain-route-methodology"],
+      "sourceIds": ["source-nbs-china-2023-statistical-communique", "source-un-comtrade", "source-globe-chain-route-methodology"],
+      "evidenceIds": ["evidence-nbs-china-mobile-handset-production-role-2023", "evidence-comtrade-china-smartphone-world-total", "evidence-globe-chain-route-methodology"],
       "method": "curated",
       "dataStatus": "unknown",
-      "evidenceLevel": "representative",
-      "notes": "Comtrade 只支持中国对世界的智能手机进出口背景，不证明组装地点、企业或与美国/德国的直接路线。"
+      "evidenceLevel": "role_supported",
+      "notes": "国家统计支持中国在更宽的移动通信手持机生产门类中具有角色；该门类宽于智能手机，不证明具体组装企业、工厂或双边路线。"
     },
     {
       "id": "node-us-export",
@@ -212,11 +212,11 @@
       "itemType": "final_product",
       "processStageId": "distribution",
       "sourceIds": ["source-un-comtrade", "source-globe-chain-route-methodology"],
-      "evidenceIds": ["evidence-comtrade-united-states-smartphone-world-total", "evidence-globe-chain-route-methodology"],
+      "evidenceIds": ["evidence-comtrade-united-states-smartphone-import-market-role-2023", "evidence-comtrade-united-states-smartphone-world-total", "evidence-globe-chain-route-methodology"],
       "method": "curated",
       "dataStatus": "unknown",
-      "evidenceLevel": "representative",
-      "notes": "Comtrade 支持美国从世界进口智能手机的背景，不证明从中国直接进口，也不证明具体分销链。"
+      "evidenceLevel": "role_supported",
+      "notes": "具体世界总计进口观察支持美国在 HS 851713 进口市场中的国家角色；不证明中国来源、具体分销链或最终消费。"
     },
     {
       "id": "node-de-consumption",
@@ -227,11 +227,11 @@
       "itemType": "final_product",
       "processStageId": "consumption",
       "sourceIds": ["source-un-comtrade", "source-globe-chain-route-methodology"],
-      "evidenceIds": ["evidence-comtrade-germany-smartphone-world-total", "evidence-globe-chain-route-methodology"],
+      "evidenceIds": ["evidence-comtrade-germany-smartphone-import-market-role-2023", "evidence-comtrade-germany-smartphone-world-total", "evidence-globe-chain-route-methodology"],
       "method": "curated",
       "dataStatus": "unknown",
-      "evidenceLevel": "representative",
-      "notes": "Comtrade 世界总计进口额不等于德国最终消费量；消费角色仍为代表性策展内容。"
+      "evidenceLevel": "role_supported",
+      "notes": "具体世界总计进口观察支持德国在 HS 851713 进口市场中的国家角色；不等于最终消费，也不证明中国来源或转口链。"
     }
   ],
   "flows": [

@@ -21,11 +21,11 @@
 | --- | --- |
 | 统计期间 | 2023 年完整自然年（`2023-01-01` 至 `2023-12-31`） |
 | 宏观贸易与储备 | World Bank World Development Indicators（WDI） |
-| 单品贸易 | UN Comtrade，HS 2022、6 位码，智能手机 `851713` |
+| 单品贸易 | UN Comtrade，HS 2022、6 位码，智能手机 `851713`；世界总计和指定伙伴观察分开保存 |
 | 国家/地区维度 | GlobeChain 内部稳定 ID + ISO 3166-1 alpha-3；保留 UN M49 数字代码和实体类型 |
 | GlobeChain 门类 | 农产品、食品、矿物能源、化工品、工业品、机械设备、电子产品、交通设备、纺织品、其他消费品 |
 | 首个商品门类 | `generic-smartphone` 归入“电子产品” |
-| 发布方式 | 不可变原始快照 → 标准化/映射 → 校验 → 人工复核 → `published` fixture |
+| 发布方式 | 不可变原始快照 → 标准化/映射 → 校验 → 人工复核 → `published` fixture；路线证据和缺口登记册独立版本化 |
 | 运行时边界 | Web 只读本地 `published` 数据，不在运行时请求 World Bank、Comtrade 或其他外部 API |
 
 ## 1. 统计年份与期间规则
@@ -110,7 +110,8 @@ World Bank 数据许可说明见：
 - 分类体系：Harmonized System（HS）2022；使用 6 位码；
 - 首个代码：`851713`（Smartphones）；
 - 报告国：首批配置的国家/地区；
-- 伙伴：`partnerCode=0`，表示世界总计；
+- 伙伴：同时查询并分开保存两类范围：`partnerCode=0` 表示世界总计，具体
+  `partnerCode>0` 表示请求中指定的统计伙伴；不能用两个世界总计观察拼接双边事实；
 - 流向：`flowCode=X` 出口、`flowCode=M` 进口；
 - 海关范围：`customsCode=C00`；
 - 金额：优先使用 API 的 `primaryValue`，货币为 USD；
@@ -120,6 +121,38 @@ World Bank 数据许可说明见：
 手机销量、产量、销售额或利润。手机电池等节点可另有 HS 映射；例如
 `850760` 只能在证据和范围说明充分时作为“锂离子蓄电池”聚合/近似映射，
 不能宣称它精确代表手机电池。
+
+### 3.3 伙伴范围、双边观察与镜像报告
+
+`partnerCode=0` 的 Comtrade 行是来源统计体系的 **World total**。它不是具体国家、
+不是“未知伙伴”，也不能与另一个国家的世界总计行拼成双边流向。发布模型将这类行
+标记为 `partnerScope: "world_total"`，不设置具体 `partnerEntityId`；缺少该行时不
+创建金额为 0 的占位观察。
+
+当查询使用具体 `partnerCode>0` 时，发布模型标记 `partnerScope: "entity"`，并保留
+来源原生的 `reporterCode`、`partnerCode`、`partner2Code`、`flowCode`、HS 分类版本
+和代码、期间、币种、`primaryValue`、数量状态及 `isReported`/`isAggregate` 等质量
+字段。`partner2Code=0` 只代表次级伙伴维度未进一步拆分，不会把主伙伴改为世界总计。
+
+2023.2 数据批次保存中美、中德四个 reporter/partner 查询及八条进口/出口观察：
+
+- 中国 `156` ↔ 美国统计区 `842`；
+- 中国 `156` ↔ 德国 `276`。
+
+`842` 是 UN Comtrade 的 USA 统计区（包含波多黎各和美属维尔京群岛），不等同于
+ISO/M49 `840`。同一货物流的镜像报告必须保持为独立事实：进口通常为 CIF、出口通常
+为 FOB，报告时间、估值和质量标记可能不同；项目不平均、不去重，也不把一方替换为
+另一方。双边观察只支持窄义的“该 reporter、该 partner、该方向、该期间、该 HS
+分类发生海关贸易”主张，不支持组装工厂、物料谱系、最终消费、品牌、成本、利润或
+某条策展路线的连续性。
+
+相应不可变原始快照为
+`data/published/raw/un-comtrade-hs2022-851713-bilateral-2023.json`，批次索引为
+`data/published/raw/manifest.json`。每个请求保留原始 URL、完整参数、请求/响应时间、
+来源发布元数据、HTTP 状态、原始响应 SHA-256 与规范化数据 SHA-256。原始响应能否
+继续公开，始终受当前 UN Comtrade License Agreement、Policy on Use and
+Re-dissemination 及 UN Terms of Use 约束；快照存在于仓库不表示项目取得额外再传播
+许可。
 
 ### 3.2 估算和质量标记
 
@@ -201,15 +234,46 @@ ISO 与 M49 代码只是维度标识，不应被解释为政治立场或边界�
 若来源只能支持“某国具有某材料产能/角色”，而不能支持一条国家到国家的确定
 流向，则只发布角色节点或 `unknown` 方向，不补写确定路线、数量或企业利润。
 
+### 6.1 国家角色、双边流向与材料分类的证据边界
+
+路线内容和 published 统计观察使用不同的证据轴：
+
+- `role_supported` 只表示来源支持一个国家/地区在某商品、材料或生产阶段具有
+  产业角色。中国“移动通信手持机”产量、韩国一般电芯背景、日本电子组件/LCD
+  统计和美国/德国世界总计手机进口市场均属于这种有限角色证据；它们不自动支持
+  相邻国家之间的边。
+- `bilateral_supported` 只有在证据 scope 同时明确起点、终点、商品/分类代码、
+  方向和期间时才可使用。当前 2023.2 批次的四条中美/中德 HS 851713 双边证据
+  支持窄义海关观察，但不会自动把“中国组装 → 美国/德国消费”路线边升级为事实；
+  路线边仍保持 `representative` 且数量 `unknown`。
+- `representative`/`curated` 表示项目根据多个公开来源整理的可读阶段连接，不能
+  当作某一台手机、品牌、企业、工厂或批次的唯一供应链。`unknown` 表示来源没有
+  可发布数值或方向，绝不等同于真实 0。
+
+材料 HS 代码必须按阶段和映射类型记录。铜、铝、锂、钴、镍、石墨可以分别登记矿石、
+精炼品、化合物、箔材或候选集流体/电极材料；但 `aggregate` 或 `approximate` 的
+宽分类仅证明该分类商品发生贸易，不能证明进入手机、电池、指定工厂或下一个路线
+节点。若不能同时证明起点、终点、商品、方向和期间，则不得发布
+`bilateral_supported`，也不得为路线连续性补造双边关系。
+
+逐节点/逐边缺口写入
+`content/evidence-gaps/generic-smartphone-2023.json`。登记册至少记录当前主张、
+当前证据等级、缺失证据、可接受证据类型、候选来源及许可、状态
+(`open`/`partial`/`closed`/`not_publicly_observable`) 和不可推断内容，并随路线
+`contentVersion` 版本化。
+
 ## 7. 版本、快照与发布边界
 
 首份版本采用以下命名约定（若实现选择等价名称，必须在 manifest 中明确映射）：
 
-- `datasetVersion`: `globe-chain-smartphone-2023.1`；
+- `datasetVersion`: `globe-chain-smartphone-2023.2`（当前数字批次；后续来源修订
+  或重抓取必须递增）；
 - WDI 原始批次：`world-bank-wdi-2023`；
 - Comtrade 原始批次：`un-comtrade-hs2022-851713-2023`；
-- 代表性路线 `contentVersion`：`smartphone-route-2023.1`；
-- 获取批次日期：以 `data/published/raw/manifest.json` 的 `retrievedAt` 为准，并记录
+- 代表性路线 `contentVersion`：`smartphone-route-2023.2`（本阶段更新后的路线内容；
+  若 manifest 尚未重建，读取 manifest 的实际值，不得静默假定）；
+- 获取批次日期：以 `data/published/raw/manifest.json` 的 `retrievedAt`/各快照
+  `fetchedAt` 为准，并记录
   具体 UTC 时间；ADR 日期（2026-08-25）不应被当作 API 获取时间。重新抓取或来源
   修订时必须创建新的批次和 dataset version。
 
@@ -272,10 +336,13 @@ data/published/
 
 首份 published fixture 发布前必须证明：
 
-1. 每条 WDI/Comtrade 观察可追溯到来源 URL、查询参数、原始批次和哈希；
+1. 每条 WDI/Comtrade 观察可追溯到来源 URL、查询参数、原始批次和哈希；世界总计
+   与具体伙伴观察可通过 `partnerScope`、`reporterCode`、`partnerCode` 明确区分；
 2. 所有年度观察为 2023，缺失不被写成 0；
 3. HS 2022/6 位映射和十类内部门类均有版本、类型和说明；
 4. 储备指标在数据、页面和导出中明确标注“含黄金”；
 5. Comtrade 估算/质量标记被保留并正确映射到状态；
 6. 许可证、归属和再传播限制出现在 `data/published/README.md` 与来源详情；
-7. 生成流程不访问运行时外部 API，且 `published` 与 `draft` fixture 不互相覆盖。
+7. 生成流程不访问运行时外部 API，且 `published` 与 `draft` fixture 不互相覆盖；
+8. 代表性路线的节点/边不会因角色证据或世界总计观察而自动升级；双边证据必须
+   通过完整 evidence scope 校验；材料宽分类不得被解释为手机用途。

@@ -1,18 +1,21 @@
 import type { ReactNode } from "react";
 import type {
-  ContentVersion,
   DatasetVersion,
-  Evidence,
   EvidenceSupportType,
-  FactStatus,
-  Source
+  FactStatus
 } from "@globe-chain/contracts";
 import type {
   EvidenceLevelView,
   ProvenanceView,
+  ResolvedEvidenceGapView,
   ResolvedEvidenceView,
   SupplyChainRouteProvenanceView
 } from "@globe-chain/domain";
+
+type ReadonlyEvidence = ResolvedEvidenceView["evidence"];
+type ReadonlySource = NonNullable<ResolvedEvidenceView["source"]>;
+type ReadonlyContentVersion = ProvenanceView["contentVersions"][number];
+type EvidenceScopeView = NonNullable<ReadonlyEvidence["scope"]>;
 
 /**
  * The published-data query layer may expose a resolved indicator definition
@@ -37,17 +40,18 @@ type IndicatorDefinitionLike = {
   readonly method?: string | null;
   readonly dataStatus?: FactStatus | null;
   readonly datasetVersionId?: string | null;
-  readonly source?: Source | null;
+  readonly source?: ReadonlySource | null;
   readonly sourceIds?: readonly string[];
 };
 
 type ProvenancePanelView = Pick<ProvenanceView, "datasetVersion" | "sources" | "warnings"> & {
-  readonly evidence: readonly Evidence[];
+  readonly evidence: readonly ReadonlyEvidence[];
   readonly resolvedEvidence?: readonly ResolvedEvidenceView[];
-  readonly contentVersions?: readonly ContentVersion[];
+  readonly contentVersions?: readonly ReadonlyContentVersion[];
   readonly route?: SupplyChainRouteProvenanceView;
   readonly indicatorDefinitions?: readonly IndicatorDefinitionLike[];
   readonly missingDataNotes?: readonly string[];
+  readonly evidenceGaps?: readonly ResolvedEvidenceGapView[];
 };
 
 const evidenceSupportLabels: Record<EvidenceSupportType, string> = {
@@ -57,6 +61,43 @@ const evidenceSupportLabels: Record<EvidenceSupportType, string> = {
   trade_observation: "贸易观察",
   classification: "分类与维度",
   curation_method: "策展方法"
+};
+
+const evidenceGapStatusLabels: Record<ResolvedEvidenceGapView["gap"]["status"], string> = {
+  open: "待补充",
+  partial: "部分支持",
+  closed: "已闭合",
+  not_publicly_observable: "公开资料不可观测"
+};
+
+const evidenceGapStatusDescriptions: Record<
+  ResolvedEvidenceGapView["gap"]["status"],
+  string
+> = {
+  open: "当前没有足够证据支持这项有限主张。",
+  partial: "已有部分证据，但尚不足以支持完整主张或整条连接。",
+  closed: "这项有限主张所要求的证据已经匹配；不代表相邻主张同时成立。",
+  not_publicly_observable: "公开统计通常无法识别特定批次、工厂、订单或终端用途。"
+};
+
+const evidenceLevelCodeLabels: Record<
+  ResolvedEvidenceGapView["gap"]["currentEvidenceLevel"],
+  string
+> = {
+  role_supported: "国家角色有支持",
+  bilateral_supported: "双边流向有支持",
+  representative: "代表性策展连接",
+  none: "暂无支持"
+};
+
+const mappingTypeLabels: Record<
+  EvidenceScopeView["classificationCodes"][number]["mappingType"],
+  string
+> = {
+  exact: "精确",
+  aggregate: "聚合",
+  approximate: "近似",
+  curated: "策展映射"
 };
 
 const statusLabels: Record<FactStatus, string> = {
@@ -245,6 +286,236 @@ export function MetadataItem({
   );
 }
 
+function ScopeValueList({
+  label,
+  values,
+  emptyLabel = "未指定"
+}: {
+  label: string;
+  values: readonly string[];
+  emptyLabel?: string;
+}) {
+  return (
+    <div className="evidence-scope-field">
+      <span className="metadata-label">{label}</span>
+      {values.length > 0 ? (
+        <div className="evidence-scope-values">
+          {values.map((value) => <code key={value}>{value}</code>)}
+        </div>
+      ) : <UnknownValue label={emptyLabel} />}
+    </div>
+  );
+}
+
+/**
+ * Displays the exact claim boundary of a source.  IDs are intentionally kept
+ * visible: the query layer owns entity/item resolution and the page must not
+ * infer a name or an end use from a classification code.
+ */
+export function EvidenceScopeDetails({
+  scope,
+  compact = false
+}: {
+  scope: EvidenceScopeView | null | undefined;
+  compact?: boolean;
+}) {
+  if (!scope) return null;
+  return (
+    <div className={compact ? "evidence-scope compact-evidence-scope" : "evidence-scope"}>
+      <div className="evidence-scope-heading">
+        <strong>证据支持范围</strong>
+        <span>{scope.scopeDescription}</span>
+      </div>
+      <div className="evidence-scope-grid">
+        <ScopeValueList label="支持国家/地区" values={scope.entityIds} />
+        <div className="evidence-scope-field">
+          <span className="metadata-label">起点 → 终点</span>
+          <span>
+            {scope.fromEntityId ?? <UnknownValue label="未指定" />}
+            <span aria-hidden="true"> → </span>
+            {scope.toEntityId ?? <UnknownValue label="未指定" />}
+          </span>
+        </div>
+        <ScopeValueList label="商品/部件 ID" values={scope.itemIds} />
+        <ScopeValueList label="生产阶段 ID" values={scope.processStageIds} />
+        <div className="evidence-scope-field">
+          <span className="metadata-label">方向</span>
+          <span>{scope.direction === "export" ? "出口" : scope.direction === "import" ? "进口" : <UnknownValue label="未指定" />}</span>
+        </div>
+        <div className="evidence-scope-field">
+          <span className="metadata-label">期间</span>
+          {scope.period ? <PeriodLabel period={scope.period} /> : <UnknownValue label="未指定" />}
+        </div>
+        <div className="evidence-scope-field">
+          <span className="metadata-label">支持类型</span>
+          <span className="scope-support-flags">
+            <span className={scope.supportsCountryRole ? "scope-flag scope-flag-yes" : "scope-flag"}>国家角色：{scope.supportsCountryRole ? "是" : "否"}</span>
+            <span className={scope.supportsBilateralFlow ? "scope-flag scope-flag-yes" : "scope-flag"}>双边流向：{scope.supportsBilateralFlow ? "是" : "否"}</span>
+            <span className={scope.supportsProcessContext ? "scope-flag scope-flag-yes" : "scope-flag"}>阶段背景：{scope.supportsProcessContext ? "是" : "否"}</span>
+          </span>
+        </div>
+      </div>
+      {scope.classificationCodes.length > 0 ? (
+        <div className="evidence-scope-subsection">
+          <span className="metadata-label">分类代码</span>
+          <ul className="scope-classification-list">
+            {scope.classificationCodes.map((classification) => (
+              <li key={`${classification.system}-${classification.version}-${classification.code}`}>
+                <code>{classification.system} {classification.version} · {classification.code}</code>
+                <span className={`classification-mapping mapping-${classification.mappingType}`}>
+                  {mappingTypeLabels[classification.mappingType]}
+                </span>
+                <small>{classification.description}</small>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+      {scope.limitations.length > 0 ? (
+        <div className="evidence-scope-subsection">
+          <span className="metadata-label">范围限制</span>
+          <ul className="scope-limitations">
+            {scope.limitations.map((limitation) => <li key={limitation}>{limitation}</li>)}
+          </ul>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function evidenceGapTarget(view: ResolvedEvidenceGapView): ReactNode {
+  const { gap, node, flow } = view;
+  if (node) {
+    return <>{node.node.label}{node.entity ? ` · ${node.entity.name}` : ""}</>;
+  }
+  if (flow) {
+    const endpointLabel = (endpoint: typeof flow.from) =>
+      endpoint.node?.node.label ?? endpoint.entity?.name ?? endpoint.referenceId;
+    return <>{endpointLabel(flow.from)} → {endpointLabel(flow.to)}</>;
+  }
+  return gap.nodeId ?? gap.flowId ?? "未解析目标";
+}
+
+export function EvidenceGapStatusBadge({
+  status
+}: {
+  status: ResolvedEvidenceGapView["gap"]["status"];
+}) {
+  return (
+    <span
+      className={`evidence-gap-status evidence-gap-status-${status}`}
+      title={evidenceGapStatusDescriptions[status]}
+      aria-label={`证据缺口状态：${evidenceGapStatusLabels[status]}`}
+    >
+      {evidenceGapStatusLabels[status]}
+    </span>
+  );
+}
+
+export function EvidenceGapSummary({
+  gaps
+}: {
+  gaps: readonly ResolvedEvidenceGapView[];
+}) {
+  const statuses = Object.keys(evidenceGapStatusLabels) as Array<ResolvedEvidenceGapView["gap"]["status"]>;
+  return (
+    <div className="evidence-gap-summary" aria-label="证据缺口状态摘要">
+      {statuses.map((status) => (
+        <span className="evidence-gap-summary-item" key={status}>
+          <EvidenceGapStatusBadge status={status} />
+          <strong>{gaps.filter((view) => view.gap.status === status).length}</strong>
+        </span>
+      ))}
+    </div>
+  );
+}
+
+/** Renders the reusable, data-driven evidence-gap registry. */
+export function EvidenceGapRegistry({
+  gaps,
+  compact = false
+}: {
+  gaps: readonly ResolvedEvidenceGapView[];
+  compact?: boolean;
+}) {
+  if (gaps.length === 0) {
+    return <div className="empty-state">当前期间没有登记的证据缺口。</div>;
+  }
+  return (
+    <div className={compact ? "evidence-gap-registry evidence-gap-registry-compact" : "evidence-gap-registry"}>
+      <EvidenceGapSummary gaps={gaps} />
+      <div className="evidence-gap-list">
+        {gaps.map((view) => {
+          const { gap } = view;
+          return (
+            <article className="evidence-gap-card" key={gap.gapId}>
+              <div className="evidence-gap-card-heading">
+                <div>
+                  <span className="eyebrow">{gap.gapId}</span>
+                  <h3>{evidenceGapTarget(view)}</h3>
+                </div>
+                <EvidenceGapStatusBadge status={gap.status} />
+              </div>
+              <div className="evidence-gap-meta">
+                <MetadataItem label="当前主张" value={gap.currentClaim} />
+                <MetadataItem label="当前证据等级" value={evidenceLevelCodeLabels[gap.currentEvidenceLevel]} />
+                <MetadataItem label="期间" value={<PeriodLabel period={gap.period} />} />
+                <MetadataItem label="method" value={gap.method} />
+                <MetadataItem label="datasetVersion" value={gap.datasetVersionId} />
+                <MetadataItem label="contentVersion" value={gap.contentVersionId} />
+              </div>
+              <div className="evidence-gap-copy">
+                <div><strong>缺少的证据</strong><p>{gap.missingEvidence}</p></div>
+                <div><strong>不可推断内容</strong><ul>{gap.nonInferences.map((item) => <li key={item}>{item}</li>)}</ul></div>
+              </div>
+              <div className="evidence-gap-detail-grid">
+                <div>
+                  <strong>可接受的证据类型</strong>
+                  <div className="evidence-scope-values">
+                    {gap.acceptableEvidenceTypes.map((type) => <span className="evidence-support" key={type}>{evidenceSupportLabels[type]}</span>)}
+                  </div>
+                </div>
+                <div>
+                  <strong>候选来源</strong>
+                  <ul className="gap-candidate-list">
+                    {gap.candidateSources.map((candidate) => (
+                      <li key={`${candidate.publisher}-${candidate.name}`}>
+                        <span><strong>{candidate.name}</strong> · {candidate.publisher}</span>
+                        <span>许可证：{candidate.license}</span>
+                        {candidate.url ? <a className="text-link" href={candidate.url} target="_blank" rel="noreferrer">打开来源</a> : null}
+                        <small>{candidate.notes}</small>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              {gap.classificationCandidates.length > 0 ? (
+                <div className="evidence-gap-subsection">
+                  <strong>分类候选与限制</strong>
+                  <ul className="gap-classification-list">
+                    {gap.classificationCandidates.map((candidate) => (
+                      <li key={`${candidate.system}-${candidate.version}-${candidate.code}`}>
+                        <code>{candidate.system} {candidate.version} · {candidate.code}</code>
+                        <span className={`classification-mapping mapping-${candidate.mappingType}`}>{mappingTypeLabels[candidate.mappingType]}</span>
+                        <span>{candidate.label}</span>
+                        <small>{candidate.limitation}{candidate.supportsEndUse ? " · 明确支持终端用途" : " · 不支持终端用途推断"}</small>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              <div className="evidence-gap-subsection">
+                <strong>关联证据</strong>
+                <ResolvedEvidenceList evidence={view.evidence} compact />
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 /**
  * Renders all source metadata in one place so provenance pages do not need to
  * duplicate URL, licence, retrieval, and source-version formatting.
@@ -252,7 +523,7 @@ export function MetadataItem({
 export function SourceMetadata({
   source
 }: {
-  source: Source;
+  source: ReadonlySource;
 }) {
   return (
     <dl className="source-metadata">
@@ -346,6 +617,12 @@ export function ProvenancePanel({ provenance }: { provenance: ProvenancePanelVie
         <IndicatorDefinitionList definitions={indicatorDefinitions} sources={provenance.sources} />
       ) : null}
       {missingDataNotes.length > 0 ? <MissingDataNotes notes={missingDataNotes} /> : null}
+      {provenance.evidenceGaps ? (
+        <section className="provenance-subsection" aria-labelledby="provenance-gaps-title">
+          <h3 id="provenance-gaps-title">证据缺口</h3>
+          <EvidenceGapRegistry gaps={provenance.evidenceGaps} compact />
+        </section>
+      ) : null}
       <div className="provenance-status-section">
         <h3>数据状态说明</h3>
         <StatusLegend />
@@ -399,7 +676,7 @@ export function RouteMethodology({
 export function SourceList({
   sources
 }: {
-  sources: readonly Source[];
+  sources: readonly ReadonlySource[];
 }) {
   return (
     <div>
@@ -425,7 +702,7 @@ export function IndicatorDefinitionList({
   sources
 }: {
   definitions: readonly IndicatorDefinitionLike[];
-  sources: readonly Source[];
+  sources: readonly ReadonlySource[];
 }) {
   return (
     <section className="provenance-subsection" aria-labelledby="indicator-definitions-title">
@@ -494,7 +771,7 @@ export function MissingDataNotes({ notes }: { notes: readonly string[] }) {
   );
 }
 
-export function EvidenceList({ evidence }: { evidence: readonly Evidence[] }) {
+export function EvidenceList({ evidence }: { evidence: readonly ReadonlyEvidence[] }) {
   return (
     <div>
       <h3>证据定位</h3>
@@ -541,6 +818,7 @@ export function ResolvedEvidenceList({
               ) : <UnknownValue label="来源未解析" />}
               {!compact && record.excerpt ? <span>{record.excerpt}</span> : null}
               {record.notes ? <small>{record.notes}</small> : null}
+              {record.scope ? <EvidenceScopeDetails scope={record.scope} compact={compact} /> : null}
             </li>
           ))}
         </ul>

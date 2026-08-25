@@ -5,6 +5,7 @@ import { Breadcrumbs, PageIntro, SiteShell } from "../../../../components/site-s
 import {
   EvidenceLevelBadge,
   EvidenceLevelLegend,
+  EvidenceGapRegistry,
   MetadataItem,
   PeriodLabel,
   ProvenancePanel,
@@ -15,7 +16,7 @@ import {
   WarningList
 } from "../../../../components/data-display";
 import { FlowTable } from "../../../../components/flow-table";
-import { ledgerPath, nodePath, productPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
+import { evidenceGapsPath, ledgerPath, nodePath, productPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -62,6 +63,7 @@ export default async function SupplyChainPage({
     evidence: story.evidence.map((record) => record.evidence),
     resolvedEvidence: story.evidence,
     route: story.route,
+    evidenceGaps: story.evidenceGaps,
     warnings: story.warnings
   };
 
@@ -77,12 +79,18 @@ export default async function SupplyChainPage({
           eyebrow="Representative supply chain"
           title={`${overview.product.name} · ${focusName}`}
           description={story.route.representativeStatement ?? "这是经过整理的代表性供应链内容，不宣称唯一、完整或实时。"}
-          actions={<Link className="button button-secondary" href={provenancePath(productId)}>来源与版本</Link>}
+          actions={(
+            <>
+              <Link className="button button-secondary" href={provenancePath(productId)}>来源与版本</Link>
+              <Link className="button button-secondary" href={evidenceGapsPath(productId)}>证据缺口登记册</Link>
+            </>
+          )}
         />
 
         <div className="stat-grid">
           <StatCard label="路径节点" value={story.nodes.length} detail="国家/市场与商品节点" />
           <StatCard label="流转关系" value={story.flows.length} detail="每条边独立标记证据等级" />
+          <StatCard label="证据缺口" value={story.evidenceGaps.length} detail="节点与连接的待验证主张" />
           <StatCard label="期间" value={<PeriodLabel period={story.period} />} detail={story.period.start} />
           <StatCard label="内容版本" value={story.route.contentVersion?.version ?? "未提供"} detail={`数据集 ${story.datasetVersion.version}`} />
         </div>
@@ -177,6 +185,18 @@ export default async function SupplyChainPage({
               );
             })}
           </div>
+        </section>
+
+        <section className="section-block evidence-gap-section" aria-labelledby="route-gaps-title">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Evidence gap registry</p>
+              <h2 id="route-gaps-title">当前路线的证据缺口</h2>
+            </div>
+            <Link className="text-link" href={evidenceGapsPath(productId)}>查看完整登记册 →</Link>
+          </div>
+          <p className="section-caption">缺口不会被默认补成零；国家角色、双边流向和代表性策展连接分别记录。</p>
+          <EvidenceGapRegistry gaps={story.evidenceGaps} compact />
         </section>
 
         <section className="section-block" aria-labelledby="route-nodes-title">

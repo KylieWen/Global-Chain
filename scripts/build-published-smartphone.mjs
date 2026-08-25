@@ -19,7 +19,16 @@ import { fileURLToPath } from "node:url";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const SAMPLE_PATH = resolve(ROOT, "data/samples/smartphone/fixture.json");
 const ROUTE_CONTENT_PATH = resolve(ROOT, "content/routes/generic-smartphone-2023.json");
+const INDUSTRY_ROLE_EVIDENCE_PATH = resolve(ROOT, "content/evidence/industry-roles-2023.json");
+const EVIDENCE_GAP_REGISTRY_PATH = resolve(
+  ROOT,
+  "content/evidence-gaps/generic-smartphone-2023.json"
+);
 const RAW_DIR = resolve(ROOT, "data/published/raw");
+const BILATERAL_SNAPSHOT_PATH = resolve(
+  RAW_DIR,
+  "un-comtrade-hs2022-851713-bilateral-2023.json"
+);
 const OUTPUT_DIR = resolve(ROOT, "data/published/smartphone");
 const OUTPUT_PATH = resolve(OUTPUT_DIR, "fixture.json");
 const MANIFEST_PATH = resolve(ROOT, "data/published/manifest.json");
@@ -32,8 +41,8 @@ const PERIOD = {
   label: YEAR
 };
 const DATASET_ID = "dataset-smartphone-published-2023";
-const DATASET_VERSION = "globe-chain-smartphone-2023.1";
-const CONTENT_VERSION_ID = "content-smartphone-route-2023-1";
+const DATASET_VERSION = "globe-chain-smartphone-2023.2";
+const CONTENT_VERSION_ID = "content-smartphone-route-2023-2";
 const SOURCE_IDS = {
   wdi: "source-world-bank-wdi",
   comtrade: "source-un-comtrade",
@@ -42,6 +51,15 @@ const SOURCE_IDS = {
   iea: "source-iea-battery-supply-chain",
   routeMethod: "source-globe-chain-route-methodology"
 };
+
+const entityByComtradeCode = new Map([
+  [156, "country-cn"],
+  [276, "country-de"],
+  // 842 is the source-native USA statistical area (including Puerto Rico and
+  // the US Virgin Islands), not ISO/M49 840. The quality note retains that
+  // wider source scope when linking it to the current country dimension.
+  [842, "country-us"]
+]);
 
 // Published presentation metadata lives with the dataset build, rather than
 // in the Web layer. Adding another macro indicator only requires another
@@ -334,12 +352,15 @@ function makeTradeObservation(row, reporter) {
   return {
     id,
     reporterEntityId: reporter.id,
+    reporterCode: Number(row.reporterCode),
     // partnerCode=0 is the Comtrade world total, not one of the nine local
     // country entities, so it is represented as null in the domain contract.
     partnerEntityId: null,
     partnerCode: row.partnerCode === undefined || row.partnerCode === null ? null : Number(row.partnerCode),
+    partner2Code: row.partner2Code === undefined || row.partner2Code === null ? null : Number(row.partner2Code),
     partnerScope: "world_total",
     direction,
+    flowCode: row.flowCode,
     classificationSystem: "HS",
     classificationVersion: "2022",
     classificationCode: "851713",
@@ -356,6 +377,13 @@ function makeTradeObservation(row, reporter) {
     dataStatus: valueDataStatus,
     valueDataStatus,
     quantityDataStatus,
+    quality: {
+      legacyEstimationFlag: row.legacyEstimationFlag ?? null,
+      isQtyEstimated: row.isQtyEstimated ?? null,
+      isNetWgtEstimated: row.isNetWgtEstimated ?? null,
+      isReported: row.isReported ?? null,
+      isAggregate: row.isAggregate ?? null
+    },
     qualityNote: JSON.stringify(quality)
   };
 }
@@ -411,10 +439,230 @@ function buildTradeObservations(comtradeRaw) {
   return [...byId.values()].sort((a, b) => a.id.localeCompare(b.id));
 }
 
-function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
+function bilateralRows(raw) {
+  return (raw.bilateralResponses ?? []).flatMap((response) =>
+    (response.payload?.data ?? []).map((row) => ({
+      row,
+      pairId: response.pairId,
+      request: response.request,
+      requestedAt: response.requestedAt,
+      rawResponseSha256: response.rawResponseSha256,
+      canonicalDataSha256: response.canonicalDataSha256
+    }))
+  );
+}
+
+function makeBilateralTradeObservation(entry) {
+  const { row } = entry;
+  const reporterEntityId = entityByComtradeCode.get(Number(row.reporterCode));
+  const partnerEntityId = entityByComtradeCode.get(Number(row.partnerCode));
+  if (!reporterEntityId || !partnerEntityId || Number(row.partnerCode) === 0) {
+    throw new Error(
+      `Bilateral observation requires configured specific endpoints: ${row.reporterCode}->${row.partnerCode}`
+    );
+  }
+  const reporter = [...countryByIso3.values()].find((country) => country.id === reporterEntityId);
+  if (!reporter) throw new Error(`Missing reporter dimension for ${reporterEntityId}`);
+  const direction = row.flowCode === "M" ? "import" : "export";
+  const amount = typeof row.primaryValue === "number" && Number.isFinite(row.primaryValue)
+    ? row.primaryValue
+    : null;
+  const sourceQuantity = typeof row.qty === "number" && Number.isFinite(row.qty) ? row.qty : null;
+  const quantityEstimated = row.isQtyEstimated === true;
+  const quantity = !quantityEstimated ? sourceQuantity : null;
+  const valueDataStatus = amount === null ? "unknown" : "observed";
+  const quantityDataStatus = quantityEstimated
+    ? "estimated"
+    : quantity === null
+      ? "unknown"
+      : "observed";
+  const pairKey = `${Number(row.reporterCode)}-${Number(row.partnerCode)}`;
+  return {
+    id: `trade-${reporter.iso3.toLowerCase()}-${pairKey}-smartphone-${direction}`,
+    reporterEntityId,
+    reporterCode: Number(row.reporterCode),
+    partnerEntityId,
+    partnerCode: Number(row.partnerCode),
+    partner2Code: Number(row.partner2Code ?? 0),
+    partnerScope: "entity",
+    direction,
+    flowCode: row.flowCode,
+    classificationSystem: "HS",
+    classificationVersion: "2022",
+    classificationCode: "851713",
+    itemId: "generic-smartphone",
+    period: period(),
+    value: amount,
+    quantity,
+    currency: amount === null ? null : "USD",
+    unit: sourceQuantity === null ? null : "items",
+    statisticalConcept: "customs",
+    sourceId: SOURCE_IDS.comtrade,
+    datasetVersionId: DATASET_ID,
+    method: "official",
+    dataStatus: valueDataStatus,
+    valueDataStatus,
+    quantityDataStatus,
+    quality: {
+      legacyEstimationFlag: row.legacyEstimationFlag ?? null,
+      isQtyEstimated: row.isQtyEstimated ?? null,
+      isNetWgtEstimated: row.isNetWgtEstimated ?? null,
+      isReported: row.isReported ?? null,
+      isAggregate: row.isAggregate ?? null
+    },
+    qualityNote: JSON.stringify({
+      source: "UN Comtrade Preview API",
+      observationScope: "specific bilateral reporter-partner observation",
+      pairId: entry.pairId,
+      reporterCode: Number(row.reporterCode),
+      partnerCode: Number(row.partnerCode),
+      reporterScope:
+        Number(row.reporterCode) === 842
+          ? "USA, Puerto Rico and US Virgin Islands (source-native Comtrade code 842; not ISO/M49 840)"
+          : row.reporterDesc,
+      partnerScope:
+        Number(row.partnerCode) === 842
+          ? "USA, Puerto Rico and US Virgin Islands (source-native Comtrade code 842; not ISO/M49 840)"
+          : row.partnerDesc,
+      flowCode: row.flowCode,
+      valuation: row.flowCode === "M" ? "CIF" : "FOB",
+      classification: "HS 2022",
+      cmdCode: String(row.cmdCode),
+      customsCode: row.customsCode,
+      currency: "USD",
+      primaryValueField: "primaryValue",
+      qtyUnitCode: row.qtyUnitCode ?? null,
+      isQtyEstimated: row.isQtyEstimated ?? null,
+      isNetWgtEstimated: row.isNetWgtEstimated ?? null,
+      isReported: row.isReported ?? null,
+      isAggregate: row.isAggregate ?? null,
+      legacyEstimationFlag: row.legacyEstimationFlag ?? null,
+      requestUrl: entry.request?.url ?? null,
+      requestedAt: entry.requestedAt,
+      rawResponseSha256: entry.rawResponseSha256,
+      canonicalDataSha256: entry.canonicalDataSha256,
+      interpretation:
+        "This proves only the reported HS 851713 customs observation for the exact reporter, partner, direction and period. It does not prove assembly, final consumption, a factory, or entry into a particular supply chain. Mirror reports remain separate because CIF/FOB valuation and reporting systems differ."
+    })
+  };
+}
+
+function buildBilateralTradeObservations(bilateralRaw) {
+  const observations = bilateralRows(bilateralRaw).map(makeBilateralTradeObservation);
+  const ids = new Set(observations.map((observation) => observation.id));
+  if (ids.size !== observations.length) {
+    throw new Error("Duplicate bilateral trade observation ID");
+  }
+  return observations.sort((left, right) => left.id.localeCompare(right.id));
+}
+
+function makeBilateralEvidence(bilateralRaw) {
+  const routeEvidence = [
+    {
+      id: "evidence-comtrade-china-united-states-smartphone-bilateral-export-2023",
+      reporterCode: 156,
+      partnerCode: 842,
+      direction: "export",
+      fromEntityId: "country-cn",
+      toEntityId: "country-us"
+    },
+    {
+      id: "evidence-comtrade-united-states-china-smartphone-bilateral-import-2023",
+      reporterCode: 842,
+      partnerCode: 156,
+      direction: "import",
+      fromEntityId: "country-cn",
+      toEntityId: "country-us"
+    },
+    {
+      id: "evidence-comtrade-china-germany-smartphone-bilateral-export-2023",
+      reporterCode: 156,
+      partnerCode: 276,
+      direction: "export",
+      fromEntityId: "country-cn",
+      toEntityId: "country-de"
+    },
+    {
+      id: "evidence-comtrade-germany-china-smartphone-bilateral-import-2023",
+      reporterCode: 276,
+      partnerCode: 156,
+      direction: "import",
+      fromEntityId: "country-cn",
+      toEntityId: "country-de"
+    }
+  ];
+  return routeEvidence.map((definition) => {
+    const entry = bilateralRows(bilateralRaw).find(
+      ({ row }) =>
+        Number(row.reporterCode) === definition.reporterCode &&
+        Number(row.partnerCode) === definition.partnerCode &&
+        (row.flowCode === "M" ? "import" : "export") === definition.direction
+    );
+    if (!entry) throw new Error(`Missing bilateral evidence row: ${definition.id}`);
+    return {
+      id: definition.id,
+      sourceId: SOURCE_IDS.comtrade,
+      supportType: "bilateral_flow",
+      scope: {
+        entityIds: [definition.fromEntityId, definition.toEntityId],
+        fromEntityId: definition.fromEntityId,
+        toEntityId: definition.toEntityId,
+        itemIds: ["generic-smartphone"],
+        processStageIds: [],
+        classificationCodes: [
+          {
+            system: "HS",
+            version: "2022",
+            code: "851713",
+            mappingType: "exact",
+            description: "Smartphones"
+          }
+        ],
+        direction: definition.direction,
+        period: period(),
+        scopeDescription:
+          `Source-reported ${definition.direction} observation for reporterCode=${definition.reporterCode}, partnerCode=${definition.partnerCode}, HS 2022/851713 in ${YEAR}.`,
+        supportsCountryRole: true,
+        supportsBilateralFlow: true,
+        supportsProcessContext: false,
+        limitations: [
+          "Supports only the exact customs category, reporter, partner, direction and period; not an assembly or consumption claim.",
+          "Does not prove a brand, model, factory, component origin, cost, profit or a physical batch route.",
+          "The mirror reporter observation is independent and is not averaged or substituted for this observation."
+        ]
+      },
+      locator:
+        `${entry.request?.url}; rawResponseSha256=${entry.rawResponseSha256}; canonicalDataSha256=${entry.canonicalDataSha256}`,
+      excerpt: null,
+      notes:
+        "Direct bilateral customs evidence. It may support a narrowly worded HS 851713 bilateral trade claim, but not the current assembly-to-market supply-chain edge in full."
+    };
+  });
+}
+
+function countryRoleScope(entityId, itemId, processStageId, scopeDescription, limitations) {
+  return {
+    entityIds: [entityId],
+    fromEntityId: null,
+    toEntityId: null,
+    itemIds: [itemId],
+    processStageIds: [processStageId],
+    classificationCodes: [],
+    direction: null,
+    period: period(),
+    scopeDescription,
+    supportsCountryRole: true,
+    supportsBilateralFlow: false,
+    supportsProcessContext: false,
+    limitations
+  };
+}
+
+function makeSourceAndEvidence(wdiRaw, comtradeRaw, bilateralRaw, industryRoleContent) {
   const wdiRetrieved = wdiRaw.fetchedAt ?? "2026-08-25";
   const comtradeRetrieved = comtradeRaw.fetchedAt ?? "2026-08-25";
   const comtradeUrl = comtradeRaw.request?.url ?? "https://comtradeapi.un.org/public/v1/preview/C/A/HS";
+  const bilateralRetrieved = bilateralRaw.fetchedAt ?? comtradeRetrieved;
   const wdiLastUpdated = wdiRaw.indicators?.merchandise_exports_current_usd?.payload?.[0]?.lastupdated ?? null;
   const sources = [
     sourceDefinition(wdiRaw, SOURCE_IDS.wdi, {
@@ -433,7 +681,7 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
       license: "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
       publishedAt: null,
       notes:
-        `HS 2022 code 851713, world-total partner, annual customs observations for ${YEAR}. Monetary primaryValue status is assessed separately from quantity and net-weight estimation flags; source-estimated quantities are not published as precise quantities. Preserve UN attribution and comply with the current terms at https://comtradeplus.un.org/LicenseAgreement, https://comtradeplus.un.org/PolicyOnUseAndRedissemination and https://www.un.org/en/about-us/terms-of-use. Snapshot retrieved ${comtradeRetrieved}; primaryValue and quality flags are retained in the fixture.`
+        `HS 2022 code 851713 annual customs observations for ${YEAR}, including separate partnerCode=0 world totals and specific China↔USA statistical area / China↔Germany reporter-partner rows. Mirror reports remain separate. Monetary primaryValue status is assessed separately from quantity and net-weight estimation flags; source-estimated quantities are not published as precise quantities. Preserve UN attribution and comply with the current terms at https://comtradeplus.un.org/LicenseAgreement, https://comtradeplus.un.org/PolicyOnUseAndRedissemination and https://www.un.org/en/about-us/terms-of-use. World-total snapshot retrieved ${comtradeRetrieved}; bilateral snapshot retrieved ${bilateralRetrieved}; raw response and canonical data hashes are retained locally.`
     }, `un-comtrade-hs2022-851713-${YEAR}`),
     {
       id: SOURCE_IDS.m49,
@@ -479,7 +727,7 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
       license: "Project-authored methodology; repository terms apply",
       publishedAt: "2026-08-25",
       retrievedAt: "2026-08-25T00:00:00+08:00",
-      datasetVersion: "smartphone-route-2023.1",
+      datasetVersion: "smartphone-route-2023.2",
       notes:
         "Documents how reviewed country-role evidence and contextual stage evidence are connected into a quantity-free representative route. It is a curation method, not an external factual source and not proof of bilateral trade."
     }
@@ -489,6 +737,13 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
       id: "evidence-usgs-australia-lithium-role",
       sourceId: SOURCE_IDS.usgs,
       supportType: "country_role",
+      scope: countryRoleScope(
+        "country-au",
+        "lithium",
+        "extraction",
+        "Supports Australia's lithium mine-production role in the 2023 context.",
+        ["Does not identify a destination, material grade, battery use or smartphone use."]
+      ),
       locator: "Mineral Commodity Summaries 2024 PDF, Lithium chapter, World Mine Production and Reserves table: Australia",
       excerpt: null,
       notes: "Supports Australia's lithium production role for the 2023 context only; it does not identify a destination country or smartphone use."
@@ -497,6 +752,13 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
       id: "evidence-usgs-drc-cobalt-role",
       sourceId: SOURCE_IDS.usgs,
       supportType: "country_role",
+      scope: countryRoleScope(
+        "country-cd",
+        "cobalt",
+        "extraction",
+        "Supports the Democratic Republic of the Congo's cobalt mine-production role in the 2023 context.",
+        ["Does not identify a destination, refining chain, battery use or smartphone use."]
+      ),
       locator: "Mineral Commodity Summaries 2024 PDF, Cobalt chapter, World Mine Production and Reserves table: Congo (Kinshasa)",
       excerpt: null,
       notes: "Supports the Democratic Republic of the Congo's cobalt production role only; no bilateral shipment is established."
@@ -505,6 +767,13 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
       id: "evidence-usgs-indonesia-nickel-role",
       sourceId: SOURCE_IDS.usgs,
       supportType: "country_role",
+      scope: countryRoleScope(
+        "country-id",
+        "nickel",
+        "extraction",
+        "Supports Indonesia's nickel mine-production role in the 2023 context.",
+        ["Does not identify a destination, intermediate product, battery use or smartphone use."]
+      ),
       locator: "Mineral Commodity Summaries 2024 PDF, Nickel chapter, World Mine Production and Reserves table: Indonesia",
       excerpt: null,
       notes: "Supports Indonesia's nickel production role only; no bilateral shipment is established."
@@ -513,6 +782,13 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
       id: "evidence-usgs-china-graphite-role",
       sourceId: SOURCE_IDS.usgs,
       supportType: "country_role",
+      scope: countryRoleScope(
+        "country-cn",
+        "graphite",
+        "extraction",
+        "Supports China's natural-graphite mine-production role in the 2023 context.",
+        ["Does not support processed graphite, anode production, a factory or smartphone use."]
+      ),
       locator: "Mineral Commodity Summaries 2024 PDF, Graphite (Natural) chapter, World Mine Production and Reserves table: China",
       excerpt: null,
       notes: "Supports China's natural-graphite production role only; it does not prove use in a particular anode or smartphone."
@@ -521,6 +797,13 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
       id: "evidence-usgs-chile-copper-role",
       sourceId: SOURCE_IDS.usgs,
       supportType: "country_role",
+      scope: countryRoleScope(
+        "country-cl",
+        "copper",
+        "extraction",
+        "Supports Chile's copper mine-production role in the 2023 context.",
+        ["Does not support refining, foil manufacture, current collectors or smartphone use."]
+      ),
       locator: "Mineral Commodity Summaries 2024 PDF, Copper chapter, World Mine Production and Reserves table: Chile",
       excerpt: null,
       notes: "Supports Chile's copper mine-production role only; downstream refining and foil manufacture are not evidenced by this record."
@@ -529,6 +812,13 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
       id: "evidence-usgs-australia-aluminum-role",
       sourceId: SOURCE_IDS.usgs,
       supportType: "country_role",
+      scope: countryRoleScope(
+        "country-au",
+        "aluminum",
+        "extraction",
+        "Supports Australia's upstream bauxite/alumina role in the 2023 context.",
+        ["The internal aluminum item is broad; the evidence does not mean metallic aluminum is mined or prove foil/current-collector use."]
+      ),
       locator: "Mineral Commodity Summaries 2024 PDF, Bauxite and Alumina and Aluminum chapters, world production tables: Australia",
       excerpt: null,
       notes: "Supports an Australian upstream bauxite/alumina role. The current broad aluminum item must not be read as metallic aluminum being directly mined."
@@ -537,6 +827,24 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
       id: "evidence-iea-battery-chain",
       sourceId: SOURCE_IDS.iea,
       supportType: "process_context",
+      scope: {
+        entityIds: [],
+        fromEntityId: null,
+        toEntityId: null,
+        itemIds: ["battery", "cathode-material", "anode-material", "cell", "battery-module"],
+        processStageIds: ["refining", "material_processing", "component_manufacturing", "assembly"],
+        classificationCodes: [],
+        direction: null,
+        period: period(),
+        scopeDescription: "General contextual support for multi-stage battery supply chains.",
+        supportsCountryRole: false,
+        supportsBilateralFlow: false,
+        supportsProcessContext: true,
+        limitations: [
+          "The report concerns EV batteries and does not establish a smartphone-specific route.",
+          "It does not support the current route's country-to-country connections or quantities."
+        ]
+      },
       locator: "Executive summary and supply-chain concentration sections",
       excerpt: null,
       notes: "Supports the existence of multi-stage EV-battery material, cell and module stages as context only; no smartphone-specific country route or quantity is inferred."
@@ -545,6 +853,21 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
       id: "evidence-un-m49-crosswalk",
       sourceId: SOURCE_IDS.m49,
       supportType: "classification",
+      scope: {
+        entityIds: [...countryByIso3.values()].map((country) => country.id),
+        fromEntityId: null,
+        toEntityId: null,
+        itemIds: [],
+        processStageIds: [],
+        classificationCodes: [],
+        direction: null,
+        period: period(),
+        scopeDescription: "Geographic reference codes for the fixture country dimension.",
+        supportsCountryRole: false,
+        supportsBilateralFlow: false,
+        supportsProcessContext: false,
+        limitations: ["A geographic code crosswalk is not evidence for a production or trade claim."]
+      },
       locator: "UN M49 country or area codes table; numeric codes 036, 152, 156, 180, 276, 360, 392, 410 and 840",
       excerpt: null,
       notes: "Supports the country/area dimension crosswalk used in this fixture."
@@ -553,6 +876,15 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
       id: "evidence-comtrade-china-smartphone-world-total",
       sourceId: SOURCE_IDS.comtrade,
       supportType: "trade_observation",
+      scope: {
+        entityIds: ["country-cn"], fromEntityId: null, toEntityId: null,
+        itemIds: ["generic-smartphone"], processStageIds: [],
+        classificationCodes: [{ system: "HS", version: "2022", code: "851713", mappingType: "exact", description: "Smartphones" }],
+        direction: null, period: period(),
+        scopeDescription: "China's HS 2022/851713 imports from and exports to partnerCode=0 (world total).",
+        supportsCountryRole: false, supportsBilateralFlow: false, supportsProcessContext: false,
+        limitations: ["partnerCode=0 is the world total, not a specific country.", "Does not support assembly or a bilateral route."]
+      },
       locator: `UN Comtrade snapshot query for ${YEAR}, reporterCode=156, partnerCode=0, HS 2022 code 851713, flowCode=M/X; observations trade-chn-smartphone-import and trade-chn-smartphone-export`,
       excerpt: null,
       notes: "Supports only China's reported smartphone imports from and exports to the world total. It does not prove assembly location or a bilateral flow to the United States or Germany."
@@ -561,6 +893,15 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
       id: "evidence-comtrade-united-states-smartphone-world-total",
       sourceId: SOURCE_IDS.comtrade,
       supportType: "trade_observation",
+      scope: {
+        entityIds: ["country-us"], fromEntityId: null, toEntityId: null,
+        itemIds: ["generic-smartphone"], processStageIds: [],
+        classificationCodes: [{ system: "HS", version: "2022", code: "851713", mappingType: "exact", description: "Smartphones" }],
+        direction: null, period: period(),
+        scopeDescription: "US Comtrade statistical area's HS 2022/851713 imports from and exports to partnerCode=0 (world total).",
+        supportsCountryRole: false, supportsBilateralFlow: false, supportsProcessContext: false,
+        limitations: ["partnerCode=0 is the world total, not China.", "ReporterCode 842 includes Puerto Rico and the US Virgin Islands.", "Does not prove distribution or consumption."]
+      },
       locator: `UN Comtrade snapshot query for ${YEAR}, reporterCode=842, partnerCode=0, HS 2022 code 851713, flowCode=M/X; observations trade-usa-smartphone-import and trade-usa-smartphone-export`,
       excerpt: null,
       notes: "Supports only United States smartphone trade with the world total. It does not identify China as partner and does not prove distribution activity."
@@ -569,6 +910,15 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
       id: "evidence-comtrade-germany-smartphone-world-total",
       sourceId: SOURCE_IDS.comtrade,
       supportType: "trade_observation",
+      scope: {
+        entityIds: ["country-de"], fromEntityId: null, toEntityId: null,
+        itemIds: ["generic-smartphone"], processStageIds: [],
+        classificationCodes: [{ system: "HS", version: "2022", code: "851713", mappingType: "exact", description: "Smartphones" }],
+        direction: null, period: period(),
+        scopeDescription: "Germany's HS 2022/851713 imports from and exports to partnerCode=0 (world total).",
+        supportsCountryRole: false, supportsBilateralFlow: false, supportsProcessContext: false,
+        limitations: ["partnerCode=0 is the world total, not China.", "Imports do not equal final consumption."]
+      },
       locator: `UN Comtrade snapshot query for ${YEAR}, reporterCode=276, partnerCode=0, HS 2022 code 851713, flowCode=M/X; observations trade-deu-smartphone-import and trade-deu-smartphone-export`,
       excerpt: null,
       notes: "Supports only Germany's smartphone trade with the world total. Imports do not equal final consumption and do not identify China as partner."
@@ -577,11 +927,29 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw) {
       id: "evidence-globe-chain-route-methodology",
       sourceId: SOURCE_IDS.routeMethod,
       supportType: "curation_method",
+      scope: {
+        entityIds: [], fromEntityId: null, toEntityId: null,
+        itemIds: [], processStageIds: [], classificationCodes: [], direction: null,
+        period: period(),
+        scopeDescription: "GlobeChain's method for representing evidence-limited, quantity-free supply-chain connections.",
+        supportsCountryRole: false, supportsBilateralFlow: false, supportsProcessContext: false,
+        limitations: ["Project methodology is not external factual evidence for a country role or bilateral flow."]
+      },
       locator: "content/routes/generic-smartphone-2023.json and data/published/README.md, representative supply-route methodology and limitations",
       excerpt: null,
       notes: "Explains why the route uses representative connections. It is not evidence of a factual bilateral shipment."
     }
   ];
+  const externalSourceIds = new Set(sources.map((source) => source.id));
+  for (const source of industryRoleContent.sources ?? []) {
+    if (externalSourceIds.has(source.id)) throw new Error(`Duplicate industry-role source: ${source.id}`);
+    sources.push(clone(source));
+    externalSourceIds.add(source.id);
+  }
+  evidence.push(
+    ...(industryRoleContent.evidence ?? []).map(clone),
+    ...makeBilateralEvidence(bilateralRaw)
+  );
   return { sources, evidence };
 }
 
@@ -693,7 +1061,15 @@ function applyRouteContent(fixture, routeContent) {
   };
 }
 
-function buildFixture(sample, routeContent, wdiRaw, comtradeRaw) {
+function buildFixture(
+  sample,
+  routeContent,
+  wdiRaw,
+  comtradeRaw,
+  bilateralRaw,
+  industryRoleContent,
+  gapRegistry
+) {
   const fixture = clone(sample);
   fixture.schemaVersion = "product-fixture.v1";
   fixture.productId = "generic-smartphone";
@@ -702,18 +1078,35 @@ function buildFixture(sample, routeContent, wdiRaw, comtradeRaw) {
     name: "GlobeChain 通用智能手机 2023 published 数据集",
     version: DATASET_VERSION,
     publishedAt: "2026-08-25",
-    sourceIds: [SOURCE_IDS.wdi, SOURCE_IDS.comtrade, SOURCE_IDS.m49, SOURCE_IDS.usgs, SOURCE_IDS.iea, SOURCE_IDS.routeMethod],
+    sourceIds: [
+      SOURCE_IDS.wdi,
+      SOURCE_IDS.comtrade,
+      SOURCE_IDS.m49,
+      SOURCE_IDS.usgs,
+      SOURCE_IDS.iea,
+      SOURCE_IDS.routeMethod,
+      ...(industryRoleContent.sources ?? []).map((source) => source.id)
+    ],
     coverage: null,
     status: "published",
     notes:
       "2023 完整自然年；宏观指标来自 WDI，智能手机单品观察来自 UN Comtrade HS 2022 851713，路线为数量未知的代表性策展内容。"
   };
-  const { sources, evidence } = makeSourceAndEvidence(wdiRaw, comtradeRaw);
+  const { sources, evidence } = makeSourceAndEvidence(
+    wdiRaw,
+    comtradeRaw,
+    bilateralRaw,
+    industryRoleContent
+  );
   fixture.sources = sources;
   fixture.evidence = evidence;
+  fixture.evidenceGaps = (gapRegistry.evidenceGaps ?? []).map(clone);
   applyCatalogMetadata(fixture);
   applyRouteContent(fixture, routeContent);
-  fixture.tradeObservations = buildTradeObservations(comtradeRaw);
+  fixture.tradeObservations = [
+    ...buildTradeObservations(comtradeRaw),
+    ...buildBilateralTradeObservations(bilateralRaw)
+  ].sort((left, right) => left.id.localeCompare(right.id));
   fixture.macroIndicators = buildMacroIndicators(wdiRaw);
   fixture.indicatorDefinitions = buildIndicatorDefinitions();
   fixture.missingDataNotes = [
@@ -723,10 +1116,10 @@ function buildFixture(sample, routeContent, wdiRaw, comtradeRaw) {
     "商品海关贸易金额不等于企业利润、生产成本、国内增加值或手机零售价格。",
     "UN Comtrade 的 primaryValue 金额状态与数量/净重估算标记分开处理；isQtyEstimated=true 的数量不作为精确数量发布。",
     "unknown、未披露、估算和真实为零是不同语义；没有观察时不会补写 0。",
-    "当前供应链路线的 13 条边全部是 representative 策展连接，没有任何一条具有直接双边流向证据。",
+    "当前供应链路线的 13 条边全部是 representative 策展连接；新增双边 HS 851713 海关观察只支持有限的分类商品贸易主张，不自动证明组装节点到市场节点的完整路线。",
     "USGS 证据支持的是澳大利亚锂、刚果民主共和国钴、印度尼西亚镍、中国石墨、智利铜和澳大利亚铝相关上游角色，不证明这些国家之间的具体运输。",
-    "日本电子组件、中国手机组装、美国分销和德国消费节点当前没有直接角色证据，保持 representative + unknown。",
-    "中国、美国和德国的 Comtrade partnerCode=0 观察仅提供各自对世界总计的贸易背景；把两个世界总计观察并列不能构成双边贸易证据。",
+    "新增国家角色证据分别说明中国移动通信手持机生产、韩国通用电芯供应链、日本宽泛电子组件/LCD 生产以及美德进口市场；每条证据的商品和用途局限保存在 scope 中，相邻边不升级。",
+    "partnerCode=0 世界总计观察与具体 partnerCode 双边观察分开保存；两个世界总计观察仍不能拼成双边事实，镜像双边报告也不平均或合并。",
     "铜和铝在当前路线中作为简化的电芯相关材料输入，中间冶炼和箔材加工阶段尚未发布。"
   ];
   fixture.warnings = [
@@ -734,8 +1127,8 @@ function buildFixture(sample, routeContent, wdiRaw, comtradeRaw) {
     "智能手机单品贸易为 HS 2022 六位码 851713、世界总计伙伴的海关观察；缺失国家/流向不填零。",
     "官方储备指标 FI.RES.TOTL.CD 包含黄金，不等同于狭义外汇储备。",
     "电池供应链是有来源的代表性策展路径，不代表唯一真实路线，也不提供成本、增加值或利润分配。",
-    "Comtrade 估算和质量标记保存在 qualityNote，并影响 dataStatus；运行时不请求外部 API。",
-    "所有现有路线边均为 representative 且数量未知；没有 observed 或 bilateral_supported 的供应链边。"
+    "Comtrade 估算和质量标记保存在 qualityNote，并影响独立的金额/数量状态；运行时不请求外部 API。",
+    "所有现有路线边均为 representative 且数量未知；双边海关 evidence 和 observations 不等于路线边已被证明。"
   ];
   return fixture;
 }
@@ -798,8 +1191,26 @@ function assertBuildInvariants(fixture, comtradeRaw) {
   }
   if (fixture.tradeObservations.some((row) => row.period.label !== YEAR)) throw new Error("Trade period mismatch");
   if (fixture.macroIndicators.some((row) => row.period.label !== YEAR)) throw new Error("Macro period mismatch");
-  if (fixture.tradeObservations.some((row) => row.partnerScope !== "world_total" || row.partnerCode !== 0 || row.partnerEntityId !== null)) {
-    throw new Error("Published Comtrade observations must retain partnerCode=0 world-total scope");
+  const worldTotalRows = fixture.tradeObservations.filter(
+    (row) => row.partnerScope === "world_total"
+  );
+  const bilateralRowsInFixture = fixture.tradeObservations.filter(
+    (row) => row.partnerScope === "entity"
+  );
+  if (
+    worldTotalRows.some((row) => row.partnerCode !== 0 || row.partnerEntityId !== null)
+  ) {
+    throw new Error("World-total observations must retain partnerCode=0 and no entity partner");
+  }
+  if (
+    bilateralRowsInFixture.some(
+      (row) => row.partnerCode === 0 || row.partnerEntityId === null
+    )
+  ) {
+    throw new Error("Specific bilateral observations require a non-zero partner and entity link");
+  }
+  if (worldTotalRows.length === 0 || bilateralRowsInFixture.length !== 8) {
+    throw new Error("Expected both world-total observations and eight bilateral reporter rows");
   }
   if (fixture.tradeObservations.some((row) => row.valueDataStatus !== row.dataStatus)) {
     throw new Error("Trade monetary status must match the observation dataStatus");
@@ -835,20 +1246,66 @@ function assertBuildInvariants(fixture, comtradeRaw) {
     throw new Error("Expected the current Comtrade snapshot to have no DRC rows; review the fixture boundary");
   }
   if (codRows.length !== 0) throw new Error("Missing DRC Comtrade rows must not be fabricated as zero/unknown facts");
+
+  const gapStatuses = new Set(fixture.evidenceGaps.map((gap) => gap.status));
+  if (
+    fixture.evidenceGaps.length === 0 ||
+    !["open", "partial", "closed", "not_publicly_observable"].every((status) =>
+      gapStatuses.has(status)
+    )
+  ) {
+    throw new Error("Evidence gap registry must contain all four review states");
+  }
+  const evidenceScopeIds = new Set(
+    fixture.evidence.filter((record) => record.scope).map((record) => record.id)
+  );
+  for (const node of fixture.storyGraph.nodes.filter(
+    (record) => record.evidenceLevel === "role_supported"
+  )) {
+    if (!node.evidenceIds.some((id) => evidenceScopeIds.has(id))) {
+      throw new Error(`Role-supported node requires structured evidence scope: ${node.id}`);
+    }
+  }
 }
 
 async function main() {
-  const [sample, routeContentRaw, wdiRaw, comtradeRaw] = await Promise.all([
+  const [
+    sample,
+    routeContentRaw,
+    wdiRaw,
+    comtradeRaw,
+    bilateralRaw,
+    industryRoleContent,
+    gapRegistry
+  ] = await Promise.all([
     readJson(SAMPLE_PATH),
     readFile(ROUTE_CONTENT_PATH, "utf8"),
     readJson(resolve(RAW_DIR, "world-bank-wdi-2023.json")),
-    readJson(resolve(RAW_DIR, "un-comtrade-hs2022-851713-2023.json"))
+    readJson(resolve(RAW_DIR, "un-comtrade-hs2022-851713-2023.json")),
+    readJson(BILATERAL_SNAPSHOT_PATH),
+    readJson(INDUSTRY_ROLE_EVIDENCE_PATH),
+    readJson(EVIDENCE_GAP_REGISTRY_PATH)
   ]);
   const routeContent = JSON.parse(routeContentRaw);
   if (wdiRaw.sourceId !== SOURCE_IDS.wdi || comtradeRaw.sourceId !== SOURCE_IDS.comtrade) {
     throw new Error("Raw snapshot source IDs do not match the published build configuration");
   }
-  const fixture = buildFixture(sample, routeContent, wdiRaw, comtradeRaw);
+  if (
+    bilateralRaw.sourceId !== SOURCE_IDS.comtrade ||
+    industryRoleContent.productId !== sample.productId ||
+    gapRegistry.productId !== sample.productId
+  ) {
+    throw new Error("Published evidence inputs do not match the smartphone build scope");
+  }
+  const fixture = buildFixture(
+    sample,
+    routeContent,
+    wdiRaw,
+    comtradeRaw,
+    bilateralRaw,
+    industryRoleContent,
+    gapRegistry
+  );
   assertBuildInvariants(fixture, comtradeRaw);
   await mkdir(OUTPUT_DIR, { recursive: true });
   const serialized = `${JSON.stringify(fixture, null, 2)}\n`;
@@ -861,15 +1318,22 @@ async function main() {
     fixtureSha256: sha256(serialized),
     routeContentVersion: routeContent.contentVersion.version,
     routeContentSha256: sha256(routeContentRaw),
-    contentSources: ["../../content/routes/generic-smartphone-2023.json"],
+    contentSources: [
+      "../../content/routes/generic-smartphone-2023.json",
+      "../../content/evidence/industry-roles-2023.json",
+      "../../content/evidence-gaps/generic-smartphone-2023.json"
+    ],
     sourceSnapshots: [
       "raw/world-bank-wdi-2023.json",
-      "raw/un-comtrade-hs2022-851713-2023.json"
+      "raw/un-comtrade-hs2022-851713-2023.json",
+      "raw/un-comtrade-hs2022-851713-bilateral-2023.json"
     ],
     notes: [
       "Numeric observations are generated from immutable local raw snapshots; reviewed route topology and evidence bindings come from the versioned content source. No runtime API calls are made.",
       "The published fixture intentionally omits countries/flows absent from the Comtrade response rather than filling zero.",
-      "All current supply-chain edges are representative and quantity-free; none has direct bilateral evidence."
+      "The fixture now contains specific bilateral HS 851713 customs observations, kept separate from world totals and from the representative supply-chain edges.",
+      "All current supply-chain edges remain representative and quantity-free because customs trade does not prove assembly, consumption or entry into this curated route.",
+      "Evidence gaps are versioned content and cover every current node and edge."
     ]
   };
   await writeFile(MANIFEST_PATH, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");

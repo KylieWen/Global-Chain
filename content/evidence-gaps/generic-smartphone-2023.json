@@ -1,0 +1,1604 @@
+{
+  "schemaVersion": "evidence-gap-registry.v1",
+  "productId": "generic-smartphone",
+  "evidenceGaps": [
+    {
+      "gapId": "gap-node-au-lithium-country-role",
+      "nodeId": "node-au-lithium",
+      "flowId": null,
+      "currentClaim": "澳大利亚在 2023 年背景下具有锂矿生产角色。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "该国家生产角色已有来源支持；材料品级、加工地和下游去向仍由其他缺口记录管理。",
+      "acceptableEvidenceTypes": ["country_role"],
+      "candidateSources": [
+        {
+          "name": "Mineral Commodity Summaries 2024",
+          "publisher": "U.S. Geological Survey",
+          "url": "https://pubs.usgs.gov/periodicals/mcs2024/mcs2024.pdf",
+          "license": "U.S. Government work; public-domain status and USGS terms apply",
+          "notes": "用于验证 2023 年国家矿产生产角色，不提供双边流向或手机用途。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "253090",
+          "label": "第 25 章其他未列名矿物质",
+          "mappingType": "approximate",
+          "limitation": "HS 2022 没有锂矿或锂精矿专属六位码；该代码包含大量非锂矿物，不能作为锂矿数量或手机用途的精确观察。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "282520",
+          "label": "锂的氧化物及氢氧化物",
+          "mappingType": "aggregate",
+          "limitation": "可识别该化学品分类，但不能证明其为电池级、进入智能手机或源自当前节点的矿石。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "283691",
+          "label": "碳酸锂",
+          "mappingType": "aggregate",
+          "limitation": "海关分类不区分电池级与其他用途，也不提供从矿山到手机的物料谱系。"
+        }
+      ],
+      "status": "closed",
+      "nonInferences": [
+        "不得推断澳大利亚锂必然出口至中国。",
+        "不得推断该锂进入任一智能手机、电池、企业、工厂或批次。"
+      ],
+      "evidenceIds": ["evidence-usgs-australia-lithium-role"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-cd-cobalt-country-role",
+      "nodeId": "node-cd-cobalt",
+      "flowId": null,
+      "currentClaim": "刚果民主共和国在 2023 年背景下具有钴矿生产角色。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "国家生产角色已有来源支持；精炼阶段、出口伙伴和终端用途仍未由该证据支持。",
+      "acceptableEvidenceTypes": ["country_role"],
+      "candidateSources": [
+        {
+          "name": "Mineral Commodity Summaries 2024",
+          "publisher": "U.S. Geological Survey",
+          "url": "https://pubs.usgs.gov/periodicals/mcs2024/mcs2024.pdf",
+          "license": "U.S. Government work; public-domain status and USGS terms apply",
+          "notes": "用于验证国家钴生产角色，不提供双边运输或电池用途。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "260500",
+          "label": "钴矿砂及其精矿",
+          "mappingType": "aggregate",
+          "limitation": "分类不区分具体矿山、品级或下游用途，不能证明进入正极材料或手机。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "810520",
+          "label": "钴锍、其他冶金中间品、未锻轧钴及粉末",
+          "mappingType": "aggregate",
+          "limitation": "一个六位码合并多个加工阶段，不能确定具体材料形态或电池用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "282200",
+          "label": "钴的氧化物及氢氧化物；商品氧化钴",
+          "mappingType": "aggregate",
+          "limitation": "不能凭该分类识别电池级材料、指定正极配方或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "283329",
+          "label": "其他未列名硫酸盐",
+          "mappingType": "approximate",
+          "limitation": "HS 六位层级不是硫酸钴专属码，包含其他硫酸盐，需更细国家税号才能缩窄。"
+        }
+      ],
+      "status": "closed",
+      "nonInferences": [
+        "不得推断刚果民主共和国的钴必然出口至中国。",
+        "不得推断海关分类中的钴进入当前正极节点或智能手机。"
+      ],
+      "evidenceIds": ["evidence-usgs-drc-cobalt-role"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-id-nickel-country-role",
+      "nodeId": "node-id-nickel",
+      "flowId": null,
+      "currentClaim": "印度尼西亚在 2023 年背景下具有镍矿生产角色。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "国家生产角色已有来源支持；矿石到中间品、精炼品或电池级材料的具体转换和去向仍未获得支持。",
+      "acceptableEvidenceTypes": ["country_role"],
+      "candidateSources": [
+        {
+          "name": "Mineral Commodity Summaries 2024",
+          "publisher": "U.S. Geological Survey",
+          "url": "https://pubs.usgs.gov/periodicals/mcs2024/mcs2024.pdf",
+          "license": "U.S. Government work; public-domain status and USGS terms apply",
+          "notes": "用于验证国家镍生产角色，不提供手机电池的直接物料追踪。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "260400",
+          "label": "镍矿砂及其精矿",
+          "mappingType": "aggregate",
+          "limitation": "不区分具体矿山、矿石工艺路线或是否适用于电池。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "750110",
+          "label": "镍锍",
+          "mappingType": "aggregate",
+          "limitation": "只能证明该分类商品贸易，不能证明进入正极材料或智能手机。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "750120",
+          "label": "氧化镍烧结物及其他镍冶金中间产品",
+          "mappingType": "aggregate",
+          "limitation": "包含多类中间产品，MHP 等商品的实际归类还取决于组成和海关裁定。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "750210",
+          "label": "未锻轧非合金镍",
+          "mappingType": "aggregate",
+          "limitation": "不识别电池级纯度、下游配方或最终用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "282540",
+          "label": "镍的氧化物及氢氧化物",
+          "mappingType": "aggregate",
+          "limitation": "不能单凭代码确定材料品级或电池用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "283324",
+          "label": "硫酸镍",
+          "mappingType": "aggregate",
+          "limitation": "商品定义较明确，但仍不证明电池级规格、具体买方或手机用途。"
+        }
+      ],
+      "status": "closed",
+      "nonInferences": [
+        "不得推断印度尼西亚镍必然出口至中国。",
+        "不得把镍矿或中间品贸易直接解释为手机电池材料。"
+      ],
+      "evidenceIds": ["evidence-usgs-indonesia-nickel-role"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-cn-graphite-country-role",
+      "nodeId": "node-cn-graphite",
+      "flowId": null,
+      "currentClaim": "中国在 2023 年背景下具有天然石墨生产角色。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "天然石墨生产角色已有支持；球形化、纯化、包覆和负极材料制造角色不能由该矿产证据自动推出。",
+      "acceptableEvidenceTypes": ["country_role"],
+      "candidateSources": [
+        {
+          "name": "Mineral Commodity Summaries 2024",
+          "publisher": "U.S. Geological Survey",
+          "url": "https://pubs.usgs.gov/periodicals/mcs2024/mcs2024.pdf",
+          "license": "U.S. Government work; public-domain status and USGS terms apply",
+          "notes": "用于验证天然石墨生产角色，不验证负极材料工厂或用途。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "250410",
+          "label": "粉状或片状天然石墨",
+          "mappingType": "aggregate",
+          "limitation": "不区分纯度、球形化或电池用途，不能证明进入负极材料或手机。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "250490",
+          "label": "其他形态天然石墨",
+          "mappingType": "aggregate",
+          "limitation": "包含多种形态和用途，不是电池负极专属分类。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "380110",
+          "label": "人造石墨",
+          "mappingType": "aggregate",
+          "limitation": "包含非电池用途，且不能证明与当前天然石墨节点存在物料连续性。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "380190",
+          "label": "其他石墨或碳基制剂及半制品",
+          "mappingType": "approximate",
+          "limitation": "范围宽泛，球形化、包覆石墨和复合负极材料可能因配方与裁定进入不同分类。"
+        }
+      ],
+      "status": "closed",
+      "nonInferences": [
+        "不得由天然石墨生产角色推断中国特定负极材料产量。",
+        "不得推断天然或人造石墨进入任一智能手机。"
+      ],
+      "evidenceIds": ["evidence-usgs-china-graphite-role"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-cl-copper-country-role",
+      "nodeId": "node-cl-copper",
+      "flowId": null,
+      "currentClaim": "智利在 2023 年背景下具有铜矿生产角色。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "铜矿生产角色已有支持；精炼铜、铜箔和电池集流体阶段尚未由该记录支持。",
+      "acceptableEvidenceTypes": ["country_role"],
+      "candidateSources": [
+        {
+          "name": "Mineral Commodity Summaries 2024",
+          "publisher": "U.S. Geological Survey",
+          "url": "https://pubs.usgs.gov/periodicals/mcs2024/mcs2024.pdf",
+          "license": "U.S. Government work; public-domain status and USGS terms apply",
+          "notes": "用于验证铜矿生产角色，不验证铜箔制造或电池用途。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "260300",
+          "label": "铜矿砂及其精矿",
+          "mappingType": "aggregate",
+          "limitation": "不提供矿山、冶炼厂、铜箔厂或智能手机用途的物料谱系。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "740200",
+          "label": "未精炼铜；电解精炼用铜阳极",
+          "mappingType": "aggregate",
+          "limitation": "包含中间冶金形态，不能与某批铜矿或下游铜箔自动关联。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "740311",
+          "label": "未锻轧精炼铜阴极及其截面",
+          "mappingType": "aggregate",
+          "limitation": "不区分最终用途，不能证明加工为电池铜箔。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "741011",
+          "label": "厚度不超过 0.15 毫米的无背衬精炼铜箔",
+          "mappingType": "approximate",
+          "limitation": "是电池铜集流体候选分类但包含其他用途，不能证明负极集流体或智能手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "741012",
+          "label": "厚度不超过 0.15 毫米的无背衬铜合金箔",
+          "mappingType": "approximate",
+          "limitation": "包含非电池用途和多种合金，不能识别具体集流体。"
+        }
+      ],
+      "status": "closed",
+      "nonInferences": [
+        "不得将智利铜矿生产角色等同于智利铜箔生产角色。",
+        "不得把不同 HS 阶段的独立贸易观察串成同一批手机材料。"
+      ],
+      "evidenceIds": ["evidence-usgs-chile-copper-role"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-au-aluminum-country-role",
+      "nodeId": "node-au-aluminum",
+      "flowId": null,
+      "currentClaim": "澳大利亚在 2023 年背景下具有铝土矿和氧化铝等铝上游生产角色。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "上游国家角色已有支持；当前宽泛 aluminum 项仍需拆分铝土矿、氧化铝、原铝、铝箔和集流体。",
+      "acceptableEvidenceTypes": ["country_role", "classification"],
+      "candidateSources": [
+        {
+          "name": "Mineral Commodity Summaries 2024",
+          "publisher": "U.S. Geological Survey",
+          "url": "https://pubs.usgs.gov/periodicals/mcs2024/mcs2024.pdf",
+          "license": "U.S. Government work; public-domain status and USGS terms apply",
+          "notes": "用于验证铝土矿和氧化铝上游角色，不表示开采金属铝。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "260600",
+          "label": "铝矿砂及其精矿",
+          "mappingType": "aggregate",
+          "limitation": "主要覆盖铝土矿类上游商品，但不证明后续加工地、集流体或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "281820",
+          "label": "非人造刚玉的氧化铝",
+          "mappingType": "aggregate",
+          "limitation": "包含不同品级和用途，不能与某批铝土矿或电池铝箔自动关联。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "760110",
+          "label": "未锻轧非合金铝",
+          "mappingType": "aggregate",
+          "limitation": "不区分后续箔材或其他终端用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "760120",
+          "label": "未锻轧铝合金",
+          "mappingType": "aggregate",
+          "limitation": "不识别电池用规格或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "760711",
+          "label": "厚度不超过 0.2 毫米的无背衬轧制铝箔",
+          "mappingType": "approximate",
+          "limitation": "是正极集流体候选分类但包含多种非电池用途，不能证明手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "760719",
+          "label": "厚度不超过 0.2 毫米的其他无背衬铝箔",
+          "mappingType": "approximate",
+          "limitation": "范围覆盖多种箔材，无法识别具体电池集流体。"
+        }
+      ],
+      "status": "closed",
+      "nonInferences": [
+        "不得把铝土矿开采表述为金属铝开采。",
+        "不得将澳大利亚上游角色直接连接为韩国手机电芯中的铝集流体事实。"
+      ],
+      "evidenceIds": ["evidence-usgs-australia-aluminum-role"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-cn-cathode-country-role",
+      "nodeId": "node-cn-cathode",
+      "flowId": null,
+      "currentClaim": "中国正极材料节点是基于一般电池价值链背景设置的代表性加工节点。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少直接支持 2023 年中国手机电池正极材料生产角色、具体化学体系和产出范围的权威记录。",
+      "acceptableEvidenceTypes": ["country_role", "process_context", "classification"],
+      "candidateSources": [
+        {
+          "name": "Global supply chains of EV batteries",
+          "publisher": "International Energy Agency",
+          "url": "https://www.iea.org/reports/global-supply-chains-of-ev-batteries",
+          "license": "IEA terms of use; link-only citation, not a CC BY relicense",
+          "notes": "可提供一般电池材料阶段和集中度背景，但不是手机电池的直接证据。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "284190",
+          "label": "其他未列名含氧金属酸盐或过氧金属酸盐",
+          "mappingType": "approximate",
+          "limitation": "可能覆盖部分正极活性材料但范围宽泛，不是 NMC、NCA、LCO 或 LFP 专属码，也不证明手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "284290",
+          "label": "其他未列名无机酸盐或过氧酸盐",
+          "mappingType": "approximate",
+          "limitation": "分类范围宽泛且归类依材料组成而异，不能精确识别正极材料或智能手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "382499",
+          "label": "其他未列名化学产品、混合物及制剂",
+          "mappingType": "approximate",
+          "limitation": "兜底分类包含大量非电池商品，不能单独支持正极材料生产或流向主张。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "不得将电动汽车电池报告直接当作手机电池证据。",
+        "不得由宽泛化学品贸易推断正极材料产量、配方或买方。"
+      ],
+      "evidenceIds": ["evidence-iea-battery-chain", "evidence-globe-chain-route-methodology"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-cn-anode-country-role",
+      "nodeId": "node-cn-anode",
+      "flowId": null,
+      "currentClaim": "中国负极材料节点是基于一般电池价值链背景设置的代表性加工节点。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少直接支持 2023 年中国手机电池负极材料加工角色、材料类型和产出范围的权威记录。",
+      "acceptableEvidenceTypes": ["country_role", "process_context", "classification"],
+      "candidateSources": [
+        {
+          "name": "Global supply chains of EV batteries",
+          "publisher": "International Energy Agency",
+          "url": "https://www.iea.org/reports/global-supply-chains-of-ev-batteries",
+          "license": "IEA terms of use; link-only citation, not a CC BY relicense",
+          "notes": "仅提供一般电池负极阶段背景，需要另找手机电池或跨用途产业角色证据。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "380110",
+          "label": "人造石墨",
+          "mappingType": "aggregate",
+          "limitation": "包含多种非电池用途，不能识别负极品级、加工企业或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "380190",
+          "label": "其他石墨或碳基制剂及半制品",
+          "mappingType": "approximate",
+          "limitation": "球形化、纯化、包覆石墨和复合负极材料可能因配方与裁定落入不同项目。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "不得由天然石墨产量直接推断负极材料产量。",
+        "不得由 HS 380110 或 380190 推断商品进入手机电池。"
+      ],
+      "evidenceIds": ["evidence-iea-battery-chain", "evidence-globe-chain-route-methodology"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-kr-cell-country-role",
+      "nodeId": "node-kr-cell",
+      "flowId": null,
+      "currentClaim": "韩国在通用电池/电芯供应链中具有国家角色，但手机用途仍未确认。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "通用电池/电芯国家角色已有来源；手机专用用途、企业、产量和跨境供应仍缺少直接证据。",
+      "acceptableEvidenceTypes": ["country_role", "process_context", "trade_observation"],
+      "candidateSources": [
+        {
+          "name": "Global supply chains of EV batteries",
+          "publisher": "International Energy Agency",
+          "url": "https://www.iea.org/reports/global-supply-chains-of-ev-batteries",
+          "license": "IEA terms of use; link-only citation, not a CC BY relicense",
+          "notes": "只支持一般电芯阶段背景；需另找手机电芯制造角色来源。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "850760",
+          "label": "锂离子蓄电池",
+          "mappingType": "aggregate",
+          "limitation": "不能区分电芯、模组或电池包，也不能区分手机、电动车和储能用途。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "不得把韩国企业总部所在地等同于任一电芯的生产地。",
+        "不得把 HS 850760 贸易额等同于手机电芯产量。"
+      ],
+      "evidenceIds": ["evidence-iea-korea-generic-battery-cell-role-2023", "evidence-iea-battery-chain", "evidence-globe-chain-route-methodology"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-kr-module-country-role",
+      "nodeId": "node-kr-module",
+      "flowId": null,
+      "currentClaim": "韩国电池模组节点是代表性的电池组装阶段。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少能区分手机电池模组、电池包和电芯并支持韩国生产角色的 2023 年来源。",
+      "acceptableEvidenceTypes": ["country_role", "process_context", "trade_observation"],
+      "candidateSources": [
+        {
+          "name": "Global supply chains of EV batteries",
+          "publisher": "International Energy Agency",
+          "url": "https://www.iea.org/reports/global-supply-chains-of-ev-batteries",
+          "license": "IEA terms of use; link-only citation, not a CC BY relicense",
+          "notes": "可解释一般模组阶段，不能验证韩国手机电池模组节点。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "850760",
+          "label": "锂离子蓄电池",
+          "mappingType": "aggregate",
+          "limitation": "HS 六位码通常不能区分电芯、模组或整包，更不能识别手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "850790",
+          "label": "其他未列名蓄电池零件",
+          "mappingType": "approximate",
+          "limitation": "宽泛零件分类，不能直接代表手机电池模组。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "不得把电动汽车模组阶段直接当作手机模组证据。",
+        "不得由 HS 850760 推断韩国生产了当前路线中的模组。"
+      ],
+      "evidenceIds": ["evidence-iea-battery-chain", "evidence-globe-chain-route-methodology"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-jp-components-country-role",
+      "nodeId": "node-jp-components",
+      "flowId": null,
+      "currentClaim": "日本在宽泛电子组件/LCD 生产中具有国家角色；手机用途和下游连接仍未知。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "日本电子组件/LCD 国家角色已有统计支持；手机显示用途、具体企业和对中国的双边供应仍缺少直接证据。",
+      "acceptableEvidenceTypes": ["country_role", "trade_observation"],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "候选海关观察仍需选择与显示组件相符的 HS 2022 分类，并结合产业角色来源。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "partial",
+      "nonInferences": [
+        "不得把日本企业品牌或总部所在地等同于日本生产。",
+        "不得推断日本组件必然进入中国组装的手机。"
+      ],
+      "evidenceIds": ["evidence-jeita-japan-electronics-lcd-production-role-2023"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-cn-assembly-country-role",
+      "nodeId": "node-cn-assembly",
+      "flowId": null,
+      "currentClaim": "中国在更宽的移动通信手持机生产门类中具有国家角色；具体智能手机组装范围仍未知。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "国家生产统计覆盖移动通信手持机而非严格智能手机，具体组装企业、工厂、产量拆分和双边供应仍缺少直接证据。",
+      "acceptableEvidenceTypes": ["country_role", "trade_observation"],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "HS 851713 出口可提供贸易背景，但不能单独证明组装地点或国内增加值。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "851713",
+          "label": "智能手机",
+          "mappingType": "exact",
+          "limitation": "商品分类相符，但出口记录不等于中国完成组装，也不证明企业、工厂、利润或零部件原产地。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "不得把中国对世界出口直接当作中国组装事实。",
+        "不得用出口额推断企业利润、手机价格或国内增加值。"
+      ],
+      "evidenceIds": ["evidence-nbs-china-mobile-handset-production-role-2023", "evidence-comtrade-china-smartphone-world-total", "evidence-globe-chain-route-methodology"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-us-import-market-observation",
+      "nodeId": "node-us-export",
+      "flowId": null,
+      "currentClaim": "美国在 2023 年具有 HS 2022/851713 世界总计进口市场角色。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "世界总计进口市场观察已存在；具体来源国、分销链和最终消费仍由其他关系缺口管理。",
+      "acceptableEvidenceTypes": ["trade_observation"],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "partnerCode=0 只表示世界总计，不识别中国或其他具体伙伴。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "851713",
+          "label": "智能手机",
+          "mappingType": "exact",
+          "limitation": "进口海关观察不等于最终消费、分销数量、企业销售或手机价格。"
+        }
+      ],
+      "status": "closed",
+      "nonInferences": [
+        "不得把 partnerCode=0 解释为中国。",
+        "不得把海关进口额解释为美国最终消费或企业利润。"
+      ],
+      "evidenceIds": ["evidence-comtrade-united-states-smartphone-import-market-role-2023", "evidence-comtrade-united-states-smartphone-world-total"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-node-de-import-market-observation",
+      "nodeId": "node-de-consumption",
+      "flowId": null,
+      "currentClaim": "德国在 2023 年具有 HS 2022/851713 世界总计进口市场角色。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "世界总计进口市场观察已存在；具体来源国、转口、库存和最终消费仍未由该观察支持。",
+      "acceptableEvidenceTypes": ["trade_observation"],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "partnerCode=0 只提供世界总计进口背景，不证明与中国的直接流向。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "851713",
+          "label": "智能手机",
+          "mappingType": "exact",
+          "limitation": "进口记录不等于德国居民最终消费，也不排除转口、库存变化或企业间交易。"
+        }
+      ],
+      "status": "closed",
+      "nonInferences": [
+        "不得把德国自世界进口解释为中国到德国的双边事实。",
+        "不得把进口额等同于德国最终消费金额。"
+      ],
+      "evidenceIds": ["evidence-comtrade-germany-smartphone-import-market-role-2023", "evidence-comtrade-germany-smartphone-world-total"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-lithium-bilateral-customs",
+      "nodeId": null,
+      "flowId": "flow-lithium-refining",
+      "currentClaim": "澳大利亚锂角色与中国代表性正极材料阶段之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少 2023 年具体伙伴、方向明确且分类适合的澳大利亚至中国锂商品双边海关观察；仍需区分矿石和锂化合物。",
+      "acceptableEvidenceTypes": ["bilateral_flow", "trade_observation", "classification"],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "必须使用具体中国 partnerCode；partnerCode=0 的世界总计不能关闭该缺口。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "253090",
+          "label": "第 25 章其他未列名矿物质",
+          "mappingType": "approximate",
+          "limitation": "不是锂矿专属码且混入大量非锂矿物，不能据此报告精确锂矿贸易或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "282520",
+          "label": "锂的氧化物及氢氧化物",
+          "mappingType": "aggregate",
+          "limitation": "不区分电池级与其他用途，也不能证明来自当前澳大利亚矿产节点。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "283691",
+          "label": "碳酸锂",
+          "mappingType": "aggregate",
+          "limitation": "不能证明该碳酸锂进入中国正极材料或智能手机。"
+        }
+      ],
+      "status": "open",
+      "nonInferences": [
+        "不得用澳大利亚和中国各自的世界总计观察拼接双边流向。",
+        "不得将任一锂化合物双边贸易观察升级为手机供应链用途事实。"
+      ],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-cobalt-bilateral-customs",
+      "nodeId": null,
+      "flowId": "flow-cobalt-refining",
+      "currentClaim": "刚果民主共和国钴角色与中国代表性正极材料阶段之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少 2023 年刚果民主共和国至中国、具体伙伴和方向明确的钴矿或钴中间品双边海关观察。",
+      "acceptableEvidenceTypes": ["bilateral_flow", "trade_observation", "classification"],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "需保存 reporter、具体 partner、方向、期间、代码和质量标记。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "260500",
+          "label": "钴矿砂及其精矿",
+          "mappingType": "aggregate",
+          "limitation": "不能识别品级、矿山、买方或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "810520",
+          "label": "钴锍、其他冶金中间品、未锻轧钴及粉末",
+          "mappingType": "aggregate",
+          "limitation": "合并多个加工阶段，不能直接代表正极材料投入。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "282200",
+          "label": "钴的氧化物及氢氧化物；商品氧化钴",
+          "mappingType": "aggregate",
+          "limitation": "不证明电池级规格或智能手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "283329",
+          "label": "其他未列名硫酸盐",
+          "mappingType": "approximate",
+          "limitation": "不是硫酸钴专属 HS 六位码，不能将全部观察归为钴化合物。"
+        }
+      ],
+      "status": "open",
+      "nonInferences": [
+        "不得从两国世界总计数据构造双边事实。",
+        "不得把钴分类贸易直接解释为中国手机正极材料投入。"
+      ],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-nickel-bilateral-customs",
+      "nodeId": null,
+      "flowId": "flow-nickel-refining",
+      "currentClaim": "印度尼西亚镍角色与中国代表性正极材料阶段之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少 2023 年印度尼西亚至中国、具体伙伴和方向明确的镍矿、中间品、精炼镍或镍化合物观察。",
+      "acceptableEvidenceTypes": ["bilateral_flow", "trade_observation", "classification"],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "必须按具体材料形态分别查询；不能把所有镍商品合并成电池材料。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "260400",
+          "label": "镍矿砂及其精矿",
+          "mappingType": "aggregate",
+          "limitation": "不区分矿石工艺路线或电池适用性。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "750110",
+          "label": "镍锍",
+          "mappingType": "aggregate",
+          "limitation": "只能证明镍锍贸易，不能证明进入手机正极材料。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "750120",
+          "label": "氧化镍烧结物及其他镍冶金中间产品",
+          "mappingType": "aggregate",
+          "limitation": "包含多种中间品，实际归类依组成和海关裁定。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "750210",
+          "label": "未锻轧非合金镍",
+          "mappingType": "aggregate",
+          "limitation": "不证明电池级纯度或终端用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "282540",
+          "label": "镍的氧化物及氢氧化物",
+          "mappingType": "aggregate",
+          "limitation": "不区分电池级和其他工业用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "283324",
+          "label": "硫酸镍",
+          "mappingType": "aggregate",
+          "limitation": "不能由商品定义推断具体正极配方、买方或手机用途。"
+        }
+      ],
+      "status": "open",
+      "nonInferences": [
+        "不得把普通镍贸易升级为手机电池事实。",
+        "不得把不同加工阶段的独立观察视为同一批物料。"
+      ],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-graphite-process-link",
+      "nodeId": null,
+      "flowId": "flow-graphite-anode",
+      "currentClaim": "天然或加工石墨与负极材料之间存在一般工艺联系，当前中国境内连接为代表性策展关系。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "已有天然石墨国家角色和一般电池阶段背景，但缺少中国境内从天然或人造石墨到具体负极材料产出的直接证据。",
+      "acceptableEvidenceTypes": ["country_role", "process_context", "classification"],
+      "candidateSources": [
+        {
+          "name": "Global supply chains of EV batteries",
+          "publisher": "International Energy Agency",
+          "url": "https://www.iea.org/reports/global-supply-chains-of-ev-batteries",
+          "license": "IEA terms of use; link-only citation, not a CC BY relicense",
+          "notes": "只提供一般电池材料阶段背景，不提供中国境内物料追踪。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "250410",
+          "label": "粉状或片状天然石墨",
+          "mappingType": "aggregate",
+          "limitation": "不能识别纯化、球形化、包覆或负极用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "250490",
+          "label": "其他形态天然石墨",
+          "mappingType": "aggregate",
+          "limitation": "不证明国内转化为电池负极材料。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "380110",
+          "label": "人造石墨",
+          "mappingType": "aggregate",
+          "limitation": "包含非电池用途，且不能关联当前天然石墨节点。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "380190",
+          "label": "其他石墨或碳基制剂及半制品",
+          "mappingType": "approximate",
+          "limitation": "宽泛分类不能准确识别负极材料，更不能证明智能手机用途。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "国内加工关系不能用国际海关双边数据证明。",
+        "不得由天然石墨产量或人造石墨贸易推断手机负极材料流向。"
+      ],
+      "evidenceIds": ["evidence-usgs-china-graphite-role", "evidence-iea-battery-chain", "evidence-globe-chain-route-methodology"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-copper-intermediate-stages",
+      "nodeId": null,
+      "flowId": "flow-copper-cell",
+      "currentClaim": "智利铜矿角色与韩国代表性电芯节点之间的连接省略冶炼、精炼和铜箔集流体阶段。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少逐阶段国家角色、转换关系和具体双边观察；当前仅有智利铜矿生产角色。",
+      "acceptableEvidenceTypes": ["country_role", "bilateral_flow", "process_context", "classification"],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "可逐代码观察分类商品贸易，但不能将多个阶段记录拼成同一批材料。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "260300",
+          "label": "铜矿砂及其精矿",
+          "mappingType": "aggregate",
+          "limitation": "不能识别后续冶炼、铜箔或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "740200",
+          "label": "未精炼铜；电解精炼用铜阳极",
+          "mappingType": "aggregate",
+          "limitation": "不提供与上游矿石或下游铜箔的批次关联。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "740311",
+          "label": "未锻轧精炼铜阴极及其截面",
+          "mappingType": "aggregate",
+          "limitation": "不区分是否继续加工为电池铜箔。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "741011",
+          "label": "厚度不超过 0.15 毫米的无背衬精炼铜箔",
+          "mappingType": "approximate",
+          "limitation": "虽是电池铜集流体候选，但包含其他用途，不能证明进入韩国电芯或智能手机。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "741012",
+          "label": "厚度不超过 0.15 毫米的无背衬铜合金箔",
+          "mappingType": "approximate",
+          "limitation": "包含多种合金和用途，不能识别负极集流体。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "不得把智利铜矿直接表述为韩国电芯使用的铜箔。",
+        "不得把 260300、740311 和 741011 的独立记录串成同一批材料。"
+      ],
+      "evidenceIds": ["evidence-usgs-chile-copper-role", "evidence-globe-chain-route-methodology"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-aluminum-intermediate-stages",
+      "nodeId": null,
+      "flowId": "flow-aluminum-cell",
+      "currentClaim": "澳大利亚铝上游角色与韩国代表性电芯节点之间的连接省略氧化铝、原铝和铝箔集流体阶段。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少逐阶段国家角色、转换关系和具体双边观察；当前来源只支持澳大利亚上游角色。",
+      "acceptableEvidenceTypes": ["country_role", "bilateral_flow", "process_context", "classification"],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "需分别调查铝矿、氧化铝、原铝和箔材，不能将阶段观察拼成单一物料链。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "260600",
+          "label": "铝矿砂及其精矿",
+          "mappingType": "aggregate",
+          "limitation": "不能证明转化为氧化铝、原铝或电池集流体。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "281820",
+          "label": "非人造刚玉的氧化铝",
+          "mappingType": "aggregate",
+          "limitation": "不区分不同品级和下游用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "760110",
+          "label": "未锻轧非合金铝",
+          "mappingType": "aggregate",
+          "limitation": "不证明加工为铝箔或进入手机电池。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "760120",
+          "label": "未锻轧铝合金",
+          "mappingType": "aggregate",
+          "limitation": "不识别电池用规格或最终用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "760711",
+          "label": "厚度不超过 0.2 毫米的无背衬轧制铝箔",
+          "mappingType": "approximate",
+          "limitation": "是正极集流体候选但包含其他用途，不能证明进入韩国电芯或智能手机。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "760719",
+          "label": "厚度不超过 0.2 毫米的其他无背衬铝箔",
+          "mappingType": "approximate",
+          "limitation": "宽泛箔材分类不能识别具体电池集流体。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "不得把澳大利亚铝土矿直接表述为韩国电芯使用的铝箔。",
+        "不得把不同阶段的海关观察视为同一批铝材料。"
+      ],
+      "evidenceIds": ["evidence-usgs-australia-aluminum-role", "evidence-globe-chain-route-methodology"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-cathode-cell-bilateral",
+      "nodeId": null,
+      "flowId": "flow-cathode-cell",
+      "currentClaim": "中国代表性正极材料节点与韩国代表性电芯节点之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少能够明确识别正极材料且支持 2023 年中国至韩国方向的直接双边证据。",
+      "acceptableEvidenceTypes": ["bilateral_flow", "trade_observation", "classification"],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "HS 六位层级通常不能精确识别 NMC、NCA、LCO 或 LFP，需要谨慎使用更细国家税号或产业来源。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "284190",
+          "label": "其他未列名含氧金属酸盐或过氧金属酸盐",
+          "mappingType": "approximate",
+          "limitation": "范围宽泛，不是正极材料专属码，也不证明电芯或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "284290",
+          "label": "其他未列名无机酸盐或过氧酸盐",
+          "mappingType": "approximate",
+          "limitation": "归类随化学组成而异，不能作为统一正极材料观察。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "382499",
+          "label": "其他未列名化学产品、混合物及制剂",
+          "mappingType": "approximate",
+          "limitation": "兜底分类包含大量非电池商品，不能支持完整路线主张。"
+        }
+      ],
+      "status": "open",
+      "nonInferences": [
+        "不得由宽泛化学品双边贸易自动升级该正极材料边。",
+        "不得推断任何观察进入当前韩国电芯或智能手机。"
+      ],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-anode-cell-bilateral",
+      "nodeId": null,
+      "flowId": "flow-anode-cell",
+      "currentClaim": "中国代表性负极材料节点与韩国代表性电芯节点之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少能够识别负极材料且支持 2023 年中国至韩国方向的直接双边证据。",
+      "acceptableEvidenceTypes": ["bilateral_flow", "trade_observation", "classification"],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "需要结合更细税号或产业来源；HS 六位码不能稳定识别球形化、包覆或复合负极材料。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "380110",
+          "label": "人造石墨",
+          "mappingType": "aggregate",
+          "limitation": "包含多种非电池用途，不能证明负极材料或手机用途。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "380190",
+          "label": "其他石墨或碳基制剂及半制品",
+          "mappingType": "approximate",
+          "limitation": "范围宽泛且归类依加工和配方而异，不能支持具体负极路线。"
+        }
+      ],
+      "status": "open",
+      "nonInferences": [
+        "不得把石墨商品贸易自动解释为负极材料贸易。",
+        "不得推断任何观察进入当前韩国电芯或智能手机。"
+      ],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-cell-module-process",
+      "nodeId": null,
+      "flowId": "flow-cell-module",
+      "currentClaim": "电芯到电池模组是一般生产阶段关系，当前韩国境内连接为代表性策展关系。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "已有一般电池阶段背景，但缺少 2023 年韩国手机电池电芯到模组的直接生产记录。",
+      "acceptableEvidenceTypes": ["country_role", "process_context"],
+      "candidateSources": [
+        {
+          "name": "Global supply chains of EV batteries",
+          "publisher": "International Energy Agency",
+          "url": "https://www.iea.org/reports/global-supply-chains-of-ev-batteries",
+          "license": "IEA terms of use; link-only citation, not a CC BY relicense",
+          "notes": "只支持一般阶段联系，不支持韩国手机电池的具体企业、工厂或批次。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "850760",
+          "label": "锂离子蓄电池",
+          "mappingType": "aggregate",
+          "limitation": "不能区分电芯和模组，也不能用于证明韩国境内生产转换。"
+        }
+      ],
+      "status": "partial",
+      "nonInferences": [
+        "不得用国际海关数据证明韩国境内电芯到模组转换。",
+        "不得推断具体企业、工厂、数量或手机批次。"
+      ],
+      "evidenceIds": ["evidence-iea-battery-chain", "evidence-globe-chain-route-methodology"],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-module-assembly-bilateral",
+      "nodeId": null,
+      "flowId": "flow-module-assembly",
+      "currentClaim": "韩国代表性电池模组节点与中国代表性手机组装节点之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少 2023 年韩国至中国、能够区分手机电池模组的具体双边证据。",
+      "acceptableEvidenceTypes": ["bilateral_flow", "trade_observation", "classification"],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "HS 850760 不能区分手机、电动车或储能，也不能区分电芯、模组和电池包。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "850760",
+          "label": "锂离子蓄电池",
+          "mappingType": "aggregate",
+          "limitation": "即使存在具体伙伴观察，也不能证明是手机模组或进入当前中国组装节点。"
+        },
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "850790",
+          "label": "其他未列名蓄电池零件",
+          "mappingType": "approximate",
+          "limitation": "宽泛零件分类，不能代表完整手机电池模组。"
+        }
+      ],
+      "status": "open",
+      "nonInferences": [
+        "不得把 HS 850760 双边贸易直接升级为手机电池模组流向。",
+        "不得推断具体企业、组装厂、数量或手机型号。"
+      ],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-components-assembly-bilateral",
+      "nodeId": null,
+      "flowId": "flow-components-assembly",
+      "currentClaim": "日本代表性显示组件节点与中国代表性手机组装节点之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少 2023 年日本至中国、商品分类与显示组件匹配并能支持路线范围的直接双边证据。",
+      "acceptableEvidenceTypes": ["bilateral_flow", "trade_observation", "classification"],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API and HS 2022 reference",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "需先审核显示组件的分类范围，再查询具体 partnerCode；贸易观察仍不证明进入手机。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "open",
+      "nonInferences": [
+        "不得将日本和中国的世界总计贸易观察拼成双边事实。",
+        "不得由显示组件分类贸易推断进入任一手机或组装厂。"
+      ],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-assembly-us-bilateral",
+      "nodeId": null,
+      "flowId": "flow-assembly-export",
+      "currentClaim": "中国代表性手机组装节点与美国进口市场节点之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少 2023 年中国与美国之间使用具体伙伴代码的 HS 2022/851713 直接双边观察及镜像差异说明。",
+      "acceptableEvidenceTypes": ["bilateral_flow", "trade_observation"],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "应分别保存中国出口口径和美国进口口径；partnerCode=0 不能关闭该缺口。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "851713",
+          "label": "智能手机",
+          "mappingType": "exact",
+          "limitation": "双边海关观察可证明该商品分类贸易，但仍不证明组装厂、品牌、利润、最终消费或唯一供应路线。"
+        }
+      ],
+      "status": "open",
+      "nonInferences": [
+        "不得用中国和美国的两个世界总计观察拼接双边事实。",
+        "不得把双边海关金额等同于企业利润、手机价格或最终消费。"
+      ],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-assembly-germany-bilateral",
+      "nodeId": null,
+      "flowId": "flow-assembly-germany-market",
+      "currentClaim": "中国代表性手机组装节点与德国进口/消费市场节点之间存在策展连接。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少 2023 年中国与德国之间使用具体伙伴代码的 HS 2022/851713 直接双边观察及镜像差异说明。",
+      "acceptableEvidenceTypes": ["bilateral_flow", "trade_observation"],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Public API",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeplus.un.org/",
+          "license": "UN Comtrade License Agreement and Policy on Use and Re-dissemination; not CC BY",
+          "notes": "应分别保存中国出口口径和德国进口口径；进口仍不等于消费。"
+        }
+      ],
+      "classificationCandidates": [
+        {
+          "system": "HS",
+          "version": "2022",
+          "code": "851713",
+          "label": "智能手机",
+          "mappingType": "exact",
+          "limitation": "双边海关观察不证明中国组装、德国最终消费、品牌、利润或唯一供应路线。"
+        }
+      ],
+      "status": "open",
+      "nonInferences": [
+        "不得用中国和德国的两个世界总计观察拼接双边事实。",
+        "不得把德国双边进口额等同于德国最终消费金额。"
+      ],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-lithium-smartphone-traceability",
+      "nodeId": null,
+      "flowId": "flow-lithium-refining",
+      "currentClaim": "当前锂连接不追踪具体矿山、材料批次、正极工厂、电芯或智能手机。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "公开海关和国家生产统计通常不能建立从澳大利亚锂原料到某台智能手机的端到端批次谱系。",
+      "acceptableEvidenceTypes": ["bilateral_flow", "process_context"],
+      "candidateSources": [
+        {
+          "name": "Supplier-specific chain-of-custody disclosures",
+          "publisher": "Relevant mines, refiners, cell makers and device manufacturers",
+          "url": null,
+          "license": "Publisher-specific terms; public availability and re-dissemination rights must be reviewed",
+          "notes": "只有覆盖连续供应商和批次的披露才可能缩小缺口；公开信息通常不完整。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "not_publicly_observable",
+      "nonInferences": [
+        "不得由双边 HS 贸易观察推断特定智能手机用途。",
+        "不得用国家产业角色代替企业级供应链追踪。"
+      ],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-cobalt-smartphone-traceability",
+      "nodeId": null,
+      "flowId": "flow-cobalt-refining",
+      "currentClaim": "当前钴连接不追踪具体矿山、冶炼批次、正极材料、电芯或智能手机。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "公开国家统计和海关数据通常不能建立刚果民主共和国钴到某台智能手机的端到端批次谱系。",
+      "acceptableEvidenceTypes": ["bilateral_flow", "process_context"],
+      "candidateSources": [
+        {
+          "name": "Supplier-specific chain-of-custody disclosures",
+          "publisher": "Relevant mines, refiners, cell makers and device manufacturers",
+          "url": null,
+          "license": "Publisher-specific terms; public availability and re-dissemination rights must be reviewed",
+          "notes": "尽责管理报告可能提供部分供应商范围，但通常不足以追踪至具体产品批次。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "not_publicly_observable",
+      "nonInferences": [
+        "不得由钴矿或中间品双边贸易推断其进入智能手机。",
+        "不得用供应商名单推断每一批材料的物理流向。"
+      ],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-nickel-smartphone-traceability",
+      "nodeId": null,
+      "flowId": "flow-nickel-refining",
+      "currentClaim": "当前镍连接不追踪具体矿山、中间品、正极材料、电芯或智能手机。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "公开国家统计和海关数据通常不能建立印度尼西亚镍到某台智能手机的端到端批次谱系。",
+      "acceptableEvidenceTypes": ["bilateral_flow", "process_context"],
+      "candidateSources": [
+        {
+          "name": "Supplier-specific chain-of-custody disclosures",
+          "publisher": "Relevant mines, refiners, cell makers and device manufacturers",
+          "url": null,
+          "license": "Publisher-specific terms; public availability and re-dissemination rights must be reviewed",
+          "notes": "需要连续覆盖矿石、中间品、精炼、前驱体和终端产品，公开披露通常不足。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "not_publicly_observable",
+      "nonInferences": [
+        "不得由镍分类贸易推断电池级规格或智能手机用途。",
+        "不得将不同镍加工阶段的统计记录拼成批次谱系。"
+      ],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-graphite-smartphone-traceability",
+      "nodeId": null,
+      "flowId": "flow-graphite-anode",
+      "currentClaim": "当前石墨连接不追踪天然或人造石墨、负极加工批次、电芯或智能手机。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "公开统计通常不能建立中国境内从石墨生产到某台智能手机的端到端物料谱系。",
+      "acceptableEvidenceTypes": ["country_role", "process_context"],
+      "candidateSources": [
+        {
+          "name": "Supplier-specific chain-of-custody disclosures",
+          "publisher": "Relevant graphite processors, anode makers, cell makers and device manufacturers",
+          "url": null,
+          "license": "Publisher-specific terms; public availability and re-dissemination rights must be reviewed",
+          "notes": "国际海关数据无法观察同一国家内部的生产转换；企业披露通常也不包含批次级连续链。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "not_publicly_observable",
+      "nonInferences": [
+        "不得由国内生产角色推断特定工厂间流转。",
+        "不得由石墨分类推断负极材料或智能手机用途。"
+      ],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-copper-smartphone-traceability",
+      "nodeId": null,
+      "flowId": "flow-copper-cell",
+      "currentClaim": "当前铜连接不追踪铜矿、精炼铜、铜箔集流体、电芯或智能手机的连续批次。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "公开海关数据无法把多个加工阶段的独立记录连接成从智利矿山到韩国电芯或智能手机的物理谱系。",
+      "acceptableEvidenceTypes": ["bilateral_flow", "process_context"],
+      "candidateSources": [
+        {
+          "name": "Supplier-specific chain-of-custody disclosures",
+          "publisher": "Relevant mines, smelters, foil makers, cell makers and device manufacturers",
+          "url": null,
+          "license": "Publisher-specific terms; public availability and re-dissemination rights must be reviewed",
+          "notes": "需要连续覆盖冶炼、精炼和箔材加工；公开披露通常不提供批次级关联。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "not_publicly_observable",
+      "nonInferences": [
+        "不得把铜矿、精炼铜和铜箔贸易记录串成同一物料。",
+        "不得由 741011 或 741012 推断手机电池集流体用途。"
+      ],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    },
+    {
+      "gapId": "gap-flow-aluminum-smartphone-traceability",
+      "nodeId": null,
+      "flowId": "flow-aluminum-cell",
+      "currentClaim": "当前铝连接不追踪铝土矿、氧化铝、原铝、铝箔集流体、电芯或智能手机的连续批次。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "公开海关数据无法把多个加工阶段的独立记录连接成从澳大利亚上游原料到韩国电芯或智能手机的物理谱系。",
+      "acceptableEvidenceTypes": ["bilateral_flow", "process_context"],
+      "candidateSources": [
+        {
+          "name": "Supplier-specific chain-of-custody disclosures",
+          "publisher": "Relevant miners, refiners, smelters, foil makers, cell makers and device manufacturers",
+          "url": null,
+          "license": "Publisher-specific terms; public availability and re-dissemination rights must be reviewed",
+          "notes": "需要连续覆盖铝土矿、氧化铝、电解铝和箔材加工；公开披露通常不完整。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "not_publicly_observable",
+      "nonInferences": [
+        "不得把铝矿、氧化铝、原铝和铝箔贸易记录串成同一物料。",
+        "不得由 760711 或 760719 推断手机电池集流体用途。"
+      ],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-2"
+    }
+  ]
+}

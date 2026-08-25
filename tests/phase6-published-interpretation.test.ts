@@ -41,20 +41,23 @@ describe("phase 6 published data interpretation", () => {
     );
     expect(ledger?.resolvedMacroIndicators[0].definition.statisticalConcept).toBe("customs");
     expect(ledger?.resolvedMacroIndicators[0].source?.publisher).toBe("World Bank");
-    expect(ledger?.resolvedTradeObservations).toHaveLength(2);
+    const worldTotalTrade = ledger?.resolvedTradeObservations.filter(
+      (view) => view.partnerScope === "world_total"
+    );
+    expect(worldTotalTrade).toHaveLength(2);
     expect(
-      ledger?.resolvedTradeObservations.every(
+      worldTotalTrade?.every(
         (view) =>
           view.partnerScope === "world_total" &&
           view.observation.partnerCode === 0 &&
           view.partner === null
       )
     ).toBe(true);
-    expect(ledger?.resolvedTradeObservations[0].classification?.code).toBe("851713");
-    expect(ledger?.resolvedTradeObservations[0].classification?.version).toBe("2022");
-    expect(ledger?.resolvedTradeObservations[0].source?.name).toContain("UN Comtrade");
+    expect(worldTotalTrade?.[0].classification?.code).toBe("851713");
+    expect(worldTotalTrade?.[0].classification?.version).toBe("2022");
+    expect(worldTotalTrade?.[0].source?.name).toContain("UN Comtrade");
     expect(
-      ledger?.resolvedTradeObservations.every(
+      worldTotalTrade?.every(
         (view) =>
           view.observation.valueDataStatus === "observed" &&
           view.observation.quantityDataStatus === "observed" &&
@@ -95,11 +98,14 @@ describe("phase 6 published data interpretation", () => {
     expect(wdi?.publisher).toBe("World Bank");
     expect(wdi?.retrievedAt).toMatch(/^2026-08-24T/);
     expect(wdi?.datasetVersion).toBe("WDI-2026-07-13");
-    expect(ledger?.resolvedTradeObservations).toHaveLength(2);
-    expect(ledger?.resolvedTradeObservations.every((view) => view.observation.dataStatus === "observed")).toBe(true);
-    expect(ledger?.resolvedTradeObservations.every((view) => view.observation.quantityDataStatus === "observed")).toBe(true);
-    expect(ledger?.resolvedTradeObservations.every((view) => typeof view.observation.quantity === "number")).toBe(true);
-    expect(ledger?.resolvedTradeObservations.every((view) => view.observation.qualityNote?.includes("legacyEstimationFlag"))).toBe(true);
+    const worldTotalTrade = ledger?.resolvedTradeObservations.filter(
+      (view) => view.partnerScope === "world_total"
+    );
+    expect(worldTotalTrade).toHaveLength(2);
+    expect(worldTotalTrade?.every((view) => view.observation.dataStatus === "observed")).toBe(true);
+    expect(worldTotalTrade?.every((view) => view.observation.quantityDataStatus === "observed")).toBe(true);
+    expect(worldTotalTrade?.every((view) => typeof view.observation.quantity === "number")).toBe(true);
+    expect(worldTotalTrade?.every((view) => view.observation.qualityNote?.includes("legacyEstimationFlag"))).toBe(true);
   });
 
   it("withholds source-estimated quantities without marking monetary values as estimated", async () => {
@@ -109,11 +115,14 @@ describe("phase 6 published data interpretation", () => {
       itemId: "generic-smartphone"
     });
 
-    expect(ledger?.resolvedTradeObservations).toHaveLength(2);
-    expect(ledger?.resolvedTradeObservations.every((view) => view.observation.dataStatus === "observed")).toBe(true);
-    expect(ledger?.resolvedTradeObservations.every((view) => view.observation.quantityDataStatus === "estimated")).toBe(true);
-    expect(ledger?.resolvedTradeObservations.every((view) => view.observation.quantity === null)).toBe(true);
-    expect(ledger?.resolvedTradeObservations.every((view) => view.observation.unit === "items")).toBe(true);
+    const worldTotalTrade = ledger?.resolvedTradeObservations.filter(
+      (view) => view.partnerScope === "world_total"
+    );
+    expect(worldTotalTrade).toHaveLength(2);
+    expect(worldTotalTrade?.every((view) => view.observation.dataStatus === "observed")).toBe(true);
+    expect(worldTotalTrade?.every((view) => view.observation.quantityDataStatus === "estimated")).toBe(true);
+    expect(worldTotalTrade?.every((view) => view.observation.quantity === null)).toBe(true);
+    expect(worldTotalTrade?.every((view) => view.observation.unit === "items")).toBe(true);
   });
 
   it("treats the missing DRC Comtrade rows as unknown availability, never as zero", async () => {

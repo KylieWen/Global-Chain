@@ -10,7 +10,7 @@ describe("local published fixture", () => {
     );
     const fixture = repository.getProductFixture("generic-smartphone");
     expect(fixture.datasetVersion.status).toBe("published");
-    expect(fixture.tradeObservations.length).toBe(16);
+    expect(fixture.tradeObservations.length).toBe(24);
     expect(fixture.macroIndicators.length).toBe(36);
     expect(fixture.tradeObservations.some((row) => row.reporterEntityId === "country-cd")).toBe(false);
     expect(fixture.entities.every((entity) => /^\d{3}$/.test(entity.m49 ?? ""))).toBe(true);

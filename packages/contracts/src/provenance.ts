@@ -1,10 +1,16 @@
 import { z } from "zod";
 import {
+  ClassificationMappingTypeSchema,
   ContentStatusSchema,
+  DataMethodSchema,
+  DirectionSchema,
   IdSchema,
   NonEmptyStringSchema,
+  NullableIdSchema,
+  PeriodSchema,
   PublicationStatusSchema,
-  SourceIdsSchema
+  SourceIdsSchema,
+  SupplyChainEvidenceLevelSchema
 } from "./primitives";
 
 export const SourceSchema = z.object({
@@ -30,15 +36,191 @@ export const EvidenceSupportTypeSchema = z.enum([
 ]);
 export type EvidenceSupportType = z.infer<typeof EvidenceSupportTypeSchema>;
 
-export const EvidenceSchema = z.object({
-  id: IdSchema,
-  sourceId: IdSchema,
-  supportType: EvidenceSupportTypeSchema.default("process_context"),
-  locator: NonEmptyStringSchema,
-  excerpt: z.string().trim().min(1).nullable().optional(),
-  notes: z.string().trim().min(1).nullable().optional()
-});
+export const EvidenceScopeSchema = z
+  .object({
+    entityIds: z.array(IdSchema).default([]),
+    fromEntityId: NullableIdSchema.default(null),
+    toEntityId: NullableIdSchema.default(null),
+    itemIds: z.array(IdSchema).default([]),
+    processStageIds: z.array(IdSchema).default([]),
+    classificationCodes: z
+      .array(
+        z.object({
+          system: NonEmptyStringSchema,
+          version: NonEmptyStringSchema,
+          code: NonEmptyStringSchema,
+          mappingType: ClassificationMappingTypeSchema,
+          description: NonEmptyStringSchema
+        })
+      )
+      .default([]),
+    direction: DirectionSchema.nullable().default(null),
+    period: PeriodSchema.nullable().default(null),
+    scopeDescription: NonEmptyStringSchema,
+    supportsCountryRole: z.boolean(),
+    supportsBilateralFlow: z.boolean(),
+    supportsProcessContext: z.boolean(),
+    limitations: z.array(NonEmptyStringSchema).min(1)
+  })
+  .superRefine((scope, context) => {
+    const hasFrom = Boolean(scope.fromEntityId);
+    const hasTo = Boolean(scope.toEntityId);
+    if (hasFrom !== hasTo) {
+      context.addIssue({
+        code: "custom",
+        path: [hasFrom ? "toEntityId" : "fromEntityId"],
+        message: "Evidence scope must provide both bilateral endpoints or neither"
+      });
+    }
+    if (
+      scope.supportsBilateralFlow &&
+      (!scope.fromEntityId ||
+        !scope.toEntityId ||
+        !scope.direction ||
+        !scope.period ||
+        (scope.itemIds.length === 0 && scope.classificationCodes.length === 0))
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["supportsBilateralFlow"],
+        message:
+          "Bilateral evidence scope requires both endpoints, direction, period and an item or classification code"
+      });
+    }
+    if (
+      scope.supportsCountryRole &&
+      ((scope.entityIds.length === 0 && !scope.fromEntityId && !scope.toEntityId) || !scope.period)
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["supportsCountryRole"],
+        message: "Country-role evidence scope requires at least one entity endpoint and a period"
+      });
+    }
+  });
+export type EvidenceScope = z.infer<typeof EvidenceScopeSchema>;
+
+export const EvidenceSchema = z
+  .object({
+    id: IdSchema,
+    sourceId: IdSchema,
+    supportType: EvidenceSupportTypeSchema.default("process_context"),
+    scope: EvidenceScopeSchema.nullable().default(null),
+    locator: NonEmptyStringSchema,
+    excerpt: z.string().trim().min(1).nullable().optional(),
+    notes: z.string().trim().min(1).nullable().optional()
+  })
+  .superRefine((evidence, context) => {
+    if (!evidence.scope) return;
+    if (evidence.supportType === "country_role" && !evidence.scope.supportsCountryRole) {
+      context.addIssue({
+        code: "custom",
+        path: ["scope", "supportsCountryRole"],
+        message: "country_role evidence must explicitly support a country role"
+      });
+    }
+    if (evidence.supportType === "bilateral_flow" && !evidence.scope.supportsBilateralFlow) {
+      context.addIssue({
+        code: "custom",
+        path: ["scope", "supportsBilateralFlow"],
+        message: "bilateral_flow evidence must explicitly support a bilateral flow"
+      });
+    }
+    if (evidence.supportType === "process_context" && !evidence.scope.supportsProcessContext) {
+      context.addIssue({
+        code: "custom",
+        path: ["scope", "supportsProcessContext"],
+        message: "process_context evidence must explicitly support process context"
+      });
+    }
+  });
 export type Evidence = z.infer<typeof EvidenceSchema>;
+
+export const EvidenceGapStatusSchema = z.enum([
+  "open",
+  "partial",
+  "closed",
+  "not_publicly_observable"
+]);
+export type EvidenceGapStatus = z.infer<typeof EvidenceGapStatusSchema>;
+
+export const EvidenceCandidateSourceSchema = z.object({
+  name: NonEmptyStringSchema,
+  publisher: NonEmptyStringSchema,
+  url: z.string().url().nullable().default(null),
+  license: NonEmptyStringSchema,
+  notes: NonEmptyStringSchema
+});
+export type EvidenceCandidateSource = z.infer<typeof EvidenceCandidateSourceSchema>;
+
+export const EvidenceClassificationCandidateSchema = z.object({
+  system: NonEmptyStringSchema,
+  version: NonEmptyStringSchema,
+  code: NonEmptyStringSchema,
+  label: NonEmptyStringSchema,
+  mappingType: ClassificationMappingTypeSchema,
+  limitation: NonEmptyStringSchema,
+  /** An HS product definition may be exact while its final use remains unobservable. */
+  supportsEndUse: z.boolean().default(false)
+});
+export type EvidenceClassificationCandidate = z.infer<
+  typeof EvidenceClassificationCandidateSchema
+>;
+
+export const EvidenceGapSchema = z
+  .object({
+    gapId: IdSchema,
+    nodeId: NullableIdSchema.default(null),
+    flowId: NullableIdSchema.default(null),
+    currentClaim: NonEmptyStringSchema,
+    currentEvidenceLevel: SupplyChainEvidenceLevelSchema,
+    missingEvidence: NonEmptyStringSchema,
+    acceptableEvidenceTypes: z.array(EvidenceSupportTypeSchema).min(1),
+    candidateSources: z.array(EvidenceCandidateSourceSchema).min(1),
+    classificationCandidates: z.array(EvidenceClassificationCandidateSchema).default([]),
+    status: EvidenceGapStatusSchema,
+    nonInferences: z.array(NonEmptyStringSchema).min(1),
+    evidenceIds: z.array(IdSchema).default([]),
+    period: PeriodSchema,
+    method: DataMethodSchema,
+    datasetVersionId: IdSchema,
+    contentVersionId: IdSchema
+  })
+  .superRefine((gap, context) => {
+    if (Boolean(gap.nodeId) === Boolean(gap.flowId)) {
+      context.addIssue({
+        code: "custom",
+        path: ["nodeId"],
+        message: "Evidence gap must target exactly one node or flow"
+      });
+    }
+    if (gap.status === "closed" && gap.evidenceIds.length === 0) {
+      context.addIssue({
+        code: "custom",
+        path: ["evidenceIds"],
+        message: "Closed evidence gaps must reference closing evidence"
+      });
+    }
+    if (gap.status === "partial" && gap.evidenceIds.length === 0) {
+      context.addIssue({
+        code: "custom",
+        path: ["evidenceIds"],
+        message: "Partial evidence gaps must reference the available partial evidence"
+      });
+    }
+    if (
+      gap.classificationCandidates.some(
+        (candidate) => candidate.supportsEndUse && candidate.mappingType !== "exact"
+      )
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["classificationCandidates"],
+        message: "Only an exact classification candidate may claim end-use support"
+      });
+    }
+  });
+export type EvidenceGap = z.infer<typeof EvidenceGapSchema>;
 
 export const DatasetVersionSchema = z.object({
   id: IdSchema,

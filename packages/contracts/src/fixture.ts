@@ -15,6 +15,7 @@ import {
 import {
   ContentVersionSchema,
   DatasetVersionSchema,
+  EvidenceGapSchema,
   EvidenceSchema,
   SourceSchema
 } from "./provenance";
@@ -29,6 +30,7 @@ export const ProductFixtureSchema = z
     contentVersions: z.array(ContentVersionSchema).default([]),
     sources: z.array(SourceSchema),
     evidence: z.array(EvidenceSchema),
+    evidenceGaps: z.array(EvidenceGapSchema).default([]),
     entities: z.array(GeoEntitySchema),
     items: z.array(ItemSchema),
     processStages: z.array(ProcessStageSchema),
@@ -47,13 +49,16 @@ export const ProductFixtureSchema = z
   .superRefine((fixture, context) => {
     const sourceIdSet = new Set(fixture.sources.map((source) => source.id));
     const evidenceById = new Map(fixture.evidence.map((record) => [record.id, record]));
+    const storyFlowIds = new Set(fixture.storyGraph.flows.map((flow) => flow.id));
     const entityIds = new Set(fixture.entities.map((entity) => entity.id));
     const itemIds = new Set(fixture.items.map((item) => item.id));
     const processStageIds = new Set(fixture.processStages.map((stage) => stage.id));
     const storyNodeIds = new Set(fixture.storyGraph.nodes.map((node) => node.id));
+    const storyNodeById = new Map(fixture.storyGraph.nodes.map((node) => [node.id, node]));
     const classificationCodeIds = new Set(
       fixture.classificationCodes.map((classificationCode) => classificationCode.id)
     );
+    const fixturePeriod = fixture.storyGraph.period;
     const datasetVersionIds = new Set([fixture.datasetVersion.id]);
     const contentVersionIds = new Set(fixture.contentVersions.map((version) => version.id));
 
@@ -70,6 +75,7 @@ export const ProductFixtureSchema = z
       "Content version"
     );
     checkUnique(fixture.evidence.map((record) => record.id), ["evidence"], "Evidence");
+    checkUnique(fixture.evidenceGaps.map((gap) => gap.gapId), ["evidenceGaps"], "Evidence gap");
     checkUnique(fixture.entities.map((entity) => entity.id), ["entities"], "Entity");
     checkUnique(fixture.items.map((item) => item.id), ["items"], "Item");
     checkUnique(fixture.processStages.map((stage) => stage.id), ["processStages"], "Process stage");
@@ -186,6 +192,13 @@ export const ProductFixtureSchema = z
       record: {
         evidenceIds: readonly string[];
         evidenceLevel: "role_supported" | "bilateral_supported" | "representative" | "none";
+        entityId?: string | null;
+        locationEntityId?: string | null;
+        fromEntityId?: string | null;
+        toEntityId?: string | null;
+        itemId?: string | null;
+        processStageId?: string | null;
+        period?: { granularity?: string; start: string; end: string } | null;
       },
       path: (string | number)[],
       label: string
@@ -195,18 +208,142 @@ export const ProductFixtureSchema = z
           .map((evidenceId) => evidenceById.get(evidenceId)?.supportType)
           .filter((supportType): supportType is NonNullable<typeof supportType> => Boolean(supportType))
       );
-      const requiredSupportType = ({
-        role_supported: "country_role",
-        bilateral_supported: "bilateral_flow",
-        representative: "curation_method",
-        none: null
+      const requiredSupportTypes = ({
+        role_supported: ["country_role", "trade_observation"],
+        bilateral_supported: ["bilateral_flow"],
+        representative: ["curation_method"],
+        none: []
       } as const)[record.evidenceLevel];
 
-      if (requiredSupportType && !supportTypes.has(requiredSupportType)) {
+      if (
+        requiredSupportTypes.length > 0 &&
+        !requiredSupportTypes.some((supportType) => supportTypes.has(supportType))
+      ) {
         context.addIssue({
           code: "custom",
           path: [...path, "evidenceLevel"],
-          message: `${label} evidence level ${record.evidenceLevel} requires ${requiredSupportType} evidence`
+          message:
+            requiredSupportTypes.length === 1
+              ? `${label} evidence level ${record.evidenceLevel} requires ${requiredSupportTypes[0]} evidence`
+              : `${label} evidence level ${record.evidenceLevel} requires one of ${requiredSupportTypes.join(", ")} evidence`
+        });
+      }
+
+      const supportingEvidence = record.evidenceIds
+        .map((evidenceId) => evidenceById.get(evidenceId))
+        .filter(
+          (evidence) =>
+            evidence &&
+            (requiredSupportTypes as readonly string[]).includes(evidence.supportType) &&
+            evidence.scope
+        );
+      if (fixture.datasetVersion.status !== "published" || requiredSupportTypes.length === 0) return;
+      if (record.evidenceLevel === "representative") return;
+      if (requiredSupportTypes.length > 0 && supportingEvidence.length === 0) {
+        context.addIssue({
+          code: "custom",
+          path: [...path, "evidenceLevel"],
+          message: `${label} evidence level ${record.evidenceLevel} requires structured matching evidence scope`
+        });
+        return;
+      }
+      let hasMatchingScope = false;
+
+      // Story-flow endpoint fields historically use the name `fromEntityId`,
+      // but published route content stores story-node IDs there. Evidence
+      // scopes, on the other hand, always refer to geographic entity IDs.
+      // Resolve both representations before comparing a bilateral claim so a
+      // valid node-to-node claim is not rejected merely because the IDs live
+      // at different layers. Draft/legacy fixtures may still use entity IDs
+      // directly, which remains supported as a fallback.
+      const resolveEndpointEntityId = (referenceId: string | null | undefined) => {
+        if (!referenceId) return null;
+        const node = storyNodeById.get(referenceId);
+        if (node?.entityId) return node.entityId;
+        return entityIds.has(referenceId) ? referenceId : null;
+      };
+
+      const itemMatchesScope = (
+        recordItemId: string | null | undefined,
+        scope: NonNullable<(typeof fixture.evidence)[number]["scope"]>
+      ) => {
+        if (!recordItemId) return true;
+        if (scope.itemIds.includes(recordItemId)) return true;
+        if (scope.classificationCodes.length === 0) return false;
+
+        // A classification-only scope can match an item only through an
+        // explicit exact crosswalk. Aggregate/approximate HS categories are
+        // intentionally insufficient to promote a product-specific claim.
+        const exactCodes = fixture.classificationCrosswalks
+          .filter(
+            (mapping) =>
+              mapping.itemId === recordItemId &&
+              mapping.mappingType === "exact" &&
+              mapping.dataStatus !== "invalid"
+          )
+          .map((mapping) =>
+            fixture.classificationCodes.find(
+              (classification) => classification.id === mapping.classificationCodeId
+            )
+          )
+          .filter((classification): classification is (typeof fixture.classificationCodes)[number] =>
+            Boolean(classification)
+          );
+        return scope.classificationCodes.some((candidate) =>
+          exactCodes.some(
+            (classification) =>
+              classification.system === candidate.system &&
+              classification.version === candidate.version &&
+              classification.code === candidate.code
+          )
+        );
+      };
+
+      for (const evidence of supportingEvidence) {
+        const scope = evidence?.scope;
+        if (!scope) continue;
+        const recordPeriod = record.period ?? fixturePeriod;
+        const periodMatches = Boolean(
+          scope.period &&
+          scope.period.start === recordPeriod.start &&
+          scope.period.end === recordPeriod.end
+        );
+        if (record.evidenceLevel === "role_supported") {
+          const recordEntityId = record.entityId ?? record.locationEntityId ?? null;
+          const itemMatches = itemMatchesScope(record.itemId, scope);
+          const stageMatches =
+            !record.processStageId ||
+            scope.processStageIds.length === 0 ||
+            scope.processStageIds.includes(record.processStageId);
+          hasMatchingScope ||= Boolean(
+            recordEntityId &&
+            scope.supportsCountryRole &&
+            scope.entityIds.includes(recordEntityId) &&
+            itemMatches &&
+            stageMatches &&
+            periodMatches
+          );
+        }
+        if (record.evidenceLevel === "bilateral_supported") {
+          const fromEntityId = resolveEndpointEntityId(record.fromEntityId);
+          const toEntityId = resolveEndpointEntityId(record.toEntityId);
+          hasMatchingScope ||= Boolean(
+            scope.supportsBilateralFlow &&
+            fromEntityId === scope.fromEntityId &&
+            toEntityId === scope.toEntityId &&
+            itemMatchesScope(record.itemId, scope) &&
+            (!record.processStageId ||
+              scope.processStageIds.length === 0 ||
+              scope.processStageIds.includes(record.processStageId)) &&
+            periodMatches
+          );
+        }
+      }
+      if (!hasMatchingScope) {
+        context.addIssue({
+          code: "custom",
+          path: [...path, "evidenceLevel"],
+          message: `${label} ${record.evidenceLevel} evidence scope must match its claim, entities, item, stage and period`
         });
       }
     };
@@ -352,6 +489,39 @@ export const ProductFixtureSchema = z
           message: "Evidence references an unknown source"
         });
       }
+    });
+
+    fixture.evidenceGaps.forEach((gap, index) => {
+      if (gap.nodeId && !storyNodeIds.has(gap.nodeId)) {
+        context.addIssue({
+          code: "custom",
+          path: ["evidenceGaps", index, "nodeId"],
+          message: "Evidence gap references an unknown story node"
+        });
+      }
+      if (gap.flowId && !storyFlowIds.has(gap.flowId)) {
+        context.addIssue({
+          code: "custom",
+          path: ["evidenceGaps", index, "flowId"],
+          message: "Evidence gap references an unknown story flow"
+        });
+      }
+      checkEvidenceReferences(
+        gap.evidenceIds,
+        null,
+        ["evidenceGaps", index, "evidenceIds"],
+        "Evidence gap"
+      );
+      checkDatasetReference(
+        gap.datasetVersionId,
+        ["evidenceGaps", index, "datasetVersionId"],
+        "Evidence gap"
+      );
+      checkContentVersionReference(
+        gap.contentVersionId,
+        ["evidenceGaps", index, "contentVersionId"],
+        "Evidence gap"
+      );
     });
 
     fixture.items.forEach((item, index) => {

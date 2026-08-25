@@ -1,0 +1,247 @@
+{
+  "schemaVersion": "industry-role-evidence.v1",
+  "productId": "generic-smartphone",
+  "period": {
+    "granularity": "annual",
+    "start": "2023-01-01",
+    "end": "2023-12-31",
+    "label": "2023"
+  },
+  "retrievedAt": "2026-08-25",
+  "reusedSourceIds": ["source-un-comtrade"],
+  "notes": [
+    "这些证据只支持明确列出的国家生产角色或世界总计进口市场角色，不支持相邻供应链边。",
+    "国家角色证据不得用于推断具体企业、工厂、品牌、型号、批次、零部件来源或双边流向。",
+    "韩国电芯资料来自通用能源与电动汽车电池语境，日本 LCD 统计是宽泛产品门类；两者均不证明手机专用供应。",
+    "美国和德国的 UN Comtrade 观察使用 partnerCode=0（世界总计），不得拼接为中国至美国或德国的双边事实。"
+  ],
+  "sources": [
+    {
+      "id": "source-nbs-china-2023-statistical-communique",
+      "name": "中华人民共和国2023年国民经济和社会发展统计公报",
+      "publisher": "中华人民共和国国家统计局",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202402/t20240228_1947915.html",
+      "license": "国家统计局网站版权与使用条件适用；未确认可按开放许可再传播，仅引用必要事实摘要并链接原页面",
+      "publishedAt": "2024-02-29",
+      "retrievedAt": "2026-08-25",
+      "datasetVersion": "NBS-STATISTICAL-COMMUNIQUE-2023",
+      "notes": "表3发布规模以上工业主要产品产量。移动通信手持机是比智能手机更宽的统计产品门类，也不直接描述具体组装工序。"
+    },
+    {
+      "id": "source-iea-batteries-secure-energy-transitions-2024",
+      "name": "Batteries and Secure Energy Transitions",
+      "publisher": "International Energy Agency",
+      "url": "https://www.iea.org/reports/batteries-and-secure-energy-transitions",
+      "license": "CC BY 4.0；须保留 IEA 归属、报告标题、链接和许可声明，不得暗示 IEA 认可 GlobeChain 的路线解释",
+      "publishedAt": "2024-04-25",
+      "retrievedAt": "2026-08-25",
+      "datasetVersion": "IEA-BSET-2024",
+      "notes": "报告属于能源转型与电动汽车电池语境。它可以支持韩国在一般电池金属/电芯供应链中具有角色，但不能证明手机电池、韩国具体产量、企业、工厂、模组或跨境供应关系。"
+    },
+    {
+      "id": "source-jeita-meti-electronics-production-2023",
+      "name": "December 2023 Production by the Japanese Electronics Industry",
+      "publisher": "Japan Electronics and Information Technology Industries Association (JEITA); source data attributed to Ministry of Economy, Trade and Industry (METI)",
+      "url": "https://www.jeita.or.jp/english/stat/electronic/2023/product_12.html",
+      "license": "JEITA 页面标注 Copyright © JEITA All Rights Reserved；未确认开放再传播许可，仅引用必要事实摘要并链接原页面，底层 METI 数据的复用条件仍需单独核对",
+      "publishedAt": null,
+      "retrievedAt": "2026-08-25",
+      "datasetVersion": "JEITA-METI-ELECTRONICS-PRELIMINARY-2023",
+      "notes": "JEITA 说明月度机械统计为初步值，之后可能修订；2023 年 12 月页面给出全年累计金额。"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence-nbs-china-mobile-handset-production-role-2023",
+      "sourceId": "source-nbs-china-2023-statistical-communique",
+      "supportType": "country_role",
+      "scope": {
+        "entityIds": ["country-cn"],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": ["generic-smartphone"],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "National Bureau of Statistics of China product category",
+            "version": "2023 statistical communiqué",
+            "code": "移动通信手持机",
+            "mappingType": "aggregate",
+            "description": "移动通信手持机；统计门类宽于智能手机"
+          }
+        ],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "支持中国在 2023 年具有移动通信手持机生产角色；公布产量为 156642.2 万台。",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "移动通信手持机门类宽于智能手机，不能把全部产量解释为智能手机。",
+          "统计产品产量不直接证明具体组装企业、工厂、品牌、型号或批次。",
+          "不能证明零部件来源、出口目的地或任意双边供应链边。"
+        ]
+      },
+      "locator": "表3『2023年规模以上工业主要产品产量及其增长速度』，产品名称『移动通信手持机』，产量 156642.2 万台，同比增长 6.9%",
+      "excerpt": "移动通信手持机，单位万台，产量156642.2，比上年增长6.9%。",
+      "notes": "若页面节点继续声称『智能手机组装』而不是更宽的『移动通信手持机生产』，本证据只能部分覆盖该主张，不能单独关闭组装证据缺口。"
+    },
+    {
+      "id": "evidence-iea-korea-generic-battery-cell-role-2023",
+      "sourceId": "source-iea-batteries-secure-energy-transitions-2024",
+      "supportType": "country_role",
+      "scope": {
+        "entityIds": ["country-kr"],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": ["cell"],
+        "processStageIds": ["component_manufacturing"],
+        "classificationCodes": [],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "支持韩国在报告所述当期全球一般电池金属与电芯供应链中具有国家角色；不限定手机用途。",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": true,
+        "limitations": [
+          "来源重点是能源转型和电动汽车电池，不是手机电池供应链。",
+          "来源只给出韩国在若干电池金属和电芯环节中不超过 10% 的宽泛描述，不能推断精确的韩国电芯产量。",
+          "不支持韩国电池模组角色、具体企业或工厂，也不支持向中国手机组装节点供货。"
+        ]
+      },
+      "locator": "Executive summary, section 'Policy support has given a boost for batteries deployment in many markets but the supply chain for batteries is very concentrated'",
+      "excerpt": "Europe, the United States and Korea each hold 10% or less of the supply chain for some battery metals and cells today.",
+      "notes": "该证据可以支持通用电芯产业角色，但 generic-smartphone 应用关联仍为 representative/unknown。"
+    },
+    {
+      "id": "evidence-jeita-japan-electronics-lcd-production-role-2023",
+      "sourceId": "source-jeita-meti-electronics-production-2023",
+      "supportType": "country_role",
+      "scope": {
+        "entityIds": ["country-jp"],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": ["display"],
+        "processStageIds": ["component_manufacturing"],
+        "classificationCodes": [
+          {
+            "system": "JEITA/METI machinery statistics",
+            "version": "2023 preliminary cumulative production",
+            "code": "Liquid crystal devices (LCDs)",
+            "mappingType": "aggregate",
+            "description": "日本国内液晶器件生产金额的宽泛统计门类，未按智能手机用途拆分"
+          }
+        ],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "支持日本在 2023 年具有电子组件/器件及液晶器件生产角色；LCD 全年累计金额为 680074 百万日元。",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "LCD 统计是宽泛门类，不能证明这些器件是智能手机显示屏。",
+          "不能支持处理器/内存、摄像头等未在该证据范围内的输出。",
+          "数据为初步机械统计，可能后续修订。",
+          "不能证明供应中国、具体企业、工厂、品牌、型号或双边流向。"
+        ]
+      },
+      "locator": "December 2023 table, 'Electronic components and devices' and 'Liquid crystal devices (LCDs)', column '2023 total to date'",
+      "excerpt": "Electronic components and devices: 6,974,491 million yen; Liquid crystal devices (LCDs): 680,074 million yen for 2023 total to date.",
+      "notes": "若节点仅陈述日本 LCD/电子器件生产角色，可使用 role_supported；手机显示用途以及日本到中国连接仍必须保持 representative/unknown。"
+    },
+    {
+      "id": "evidence-comtrade-united-states-smartphone-import-market-role-2023",
+      "sourceId": "source-un-comtrade",
+      "supportType": "trade_observation",
+      "scope": {
+        "entityIds": ["country-us"],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": ["generic-smartphone"],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "Harmonized System",
+            "version": "HS 2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "支持美国在 2023 年是 HS 2022/851713 的世界总计进口市场；partnerCode=0 表示世界总计。",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "partnerCode=0 不是具体伙伴，不能证明智能手机来自中国。",
+          "海关进口观察不证明美国境内的具体分销活动、最终消费、企业、利润或手机价格。",
+          "不得与中国世界总计出口观察拼接为中美双边事实。"
+        ]
+      },
+      "locator": "Published UN Comtrade snapshot: reporterCode=842, partnerCode=0, flowCode=M, HS 2022 code 851713; observation trade-usa-smartphone-import",
+      "notes": "复用现有 source-un-comtrade；该 source 的许可为 UN Comtrade License Agreement and Policy on Use and Re-dissemination，不是 CC BY。"
+    },
+    {
+      "id": "evidence-comtrade-germany-smartphone-import-market-role-2023",
+      "sourceId": "source-un-comtrade",
+      "supportType": "trade_observation",
+      "scope": {
+        "entityIds": ["country-de"],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": ["generic-smartphone"],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "Harmonized System",
+            "version": "HS 2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "支持德国在 2023 年是 HS 2022/851713 的世界总计进口市场；partnerCode=0 表示世界总计。",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "limitations": [
+          "partnerCode=0 不是具体伙伴，不能证明智能手机来自中国。",
+          "海关进口金额不等于最终消费量，也不证明具体消费者、企业、利润或手机价格。",
+          "不得与中国世界总计出口观察拼接为中德双边事实。",
+          "来源数量字段带估算标记，不能作为精确数量发布。"
+        ]
+      },
+      "locator": "Published UN Comtrade snapshot: reporterCode=276, partnerCode=0, flowCode=M, HS 2022 code 851713; observation trade-deu-smartphone-import",
+      "notes": "复用现有 source-un-comtrade；该 source 的许可为 UN Comtrade License Agreement and Policy on Use and Re-dissemination，不是 CC BY。"
+    }
+  ]
+}

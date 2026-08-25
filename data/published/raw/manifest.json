@@ -1,6 +1,7 @@
 {
   "schemaVersion": "published-source-run.v1",
   "retrievedAt": "2026-08-24T16:53:04.820Z",
+  "bilateralRetrievedAt": "2026-08-25T05:09:37.034Z",
   "year": "2023",
   "countries": [
     {
@@ -70,11 +71,35 @@
   },
   "files": [
     "world-bank-wdi-2023.json",
-    "un-comtrade-hs2022-851713-2023.json"
+    "un-comtrade-hs2022-851713-2023.json",
+    "un-comtrade-hs2022-851713-bilateral-2023.json"
   ],
   "notes": [
     "Raw snapshots are immutable unless --replace is explicitly supplied.",
-    "The build step consumes these snapshots and never calls the source APIs at runtime."
+    "The build step consumes these snapshots and never calls the source APIs at runtime.",
+    "Bilateral Comtrade observations retain source-native reporter and partner codes, mirror asymmetries, response hashes, and publication metadata.",
+    "UN Comtrade reporter/partner code 842 is the USA statistical area including Puerto Rico and the US Virgin Islands; it is not ISO/M49 code 840."
   ],
-  "payloadSha256": "abb7d58888b196dec574be2f0cb2e378082b6312fdcaf61d1dfbce8719b37fdd"
+  "sourceSnapshots": {
+    "bilateralComtrade": {
+      "file": "un-comtrade-hs2022-851713-bilateral-2023.json",
+      "sourceId": "source-un-comtrade",
+      "sourceVersion": {
+        "classificationCode": "H6",
+        "classification": "HS 2022",
+        "period": "2023",
+        "api": "UN Comtrade Public Preview API",
+        "apiDocumentation": "https://uncomtrade.org/docs/un-comtrade-api/",
+        "reporterMetadata": "latest available publication metadata at retrieval time; UN Comtrade may revise data"
+      },
+      "fetchedAt": "2026-08-25T05:09:37.034Z",
+      "payloadSha256": "1eef4047820cbc8ef388d74c6213b3653086bfbeb05b55ea23aab72030dab047",
+      "fileSha256": "f9803ecf46184e946f6b8c2412bbacfc4ca8f97d298e97a533e91d5025164517",
+      "bilateralQueryCount": 4,
+      "metadataQueryCount": 3,
+      "licenseAgreement": "https://comtradeplus.un.org/LicenseAgreement",
+      "redistributionPolicy": "https://comtradeplus.un.org/PolicyOnUseAndRedissemination"
+    }
+  },
+  "payloadSha256": "bcbe1349258f43134992c0b6f2804ad65c0a6b33b1467d692f94b6660ce05b14"
 }

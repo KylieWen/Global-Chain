@@ -3,6 +3,7 @@ import type {
   ContentVersion,
   DatasetVersion,
   Evidence,
+  EvidenceGap,
   FactStatus,
   GeoEntity,
   IndicatorDefinition,
@@ -29,6 +30,7 @@ type ReadonlyGeoEntity = DeepReadonly<GeoEntity>;
 type ReadonlyContentVersion = DeepReadonly<ContentVersion>;
 type ReadonlyDatasetVersion = DeepReadonly<DatasetVersion>;
 type ReadonlyEvidence = DeepReadonly<Evidence>;
+type ReadonlyEvidenceGap = DeepReadonly<EvidenceGap>;
 type ReadonlyPeriod = DeepReadonly<Period>;
 type ReadonlyProductionActivity = DeepReadonly<ProductionActivity>;
 type ReadonlyProcessStage = DeepReadonly<ProcessStage>;
@@ -161,6 +163,7 @@ export interface SupplyChainStoryView {
   readonly route: SupplyChainRouteProvenanceView;
   readonly sources: readonly ReadonlySource[];
   readonly evidence: readonly ResolvedEvidenceView[];
+  readonly evidenceGaps: readonly ResolvedEvidenceGapView[];
   readonly warnings: readonly string[];
 }
 
@@ -172,6 +175,7 @@ export interface SupplyChainNodeView {
   readonly datasetVersion: ReadonlyDatasetVersion;
   readonly sources: readonly ReadonlySource[];
   readonly evidence: readonly ResolvedEvidenceView[];
+  readonly evidenceGaps: readonly ResolvedEvidenceGapView[];
   readonly warnings: readonly string[];
 }
 
@@ -252,10 +256,20 @@ export interface ProvenanceView {
   readonly sources: readonly ReadonlySource[];
   readonly evidence: readonly ReadonlyEvidence[];
   readonly resolvedEvidence: readonly ResolvedEvidenceView[];
+  readonly evidenceGaps: readonly ResolvedEvidenceGapView[];
   readonly route: SupplyChainRouteProvenanceView;
   readonly indicatorDefinitions: readonly ReadonlyIndicatorDefinition[];
   readonly missingDataNotes: readonly string[];
   readonly warnings: readonly string[];
+}
+
+export interface ResolvedEvidenceGapView {
+  readonly gap: ReadonlyEvidenceGap;
+  readonly node: ResolvedStoryNodeView | null;
+  readonly flow: ResolvedSupplyFlowView | null;
+  readonly evidence: readonly ResolvedEvidenceView[];
+  readonly datasetVersion: ReadonlyDatasetVersion | null;
+  readonly contentVersion: ReadonlyContentVersion | null;
 }
 
 export interface ProductQueryService {
@@ -273,6 +287,7 @@ export interface ProductQueryService {
     options?: CountryLedgerOptions
   ): CountryLedgerView | null;
   getProvenance(productId: string, options?: ProvenanceOptions): ProvenanceView | null;
+  getEvidenceGaps(productId: string): readonly ResolvedEvidenceGapView[];
 }
 
 export class DomainQueryError extends Error {
@@ -682,6 +697,41 @@ function resolveProductionActivity(
   });
 }
 
+function resolveEvidenceGap(
+  fixture: ReadonlyProductFixture,
+  gap: ReadonlyEvidenceGap,
+  nodeById: ReadonlyMap<string, ResolvedStoryNodeView>,
+  flowById: ReadonlyMap<string, ResolvedSupplyFlowView>
+): ResolvedEvidenceGapView {
+  return Object.freeze({
+    gap,
+    node: gap.nodeId ? nodeById.get(gap.nodeId) ?? null : null,
+    flow: gap.flowId ? flowById.get(gap.flowId) ?? null : null,
+    evidence: resolveEvidenceRecords(fixture, gap.evidenceIds),
+    datasetVersion: datasetVersionForId(fixture, gap.datasetVersionId),
+    contentVersion: contentVersionForId(fixture, gap.contentVersionId)
+  });
+}
+
+function resolveAllEvidenceGaps(
+  fixture: ReadonlyProductFixture
+): readonly ResolvedEvidenceGapView[] {
+  const nodeById = new Map(
+    fixture.storyGraph.nodes.map((node) => [node.id, resolveStoryNode(fixture, node)])
+  );
+  const flowById = new Map(
+    fixture.storyGraph.flows.map((flow) => [
+      flow.id,
+      resolveSupplyFlow(fixture, nodeById, flow)
+    ])
+  );
+  return freezeArray(
+    fixture.evidenceGaps.map((gap) =>
+      resolveEvidenceGap(fixture, gap, nodeById, flowById)
+    )
+  );
+}
+
 function createStoryView(
   fixture: ReadonlyProductFixture,
   options?: SupplyChainStoryOptions
@@ -789,6 +839,14 @@ function createStoryView(
     ...selectedSteps.flatMap((step) => step.sources),
     ...evidence.map((record) => record.source)
   ]);
+  const selectedFlowById = new Map(resolvedFlows.map((flow) => [flow.flow.id, flow]));
+  const evidenceGaps = fixture.evidenceGaps
+    .filter(
+      (gap) =>
+        (gap.nodeId ? selectedNodeIds.has(gap.nodeId) : false) ||
+        (gap.flowId ? selectedFlowIds.has(gap.flowId) : false)
+    )
+    .map((gap) => resolveEvidenceGap(fixture, gap, allResolvedNodes, selectedFlowById));
 
   return Object.freeze({
     product,
@@ -800,6 +858,7 @@ function createStoryView(
     route: createRouteProvenance(fixture),
     sources,
     evidence,
+    evidenceGaps: freezeArray(evidenceGaps),
     warnings: mergeWarnings(fixture.warnings, fixture.storyGraph.warnings)
   });
 }
@@ -910,6 +969,16 @@ export function getSupplyChainNode(
     ...productionActivities.flatMap((activity) => activity.sources),
     ...evidence.map((record) => record.source)
   ]);
+  const storyNodeById = new Map(story.nodes.map((view) => [view.node.id, view]));
+  const storyFlowById = new Map(story.flows.map((view) => [view.flow.id, view]));
+  const evidenceGaps = fixture.evidenceGaps
+    .filter(
+      (gap) =>
+        gap.nodeId === nodeId ||
+        (gap.flowId ? incomingFlows.some((flow) => flow.flow.id === gap.flowId) : false) ||
+        (gap.flowId ? outgoingFlows.some((flow) => flow.flow.id === gap.flowId) : false)
+    )
+    .map((gap) => resolveEvidenceGap(fixture, gap, storyNodeById, storyFlowById));
 
   return Object.freeze({
     node,
@@ -919,6 +988,7 @@ export function getSupplyChainNode(
     datasetVersion: fixture.datasetVersion,
     sources,
     evidence,
+    evidenceGaps: freezeArray(evidenceGaps),
     warnings: mergeWarnings(fixture.warnings, fixture.storyGraph.warnings)
   });
 }
@@ -1059,6 +1129,12 @@ export function getProvenance(
   const indicatorDefinitions = fixture.indicatorDefinitions.filter(
     (definition) => !sourceIdSet || definition.sourceIds.some((sourceId) => sourceIdSet.has(sourceId))
   );
+  const evidenceGaps = resolveAllEvidenceGaps(fixture).filter((view) =>
+    view.evidence.every((record) => {
+      if (evidenceIdSet) return evidenceIdSet.has(record.evidence.id);
+      return !sourceIdSet || (record.source ? sourceIdSet.has(record.source.id) : false);
+    })
+  );
 
   return Object.freeze({
     datasetVersion: fixture.datasetVersion,
@@ -1066,11 +1142,20 @@ export function getProvenance(
     sources: freezeArray(sources),
     evidence: freezeArray(evidence),
     resolvedEvidence,
+    evidenceGaps: freezeArray(evidenceGaps),
     route: createRouteProvenance(fixture),
     indicatorDefinitions: freezeArray(indicatorDefinitions),
     missingDataNotes: freezeArray(fixture.missingDataNotes),
     warnings: mergeWarnings(fixture.warnings, fixture.storyGraph.warnings)
   });
+}
+
+export function getEvidenceGaps(
+  repository: FixtureRepository,
+  productId: string
+): readonly ResolvedEvidenceGapView[] {
+  const fixture = getFixtureOrNull(repository, productId);
+  return fixture ? resolveAllEvidenceGaps(fixture) : freezeArray([]);
 }
 
 export function createProductQueryService(
@@ -1090,6 +1175,7 @@ export function createProductQueryService(
       options?: CountryLedgerOptions
     ) => getCountryLedger(repository, productId, entityId, options),
     getProvenance: (productId: string, options?: ProvenanceOptions) =>
-      getProvenance(repository, productId, options)
+      getProvenance(repository, productId, options),
+    getEvidenceGaps: (productId: string) => getEvidenceGaps(repository, productId)
   });
 }

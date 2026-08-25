@@ -200,6 +200,50 @@ p { line-height: 1.7; }
 .missing-data-panel ul { margin: 0.5rem 0 0; padding-left: 1.2rem; font-size: 0.8rem; }
 .missing-data-panel li + li { margin-top: 0.3rem; }
 
+.evidence-gap-summary { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.75rem 0 1rem; }
+.evidence-gap-summary-item { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.25rem 0.4rem; border-radius: 999px; background: #f7f9fc; font-size: 0.72rem; }
+.evidence-gap-summary-item strong { color: var(--navy); font-variant-numeric: tabular-nums; }
+.evidence-gap-status { display: inline-flex; align-items: center; width: fit-content; padding: 0.25rem 0.5rem; border-radius: 999px; font-size: 0.68rem; font-weight: 800; white-space: nowrap; }
+.evidence-gap-status-open { color: #8d4951; background: var(--red-soft); }
+.evidence-gap-status-partial { color: #8a5316; background: var(--orange-soft); }
+.evidence-gap-status-closed { color: #08736d; background: var(--teal-soft); }
+.evidence-gap-status-not_publicly_observable { color: #5e6370; background: #edf0f4; }
+.evidence-gap-list { display: grid; gap: 0.8rem; }
+.evidence-gap-card { display: grid; gap: 0.85rem; padding: 1rem; border: 1px solid var(--line); border-radius: 0.85rem; background: #fff; }
+.evidence-gap-card-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+.evidence-gap-card-heading h3 { margin: 0.25rem 0 0; font-size: 0.98rem; }
+.evidence-gap-meta { display: flex; flex-wrap: wrap; gap: 0.45rem 1rem; padding: 0.7rem; border-radius: 0.65rem; background: #f7f9fc; }
+.evidence-gap-copy, .evidence-gap-detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+.evidence-gap-copy > div, .evidence-gap-detail-grid > div { min-width: 0; padding: 0.7rem; border-radius: 0.65rem; background: #fafbfd; }
+.evidence-gap-copy strong, .evidence-gap-detail-grid strong, .evidence-gap-subsection > strong { color: var(--ink-soft); font-size: 0.75rem; }
+.evidence-gap-copy p { margin: 0.4rem 0 0; color: var(--ink-soft); font-size: 0.78rem; line-height: 1.55; }
+.evidence-gap-copy ul, .scope-limitations { margin: 0.4rem 0 0; padding-left: 1.1rem; color: var(--ink-soft); font-size: 0.76rem; line-height: 1.55; }
+.gap-candidate-list, .gap-classification-list { display: grid; gap: 0.45rem; margin: 0.45rem 0 0; padding: 0; list-style: none; }
+.gap-candidate-list li, .gap-classification-list li { display: grid; gap: 0.18rem; padding: 0.5rem; border-radius: 0.55rem; background: #fff; color: var(--ink-soft); font-size: 0.72rem; }
+.gap-candidate-list small, .gap-classification-list small { color: var(--muted); font-size: 0.68rem; }
+.evidence-gap-subsection { padding-top: 0.75rem; border-top: 1px solid var(--line); }
+.gap-classification-list code, .evidence-scope-values code, .scope-classification-list code { overflow-wrap: anywhere; color: var(--navy); font-size: 0.7rem; }
+.classification-mapping { display: inline-flex; width: fit-content; padding: 0.18rem 0.35rem; border-radius: 999px; font-size: 0.61rem; font-weight: 800; }
+.mapping-exact { color: #08736d; background: var(--teal-soft); }
+.mapping-aggregate, .mapping-approximate { color: #8a5316; background: var(--orange-soft); }
+.mapping-curated { color: #315da8; background: var(--blue-soft); }
+.evidence-scope { display: grid; gap: 0.65rem; margin-top: 0.65rem; padding: 0.75rem; border: 1px solid #d7e3f0; border-radius: 0.65rem; background: #f5f8fd; }
+.evidence-scope-heading { display: grid; gap: 0.2rem; }
+.evidence-scope-heading span { color: var(--ink-soft); font-size: 0.72rem; line-height: 1.5; }
+.evidence-scope-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.55rem 0.8rem; }
+.evidence-scope-field { display: grid; align-content: start; gap: 0.25rem; min-width: 0; color: var(--ink-soft); font-size: 0.72rem; }
+.evidence-scope-values, .scope-support-flags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.evidence-scope-values code { padding: 0.18rem 0.3rem; border-radius: 0.3rem; background: #fff; }
+.scope-flag { color: var(--muted); font-size: 0.68rem; }
+.scope-flag-yes { color: var(--teal); font-weight: 750; }
+.evidence-scope-subsection { padding-top: 0.55rem; border-top: 1px solid rgb(215 227 240 / 75%); }
+.scope-classification-list { display: grid; gap: 0.35rem; margin: 0.35rem 0 0; padding: 0; list-style: none; }
+.scope-classification-list li { display: grid; grid-template-columns: auto auto minmax(0, 1fr); align-items: center; gap: 0.35rem; color: var(--ink-soft); font-size: 0.7rem; }
+.scope-classification-list small { grid-column: 1 / -1; color: var(--muted); font-size: 0.67rem; }
+.compact-evidence-scope { margin-top: 0.45rem; padding: 0.55rem; }
+.compact-evidence-scope .evidence-scope-grid { grid-template-columns: 1fr; }
+.evidence-gap-registry-compact .evidence-gap-card { padding: 0.8rem; }
+
 .filter-strip { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; padding: 1rem 1.15rem; border: 1px solid var(--line); border-radius: 0.9rem; background: #fff; }
 .filter-label { display: block; margin-bottom: 0.5rem; color: var(--muted); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
 .filter-links { display: flex; flex-wrap: wrap; gap: 0.45rem; }
@@ -312,6 +356,7 @@ p { line-height: 1.7; }
   .component-grid, .node-grid, .compact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .method-strip { grid-template-columns: 1fr; }
   .route-methodology-grid, .route-declaration { grid-template-columns: 1fr; }
+  .evidence-gap-copy, .evidence-gap-detail-grid { grid-template-columns: 1fr; }
   .route-declaration .evidence-level-legend { grid-column: 1; }
   .node-identity-panel { grid-template-columns: 1fr; }
   .node-identity-meta { grid-template-columns: repeat(4, 1fr); }
@@ -338,6 +383,7 @@ p { line-height: 1.7; }
   .filter-note { text-align: left; }
   .tree-node { align-items: start; flex-direction: column; }
   .provenance-grid { grid-template-columns: 1fr; }
+  .evidence-scope-grid { grid-template-columns: 1fr; }
   .route-methodology-heading { display: block; }
   .route-methodology-meta { justify-content: flex-start; margin-top: 0.7rem; }
   .step-card { grid-template-columns: 2.2rem minmax(0, 1fr); padding: 0.7rem; }

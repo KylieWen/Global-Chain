@@ -22,3 +22,7 @@ export function ledgerPath(productId: string, entityId: string): string {
 export function provenancePath(productId: string): string {
   return `${productPath(productId)}/provenance`;
 }
+
+export function evidenceGapsPath(productId: string): string {
+  return `${productPath(productId)}/evidence-gaps`;
+}

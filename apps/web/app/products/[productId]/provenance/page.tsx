@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../lib/data";
 import { Breadcrumbs, PageIntro, SiteShell } from "../../../../components/site-shell";
 import { PeriodLabel, PublicationBadge, StatCard, WarningList, ProvenancePanel } from "../../../../components/data-display";
-import { productPath, supplyChainPath } from "../../../../lib/paths";
+import { evidenceGapsPath, productPath, supplyChainPath } from "../../../../lib/paths";
 
 export default async function ProductProvenancePage({
   params
@@ -31,6 +31,7 @@ export default async function ProductProvenancePage({
           actions={(
             <>
               <Link className="button button-primary" href={supplyChainPath(productId)}>返回供应链路径</Link>
+              <Link className="button button-secondary" href={evidenceGapsPath(productId)}>证据缺口登记册</Link>
               <Link className="button button-secondary" href={productPath(productId)}>返回商品概览</Link>
             </>
           )}
@@ -40,6 +41,7 @@ export default async function ProductProvenancePage({
           <StatCard label="数据集版本" value={provenance.datasetVersion.version} detail={provenance.datasetVersion.name} />
           <StatCard label="路线内容版本" value={provenance.route.contentVersion?.version ?? "未提供"} detail={provenance.route.method} />
           <StatCard label="发布状态" value={<PublicationBadge status={provenance.datasetVersion.status} />} detail="当前页面只读" />
+          <StatCard label="证据缺口" value={provenance.evidenceGaps.length} detail="逐节点与逐边登记" />
           <StatCard label="适用期间" value={<PeriodLabel period={overview.period} />} detail={overview.period.start} />
         </div>
 
