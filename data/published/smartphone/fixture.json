@@ -4,7 +4,7 @@
   "datasetVersion": {
     "id": "dataset-smartphone-published-2023",
     "name": "GlobeChain 通用智能手机 2023 published 数据集",
-    "version": "globe-chain-smartphone-2023.3",
+    "version": "globe-chain-smartphone-2023.4",
     "publishedAt": "2026-08-25",
     "sourceIds": [
       "source-world-bank-wdi",
@@ -1386,6 +1386,1210 @@
       "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=250410&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=0e36c6d57be3cf40610f2e88b9ba81944ed47d1ac92a5457391eec4fa4b9e12b",
       "excerpt": null,
       "notes": "Direct material bilateral customs evidence; it is not evidence of end use or a unique supply-chain route."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-kor-intermediate-380110-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-kr",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "anode-material"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "380110",
+            "mappingType": "aggregate",
+            "description": "China ↔ Korea intermediate material candidates"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/380110, reporterCode=156, partnerCode=410, import, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=3bd4aef081b10911b37bf162fd46ddea10458ea8df2189aee8f92e5f007d9906",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-kor-intermediate-380190-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-kr",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "anode-material"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "380190",
+            "mappingType": "approximate",
+            "description": "China ↔ Korea intermediate material candidates"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/380190, reporterCode=156, partnerCode=410, import, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=3bd4aef081b10911b37bf162fd46ddea10458ea8df2189aee8f92e5f007d9906",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-kor-intermediate-382499-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-kr",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "cathode-material"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "382499",
+            "mappingType": "aggregate",
+            "description": "China ↔ Korea intermediate material candidates"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/382499, reporterCode=156, partnerCode=410, import, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=3bd4aef081b10911b37bf162fd46ddea10458ea8df2189aee8f92e5f007d9906",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-kor-intermediate-741011-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-kr",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "copper"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "741011",
+            "mappingType": "approximate",
+            "description": "China ↔ Korea intermediate material candidates"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/741011, reporterCode=156, partnerCode=410, import, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=3bd4aef081b10911b37bf162fd46ddea10458ea8df2189aee8f92e5f007d9906",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-kor-intermediate-741012-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-kr",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "copper"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "741012",
+            "mappingType": "approximate",
+            "description": "China ↔ Korea intermediate material candidates"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/741012, reporterCode=156, partnerCode=410, import, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=3bd4aef081b10911b37bf162fd46ddea10458ea8df2189aee8f92e5f007d9906",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-kor-intermediate-760711-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-kr",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "aluminum"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "760711",
+            "mappingType": "approximate",
+            "description": "China ↔ Korea intermediate material candidates"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/760711, reporterCode=156, partnerCode=410, import, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=3bd4aef081b10911b37bf162fd46ddea10458ea8df2189aee8f92e5f007d9906",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-kor-intermediate-760719-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-kr",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "aluminum"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "760719",
+            "mappingType": "approximate",
+            "description": "China ↔ Korea intermediate material candidates"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/760719, reporterCode=156, partnerCode=410, import, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=3bd4aef081b10911b37bf162fd46ddea10458ea8df2189aee8f92e5f007d9906",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-kor-intermediate-380110-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-kr",
+        "itemIds": [
+          "anode-material"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "380110",
+            "mappingType": "aggregate",
+            "description": "China ↔ Korea intermediate material candidates"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/380110, reporterCode=156, partnerCode=410, export, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=3bd4aef081b10911b37bf162fd46ddea10458ea8df2189aee8f92e5f007d9906",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-kor-intermediate-380190-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-kr",
+        "itemIds": [
+          "anode-material"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "380190",
+            "mappingType": "approximate",
+            "description": "China ↔ Korea intermediate material candidates"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/380190, reporterCode=156, partnerCode=410, export, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=3bd4aef081b10911b37bf162fd46ddea10458ea8df2189aee8f92e5f007d9906",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-kor-intermediate-382499-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-kr",
+        "itemIds": [
+          "cathode-material"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "382499",
+            "mappingType": "aggregate",
+            "description": "China ↔ Korea intermediate material candidates"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/382499, reporterCode=156, partnerCode=410, export, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=3bd4aef081b10911b37bf162fd46ddea10458ea8df2189aee8f92e5f007d9906",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-kor-intermediate-741011-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-kr",
+        "itemIds": [
+          "copper"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "741011",
+            "mappingType": "approximate",
+            "description": "China ↔ Korea intermediate material candidates"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/741011, reporterCode=156, partnerCode=410, export, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=3bd4aef081b10911b37bf162fd46ddea10458ea8df2189aee8f92e5f007d9906",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-kor-intermediate-741012-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-kr",
+        "itemIds": [
+          "copper"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "741012",
+            "mappingType": "approximate",
+            "description": "China ↔ Korea intermediate material candidates"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/741012, reporterCode=156, partnerCode=410, export, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=3bd4aef081b10911b37bf162fd46ddea10458ea8df2189aee8f92e5f007d9906",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-kor-intermediate-760711-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-kr",
+        "itemIds": [
+          "aluminum"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "760711",
+            "mappingType": "approximate",
+            "description": "China ↔ Korea intermediate material candidates"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/760711, reporterCode=156, partnerCode=410, export, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=3bd4aef081b10911b37bf162fd46ddea10458ea8df2189aee8f92e5f007d9906",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-kor-intermediate-760719-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-kr",
+        "itemIds": [
+          "aluminum"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "760719",
+            "mappingType": "approximate",
+            "description": "China ↔ Korea intermediate material candidates"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/760719, reporterCode=156, partnerCode=410, export, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=410&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=3bd4aef081b10911b37bf162fd46ddea10458ea8df2189aee8f92e5f007d9906",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-usa-intermediate-380110-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-us",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "anode-material"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "380110",
+            "mappingType": "aggregate",
+            "description": "China ↔ USA statistical area intermediate material candidates"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/380110, reporterCode=156, partnerCode=842, import, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=9660c859bdc3677f559fb970a36d2d57b2c653ef572f40efa5f2ff4fb9b66698",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-usa-intermediate-380190-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-us",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "anode-material"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "380190",
+            "mappingType": "approximate",
+            "description": "China ↔ USA statistical area intermediate material candidates"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/380190, reporterCode=156, partnerCode=842, import, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=9660c859bdc3677f559fb970a36d2d57b2c653ef572f40efa5f2ff4fb9b66698",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-usa-intermediate-382499-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-us",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "cathode-material"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "382499",
+            "mappingType": "aggregate",
+            "description": "China ↔ USA statistical area intermediate material candidates"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/382499, reporterCode=156, partnerCode=842, import, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=9660c859bdc3677f559fb970a36d2d57b2c653ef572f40efa5f2ff4fb9b66698",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-usa-intermediate-741011-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-us",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "copper"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "741011",
+            "mappingType": "approximate",
+            "description": "China ↔ USA statistical area intermediate material candidates"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/741011, reporterCode=156, partnerCode=842, import, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=9660c859bdc3677f559fb970a36d2d57b2c653ef572f40efa5f2ff4fb9b66698",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-usa-intermediate-741012-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-us",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "copper"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "741012",
+            "mappingType": "approximate",
+            "description": "China ↔ USA statistical area intermediate material candidates"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/741012, reporterCode=156, partnerCode=842, import, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=9660c859bdc3677f559fb970a36d2d57b2c653ef572f40efa5f2ff4fb9b66698",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-usa-intermediate-760711-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-us",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "aluminum"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "760711",
+            "mappingType": "approximate",
+            "description": "China ↔ USA statistical area intermediate material candidates"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/760711, reporterCode=156, partnerCode=842, import, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=9660c859bdc3677f559fb970a36d2d57b2c653ef572f40efa5f2ff4fb9b66698",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-usa-intermediate-760719-import",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-us",
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "aluminum"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "760719",
+            "mappingType": "approximate",
+            "description": "China ↔ USA statistical area intermediate material candidates"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/760719, reporterCode=156, partnerCode=842, import, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=9660c859bdc3677f559fb970a36d2d57b2c653ef572f40efa5f2ff4fb9b66698",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-usa-intermediate-380110-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-us",
+        "itemIds": [
+          "anode-material"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "380110",
+            "mappingType": "aggregate",
+            "description": "China ↔ USA statistical area intermediate material candidates"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/380110, reporterCode=156, partnerCode=842, export, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=9660c859bdc3677f559fb970a36d2d57b2c653ef572f40efa5f2ff4fb9b66698",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-usa-intermediate-380190-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-us",
+        "itemIds": [
+          "anode-material"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "380190",
+            "mappingType": "approximate",
+            "description": "China ↔ USA statistical area intermediate material candidates"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/380190, reporterCode=156, partnerCode=842, export, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=9660c859bdc3677f559fb970a36d2d57b2c653ef572f40efa5f2ff4fb9b66698",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-usa-intermediate-382499-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-us",
+        "itemIds": [
+          "cathode-material"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "382499",
+            "mappingType": "aggregate",
+            "description": "China ↔ USA statistical area intermediate material candidates"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/382499, reporterCode=156, partnerCode=842, export, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=9660c859bdc3677f559fb970a36d2d57b2c653ef572f40efa5f2ff4fb9b66698",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-usa-intermediate-741011-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-us",
+        "itemIds": [
+          "copper"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "741011",
+            "mappingType": "approximate",
+            "description": "China ↔ USA statistical area intermediate material candidates"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/741011, reporterCode=156, partnerCode=842, export, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=9660c859bdc3677f559fb970a36d2d57b2c653ef572f40efa5f2ff4fb9b66698",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-usa-intermediate-741012-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-us",
+        "itemIds": [
+          "copper"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "741012",
+            "mappingType": "approximate",
+            "description": "China ↔ USA statistical area intermediate material candidates"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/741012, reporterCode=156, partnerCode=842, export, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=9660c859bdc3677f559fb970a36d2d57b2c653ef572f40efa5f2ff4fb9b66698",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-usa-intermediate-760711-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-us",
+        "itemIds": [
+          "aluminum"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "760711",
+            "mappingType": "approximate",
+            "description": "China ↔ USA statistical area intermediate material candidates"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/760711, reporterCode=156, partnerCode=842, export, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=9660c859bdc3677f559fb970a36d2d57b2c653ef572f40efa5f2ff4fb9b66698",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    },
+    {
+      "id": "evidence-comtrade-intermediate-chn-usa-intermediate-760719-export",
+      "sourceId": "source-un-comtrade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-us",
+        "itemIds": [
+          "aluminum"
+        ],
+        "processStageIds": [
+          "material_processing"
+        ],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "760719",
+            "mappingType": "approximate",
+            "description": "China ↔ USA statistical area intermediate material candidates"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "scopeDescription": "Observed intermediate-material candidate trade for HS 2022/760719, reporterCode=156, partnerCode=842, export, 2023.",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "limitations": [
+          "Supports only this HS classification trade observation.",
+          "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."
+        ]
+      },
+      "locator": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=842&cmdCode=741011,741012,760711,760719,382499,380110,380190&flowCode=M,X&period=2023&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500; rawResponseSha256=9660c859bdc3677f559fb970a36d2d57b2c653ef572f40efa5f2ff4fb9b66698",
+      "excerpt": null,
+      "notes": "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
     }
   ],
   "entities": [
@@ -6850,7 +8054,7 @@
       "flowId": "flow-copper-cell",
       "currentClaim": "智利铜矿角色与韩国代表性电芯节点之间的连接省略冶炼、精炼和铜箔集流体阶段。",
       "currentEvidenceLevel": "representative",
-      "missingEvidence": "已补充中国对世界总计与 Comtrade 统计区 842 的 HS 2022/7403 材料贸易观察；仍缺少逐阶段国家角色、转换关系、铜矿到铜箔的直接双边链路和手机用途证据。",
+      "missingEvidence": "已补充 2023 年中国至韩国 HS 2022/741011 与 741012 箔材候选双边观察；仍缺少智利上游经冶炼、精炼和铜箔加工进入韩国电芯的连续转换、同批物料和手机用途证据。",
       "acceptableEvidenceTypes": [
         "country_role",
         "bilateral_flow",
@@ -6915,7 +8119,9 @@
       ],
       "evidenceIds": [
         "evidence-usgs-chile-copper-role",
-        "evidence-globe-chain-route-methodology"
+        "evidence-globe-chain-route-methodology",
+        "evidence-comtrade-intermediate-chn-kor-intermediate-741011-export",
+        "evidence-comtrade-intermediate-chn-kor-intermediate-741012-export"
       ],
       "period": {
         "granularity": "annual",
@@ -6933,7 +8139,7 @@
       "flowId": "flow-aluminum-cell",
       "currentClaim": "澳大利亚铝上游角色与韩国代表性电芯节点之间的连接省略氧化铝、原铝和铝箔集流体阶段。",
       "currentEvidenceLevel": "representative",
-      "missingEvidence": "已补充中国对世界总计与 Comtrade 统计区 842 的 HS 2022/7601 材料贸易观察；仍缺少铝土矿、氧化铝、原铝到铝箔的逐阶段转换关系和手机用途证据。",
+      "missingEvidence": "已补充 2023 年中国至韩国 HS 2022/760711 与 760719 箔材候选双边观察；仍缺少澳大利亚上游经氧化铝、原铝和铝箔加工进入韩国电芯的连续转换、同批物料和手机用途证据。",
       "acceptableEvidenceTypes": [
         "country_role",
         "bilateral_flow",
@@ -7006,7 +8212,9 @@
       ],
       "evidenceIds": [
         "evidence-usgs-australia-aluminum-role",
-        "evidence-globe-chain-route-methodology"
+        "evidence-globe-chain-route-methodology",
+        "evidence-comtrade-intermediate-chn-kor-intermediate-760711-export",
+        "evidence-comtrade-intermediate-chn-kor-intermediate-760719-export"
       ],
       "period": {
         "granularity": "annual",
@@ -7024,7 +8232,7 @@
       "flowId": "flow-cathode-cell",
       "currentClaim": "中国代表性正极材料节点与韩国代表性电芯节点之间存在策展连接。",
       "currentEvidenceLevel": "representative",
-      "missingEvidence": "缺少能够明确识别正极材料且支持 2023 年中国至韩国方向的直接双边证据。",
+      "missingEvidence": "已补充 2023 年中国至韩国 HS 2022/382499 分类商品双边观察；该兜底化学品分类仍不能识别 NMC、NCA、LCO、LFP、电池级规格、电芯投入或手机用途。",
       "acceptableEvidenceTypes": [
         "bilateral_flow",
         "trade_observation",
@@ -7065,12 +8273,14 @@
           "limitation": "兜底分类包含大量非电池商品，不能支持完整路线主张。"
         }
       ],
-      "status": "open",
+      "status": "partial",
       "nonInferences": [
         "不得由宽泛化学品双边贸易自动升级该正极材料边。",
         "不得推断任何观察进入当前韩国电芯或智能手机。"
       ],
-      "evidenceIds": [],
+      "evidenceIds": [
+        "evidence-comtrade-intermediate-chn-kor-intermediate-382499-export"
+      ],
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
@@ -7087,7 +8297,7 @@
       "flowId": "flow-anode-cell",
       "currentClaim": "中国代表性负极材料节点与韩国代表性电芯节点之间存在策展连接。",
       "currentEvidenceLevel": "representative",
-      "missingEvidence": "缺少能够识别负极材料且支持 2023 年中国至韩国方向的直接双边证据。",
+      "missingEvidence": "已补充 2023 年中国至韩国 HS 2022/380110 与 380190 分类商品双边观察；这些分类仍不能识别电池级负极材料、球形化或包覆工艺、电芯投入或手机用途。",
       "acceptableEvidenceTypes": [
         "bilateral_flow",
         "trade_observation",
@@ -7120,12 +8330,15 @@
           "limitation": "范围宽泛且归类依加工和配方而异，不能支持具体负极路线。"
         }
       ],
-      "status": "open",
+      "status": "partial",
       "nonInferences": [
         "不得把石墨商品贸易自动解释为负极材料贸易。",
         "不得推断任何观察进入当前韩国电芯或智能手机。"
       ],
-      "evidenceIds": [],
+      "evidenceIds": [
+        "evidence-comtrade-intermediate-chn-kor-intermediate-380110-export",
+        "evidence-comtrade-intermediate-chn-kor-intermediate-380190-export"
+      ],
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",

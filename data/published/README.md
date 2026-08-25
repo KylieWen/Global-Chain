@@ -38,7 +38,7 @@ sample 的 `storyGraph` 或 `productionActivities` 提升 published 路线。Web
 完整决策、代码和语义见 [`docs/adr/0002-published-data-sources.md`](../../docs/adr/0002-published-data-sources.md)。
 
 当前发布清单（`data/published/manifest.json`）的数字版本为
-`globe-chain-smartphone-2023.3`；路线拓扑和策展说明的内容版本为
+`globe-chain-smartphone-2023.4`；路线拓扑和策展说明的内容版本为
 `smartphone-route-2023.2`（本阶段重建后的当前路线内容版本）。两种版本分别演进，页面或导出必须同时显示它们，不能
 把内容版本当成统计数据版本。
 
@@ -129,8 +129,8 @@ HS 2022、UN M49 和 ISO 3166 代码是外部参考体系。发布文件应记�
 当前版本使用的 evidence level 为：
 
 - `role_supported`：来源支持某国在某材料上的生产角色，不支持它流向某个目的国；
-- `bilateral_supported`：来源直接支持起点、终点、商品、方向和期间；当前仅用于
-  四条独立的 HS 851713 双边证据记录，不会自动升级路线中的相邻边；
+- `bilateral_supported`：来源直接支持起点、终点、商品分类、方向和期间；当前用于
+  独立的 HS 851713 及材料分类双边观察，不会自动升级路线中的相邻边；
 - `representative`：项目依据角色资料和一般阶段资料建立的策展连接；
 - `none`：没有可发布的支持关系，不应用来呈现事实路线。
 
@@ -206,6 +206,12 @@ content source 路径。修改路线时必须创建或更新 content version，�
 正极材料候选 `382499`、人造/加工石墨候选 `380110/380190`。这些代码已进入分类代码和
 crosswalk，但页面与证据层会保留 `aggregate`/`approximate` 限制；它们不等于电池级材料、
 电芯投入或手机用途。
+
+第 13 阶段把上述中国—韩国具体伙伴观察作为狭义双边分类证据关联到铜箔、铝箔、正极
+材料候选和负极材料候选的证据缺口。关联只说明 2023 年相应 HS 分类、方向和伙伴的海关
+观察存在，因此相关缺口最多更新为 `partial`；它不支持电池级规格、电芯投入、智能手机
+用途、指定工厂或连续物料谱系，也不会把任何供应链路线边从 `representative` 升级为
+`bilateral_supported`。路线金额和数量继续保持 `null/unknown`。
 
 ## 缺口记录
 

@@ -995,7 +995,7 @@
       "flowId": "flow-copper-cell",
       "currentClaim": "智利铜矿角色与韩国代表性电芯节点之间的连接省略冶炼、精炼和铜箔集流体阶段。",
       "currentEvidenceLevel": "representative",
-      "missingEvidence": "已补充中国对世界总计与 Comtrade 统计区 842 的 HS 2022/7403 材料贸易观察；仍缺少逐阶段国家角色、转换关系、铜矿到铜箔的直接双边链路和手机用途证据。",
+      "missingEvidence": "已补充 2023 年中国至韩国 HS 2022/741011 与 741012 箔材候选双边观察；仍缺少智利上游经冶炼、精炼和铜箔加工进入韩国电芯的连续转换、同批物料和手机用途证据。",
       "acceptableEvidenceTypes": ["country_role", "bilateral_flow", "process_context", "classification"],
       "candidateSources": [
         {
@@ -1053,7 +1053,12 @@
         "不得把智利铜矿直接表述为韩国电芯使用的铜箔。",
         "不得把 260300、740311 和 741011 的独立记录串成同一批材料。"
       ],
-      "evidenceIds": ["evidence-usgs-chile-copper-role", "evidence-globe-chain-route-methodology"],
+      "evidenceIds": [
+        "evidence-usgs-chile-copper-role",
+        "evidence-globe-chain-route-methodology",
+        "evidence-comtrade-intermediate-chn-kor-intermediate-741011-export",
+        "evidence-comtrade-intermediate-chn-kor-intermediate-741012-export"
+      ],
       "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
       "method": "curated",
       "datasetVersionId": "dataset-smartphone-published-2023",
@@ -1065,7 +1070,7 @@
       "flowId": "flow-aluminum-cell",
       "currentClaim": "澳大利亚铝上游角色与韩国代表性电芯节点之间的连接省略氧化铝、原铝和铝箔集流体阶段。",
       "currentEvidenceLevel": "representative",
-      "missingEvidence": "已补充中国对世界总计与 Comtrade 统计区 842 的 HS 2022/7601 材料贸易观察；仍缺少铝土矿、氧化铝、原铝到铝箔的逐阶段转换关系和手机用途证据。",
+      "missingEvidence": "已补充 2023 年中国至韩国 HS 2022/760711 与 760719 箔材候选双边观察；仍缺少澳大利亚上游经氧化铝、原铝和铝箔加工进入韩国电芯的连续转换、同批物料和手机用途证据。",
       "acceptableEvidenceTypes": ["country_role", "bilateral_flow", "process_context", "classification"],
       "candidateSources": [
         {
@@ -1131,7 +1136,12 @@
         "不得把澳大利亚铝土矿直接表述为韩国电芯使用的铝箔。",
         "不得把不同阶段的海关观察视为同一批铝材料。"
       ],
-      "evidenceIds": ["evidence-usgs-australia-aluminum-role", "evidence-globe-chain-route-methodology"],
+      "evidenceIds": [
+        "evidence-usgs-australia-aluminum-role",
+        "evidence-globe-chain-route-methodology",
+        "evidence-comtrade-intermediate-chn-kor-intermediate-760711-export",
+        "evidence-comtrade-intermediate-chn-kor-intermediate-760719-export"
+      ],
       "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
       "method": "curated",
       "datasetVersionId": "dataset-smartphone-published-2023",
@@ -1143,7 +1153,7 @@
       "flowId": "flow-cathode-cell",
       "currentClaim": "中国代表性正极材料节点与韩国代表性电芯节点之间存在策展连接。",
       "currentEvidenceLevel": "representative",
-      "missingEvidence": "缺少能够明确识别正极材料且支持 2023 年中国至韩国方向的直接双边证据。",
+      "missingEvidence": "已补充 2023 年中国至韩国 HS 2022/382499 分类商品双边观察；该兜底化学品分类仍不能识别 NMC、NCA、LCO、LFP、电池级规格、电芯投入或手机用途。",
       "acceptableEvidenceTypes": ["bilateral_flow", "trade_observation", "classification"],
       "candidateSources": [
         {
@@ -1180,12 +1190,12 @@
           "limitation": "兜底分类包含大量非电池商品，不能支持完整路线主张。"
         }
       ],
-      "status": "open",
+      "status": "partial",
       "nonInferences": [
         "不得由宽泛化学品双边贸易自动升级该正极材料边。",
         "不得推断任何观察进入当前韩国电芯或智能手机。"
       ],
-      "evidenceIds": [],
+      "evidenceIds": ["evidence-comtrade-intermediate-chn-kor-intermediate-382499-export"],
       "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
       "method": "curated",
       "datasetVersionId": "dataset-smartphone-published-2023",
@@ -1197,7 +1207,7 @@
       "flowId": "flow-anode-cell",
       "currentClaim": "中国代表性负极材料节点与韩国代表性电芯节点之间存在策展连接。",
       "currentEvidenceLevel": "representative",
-      "missingEvidence": "缺少能够识别负极材料且支持 2023 年中国至韩国方向的直接双边证据。",
+      "missingEvidence": "已补充 2023 年中国至韩国 HS 2022/380110 与 380190 分类商品双边观察；这些分类仍不能识别电池级负极材料、球形化或包覆工艺、电芯投入或手机用途。",
       "acceptableEvidenceTypes": ["bilateral_flow", "trade_observation", "classification"],
       "candidateSources": [
         {
@@ -1226,12 +1236,15 @@
           "limitation": "范围宽泛且归类依加工和配方而异，不能支持具体负极路线。"
         }
       ],
-      "status": "open",
+      "status": "partial",
       "nonInferences": [
         "不得把石墨商品贸易自动解释为负极材料贸易。",
         "不得推断任何观察进入当前韩国电芯或智能手机。"
       ],
-      "evidenceIds": [],
+      "evidenceIds": [
+        "evidence-comtrade-intermediate-chn-kor-intermediate-380110-export",
+        "evidence-comtrade-intermediate-chn-kor-intermediate-380190-export"
+      ],
       "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
       "method": "curated",
       "datasetVersionId": "dataset-smartphone-published-2023",

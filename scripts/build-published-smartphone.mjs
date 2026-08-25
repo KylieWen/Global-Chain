@@ -44,7 +44,7 @@ const PERIOD = {
   label: YEAR
 };
 const DATASET_ID = "dataset-smartphone-published-2023";
-const DATASET_VERSION = "globe-chain-smartphone-2023.3";
+const DATASET_VERSION = "globe-chain-smartphone-2023.4";
 const CONTENT_VERSION_ID = "content-smartphone-route-2023-2";
 const SOURCE_IDS = {
   wdi: "source-world-bank-wdi",
@@ -770,7 +770,37 @@ function makeMaterialRolePairEvidence(raw) {
   }).filter(Boolean));
 }
 
-function makeSourceAndEvidence(wdiRaw, comtradeRaw, bilateralRaw, materialRolePairsRaw, industryRoleContent) {
+function makeMaterialIntermediateEvidence(raw) {
+  return (raw.responses ?? []).flatMap((response) => (response.payload?.data ?? []).map((row) => {
+    const code = String(row.cmdCode);
+    const itemId = intermediateItemForCode(code);
+    if (!itemId) return null;
+    const direction = row.flowCode === "M" ? "import" : "export";
+    const reporterEntityId = entityByComtradeCode.get(Number(row.reporterCode));
+    const partnerEntityId = entityByComtradeCode.get(Number(row.partnerCode));
+    return {
+      id: `evidence-comtrade-intermediate-${response.id}-${code}-${direction}`,
+      sourceId: SOURCE_IDS.comtrade,
+      supportType: "bilateral_flow",
+      scope: {
+        entityIds: [],
+        fromEntityId: direction === "export" ? reporterEntityId : partnerEntityId,
+        toEntityId: direction === "export" ? partnerEntityId : reporterEntityId,
+        itemIds: [itemId], processStageIds: ["material_processing"],
+        classificationCodes: [{ system: "HS", version: "2022", code, mappingType: intermediateMappingType(code), description: response.label }],
+        direction, period: period(),
+        scopeDescription: `Observed intermediate-material candidate trade for HS 2022/${code}, reporterCode=${row.reporterCode}, partnerCode=${row.partnerCode}, ${direction}, ${YEAR}.`,
+        supportsCountryRole: false, supportsBilateralFlow: true, supportsProcessContext: false,
+        limitations: ["Supports only this HS classification trade observation.", "Does not identify battery grade, current-collector/electrode use, a cell factory or smartphone end use."]
+      },
+      locator: `${response.url}; rawResponseSha256=${response.responseSha256}`,
+      excerpt: null,
+      notes: "Direct customs evidence for a broad intermediate-material candidate classification; not proof of battery or smartphone use."
+    };
+  }).filter(Boolean));
+}
+
+function makeSourceAndEvidence(wdiRaw, comtradeRaw, bilateralRaw, materialRolePairsRaw, materialIntermediateRaw, industryRoleContent) {
   const wdiRetrieved = wdiRaw.fetchedAt ?? "2026-08-25";
   const comtradeRetrieved = comtradeRaw.fetchedAt ?? "2026-08-25";
   const comtradeUrl = comtradeRaw.request?.url ?? "https://comtradeapi.un.org/public/v1/preview/C/A/HS";
@@ -1061,7 +1091,8 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw, bilateralRaw, materialRolePa
   evidence.push(
     ...(industryRoleContent.evidence ?? []).map(clone),
     ...makeBilateralEvidence(bilateralRaw),
-    ...makeMaterialRolePairEvidence(materialRolePairsRaw)
+    ...makeMaterialRolePairEvidence(materialRolePairsRaw),
+    ...makeMaterialIntermediateEvidence(materialIntermediateRaw)
   );
   return { sources, evidence };
 }
@@ -1229,6 +1260,7 @@ function buildFixture(
     comtradeRaw,
     bilateralRaw,
     materialRolePairsRaw,
+    materialIntermediateRaw,
     industryRoleContent
   );
   fixture.sources = sources;

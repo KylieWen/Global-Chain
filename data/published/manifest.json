@@ -6,9 +6,9 @@
       "path": "smartphone/fixture.json"
     }
   ],
-  "datasetVersion": "globe-chain-smartphone-2023.3",
+  "datasetVersion": "globe-chain-smartphone-2023.4",
   "generatedAt": "2026-08-25",
-  "fixtureSha256": "5d1bb88ea6139c1cfa7ed2be94a4af32cc42ca6cd09b7d39bd0c8bcc5ae84050",
+  "fixtureSha256": "2bf5388c193293339de071e0b949d06e320f4f0b2dac464d21b3aa00981ab648",
   "routeContentVersion": "smartphone-route-2023.2",
   "routeContentSha256": "50183698bdf466728f773157b7688a57f44fd5138203022032441cde43024afc",
   "contentSources": [
