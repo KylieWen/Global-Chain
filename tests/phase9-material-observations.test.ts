@@ -13,7 +13,7 @@ describe("phase 9 material trade observations", () => {
 
   it("validates reusable material records and preserves classification limits", () => {
     for (const row of observations) expect(MaterialTradeObservationSchema.parse(row)).toEqual(row);
-    expect(new Set(observations.map((row) => row.materialItemId))).toEqual(new Set(["copper", "aluminum", "lithium", "cobalt", "nickel", "graphite"]));
+    expect(new Set(observations.map((row) => row.materialItemId))).toEqual(new Set(["copper", "aluminum", "lithium", "cobalt", "nickel", "graphite", "cathode-material", "anode-material"]));
     expect(observations.filter((row) => row.classificationMappingType === "aggregate").every((row) => row.limitation.includes("不证明材料进入手机"))).toBe(true);
     expect(observations.every((row) => row.evidenceLevel === "bilateral_supported")).toBe(true);
   });

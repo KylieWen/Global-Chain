@@ -31,6 +31,7 @@ const BILATERAL_SNAPSHOT_PATH = resolve(
 );
 const MATERIAL_SNAPSHOT_PATH = resolve(RAW_DIR, "un-comtrade-hs2022-materials-2023.json");
 const MATERIAL_ROLE_PAIRS_SNAPSHOT_PATH = resolve(RAW_DIR, "un-comtrade-hs2022-material-role-pairs-2023.json");
+const MATERIAL_INTERMEDIATE_SNAPSHOT_PATH = resolve(RAW_DIR, "un-comtrade-hs2022-material-intermediate-2023.json");
 const OUTPUT_DIR = resolve(ROOT, "data/published/smartphone");
 const OUTPUT_PATH = resolve(OUTPUT_DIR, "fixture.json");
 const MANIFEST_PATH = resolve(ROOT, "data/published/manifest.json");
@@ -606,6 +607,40 @@ function buildMaterialRolePairObservations(raw) {
   }));
 }
 
+function intermediateItemForCode(code) {
+  if (["741011", "741012"].includes(code)) return "copper";
+  if (["760711", "760719"].includes(code)) return "aluminum";
+  if (code === "382499") return "cathode-material";
+  if (["380110", "380190"].includes(code)) return "anode-material";
+  return null;
+}
+
+function intermediateMappingType(code) {
+  if (["741011", "741012", "760711", "760719", "380190"].includes(code)) return "approximate";
+  return "aggregate";
+}
+
+function buildMaterialIntermediateObservations(raw) {
+  return (raw.responses ?? []).flatMap((response) => (response.payload?.data ?? []).map((row, index) => {
+    const code = String(row.cmdCode);
+    const materialItemId = intermediateItemForCode(code);
+    if (!materialItemId) return null;
+    const amount = typeof row.primaryValue === "number" ? row.primaryValue : null;
+    const estimated = row.isQtyEstimated === true;
+    return {
+      observationId: `material-intermediate-${response.id}-${code}-${row.flowCode}-${index}`, materialItemId,
+      reporterEntityId: entityByComtradeCode.get(Number(row.reporterCode)), partnerEntityId: entityByComtradeCode.get(Number(row.partnerCode)),
+      reporterCode: Number(row.reporterCode), partnerCode: Number(row.partnerCode), partnerScope: "entity",
+      flow: row.flowCode === "M" ? "import" : "export", classificationSystem: "HS", classificationVersion: "2022", classificationCode: code,
+      classificationMappingType: intermediateMappingType(code), period: PERIOD, currency: amount === null ? null : "USD", value: amount,
+      quantity: estimated ? null : (typeof row.qty === "number" ? row.qty : null), valueDataStatus: amount === null ? "unknown" : "observed", quantityDataStatus: estimated ? "estimated" : (row.qty == null ? "unknown" : "observed"),
+      quality: { isQtyEstimated: row.isQtyEstimated ?? null, isAggregate: row.isAggregate ?? null, isReported: row.isReported ?? null, requestUrl: response.url, retrievedAt: response.retrievedAt, rawResponseSha256: response.responseSha256 },
+      sourceId: SOURCE_IDS.comtrade, datasetVersionId: DATASET_ID, method: "official", evidenceLevel: "bilateral_supported",
+      limitation: intermediateMappingType(code) === "approximate" ? "该 HS 分类是箔材或加工材料候选，包含其他用途，不证明材料进入手机、电池级规格或电芯。" : "该 HS 分类可观察相关化学品或石墨分类贸易，不证明材料进入手机、电池级规格或电芯。"
+    };
+  }).filter(Boolean));
+}
+
 function makeBilateralEvidence(bilateralRaw) {
   const routeEvidence = [
     {
@@ -1084,6 +1119,22 @@ function applyCatalogMetadata(fixture) {
       datasetVersionId: DATASET_ID
     };
   });
+  const intermediateDefinitions = [
+    ["741011", "精炼铜箔候选（含其他用途）"], ["741012", "铜合金箔候选（含其他用途）"],
+    ["760711", "铝箔候选（含其他用途）"], ["760719", "其他铝箔候选（含其他用途）"],
+    ["382499", "其他化学制品候选（正极材料近似分类）"], ["380110", "人造石墨候选"], ["380190", "其他石墨/碳基制剂候选"]
+  ];
+  const existingCodes = new Set(fixture.classificationCodes.map((code) => code.code));
+  fixture.classificationCodes.push(...intermediateDefinitions.filter(([code]) => !existingCodes.has(code)).map(([code, label]) => ({
+    id: `hs2022-${code}`, system: "HS", version: "2022", code, level: 6, label, validPeriod: period(), sourceIds: [SOURCE_IDS.comtrade], dataStatus: "observed", method: "official", datasetVersionId: DATASET_ID
+  })));
+  const existingMappings = new Set(fixture.classificationCrosswalks.map((mapping) => `${mapping.itemId}:${mapping.classificationCodeId}`));
+  fixture.classificationCrosswalks.push(...intermediateDefinitions.flatMap(([code]) => {
+    const itemId = intermediateItemForCode(code);
+    const classificationCodeId = `hs2022-${code}`;
+    if (!itemId || existingMappings.has(`${itemId}:${classificationCodeId}`)) return [];
+    return [{ id: `crosswalk-${itemId}-${code}`, itemId, classificationCodeId, mappingType: intermediateMappingType(code), confidence: null, notes: "中间加工候选分类；不证明电池级规格或智能手机用途。", period: period(), sourceIds: [SOURCE_IDS.comtrade], method: "curated", dataStatus: "observed", datasetVersionId: DATASET_ID }];
+  }));
 }
 
 function applyRouteContent(fixture, routeContent) {
@@ -1147,6 +1198,7 @@ function buildFixture(
   bilateralRaw,
   materialRaw,
   materialRolePairsRaw,
+  materialIntermediateRaw,
   industryRoleContent,
   gapRegistry
 ) {
@@ -1190,6 +1242,7 @@ function buildFixture(
   ].sort((left, right) => left.id.localeCompare(right.id));
   fixture.materialTradeObservations = buildMaterialTradeObservations(materialRaw);
   fixture.materialTradeObservations = [...fixture.materialTradeObservations, ...buildMaterialRolePairObservations(materialRolePairsRaw)]
+    .concat(buildMaterialIntermediateObservations(materialIntermediateRaw))
     .sort((left, right) => left.observationId.localeCompare(right.observationId));
   fixture.macroIndicators = buildMacroIndicators(wdiRaw);
   fixture.indicatorDefinitions = buildIndicatorDefinitions();
@@ -1373,6 +1426,7 @@ async function main() {
     bilateralRaw,
     materialRaw,
     materialRolePairsRaw,
+    materialIntermediateRaw,
     industryRoleContent,
     gapRegistry
   ] = await Promise.all([
@@ -1383,6 +1437,7 @@ async function main() {
     readJson(BILATERAL_SNAPSHOT_PATH),
     readJson(MATERIAL_SNAPSHOT_PATH),
     readJson(MATERIAL_ROLE_PAIRS_SNAPSHOT_PATH),
+    readJson(MATERIAL_INTERMEDIATE_SNAPSHOT_PATH),
     readJson(INDUSTRY_ROLE_EVIDENCE_PATH),
     readJson(EVIDENCE_GAP_REGISTRY_PATH)
   ]);
@@ -1405,6 +1460,7 @@ async function main() {
     bilateralRaw,
     materialRaw,
     materialRolePairsRaw,
+    materialIntermediateRaw,
     industryRoleContent,
     gapRegistry
   );
@@ -1431,6 +1487,7 @@ async function main() {
       "raw/un-comtrade-hs2022-851713-bilateral-2023.json"
       ,"raw/un-comtrade-hs2022-materials-2023.json"
       ,"raw/un-comtrade-hs2022-material-role-pairs-2023.json"
+      ,"raw/un-comtrade-hs2022-material-intermediate-2023.json"
     ],
     notes: [
       "Numeric observations are generated from immutable local raw snapshots; reviewed route topology and evidence bindings come from the versioned content source. No runtime API calls are made.",

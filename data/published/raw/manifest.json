@@ -99,6 +99,15 @@
       "redistributionPolicy": "https://comtradeplus.un.org/PolicyOnUseAndRedissemination",
       "limitations": ["A bilateral material observation does not establish smartphone or battery end use.", "Missing directional rows are not zero."]
     },
+    "materialIntermediateComtrade": {
+      "file": "un-comtrade-hs2022-material-intermediate-2023.json",
+      "sourceId": "source-un-comtrade",
+      "sourceVersion": { "classification": "HS 2022", "period": "2023", "api": "UN Comtrade Public Preview API" },
+      "queryScope": "China paired with Korea and USA statistical area for copper foil, aluminum foil, cathode-material and anode-material candidate classifications",
+      "licenseAgreement": "https://comtradeplus.un.org/LicenseAgreement",
+      "redistributionPolicy": "https://comtradeplus.un.org/PolicyOnUseAndRedissemination",
+      "limitations": ["Foil and electrode-material candidate classifications include non-battery uses.", "No observation proves battery grade, cell input or smartphone end use."]
+    },
     "bilateralComtrade": {
       "file": "un-comtrade-hs2022-851713-bilateral-2023.json",
       "sourceId": "source-un-comtrade",
