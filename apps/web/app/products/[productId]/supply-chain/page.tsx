@@ -17,6 +17,7 @@ import {
   WarningList
 } from "../../../../components/data-display";
 import { FlowTable } from "../../../../components/flow-table";
+import { SupplyChainGraph } from "../../../../components/supply-chain-graph";
 import { evidenceGapsPath, ledgerPath, nodePath, productPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
 
 type SearchParams = Record<string, string | string[] | undefined>;
@@ -140,6 +141,8 @@ export default async function SupplyChainPage({
           </div>
           <span className="filter-note">期间筛选：{story.period.label}</span>
         </section>
+
+        <SupplyChainGraph story={story} productId={productId} context={pageContext} />
 
         <section className="section-block" aria-labelledby="route-steps-title">
           <div className="section-heading">
