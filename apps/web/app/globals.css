@@ -292,6 +292,12 @@ p { line-height: 1.7; }
 .hierarchy-card span, .hierarchy-next-step span { flex: 1 1 18rem; color: var(--ink-soft); font-size: 0.8rem; }
 .compact-hierarchy-card { margin-top: 0.8rem; }
 .hierarchy-next-step { justify-content: space-between; margin-top: 2.7rem; background: #f5f9ff; border-color: #d7e3f0; }
+.detail-collapsible > summary { list-style: none; cursor: pointer; }
+.detail-collapsible > summary::-webkit-details-marker { display: none; }
+.detail-summary { margin-bottom: 1rem; }
+.detail-summary::after { content: "+"; color: var(--muted); font-size: 1.2rem; }
+.detail-collapsible[open] .detail-summary::after { content: "−"; }
+.node-next-layer { margin-top: 2rem; }
 .filter-label { display: block; margin-bottom: 0.5rem; color: var(--muted); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
 .filter-links { display: flex; flex-wrap: wrap; gap: 0.45rem; }
 .filter-chip { padding: 0.4rem 0.65rem; border: 1px solid var(--line); border-radius: 999px; color: var(--ink-soft); font-size: 0.76rem; }

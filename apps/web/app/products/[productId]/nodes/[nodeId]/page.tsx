@@ -8,7 +8,6 @@ import {
   EvidenceLevelBadge,
   MetadataItem,
   PeriodLabel,
-  ProvenancePanel,
   ResolvedEvidenceList,
   StatusBadge,
   UnknownValue,
@@ -36,27 +35,6 @@ export default async function SupplyChainNodePage({
     contentVersion: node.node.contentVersion?.version
   });
 
-  const contentVersionsById = new Map<
-    string,
-    NonNullable<typeof node.node.contentVersion>
-  >();
-  for (const version of [
-    node.node.contentVersion,
-    ...node.incomingFlows.map((flow) => flow.contentVersion),
-    ...node.outgoingFlows.map((flow) => flow.contentVersion),
-    ...node.productionActivities.map((activity) => activity.contentVersion)
-  ]) {
-    if (version) contentVersionsById.set(version.id, version);
-  }
-  const nodeProvenance = {
-    datasetVersion: node.datasetVersion,
-    contentVersions: [...contentVersionsById.values()],
-    sources: node.sources,
-    evidence: node.evidence.map((record) => record.evidence),
-    resolvedEvidence: node.evidence,
-    evidenceGaps: node.evidenceGaps,
-    warnings: node.warnings
-  };
 
   return (
     <SiteShell>
@@ -80,6 +58,13 @@ export default async function SupplyChainNodePage({
           )}
         />
 
+        <nav className="exploration-nav" aria-label="节点研究层级">
+          <Link href={productPath(productId, pageContext)}>① 商品总览</Link>
+          <Link href={supplyChainPath(productId, node.node.item?.id, pageContext)}>② 所属路线</Link>
+          <span className="active">③ 节点详情</span>
+          <Link href={evidenceGapsPath(productId, pageContext)}>④ 证据与缺口</Link>
+        </nav>
+
         <WarningList warnings={node.warnings} />
         <section className="node-identity-panel">
           <div className="node-identity-main">
@@ -102,25 +87,18 @@ export default async function SupplyChainNodePage({
           <NodeFlowSummary node={node} />
         </section>
 
-        <section className="section-block" aria-labelledby="incoming-title">
-          <div className="section-heading">
-            <div><p className="eyebrow">Inbound relations</p><h2 id="incoming-title">进入节点的流</h2></div>
-          </div>
+        <details className="section-block detail-collapsible" aria-labelledby="incoming-title" open>
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">Inbound relations</p><h2 id="incoming-title">进入节点的流</h2></div><span className="section-caption">{node.incomingFlows.length} 条连接 · 点击展开</span></summary>
           <FlowTable flows={node.incomingFlows} productId={productId} context={pageContext} />
-        </section>
+        </details>
 
-        <section className="section-block" aria-labelledby="outgoing-title">
-          <div className="section-heading">
-            <div><p className="eyebrow">Outbound relations</p><h2 id="outgoing-title">离开节点的流</h2></div>
-          </div>
+        <details className="section-block detail-collapsible" aria-labelledby="outgoing-title">
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">Outbound relations</p><h2 id="outgoing-title">离开节点的流</h2></div><span className="section-caption">{node.outgoingFlows.length} 条连接 · 点击展开</span></summary>
           <FlowTable flows={node.outgoingFlows} productId={productId} context={pageContext} />
-        </section>
+        </details>
 
-        <section className="section-block" aria-labelledby="activities-title">
-          <div className="section-heading">
-            <div><p className="eyebrow">Production activities</p><h2 id="activities-title">生产活动</h2></div>
-            <span className="section-caption">活动是结构化示意，不是工厂级追踪</span>
-          </div>
+        <details className="section-block detail-collapsible" aria-labelledby="activities-title">
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">Production activities</p><h2 id="activities-title">生产活动</h2></div><span className="section-caption">{node.productionActivities.length} 条活动 · 结构化示意</span></summary>
           {node.productionActivities.length === 0 ? <div className="empty-state">当前节点没有单独记录的生产活动。</div> : (
             <div className="activity-list">
               {node.productionActivities.map((view) => {
@@ -151,25 +129,16 @@ export default async function SupplyChainNodePage({
               })}
             </div>
           )}
-        </section>
+        </details>
 
-        <section className="section-block" aria-labelledby="node-evidence-title">
-          <div className="section-heading">
-            <div><p className="eyebrow">Evidence scope</p><h2 id="node-evidence-title">节点证据支持范围</h2></div>
-            <span className="section-caption">只展示查询层精确关联到本节点、相邻边与活动的证据</span>
-          </div>
-          <ResolvedEvidenceList evidence={node.evidence} />
-        </section>
+        <section className="hierarchy-card node-next-layer"><strong>证据摘要</strong><span>{node.evidence.length} 条证据、{node.node.sources.length} 个节点来源已关联。完整定位、来源元数据和证据范围在下一层查看。</span><Link className="button button-secondary" href={evidenceGapsPath(productId, pageContext)}>查看证据与缺口 →</Link></section>
 
-        <section className="section-block evidence-gap-section" aria-labelledby="node-gaps-title">
-          <div className="section-heading">
-            <div><p className="eyebrow">Evidence gaps</p><h2 id="node-gaps-title">节点及相邻连接的证据缺口</h2></div>
-            <span className="section-caption">角色证据不会自动升级进入或离开节点的边</span>
-          </div>
+        <details className="section-block detail-collapsible" aria-labelledby="node-gaps-title">
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">Evidence gaps</p><h2 id="node-gaps-title">节点及相邻连接的证据缺口</h2></div><span className="section-caption">{node.evidenceGaps.length} 条缺口 · 角色证据不会自动升级边</span></summary>
           <EvidenceGapRegistry gaps={node.evidenceGaps} />
-        </section>
+        </details>
 
-        <ProvenancePanel provenance={nodeProvenance} />
+        <section className="hierarchy-next-step"><strong>下一层</strong><span>查看国家账本、来源许可证、版本和完整证据定位。</span>{node.node.entity ? <Link className="button button-primary" href={ledgerPath(productId, node.node.entity.id, pageContext)}>打开国家账本 →</Link> : <Link className="button button-primary" href={evidenceGapsPath(productId, pageContext)}>打开证据登记册 →</Link>}</section>
       </div>
     </SiteShell>
   );
