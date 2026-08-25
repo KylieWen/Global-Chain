@@ -6,7 +6,6 @@ import { contextMismatch, readPageContext } from "../../../../../lib/context";
 import {
   MetadataItem,
   PeriodLabel,
-  ProvenancePanel,
   StatCard,
   StatusBadge,
   StatusLegend,
@@ -79,6 +78,13 @@ export default async function CountryLedgerPage({
           actions={<Link className="button button-secondary" href={firstRelatedNode ? nodePath(productId, firstRelatedNode.node.id, pageContext) : supplyChainPath(productId, undefined, pageContext)}>返回节点路径</Link>}
         />
 
+        <nav className="exploration-nav" aria-label="国家研究层级">
+          <Link href={productPath(productId, pageContext)}>① 商品总览</Link>
+          <Link href={supplyChainPath(productId, undefined, pageContext)}>② 供应链路线</Link>
+          <span className="active">③ 国家账本</span>
+          <Link href={ledger.relatedNodes[0] ? nodePath(productId, ledger.relatedNodes[0].node.id, pageContext) : supplyChainPath(productId, undefined, pageContext)}>④ 相关节点</Link>
+        </nav>
+
         <div className="stat-grid">
           <StatCard label="国家/地区代码" value={ledger.entity.iso3 ?? ledger.entity.name} detail={`ISO2 ${ledger.entity.iso2 ?? "未知"} · UN M49 ${ledger.entity.m49 ?? "未知"}`} />
           <StatCard label="统计期间" value={<PeriodLabel period={ledger.period} />} detail={`${ledger.period.start} 至 ${ledger.period.end}`} />
@@ -88,11 +94,8 @@ export default async function CountryLedgerPage({
 
         <WarningList warnings={ledger.warnings} />
 
-        <section className="section-block" aria-labelledby="macro-title">
-          <div className="section-heading">
-            <div><p className="eyebrow">Macro ledger</p><h2 id="macro-title">国家宏观贸易账本</h2></div>
-            <span className="section-caption">名称、单位、统计概念和解释来自 published 指标定义</span>
-          </div>
+        <details className="section-block detail-collapsible" aria-labelledby="macro-title" open>
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">Macro ledger</p><h2 id="macro-title">国家宏观贸易账本</h2></div><span className="section-caption">{ledger.resolvedMacroIndicators.length} 项摘要指标 · 统计详情可展开</span></summary>
           {ledger.resolvedMacroIndicators.length === 0 ? <div className="empty-state">当前期间没有已发布的宏观指标。</div> : (
             <div className="metric-list interpreted-metrics">
               {ledger.resolvedMacroIndicators.map(({ observation, definition, source }) => (
@@ -123,18 +126,12 @@ export default async function CountryLedgerPage({
               ))}
             </div>
           )}
-        </section>
+        </details>
 
-        <section className="section-block" aria-labelledby="trade-title">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">Product trade observations</p>
-              <h2 id="trade-title">
+        <details className="section-block detail-collapsible" aria-labelledby="trade-title" open>
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">Product trade observations</p><h2 id="trade-title">
                 {ledger.product.name} {tradeClassification ? `${tradeClassification.system} ${tradeClassification.version} / ${tradeClassification.code}` : "分类未提供"} 进出口观察
-              </h2>
-            </div>
-            <span className="section-caption">observed、estimated、unknown 与真实零值保持不同语义</span>
-          </div>
+              </h2></div><span className="section-caption">{ledger.resolvedTradeObservations.length} 条观察 · unknown 不等于 0</span></summary>
           {ledger.resolvedTradeObservations.length === 0 ? (
             <div className="empty-state missing-observation">
               <strong>当前期间没有已发布的{ledger.product.name}贸易观察。</strong>
@@ -194,7 +191,7 @@ export default async function CountryLedgerPage({
             </div>
           )}
           <div className="legend-block"><h3>状态含义</h3><StatusLegend /></div>
-        </section>
+        </details>
 
         <section className="section-block" aria-labelledby="related-title">
           <div className="section-heading">
@@ -215,7 +212,7 @@ export default async function CountryLedgerPage({
           )}
         </section>
 
-        <ProvenancePanel provenance={provenance} />
+        <section className="hierarchy-next-step"><strong>统计详情</strong><span>来源指标代码、许可证、method、数据状态和版本信息集中在来源页面。</span><Link className="button button-primary" href={`/products/${productId}/provenance`}>查看来源与版本 →</Link></section>
       </div>
     </SiteShell>
   );
