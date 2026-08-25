@@ -3,9 +3,15 @@ import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../lib/data";
 import { Breadcrumbs, PageIntro, SiteShell } from "../../../../components/site-shell";
 import {
+  EvidenceLevelBadge,
+  EvidenceLevelLegend,
+  MetadataItem,
   PeriodLabel,
   ProvenancePanel,
+  ResolvedEvidenceList,
   StatCard,
+  StatusBadge,
+  UnknownValue,
   WarningList
 } from "../../../../components/data-display";
 import { FlowTable } from "../../../../components/flow-table";
@@ -30,8 +36,7 @@ export default async function SupplyChainPage({
   const label = firstParam(query.label);
   const queries = await getQueryService();
   const overview = queries.getProductOverview(productId);
-  const provenance = queries.getProvenance(productId);
-  if (!overview || !provenance) notFound();
+  if (!overview) notFound();
 
   let story;
   try {
@@ -50,7 +55,15 @@ export default async function SupplyChainPage({
       ?? story.nodes.find((node) => node.item?.id === focusItemId)?.item?.name
       ?? focusItemId
     : "全部代表性路径";
-  const flowById = new Map(story.flows.map((flow) => [flow.flow.id, flow]));
+  const routeProvenance = {
+    datasetVersion: story.datasetVersion,
+    contentVersions: story.route.contentVersion ? [story.route.contentVersion] : [],
+    sources: story.sources,
+    evidence: story.evidence.map((record) => record.evidence),
+    resolvedEvidence: story.evidence,
+    route: story.route,
+    warnings: story.warnings
+  };
 
   return (
     <SiteShell>
@@ -63,18 +76,35 @@ export default async function SupplyChainPage({
         <PageIntro
           eyebrow="Representative supply chain"
           title={`${overview.product.name} · ${focusName}`}
-          description="这是一条经过简化的代表性内容路径。它展示国家节点、货物和环节，不宣称唯一、完整或实时。"
+          description={story.route.representativeStatement ?? "这是经过整理的代表性供应链内容，不宣称唯一、完整或实时。"}
           actions={<Link className="button button-secondary" href={provenancePath(productId)}>来源与版本</Link>}
         />
 
         <div className="stat-grid">
           <StatCard label="路径节点" value={story.nodes.length} detail="国家/市场与商品节点" />
-          <StatCard label="流转关系" value={story.flows.length} detail="方向关系，不是金额" />
+          <StatCard label="流转关系" value={story.flows.length} detail="每条边独立标记证据等级" />
           <StatCard label="期间" value={<PeriodLabel period={story.period} />} detail={story.period.start} />
-          <StatCard label="数据集" value={story.datasetVersion.version} detail={story.datasetVersion.status} />
+          <StatCard label="内容版本" value={story.route.contentVersion?.version ?? "未提供"} detail={`数据集 ${story.datasetVersion.version}`} />
         </div>
 
         <WarningList warnings={story.warnings} />
+
+        <section className="route-declaration" aria-label="代表性路线声明">
+          <div>
+            <p className="eyebrow">Interpretation boundary</p>
+            <h2>如何理解这条路线</h2>
+            <p>{story.route.representativeStatement ?? "代表性路线不等于某件具体商品的唯一真实路线。"}</p>
+          </div>
+          <div className="route-declaration-meta">
+            <MetadataItem label="method" value={story.route.method} />
+            <MetadataItem label="datasetVersion" value={story.datasetVersion.version} />
+            <MetadataItem label="contentVersion" value={story.route.contentVersion?.version ?? <UnknownValue label="未提供" />} />
+          </div>
+          <EvidenceLevelLegend levels={[
+            ...story.nodes.map((node) => node.evidenceLevel),
+            ...story.flows.map((flow) => flow.evidenceLevel)
+          ]} />
+        </section>
 
         <section className="filter-strip" aria-label="路径筛选">
           <div>
@@ -104,10 +134,8 @@ export default async function SupplyChainPage({
             <span className="section-caption">表格优先，保证每条边都有出处和状态</span>
           </div>
           <div className="step-stack">
-            {story.steps.map((step) => {
-              const stepFlows = step.flowIds
-                .map((flowId) => flowById.get(flowId))
-                .filter((flow): flow is NonNullable<typeof flow> => Boolean(flow));
+            {story.steps.map((view) => {
+              const { step } = view;
               return (
                 <article className="step-card" key={step.id}>
                   <div className="step-marker">{String(step.order + 1).padStart(2, "0")}</div>
@@ -117,9 +145,33 @@ export default async function SupplyChainPage({
                         <h3>{step.title}</h3>
                         <p>{step.description}</p>
                       </div>
-                      <span className="content-status">{step.contentStatus}</span>
+                      <div className="step-status-stack">
+                        <span className="content-status">{step.contentStatus}</span>
+                        <span className="method-chip">{step.method}</span>
+                      </div>
                     </div>
-                    <FlowTable flows={stepFlows} productId={productId} />
+                    <div className="step-context">
+                      <div>
+                        <span className="metadata-label">本步骤节点</span>
+                        <div className="step-node-list">
+                          {view.nodes.map((node) => (
+                            <Link className="step-node-chip" href={nodePath(productId, node.node.id)} key={node.node.id}>
+                              {node.node.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="step-version-meta">
+                        <MetadataItem label="contentVersion" value={view.contentVersion?.version ?? <UnknownValue label="未提供" />} />
+                        <MetadataItem label="来源" value={`${view.sources.length} 个`} />
+                        <MetadataItem label="证据" value={`${view.evidence.length} 条`} />
+                      </div>
+                    </div>
+                    <FlowTable flows={view.flows} productId={productId} />
+                    <details className="step-evidence-details">
+                      <summary>查看本步骤的直接证据定位</summary>
+                      <ResolvedEvidenceList evidence={view.evidence} compact />
+                    </details>
                   </div>
                 </article>
               );
@@ -143,6 +195,15 @@ export default async function SupplyChainPage({
                 </div>
                 <h3>{node.node.label}</h3>
                 <p>{node.item?.name ?? "未知货物"} · {node.processStage?.label ?? "未知环节"}</p>
+                <div className="node-card-evidence">
+                  <EvidenceLevelBadge level={node.evidenceLevel} />
+                  <StatusBadge status={node.node.dataStatus} method={node.node.method} />
+                </div>
+                <div className="node-card-meta">
+                  <MetadataItem label="期间" value={<PeriodLabel period={node.period} />} />
+                  <MetadataItem label="datasetVersion" value={node.datasetVersion?.version ?? <UnknownValue label="未提供" />} />
+                  <MetadataItem label="contentVersion" value={node.contentVersion?.version ?? <UnknownValue label="未提供" />} />
+                </div>
                 <div className="node-links">
                   <Link className="text-link" href={nodePath(productId, node.node.id)}>节点详情 →</Link>
                   {node.entity ? <Link className="text-link" href={ledgerPath(productId, node.entity.id)}>国家账本 →</Link> : null}
@@ -152,7 +213,7 @@ export default async function SupplyChainPage({
           </div>
         </section>
 
-        <ProvenancePanel provenance={provenance} />
+        <ProvenancePanel provenance={routeProvenance} />
       </div>
     </SiteShell>
   );

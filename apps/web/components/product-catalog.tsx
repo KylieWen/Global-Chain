@@ -12,7 +12,7 @@ export function ProductCatalogPage({ products }: { products: readonly ProductCat
         <PageIntro
           eyebrow="商品目录 / Product catalog"
           title="从一件商品开始，沿着世界的链路走下去"
-          description="GlobeChain 将商品拆解、代表性生产流和国家贸易事实放在同一套可追溯维度中。当前展示的是用于联调的合成样例。"
+          description="GlobeChain 将商品拆解、代表性供应链内容和国家贸易事实放在同一套可追溯维度中；数据状态与发布模式会在页面中明确标识。"
           actions={
             products[0] ? (
               <Link className="button button-primary" href={productPath(products[0].productId)}>

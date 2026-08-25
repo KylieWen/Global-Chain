@@ -46,6 +46,19 @@ export type DataMethod = z.infer<typeof DataMethodSchema>;
 export const FactStatusSchema = z.enum(["observed", "estimated", "unknown", "withheld", "invalid"]);
 export type FactStatus = z.infer<typeof FactStatusSchema>;
 
+/**
+ * Describes how closely the cited evidence supports a supply-chain claim.
+ * It is intentionally separate from dataStatus: a representative connection
+ * can be curated while its monetary value and quantity remain unknown.
+ */
+export const SupplyChainEvidenceLevelSchema = z.enum([
+  "role_supported",
+  "bilateral_supported",
+  "representative",
+  "none"
+]);
+export type SupplyChainEvidenceLevel = z.infer<typeof SupplyChainEvidenceLevelSchema>;
+
 export const PublicationStatusSchema = z.enum(["draft", "validated", "published", "deprecated"]);
 export type PublicationStatus = z.infer<typeof PublicationStatusSchema>;
 
@@ -61,6 +74,13 @@ export const UnitSchema = NonEmptyStringSchema;
 export const SourceIdsSchema = z.array(IdSchema).refine((ids) => new Set(ids).size === ids.length, {
   message: "sourceIds must not contain duplicates"
 });
+
+export const EvidenceIdsSchema = z.array(IdSchema).refine(
+  (ids) => new Set(ids).size === ids.length,
+  {
+    message: "evidenceIds must not contain duplicates"
+  }
+);
 
 export const FlowKindSchema = z.enum([
   "representative_supply",

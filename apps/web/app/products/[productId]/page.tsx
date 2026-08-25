@@ -81,7 +81,7 @@ export default async function ProductOverviewPage({
             <p className="eyebrow">Method boundary</p>
             <h2>如何阅读这张链路</h2>
           </div>
-          <p>供应链流是人工整理的代表性内容；贸易观察与宏观指标是独立事实类型。当前样例没有官方金额，不会把缺失值补成零。</p>
+          <p>供应链流是人工整理的代表性内容；贸易观察与宏观指标是独立事实类型。路线金额或数量只在数据明确发布时展示，缺失值不会被补成零。</p>
           <Link className="button button-secondary" href={provenancePath(productId)}>查看来源与版本</Link>
         </section>
 

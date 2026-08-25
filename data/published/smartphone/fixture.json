@@ -11,7 +11,8 @@
       "source-un-comtrade",
       "source-un-m49",
       "source-usgs-mineral-commodities",
-      "source-iea-battery-supply-chain"
+      "source-iea-battery-supply-chain",
+      "source-globe-chain-route-methodology"
     ],
     "coverage": null,
     "status": "published",
@@ -47,7 +48,7 @@
       "url": "https://unstats.un.org/unsd/methodology/m49/",
       "license": "United Nations terms of use; reference mapping only",
       "publishedAt": null,
-      "retrievedAt": "2026-08-25",
+      "retrievedAt": "2026-08-25T00:00:00+08:00",
       "datasetVersion": "UN-M49-2026",
       "notes": "Provides the numeric country/area crosswalk used with ISO3 and UN Comtrade reporter codes. It is a statistical reference dimension, not a political boundary determination."
     },
@@ -58,9 +59,9 @@
       "url": "https://pubs.usgs.gov/periodicals/mcs2024/mcs2024.pdf",
       "license": "U.S. Government work; public-domain status and USGS terms apply",
       "publishedAt": "2024-01-31",
-      "retrievedAt": "2026-08-25",
+      "retrievedAt": "2026-08-25T00:00:00+08:00",
       "datasetVersion": "MCS-2024",
-      "notes": "Used only as background evidence for representative mineral roles. It does not prove a specific smartphone batch, company, bilateral shipment or unique route."
+      "notes": "Used only for the specifically cited mineral/country role records. It does not prove a smartphone batch, company, bilateral shipment or unique route. USGS copyright and reuse information: https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits."
     },
     {
       "id": "source-iea-battery-supply-chain",
@@ -69,32 +70,118 @@
       "url": "https://www.iea.org/reports/global-supply-chains-of-ev-batteries",
       "license": "IEA terms of use; link-only citation in this fixture, not a CC BY relicense",
       "publishedAt": "2022-07-01",
-      "retrievedAt": "2026-08-25",
+      "retrievedAt": "2026-08-25T00:00:00+08:00",
       "datasetVersion": "IEA-2022",
-      "notes": "Used as contextual evidence for concentration and battery-chain stages. The curated story remains representative and quantity-free."
+      "notes": "Used only as contextual evidence for general battery-chain stages and concentration. This EV-battery report does not prove a smartphone-specific country route. IEA terms: https://www.iea.org/terms."
+    },
+    {
+      "id": "source-globe-chain-route-methodology",
+      "name": "GlobeChain representative route methodology",
+      "publisher": "GlobeChain",
+      "url": null,
+      "license": "Project-authored methodology; repository terms apply",
+      "publishedAt": "2026-08-25",
+      "retrievedAt": "2026-08-25T00:00:00+08:00",
+      "datasetVersion": "smartphone-route-2023.1",
+      "notes": "Documents how reviewed country-role evidence and contextual stage evidence are connected into a quantity-free representative route. It is a curation method, not an external factual source and not proof of bilateral trade."
     }
   ],
   "evidence": [
     {
-      "id": "evidence-usgs-mineral-roles",
+      "id": "evidence-usgs-australia-lithium-role",
       "sourceId": "source-usgs-mineral-commodities",
-      "locator": "Mineral Commodity Summaries 2024 PDF: Lithium, Cobalt, Nickel, Graphite, Copper and Aluminum commodity chapters",
+      "supportType": "country_role",
+      "locator": "Mineral Commodity Summaries 2024 PDF, Lithium chapter, World Mine Production and Reserves table: Australia",
       "excerpt": null,
-      "notes": "Supports country/material role context only; no claim of a unique phone supply route."
+      "notes": "Supports Australia's lithium production role for the 2023 context only; it does not identify a destination country or smartphone use."
+    },
+    {
+      "id": "evidence-usgs-drc-cobalt-role",
+      "sourceId": "source-usgs-mineral-commodities",
+      "supportType": "country_role",
+      "locator": "Mineral Commodity Summaries 2024 PDF, Cobalt chapter, World Mine Production and Reserves table: Congo (Kinshasa)",
+      "excerpt": null,
+      "notes": "Supports the Democratic Republic of the Congo's cobalt production role only; no bilateral shipment is established."
+    },
+    {
+      "id": "evidence-usgs-indonesia-nickel-role",
+      "sourceId": "source-usgs-mineral-commodities",
+      "supportType": "country_role",
+      "locator": "Mineral Commodity Summaries 2024 PDF, Nickel chapter, World Mine Production and Reserves table: Indonesia",
+      "excerpt": null,
+      "notes": "Supports Indonesia's nickel production role only; no bilateral shipment is established."
+    },
+    {
+      "id": "evidence-usgs-china-graphite-role",
+      "sourceId": "source-usgs-mineral-commodities",
+      "supportType": "country_role",
+      "locator": "Mineral Commodity Summaries 2024 PDF, Graphite (Natural) chapter, World Mine Production and Reserves table: China",
+      "excerpt": null,
+      "notes": "Supports China's natural-graphite production role only; it does not prove use in a particular anode or smartphone."
+    },
+    {
+      "id": "evidence-usgs-chile-copper-role",
+      "sourceId": "source-usgs-mineral-commodities",
+      "supportType": "country_role",
+      "locator": "Mineral Commodity Summaries 2024 PDF, Copper chapter, World Mine Production and Reserves table: Chile",
+      "excerpt": null,
+      "notes": "Supports Chile's copper mine-production role only; downstream refining and foil manufacture are not evidenced by this record."
+    },
+    {
+      "id": "evidence-usgs-australia-aluminum-role",
+      "sourceId": "source-usgs-mineral-commodities",
+      "supportType": "country_role",
+      "locator": "Mineral Commodity Summaries 2024 PDF, Bauxite and Alumina and Aluminum chapters, world production tables: Australia",
+      "excerpt": null,
+      "notes": "Supports an Australian upstream bauxite/alumina role. The current broad aluminum item must not be read as metallic aluminum being directly mined."
     },
     {
       "id": "evidence-iea-battery-chain",
       "sourceId": "source-iea-battery-supply-chain",
+      "supportType": "process_context",
       "locator": "Executive summary and supply-chain concentration sections",
       "excerpt": null,
-      "notes": "Supports the existence of multi-stage battery material, cell and module value-chain stages; no quantity is inferred."
+      "notes": "Supports the existence of multi-stage EV-battery material, cell and module stages as context only; no smartphone-specific country route or quantity is inferred."
     },
     {
       "id": "evidence-un-m49-crosswalk",
       "sourceId": "source-un-m49",
+      "supportType": "classification",
       "locator": "UN M49 country or area codes table; numeric codes 036, 152, 156, 180, 276, 360, 392, 410 and 840",
       "excerpt": null,
       "notes": "Supports the country/area dimension crosswalk used in this fixture."
+    },
+    {
+      "id": "evidence-comtrade-china-smartphone-world-total",
+      "sourceId": "source-un-comtrade",
+      "supportType": "trade_observation",
+      "locator": "UN Comtrade snapshot query for 2023, reporterCode=156, partnerCode=0, HS 2022 code 851713, flowCode=M/X; observations trade-chn-smartphone-import and trade-chn-smartphone-export",
+      "excerpt": null,
+      "notes": "Supports only China's reported smartphone imports from and exports to the world total. It does not prove assembly location or a bilateral flow to the United States or Germany."
+    },
+    {
+      "id": "evidence-comtrade-united-states-smartphone-world-total",
+      "sourceId": "source-un-comtrade",
+      "supportType": "trade_observation",
+      "locator": "UN Comtrade snapshot query for 2023, reporterCode=842, partnerCode=0, HS 2022 code 851713, flowCode=M/X; observations trade-usa-smartphone-import and trade-usa-smartphone-export",
+      "excerpt": null,
+      "notes": "Supports only United States smartphone trade with the world total. It does not identify China as partner and does not prove distribution activity."
+    },
+    {
+      "id": "evidence-comtrade-germany-smartphone-world-total",
+      "sourceId": "source-un-comtrade",
+      "supportType": "trade_observation",
+      "locator": "UN Comtrade snapshot query for 2023, reporterCode=276, partnerCode=0, HS 2022 code 851713, flowCode=M/X; observations trade-deu-smartphone-import and trade-deu-smartphone-export",
+      "excerpt": null,
+      "notes": "Supports only Germany's smartphone trade with the world total. Imports do not equal final consumption and do not identify China as partner."
+    },
+    {
+      "id": "evidence-globe-chain-route-methodology",
+      "sourceId": "source-globe-chain-route-methodology",
+      "supportType": "curation_method",
+      "locator": "content/routes/generic-smartphone-2023.json and data/published/README.md, representative supply-route methodology and limitations",
+      "excerpt": null,
+      "notes": "Explains why the route uses representative connections. It is not evidence of a factual bilateral shipment."
     }
   ],
   "entities": [
@@ -307,8 +394,7 @@
       "category": "电子产品",
       "description": "不对应品牌或型号的通用成品对象。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -329,8 +415,7 @@
       "category": "电子产品",
       "description": "手机电池组件及其代表性上游路径。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -351,8 +436,7 @@
       "category": "矿物能源",
       "description": "电池相关锂原料。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -373,8 +457,7 @@
       "category": "矿物能源",
       "description": "电池正极相关钴原料。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -395,8 +478,7 @@
       "category": "矿物能源",
       "description": "电池正极相关镍原料。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -417,8 +499,7 @@
       "category": "工业品",
       "description": "负极相关石墨原料。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -439,8 +520,7 @@
       "category": "工业品",
       "description": "导电材料和铜箔相关原料。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -461,8 +541,7 @@
       "category": "工业品",
       "description": "铝箔或结构材料相关原料。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -483,8 +562,7 @@
       "category": "化工品",
       "description": "正极活性材料的示意节点。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -505,8 +583,7 @@
       "category": "化工品",
       "description": "负极材料的示意节点。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -527,8 +604,7 @@
       "category": "电子产品",
       "description": "电芯制造节点。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -549,8 +625,7 @@
       "category": "电子产品",
       "description": "电芯组合和保护电路的示意节点。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -571,8 +646,7 @@
       "category": "电子产品",
       "description": "显示组件示意节点。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -593,8 +667,7 @@
       "category": "电子产品",
       "description": "计算与存储组件示意节点。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -615,8 +688,7 @@
       "category": "电子产品",
       "description": "摄像头组件示意节点。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -637,8 +709,7 @@
       "category": "工业品",
       "description": "电路板和连接器示意节点。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -659,8 +730,7 @@
       "category": "工业品",
       "description": "外壳和结构件示意节点。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -681,8 +751,7 @@
       "category": "电子产品",
       "description": "传感器、扬声器和麦克风示意节点。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -703,8 +772,7 @@
       "order": 0,
       "description": "矿产或初级原料获得。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -717,8 +785,7 @@
       "order": 1,
       "description": "原料提纯和化合物制备。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -731,8 +798,7 @@
       "order": 2,
       "description": "正极、负极和箔材等材料加工。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -745,8 +811,7 @@
       "order": 3,
       "description": "电芯及其他组件制造。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -759,8 +824,7 @@
       "order": 4,
       "description": "电池模组和整机组装。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -773,8 +837,7 @@
       "order": 5,
       "description": "成品离开组装地并进入市场。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -787,8 +850,7 @@
       "order": 6,
       "description": "成品进入示意消费市场。",
       "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
+        "source-globe-chain-route-methodology"
       ],
       "dataStatus": "observed",
       "method": "curated",
@@ -804,20 +866,26 @@
       "outputItemIds": [
         "lithium"
       ],
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-globe-chain-route-methodology"
+      ],
+      "evidenceIds": [
+        "evidence-usgs-australia-lithium-role",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "evidenceLevel": "role_supported",
+      "notes": "国家生产角色有公开资料支持；数量、工厂、批次及后续去向未知。",
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
         "end": "2023-12-31",
         "label": "2023"
       },
-      "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
-      ],
-      "method": "curated",
-      "dataStatus": "unknown",
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+      "contentVersionId": "content-smartphone-route-2023-1"
     },
     {
       "id": "activity-cd-cobalt",
@@ -827,20 +895,26 @@
       "outputItemIds": [
         "cobalt"
       ],
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-globe-chain-route-methodology"
+      ],
+      "evidenceIds": [
+        "evidence-usgs-drc-cobalt-role",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "evidenceLevel": "role_supported",
+      "notes": "国家生产角色有公开资料支持；数量、工厂、批次及后续去向未知。",
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
         "end": "2023-12-31",
         "label": "2023"
       },
-      "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
-      ],
-      "method": "curated",
-      "dataStatus": "unknown",
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+      "contentVersionId": "content-smartphone-route-2023-1"
     },
     {
       "id": "activity-id-nickel",
@@ -850,20 +924,26 @@
       "outputItemIds": [
         "nickel"
       ],
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-globe-chain-route-methodology"
+      ],
+      "evidenceIds": [
+        "evidence-usgs-indonesia-nickel-role",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "evidenceLevel": "role_supported",
+      "notes": "国家生产角色有公开资料支持；数量、工厂、批次及后续去向未知。",
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
         "end": "2023-12-31",
         "label": "2023"
       },
-      "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
-      ],
-      "method": "curated",
-      "dataStatus": "unknown",
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+      "contentVersionId": "content-smartphone-route-2023-1"
     },
     {
       "id": "activity-cn-graphite",
@@ -873,20 +953,26 @@
       "outputItemIds": [
         "graphite"
       ],
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-globe-chain-route-methodology"
+      ],
+      "evidenceIds": [
+        "evidence-usgs-china-graphite-role",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "evidenceLevel": "role_supported",
+      "notes": "国家生产角色有公开资料支持；数量、工厂、批次及后续去向未知。",
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
         "end": "2023-12-31",
         "label": "2023"
       },
-      "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
-      ],
-      "method": "curated",
-      "dataStatus": "unknown",
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+      "contentVersionId": "content-smartphone-route-2023-1"
     },
     {
       "id": "activity-cl-copper",
@@ -896,20 +982,26 @@
       "outputItemIds": [
         "copper"
       ],
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-globe-chain-route-methodology"
+      ],
+      "evidenceIds": [
+        "evidence-usgs-chile-copper-role",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "evidenceLevel": "role_supported",
+      "notes": "国家生产角色有公开资料支持；后续冶炼和铜箔阶段未在路线中展开。",
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
         "end": "2023-12-31",
         "label": "2023"
       },
-      "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
-      ],
-      "method": "curated",
-      "dataStatus": "unknown",
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+      "contentVersionId": "content-smartphone-route-2023-1"
     },
     {
       "id": "activity-au-aluminum",
@@ -919,20 +1011,26 @@
       "outputItemIds": [
         "aluminum"
       ],
+      "sourceIds": [
+        "source-usgs-mineral-commodities",
+        "source-globe-chain-route-methodology"
+      ],
+      "evidenceIds": [
+        "evidence-usgs-australia-aluminum-role",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "evidenceLevel": "role_supported",
+      "notes": "支持的是铝土矿/氧化铝等上游角色；并非金属铝被直接开采。",
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
         "end": "2023-12-31",
         "label": "2023"
       },
-      "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
-      ],
-      "method": "curated",
-      "dataStatus": "unknown",
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+      "contentVersionId": "content-smartphone-route-2023-1"
     },
     {
       "id": "activity-cn-cathode",
@@ -946,47 +1044,57 @@
       "outputItemIds": [
         "cathode-material"
       ],
+      "sourceIds": [
+        "source-iea-battery-supply-chain",
+        "source-globe-chain-route-methodology"
+      ],
+      "evidenceIds": [
+        "evidence-iea-battery-chain",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "evidenceLevel": "representative",
+      "notes": "代表性材料活动；当前证据不证明特定手机、企业、工厂或数量。",
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
         "end": "2023-12-31",
         "label": "2023"
       },
-      "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
-      ],
-      "method": "curated",
-      "dataStatus": "unknown",
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+      "contentVersionId": "content-smartphone-route-2023-1"
     },
     {
       "id": "activity-cn-anode",
       "locationEntityId": "country-cn",
       "processStageId": "material_processing",
       "inputItemIds": [
-        "graphite",
-        "copper",
-        "aluminum"
+        "graphite"
       ],
       "outputItemIds": [
         "anode-material"
       ],
+      "sourceIds": [
+        "source-iea-battery-supply-chain",
+        "source-globe-chain-route-methodology"
+      ],
+      "evidenceIds": [
+        "evidence-iea-battery-chain",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "evidenceLevel": "representative",
+      "notes": "铜和铝不再被错误建模为负极活性材料输入。",
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
         "end": "2023-12-31",
         "label": "2023"
       },
-      "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
-      ],
-      "method": "curated",
-      "dataStatus": "unknown",
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+      "contentVersionId": "content-smartphone-route-2023-1"
     },
     {
       "id": "activity-kr-cell",
@@ -994,25 +1102,33 @@
       "processStageId": "component_manufacturing",
       "inputItemIds": [
         "cathode-material",
-        "anode-material"
+        "anode-material",
+        "copper",
+        "aluminum"
       ],
       "outputItemIds": [
         "cell"
       ],
+      "sourceIds": [
+        "source-iea-battery-supply-chain",
+        "source-globe-chain-route-methodology"
+      ],
+      "evidenceIds": [
+        "evidence-iea-battery-chain",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "evidenceLevel": "representative",
+      "notes": "铜和铝在此作为简化的电芯相关输入，中间箔材加工阶段未展开。",
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
         "end": "2023-12-31",
         "label": "2023"
       },
-      "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
-      ],
-      "method": "curated",
-      "dataStatus": "unknown",
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+      "contentVersionId": "content-smartphone-route-2023-1"
     },
     {
       "id": "activity-kr-module",
@@ -1024,20 +1140,26 @@
       "outputItemIds": [
         "battery-module"
       ],
+      "sourceIds": [
+        "source-iea-battery-supply-chain",
+        "source-globe-chain-route-methodology"
+      ],
+      "evidenceIds": [
+        "evidence-iea-battery-chain",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "evidenceLevel": "representative",
+      "notes": "一般阶段顺序有背景资料，韩国地点和具体手机用途仍为代表性策展。",
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
         "end": "2023-12-31",
         "label": "2023"
       },
-      "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
-      ],
-      "method": "curated",
-      "dataStatus": "unknown",
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+      "contentVersionId": "content-smartphone-route-2023-1"
     },
     {
       "id": "activity-jp-components",
@@ -1049,20 +1171,24 @@
         "processor-memory",
         "camera"
       ],
+      "sourceIds": [
+        "source-globe-chain-route-methodology"
+      ],
+      "evidenceIds": [
+        "evidence-globe-chain-route-methodology"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "evidenceLevel": "representative",
+      "notes": "未获得支持该国家角色的直接来源；仅作为策展节点保留。",
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
         "end": "2023-12-31",
         "label": "2023"
       },
-      "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
-      ],
-      "method": "curated",
-      "dataStatus": "unknown",
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+      "contentVersionId": "content-smartphone-route-2023-1"
     },
     {
       "id": "activity-cn-assembly",
@@ -1080,20 +1206,26 @@
       "outputItemIds": [
         "generic-smartphone"
       ],
+      "sourceIds": [
+        "source-un-comtrade",
+        "source-globe-chain-route-methodology"
+      ],
+      "evidenceIds": [
+        "evidence-comtrade-china-smartphone-world-total",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "evidenceLevel": "representative",
+      "notes": "Comtrade 仅提供成品贸易背景，不能证明组装活动。",
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
         "end": "2023-12-31",
         "label": "2023"
       },
-      "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
-      ],
-      "method": "curated",
-      "dataStatus": "unknown",
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+      "contentVersionId": "content-smartphone-route-2023-1"
     },
     {
       "id": "activity-us-distribution",
@@ -1105,20 +1237,26 @@
       "outputItemIds": [
         "generic-smartphone"
       ],
+      "sourceIds": [
+        "source-un-comtrade",
+        "source-globe-chain-route-methodology"
+      ],
+      "evidenceIds": [
+        "evidence-comtrade-united-states-smartphone-world-total",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "evidenceLevel": "representative",
+      "notes": "世界总计进口背景不能证明具体分销活动或来源国。",
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
         "end": "2023-12-31",
         "label": "2023"
       },
-      "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
-      ],
-      "method": "curated",
-      "dataStatus": "unknown",
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+      "contentVersionId": "content-smartphone-route-2023-1"
     },
     {
       "id": "activity-de-consumption",
@@ -1130,20 +1268,26 @@
       "outputItemIds": [
         "generic-smartphone"
       ],
+      "sourceIds": [
+        "source-un-comtrade",
+        "source-globe-chain-route-methodology"
+      ],
+      "evidenceIds": [
+        "evidence-comtrade-germany-smartphone-world-total",
+        "evidence-globe-chain-route-methodology"
+      ],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "evidenceLevel": "representative",
+      "notes": "世界总计进口额不能证明最终消费数量。",
       "period": {
         "granularity": "annual",
         "start": "2023-01-01",
         "end": "2023-12-31",
         "label": "2023"
       },
-      "sourceIds": [
-        "source-usgs-mineral-commodities",
-        "source-iea-battery-supply-chain"
-      ],
-      "method": "curated",
-      "dataStatus": "unknown",
       "datasetVersionId": "dataset-smartphone-published-2023",
-      "notes": "代表性策展活动；不表示唯一工厂、批次、数量或企业利润。"
+      "contentVersionId": "content-smartphone-route-2023-1"
     }
   ],
   "classificationCodes": [
@@ -1223,7 +1367,7 @@
         "label": "2023"
       },
       "sourceIds": [
-        "source-usgs-mineral-commodities"
+        "source-globe-chain-route-methodology"
       ],
       "method": "curated",
       "dataStatus": "observed",
@@ -1238,6 +1382,20 @@
       "end": "2023-12-31",
       "label": "2023"
     },
+    "method": "curated",
+    "representativeStatement": "这是一条用于解释主要国家角色与生产阶段的代表性策展路线，不代表某一品牌、型号、企业、工厂、批次或唯一真实路线。",
+    "methodology": [
+      "路线将公开资料支持的国家产业角色、一般电池价值链阶段和项目策展连接分开标记。",
+      "国家角色证据不自动证明国家之间存在直接双边流向；所有现有边仅用于连接代表性阶段。",
+      "UN Comtrade partnerCode=0 的世界总计观察只用于提供国家贸易背景，不用于证明任意两国之间的直接流向。"
+    ],
+    "limitations": [
+      "当前 13 条边均无直接双边流向证据，全部标记为 representative，不得解释为 observed bilateral flow。",
+      "路线不包含数量、金额、实时物流、企业、工厂、成本、增加值或利润分配。",
+      "IEA 来源讨论的是电动汽车电池供应链，只用于一般电池阶段背景，不证明手机电池的特定国家路线。",
+      "日本电子组件、中国手机组装、美国分销和德国消费角色目前仅为代表性节点；Comtrade 世界总计观察只能提供国家进出口背景。",
+      "铜和铝以电芯相关材料的简化输入展示，省略冶炼、箔材加工和具体集流体制造阶段。"
+    ],
     "nodes": [
       {
         "id": "node-au-lithium",
@@ -1249,12 +1407,24 @@
         "processStageId": "extraction",
         "sourceIds": [
           "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-australia-lithium-role",
+          "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
-        "dataStatus": "unknown",
+        "dataStatus": "observed",
+        "evidenceLevel": "role_supported",
+        "notes": "公开资料支持澳大利亚的锂生产角色；不表示这些原料实际进入某台手机或必然运往中国。",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "node-cd-cobalt",
@@ -1266,12 +1436,24 @@
         "processStageId": "extraction",
         "sourceIds": [
           "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-drc-cobalt-role",
+          "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
-        "dataStatus": "unknown",
+        "dataStatus": "observed",
+        "evidenceLevel": "role_supported",
+        "notes": "公开资料支持刚果民主共和国的钴生产角色；不证明特定双边运输。",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "node-id-nickel",
@@ -1283,12 +1465,24 @@
         "processStageId": "extraction",
         "sourceIds": [
           "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-indonesia-nickel-role",
+          "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
-        "dataStatus": "unknown",
+        "dataStatus": "observed",
+        "evidenceLevel": "role_supported",
+        "notes": "公开资料支持印度尼西亚的镍生产角色；不证明特定双边运输。",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "node-cn-graphite",
@@ -1300,12 +1494,24 @@
         "processStageId": "extraction",
         "sourceIds": [
           "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-china-graphite-role",
+          "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
-        "dataStatus": "unknown",
+        "dataStatus": "observed",
+        "evidenceLevel": "role_supported",
+        "notes": "公开资料支持中国的天然石墨生产角色；不证明具体石墨进入当前负极材料节点。",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "node-cl-copper",
@@ -1317,165 +1523,283 @@
         "processStageId": "extraction",
         "sourceIds": [
           "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-chile-copper-role",
+          "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
-        "dataStatus": "unknown",
+        "dataStatus": "observed",
+        "evidenceLevel": "role_supported",
+        "notes": "公开资料支持智利的铜矿生产角色；电池中的铜通常还需经历冶炼和铜箔加工。",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "node-au-aluminum",
         "nodeType": "entity",
-        "label": "澳大利亚 · 铝原料",
+        "label": "澳大利亚 · 铝相关上游原料",
         "entityId": "country-au",
         "itemId": "aluminum",
         "itemType": "raw_material",
         "processStageId": "extraction",
         "sourceIds": [
           "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-australia-aluminum-role",
+          "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
-        "dataStatus": "unknown",
+        "dataStatus": "observed",
+        "evidenceLevel": "role_supported",
+        "notes": "当前商品目录使用宽泛 aluminum 项；证据支持澳大利亚在铝土矿/氧化铝等上游环节的角色，不表示直接开采金属铝。",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "node-cn-cathode",
         "nodeType": "entity",
-        "label": "中国 · 正极材料",
+        "label": "中国 · 正极材料（代表性）",
         "entityId": "country-cn",
         "itemId": "cathode-material",
         "itemType": "material",
         "processStageId": "refining",
         "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
+          "source-iea-battery-supply-chain",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-iea-battery-chain",
+          "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
         "dataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "IEA 资料只提供一般电池材料阶段和集中度背景；该节点不证明特定手机正极材料产地。",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "node-cn-anode",
         "nodeType": "entity",
-        "label": "中国 · 负极材料",
+        "label": "中国 · 负极材料（代表性）",
         "entityId": "country-cn",
         "itemId": "anode-material",
         "itemType": "material",
         "processStageId": "material_processing",
         "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
+          "source-iea-battery-supply-chain",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-iea-battery-chain",
+          "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
         "dataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "代表性材料加工节点；不证明特定企业、工厂、数量或手机批次。",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "node-kr-cell",
         "nodeType": "entity",
-        "label": "韩国 · 电芯",
+        "label": "韩国 · 电芯（代表性）",
         "entityId": "country-kr",
         "itemId": "cell",
         "itemType": "component",
         "processStageId": "component_manufacturing",
         "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
+          "source-iea-battery-supply-chain",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-iea-battery-chain",
+          "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
         "dataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "IEA 资料支持电芯阶段背景，但不证明该韩国节点生产某台手机所用电芯。",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "node-kr-module",
         "nodeType": "entity",
-        "label": "韩国 · 电池模组",
+        "label": "韩国 · 电池模组（代表性）",
         "entityId": "country-kr",
         "itemId": "battery-module",
         "itemType": "component",
         "processStageId": "assembly",
         "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
+          "source-iea-battery-supply-chain",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-iea-battery-chain",
+          "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
         "dataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "代表性模组阶段节点；不证明特定韩国工厂或跨境供应关系。",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "node-jp-components",
         "nodeType": "entity",
-        "label": "日本 · 电子组件",
+        "label": "日本 · 电子组件（以显示屏为代表）",
         "entityId": "country-jp",
         "itemId": "display",
         "itemType": "component",
         "processStageId": "component_manufacturing",
         "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
         "dataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "当前来源未直接支持日本电子组件进入中国手机组装；该节点仅保留为代表性策展内容。",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "node-cn-assembly",
         "nodeType": "entity",
-        "label": "中国 · 手机组装",
+        "label": "中国 · 手机组装（代表性）",
         "entityId": "country-cn",
         "itemId": "generic-smartphone",
         "itemType": "final_product",
         "processStageId": "assembly",
         "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
+          "source-un-comtrade",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-comtrade-china-smartphone-world-total",
+          "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
         "dataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "Comtrade 只支持中国对世界的智能手机进出口背景，不证明组装地点、企业或与美国/德国的直接路线。",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "node-us-export",
         "nodeType": "market",
-        "label": "美国 · 进口/分销市场",
+        "label": "美国 · 智能手机进口市场（代表性）",
         "entityId": "country-us",
         "itemId": "generic-smartphone",
         "itemType": "final_product",
         "processStageId": "distribution",
         "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
+          "source-un-comtrade",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-comtrade-united-states-smartphone-world-total",
+          "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
         "dataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "Comtrade 支持美国从世界进口智能手机的背景，不证明从中国直接进口，也不证明具体分销链。",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "node-de-consumption",
         "nodeType": "market",
-        "label": "德国 · 消费市场",
+        "label": "德国 · 智能手机进口/消费市场（代表性）",
         "entityId": "country-de",
         "itemId": "generic-smartphone",
         "itemType": "final_product",
         "processStageId": "consumption",
         "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
+          "source-un-comtrade",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-comtrade-germany-smartphone-world-total",
+          "evidence-globe-chain-route-methodology"
         ],
         "method": "curated",
         "dataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "Comtrade 世界总计进口额不等于德国最终消费量；消费角色仍为代表性策展内容。",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性角色节点，不表示唯一工厂或批次。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       }
     ],
     "flows": [
@@ -1487,6 +1811,22 @@
         "processStageId": "refining",
         "relationType": "input",
         "flowKind": "representative_supply",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-australia-lithium-role",
+          "evidence-iea-battery-chain",
+          "evidence-globe-chain-route-methodology"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "连接有证据支持的澳大利亚锂角色与代表性材料阶段；不证明澳大利亚到中国的直接双边流向。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1497,15 +1837,9 @@
         "quantity": null,
         "currency": null,
         "unit": null,
-        "method": "curated",
-        "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
-        ],
         "confidence": null,
-        "dataStatus": "unknown",
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "flow-cobalt-refining",
@@ -1515,6 +1849,22 @@
         "processStageId": "refining",
         "relationType": "input",
         "flowKind": "representative_supply",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-drc-cobalt-role",
+          "evidence-iea-battery-chain",
+          "evidence-globe-chain-route-methodology"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "不证明刚果民主共和国到中国的直接双边流向。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1525,15 +1875,9 @@
         "quantity": null,
         "currency": null,
         "unit": null,
-        "method": "curated",
-        "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
-        ],
         "confidence": null,
-        "dataStatus": "unknown",
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "flow-nickel-refining",
@@ -1543,6 +1887,22 @@
         "processStageId": "refining",
         "relationType": "input",
         "flowKind": "representative_supply",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-indonesia-nickel-role",
+          "evidence-iea-battery-chain",
+          "evidence-globe-chain-route-methodology"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "不证明印度尼西亚到中国的直接双边流向。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1553,15 +1913,9 @@
         "quantity": null,
         "currency": null,
         "unit": null,
-        "method": "curated",
-        "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
-        ],
         "confidence": null,
-        "dataStatus": "unknown",
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "flow-graphite-anode",
@@ -1571,6 +1925,22 @@
         "processStageId": "material_processing",
         "relationType": "input",
         "flowKind": "representative_supply",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-iea-battery-supply-chain",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-china-graphite-role",
+          "evidence-iea-battery-chain",
+          "evidence-globe-chain-route-methodology"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "只表示石墨与负极材料的一般阶段联系，不证明具体工厂或批次。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1581,24 +1951,32 @@
         "quantity": null,
         "currency": null,
         "unit": null,
-        "method": "curated",
-        "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
-        ],
         "confidence": null,
-        "dataStatus": "unknown",
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
-        "id": "flow-copper-anode",
+        "id": "flow-copper-cell",
         "fromEntityId": "node-cl-copper",
-        "toEntityId": "node-cn-anode",
+        "toEntityId": "node-kr-cell",
         "itemId": "copper",
-        "processStageId": "material_processing",
+        "processStageId": "component_manufacturing",
         "relationType": "input",
         "flowKind": "representative_supply",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-chile-copper-role",
+          "evidence-globe-chain-route-methodology"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "铜通常还需冶炼和铜箔加工；本边省略中间阶段，不证明智利到韩国的直接流向。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1609,24 +1987,32 @@
         "quantity": null,
         "currency": null,
         "unit": null,
-        "method": "curated",
-        "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
-        ],
         "confidence": null,
-        "dataStatus": "unknown",
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
-        "id": "flow-aluminum-anode",
+        "id": "flow-aluminum-cell",
         "fromEntityId": "node-au-aluminum",
-        "toEntityId": "node-cn-anode",
+        "toEntityId": "node-kr-cell",
         "itemId": "aluminum",
-        "processStageId": "material_processing",
+        "processStageId": "component_manufacturing",
         "relationType": "input",
         "flowKind": "representative_supply",
+        "sourceIds": [
+          "source-usgs-mineral-commodities",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-usgs-australia-aluminum-role",
+          "evidence-globe-chain-route-methodology"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "铝相关原料还需加工为适用材料；本边省略中间阶段，不证明澳大利亚到韩国的直接流向。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1637,15 +2023,9 @@
         "quantity": null,
         "currency": null,
         "unit": null,
-        "method": "curated",
-        "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
-        ],
         "confidence": null,
-        "dataStatus": "unknown",
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "flow-cathode-cell",
@@ -1655,6 +2035,20 @@
         "processStageId": "component_manufacturing",
         "relationType": "input",
         "flowKind": "representative_supply",
+        "sourceIds": [
+          "source-iea-battery-supply-chain",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-iea-battery-chain",
+          "evidence-globe-chain-route-methodology"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "IEA 支持一般阶段关系，不证明中国到韩国的直接双边流向。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1665,15 +2059,9 @@
         "quantity": null,
         "currency": null,
         "unit": null,
-        "method": "curated",
-        "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
-        ],
         "confidence": null,
-        "dataStatus": "unknown",
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "flow-anode-cell",
@@ -1683,6 +2071,20 @@
         "processStageId": "component_manufacturing",
         "relationType": "input",
         "flowKind": "representative_supply",
+        "sourceIds": [
+          "source-iea-battery-supply-chain",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-iea-battery-chain",
+          "evidence-globe-chain-route-methodology"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "IEA 支持一般阶段关系，不证明中国到韩国的直接双边流向。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1693,15 +2095,9 @@
         "quantity": null,
         "currency": null,
         "unit": null,
-        "method": "curated",
-        "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
-        ],
         "confidence": null,
-        "dataStatus": "unknown",
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "flow-cell-module",
@@ -1711,6 +2107,20 @@
         "processStageId": "assembly",
         "relationType": "assembly",
         "flowKind": "representative_supply",
+        "sourceIds": [
+          "source-iea-battery-supply-chain",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-iea-battery-chain",
+          "evidence-globe-chain-route-methodology"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "只表示电芯进入模组的一般生产顺序，不证明韩国境内的具体生产关系。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1721,15 +2131,9 @@
         "quantity": null,
         "currency": null,
         "unit": null,
-        "method": "curated",
-        "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
-        ],
         "confidence": null,
-        "dataStatus": "unknown",
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "flow-module-assembly",
@@ -1739,6 +2143,20 @@
         "processStageId": "assembly",
         "relationType": "input",
         "flowKind": "representative_supply",
+        "sourceIds": [
+          "source-iea-battery-supply-chain",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-iea-battery-chain",
+          "evidence-globe-chain-route-methodology"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "不证明韩国电池模组直接供应中国手机组装。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1749,15 +2167,9 @@
         "quantity": null,
         "currency": null,
         "unit": null,
-        "method": "curated",
-        "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
-        ],
         "confidence": null,
-        "dataStatus": "unknown",
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "flow-components-assembly",
@@ -1767,6 +2179,18 @@
         "processStageId": "assembly",
         "relationType": "input",
         "flowKind": "representative_supply",
+        "sourceIds": [
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-globe-chain-route-methodology"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "当前来源未证明日本电子组件直接供应中国手机组装；该边仅为策展连接。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1777,15 +2201,9 @@
         "quantity": null,
         "currency": null,
         "unit": null,
-        "method": "curated",
-        "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
-        ],
         "confidence": null,
-        "dataStatus": "unknown",
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "flow-assembly-export",
@@ -1795,6 +2213,21 @@
         "processStageId": "distribution",
         "relationType": "trade",
         "flowKind": "representative_supply",
+        "sourceIds": [
+          "source-un-comtrade",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-comtrade-china-smartphone-world-total",
+          "evidence-comtrade-united-states-smartphone-world-total",
+          "evidence-globe-chain-route-methodology"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "中国世界总计出口和美国世界总计进口不能证明中国到美国的直接双边流向。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1805,24 +2238,33 @@
         "quantity": null,
         "currency": null,
         "unit": null,
-        "method": "curated",
-        "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
-        ],
         "confidence": null,
-        "dataStatus": "unknown",
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
-        "id": "flow-export-consumption",
-        "fromEntityId": "node-us-export",
+        "id": "flow-assembly-germany-market",
+        "fromEntityId": "node-cn-assembly",
         "toEntityId": "node-de-consumption",
         "itemId": "generic-smartphone",
         "processStageId": "consumption",
         "relationType": "consumption",
         "flowKind": "representative_supply",
+        "sourceIds": [
+          "source-un-comtrade",
+          "source-globe-chain-route-methodology"
+        ],
+        "evidenceIds": [
+          "evidence-comtrade-china-smartphone-world-total",
+          "evidence-comtrade-germany-smartphone-world-total",
+          "evidence-globe-chain-route-methodology"
+        ],
+        "method": "curated",
+        "dataStatus": "unknown",
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "evidenceLevel": "representative",
+        "notes": "中国世界总计出口和德国世界总计进口不能证明中国到德国的直接双边流向，进口额也不等于消费量。",
         "period": {
           "granularity": "annual",
           "start": "2023-01-01",
@@ -1833,23 +2275,17 @@
         "quantity": null,
         "currency": null,
         "unit": null,
-        "method": "curated",
-        "sourceIds": [
-          "source-usgs-mineral-commodities",
-          "source-iea-battery-supply-chain"
-        ],
         "confidence": null,
-        "dataStatus": "unknown",
         "datasetVersionId": "dataset-smartphone-published-2023",
-        "notes": "代表性供应链关系；不表示唯一来源、实时物流、贸易金额、成本或利润。"
+        "contentVersionId": "content-smartphone-route-2023-1"
       }
     ],
     "steps": [
       {
         "id": "step-raw-materials",
         "order": 0,
-        "title": "多国原料节点",
-        "description": "锂、钴、镍、石墨、铜和铝以分支形式进入示意路径。",
+        "title": "多国原料角色",
+        "description": "锂、钴、镍、石墨、铜和铝相关上游节点具有国家角色证据；连接线仍是代表性策展关系。",
         "nodeIds": [
           "node-au-lithium",
           "node-cd-cobalt",
@@ -1863,21 +2299,27 @@
           "flow-cobalt-refining",
           "flow-nickel-refining",
           "flow-graphite-anode",
-          "flow-copper-anode",
-          "flow-aluminum-anode"
+          "flow-copper-cell",
+          "flow-aluminum-cell"
         ],
         "evidenceIds": [
-          "evidence-usgs-mineral-roles",
-          "evidence-iea-battery-chain"
+          "evidence-usgs-australia-lithium-role",
+          "evidence-usgs-drc-cobalt-role",
+          "evidence-usgs-indonesia-nickel-role",
+          "evidence-usgs-china-graphite-role",
+          "evidence-usgs-chile-copper-role",
+          "evidence-usgs-australia-aluminum-role",
+          "evidence-globe-chain-route-methodology"
         ],
+        "method": "curated",
         "contentStatus": "published",
         "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "step-materials",
         "order": 1,
-        "title": "精炼与正负极材料",
-        "description": "原料在示意加工节点形成正极和负极材料。",
+        "title": "正负极材料（代表性）",
+        "description": "用一般电池价值链资料说明正极、负极材料阶段，不声称特定手机供应商或双边来源。",
         "nodeIds": [
           "node-cn-cathode",
           "node-cn-anode"
@@ -1887,17 +2329,18 @@
           "flow-anode-cell"
         ],
         "evidenceIds": [
-          "evidence-usgs-mineral-roles",
-          "evidence-iea-battery-chain"
+          "evidence-iea-battery-chain",
+          "evidence-globe-chain-route-methodology"
         ],
+        "method": "curated",
         "contentStatus": "published",
         "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "step-cell",
         "order": 2,
-        "title": "电芯制造",
-        "description": "正负极材料进入电芯制造节点。",
+        "title": "电芯制造（代表性）",
+        "description": "正负极材料以及简化展示的铜、铝相关材料进入电芯阶段。",
         "nodeIds": [
           "node-kr-cell"
         ],
@@ -1905,17 +2348,18 @@
           "flow-cell-module"
         ],
         "evidenceIds": [
-          "evidence-usgs-mineral-roles",
-          "evidence-iea-battery-chain"
+          "evidence-iea-battery-chain",
+          "evidence-globe-chain-route-methodology"
         ],
+        "method": "curated",
         "contentStatus": "published",
         "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "step-module",
         "order": 3,
-        "title": "电池模组",
-        "description": "电芯组合为电池模组。",
+        "title": "电池模组（代表性）",
+        "description": "电芯进入模组的一般阶段顺序；韩国地点和后续去向均未作为观察事实发布。",
         "nodeIds": [
           "node-kr-module"
         ],
@@ -1923,17 +2367,18 @@
           "flow-module-assembly"
         ],
         "evidenceIds": [
-          "evidence-usgs-mineral-roles",
-          "evidence-iea-battery-chain"
+          "evidence-iea-battery-chain",
+          "evidence-globe-chain-route-methodology"
         ],
+        "method": "curated",
         "contentStatus": "published",
         "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "step-assembly",
         "order": 4,
-        "title": "整机组装",
-        "description": "电池模组与其他组件在示意组装节点形成通用智能手机。",
+        "title": "整机组装（代表性）",
+        "description": "电池模组与以显示屏为代表的其他组件形成通用智能手机；国家连接没有直接供应证据。",
         "nodeIds": [
           "node-jp-components",
           "node-cn-assembly"
@@ -1942,17 +2387,18 @@
           "flow-components-assembly"
         ],
         "evidenceIds": [
-          "evidence-usgs-mineral-roles",
-          "evidence-iea-battery-chain"
+          "evidence-comtrade-china-smartphone-world-total",
+          "evidence-globe-chain-route-methodology"
         ],
+        "method": "curated",
         "contentStatus": "published",
         "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "step-distribution",
         "order": 5,
-        "title": "出口与分销",
-        "description": "成品从组装节点进入示意进口/分销市场。",
+        "title": "进口与分销市场（代表性）",
+        "description": "中国世界总计出口和美国世界总计进口仅提供两国各自的贸易背景，不能组成直接双边事实。",
         "nodeIds": [
           "node-us-export"
         ],
@@ -1960,27 +2406,31 @@
           "flow-assembly-export"
         ],
         "evidenceIds": [
-          "evidence-usgs-mineral-roles",
-          "evidence-iea-battery-chain"
+          "evidence-comtrade-china-smartphone-world-total",
+          "evidence-comtrade-united-states-smartphone-world-total",
+          "evidence-globe-chain-route-methodology"
         ],
+        "method": "curated",
         "contentStatus": "published",
         "contentVersionId": "content-smartphone-route-2023-1"
       },
       {
         "id": "step-consumption",
         "order": 6,
-        "title": "消费市场",
-        "description": "成品进入示意消费市场。",
+        "title": "进口/消费市场（代表性）",
+        "description": "德国世界总计进口提供市场背景，但进口额不等于最终消费，也不证明中国到德国的直接贸易。",
         "nodeIds": [
           "node-de-consumption"
         ],
         "flowIds": [
-          "flow-export-consumption"
+          "flow-assembly-germany-market"
         ],
         "evidenceIds": [
-          "evidence-usgs-mineral-roles",
-          "evidence-iea-battery-chain"
+          "evidence-comtrade-china-smartphone-world-total",
+          "evidence-comtrade-germany-smartphone-world-total",
+          "evidence-globe-chain-route-methodology"
         ],
+        "method": "curated",
         "contentStatus": "published",
         "contentVersionId": "content-smartphone-route-2023-1"
       }
@@ -1988,8 +2438,9 @@
     "datasetVersionId": "dataset-smartphone-published-2023",
     "contentVersionId": "content-smartphone-route-2023-1",
     "warnings": [
-      "这是代表性供应链路径，不代表某一品牌、型号、企业、批次或唯一真实路线。",
-      "路线关系没有数量值；未知数量保持为 unknown，不应解读为零。"
+      "这是一条用于解释主要国家角色与生产阶段的代表性策展路线，不代表某一品牌、型号、企业、工厂、批次或唯一真实路线。",
+      "当前发布路线的所有边均为 representative；没有一条边具有 direct bilateral evidence。",
+      "路线没有数量或金额；valueDataStatus 与 quantityDataStatus 均为 unknown，不能解读为 0。"
     ]
   },
   "tradeObservations": [
@@ -3237,7 +3688,17 @@
     "智能手机单品贸易为 HS 2022 六位码 851713、世界总计伙伴的海关观察；缺失国家/流向不填零。",
     "官方储备指标 FI.RES.TOTL.CD 包含黄金，不等同于狭义外汇储备。",
     "电池供应链是有来源的代表性策展路径，不代表唯一真实路线，也不提供成本、增加值或利润分配。",
-    "Comtrade 估算和质量标记保存在 qualityNote，并影响 dataStatus；运行时不请求外部 API。"
+    "Comtrade 估算和质量标记保存在 qualityNote，并影响 dataStatus；运行时不请求外部 API。",
+    "所有现有路线边均为 representative 且数量未知；没有 observed 或 bilateral_supported 的供应链边。"
+  ],
+  "contentVersions": [
+    {
+      "id": "content-smartphone-route-2023-1",
+      "version": "smartphone-route-2023.1",
+      "status": "published",
+      "publishedAt": "2026-08-25",
+      "notes": "Reviewed representative route content for the 2023 generic-smartphone battery vertical slice."
+    }
   ],
   "indicatorDefinitions": [
     {
@@ -3355,6 +3816,11 @@
     "FI.RES.TOTL.CD 是 World Bank WDI 的 Total reserves（includes gold, current US$），本数据集显示为官方储备总额（含黄金）。",
     "商品海关贸易金额不等于企业利润、生产成本、国内增加值或手机零售价格。",
     "UN Comtrade 的 primaryValue 金额状态与数量/净重估算标记分开处理；isQtyEstimated=true 的数量不作为精确数量发布。",
-    "unknown、未披露、估算和真实为零是不同语义；没有观察时不会补写 0。"
+    "unknown、未披露、估算和真实为零是不同语义；没有观察时不会补写 0。",
+    "当前供应链路线的 13 条边全部是 representative 策展连接，没有任何一条具有直接双边流向证据。",
+    "USGS 证据支持的是澳大利亚锂、刚果民主共和国钴、印度尼西亚镍、中国石墨、智利铜和澳大利亚铝相关上游角色，不证明这些国家之间的具体运输。",
+    "日本电子组件、中国手机组装、美国分销和德国消费节点当前没有直接角色证据，保持 representative + unknown。",
+    "中国、美国和德国的 Comtrade partnerCode=0 观察仅提供各自对世界总计的贸易背景；把两个世界总计观察并列不能构成双边贸易证据。",
+    "铜和铝在当前路线中作为简化的电芯相关材料输入，中间冶炼和箔材加工阶段尚未发布。"
   ]
 }

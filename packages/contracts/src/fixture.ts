@@ -12,7 +12,12 @@ import {
   MacroIndicatorObservationSchema,
   TradeObservationSchema
 } from "./observations";
-import { DatasetVersionSchema, EvidenceSchema, SourceSchema } from "./provenance";
+import {
+  ContentVersionSchema,
+  DatasetVersionSchema,
+  EvidenceSchema,
+  SourceSchema
+} from "./provenance";
 import { IdSchema, NonEmptyStringSchema } from "./primitives";
 import { StoryGraphSchema } from "./story";
 
@@ -21,6 +26,7 @@ export const ProductFixtureSchema = z
     schemaVersion: NonEmptyStringSchema,
     productId: IdSchema,
     datasetVersion: DatasetVersionSchema,
+    contentVersions: z.array(ContentVersionSchema).default([]),
     sources: z.array(SourceSchema),
     evidence: z.array(EvidenceSchema),
     entities: z.array(GeoEntitySchema),
@@ -40,14 +46,16 @@ export const ProductFixtureSchema = z
   })
   .superRefine((fixture, context) => {
     const sourceIdSet = new Set(fixture.sources.map((source) => source.id));
-    const evidenceIds = new Set(fixture.evidence.map((record) => record.id));
+    const evidenceById = new Map(fixture.evidence.map((record) => [record.id, record]));
     const entityIds = new Set(fixture.entities.map((entity) => entity.id));
     const itemIds = new Set(fixture.items.map((item) => item.id));
     const processStageIds = new Set(fixture.processStages.map((stage) => stage.id));
+    const storyNodeIds = new Set(fixture.storyGraph.nodes.map((node) => node.id));
     const classificationCodeIds = new Set(
       fixture.classificationCodes.map((classificationCode) => classificationCode.id)
     );
     const datasetVersionIds = new Set([fixture.datasetVersion.id]);
+    const contentVersionIds = new Set(fixture.contentVersions.map((version) => version.id));
 
     const checkUnique = (values: string[], path: (string | number)[], label: string) => {
       if (new Set(values).size !== values.length) {
@@ -56,6 +64,11 @@ export const ProductFixtureSchema = z
     };
 
     checkUnique(fixture.sources.map((source) => source.id), ["sources"], "Source");
+    checkUnique(
+      fixture.contentVersions.map((version) => version.id),
+      ["contentVersions"],
+      "Content version"
+    );
     checkUnique(fixture.evidence.map((record) => record.id), ["evidence"], "Evidence");
     checkUnique(fixture.entities.map((entity) => entity.id), ["entities"], "Entity");
     checkUnique(fixture.items.map((item) => item.id), ["items"], "Item");
@@ -125,6 +138,164 @@ export const ProductFixtureSchema = z
           code: "custom",
           path,
           message: `${label} references an unknown dataset version`
+        });
+      }
+    };
+
+    const checkContentVersionReference = (
+      contentVersionId: string | null | undefined,
+      path: (string | number)[],
+      label: string
+    ) => {
+      if (contentVersionId && !contentVersionIds.has(contentVersionId)) {
+        context.addIssue({
+          code: "custom",
+          path,
+          message: `${label} references an unknown content version`
+        });
+      }
+    };
+
+    const checkEvidenceReferences = (
+      recordEvidenceIds: string[],
+      recordSourceIds: string[] | null,
+      path: (string | number)[],
+      label: string
+    ) => {
+      recordEvidenceIds.forEach((evidenceId, evidenceIndex) => {
+        const evidence = evidenceById.get(evidenceId);
+        if (!evidence) {
+          context.addIssue({
+            code: "custom",
+            path: [...path, evidenceIndex],
+            message: `${label} references unknown evidence`
+          });
+          return;
+        }
+        if (recordSourceIds && !recordSourceIds.includes(evidence.sourceId)) {
+          context.addIssue({
+            code: "custom",
+            path: [...path, evidenceIndex],
+            message: `${label} evidence source must be included in record.sourceIds`
+          });
+        }
+      });
+    };
+
+    const checkSupplyEvidenceLevel = (
+      record: {
+        evidenceIds: readonly string[];
+        evidenceLevel: "role_supported" | "bilateral_supported" | "representative" | "none";
+      },
+      path: (string | number)[],
+      label: string
+    ) => {
+      const supportTypes = new Set(
+        record.evidenceIds
+          .map((evidenceId) => evidenceById.get(evidenceId)?.supportType)
+          .filter((supportType): supportType is NonNullable<typeof supportType> => Boolean(supportType))
+      );
+      const requiredSupportType = ({
+        role_supported: "country_role",
+        bilateral_supported: "bilateral_flow",
+        representative: "curation_method",
+        none: null
+      } as const)[record.evidenceLevel];
+
+      if (requiredSupportType && !supportTypes.has(requiredSupportType)) {
+        context.addIssue({
+          code: "custom",
+          path: [...path, "evidenceLevel"],
+          message: `${label} evidence level ${record.evidenceLevel} requires ${requiredSupportType} evidence`
+        });
+      }
+    };
+
+    const requirePublishedStoryProvenance = (
+      record: {
+        method: string;
+        period?: unknown;
+        evidenceIds: readonly string[];
+        evidenceLevel: "role_supported" | "bilateral_supported" | "representative" | "none";
+        contentVersionId?: string | null;
+      },
+      path: (string | number)[],
+      label: string
+    ) => {
+      if (fixture.datasetVersion.status !== "published") return;
+      if (record.method === "mock") {
+        context.addIssue({
+          code: "custom",
+          path: [...path, "method"],
+          message: `Published ${label} must not use the mock method`
+        });
+      }
+      if (!record.period) {
+        context.addIssue({
+          code: "custom",
+          path: [...path, "period"],
+          message: `Published ${label} must define a period`
+        });
+      }
+      if (record.evidenceIds.length === 0) {
+        context.addIssue({
+          code: "custom",
+          path: [...path, "evidenceIds"],
+          message: `Published ${label} must reference evidence`
+        });
+      }
+      if (record.evidenceLevel === "none") {
+        context.addIssue({
+          code: "custom",
+          path: [...path, "evidenceLevel"],
+          message: `Published ${label} must declare a supported or representative evidence level`
+        });
+      }
+      if (!record.contentVersionId) {
+        context.addIssue({
+          code: "custom",
+          path: [...path, "contentVersionId"],
+          message: `Published ${label} must reference a content version`
+        });
+      }
+    };
+
+    const requirePublishedStoryStepProvenance = (
+      step: {
+        method: string;
+        contentStatus: string;
+        evidenceIds: readonly string[];
+        contentVersionId?: string | null;
+      },
+      path: (string | number)[]
+    ) => {
+      if (fixture.datasetVersion.status !== "published") return;
+      if (step.method === "mock") {
+        context.addIssue({
+          code: "custom",
+          path: [...path, "method"],
+          message: "Published story step must not use the mock method"
+        });
+      }
+      if (step.contentStatus !== "published") {
+        context.addIssue({
+          code: "custom",
+          path: [...path, "contentStatus"],
+          message: "Published story step must have published content status"
+        });
+      }
+      if (step.evidenceIds.length === 0) {
+        context.addIssue({
+          code: "custom",
+          path: [...path, "evidenceIds"],
+          message: "Published story step must reference evidence"
+        });
+      }
+      if (!step.contentVersionId) {
+        context.addIssue({
+          code: "custom",
+          path: [...path, "contentVersionId"],
+          message: "Published story step must reference a content version"
         });
       }
     };
@@ -227,6 +398,27 @@ export const ProductFixtureSchema = z
         ["productionActivities", index, "datasetVersionId"],
         "Production activity"
       );
+      checkEvidenceReferences(
+        activity.evidenceIds,
+        activity.sourceIds,
+        ["productionActivities", index, "evidenceIds"],
+        "Production activity"
+      );
+      checkSupplyEvidenceLevel(
+        activity,
+        ["productionActivities", index],
+        "Production activity"
+      );
+      checkContentVersionReference(
+        activity.contentVersionId,
+        ["productionActivities", index, "contentVersionId"],
+        "Production activity"
+      );
+      requirePublishedStoryProvenance(
+        activity,
+        ["productionActivities", index],
+        "production activity"
+      );
     });
 
     fixture.classificationCodes.forEach((classificationCode, index) => {
@@ -301,9 +493,38 @@ export const ProductFixtureSchema = z
         ["storyGraph", "nodes", index, "datasetVersionId"],
         "Story node"
       );
+      checkEvidenceReferences(
+        node.evidenceIds,
+        node.sourceIds,
+        ["storyGraph", "nodes", index, "evidenceIds"],
+        "Story node"
+      );
+      checkSupplyEvidenceLevel(node, ["storyGraph", "nodes", index], "Story node");
+      checkContentVersionReference(
+        node.contentVersionId,
+        ["storyGraph", "nodes", index, "contentVersionId"],
+        "Story node"
+      );
+      requirePublishedStoryProvenance(node, ["storyGraph", "nodes", index], "story node");
     });
 
     fixture.storyGraph.flows.forEach((flow, index) => {
+      if (fixture.datasetVersion.status === "published") {
+        if (!storyNodeIds.has(flow.fromEntityId)) {
+          context.addIssue({
+            code: "custom",
+            path: ["storyGraph", "flows", index, "fromEntityId"],
+            message: "Published story flow source must reference a story node ID"
+          });
+        }
+        if (!storyNodeIds.has(flow.toEntityId)) {
+          context.addIssue({
+            code: "custom",
+            path: ["storyGraph", "flows", index, "toEntityId"],
+            message: "Published story flow destination must reference a story node ID"
+          });
+        }
+      }
       if (!itemIds.has(flow.itemId)) {
         context.addIssue({
           code: "custom",
@@ -328,18 +549,34 @@ export const ProductFixtureSchema = z
         ["storyGraph", "flows", index, "datasetVersionId"],
         "Story flow"
       );
+      checkEvidenceReferences(
+        flow.evidenceIds,
+        flow.sourceIds,
+        ["storyGraph", "flows", index, "evidenceIds"],
+        "Story flow"
+      );
+      checkSupplyEvidenceLevel(flow, ["storyGraph", "flows", index], "Story flow");
+      checkContentVersionReference(
+        flow.contentVersionId,
+        ["storyGraph", "flows", index, "contentVersionId"],
+        "Story flow"
+      );
+      requirePublishedStoryProvenance(flow, ["storyGraph", "flows", index], "story flow");
     });
 
     fixture.storyGraph.steps.forEach((step, index) => {
-      step.evidenceIds.forEach((evidenceId, evidenceIndex) => {
-        if (!evidenceIds.has(evidenceId)) {
-          context.addIssue({
-            code: "custom",
-            path: ["storyGraph", "steps", index, "evidenceIds", evidenceIndex],
-            message: "Story step references unknown evidence"
-          });
-        }
-      });
+      checkEvidenceReferences(
+        step.evidenceIds,
+        null,
+        ["storyGraph", "steps", index, "evidenceIds"],
+        "Story step"
+      );
+      checkContentVersionReference(
+        step.contentVersionId,
+        ["storyGraph", "steps", index, "contentVersionId"],
+        "Story step"
+      );
+      requirePublishedStoryStepProvenance(step, ["storyGraph", "steps", index]);
     });
 
     fixture.tradeObservations.forEach((observation, index) => {
@@ -416,6 +653,48 @@ export const ProductFixtureSchema = z
         "Indicator definition"
       );
     });
+
+    checkContentVersionReference(
+      fixture.storyGraph.contentVersionId,
+      ["storyGraph", "contentVersionId"],
+      "Story graph"
+    );
+
+    if (fixture.datasetVersion.status === "published") {
+      if (fixture.storyGraph.method === "mock") {
+        context.addIssue({
+          code: "custom",
+          path: ["storyGraph", "method"],
+          message: "Published story graph must not use the mock method"
+        });
+      }
+      if (!fixture.storyGraph.datasetVersionId) {
+        context.addIssue({
+          code: "custom",
+          path: ["storyGraph", "datasetVersionId"],
+          message: "Published story graph must reference a dataset version"
+        });
+      }
+      if (!fixture.storyGraph.contentVersionId) {
+        context.addIssue({
+          code: "custom",
+          path: ["storyGraph", "contentVersionId"],
+          message: "Published story graph must reference a content version"
+        });
+      }
+      if (
+        fixture.storyGraph.method === "curated" &&
+        (!fixture.storyGraph.representativeStatement ||
+          fixture.storyGraph.methodology.length === 0 ||
+          fixture.storyGraph.limitations.length === 0)
+      ) {
+        context.addIssue({
+          code: "custom",
+          path: ["storyGraph"],
+          message: "Published curated story graph must explain its representative scope, methodology and limitations"
+        });
+      }
+    }
 
     if (fixture.storyGraph.productId !== fixture.productId) {
       context.addIssue({

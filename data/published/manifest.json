@@ -8,13 +8,19 @@
   ],
   "datasetVersion": "globe-chain-smartphone-2023.1",
   "generatedAt": "2026-08-25",
-  "fixtureSha256": "1fae3f452b400f38bb284a5f32d7e1f80add33b929a1a34e58e002a1f4a832e1",
+  "fixtureSha256": "158358eca14289a15c4db67c7015fa5260e726d417dfe3fcce8a31d187e17d2d",
+  "routeContentVersion": "smartphone-route-2023.1",
+  "routeContentSha256": "ea3213c3f454c97fc672b23189fb21c54d9e5e66516b7862215d4d824e14a06d",
+  "contentSources": [
+    "../../content/routes/generic-smartphone-2023.json"
+  ],
   "sourceSnapshots": [
     "raw/world-bank-wdi-2023.json",
     "raw/un-comtrade-hs2022-851713-2023.json"
   ],
   "notes": [
-    "Generated from immutable local raw snapshots; no runtime API calls.",
-    "The published fixture intentionally omits countries/flows absent from the Comtrade response rather than filling zero."
+    "Numeric observations are generated from immutable local raw snapshots; reviewed route topology and evidence bindings come from the versioned content source. No runtime API calls are made.",
+    "The published fixture intentionally omits countries/flows absent from the Comtrade response rather than filling zero.",
+    "All current supply-chain edges are representative and quantity-free; none has direct bilateral evidence."
   ]
 }

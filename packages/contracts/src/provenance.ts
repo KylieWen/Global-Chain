@@ -20,9 +20,20 @@ export const SourceSchema = z.object({
 });
 export type Source = z.infer<typeof SourceSchema>;
 
+export const EvidenceSupportTypeSchema = z.enum([
+  "country_role",
+  "bilateral_flow",
+  "process_context",
+  "trade_observation",
+  "classification",
+  "curation_method"
+]);
+export type EvidenceSupportType = z.infer<typeof EvidenceSupportTypeSchema>;
+
 export const EvidenceSchema = z.object({
   id: IdSchema,
   sourceId: IdSchema,
+  supportType: EvidenceSupportTypeSchema.default("process_context"),
   locator: NonEmptyStringSchema,
   excerpt: z.string().trim().min(1).nullable().optional(),
   notes: z.string().trim().min(1).nullable().optional()

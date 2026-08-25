@@ -3,6 +3,7 @@ import {
   CurrencySchema,
   DataMethodSchema,
   DirectionSchema,
+  EvidenceIdsSchema,
   FactStatusSchema,
   FlowKindSchema,
   FiniteNumberSchema,
@@ -15,6 +16,7 @@ import {
   PartnerScopeSchema,
   SourceIdsSchema,
   StatisticalConceptSchema,
+  SupplyChainEvidenceLevelSchema,
   RelationTypeSchema,
   UnitSchema,
   validateFactMetadata,
@@ -37,15 +39,79 @@ export const SupplyFlowSchema = z
     unit: UnitSchema.nullable().optional(),
     method: DataMethodSchema,
     sourceIds: SourceIdsSchema,
+    evidenceIds: EvidenceIdsSchema.default([]),
+    evidenceLevel: SupplyChainEvidenceLevelSchema.default("none"),
     confidence: FiniteNumberSchema.min(0).max(1).nullable().optional(),
     dataStatus: FactStatusSchema,
+    valueDataStatus: FactStatusSchema.optional(),
+    quantityDataStatus: FactStatusSchema.optional(),
     datasetVersionId: NullableIdSchema,
+    contentVersionId: NullableIdSchema.default(null),
     notes: NullableStringSchema
   })
   .superRefine((flow, context) => {
     validateFactMetadata(flow, context);
     validateMeasuredValue(flow, context);
-  });
+
+    const valueDataStatus =
+      flow.valueDataStatus ??
+      (flow.value === null || flow.value === undefined ? "unknown" : flow.dataStatus);
+    const quantityDataStatus =
+      flow.quantityDataStatus ??
+      (flow.quantity === null || flow.quantity === undefined ? "unknown" : flow.dataStatus);
+
+    if (
+      (valueDataStatus === "unknown" || valueDataStatus === "withheld") &&
+      flow.value !== null &&
+      flow.value !== undefined
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["value"],
+        message: `${valueDataStatus} supply-flow values must be null`
+      });
+    }
+    if (
+      valueDataStatus === "observed" &&
+      (flow.value === null || flow.value === undefined)
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["value"],
+        message: "Observed supply-flow values must provide a numeric value"
+      });
+    }
+    if (
+      (quantityDataStatus === "unknown" || quantityDataStatus === "withheld") &&
+      flow.quantity !== null &&
+      flow.quantity !== undefined
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["quantity"],
+        message: `${quantityDataStatus} supply-flow quantities must be null`
+      });
+    }
+    if (
+      quantityDataStatus === "observed" &&
+      (flow.quantity === null || flow.quantity === undefined)
+    ) {
+      context.addIssue({
+        code: "custom",
+        path: ["quantity"],
+        message: "Observed supply-flow quantities must provide a numeric quantity"
+      });
+    }
+  })
+  .transform((flow) => ({
+    ...flow,
+    valueDataStatus:
+      flow.valueDataStatus ??
+      (flow.value === null || flow.value === undefined ? "unknown" : flow.dataStatus),
+    quantityDataStatus:
+      flow.quantityDataStatus ??
+      (flow.quantity === null || flow.quantity === undefined ? "unknown" : flow.dataStatus)
+  }));
 export type SupplyFlow = z.infer<typeof SupplyFlowSchema>;
 
 export const TradeObservationSchema = z

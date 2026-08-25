@@ -2,6 +2,7 @@ import { z } from "zod";
 import {
   ClassificationMappingTypeSchema,
   DataMethodSchema,
+  EvidenceIdsSchema,
   FactStatusSchema,
   GeoEntityKindSchema,
   IdSchema,
@@ -14,6 +15,7 @@ import {
   NonEmptyStringSchema,
   PeriodSchema,
   SourceIdsSchema,
+  SupplyChainEvidenceLevelSchema,
   validateFactMetadata
 } from "./primitives";
 
@@ -71,9 +73,12 @@ export const ProductionActivitySchema = z
     outputItemIds: z.array(IdSchema),
     period: PeriodSchema,
     sourceIds: SourceIdsSchema,
+    evidenceIds: EvidenceIdsSchema.default([]),
+    evidenceLevel: SupplyChainEvidenceLevelSchema.default("none"),
     method: DataMethodSchema,
     dataStatus: FactStatusSchema,
     datasetVersionId: NullableIdSchema,
+    contentVersionId: NullableIdSchema.default(null),
     notes: NullableStringSchema
   })
   .superRefine(validateFactMetadata);

@@ -1,8 +1,8 @@
 # GlobeChain 架构说明
 
-## 当前基线（2026-08-24）
+## 当前基线（2026-08-25）
 
-项目已完成最小工程骨架、通用数据契约、mock 商品 fixture，以及只读 fixture loader 和领域查询层。当前仍没有业务页面、数据库迁移内容、外部数据集或真实数据接入。本文既是目标架构，也是后续实现的约束；其中尚未实现的部分必须以代码和测试为准逐步更新。
+项目已完成最小工程骨架、通用数据契约、mock fixture、只读 fixture loader、领域查询层、无地图 Web 页面，以及 2023 年通用智能手机 published 数据集。国家贸易账本和代表性供应链内容均从本地已发布 fixture 只读展示；当前仍没有数据库迁移、地图或运行时外部 API。本文既是目标架构，也是后续实现的约束；其中尚未实现的部分必须以代码和测试为准逐步更新。
 
 ## 总体决策
 
@@ -51,7 +51,7 @@ Node、pnpm、Next.js、React、TypeScript、ESLint 和 Vitest 的实际版本�
 
 负责数据批次、内容版本、校验结果、审批/发布状态和回滚指针。Web 层只读取 `published` 版本，预览环境可读取 `draft` 但必须显式标识。
 
-当前实现：`loadFixtureRepositoryFromManifest` 默认只加载 `published`；读取 `draft` 必须显式传入 `allowedStatuses`。`packages/domain` 不依赖文件系统，只依赖只读 `FixtureRepository`，并提供商品目录、拆解树、供应链故事、节点详情、国家账本和 provenance 查询。
+当前实现：`loadFixtureRepositoryFromManifest` 默认只加载 `published`；读取 `draft` 必须显式传入 `allowedStatuses`。`packages/domain` 不依赖文件系统，只依赖只读 `FixtureRepository`，并提供商品目录、拆解树、供应链故事、节点详情、国家账本和 provenance 查询。供应链查询负责解析节点、边、生产活动、步骤、来源、逐条 evidence 和内容版本，Web 页面不得自行连接这些 ID。
 
 ## 存储分离与连接
 
@@ -61,6 +61,8 @@ Node、pnpm、Next.js、React、TypeScript、ESLint 和 Vitest 的实际版本�
 - `trade_*`：进口/出口、伙伴、商品结构、宏观指标及统计口径。
 - `dim_*`：商品、国家、年份、单位、分类编码等共享标准维度。
 - `provenance_*`：数据源、获取批次、转换步骤、校验、方法、数据集版本和发布记录。
+
+供应链层还必须把“证据支持范围”和“金额/数量数据状态”分开：国家角色资料不能被查询或页面自动解释成双边流向；代表性连接必须保持明确标识。
 
 跨模块查询只通过稳定的商品 ID、国家 ID、年份和版本连接；不通过名称模糊匹配或页面临时拼接。
 

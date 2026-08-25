@@ -1,10 +1,15 @@
 import { describe, expect, it } from "vitest";
+import publishedSmartphoneJson from "../data/published/smartphone/fixture.json";
+import smartphoneJson from "../data/samples/smartphone/fixture.json";
 import {
   DatasetVersionSchema,
+  EvidenceSchema,
   GeoEntitySchema,
   ItemSchema,
   PeriodSchema,
+  ProductFixtureSchema,
   StoryGraphSchema,
+  SupplyChainEvidenceLevelSchema,
   SupplyFlowSchema,
   TradeObservationSchema
 } from "@globe-chain/contracts";
@@ -52,30 +57,79 @@ describe("shared contract schemas", () => {
     expect(coffee.slug).toBe("coffee");
   });
 
-  it("keeps unknown, null, and zero distinct", () => {
+  it("keeps unknown, null, and an observed zero distinct", () => {
     expect(PeriodSchema.safeParse(annualPeriod).success).toBe(true);
+    const observedZero = SupplyFlowSchema.parse({
+      id: "flow-zero",
+      fromEntityId: "country-a",
+      toEntityId: "country-b",
+      itemId: "lithium",
+      processStageId: "refining",
+      relationType: "production",
+      flowKind: "representative_supply",
+      period: annualPeriod,
+      value: 0,
+      quantity: null,
+      currency: "USD",
+      unit: null,
+      method: "mock",
+      sourceIds: [],
+      confidence: null,
+      dataStatus: "unknown",
+      valueDataStatus: "observed",
+      evidenceLevel: "representative",
+      datasetVersionId: null,
+      notes: null
+    });
+
+    expect(observedZero.value).toBe(0);
+    expect(observedZero.dataStatus).toBe("unknown");
+    expect(observedZero.valueDataStatus).toBe("observed");
+    expect(observedZero.quantityDataStatus).toBe("unknown");
+    expect(observedZero.evidenceLevel).toBe("representative");
+
+    const contradictoryUnknownZero = SupplyFlowSchema.safeParse({
+      ...observedZero,
+      id: "flow-unknown-zero",
+      valueDataStatus: "unknown"
+    });
+    expect(contradictoryUnknownZero.success).toBe(false);
+
+    const contradictoryUnknownQuantityZero = SupplyFlowSchema.safeParse({
+      ...observedZero,
+      id: "flow-unknown-quantity-zero",
+      value: null,
+      currency: null,
+      valueDataStatus: "unknown",
+      quantity: 0,
+      unit: "kg",
+      quantityDataStatus: "unknown"
+    });
+    expect(contradictoryUnknownQuantityZero.success).toBe(false);
+  });
+
+  it("models evidence support type and supply-chain evidence level explicitly", () => {
+    expect(SupplyChainEvidenceLevelSchema.options).toEqual([
+      "role_supported",
+      "bilateral_supported",
+      "representative",
+      "none"
+    ]);
     expect(
-      SupplyFlowSchema.parse({
-        id: "flow-zero",
-        fromEntityId: "country-a",
-        toEntityId: "country-b",
-        itemId: "lithium",
-        processStageId: "refining",
-        relationType: "production",
-        flowKind: "representative_supply",
-        period: annualPeriod,
-        value: 0,
-        quantity: null,
-        currency: "USD",
-        unit: null,
-        method: "mock",
-        sourceIds: [],
-        confidence: null,
-        dataStatus: "observed",
-        datasetVersionId: null,
-        notes: null
-      }).value
-    ).toBe(0);
+      EvidenceSchema.parse({
+        id: "evidence-role",
+        sourceId: "source-one",
+        supportType: "country_role",
+        locator: "Country role table"
+      }).supportType
+    ).toBe("country_role");
+    expect(
+      EvidenceSchema.parse({
+        id: "evidence-legacy",
+        sourceId: "source-one",
+        locator: "Legacy fixture locator"
+      }).supportType
+    ).toBe("process_context");
   });
 
   it("rejects invalid confidence and negative values", () => {
@@ -241,6 +295,109 @@ describe("shared contract schemas", () => {
     });
 
     expect(graph.steps).toHaveLength(1);
+    expect(graph.method).toBe("mock");
+    expect(graph.methodology).toEqual([]);
+    expect(graph.limitations).toEqual([]);
+    expect(graph.nodes[0].evidenceIds).toEqual([]);
+    expect(graph.nodes[0].evidenceLevel).toBe("none");
+    expect(graph.flows[0].valueDataStatus).toBe("unknown");
+    expect(graph.flows[0].quantityDataStatus).toBe("unknown");
+    expect(graph.steps[0].method).toBe("mock");
+  });
+
+  it("keeps legacy mock fixtures compatible while validating explicit evidence links", () => {
+    const legacy = ProductFixtureSchema.parse(structuredClone(smartphoneJson));
+    expect(legacy.contentVersions).toEqual([]);
+    expect(legacy.evidence.every((record) => record.supportType === "process_context")).toBe(true);
+    expect(legacy.storyGraph.nodes.every((node) => node.evidenceLevel === "none")).toBe(true);
+
+    const mismatchedEvidenceSource = structuredClone(smartphoneJson) as Record<string, unknown> & {
+      storyGraph: { nodes: Array<Record<string, unknown>> };
+      evidence: Array<{ id: string }>;
+    };
+    mismatchedEvidenceSource.storyGraph.nodes[0].evidenceIds = [
+      mismatchedEvidenceSource.evidence[0].id
+    ];
+    mismatchedEvidenceSource.storyGraph.nodes[0].sourceIds = [];
+    expect(ProductFixtureSchema.safeParse(mismatchedEvidenceSource).success).toBe(false);
+  });
+
+  it("requires complete provenance and non-mock methods for published story records", () => {
+    const published = structuredClone(smartphoneJson) as Record<string, unknown> & {
+      datasetVersion: { status: string };
+      storyGraph: {
+        nodes: Array<Record<string, unknown>>;
+        flows: Array<Record<string, unknown>>;
+      };
+    };
+    published.datasetVersion.status = "published";
+    published.storyGraph.nodes[0].method = "curated";
+
+    const missingProvenance = ProductFixtureSchema.safeParse(published);
+    expect(missingProvenance.success).toBe(false);
+    if (missingProvenance.success) throw new Error("Expected published provenance validation to fail");
+    expect(missingProvenance.error.issues.map((issue) => issue.message)).toEqual(
+      expect.arrayContaining([
+        "Published story node must define a period",
+        "Published story node must reference evidence",
+        "Published story node must reference a content version",
+        "Published story graph must not use the mock method"
+      ])
+    );
+
+    const entityEndpoint = structuredClone(smartphoneJson) as Record<string, unknown> & {
+      datasetVersion: { status: string };
+      storyGraph: { flows: Array<Record<string, unknown>> };
+    };
+    entityEndpoint.datasetVersion.status = "published";
+    entityEndpoint.storyGraph.flows[0].fromEntityId = "country-au";
+    const endpointResult = ProductFixtureSchema.safeParse(entityEndpoint);
+    expect(endpointResult.success).toBe(false);
+    if (endpointResult.success) throw new Error("Expected published endpoint validation to fail");
+    expect(endpointResult.error.issues.map((issue) => issue.message)).toContain(
+      "Published story flow source must reference a story node ID"
+    );
+  });
+
+  it("keeps published evidence levels aligned with their cited support types", () => {
+    const roleWithoutRoleEvidence = structuredClone(publishedSmartphoneJson) as Record<
+      string,
+      unknown
+    > & {
+      storyGraph: { nodes: Array<Record<string, unknown>>; flows: Array<Record<string, unknown>> };
+    };
+    roleWithoutRoleEvidence.storyGraph.nodes[0].evidenceLevel = "bilateral_supported";
+    const bilateralResult = ProductFixtureSchema.safeParse(roleWithoutRoleEvidence);
+    expect(bilateralResult.success).toBe(false);
+    if (bilateralResult.success) throw new Error("Expected bilateral evidence validation to fail");
+    expect(bilateralResult.error.issues.map((issue) => issue.message)).toContain(
+      "Story node evidence level bilateral_supported requires bilateral_flow evidence"
+    );
+
+    const representativeWithoutCuration = structuredClone(publishedSmartphoneJson) as Record<
+      string,
+      unknown
+    > & {
+      storyGraph: { flows: Array<Record<string, unknown>> };
+    };
+    representativeWithoutCuration.storyGraph.flows[0].evidenceIds = [
+      "evidence-usgs-australia-lithium-role",
+      "evidence-iea-battery-chain"
+    ];
+    representativeWithoutCuration.storyGraph.flows[0].sourceIds = [
+      "source-usgs-mineral-commodities",
+      "source-iea-battery-supply-chain"
+    ];
+    const representativeResult = ProductFixtureSchema.safeParse(
+      representativeWithoutCuration
+    );
+    expect(representativeResult.success).toBe(false);
+    if (representativeResult.success) {
+      throw new Error("Expected representative evidence validation to fail");
+    }
+    expect(representativeResult.error.issues.map((issue) => issue.message)).toContain(
+      "Story flow evidence level representative requires curation_method evidence"
+    );
   });
 
   it("rejects a story step that references an unknown node", () => {

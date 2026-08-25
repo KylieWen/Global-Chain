@@ -116,7 +116,11 @@ describe("fixture loader and domain queries", () => {
     expect(story?.flows[0].from.node?.entity?.name).toBeTruthy();
     expect(story?.warnings.some((warning) => warning.includes("合成"))).toBe(true);
     const storyFlowIds = new Set(story?.flows.map((view) => view.flow.id));
-    expect(story?.steps.every((step) => step.flowIds.every((flowId) => storyFlowIds.has(flowId)))).toBe(true);
+    expect(
+      story?.steps.every((step) =>
+        step.step.flowIds.every((flowId) => storyFlowIds.has(flowId))
+      )
+    ).toBe(true);
   });
 
   it("returns a country ledger without calculating unsupported totals", async () => {
@@ -150,8 +154,14 @@ describe("fixture loader and domain queries", () => {
     expect(node?.node.entity?.iso3).toBe("CHN");
     expect(node?.incomingFlows.length).toBeGreaterThan(0);
     expect(node?.outgoingFlows.some((flow) => flow.to.entity?.iso3 === "USA")).toBe(true);
-    expect(node?.productionActivities.some((activity) => activity.outputItemIds.includes("generic-smartphone"))).toBe(true);
-    expect(node?.evidence.map((record) => record.sourceId)).toContain("source-synthetic-demo");
+    expect(
+      node?.productionActivities.some((activity) =>
+        activity.outputs.some((output) => output.id === "generic-smartphone")
+      )
+    ).toBe(true);
+    expect(node?.evidence.map((record) => record.evidence.sourceId)).toContain(
+      "source-synthetic-demo"
+    );
     const cathode = queries.getSupplyChainNode("generic-smartphone", "node-cn-cathode");
     expect(cathode?.outgoingFlows.map((flow) => flow.flow.id)).toEqual(["flow-cathode-cell"]);
     expect(provenance?.sources).toHaveLength(1);

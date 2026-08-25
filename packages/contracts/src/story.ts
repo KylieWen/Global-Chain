@@ -2,6 +2,7 @@ import { z } from "zod";
 import {
   ContentStatusSchema,
   DataMethodSchema,
+  EvidenceIdsSchema,
   FactStatusSchema,
   IdSchema,
   ItemTypeSchema,
@@ -9,7 +10,9 @@ import {
   NullableIdSchema,
   NullableStringSchema,
   PeriodSchema,
-  SourceIdsSchema
+  SourceIdsSchema,
+  SupplyChainEvidenceLevelSchema,
+  validateFactMetadata
 } from "./primitives";
 import { SupplyFlowSchema } from "./observations";
 
@@ -25,13 +28,19 @@ export const StoryNodeSchema = z
     itemId: NullableIdSchema,
     itemType: ItemTypeSchema.nullable().optional(),
     processStageId: NullableIdSchema,
+    period: PeriodSchema.nullable().optional().default(null),
     sourceIds: SourceIdsSchema,
+    evidenceIds: EvidenceIdsSchema.default([]),
+    evidenceLevel: SupplyChainEvidenceLevelSchema.default("none"),
     method: DataMethodSchema,
     dataStatus: FactStatusSchema,
     datasetVersionId: NullableIdSchema,
+    contentVersionId: NullableIdSchema.default(null),
     notes: NullableStringSchema
   })
   .superRefine((node, context) => {
+    validateFactMetadata(node, context);
+
     if (!node.entityId && !node.itemId && !node.processStageId) {
       context.addIssue({
         code: "custom",
@@ -49,7 +58,8 @@ export const StoryStepSchema = z.object({
   description: NonEmptyStringSchema,
   nodeIds: z.array(IdSchema),
   flowIds: z.array(IdSchema),
-  evidenceIds: z.array(IdSchema),
+  evidenceIds: EvidenceIdsSchema,
+  method: DataMethodSchema.default("mock"),
   contentStatus: ContentStatusSchema,
   contentVersionId: NullableIdSchema
 });
@@ -59,6 +69,10 @@ export const StoryGraphSchema = z
   .object({
     productId: IdSchema,
     period: PeriodSchema,
+    method: DataMethodSchema.default("mock"),
+    representativeStatement: NullableStringSchema.default(null),
+    methodology: z.array(NonEmptyStringSchema).default([]),
+    limitations: z.array(NonEmptyStringSchema).default([]),
     nodes: z.array(StoryNodeSchema),
     flows: z.array(SupplyFlowSchema),
     steps: z.array(StoryStepSchema),

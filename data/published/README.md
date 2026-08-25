@@ -1,8 +1,8 @@
 # GlobeChain published 数据集
 
 本目录保存已经通过 schema、来源引用、期间/单位、缺失值和发布审核的可读数据。
-首份目标数据集是 2023 年 `generic-smartphone`，但在对应 fixture 生成并验收前，
-本目录不应被当作已经完成的数据发布。
+首份数据集是 2023 年 `generic-smartphone`；数字观察来自不可变 raw 快照，供应链
+拓扑、证据绑定和方法说明来自单独版本化的 reviewed route content。
 
 ## 目录约定
 
@@ -13,11 +13,15 @@ published/
 │  └─ fixture.json      # 标准化、校验、批准后的 fixture
 ├─ manifest.json        # published loader 的入口清单
 └─ README.md            # 许可、归属、重建和缺口说明
+
+content/routes/
+└─ generic-smartphone-2023.json  # 审核后的路线拓扑、证据绑定和内容版本
 ```
 
 `data/samples/` 是独立的 `draft`/`mock` 联调数据，不能因为年份或商品名称相同而
-与本目录混用。Web 默认只读取 `published` manifest；构建脚本从审核过的快照
-生成 fixture，不在运行时请求外部 API。
+与本目录混用。构建脚本可以继续读取 sample 中的通用 catalog 形状，但不得从
+sample 的 `storyGraph` 或 `productionActivities` 提升 published 路线。Web 默认只
+读取 `published` manifest；构建过程不在运行时请求外部 API。
 
 ## 首份数据集口径
 
@@ -85,6 +89,38 @@ HS 2022、UN M49 和 ISO 3166 代码是外部参考体系。发布文件应记�
 事实摘要，不复制未获许可的报告全文。代表性路线不是某一品牌、型号、工厂、批次
 或唯一真实路线，也不提供企业利润或成本分配。
 
+当前路线采用以下两条互不替代的状态轴：
+
+- `dataStatus` 描述该记录所表达的数据是否 observed、estimated 或 unknown；
+- `evidenceLevel` 描述证据支持的是国家角色、直接双边流向还是代表性连接。
+
+首个版本使用的 evidence level 为：
+
+- `role_supported`：来源支持某国在某材料上的生产角色，不支持它流向某个目的国；
+- `bilateral_supported`：来源直接支持起点、终点、商品和期间。当前数据集中没有此类边；
+- `representative`：项目依据角色资料和一般阶段资料建立的策展连接；
+- `none`：没有可发布的支持关系，不应用来呈现事实路线。
+
+所有现有供应链边均为 `representative`，其 `value` 与 `quantity` 为 `null`，
+`valueDataStatus` 与 `quantityDataStatus` 均为 `unknown`。这里的 `unknown` 绝不表示
+真实零值。USGS 的六条拆分证据只支持澳大利亚锂、刚果民主共和国钴、印度尼西亚
+镍、中国石墨、智利铜和澳大利亚铝相关上游角色；它们不证明这些角色之间存在
+双边运输。
+
+IEA 的 *Global supply chains of EV batteries* 只用作一般电池材料、电芯和模组
+阶段背景。它讨论电动汽车电池，不能证明手机电池的国家路线。项目自有的路线方法
+source/evidence 说明如何形成代表性连接，但它本身不是外部事实证据。
+
+中国、美国和德国的 UN Comtrade 证据均为 `partnerCode=0` 世界总计观察：
+
+- 中国对世界的出口不能证明流向美国或德国；
+- 美国从世界的进口不能证明来源于中国，也不能证明具体分销活动；
+- 德国从世界的进口不能证明来源于中国，且进口额不等于最终消费。
+
+因此，日本电子组件、中国手机组装、美国分销和德国消费节点在当前版本保持
+`representative + unknown`。铜和铝作为简化的电芯相关材料输入，中间冶炼、铜箔/
+铝箔和集流体制造阶段尚未发布；尤其不得把铝描述为负极活性材料。
+
 ## 原始快照与重建
 
 原始快照应记录：来源 URL、完整查询参数、获取时间（含时区；以 raw manifest 的
@@ -95,19 +131,25 @@ SHA-256、转换脚本和规则版本、校验结果及异常。快照不可变�
 推荐的处理链：
 
 ```text
-官方 API/下载
-  → raw 快照或受控归档索引
-  → 标准化、国家/商品映射
-  → 估算标记和缺失值校验
-  → 人工复核
-  → published fixture
+官方 API/下载 → raw 快照或受控归档索引 ─┐
+                                                ├→ 标准化、引用校验 → published fixture
+审核后的 route content → content version ─────┘
 ```
 
 运行时不抓取数据，不把 `unknown` 转成 `0`，不把海关金额解释为收入、成本或利润。
 任何导出都应携带 dataset version、来源归属、统计口径和生成时间。
+
+`manifest.json` 同时记录 fixture hash、route content version、route content hash 和
+content source 路径。修改路线时必须创建或更新 content version，重新运行
+`pnpm data:build:smartphone`，不得手工只改生成后的 fixture。
 
 ## 缺口记录
 
 没有返回记录的国家/商品组合表示“未发布/未知”，不是零。估算值、保密值、不可
 匹配值和真实零值必须使用不同的数据状态。数据集生成器应在 manifest 或发布说明
 中列出这些缺口及其原因，方便后续补充而不改变历史版本的含义。
+
+当前已知路线缺口还包括：13 条边均无直接双边证据；日本组件、中国组装、美国
+分销和德国消费角色没有直接来源；IEA 是 EV 电池而非手机电池来源；铜、铝的
+中间材料加工阶段被明确省略。这些缺口只能通过新增审核来源和新内容版本补充，
+不得通过把世界总计贸易观察拼接成双边流向来填补。

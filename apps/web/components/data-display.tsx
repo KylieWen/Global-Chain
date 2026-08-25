@@ -1,11 +1,18 @@
 import type { ReactNode } from "react";
 import type {
+  ContentVersion,
   DatasetVersion,
   Evidence,
+  EvidenceSupportType,
   FactStatus,
   Source
 } from "@globe-chain/contracts";
-import type { ProvenanceView } from "@globe-chain/domain";
+import type {
+  EvidenceLevelView,
+  ProvenanceView,
+  ResolvedEvidenceView,
+  SupplyChainRouteProvenanceView
+} from "@globe-chain/domain";
 
 /**
  * The published-data query layer may expose a resolved indicator definition
@@ -34,12 +41,22 @@ type IndicatorDefinitionLike = {
   readonly sourceIds?: readonly string[];
 };
 
-type ProvenancePanelView = Pick<
-  ProvenanceView,
-  "datasetVersion" | "sources" | "evidence" | "warnings"
-> & {
+type ProvenancePanelView = Pick<ProvenanceView, "datasetVersion" | "sources" | "warnings"> & {
+  readonly evidence: readonly Evidence[];
+  readonly resolvedEvidence?: readonly ResolvedEvidenceView[];
+  readonly contentVersions?: readonly ContentVersion[];
+  readonly route?: SupplyChainRouteProvenanceView;
   readonly indicatorDefinitions?: readonly IndicatorDefinitionLike[];
   readonly missingDataNotes?: readonly string[];
+};
+
+const evidenceSupportLabels: Record<EvidenceSupportType, string> = {
+  country_role: "国家角色",
+  bilateral_flow: "双边流向",
+  process_context: "生产阶段背景",
+  trade_observation: "贸易观察",
+  classification: "分类与维度",
+  curation_method: "策展方法"
 };
 
 const statusLabels: Record<FactStatus, string> = {
@@ -51,7 +68,7 @@ const statusLabels: Record<FactStatus, string> = {
 };
 
 const statusDescriptions: Record<FactStatus, string> = {
-  observed: "来源中有可用观测值",
+  observed: "来源中有可用观察或明确报告的事实",
   estimated: "数值经过估算或来源标记为估算",
   unknown: "当前数据没有可用观察，不能解释为零",
   withheld: "来源明确未披露数值",
@@ -74,6 +91,41 @@ export function StatusBadge({
       {statusLabels[status]}
       {method === "mock" ? " · mock" : method ? ` · ${method}` : ""}
     </span>
+  );
+}
+
+export function EvidenceLevelBadge({
+  level
+}: {
+  level: EvidenceLevelView;
+}) {
+  return (
+    <span
+      className={`evidence-level-badge evidence-level-${level.code}`}
+      title={level.description}
+      aria-label={`证据等级：${level.label}`}
+    >
+      {level.label}
+    </span>
+  );
+}
+
+export function EvidenceLevelLegend({
+  levels
+}: {
+  levels: readonly EvidenceLevelView[];
+}) {
+  const uniqueLevels = [...new Map(levels.map((level) => [level.code, level])).values()];
+  if (uniqueLevels.length === 0) return null;
+  return (
+    <div className="evidence-level-legend" aria-label="供应链证据等级说明">
+      {uniqueLevels.map((level) => (
+        <div className="evidence-level-legend-item" key={level.code}>
+          <EvidenceLevelBadge level={level} />
+          <small>{level.description}</small>
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -127,14 +179,16 @@ export function ValueDisplay({
   value,
   status,
   currency,
-  unit
+  unit,
+  unknownLabel = "未知"
 }: {
   value?: number | null;
   status: FactStatus;
   currency?: string | null;
   unit?: string | null;
+  unknownLabel?: string;
 }) {
-  if (status === "unknown") return <UnknownValue />;
+  if (status === "unknown") return <UnknownValue label={unknownLabel} />;
   if (status === "withheld") return <UnknownValue label="未披露" />;
   if (status === "invalid") {
     const suffix = [currency, unit].filter(
@@ -156,7 +210,7 @@ export function ValueDisplay({
       />
     );
   }
-  if (value === null || value === undefined) return <UnknownValue />;
+  if (value === null || value === undefined) return <UnknownValue label={unknownLabel} />;
   const suffix = [currency, unit].filter(
     (part, index, parts): part is string => Boolean(part) && parts.indexOf(part) === index
   ).join(" · ");
@@ -260,6 +314,11 @@ export function ProvenancePanel({ provenance }: { provenance: ProvenancePanelVie
     }
   );
   const missingDataNotes = provenance.missingDataNotes ?? [];
+  const contentVersions = provenance.contentVersions ?? [];
+  const resolvedEvidence = provenance.resolvedEvidence ?? provenance.evidence.map((evidence) => ({
+    evidence,
+    source: provenance.sources.find((source) => source.id === evidence.sourceId) ?? null
+  }));
   return (
     <section className="provenance-panel" aria-labelledby="provenance-title">
       <div className="section-heading compact-heading">
@@ -272,12 +331,16 @@ export function ProvenancePanel({ provenance }: { provenance: ProvenancePanelVie
       <div className="provenance-meta">
         <span>数据集：{provenance.datasetVersion.name}</span>
         <span>版本：{provenance.datasetVersion.version}</span>
+        {contentVersions.map((version) => (
+          <span key={version.id}>内容版本：{version.version}</span>
+        ))}
         <span>来源：{provenance.sources.length} 个</span>
-        <span>证据：{provenance.evidence.length} 条</span>
+        <span>证据：{resolvedEvidence.length} 条</span>
       </div>
+      {provenance.route ? <RouteMethodology route={provenance.route} /> : null}
       <div className="provenance-grid">
         <SourceList sources={provenance.sources} />
-        <EvidenceList evidence={provenance.evidence} />
+        <ResolvedEvidenceList evidence={resolvedEvidence} />
       </div>
       {indicatorDefinitions.length > 0 ? (
         <IndicatorDefinitionList definitions={indicatorDefinitions} sources={provenance.sources} />
@@ -286,6 +349,48 @@ export function ProvenancePanel({ provenance }: { provenance: ProvenancePanelVie
       <div className="provenance-status-section">
         <h3>数据状态说明</h3>
         <StatusLegend />
+      </div>
+    </section>
+  );
+}
+
+export function RouteMethodology({
+  route
+}: {
+  route: SupplyChainRouteProvenanceView;
+}) {
+  return (
+    <section className="route-methodology" aria-labelledby="route-methodology-title">
+      <div className="route-methodology-heading">
+        <div>
+          <p className="eyebrow">Route interpretation</p>
+          <h3 id="route-methodology-title">路线性质与整理方法</h3>
+        </div>
+        <div className="route-methodology-meta">
+          <MetadataItem label="期间" value={<PeriodLabel period={route.period} />} />
+          <MetadataItem label="method" value={route.method} />
+          <MetadataItem
+            label="contentVersion"
+            value={route.contentVersion?.version ?? <UnknownValue label="未提供" />}
+          />
+        </div>
+      </div>
+      {route.representativeStatement ? (
+        <p className="representative-statement">{route.representativeStatement}</p>
+      ) : null}
+      <div className="route-methodology-grid">
+        <div>
+          <strong>整理方法</strong>
+          {route.methodology.length ? (
+            <ul>{route.methodology.map((item) => <li key={item}>{item}</li>)}</ul>
+          ) : <UnknownValue label="未提供" />}
+        </div>
+        <div>
+          <strong>证据局限</strong>
+          {route.limitations.length ? (
+            <ul>{route.limitations.map((item) => <li key={item}>{item}</li>)}</ul>
+          ) : <UnknownValue label="未提供" />}
+        </div>
       </div>
     </section>
   );
@@ -399,6 +504,42 @@ export function EvidenceList({ evidence }: { evidence: readonly Evidence[] }) {
             <li key={record.id}>
               <strong>{record.locator}</strong>
               {record.excerpt ? <span>{record.excerpt}</span> : null}
+              {record.notes ? <small>{record.notes}</small> : null}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+export function ResolvedEvidenceList({
+  evidence,
+  compact = false
+}: {
+  evidence: readonly ResolvedEvidenceView[];
+  compact?: boolean;
+}) {
+  return (
+    <div className={compact ? "resolved-evidence compact-evidence" : "resolved-evidence"}>
+      {!compact ? <h3>证据定位</h3> : null}
+      {evidence.length === 0 ? <UnknownValue label="暂无直接关联证据" /> : (
+        <ul className="plain-list evidence-list">
+          {evidence.map(({ evidence: record, source }) => (
+            <li key={record.id}>
+              <div className="evidence-heading">
+                <strong>{record.locator}</strong>
+                <span className={`evidence-support support-${record.supportType}`}>
+                  {evidenceSupportLabels[record.supportType]}
+                </span>
+              </div>
+              {source ? (
+                <span>
+                  来源：{source.name} · {source.publisher}
+                  {source.url ? <>{" · "}<a className="text-link" href={source.url} target="_blank" rel="noreferrer">打开来源</a></> : null}
+                </span>
+              ) : <UnknownValue label="来源未解析" />}
+              {!compact && record.excerpt ? <span>{record.excerpt}</span> : null}
               {record.notes ? <small>{record.notes}</small> : null}
             </li>
           ))}

@@ -1,5 +1,6 @@
 import type {
   ClassificationCode,
+  ContentVersion,
   DatasetVersion,
   Evidence,
   FactStatus,
@@ -13,6 +14,7 @@ import type {
   Source,
   StoryNode,
   StoryStep,
+  SupplyChainEvidenceLevel,
   SupplyFlow,
   TradeObservation
 } from "@globe-chain/contracts";
@@ -24,6 +26,7 @@ import type {
 
 type ReadonlyItem = DeepReadonly<Item>;
 type ReadonlyGeoEntity = DeepReadonly<GeoEntity>;
+type ReadonlyContentVersion = DeepReadonly<ContentVersion>;
 type ReadonlyDatasetVersion = DeepReadonly<DatasetVersion>;
 type ReadonlyEvidence = DeepReadonly<Evidence>;
 type ReadonlyPeriod = DeepReadonly<Period>;
@@ -69,11 +72,31 @@ export interface ProductBreakdownNode {
   readonly children: readonly ProductBreakdownNode[];
 }
 
+export interface EvidenceLevelView {
+  readonly code: SupplyChainEvidenceLevel;
+  readonly label: string;
+  readonly description: string;
+  readonly supportsCountryRole: boolean;
+  readonly supportsBilateralFlow: boolean;
+  readonly isRepresentative: boolean;
+}
+
+export interface ResolvedEvidenceView {
+  readonly evidence: ReadonlyEvidence;
+  readonly source: ReadonlySource | null;
+}
+
 export interface ResolvedStoryNodeView {
   readonly node: ReadonlyStoryNode;
   readonly entity: ReadonlyGeoEntity | null;
   readonly item: ReadonlyItem | null;
   readonly processStage: ReadonlyProcessStage | null;
+  readonly period: ReadonlyPeriod;
+  readonly datasetVersion: ReadonlyDatasetVersion | null;
+  readonly contentVersion: ReadonlyContentVersion | null;
+  readonly sources: readonly ReadonlySource[];
+  readonly evidence: readonly ResolvedEvidenceView[];
+  readonly evidenceLevel: EvidenceLevelView;
 }
 
 export interface StoryEndpointView {
@@ -88,6 +111,44 @@ export interface ResolvedSupplyFlowView {
   readonly to: StoryEndpointView;
   readonly item: ReadonlyItem | null;
   readonly processStage: ReadonlyProcessStage | null;
+  readonly datasetVersion: ReadonlyDatasetVersion | null;
+  readonly contentVersion: ReadonlyContentVersion | null;
+  readonly sources: readonly ReadonlySource[];
+  readonly evidence: readonly ResolvedEvidenceView[];
+  readonly evidenceLevel: EvidenceLevelView;
+  readonly valueDataStatus: FactStatus;
+  readonly quantityDataStatus: FactStatus;
+}
+
+export interface ResolvedProductionActivityView {
+  readonly activity: ReadonlyProductionActivity;
+  readonly entity: ReadonlyGeoEntity | null;
+  readonly processStage: ReadonlyProcessStage | null;
+  readonly inputs: readonly ReadonlyItem[];
+  readonly outputs: readonly ReadonlyItem[];
+  readonly datasetVersion: ReadonlyDatasetVersion | null;
+  readonly contentVersion: ReadonlyContentVersion | null;
+  readonly sources: readonly ReadonlySource[];
+  readonly evidence: readonly ResolvedEvidenceView[];
+  readonly evidenceLevel: EvidenceLevelView;
+}
+
+export interface ResolvedStoryStepView {
+  readonly step: ReadonlyStoryStep;
+  readonly nodes: readonly ResolvedStoryNodeView[];
+  readonly flows: readonly ResolvedSupplyFlowView[];
+  readonly sources: readonly ReadonlySource[];
+  readonly evidence: readonly ResolvedEvidenceView[];
+  readonly contentVersion: ReadonlyContentVersion | null;
+}
+
+export interface SupplyChainRouteProvenanceView {
+  readonly period: ReadonlyPeriod;
+  readonly method: StoryStep["method"];
+  readonly representativeStatement: string | null;
+  readonly methodology: readonly string[];
+  readonly limitations: readonly string[];
+  readonly contentVersion: ReadonlyContentVersion | null;
 }
 
 export interface SupplyChainStoryView {
@@ -95,9 +156,11 @@ export interface SupplyChainStoryView {
   readonly period: ReadonlyPeriod;
   readonly nodes: readonly ResolvedStoryNodeView[];
   readonly flows: readonly ResolvedSupplyFlowView[];
-  readonly steps: readonly ReadonlyStoryStep[];
+  readonly steps: readonly ResolvedStoryStepView[];
   readonly datasetVersion: ReadonlyDatasetVersion;
+  readonly route: SupplyChainRouteProvenanceView;
   readonly sources: readonly ReadonlySource[];
+  readonly evidence: readonly ResolvedEvidenceView[];
   readonly warnings: readonly string[];
 }
 
@@ -105,10 +168,10 @@ export interface SupplyChainNodeView {
   readonly node: ResolvedStoryNodeView;
   readonly incomingFlows: readonly ResolvedSupplyFlowView[];
   readonly outgoingFlows: readonly ResolvedSupplyFlowView[];
-  readonly productionActivities: readonly ReadonlyProductionActivity[];
+  readonly productionActivities: readonly ResolvedProductionActivityView[];
   readonly datasetVersion: ReadonlyDatasetVersion;
   readonly sources: readonly ReadonlySource[];
-  readonly evidence: readonly ReadonlyEvidence[];
+  readonly evidence: readonly ResolvedEvidenceView[];
   readonly warnings: readonly string[];
 }
 
@@ -185,8 +248,11 @@ export interface ProvenanceOptions {
 
 export interface ProvenanceView {
   readonly datasetVersion: ReadonlyDatasetVersion;
+  readonly contentVersions: readonly ReadonlyContentVersion[];
   readonly sources: readonly ReadonlySource[];
   readonly evidence: readonly ReadonlyEvidence[];
+  readonly resolvedEvidence: readonly ResolvedEvidenceView[];
+  readonly route: SupplyChainRouteProvenanceView;
   readonly indicatorDefinitions: readonly ReadonlyIndicatorDefinition[];
   readonly missingDataNotes: readonly string[];
   readonly warnings: readonly string[];
@@ -229,6 +295,128 @@ function sourceForId(
   sourceId: string | null | undefined
 ): ReadonlySource | null {
   return sourceId ? fixture.sources.find((source) => source.id === sourceId) ?? null : null;
+}
+
+function datasetVersionForId(
+  fixture: ReadonlyProductFixture,
+  datasetVersionId: string | null | undefined
+): ReadonlyDatasetVersion | null {
+  return datasetVersionId === fixture.datasetVersion.id ? fixture.datasetVersion : null;
+}
+
+function contentVersionForId(
+  fixture: ReadonlyProductFixture,
+  contentVersionId: string | null | undefined
+): ReadonlyContentVersion | null {
+  return contentVersionId
+    ? fixture.contentVersions.find((version) => version.id === contentVersionId) ?? null
+    : null;
+}
+
+function sourcesForIds(
+  fixture: ReadonlyProductFixture,
+  sourceIds: readonly string[]
+): readonly ReadonlySource[] {
+  const selected = new Set(sourceIds);
+  return freezeArray(fixture.sources.filter((source) => selected.has(source.id)));
+}
+
+function resolveEvidenceRecords(
+  fixture: ReadonlyProductFixture,
+  evidenceIds: readonly string[],
+  legacySourceIds: readonly string[] = []
+): readonly ResolvedEvidenceView[] {
+  const selectedEvidenceIds = new Set(evidenceIds);
+  const allowLegacySourceFallback =
+    selectedEvidenceIds.size === 0 && fixture.datasetVersion.status !== "published";
+  const legacySourceIdSet = new Set(legacySourceIds);
+  const evidence = fixture.evidence.filter((record) =>
+    selectedEvidenceIds.size > 0
+      ? selectedEvidenceIds.has(record.id)
+      : allowLegacySourceFallback && legacySourceIdSet.has(record.sourceId)
+  );
+
+  return freezeArray(
+    evidence.map((record) =>
+      Object.freeze({
+        evidence: record,
+        source: sourceForId(fixture, record.sourceId)
+      })
+    )
+  );
+}
+
+function uniqueSources(
+  values: readonly (ReadonlySource | null)[]
+): readonly ReadonlySource[] {
+  const byId = new Map<string, ReadonlySource>();
+  for (const value of values) {
+    if (value) byId.set(value.id, value);
+  }
+  return freezeArray([...byId.values()]);
+}
+
+function uniqueResolvedEvidence(
+  values: readonly ResolvedEvidenceView[]
+): readonly ResolvedEvidenceView[] {
+  const byId = new Map<string, ResolvedEvidenceView>();
+  for (const value of values) byId.set(value.evidence.id, value);
+  return freezeArray([...byId.values()]);
+}
+
+const evidenceLevelViews: Readonly<Record<SupplyChainEvidenceLevel, EvidenceLevelView>> =
+  Object.freeze({
+    role_supported: Object.freeze({
+      code: "role_supported",
+      label: "来源支持的国家角色",
+      description:
+        "证据支持该国家或地区在相关材料、商品或生产环节中的角色，但不自动证明与相邻节点之间的双边流向。",
+      supportsCountryRole: true,
+      supportsBilateralFlow: false,
+      isRepresentative: false
+    }),
+    bilateral_supported: Object.freeze({
+      code: "bilateral_supported",
+      label: "来源支持的双边流向",
+      description: "证据直接支持所示起点、终点和流向；数量仍按独立数据状态解释。",
+      supportsCountryRole: true,
+      supportsBilateralFlow: true,
+      isRepresentative: false
+    }),
+    representative: Object.freeze({
+      code: "representative",
+      label: "代表性策展连接",
+      description:
+        "该节点或连接用于解释典型供应链结构，来源只支持背景、阶段或部分端点角色，不构成确定双边贸易路线证明。",
+      supportsCountryRole: false,
+      supportsBilateralFlow: false,
+      isRepresentative: true
+    }),
+    none: Object.freeze({
+      code: "none",
+      label: "无直接支持证据",
+      description: "当前内容版本没有可发布的直接证据支持该具体供应链主张。",
+      supportsCountryRole: false,
+      supportsBilateralFlow: false,
+      isRepresentative: false
+    })
+  });
+
+function evidenceLevelView(level: SupplyChainEvidenceLevel): EvidenceLevelView {
+  return evidenceLevelViews[level];
+}
+
+function createRouteProvenance(
+  fixture: ReadonlyProductFixture
+): SupplyChainRouteProvenanceView {
+  return Object.freeze({
+    period: fixture.storyGraph.period,
+    method: fixture.storyGraph.method,
+    representativeStatement: fixture.storyGraph.representativeStatement ?? null,
+    methodology: freezeArray(fixture.storyGraph.methodology),
+    limitations: freezeArray(fixture.storyGraph.limitations),
+    contentVersion: contentVersionForId(fixture, fixture.storyGraph.contentVersionId)
+  });
 }
 
 function definitionForIndicator(
@@ -395,6 +583,7 @@ function resolveStoryNode(
   fixture: ReadonlyProductFixture,
   node: ReadonlyStoryNode
 ): ResolvedStoryNodeView {
+  const evidence = resolveEvidenceRecords(fixture, node.evidenceIds, node.sourceIds);
   return Object.freeze({
     node,
     entity: node.entityId
@@ -405,7 +594,16 @@ function resolveStoryNode(
       : null,
     processStage: node.processStageId
       ? fixture.processStages.find((stage) => stage.id === node.processStageId) ?? null
-      : null
+      : null,
+    period: node.period ?? fixture.storyGraph.period,
+    datasetVersion: datasetVersionForId(fixture, node.datasetVersionId),
+    contentVersion: contentVersionForId(fixture, node.contentVersionId),
+    sources: uniqueSources([
+      ...sourcesForIds(fixture, node.sourceIds),
+      ...evidence.map((record) => record.source)
+    ]),
+    evidence,
+    evidenceLevel: evidenceLevelView(node.evidenceLevel)
   });
 }
 
@@ -422,6 +620,65 @@ function resolveEndpoint(
     referenceId,
     node,
     entity
+  });
+}
+
+function resolveSupplyFlow(
+  fixture: ReadonlyProductFixture,
+  nodeById: ReadonlyMap<string, ResolvedStoryNodeView>,
+  flow: ReadonlySupplyFlow
+): ResolvedSupplyFlowView {
+  const evidence = resolveEvidenceRecords(fixture, flow.evidenceIds, flow.sourceIds);
+  return Object.freeze({
+    flow,
+    from: resolveEndpoint(fixture, nodeById, flow.fromEntityId),
+    to: resolveEndpoint(fixture, nodeById, flow.toEntityId),
+    item: fixture.items.find((item) => item.id === flow.itemId) ?? null,
+    processStage:
+      fixture.processStages.find((stage) => stage.id === flow.processStageId) ?? null,
+    datasetVersion: datasetVersionForId(fixture, flow.datasetVersionId),
+    contentVersion: contentVersionForId(fixture, flow.contentVersionId),
+    sources: uniqueSources([
+      ...sourcesForIds(fixture, flow.sourceIds),
+      ...evidence.map((record) => record.source)
+    ]),
+    evidence,
+    evidenceLevel: evidenceLevelView(flow.evidenceLevel),
+    valueDataStatus: flow.valueDataStatus,
+    quantityDataStatus: flow.quantityDataStatus
+  });
+}
+
+function resolveProductionActivity(
+  fixture: ReadonlyProductFixture,
+  activity: ReadonlyProductionActivity
+): ResolvedProductionActivityView {
+  const evidence = resolveEvidenceRecords(fixture, activity.evidenceIds, activity.sourceIds);
+  const itemById = new Map(fixture.items.map((item) => [item.id, item]));
+  return Object.freeze({
+    activity,
+    entity:
+      fixture.entities.find((entity) => entity.id === activity.locationEntityId) ?? null,
+    processStage:
+      fixture.processStages.find((stage) => stage.id === activity.processStageId) ?? null,
+    inputs: freezeArray(
+      activity.inputItemIds
+        .map((itemId) => itemById.get(itemId))
+        .filter((item): item is ReadonlyItem => Boolean(item))
+    ),
+    outputs: freezeArray(
+      activity.outputItemIds
+        .map((itemId) => itemById.get(itemId))
+        .filter((item): item is ReadonlyItem => Boolean(item))
+    ),
+    datasetVersion: datasetVersionForId(fixture, activity.datasetVersionId),
+    contentVersion: contentVersionForId(fixture, activity.contentVersionId),
+    sources: uniqueSources([
+      ...sourcesForIds(fixture, activity.sourceIds),
+      ...evidence.map((record) => record.source)
+    ]),
+    evidence,
+    evidenceLevel: evidenceLevelView(activity.evidenceLevel)
   });
 }
 
@@ -459,6 +716,7 @@ function createStoryView(
   );
   const selectedNodes = fixture.storyGraph.nodes
     .filter((node) => {
+      if (!matchesPeriod(node.period ?? fixture.storyGraph.period, options)) return false;
       if (!focusItemIds && !processStageIds) return true;
       const itemMatches = !!node.itemId && !!focusItemIds?.has(node.itemId);
       const stageMatches =
@@ -469,39 +727,68 @@ function createStoryView(
 
   const selectedNodeIds = new Set(selectedNodes.map((node) => node.node.id));
   const resolvedFlows = selectedFlows.map((flow) =>
-    Object.freeze({
-      flow,
-      from: resolveEndpoint(fixture, allResolvedNodes, flow.fromEntityId),
-      to: resolveEndpoint(fixture, allResolvedNodes, flow.toEntityId),
-      item: fixture.items.find((item) => item.id === flow.itemId) ?? null,
-      processStage:
-        fixture.processStages.find((stage) => stage.id === flow.processStageId) ?? null
-    })
+    resolveSupplyFlow(fixture, allResolvedNodes, flow)
   );
+  const resolvedFlowById = new Map(resolvedFlows.map((flow) => [flow.flow.id, flow]));
   const selectedSteps = fixture.storyGraph.steps
     .filter((step) => {
-    if (
-      !focusItemIds &&
-      !processStageIds &&
-      !options?.granularity &&
-      !options?.label &&
-      !options?.start &&
-      !options?.end
-    ) {
-      return true;
-    }
-    return (
-      step.flowIds.some((flowId) => selectedFlowIds.has(flowId)) ||
-      step.nodeIds.some((nodeId) => selectedNodeIds.has(nodeId))
-    );
+      if (
+        !focusItemIds &&
+        !processStageIds &&
+        !options?.granularity &&
+        !options?.label &&
+        !options?.start &&
+        !options?.end
+      ) {
+        return true;
+      }
+      return (
+        step.flowIds.some((flowId) => selectedFlowIds.has(flowId)) ||
+        step.nodeIds.some((nodeId) => selectedNodeIds.has(nodeId))
+      );
     })
-    .map((step) =>
-      Object.freeze({
+    .map((step): ResolvedStoryStepView => {
+      const filteredStep = Object.freeze({
         ...step,
         nodeIds: freezeArray(step.nodeIds.filter((nodeId) => selectedNodeIds.has(nodeId))),
         flowIds: freezeArray(step.flowIds.filter((flowId) => selectedFlowIds.has(flowId)))
-      })
-    );
+      });
+      const nodes = freezeArray(
+        filteredStep.nodeIds
+          .map((nodeId) => allResolvedNodes.get(nodeId))
+          .filter((node): node is ResolvedStoryNodeView => Boolean(node))
+      );
+      const flows = freezeArray(
+        filteredStep.flowIds
+          .map((flowId) => resolvedFlowById.get(flowId))
+          .filter((flow): flow is ResolvedSupplyFlowView => Boolean(flow))
+      );
+      const evidence = resolveEvidenceRecords(fixture, filteredStep.evidenceIds);
+      const sources = uniqueSources([
+        ...evidence.map((record) => record.source),
+        ...nodes.flatMap((node) => node.sources),
+        ...flows.flatMap((flow) => flow.sources)
+      ]);
+      return Object.freeze({
+        step: filteredStep,
+        nodes,
+        flows,
+        sources,
+        evidence,
+        contentVersion: contentVersionForId(fixture, filteredStep.contentVersionId)
+      });
+    });
+  const evidence = uniqueResolvedEvidence([
+    ...selectedNodes.flatMap((node) => node.evidence),
+    ...resolvedFlows.flatMap((flow) => flow.evidence),
+    ...selectedSteps.flatMap((step) => step.evidence)
+  ]);
+  const sources = uniqueSources([
+    ...selectedNodes.flatMap((node) => node.sources),
+    ...resolvedFlows.flatMap((flow) => flow.sources),
+    ...selectedSteps.flatMap((step) => step.sources),
+    ...evidence.map((record) => record.source)
+  ]);
 
   return Object.freeze({
     product,
@@ -510,7 +797,9 @@ function createStoryView(
     flows: freezeArray(resolvedFlows),
     steps: freezeArray(selectedSteps),
     datasetVersion: fixture.datasetVersion,
-    sources: freezeArray(fixture.sources),
+    route: createRouteProvenance(fixture),
+    sources,
+    evidence,
     warnings: mergeWarnings(fixture.warnings, fixture.storyGraph.warnings)
   });
 }
@@ -600,20 +889,27 @@ export function getSupplyChainNode(
       flow.from.referenceId === nodeId ||
       (!!node.entity?.id && !flow.from.node && flow.from.referenceId === node.entity.id)
   );
-  const productionActivities = fixture.productionActivities.filter(
-    (activity) =>
-      !!node.entity?.id &&
-      activity.locationEntityId === node.entity.id &&
-      (!node.processStage?.id || activity.processStageId === node.processStage.id)
-  );
-  const sourceIdSet = new Set([
-    ...node.node.sourceIds,
-    ...incomingFlows.flatMap((flow) => flow.flow.sourceIds),
-    ...outgoingFlows.flatMap((flow) => flow.flow.sourceIds),
-    ...productionActivities.flatMap((activity) => activity.sourceIds)
+  const productionActivities = fixture.productionActivities
+    .filter((activity) => {
+      if (!node.entity?.id || activity.locationEntityId !== node.entity.id) return false;
+      if (node.processStage?.id && activity.processStageId !== node.processStage.id) return false;
+      if (!node.item?.id) return true;
+      return [...activity.inputItemIds, ...activity.outputItemIds].includes(node.item.id);
+    })
+    .map((activity) => resolveProductionActivity(fixture, activity));
+  const evidence = uniqueResolvedEvidence([
+    ...node.evidence,
+    ...incomingFlows.flatMap((flow) => flow.evidence),
+    ...outgoingFlows.flatMap((flow) => flow.evidence),
+    ...productionActivities.flatMap((activity) => activity.evidence)
   ]);
-  const sources = fixture.sources.filter((source) => sourceIdSet.has(source.id));
-  const evidence = fixture.evidence.filter((record) => sourceIdSet.has(record.sourceId));
+  const sources = uniqueSources([
+    ...node.sources,
+    ...incomingFlows.flatMap((flow) => flow.sources),
+    ...outgoingFlows.flatMap((flow) => flow.sources),
+    ...productionActivities.flatMap((activity) => activity.sources),
+    ...evidence.map((record) => record.source)
+  ]);
 
   return Object.freeze({
     node,
@@ -621,8 +917,8 @@ export function getSupplyChainNode(
     outgoingFlows: freezeArray(outgoingFlows),
     productionActivities: freezeArray(productionActivities),
     datasetVersion: fixture.datasetVersion,
-    sources: freezeArray(sources),
-    evidence: freezeArray(evidence),
+    sources,
+    evidence,
     warnings: mergeWarnings(fixture.warnings, fixture.storyGraph.warnings)
   });
 }
@@ -745,21 +1041,32 @@ export function getProvenance(
 
   const sourceIdSet = options?.sourceIds ? new Set(options.sourceIds) : null;
   const evidenceIdSet = options?.evidenceIds ? new Set(options.evidenceIds) : null;
-  const sources = fixture.sources.filter(
-    (source) => !sourceIdSet || sourceIdSet.has(source.id)
-  );
   const evidence = fixture.evidence.filter((record) => {
     if (evidenceIdSet) return evidenceIdSet.has(record.id);
     return !sourceIdSet || sourceIdSet.has(record.sourceId);
   });
+  const evidenceSourceIds = new Set(evidence.map((record) => record.sourceId));
+  const sources = fixture.sources.filter((source) => {
+    if (sourceIdSet) return sourceIdSet.has(source.id);
+    if (evidenceIdSet) return evidenceSourceIds.has(source.id);
+    return true;
+  });
+  const resolvedEvidence = freezeArray(
+    evidence.map((record) =>
+      Object.freeze({ evidence: record, source: sourceForId(fixture, record.sourceId) })
+    )
+  );
   const indicatorDefinitions = fixture.indicatorDefinitions.filter(
     (definition) => !sourceIdSet || definition.sourceIds.some((sourceId) => sourceIdSet.has(sourceId))
   );
 
   return Object.freeze({
     datasetVersion: fixture.datasetVersion,
+    contentVersions: freezeArray(fixture.contentVersions),
     sources: freezeArray(sources),
     evidence: freezeArray(evidence),
+    resolvedEvidence,
+    route: createRouteProvenance(fixture),
     indicatorDefinitions: freezeArray(indicatorDefinitions),
     missingDataNotes: freezeArray(fixture.missingDataNotes),
     warnings: mergeWarnings(fixture.warnings, fixture.storyGraph.warnings)

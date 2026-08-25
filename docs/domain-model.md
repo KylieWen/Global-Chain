@@ -40,11 +40,20 @@
 
 ### SupplyChainNode
 
-路线内节点 ID、国家 ID、货物/中间品商品 ID（可选）、生产环节、节点类型、顺序/位置提示、说明和证据引用。节点不代表唯一工厂或单一批次。
+路线内节点 ID、国家 ID、货物/中间品商品 ID（可选）、生产环节、节点类型、适用期间、说明、`datasetVersion`、`contentVersion`、来源和逐条证据引用。节点不代表唯一工厂或单一批次。
+
+节点的 `evidenceLevel` 与数值状态是两个不同维度：
+
+- `role_supported`：来源支持该国家在相关材料或环节中的角色，但不证明与相邻国家的双边流向。
+- `bilateral_supported`：证据直接支持起点、终点和方向；是否有金额或数量仍由独立数据状态决定。
+- `representative`：用于解释典型结构的策展节点或连接，不是观察到的双边事实。
+- `none`：当前内容版本没有直接证据支持该具体主张。
 
 ### SupplyChainFlow
 
-有向边 ID、起点节点、终点节点、货物名称或商品 ID、流向说明、是否为推断/整理、适用期间、单位（如适用）、来源、method、datasetVersion 和数据状态。数量未知时不得填 0；可只展示方向而不展示数量。
+有向边 ID、起点节点、终点节点、货物名称或商品 ID、流向说明、关系类型、路线性质、适用期间、单位（如适用）、来源、证据、`method`、`datasetVersion`、`contentVersion` 和数据状态。金额状态、数量状态和证据等级分开保存。数量未知时不得填 0；可只展示方向而不展示数量。
+
+国家角色证据不能被自动提升为双边流向证据。若两个端点分别有产业角色资料，但没有来源直接支持两者之间的流动，边必须保持 `representative`，且金额/数量为 `unknown`。
 
 ## 贸易账本模型（官方统计事实）
 
@@ -97,6 +106,8 @@ quality_note
 ### DatasetVersion / ContentVersion
 
 版本号（`datasetVersion` 或 `contentVersion`）、状态（draft/validated/published/deprecated）、创建与发布时间、审批人、变更说明和上一个版本。Web 默认只读 `published`。
+
+供应链节点、边、生产活动和步骤必须引用可解析的 `ContentVersion` 记录，不能只保存无法校验的版本字符串。页面查询返回已经解析的版本、来源和 evidence，不要求页面自行连接 ID。
 
 ## 关系概览
 
