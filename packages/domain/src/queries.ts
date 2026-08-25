@@ -70,6 +70,25 @@ export interface CountryCatalogView {
   readonly datasetVersion: ReadonlyDatasetVersion;
 }
 
+export interface TradeNetworkObservationView {
+  readonly observation: ReadonlyTradeObservation;
+  readonly reporter: ReadonlyGeoEntity | null;
+  readonly partner: ReadonlyGeoEntity | null;
+  readonly item: ReadonlyItem | null;
+  readonly source: ReadonlySource | null;
+  readonly valueDataStatus: FactStatus;
+  readonly quantityDataStatus: FactStatus;
+}
+
+export interface TradeNetworkView {
+  readonly product: ReadonlyItem;
+  readonly period: ReadonlyPeriod;
+  readonly observations: readonly TradeNetworkObservationView[];
+  readonly countries: readonly ReadonlyGeoEntity[];
+  readonly datasetVersion: ReadonlyDatasetVersion;
+  readonly warnings: readonly string[];
+}
+
 export interface CategoryCatalogView {
   readonly category: string;
   readonly itemCount: number;
@@ -368,6 +387,7 @@ export interface ProductQueryService {
   listProducts(): readonly ProductCatalogView[];
   listCountries(): readonly CountryCatalogView[];
   listCategories(): readonly CategoryCatalogView[];
+  getTradeNetwork(productId: string, options?: PeriodFilter & { itemId?: string }): TradeNetworkView | null;
   getProductOverview(productId: string): ProductOverviewView | null;
   getProductBreakdown(productId: string): ProductBreakdownNode | null;
   getSupplyChainStory(
@@ -1017,6 +1037,24 @@ export function listCategories(repository: FixtureRepository): readonly Category
   return freezeArray([...categories.values()].sort((left, right) => left.category.localeCompare(right.category)));
 }
 
+export function getTradeNetwork(repository: FixtureRepository, productId: string, options?: PeriodFilter & { itemId?: string }): TradeNetworkView | null {
+  const fixture = getFixtureOrNull(repository, productId);
+  if (!fixture) return null;
+  const product = getProductItem(fixture);
+  if (!product) return null;
+  const observations = fixture.tradeObservations.filter((observation) => observation.partnerScope === "entity" && observation.partnerEntityId && (!options?.itemId || observation.itemId === options.itemId) && matchesPeriod(observation.period, options)).map((observation) => Object.freeze({
+    observation,
+    reporter: fixture.entities.find((entity) => entity.id === observation.reporterEntityId) ?? null,
+    partner: fixture.entities.find((entity) => entity.id === observation.partnerEntityId) ?? null,
+    item: observation.itemId ? fixture.items.find((item) => item.id === observation.itemId) ?? null : null,
+    source: sourceForId(fixture, observation.sourceId),
+    valueDataStatus: tradeValueDataStatus(observation),
+    quantityDataStatus: tradeQuantityDataStatus(observation)
+  }));
+  const countries = [...new Map(observations.flatMap(({ reporter, partner }) => [reporter, partner]).filter((entity): entity is ReadonlyGeoEntity => Boolean(entity)).map((entity) => [entity.id, entity])).values()];
+  return Object.freeze({ product, period: fixture.storyGraph.period, observations: freezeArray(observations), countries: freezeArray(countries), datasetVersion: fixture.datasetVersion, warnings: mergeWarnings(fixture.warnings, ["贸易网络只包含具体 partnerEntity 的观察；partnerCode=0 世界总计不会被画成双边流线。", "双边贸易观察证明统计分类、报告方、伙伴、方向和期间，不证明进入某部手机或连续供应链。"]) });
+}
+
 export function getProductOverview(
   repository: FixtureRepository,
   productId: string
@@ -1427,6 +1465,7 @@ export function createProductQueryService(
     listProducts: () => listProducts(repository),
     listCountries: () => listCountries(repository),
     listCategories: () => listCategories(repository),
+    getTradeNetwork: (productId: string, options?: PeriodFilter & { itemId?: string }) => getTradeNetwork(repository, productId, options),
     getProductOverview: (productId: string) => getProductOverview(repository, productId),
     getProductBreakdown: (productId: string) => getProductBreakdown(repository, productId),
     getSupplyChainStory: (productId: string, options?: SupplyChainStoryOptions) =>
