@@ -6,10 +6,8 @@ import { contextMismatch, readPageContext } from "../../../../lib/context";
 import {
   EvidenceLevelBadge,
   EvidenceLevelLegend,
-  EvidenceGapRegistry,
   MetadataItem,
   PeriodLabel,
-  ProvenancePanel,
   ResolvedEvidenceList,
   StatCard,
   StatusBadge,
@@ -64,16 +62,6 @@ export default async function SupplyChainPage({
       ?? story.nodes.find((node) => node.item?.id === focusItemId)?.item?.name
       ?? focusItemId
     : "全部代表性路径";
-  const routeProvenance = {
-    datasetVersion: story.datasetVersion,
-    contentVersions: story.route.contentVersion ? [story.route.contentVersion] : [],
-    sources: story.sources,
-    evidence: story.evidence.map((record) => record.evidence),
-    resolvedEvidence: story.evidence,
-    route: story.route,
-    evidenceGaps: story.evidenceGaps,
-    warnings: story.warnings
-  };
 
   return (
     <SiteShell>
@@ -142,6 +130,13 @@ export default async function SupplyChainPage({
           <span className="filter-note">期间筛选：{story.period.label}</span>
         </section>
 
+        <nav className="exploration-nav" aria-label="商品研究层级">
+          <Link href={productPath(productId, pageContext)}>① 商品总览</Link>
+          <span className="active">② 供应链路线</span>
+          <Link href={evidenceGapsPath(productId, pageContext)}>③ 证据缺口</Link>
+          <Link href={provenancePath(productId, pageContext)}>④ 来源与版本</Link>
+        </nav>
+
         <SupplyChainGraph story={story} productId={productId} context={pageContext} />
 
         <section className="section-block" aria-labelledby="route-steps-title">
@@ -156,8 +151,12 @@ export default async function SupplyChainPage({
             {story.steps.map((view) => {
               const { step } = view;
               return (
-                <article className="step-card" key={step.id}>
-                  <div className="step-marker">{String(step.order + 1).padStart(2, "0")}</div>
+                <details className="step-card step-card-collapsible" key={step.id} open={step.order === 0}>
+                  <summary className="step-summary">
+                    <span className="step-marker">{String(step.order + 1).padStart(2, "0")}</span>
+                    <span className="step-summary-copy"><strong>{step.title}</strong><small>{step.description}</small></span>
+                    <span className="step-summary-meta"><span className="content-status">{step.contentStatus}</span><span className="method-chip">{step.method}</span></span>
+                  </summary>
                   <div className="step-body">
                     <div className="step-heading">
                       <div>
@@ -192,7 +191,7 @@ export default async function SupplyChainPage({
                       <ResolvedEvidenceList evidence={view.evidence} compact />
                     </details>
                   </div>
-                </article>
+                </details>
               );
             })}
           </div>
@@ -207,7 +206,7 @@ export default async function SupplyChainPage({
             <Link className="text-link" href={evidenceGapsPath(productId, pageContext)}>查看完整登记册 →</Link>
           </div>
           <p className="section-caption">缺口不会被默认补成零；国家角色、双边流向和代表性策展连接分别记录。</p>
-          <EvidenceGapRegistry gaps={story.evidenceGaps} compact />
+          <div className="hierarchy-card"><strong>{story.evidenceGaps.length} 条证据缺口登记</strong><span>当前页面只显示摘要；进入证据缺口页面查看逐条主张、候选来源和不可推断内容。</span><Link className="button button-secondary" href={evidenceGapsPath(productId, pageContext)}>打开证据缺口登记册 →</Link></div>
         </section>
 
         <section className="section-block" aria-labelledby="route-nodes-title">
@@ -217,8 +216,8 @@ export default async function SupplyChainPage({
               <h2 id="route-nodes-title">路径节点</h2>
             </div>
           </div>
-          <div className="node-grid">
-            {story.nodes.map((node) => (
+          <div className="node-grid route-node-index">
+            {story.nodes.slice(0, 6).map((node) => (
               <article className="node-card" key={node.node.id}>
                 <div className="node-card-top">
                   <span className="node-type">{node.node.nodeType}</span>
@@ -242,9 +241,9 @@ export default async function SupplyChainPage({
               </article>
             ))}
           </div>
+          {story.nodes.length > 6 ? <div className="hierarchy-card compact-hierarchy-card"><span>还有 {story.nodes.length - 6} 个节点详情。</span><Link className="text-link" href={nodePath(productId, story.nodes[6].node.id, pageContext)}>从节点索引继续探索 →</Link></div> : null}
         </section>
-
-        <ProvenancePanel provenance={routeProvenance} />
+        <section className="hierarchy-next-step"><strong>下一层</strong><span>需要查看完整来源、证据定位、许可证和版本信息？</span><Link className="button button-primary" href={provenancePath(productId, pageContext)}>进入来源与版本 →</Link></section>
       </div>
     </SiteShell>
   );
