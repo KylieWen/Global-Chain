@@ -10,6 +10,7 @@ import {
 import {
   IndicatorDefinitionSchema,
   MacroIndicatorObservationSchema,
+  MaterialTradeObservationSchema,
   TradeObservationSchema
 } from "./observations";
 import {
@@ -39,6 +40,7 @@ export const ProductFixtureSchema = z
     classificationCrosswalks: z.array(ClassificationCrosswalkSchema),
     storyGraph: StoryGraphSchema,
     tradeObservations: z.array(TradeObservationSchema),
+    materialTradeObservations: z.array(MaterialTradeObservationSchema).default([]),
     macroIndicators: z.array(MacroIndicatorObservationSchema),
     /** Optional for backwards compatibility with draft/mock fixtures. */
     indicatorDefinitions: z.array(IndicatorDefinitionSchema).default([]),

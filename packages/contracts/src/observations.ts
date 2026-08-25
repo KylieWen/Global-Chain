@@ -255,6 +255,49 @@ export const TradeObservationSchema = z
   });
 export type TradeObservation = z.infer<typeof TradeObservationSchema>;
 
+/** Material customs observation kept separate from finished-product trade. */
+export const MaterialTradeObservationSchema = z.object({
+  observationId: IdSchema,
+  materialItemId: IdSchema,
+  reporterEntityId: IdSchema,
+  partnerEntityId: NullableIdSchema,
+  reporterCode: z.number().int().nonnegative(),
+  partnerCode: z.number().int().nonnegative(),
+  partnerScope: PartnerScopeSchema,
+  flow: DirectionSchema,
+  classificationSystem: NonEmptyStringSchema,
+  classificationVersion: NonEmptyStringSchema,
+  classificationCode: NonEmptyStringSchema,
+  classificationMappingType: z.enum(["exact", "aggregate", "approximate", "curated"]),
+  period: PeriodSchema,
+  currency: CurrencySchema.nullable(),
+  value: NonNegativeNumberSchema.nullable(),
+  quantity: NonNegativeNumberSchema.nullable(),
+  valueDataStatus: FactStatusSchema,
+  quantityDataStatus: FactStatusSchema,
+  quality: z.record(z.string(), z.union([z.string(), z.number(), z.boolean(), z.null()])).default({}),
+  sourceId: IdSchema,
+  datasetVersionId: IdSchema,
+  method: DataMethodSchema,
+  evidenceLevel: SupplyChainEvidenceLevelSchema,
+  limitation: NonEmptyStringSchema
+}).superRefine((observation, context) => {
+  if (observation.partnerCode === 0) {
+    if (observation.partnerScope !== "world_total" || observation.partnerEntityId !== null) {
+      context.addIssue({ code: "custom", path: ["partnerScope"], message: "partnerCode=0 requires world_total and null partner" });
+    }
+  } else if (observation.partnerScope !== "entity" || !observation.partnerEntityId) {
+    context.addIssue({ code: "custom", path: ["partnerScope"], message: "Specific material partners require entity scope and partner entity" });
+  }
+  if ((observation.valueDataStatus === "unknown" || observation.valueDataStatus === "withheld") && observation.value !== null) {
+    context.addIssue({ code: "custom", path: ["value"], message: "Unknown/withheld values must be null" });
+  }
+  if ((observation.quantityDataStatus === "unknown" || observation.quantityDataStatus === "withheld") && observation.quantity !== null) {
+    context.addIssue({ code: "custom", path: ["quantity"], message: "Unknown/withheld quantities must be null" });
+  }
+});
+export type MaterialTradeObservation = z.infer<typeof MaterialTradeObservationSchema>;
+
 /**
  * Display and interpretation metadata for an open-ended macro indicator key.
  * Definitions are optional at the fixture boundary so older draft fixtures keep

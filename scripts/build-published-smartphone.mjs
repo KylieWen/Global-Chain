@@ -29,6 +29,7 @@ const BILATERAL_SNAPSHOT_PATH = resolve(
   RAW_DIR,
   "un-comtrade-hs2022-851713-bilateral-2023.json"
 );
+const MATERIAL_SNAPSHOT_PATH = resolve(RAW_DIR, "un-comtrade-hs2022-materials-2023.json");
 const OUTPUT_DIR = resolve(ROOT, "data/published/smartphone");
 const OUTPUT_PATH = resolve(OUTPUT_DIR, "fixture.json");
 const MANIFEST_PATH = resolve(ROOT, "data/published/manifest.json");
@@ -41,7 +42,7 @@ const PERIOD = {
   label: YEAR
 };
 const DATASET_ID = "dataset-smartphone-published-2023";
-const DATASET_VERSION = "globe-chain-smartphone-2023.2";
+const DATASET_VERSION = "globe-chain-smartphone-2023.3";
 const CONTENT_VERSION_ID = "content-smartphone-route-2023-2";
 const SOURCE_IDS = {
   wdi: "source-world-bank-wdi",
@@ -556,6 +557,27 @@ function buildBilateralTradeObservations(bilateralRaw) {
   return observations.sort((left, right) => left.id.localeCompare(right.id));
 }
 
+function buildMaterialTradeObservations(raw) {
+  const itemByCode = { "7403": "copper", "7601": "aluminum", "283691": "lithium", "8105": "cobalt", "7502": "nickel", "250410": "graphite" };
+  return (raw.responses ?? []).flatMap((response) => (response.payload?.data ?? []).map((row, index) => {
+    const code = String(row.cmdCode);
+    const partnerCode = Number(row.partnerCode);
+    const amount = typeof row.primaryValue === "number" ? row.primaryValue : null;
+    const estimated = row.isQtyEstimated === true;
+    return {
+      observationId: `material-${itemByCode[code]}-${partnerCode}-${row.flowCode}-${index}`,
+      materialItemId: itemByCode[code], reporterEntityId: entityByComtradeCode.get(Number(row.reporterCode)), partnerEntityId: partnerCode === 0 ? null : entityByComtradeCode.get(partnerCode),
+      reporterCode: Number(row.reporterCode), partnerCode, partnerScope: partnerCode === 0 ? "world_total" : "entity",
+      flow: row.flowCode === "M" ? "import" : "export", classificationSystem: "HS", classificationVersion: "2022", classificationCode: code,
+      classificationMappingType: ["283691", "250410"].includes(code) ? "exact" : "aggregate", period: PERIOD, currency: amount === null ? null : "USD", value: amount,
+      quantity: estimated ? null : (typeof row.qty === "number" ? row.qty : null), valueDataStatus: amount === null ? "unknown" : "observed", quantityDataStatus: estimated ? "estimated" : (row.qty == null ? "unknown" : "observed"),
+      quality: { isQtyEstimated: row.isQtyEstimated ?? null, isAggregate: row.isAggregate ?? null, isReported: row.isReported ?? null, rawResponseSha256: response.responseSha256 },
+      sourceId: SOURCE_IDS.comtrade, datasetVersionId: DATASET_ID, method: "official", evidenceLevel: "bilateral_supported",
+      limitation: "该海关分类仅证明报告方与伙伴发生该分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。"
+    };
+  }));
+}
+
 function makeBilateralEvidence(bilateralRaw) {
   const routeEvidence = [
     {
@@ -1067,6 +1089,7 @@ function buildFixture(
   wdiRaw,
   comtradeRaw,
   bilateralRaw,
+  materialRaw,
   industryRoleContent,
   gapRegistry
 ) {
@@ -1107,6 +1130,7 @@ function buildFixture(
     ...buildTradeObservations(comtradeRaw),
     ...buildBilateralTradeObservations(bilateralRaw)
   ].sort((left, right) => left.id.localeCompare(right.id));
+  fixture.materialTradeObservations = buildMaterialTradeObservations(materialRaw);
   fixture.macroIndicators = buildMacroIndicators(wdiRaw);
   fixture.indicatorDefinitions = buildIndicatorDefinitions();
   fixture.missingDataNotes = [
@@ -1275,6 +1299,7 @@ async function main() {
     wdiRaw,
     comtradeRaw,
     bilateralRaw,
+    materialRaw,
     industryRoleContent,
     gapRegistry
   ] = await Promise.all([
@@ -1283,6 +1308,7 @@ async function main() {
     readJson(resolve(RAW_DIR, "world-bank-wdi-2023.json")),
     readJson(resolve(RAW_DIR, "un-comtrade-hs2022-851713-2023.json")),
     readJson(BILATERAL_SNAPSHOT_PATH),
+    readJson(MATERIAL_SNAPSHOT_PATH),
     readJson(INDUSTRY_ROLE_EVIDENCE_PATH),
     readJson(EVIDENCE_GAP_REGISTRY_PATH)
   ]);
@@ -1303,6 +1329,7 @@ async function main() {
     wdiRaw,
     comtradeRaw,
     bilateralRaw,
+    materialRaw,
     industryRoleContent,
     gapRegistry
   );
@@ -1327,6 +1354,7 @@ async function main() {
       "raw/world-bank-wdi-2023.json",
       "raw/un-comtrade-hs2022-851713-2023.json",
       "raw/un-comtrade-hs2022-851713-bilateral-2023.json"
+      ,"raw/un-comtrade-hs2022-materials-2023.json"
     ],
     notes: [
       "Numeric observations are generated from immutable local raw snapshots; reviewed route topology and evidence bindings come from the versioned content source. No runtime API calls are made.",

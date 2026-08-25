@@ -18,6 +18,7 @@ import type {
   SupplyChainEvidenceLevel,
   SupplyFlow,
   TradeObservation
+  ,MaterialTradeObservation
 } from "@globe-chain/contracts";
 import type {
   DeepReadonly,
@@ -39,6 +40,7 @@ type ReadonlyStoryNode = DeepReadonly<StoryNode>;
 type ReadonlyStoryStep = DeepReadonly<StoryStep>;
 type ReadonlySupplyFlow = DeepReadonly<SupplyFlow>;
 type ReadonlyTradeObservation = DeepReadonly<TradeObservation>;
+type ReadonlyMaterialTradeObservation = DeepReadonly<MaterialTradeObservation>;
 type ReadonlyMacroIndicatorObservation = DeepReadonly<MacroIndicatorObservation>;
 type ReadonlyIndicatorDefinition = DeepReadonly<IndicatorDefinition>;
 type ReadonlyClassificationCode = DeepReadonly<ClassificationCode>;
@@ -203,6 +205,15 @@ export interface CountryLedgerView {
   readonly warnings: readonly string[];
 }
 
+export interface MaterialTradeObservationView {
+  readonly observation: ReadonlyMaterialTradeObservation;
+  readonly reporter: ReadonlyGeoEntity | null;
+  readonly partner: ReadonlyGeoEntity | null;
+  readonly item: ReadonlyItem | null;
+  readonly source: ReadonlySource | null;
+  readonly partnerScope: ReadonlyMaterialTradeObservation["partnerScope"];
+}
+
 export interface ResolvedTradeObservationView {
   readonly observation: ReadonlyTradeObservation;
   readonly reporter: ReadonlyGeoEntity | null;
@@ -288,6 +299,7 @@ export interface ProductQueryService {
   ): CountryLedgerView | null;
   getProvenance(productId: string, options?: ProvenanceOptions): ProvenanceView | null;
   getEvidenceGaps(productId: string): readonly ResolvedEvidenceGapView[];
+  getMaterialTradeObservations(productId: string): readonly MaterialTradeObservationView[];
 }
 
 export class DomainQueryError extends Error {
@@ -1158,6 +1170,19 @@ export function getEvidenceGaps(
   return fixture ? resolveAllEvidenceGaps(fixture) : freezeArray([]);
 }
 
+export function getMaterialTradeObservations(repository: FixtureRepository, productId: string): readonly MaterialTradeObservationView[] {
+  const fixture = getFixtureOrNull(repository, productId);
+  if (!fixture) return freezeArray([]);
+  return freezeArray((fixture.materialTradeObservations ?? []).map((observation) => Object.freeze({
+    observation,
+    reporter: fixture.entities.find((entity) => entity.id === observation.reporterEntityId) ?? null,
+    partner: observation.partnerEntityId ? fixture.entities.find((entity) => entity.id === observation.partnerEntityId) ?? null : null,
+    item: fixture.items.find((item) => item.id === observation.materialItemId) ?? null,
+    source: sourceForId(fixture, observation.sourceId),
+    partnerScope: observation.partnerScope
+  })));
+}
+
 export function createProductQueryService(
   repository: FixtureRepository
 ): ProductQueryService {
@@ -1177,5 +1202,6 @@ export function createProductQueryService(
     getProvenance: (productId: string, options?: ProvenanceOptions) =>
       getProvenance(repository, productId, options),
     getEvidenceGaps: (productId: string) => getEvidenceGaps(repository, productId)
+    ,getMaterialTradeObservations: (productId: string) => getMaterialTradeObservations(repository, productId)
   });
 }

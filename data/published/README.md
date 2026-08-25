@@ -38,7 +38,7 @@ sample 的 `storyGraph` 或 `productionActivities` 提升 published 路线。Web
 完整决策、代码和语义见 [`docs/adr/0002-published-data-sources.md`](../../docs/adr/0002-published-data-sources.md)。
 
 当前发布清单（`data/published/manifest.json`）的数字版本为
-`globe-chain-smartphone-2023.2`；路线拓扑和策展说明的内容版本为
+`globe-chain-smartphone-2023.3`；路线拓扑和策展说明的内容版本为
 `smartphone-route-2023.2`（本阶段重建后的当前路线内容版本）。两种版本分别演进，页面或导出必须同时显示它们，不能
 把内容版本当成统计数据版本。
 
@@ -163,6 +163,12 @@ source/evidence 说明如何形成代表性连接，但它本身不是外部事�
 镍和石墨按矿石/化合物/精炼品/箔材等候选阶段拆分，并把宽泛代码标记为
 `aggregate` 或 `approximate`；这些分类不能证明材料进入手机、电池或指定工厂。
 没有材料双边证据时，不能为了形成连续路线而补写起点、终点或数量。
+
+第 9 阶段新增的 `materialTradeObservations` 是独立于智能手机 `851713` 的通用材料贸易层，
+覆盖中国报告方对世界总计与 Comtrade 统计区 842 的 2023 观察。每条记录保留具体 HS
+代码、伙伴范围、金额/数量状态、质量标记和限制说明；aggregate 分类不能被解释为手机用途。
+原始快照为 `raw/un-comtrade-hs2022-materials-2023.json`，仍受 UN Comtrade 当前许可与
+再传播政策约束。
 
 ## 原始快照与重建
 

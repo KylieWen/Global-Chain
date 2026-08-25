@@ -14,6 +14,7 @@ export default async function ProductProvenancePage({
   const queries = await getQueryService();
   const overview = queries.getProductOverview(productId);
   const provenance = queries.getProvenance(productId);
+  const materialObservations = queries.getMaterialTradeObservations(productId);
   if (!overview || !provenance) notFound();
 
   return (
@@ -47,6 +48,21 @@ export default async function ProductProvenancePage({
 
         <WarningList warnings={provenance.warnings} />
         <ProvenancePanel provenance={provenance} />
+
+        <section className="section-block" aria-labelledby="material-observations-title">
+          <div className="section-heading"><div><p className="eyebrow">Material customs observations</p><h2 id="material-observations-title">材料双边贸易观察</h2></div><span className="muted">{materialObservations.length} 条 · 2023 · HS 2022</span></div>
+          <p className="muted">这些观察只证明统计方与伙伴发生了对应 HS 分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。</p>
+          <div className="trade-observation-list">
+            {materialObservations.map(({ observation, reporter, partner, item }) => (
+              <article className="trade-observation-card" key={observation.observationId}>
+                <div className="trade-observation-heading"><div><strong>{item?.name ?? observation.materialItemId}</strong><div className="muted">{reporter?.name ?? observation.reporterEntityId} → {partner?.name ?? (observation.partnerScope === "world_total" ? "世界总计" : "未知伙伴")}</div></div><span className="status-badge">{observation.flow} · {observation.partnerScope}</span></div>
+                <div className="fact-metadata-grid"><span>HS {observation.classificationCode}</span><span>{observation.classificationMappingType}</span><span>{observation.period.label}</span><span>{observation.valueDataStatus} / 数量 {observation.quantityDataStatus}</span></div>
+                <div className="trade-values"><div><small>金额</small><strong>{observation.value === null ? "未知" : `${observation.currency ?? ""} ${observation.value.toLocaleString()}`}</strong></div><div><small>数量</small><strong>{observation.quantity === null ? "未知/未提供" : observation.quantity.toLocaleString()}</strong></div></div>
+                <p className="muted">{observation.limitation}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
         <section className="section-block method-strip" aria-labelledby="policy-title">
           <div><p className="eyebrow">Reading policy</p><h2 id="policy-title">本项目如何避免误读</h2></div>
