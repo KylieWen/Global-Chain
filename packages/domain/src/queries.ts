@@ -70,6 +70,13 @@ export interface CountryCatalogView {
   readonly datasetVersion: ReadonlyDatasetVersion;
 }
 
+export interface CategoryCatalogView {
+  readonly category: string;
+  readonly itemCount: number;
+  readonly productIds: readonly string[];
+  readonly publishedItemCount: number;
+}
+
 export interface ProductOverviewView {
   readonly product: ReadonlyItem;
   readonly directChildren: readonly ReadonlyItem[];
@@ -360,6 +367,7 @@ export interface ResolvedEvidenceGapView {
 export interface ProductQueryService {
   listProducts(): readonly ProductCatalogView[];
   listCountries(): readonly CountryCatalogView[];
+  listCategories(): readonly CategoryCatalogView[];
   getProductOverview(productId: string): ProductOverviewView | null;
   getProductBreakdown(productId: string): ProductBreakdownNode | null;
   getSupplyChainStory(
@@ -994,6 +1002,21 @@ export function listCountries(repository: FixtureRepository): readonly CountryCa
   return freezeArray([...byEntity.values()].sort((left, right) => left.entity.name.localeCompare(right.entity.name)));
 }
 
+export function listCategories(repository: FixtureRepository): readonly CategoryCatalogView[] {
+  const products = repository.listProductIds().map((productId) => repository.getProductFixture(productId)).filter((fixture): fixture is NonNullable<typeof fixture> => Boolean(fixture));
+  const categories = new Map<string, CategoryCatalogView>();
+  products.forEach((fixture) => fixture.items.forEach((item) => {
+    const current = categories.get(item.category);
+    categories.set(item.category, {
+      category: item.category,
+      itemCount: (current?.itemCount ?? 0) + 1,
+      productIds: freezeArray([...new Set([...(current?.productIds ?? []), fixture.productId])]),
+      publishedItemCount: (current?.publishedItemCount ?? 0) + (item.dataStatus === "observed" ? 1 : 0)
+    });
+  }));
+  return freezeArray([...categories.values()].sort((left, right) => left.category.localeCompare(right.category)));
+}
+
 export function getProductOverview(
   repository: FixtureRepository,
   productId: string
@@ -1403,6 +1426,7 @@ export function createProductQueryService(
   return Object.freeze({
     listProducts: () => listProducts(repository),
     listCountries: () => listCountries(repository),
+    listCategories: () => listCategories(repository),
     getProductOverview: (productId: string) => getProductOverview(repository, productId),
     getProductBreakdown: (productId: string) => getProductBreakdown(repository, productId),
     getSupplyChainStory: (productId: string, options?: SupplyChainStoryOptions) =>

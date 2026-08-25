@@ -18,6 +18,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </Link>
           <nav className="site-nav" aria-label="主导航">
             <Link href="/products">商品目录</Link>
+            <Link href="/categories">商品门类</Link>
             <Link href="/countries">国家目录</Link>
           </nav>
           <span className={`mode-pill ${preview ? "mode-preview" : "mode-published"}`}>

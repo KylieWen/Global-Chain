@@ -423,6 +423,13 @@ p { line-height: 1.7; }
 .country-card h3 { margin-top: 1rem; color: var(--navy); font-size: 1.2rem; }
 .country-card p { color: var(--ink-soft); font-size: 0.8rem; }
 .country-card-meta { display: flex; flex-wrap: wrap; gap: 0.35rem 0.7rem; margin-top: auto; color: var(--muted); font-size: 0.7rem; }
+.category-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.9rem; }
+.category-card { min-height: 12rem; padding: 1.25rem; border: 1px solid var(--line); border-radius: 1rem; background: #fff; }
+.category-card h2 { margin-top: 1rem; color: var(--navy); font-size: 1.35rem; }
+.category-card p { color: var(--ink-soft); font-size: 0.82rem; }
+.category-products { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+@media (max-width: 900px) { .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .category-grid { grid-template-columns: 1fr; } }
 @media (max-width: 900px) { .country-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .country-grid { grid-template-columns: 1fr; } }
 @media (max-width: 900px) { .coverage-row { grid-template-columns: 1fr 1fr; } }
