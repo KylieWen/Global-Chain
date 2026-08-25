@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const output = resolve(root, "data/published/raw/un-comtrade-hs2022-material-role-pairs-2023.json");
+const replaceExisting = process.argv.includes("--replace");
 const pairs = [
   { id: "aus-chn-lithium", reporterCode: 36, partnerCode: 156, materialItemId: "lithium", cmdCode: "283691", label: "Australia → China lithium carbonate" },
   { id: "cod-chn-cobalt", reporterCode: 180, partnerCode: 156, materialItemId: "cobalt", cmdCode: "8105", label: "DRC → China cobalt aggregate" },
@@ -29,5 +30,10 @@ for (const pair of pairs) {
   responses.push({ ...pair, url, retrievedAt: new Date().toISOString(), httpStatus: response.status, responseSha256: createHash("sha256").update(text).digest("hex"), payload: JSON.parse(text) });
 }
 await mkdir(resolve(root, "data/published/raw"), { recursive: true });
-await writeFile(output, JSON.stringify({ schemaVersion: "material-role-pairs-snapshot.v1", source: "UN Comtrade Preview API", hsVersion: "2022", period: "2023", license: "UN Comtrade License Agreement and Policy on Use and Re-dissemination apply", transformation: "scripts/build-published-smartphone.mjs material role-pair normalization", responses }, null, 2) + "\n");
+const snapshot = { schemaVersion: "material-role-pairs-snapshot.v1", source: "UN Comtrade Preview API", hsVersion: "2022", period: "2023", license: "UN Comtrade License Agreement and Policy on Use and Re-dissemination apply", transformation: "scripts/build-published-smartphone.mjs material role-pair normalization", responses };
+const { access, readFile } = await import("node:fs/promises");
+let unchanged = false;
+try { const existing = JSON.parse(await readFile(output, "utf8")); unchanged = JSON.stringify((existing.responses ?? []).map((x) => x.responseSha256)) === JSON.stringify(responses.map((x) => x.responseSha256)); } catch (error) { if (error.code !== "ENOENT") throw error; }
+if (!unchanged && await access(output).then(() => true).catch(() => false) && !replaceExisting) throw new Error(`Snapshot changed: ${output}. Use --replace intentionally.`);
+if (unchanged) console.log(`unchanged ${output}`); else { await writeFile(output, JSON.stringify(snapshot, null, 2) + "\n"); console.log(`wrote ${output}`); }
 console.log(`wrote ${output}`);

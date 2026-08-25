@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const out = resolve(root, "data/published/raw/un-comtrade-hs2022-materials-2023.json");
+const replaceExisting = process.argv.includes("--replace");
 const specs = [
   ["copper", "7403", "copper, refined/unrefined (aggregate)"],
   ["aluminum", "7601", "unwrought aluminum (aggregate)"],
@@ -24,5 +25,17 @@ for (const partnerCode of [0, 842]) {
   responses.push({ partnerCode, url, retrievedAt: new Date().toISOString(), responseSha256: createHash("sha256").update(text).digest("hex"), payload: JSON.parse(text) });
 }
 await mkdir(resolve(root, "data/published/raw"), { recursive: true });
-await writeFile(out, JSON.stringify({ schemaVersion: "material-comtrade-snapshot.v1", source: "UN Comtrade Preview API", hsVersion: "2022", period: "2023", license: "UN Comtrade License Agreement and Policy on Use and Re-dissemination apply", responses }, null, 2) + "\n");
+const snapshot = { schemaVersion: "material-comtrade-snapshot.v1", source: "UN Comtrade Preview API", hsVersion: "2022", period: "2023", license: "UN Comtrade License Agreement and Policy on Use and Re-dissemination apply", responses };
+if (await import("node:fs/promises").then(({ access, readFile }) => access(out).then(async () => {
+  const existing = JSON.parse(await readFile(out, "utf8"));
+  const oldHashes = (existing.responses ?? []).map((response) => response.responseSha256);
+  const newHashes = responses.map((response) => response.responseSha256);
+  if (JSON.stringify(oldHashes) !== JSON.stringify(newHashes) && !replaceExisting) throw new Error(`Snapshot changed: ${out}. Use --replace intentionally.`);
+  return JSON.stringify(oldHashes) === JSON.stringify(newHashes);
+  }).catch((error) => error.code === "ENOENT" ? false : Promise.reject(error)))) {
+  console.log(`unchanged ${out}`);
+} else {
+  await writeFile(out, JSON.stringify(snapshot, null, 2) + "\n");
+  console.log(`wrote ${out}`);
+}
 console.log(`wrote ${out}`);

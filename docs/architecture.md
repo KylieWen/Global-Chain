@@ -2,7 +2,7 @@
 
 ## 当前基线（2026-08-25）
 
-项目已完成最小工程骨架、通用数据契约、mock fixture、只读 fixture loader、领域查询层、无地图 Web 页面，以及 2023 年通用智能手机 published 数据集。国家贸易账本和代表性供应链内容均从本地已发布 fixture 只读展示；当前仍没有数据库迁移、地图或运行时外部 API。本文既是目标架构，也是后续实现的约束；其中尚未实现的部分必须以代码和测试为准逐步更新。
+项目已完成最小工程骨架、通用数据契约、mock fixture、只读 fixture loader、领域查询层、无地图 Web 页面，以及 2023 年通用智能手机 published 数据集。国家贸易账本和代表性供应链内容均从本地 active manifest 指向的不可变 release fixture 只读展示；当前仍没有数据库迁移、地图或运行时外部 API。本文既是目标架构，也是后续实现的约束；其中尚未实现的部分必须以代码和测试为准逐步更新。
 
 ## 总体决策
 
@@ -25,7 +25,7 @@
 - 校验：TypeScript 侧 Zod，数据处理侧 Pydantic/JSON Schema；同一领域 schema 生成或双向测试保持一致。
 - 可视化：先采用成熟的 React 图表库；地图能力在确认数据与 UX 后再引入 MapLibre 等库，不为本次文档阶段安装依赖。
 - 测试：Vitest/Playwright（或团队已有等价工具）分别覆盖领域规则、查询契约和关键用户流。
-- CI：执行格式化、类型检查、lint、测试、schema 校验和数据发布前检查；不在运行时拉取未经审核的外部数据。
+- CI：`.github/workflows/ci.yml` 执行 frozen install、active release 校验、类型检查、lint、测试和构建；不在运行时拉取未经审核的外部数据。
 
 Node、pnpm、Next.js、React、TypeScript、ESLint 和 Vitest 的实际版本记录在根目录 `package.json`、锁文件和 README 中。PostgreSQL、Python/uv、地图和图表依赖尚未接入；接入前仍需记录版本、许可证和可替代方案。
 

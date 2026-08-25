@@ -12,6 +12,7 @@
  */
 
 import { createHash } from "node:crypto";
+import { existsSync } from "node:fs";
 import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -32,9 +33,6 @@ const BILATERAL_SNAPSHOT_PATH = resolve(
 const MATERIAL_SNAPSHOT_PATH = resolve(RAW_DIR, "un-comtrade-hs2022-materials-2023.json");
 const MATERIAL_ROLE_PAIRS_SNAPSHOT_PATH = resolve(RAW_DIR, "un-comtrade-hs2022-material-role-pairs-2023.json");
 const MATERIAL_INTERMEDIATE_SNAPSHOT_PATH = resolve(RAW_DIR, "un-comtrade-hs2022-material-intermediate-2023.json");
-const OUTPUT_DIR = resolve(ROOT, "data/published/smartphone");
-const OUTPUT_PATH = resolve(OUTPUT_DIR, "fixture.json");
-const MANIFEST_PATH = resolve(ROOT, "data/published/manifest.json");
 
 const YEAR = "2023";
 const PERIOD = {
@@ -44,7 +42,15 @@ const PERIOD = {
   label: YEAR
 };
 const DATASET_ID = "dataset-smartphone-published-2023";
-const DATASET_VERSION = "globe-chain-smartphone-2023.4";
+const DEFAULT_DATASET_VERSION = "globe-chain-smartphone-2023.4";
+const DATASET_VERSION = process.env.GLOBECHAIN_DATASET_VERSION?.trim() || DEFAULT_DATASET_VERSION;
+const PUBLISHED_DIR = resolve(ROOT, "data/published");
+const RELEASE_DIR = resolve(PUBLISHED_DIR, "releases/generic-smartphone", DATASET_VERSION);
+const OUTPUT_DIR = RELEASE_DIR;
+const OUTPUT_PATH = resolve(OUTPUT_DIR, "fixture.json");
+const MANIFEST_PATH = resolve(OUTPUT_DIR, "manifest.json");
+const ACTIVE_MANIFEST_PATH = resolve(PUBLISHED_DIR, "active-manifest.json");
+const COMPAT_MANIFEST_PATH = resolve(PUBLISHED_DIR, "manifest.json");
 const CONTENT_VERSION_ID = "content-smartphone-route-2023-2";
 const SOURCE_IDS = {
   wdi: "source-world-bank-wdi",
@@ -1499,10 +1505,16 @@ async function main() {
   assertBuildInvariants(fixture, comtradeRaw);
   await mkdir(OUTPUT_DIR, { recursive: true });
   const serialized = `${JSON.stringify(fixture, null, 2)}\n`;
+  if (existsSync(OUTPUT_PATH)) {
+    const existing = await readFile(OUTPUT_PATH, "utf8");
+    if (sha256(existing) !== sha256(serialized)) {
+      throw new Error(`Immutable release already exists with different fixture bytes: ${DATASET_VERSION}`);
+    }
+  }
   await writeFile(OUTPUT_PATH, serialized, "utf8");
   const manifest = {
     schemaVersion: "fixture-manifest.v1",
-    fixtures: [{ productId: fixture.productId, path: "smartphone/fixture.json" }],
+    fixtures: [{ productId: fixture.productId, path: "fixture.json" }],
     datasetVersion: DATASET_VERSION,
     generatedAt: "2026-08-25",
     fixtureSha256: sha256(serialized),
@@ -1527,9 +1539,23 @@ async function main() {
       "The fixture now contains specific bilateral HS 851713 customs observations, kept separate from world totals and from the representative supply-chain edges.",
       "All current supply-chain edges remain representative and quantity-free because customs trade does not prove assembly, consumption or entry into this curated route.",
       "Evidence gaps are versioned content and cover every current node and edge."
-    ]
+    ],
+    release: {
+      productId: fixture.productId,
+      datasetVersion: DATASET_VERSION,
+      releasePath: `releases/generic-smartphone/${DATASET_VERSION}`,
+      immutable: true
+    }
   };
   await writeFile(MANIFEST_PATH, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+  const activeManifest = {
+    ...manifest,
+    fixtures: [{ productId: fixture.productId, path: `releases/generic-smartphone/${DATASET_VERSION}/fixture.json` }],
+    activeDatasetVersion: DATASET_VERSION,
+    activeManifest: true
+  };
+  await writeFile(ACTIVE_MANIFEST_PATH, `${JSON.stringify(activeManifest, null, 2)}\n`, "utf8");
+  await writeFile(COMPAT_MANIFEST_PATH, `${JSON.stringify(activeManifest, null, 2)}\n`, "utf8");
   console.log(`built ${OUTPUT_PATH}`);
   console.log(`wrote ${fixture.tradeObservations.length} Comtrade observations and ${fixture.macroIndicators.length} macro observations`);
   console.log(`fixture sha256 ${manifest.fixtureSha256}`);

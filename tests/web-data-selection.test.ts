@@ -25,7 +25,7 @@ describe("web fixture manifest selection", () => {
   it("uses separate published and preview defaults", () => {
     delete process.env.GLOBECHAIN_DATA_MANIFEST;
 
-    expect(getManifestPath("published")).toBe(resolve("data/published/manifest.json"));
+    expect(getManifestPath("published")).toBe(resolve("data/published/active-manifest.json"));
     expect(getManifestPath("preview")).toBe(resolve("data/samples/manifest.json"));
   });
 
@@ -37,7 +37,7 @@ describe("web fixture manifest selection", () => {
     expect(getManifestPath()).toBe(resolve("data/samples/manifest.json"));
 
     process.env.GLOBECHAIN_DATA_MODE = "published";
-    expect(getManifestPath()).toBe(resolve("data/published/manifest.json"));
+    expect(getManifestPath()).toBe(resolve("data/published/active-manifest.json"));
   });
 
   it("honors an explicit manifest override for either mode", () => {

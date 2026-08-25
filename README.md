@@ -50,6 +50,17 @@ Published 商品的确定性研究快照可从以下通用路径下载：
 
 快照同时携带统计数据集版本和路线内容版本，并保留来源、证据缺口以及 `unknown`、估算、保密和真实零值的原始语义。
 
+Published release 管理命令：
+
+```bash
+pnpm run data:release:list
+pnpm run data:release:verify
+pnpm run data:release:activate -- globe-chain-smartphone-2023.4
+pnpm run data:release:rollback
+```
+
+数据重建使用统一入口 `pnpm run data:rebuild:smartphone`；它先准备主数据和全部材料 raw 快照，再生成新的 release。raw 快照默认不可覆盖，只有显式传入 `--replace` 才允许更新来源批次。
+
 ## 质量检查
 
 ```bash

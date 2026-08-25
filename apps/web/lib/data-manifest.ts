@@ -3,7 +3,7 @@ import { isAbsolute, resolve } from "node:path";
 import { getWebDataMode, type WebDataMode } from "./runtime";
 
 const MANIFEST_RELATIVE_PATHS: Record<WebDataMode, readonly string[]> = {
-  published: ["data/published/manifest.json"],
+  published: ["data/published/active-manifest.json", "data/published/manifest.json"],
   preview: ["data/samples/manifest.json"]
 };
 

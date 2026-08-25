@@ -3,7 +3,7 @@
   "fixtures": [
     {
       "productId": "generic-smartphone",
-      "path": "smartphone/fixture.json"
+      "path": "releases/generic-smartphone/globe-chain-smartphone-2023.4/fixture.json"
     }
   ],
   "datasetVersion": "globe-chain-smartphone-2023.4",
@@ -30,5 +30,13 @@
     "The fixture now contains specific bilateral HS 851713 customs observations, kept separate from world totals and from the representative supply-chain edges.",
     "All current supply-chain edges remain representative and quantity-free because customs trade does not prove assembly, consumption or entry into this curated route.",
     "Evidence gaps are versioned content and cover every current node and edge."
-  ]
+  ],
+  "release": {
+    "productId": "generic-smartphone",
+    "datasetVersion": "globe-chain-smartphone-2023.4",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2023.4",
+    "immutable": true
+  },
+  "activeDatasetVersion": "globe-chain-smartphone-2023.4",
+  "activeManifest": true
 }

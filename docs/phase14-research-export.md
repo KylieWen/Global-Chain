@@ -30,3 +30,8 @@ GET /api/products/{productId}/research-export
 
 导出由 domain query 组装，Web API 只负责序列化、缓存校验和下载响应。页面不直接读取
 fixture 文件；未来切换到数据库 adapter 时，导出调用方与格式边界可以保持不变。
+
+Published 快照现在位于 `data/published/releases/{productId}/{datasetVersion}/`，
+`active-manifest.json` 是 Web 默认读取的 active 指针；旧版本保留在 release 目录中，
+可通过 `pnpm run data:release:activate -- VERSION` 或
+`pnpm run data:release:rollback` 切换。切换只改变指针，不覆盖历史 fixture。
