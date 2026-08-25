@@ -1,0 +1,126 @@
+{
+  "schemaVersion": "industry-role-evidence.v1",
+  "productId": "generic-smartphone",
+  "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+  "retrievedAt": "2026-08-25",
+  "notes": [
+    "这些资料只支持较宽的半导体产业角色，不支持某款手机、指定芯片、具体工厂或国家之间的直接双边流向。",
+    "处理器、存储器、晶圆和封装是不同产业阶段；一个国家在其中一阶段的角色不自动延伸到其他阶段。"
+  ],
+  "sources": [
+    {
+      "id": "source-sia-semiconductor-industry-2024",
+      "name": "2024 SIA Factbook",
+      "publisher": "Semiconductor Industry Association",
+      "url": "https://www.semiconductors.org/wp-content/uploads/2024/05/SIA-2024-Factbook.pdf",
+      "license": "SIA copyright and usage terms apply; cite necessary excerpts and link the original publication; no blanket open-data redistribution claim",
+      "publishedAt": "2024-05-01",
+      "retrievedAt": "2026-08-25",
+      "datasetVersion": "SIA-FACTBOOK-2024",
+      "notes": "用于美国半导体产业和设计生态的宽泛背景，不作为手机芯片或双边路线证据。"
+    },
+    {
+      "id": "source-skhynix-annual-report-2023",
+      "name": "SK hynix Annual Report 2023",
+      "publisher": "SK hynix",
+      "url": "https://www.skhynix.com/ir/irReport/annualReport.do",
+      "license": "SK hynix copyright and investor-relations terms apply; cite necessary facts and link the original report",
+      "publishedAt": "2024-03-29",
+      "retrievedAt": "2026-08-25",
+      "datasetVersion": "SKHYNIX-AR-2023",
+      "notes": "用于韩国存储器制造企业背景；不代表韩国全部存储器产量或手机用途。"
+    },
+    {
+      "id": "source-tsmc-annual-report-2023",
+      "name": "TSMC Annual Reports",
+      "publisher": "Taiwan Semiconductor Manufacturing Company",
+      "url": "https://investor.tsmc.com/english/annual-reports",
+      "license": "TSMC copyright and investor-relations terms apply; cite necessary facts and link the original report",
+      "publishedAt": "2024-04-12",
+      "retrievedAt": "2026-08-25",
+      "datasetVersion": "TSMC-AR-2023",
+      "notes": "用于晶圆代工阶段背景；该来源是企业资料，不代表所有台湾制造能力或任何特定手机芯片。"
+    },
+    {
+      "id": "source-asml-annual-report-2023",
+      "name": "ASML Annual Report 2023",
+      "publisher": "ASML",
+      "url": "https://www.asml.com/en/investors/financial-results/annual-reports",
+      "license": "ASML copyright and investor-relations terms apply; cite necessary facts and link the original report",
+      "publishedAt": "2024-02-14",
+      "retrievedAt": "2026-08-25",
+      "datasetVersion": "ASML-AR-2023",
+      "notes": "用于荷兰半导体设备生态背景；设备供应不等于晶圆制造或手机芯片来源。"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence-sia-us-semiconductor-design-role-2023",
+      "sourceId": "source-sia-semiconductor-industry-2024",
+      "supportType": "country_role",
+      "scope": {
+        "entityIds": ["country-us"], "fromEntityId": null, "toEntityId": null,
+        "itemIds": ["application-processor", "baseband-chip"], "processStageIds": ["component_manufacturing"],
+        "classificationCodes": [], "direction": null,
+        "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+        "scopeDescription": "支持美国在半导体设计、技术和产业生态中的宽泛角色；不限定手机芯片或具体企业供应。",
+        "supportsCountryRole": true, "supportsBilateralFlow": false, "supportsProcessContext": true,
+        "limitations": ["不证明某款手机使用美国设计芯片。", "不证明美国向某个国家出口处理器或基带芯片。", "不提供具体企业、工厂、数量或利润。"]
+      },
+      "locator": "2024 SIA Factbook, industry overview and semiconductor value-chain discussion",
+      "excerpt": "The publication describes the United States semiconductor industry and its role across design and technology-intensive activities.",
+      "notes": "仅作为国家产业角色背景。"
+    },
+    {
+      "id": "evidence-skhynix-korea-memory-role-2023",
+      "sourceId": "source-skhynix-annual-report-2023",
+      "supportType": "country_role",
+      "scope": {
+        "entityIds": ["country-kr"], "fromEntityId": null, "toEntityId": null,
+        "itemIds": ["dram", "nand-flash"], "processStageIds": ["component_manufacturing"],
+        "classificationCodes": [], "direction": null,
+        "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+        "scopeDescription": "支持韩国企业在 DRAM 和 NAND 存储器产业中的制造角色；不代表韩国总体市场份额或手机用途。",
+        "supportsCountryRole": true, "supportsBilateralFlow": false, "supportsProcessContext": true,
+        "limitations": ["企业年报不等于国家总量统计。", "不证明存储器进入某款手机。", "不证明韩国到中国或其他国家的直接双边流向。"]
+      },
+      "locator": "SK hynix Annual Report 2023, business and product sections",
+      "excerpt": "The report describes SK hynix business activities in DRAM and NAND flash memory.",
+      "notes": "仅支持企业及国家产业背景，不支持路线边。"
+    },
+    {
+      "id": "evidence-tsmc-foundry-role-2023",
+      "sourceId": "source-tsmc-annual-report-2023",
+      "supportType": "process_context",
+      "scope": {
+        "entityIds": ["country-jp"], "fromEntityId": null, "toEntityId": null,
+        "itemIds": ["semiconductor-wafer"], "processStageIds": ["component_manufacturing"],
+        "classificationCodes": [], "direction": null,
+        "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+        "scopeDescription": "当前数据层暂以日本电子产业实体作为晶圆/制造阶段的待补证据占位；TSMC 企业资料不支持日本角色，节点保持 unknown。",
+        "supportsCountryRole": false, "supportsBilateralFlow": false, "supportsProcessContext": true,
+        "limitations": ["TSMC 资料支持企业制造背景，但不能转译为日本国家角色。", "不证明任何手机芯片的来源或流向。"]
+      },
+      "locator": "TSMC Annual Reports, manufacturing and foundry business discussion",
+      "excerpt": "The report describes TSMC's dedicated IC foundry business.",
+      "notes": "该记录刻意保留为证据边界示例，不升级为 role_supported。"
+    },
+    {
+      "id": "evidence-asml-netherlands-equipment-role-2023",
+      "sourceId": "source-asml-annual-report-2023",
+      "supportType": "process_context",
+      "scope": {
+        "entityIds": [], "fromEntityId": null, "toEntityId": null,
+        "itemIds": ["semiconductor-wafer"], "processStageIds": ["component_manufacturing"],
+        "classificationCodes": [], "direction": null,
+        "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+        "scopeDescription": "记录荷兰半导体设备角色的候选来源，但当前国家维度尚未加入荷兰实体，因此不生成路线节点。",
+        "supportsCountryRole": false, "supportsBilateralFlow": false, "supportsProcessContext": true,
+        "limitations": ["设备制造不等于晶圆制造。", "当前数据层没有荷兰实体节点。", "不证明设备进入某个指定工厂或手机芯片链。"]
+      },
+      "locator": "ASML Annual Report 2023, business and technology sections",
+      "excerpt": "The report describes ASML's semiconductor lithography equipment business.",
+      "notes": "保留为开放证据候选，待国家维度扩展后再审核。"
+    }
+  ]
+}

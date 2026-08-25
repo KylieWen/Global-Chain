@@ -2,11 +2,11 @@
   "schemaVersion": "route-content.v1",
   "productId": "generic-smartphone",
   "contentVersion": {
-    "id": "content-smartphone-route-2023-2",
-    "version": "smartphone-route-2023.2",
+    "id": "content-smartphone-route-2023-3",
+    "version": "smartphone-route-2023.3",
     "status": "published",
     "publishedAt": "2026-08-25",
-    "notes": "Reviewed representative route content for the 2023 generic-smartphone battery vertical slice."
+    "notes": "Reviewed representative route content for the 2023 generic-smartphone battery vertical slice plus the first processor-memory role extension."
   },
   "method": "curated",
   "representativeStatement": "这是一条用于解释主要国家角色与生产阶段的代表性策展路线，不代表某一品牌、型号、企业、工厂、批次或唯一真实路线。",

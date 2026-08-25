@@ -13,8 +13,8 @@ describe("phase 14 versioned research export", () => {
     const researchExport = queries.getProductResearchExport("generic-smartphone");
 
     expect(researchExport?.formatVersion).toBe("product-research-export.v1");
-    expect(researchExport?.release.datasetVersion.version).toBe("globe-chain-smartphone-2023.4");
-    expect(researchExport?.release.contentVersions.map(({ version }) => version)).toContain("smartphone-route-2023.2");
+    expect(researchExport?.release.datasetVersion.version).toBe("globe-chain-smartphone-2023.6");
+    expect(researchExport?.release.contentVersions.map(({ version }) => version)).toContain("smartphone-route-2023.3");
     expect(researchExport?.release.period.label).toBe("2023");
     expect(researchExport?.includedModules).toEqual([
       "catalog",
@@ -25,7 +25,7 @@ describe("phase 14 versioned research export", () => {
       "evidence_gaps"
     ]);
     expect(researchExport?.recordCounts.storyFlows).toBe(13);
-    expect(researchExport?.recordCounts.evidenceGaps).toBe(33);
+    expect(researchExport?.recordCounts.evidenceGaps).toBe(36);
     expect(researchExport?.recordCounts.materialTradeObservations).toBeGreaterThan(0);
   });
 

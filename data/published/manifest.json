@@ -3,17 +3,20 @@
   "fixtures": [
     {
       "productId": "generic-smartphone",
-      "path": "releases/generic-smartphone/globe-chain-smartphone-2023.4/fixture.json"
+      "path": "releases/generic-smartphone/globe-chain-smartphone-2023.6/fixture.json"
     }
   ],
-  "datasetVersion": "globe-chain-smartphone-2023.4",
+  "datasetVersion": "globe-chain-smartphone-2023.6",
   "generatedAt": "2026-08-25",
-  "fixtureSha256": "2bf5388c193293339de071e0b949d06e320f4f0b2dac464d21b3aa00981ab648",
-  "routeContentVersion": "smartphone-route-2023.2",
-  "routeContentSha256": "50183698bdf466728f773157b7688a57f44fd5138203022032441cde43024afc",
+  "fixtureSha256": "07978e55f2ee64e9423011fba084549f299ad83b3cde5093b6bd1c19a9fc287e",
+  "routeContentVersion": "smartphone-route-2023.3",
+  "routeContentSha256": "5c0c03afebb61f420bef483e7c6cd4cf1f53b97e41ede16577be1b72b6712a66",
   "contentSources": [
     "../../content/routes/generic-smartphone-2023.json",
+    "../../content/routes/generic-smartphone-processor-memory-2023.json",
     "../../content/evidence/industry-roles-2023.json",
+    "../../content/evidence/semiconductor-roles-2023.json",
+    "../../content/evidence-gaps/generic-smartphone-processor-memory-2023.json",
     "../../content/evidence-gaps/generic-smartphone-2023.json"
   ],
   "sourceSnapshots": [
@@ -33,10 +36,10 @@
   ],
   "release": {
     "productId": "generic-smartphone",
-    "datasetVersion": "globe-chain-smartphone-2023.4",
-    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2023.4",
+    "datasetVersion": "globe-chain-smartphone-2023.6",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2023.6",
     "immutable": true
   },
-  "activeDatasetVersion": "globe-chain-smartphone-2023.4",
+  "activeDatasetVersion": "globe-chain-smartphone-2023.6",
   "activeManifest": true
 }

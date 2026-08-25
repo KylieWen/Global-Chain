@@ -270,7 +270,7 @@ ISO 与 M49 代码只是维度标识，不应被解释为政治立场或边界�
   或重抓取必须递增）；
 - WDI 原始批次：`world-bank-wdi-2023`；
 - Comtrade 原始批次：`un-comtrade-hs2022-851713-2023`；
-- 代表性路线 `contentVersion`：`smartphone-route-2023.2`（本阶段更新后的路线内容；
+- 代表性路线 `contentVersion`：`smartphone-route-2023.3`（加入处理器与存储器角色节点后的路线内容；
   若 manifest 尚未重建，读取 manifest 的实际值，不得静默假定）；
 - 获取批次日期：以 `data/published/raw/manifest.json` 的 `retrievedAt`/各快照
   `fetchedAt` 为准，并记录

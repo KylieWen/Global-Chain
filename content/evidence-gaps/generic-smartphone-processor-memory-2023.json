@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "evidence-gap-registry-extension.v1",
+  "productId": "generic-smartphone",
+  "evidenceGaps": [
+    {
+      "gapId": "gap-node-us-application-processor-mobile-use",
+      "nodeId": "node-us-application-processor",
+      "flowId": null,
+      "currentClaim": "美国在处理器设计/技术生态中具有产业角色，并可作为通用手机处理器的背景节点。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "缺少手机专用芯片、具体设计企业、制造地点、封装地点和供货方向证据。",
+      "acceptableEvidenceTypes": ["country_role", "bilateral_flow"],
+      "candidateSources": [{"name": "企业/行业年度报告与官方贸易统计", "publisher": "待审核", "url": "https://www.semiconductors.org/", "license": "需逐来源核对", "notes": "需同时限定芯片类别、方向和期间。"}],
+      "classificationCandidates": [],
+      "status": "partial",
+      "nonInferences": ["不得推断某款手机使用美国设计芯片。", "不得推断美国向任一国家直接出口该手机芯片。", "不得推断成本、利润或企业订单。"],
+      "evidenceIds": ["evidence-sia-us-semiconductor-design-role-2023"],
+      "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"},
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-3"
+    },
+    {
+      "gapId": "gap-node-kr-memory-mobile-use",
+      "nodeId": "node-kr-dram",
+      "flowId": null,
+      "currentClaim": "韩国在 DRAM 存储器产业中具有制造角色，并可作为通用手机存储器的背景节点。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "缺少韩国总体 DRAM 产量、手机用途、具体流向和指定工厂证据。",
+      "acceptableEvidenceTypes": ["country_role", "bilateral_flow"],
+      "candidateSources": [{"name": "韩国政府统计、企业年报和 UN Comtrade", "publisher": "待审核", "url": "https://www.skhynix.com/ir/irReport/annualReport.do", "license": "需逐来源核对", "notes": "企业年报不能替代国家总量或双边用途证据。"}],
+      "classificationCandidates": [],
+      "status": "partial",
+      "nonInferences": ["不得把企业年报解释为韩国全部存储器产量。", "不得推断 DRAM 进入某部手机。", "不得把韩国角色升级为韩国到中国的路线边。"],
+      "evidenceIds": ["evidence-skhynix-korea-memory-role-2023"],
+      "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"},
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-3"
+    },
+    {
+      "gapId": "gap-node-kr-nand-mobile-use",
+      "nodeId": "node-kr-nand",
+      "flowId": null,
+      "currentClaim": "韩国在 NAND Flash 存储器产业中具有制造角色，并可作为通用手机存储器的背景节点。",
+      "currentEvidenceLevel": "role_supported",
+      "missingEvidence": "缺少韩国总体 NAND 产量、手机用途、具体流向和指定工厂证据。",
+      "acceptableEvidenceTypes": ["country_role", "bilateral_flow"],
+      "candidateSources": [{"name": "韩国政府统计、企业年报和 UN Comtrade", "publisher": "待审核", "url": "https://www.skhynix.com/ir/irReport/annualReport.do", "license": "需逐来源核对", "notes": "企业年报不能替代国家总量或双边用途证据。"}],
+      "classificationCandidates": [],
+      "status": "partial",
+      "nonInferences": ["不得把企业年报解释为韩国全部存储器产量。", "不得推断 NAND 进入某部手机。", "不得把韩国角色升级为韩国到中国的路线边。"],
+      "evidenceIds": ["evidence-skhynix-korea-memory-role-2023"],
+      "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"},
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-3"
+    }
+  ]
+}

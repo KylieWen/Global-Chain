@@ -30,7 +30,7 @@ describe("phase 16 research context and route availability", () => {
     }));
     expect(availability.get("battery")).toBe(true);
     expect(availability.get("display")).toBe(true);
-    expect(["processor-memory", "camera", "pcb-connector", "enclosure-structure", "sensor-audio"].every((id) => availability.get(id) === false)).toBe(true);
+    expect(["camera", "pcb-connector", "enclosure-structure", "sensor-audio"].every((id) => availability.get(id) === false)).toBe(true);
   });
 
   it("keeps representative routes and sample fixtures unchanged", async () => {

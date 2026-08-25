@@ -21,10 +21,13 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const SAMPLE_PATH = resolve(ROOT, "data/samples/smartphone/fixture.json");
 const ROUTE_CONTENT_PATH = resolve(ROOT, "content/routes/generic-smartphone-2023.json");
 const INDUSTRY_ROLE_EVIDENCE_PATH = resolve(ROOT, "content/evidence/industry-roles-2023.json");
+const SEMICONDUCTOR_ROLE_EVIDENCE_PATH = resolve(ROOT, "content/evidence/semiconductor-roles-2023.json");
+const PROCESSOR_MEMORY_ROUTE_PATH = resolve(ROOT, "content/routes/generic-smartphone-processor-memory-2023.json");
 const EVIDENCE_GAP_REGISTRY_PATH = resolve(
   ROOT,
   "content/evidence-gaps/generic-smartphone-2023.json"
 );
+const PROCESSOR_MEMORY_GAP_PATH = resolve(ROOT, "content/evidence-gaps/generic-smartphone-processor-memory-2023.json");
 const RAW_DIR = resolve(ROOT, "data/published/raw");
 const BILATERAL_SNAPSHOT_PATH = resolve(
   RAW_DIR,
@@ -42,7 +45,7 @@ const PERIOD = {
   label: YEAR
 };
 const DATASET_ID = "dataset-smartphone-published-2023";
-const DEFAULT_DATASET_VERSION = "globe-chain-smartphone-2023.4";
+const DEFAULT_DATASET_VERSION = "globe-chain-smartphone-2023.6";
 const DATASET_VERSION = process.env.GLOBECHAIN_DATASET_VERSION?.trim() || DEFAULT_DATASET_VERSION;
 const PUBLISHED_DIR = resolve(ROOT, "data/published");
 const RELEASE_DIR = resolve(PUBLISHED_DIR, "releases/generic-smartphone", DATASET_VERSION);
@@ -51,7 +54,7 @@ const OUTPUT_PATH = resolve(OUTPUT_DIR, "fixture.json");
 const MANIFEST_PATH = resolve(OUTPUT_DIR, "manifest.json");
 const ACTIVE_MANIFEST_PATH = resolve(PUBLISHED_DIR, "active-manifest.json");
 const COMPAT_MANIFEST_PATH = resolve(PUBLISHED_DIR, "manifest.json");
-const CONTENT_VERSION_ID = "content-smartphone-route-2023-2";
+const CONTENT_VERSION_ID = "content-smartphone-route-2023-3";
 const SOURCE_IDS = {
   wdi: "source-world-bank-wdi",
   comtrade: "source-un-comtrade",
@@ -158,6 +161,32 @@ const countryByIso3 = new Map([
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
+}
+
+function extendProcessorMemoryCatalog(fixture) {
+  const existing = new Set(fixture.items.map((item) => item.id));
+  const additions = [
+    ["application-processor", "应用处理器 / SoC", "处理器与存储器", "处理器设计与系统级芯片的通用组件节点。"],
+    ["baseband-chip", "基带与通信芯片", "处理器与存储器", "移动通信基带和相关通信芯片的通用组件节点。"],
+    ["dram", "DRAM 存储器", "处理器与存储器", "动态随机存取存储器的通用组件节点。"],
+    ["nand-flash", "NAND Flash 存储器", "处理器与存储器", "非易失性 NAND Flash 存储器的通用组件节点。"],
+    ["semiconductor-wafer", "半导体晶圆制造", "处理器与存储器", "晶圆制造阶段的通用产业节点，不代表具体制程或工厂。"],
+    ["chip-packaging", "芯片封装与测试", "处理器与存储器", "封装与测试阶段的通用产业节点。"]
+  ];
+  fixture.items.push(...additions.filter(([id]) => !existing.has(id)).map(([id, name, category, description]) => ({
+    id,
+    slug: id,
+    name,
+    itemType: "component",
+    parentItemId: "processor-memory",
+    category: "电子产品",
+    description,
+    sourceIds: [SOURCE_IDS.routeMethod],
+    dataStatus: "unknown",
+    method: "curated",
+    datasetVersionId: DATASET_ID,
+    validPeriod: period()
+  })));
 }
 
 function sha256(value) {
@@ -806,7 +835,7 @@ function makeMaterialIntermediateEvidence(raw) {
   }).filter(Boolean));
 }
 
-function makeSourceAndEvidence(wdiRaw, comtradeRaw, bilateralRaw, materialRolePairsRaw, materialIntermediateRaw, industryRoleContent) {
+function makeSourceAndEvidence(wdiRaw, comtradeRaw, bilateralRaw, materialRolePairsRaw, materialIntermediateRaw, industryRoleContent, semiconductorRoleContent) {
   const wdiRetrieved = wdiRaw.fetchedAt ?? "2026-08-25";
   const comtradeRetrieved = comtradeRaw.fetchedAt ?? "2026-08-25";
   const comtradeUrl = comtradeRaw.request?.url ?? "https://comtradeapi.un.org/public/v1/preview/C/A/HS";
@@ -1094,8 +1123,14 @@ function makeSourceAndEvidence(wdiRaw, comtradeRaw, bilateralRaw, materialRolePa
     sources.push(clone(source));
     externalSourceIds.add(source.id);
   }
+  for (const source of semiconductorRoleContent.sources ?? []) {
+    if (externalSourceIds.has(source.id)) throw new Error(`Duplicate semiconductor source: ${source.id}`);
+    sources.push(clone(source));
+    externalSourceIds.add(source.id);
+  }
   evidence.push(
     ...(industryRoleContent.evidence ?? []).map(clone),
+    ...(semiconductorRoleContent.evidence ?? []).map(clone),
     ...makeBilateralEvidence(bilateralRaw),
     ...makeMaterialRolePairEvidence(materialRolePairsRaw),
     ...makeMaterialIntermediateEvidence(materialIntermediateRaw)
@@ -1237,6 +1272,8 @@ function buildFixture(
   materialRolePairsRaw,
   materialIntermediateRaw,
   industryRoleContent,
+  semiconductorRoleContent,
+  processorMemoryGapContent,
   gapRegistry
 ) {
   const fixture = clone(sample);
@@ -1254,7 +1291,8 @@ function buildFixture(
       SOURCE_IDS.usgs,
       SOURCE_IDS.iea,
       SOURCE_IDS.routeMethod,
-      ...(industryRoleContent.sources ?? []).map((source) => source.id)
+      ...(industryRoleContent.sources ?? []).map((source) => source.id),
+      ...(semiconductorRoleContent.sources ?? []).map((source) => source.id)
     ],
     coverage: null,
     status: "published",
@@ -1267,12 +1305,15 @@ function buildFixture(
     bilateralRaw,
     materialRolePairsRaw,
     materialIntermediateRaw,
-    industryRoleContent
+    industryRoleContent,
+    semiconductorRoleContent
   );
   fixture.sources = sources;
   fixture.evidence = evidence;
-  fixture.evidenceGaps = (gapRegistry.evidenceGaps ?? []).map(clone);
+  fixture.evidenceGaps = [...(gapRegistry.evidenceGaps ?? []), ...(processorMemoryGapContent.evidenceGaps ?? [])]
+    .map((gap) => ({ ...clone(gap), contentVersionId: CONTENT_VERSION_ID, datasetVersionId: DATASET_ID }));
   applyCatalogMetadata(fixture);
+  extendProcessorMemoryCatalog(fixture);
   applyRouteContent(fixture, routeContent);
   fixture.tradeObservations = [
     ...buildTradeObservations(comtradeRaw),
@@ -1466,6 +1507,9 @@ async function main() {
     materialRolePairsRaw,
     materialIntermediateRaw,
     industryRoleContent,
+    semiconductorRoleContent,
+    processorMemoryRouteRaw,
+    processorMemoryGapContent,
     gapRegistry
   ] = await Promise.all([
     readJson(SAMPLE_PATH),
@@ -1477,15 +1521,28 @@ async function main() {
     readJson(MATERIAL_ROLE_PAIRS_SNAPSHOT_PATH),
     readJson(MATERIAL_INTERMEDIATE_SNAPSHOT_PATH),
     readJson(INDUSTRY_ROLE_EVIDENCE_PATH),
+    readJson(SEMICONDUCTOR_ROLE_EVIDENCE_PATH),
+    readJson(PROCESSOR_MEMORY_ROUTE_PATH),
+    readJson(PROCESSOR_MEMORY_GAP_PATH),
     readJson(EVIDENCE_GAP_REGISTRY_PATH)
   ]);
-  const routeContent = JSON.parse(routeContentRaw);
+  const baseRouteContent = JSON.parse(routeContentRaw);
+  const routeContent = {
+    ...baseRouteContent,
+    nodes: [...baseRouteContent.nodes, ...processorMemoryRouteRaw.nodes],
+    flows: [...baseRouteContent.flows],
+    steps: [...baseRouteContent.steps, ...processorMemoryRouteRaw.steps],
+    limitations: [...baseRouteContent.limitations, "处理器与存储器扩展当前只发布国家产业角色节点，没有手机专用双边流向或数量。"]
+  };
   if (wdiRaw.sourceId !== SOURCE_IDS.wdi || comtradeRaw.sourceId !== SOURCE_IDS.comtrade) {
     throw new Error("Raw snapshot source IDs do not match the published build configuration");
   }
   if (
     bilateralRaw.sourceId !== SOURCE_IDS.comtrade ||
     industryRoleContent.productId !== sample.productId ||
+    semiconductorRoleContent.productId !== sample.productId ||
+    processorMemoryRouteRaw.productId !== sample.productId ||
+    processorMemoryGapContent.productId !== sample.productId ||
     gapRegistry.productId !== sample.productId
   ) {
     throw new Error("Published evidence inputs do not match the smartphone build scope");
@@ -1500,6 +1557,8 @@ async function main() {
     materialRolePairsRaw,
     materialIntermediateRaw,
     industryRoleContent,
+    semiconductorRoleContent,
+    processorMemoryGapContent,
     gapRegistry
   );
   assertBuildInvariants(fixture, comtradeRaw);
@@ -1519,10 +1578,13 @@ async function main() {
     generatedAt: "2026-08-25",
     fixtureSha256: sha256(serialized),
     routeContentVersion: routeContent.contentVersion.version,
-    routeContentSha256: sha256(routeContentRaw),
+    routeContentSha256: sha256(JSON.stringify(routeContent)),
     contentSources: [
       "../../content/routes/generic-smartphone-2023.json",
+      "../../content/routes/generic-smartphone-processor-memory-2023.json",
       "../../content/evidence/industry-roles-2023.json",
+      "../../content/evidence/semiconductor-roles-2023.json",
+      "../../content/evidence-gaps/generic-smartphone-processor-memory-2023.json",
       "../../content/evidence-gaps/generic-smartphone-2023.json"
     ],
     sourceSnapshots: [

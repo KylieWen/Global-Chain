@@ -15,7 +15,7 @@ import {
 
 const publishedManifestPath = resolve("data/published/manifest.json");
 const previewManifestPath = resolve("data/samples/manifest.json");
-const routeContentVersionId = "content-smartphone-route-2023-2";
+const routeContentVersionId = "content-smartphone-route-2023-3";
 
 async function loadPublishedQueries() {
   const repository = await loadFixtureRepositoryFromManifest(publishedManifestPath, {
@@ -91,7 +91,7 @@ describe("phase 7 supply-chain evidence interpretation", () => {
         "generic-smartphone"
       ])
     );
-    expect(story.steps.map((view) => view.step.order)).toEqual([0, 1, 2, 3, 4, 5, 6]);
+    expect(story.steps.map((view) => view.step.order)).toEqual([0, 1, 2, 3, 4, 5, 6, 7]);
   });
 
   it("resolves evidence, sources, dataset and content versions for every node and edge", async () => {
@@ -277,7 +277,7 @@ describe("phase 7 supply-chain evidence interpretation", () => {
       "published smartphone story"
     );
 
-    expect(story.steps).toHaveLength(7);
+    expect(story.steps).toHaveLength(8);
     for (const step of story.steps) {
       expect(step.step.method).toBe("curated");
       expect(step.nodes.length + step.flows.length, step.step.id).toBeGreaterThan(0);

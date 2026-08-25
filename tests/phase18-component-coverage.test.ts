@@ -12,7 +12,9 @@ describe("phase 18 smartphone component data coverage", () => {
     expect(coverage.get("battery")?.status).toBe("route_published");
     expect(coverage.get("battery")?.nodeCount).toBeGreaterThan(0);
     expect(coverage.get("display")?.status).toBe("route_published");
-    expect(coverage.get("processor-memory")?.status).toBe("catalog_only");
+    expect(coverage.get("processor-memory")?.status).toBe("partial_route");
+    expect(coverage.get("processor-memory")?.nodeCount).toBe(3);
+    expect(coverage.get("processor-memory")?.flowCount).toBe(0);
     expect(coverage.get("camera")?.status).toBe("catalog_only");
   });
 

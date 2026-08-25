@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "route-content-extension.v1",
+  "productId": "generic-smartphone",
+  "contentVersionId": "content-smartphone-route-2023-3",
+  "nodes": [
+    {
+      "id": "node-us-application-processor",
+      "nodeType": "entity",
+      "label": "美国 · 处理器设计/技术角色（代表性）",
+      "entityId": "country-us",
+      "itemId": "application-processor",
+      "itemType": "component",
+      "processStageId": "component_manufacturing",
+      "sourceIds": ["source-sia-semiconductor-industry-2024", "source-globe-chain-route-methodology"],
+      "evidenceIds": ["evidence-sia-us-semiconductor-design-role-2023", "evidence-globe-chain-route-methodology"],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "evidenceLevel": "role_supported",
+      "notes": "支持美国在半导体设计和技术生态中的宽泛角色；不证明某款手机芯片、具体企业、制造地点或双边供应。"
+    },
+    {
+      "id": "node-kr-dram",
+      "nodeType": "entity",
+      "label": "韩国 · DRAM 存储器制造角色（代表性）",
+      "entityId": "country-kr",
+      "itemId": "dram",
+      "itemType": "component",
+      "processStageId": "component_manufacturing",
+      "sourceIds": ["source-skhynix-annual-report-2023", "source-globe-chain-route-methodology"],
+      "evidenceIds": ["evidence-skhynix-korea-memory-role-2023", "evidence-globe-chain-route-methodology"],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "evidenceLevel": "role_supported",
+      "notes": "企业资料支持韩国存储器产业背景；不代表韩国总体产量，也不证明进入手机或流向某国。"
+    },
+    {
+      "id": "node-kr-nand",
+      "nodeType": "entity",
+      "label": "韩国 · NAND Flash 存储器制造角色（代表性）",
+      "entityId": "country-kr",
+      "itemId": "nand-flash",
+      "itemType": "component",
+      "processStageId": "component_manufacturing",
+      "sourceIds": ["source-skhynix-annual-report-2023", "source-globe-chain-route-methodology"],
+      "evidenceIds": ["evidence-skhynix-korea-memory-role-2023", "evidence-globe-chain-route-methodology"],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "evidenceLevel": "role_supported",
+      "notes": "企业资料支持韩国存储器产业背景；不代表韩国总体产量，也不证明进入手机或流向某国。"
+    }
+  ],
+  "steps": [
+    {
+      "id": "step-processor-memory-background",
+      "order": 7,
+      "title": "处理器与存储器产业角色（代表性）",
+      "description": "处理器设计、DRAM 和 NAND Flash 的国家/企业角色来自产业背景资料；当前没有发布手机专用双边流向或数量。",
+      "nodeIds": ["node-us-application-processor", "node-kr-dram", "node-kr-nand"],
+      "flowIds": [],
+      "evidenceIds": ["evidence-sia-us-semiconductor-design-role-2023", "evidence-skhynix-korea-memory-role-2023", "evidence-globe-chain-route-methodology"],
+      "method": "curated",
+      "contentStatus": "published"
+    }
+  ]
+}

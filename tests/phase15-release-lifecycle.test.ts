@@ -14,7 +14,7 @@ describe("phase 15 published release lifecycle", () => {
     const fixture = JSON.parse(fixtureText);
 
     expect(active.activeManifest).toBe(true);
-    expect(active.activeDatasetVersion).toBe("globe-chain-smartphone-2023.4");
+    expect(active.activeDatasetVersion).toBe("globe-chain-smartphone-2023.6");
     expect(active.fixtures[0].path).toContain("releases/generic-smartphone/");
     expect(fixture.datasetVersion.version).toBe(active.activeDatasetVersion);
     expect(active.fixtureSha256).toBe(createHash("sha256").update(fixtureText).digest("hex"));
