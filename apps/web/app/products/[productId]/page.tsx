@@ -7,7 +7,6 @@ import { materialObservationsPath, provenancePath, supplyChainPath } from "../..
 import { contextMismatch, readPageContext, type SearchParamsLike } from "../../../lib/context";
 import {
   PeriodLabel,
-  ProvenancePanel,
   PublicationBadge,
   StatCard,
   StatusBadge,
@@ -43,6 +42,13 @@ export default async function ProductOverviewPage({
           actions={<><Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>查看供应链全图</Link><Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link></>}
         />
 
+        <nav className="exploration-nav" aria-label="商品研究层级">
+          <span className="active">① 商品总览</span>
+          <Link href={supplyChainPath(productId, undefined, pageContext)}>② 供应链路线</Link>
+          <Link href={materialObservationsPath(productId, pageContext)}>③ 材料贸易</Link>
+          <Link href={provenancePath(productId, pageContext)}>④ 来源与版本</Link>
+        </nav>
+
         <div className="stat-grid">
           <StatCard label="直接组成" value={overview.directChildren.length} detail="个节点" />
           <StatCard label="适用期间" value={<PeriodLabel period={overview.period} />} detail={overview.period.start} />
@@ -60,7 +66,8 @@ export default async function ProductOverviewPage({
             </div>
             <span className="section-caption">点击任意节点进入该节点的代表性路径</span>
           </div>
-          <ProductTree root={breakdown} productId={productId} context={pageContext} />
+          <ProductTree root={breakdown} maxDepth={1} productId={productId} context={pageContext} />
+          <div className="hierarchy-card compact-hierarchy-card"><span>先选择一个组件，再进入它的代表性供应链路线。更深层的拆解会在组件路线页面中展开。</span><Link className="text-link" href={supplyChainPath(productId, undefined, pageContext)}>查看全部路线 →</Link></div>
         </section>
 
         <section className="section-block" aria-labelledby="children-title">
@@ -91,8 +98,11 @@ export default async function ProductOverviewPage({
           </div>
         </section>
 
-        <section className="section-block" aria-labelledby="coverage-title">
-          <div className="section-heading"><div><p className="eyebrow">Data layer coverage</p><h2 id="coverage-title">组件数据覆盖矩阵</h2></div><span className="section-caption">路线覆盖、证据缺口和证据等级分开显示</span></div>
+        <details className="section-block coverage-details" aria-labelledby="coverage-title">
+          <summary className="section-heading coverage-summary">
+            <div><p className="eyebrow">Data layer coverage</p><h2 id="coverage-title">组件数据覆盖矩阵</h2></div>
+            <span className="section-caption">点击展开查看详细覆盖状态</span>
+          </summary>
           <div className="coverage-list">
             {overview.componentCoverage.map((coverage) => (
               <article className="coverage-row" key={coverage.item.id}>
@@ -107,7 +117,7 @@ export default async function ProductOverviewPage({
               </article>
             ))}
           </div>
-        </section>
+        </details>
 
         <section className="section-block method-strip" aria-label="页面方法说明">
           <div>
@@ -118,7 +128,7 @@ export default async function ProductOverviewPage({
           <Link className="button button-secondary" href={provenancePath(productId, pageContext)}>查看来源与版本</Link>
         </section>
 
-        <ProvenancePanel provenance={provenance} />
+        <section className="hierarchy-next-step"><strong>继续探索</strong><span>从组件路线开始，查看节点、国家角色和证据等级；来源、许可证与版本信息单独保留在下一层。</span><Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>进入供应链路线 →</Link></section>
       </div>
     </SiteShell>
   );

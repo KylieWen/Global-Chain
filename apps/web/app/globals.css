@@ -400,6 +400,10 @@ p { line-height: 1.7; }
 .context-banner ul { margin: 0; padding-left: 1.2rem; color: #75481e; }
 
 .coverage-list { display: grid; gap: 0.65rem; }
+.coverage-details > summary { list-style: none; cursor: pointer; }
+.coverage-details > summary::-webkit-details-marker { display: none; }
+.coverage-summary::after { content: "+"; color: var(--muted); font-size: 1.2rem; }
+.coverage-details[open] .coverage-summary::after { content: "−"; }
 .coverage-row { display: grid; grid-template-columns: minmax(12rem, 1.3fr) auto minmax(8rem, 0.8fr) minmax(12rem, 1fr); gap: 0.85rem; align-items: center; padding: 0.85rem 1rem; border: 1px solid var(--line); border-radius: 0.75rem; background: var(--surface); }
 .coverage-row strong, .coverage-row .muted { display: block; }
 .coverage-status { font-size: 0.78rem; font-weight: 700; white-space: nowrap; }
