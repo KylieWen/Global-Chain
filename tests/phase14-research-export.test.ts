@@ -13,7 +13,7 @@ describe("phase 14 versioned research export", () => {
     const researchExport = queries.getProductResearchExport("generic-smartphone");
 
     expect(researchExport?.formatVersion).toBe("product-research-export.v1");
-    expect(researchExport?.release.datasetVersion.version).toBe("globe-chain-smartphone-2023.10");
+    expect(researchExport?.release.datasetVersion.version).toBe("globe-chain-smartphone-2023.11");
     expect(researchExport?.release.contentVersions.map(({ version }) => version)).toContain("smartphone-route-2023.3");
     expect(researchExport?.release.period.label).toBe("2023");
     expect(researchExport?.includedModules).toEqual([

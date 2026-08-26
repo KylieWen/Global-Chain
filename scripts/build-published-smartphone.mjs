@@ -190,6 +190,32 @@ function extendProcessorMemoryCatalog(fixture) {
   })));
 }
 
+function extendDisplayCameraCatalog(fixture) {
+  const existing = new Set(fixture.items.map((item) => item.id));
+  const additions = [
+    ["display-panel", "显示面板", "display", "显示面板的通用组件节点，不代表特定手机型号。"],
+    ["display-module", "显示模组", "display", "面板、驱动与触控层组成的通用显示模组节点。"],
+    ["cover-glass", "盖板玻璃", "display", "显示组件上游的通用盖板玻璃节点。"],
+    ["image-sensor", "图像传感器", "camera", "摄像头中的图像传感器通用组件节点。"],
+    ["camera-lens", "摄像头镜头", "camera", "摄像头中的镜头通用组件节点。"],
+    ["camera-module", "摄像头模组", "camera", "图像传感器、镜头和封装组成的通用模组节点。"]
+  ];
+  fixture.items.push(...additions.filter(([id]) => !existing.has(id)).map(([id, name, parentItemId, description]) => ({
+    id,
+    slug: id,
+    name,
+    itemType: "component",
+    parentItemId,
+    category: "电子产品",
+    description,
+    sourceIds: [SOURCE_IDS.routeMethod],
+    dataStatus: "unknown",
+    method: "curated",
+    datasetVersionId: DATASET_ID,
+    validPeriod: period()
+  })));
+}
+
 function sha256(value) {
   return createHash("sha256").update(value).digest("hex");
 }
@@ -1345,6 +1371,7 @@ function buildFixture(
     .map((gap) => ({ ...clone(gap), contentVersionId: CONTENT_VERSION_ID, datasetVersionId: DATASET_ID }));
   applyCatalogMetadata(fixture);
   extendProcessorMemoryCatalog(fixture);
+  extendDisplayCameraCatalog(fixture);
   applyRouteContent(fixture, routeContent);
   fixture.tradeObservations = [
     ...buildTradeObservations(comtradeRaw),
