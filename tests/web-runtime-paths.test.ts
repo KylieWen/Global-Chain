@@ -3,6 +3,7 @@ import {
   ledgerPath,
   materialObservationPath,
   materialObservationsPath,
+  mapPath,
   nodePath,
   productPath,
   provenancePath,
@@ -72,6 +73,9 @@ describe("Web runtime boundary and route helpers", () => {
     );
     expect(materialObservationPath(productId, "observation/one")).toBe(
       "/products/product%2Fwith%3Freserved%23chars/materials/observation%2Fone"
+    );
+    expect(mapPath({ product: "generic-smartphone", country: "country-cn", direction: "export" })).toBe(
+      "/map?product=generic-smartphone&country=country-cn&direction=export"
     );
   });
 });

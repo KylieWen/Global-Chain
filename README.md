@@ -8,7 +8,7 @@ GlobeChain 是一个被动式全球商品供应链与贸易数据可视化平台
 - `apps/web` 是最小 Next.js App Router + TypeScript Web 应用。
 - `packages/contracts` 提供 Zod 数据契约；`packages/domain` 提供只读仓储接口和领域查询；`packages/db` 提供 fixture 文件加载适配器。
 - `pipelines` 只提供未来 Python 数据管线的目录和配置占位。
-- `apps/web` 已提供商品目录、商品拆解、供应链路径、节点详情、国家账本、来源版本页面和带 provenance 的研究快照下载；当前仍不包含地图、PostgreSQL 查询、运行时外部 API、AI/LLM、聊天、问答或运行时文本生成。
+- `apps/web` 已提供四入口首页、商品门类、商品拆解、供应链路径、节点详情、国家目录/账本、世界节点图、来源版本页面和带 provenance 的研究快照下载；地图与贸易流线是国家级示意展示，仍不包含 PostgreSQL 查询、运行时外部 API、AI/LLM、聊天、问答或运行时文本生成。
 - 外部数据只在显式的本地快照脚本中抓取，不在 Web 请求期间访问；当前不安装 Polars、DuckDB 等数据处理依赖。
 
 ## 前置工具
@@ -34,10 +34,13 @@ pnpm install
 pnpm run dev
 ```
 
-`pnpm run dev` 使用 published 数据边界；当前样例是 draft，因此要查看联调页面请使用显式预览命令：
+`pnpm run dev` 使用 published 数据边界；查看当前 Demo 可直接访问首页、国家目录、商品门类和世界地图：
 
-```bash
-pnpm run dev:preview
+```text
+http://localhost:3000/
+http://localhost:3000/countries
+http://localhost:3000/categories
+http://localhost:3000/map
 ```
 
 默认 Web 应用位于 `apps/web`，启动后可访问根页面；健康检查路由为 `/api/health`。预览横幅会明确提示当前数据不是正式发布事实。
@@ -106,7 +109,7 @@ pipelines/data/raw
 
 ## 当前阶段不包含
 
-- 地图和实时物流
+- 实时物流（地图当前只提供国家级示意和已发布具体伙伴连线）
 - 数据库 schema、迁移执行或 PostgreSQL 查询
 - 数据库运行时查询和实时外部数据接入
 - AI、LLM、聊天、问答或运行时生成文本

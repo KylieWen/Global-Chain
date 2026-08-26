@@ -89,6 +89,12 @@ export interface TradeNetworkView {
   readonly warnings: readonly string[];
 }
 
+export interface TradeNetworkOptions extends PeriodFilter {
+  readonly itemId?: string;
+  readonly countryEntityId?: string;
+  readonly direction?: TradeObservation["direction"];
+}
+
 export interface CategoryCatalogView {
   readonly category: string;
   readonly itemCount: number;
@@ -387,7 +393,7 @@ export interface ProductQueryService {
   listProducts(): readonly ProductCatalogView[];
   listCountries(): readonly CountryCatalogView[];
   listCategories(): readonly CategoryCatalogView[];
-  getTradeNetwork(productId: string, options?: PeriodFilter & { itemId?: string }): TradeNetworkView | null;
+  getTradeNetwork(productId: string, options?: TradeNetworkOptions): TradeNetworkView | null;
   getProductOverview(productId: string): ProductOverviewView | null;
   getProductBreakdown(productId: string): ProductBreakdownNode | null;
   getSupplyChainStory(
@@ -1037,12 +1043,19 @@ export function listCategories(repository: FixtureRepository): readonly Category
   return freezeArray([...categories.values()].sort((left, right) => left.category.localeCompare(right.category)));
 }
 
-export function getTradeNetwork(repository: FixtureRepository, productId: string, options?: PeriodFilter & { itemId?: string }): TradeNetworkView | null {
+export function getTradeNetwork(repository: FixtureRepository, productId: string, options?: TradeNetworkOptions): TradeNetworkView | null {
   const fixture = getFixtureOrNull(repository, productId);
   if (!fixture) return null;
   const product = getProductItem(fixture);
   if (!product) return null;
-  const observations = fixture.tradeObservations.filter((observation) => observation.partnerScope === "entity" && observation.partnerEntityId && (!options?.itemId || observation.itemId === options.itemId) && matchesPeriod(observation.period, options)).map((observation) => Object.freeze({
+  const observations = fixture.tradeObservations.filter((observation) =>
+    observation.partnerScope === "entity" &&
+    observation.partnerEntityId &&
+    (!options?.itemId || observation.itemId === options.itemId) &&
+    (!options?.countryEntityId || observation.reporterEntityId === options.countryEntityId || observation.partnerEntityId === options.countryEntityId) &&
+    (!options?.direction || observation.direction === options.direction) &&
+    matchesPeriod(observation.period, options)
+  ).map((observation) => Object.freeze({
     observation,
     reporter: fixture.entities.find((entity) => entity.id === observation.reporterEntityId) ?? null,
     partner: fixture.entities.find((entity) => entity.id === observation.partnerEntityId) ?? null,
@@ -1465,7 +1478,7 @@ export function createProductQueryService(
     listProducts: () => listProducts(repository),
     listCountries: () => listCountries(repository),
     listCategories: () => listCategories(repository),
-    getTradeNetwork: (productId: string, options?: PeriodFilter & { itemId?: string }) => getTradeNetwork(repository, productId, options),
+    getTradeNetwork: (productId: string, options?: TradeNetworkOptions) => getTradeNetwork(repository, productId, options),
     getProductOverview: (productId: string) => getProductOverview(repository, productId),
     getProductBreakdown: (productId: string) => getProductBreakdown(repository, productId),
     getSupplyChainStory: (productId: string, options?: SupplyChainStoryOptions) =>
