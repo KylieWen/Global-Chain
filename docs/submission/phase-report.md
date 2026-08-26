@@ -32,7 +32,7 @@ GlobeChain 是一个面向普通用户、学生与产业研究者的全球商品
 - 数据：不可变 published JSON release，运行时不调用外部 API。
 - 契约：Zod 数据模式与只读领域查询层。
 - 发布：active manifest、历史版本校验、回滚命令和 CI。
-- 当前 active release：`globe-chain-smartphone-2023.7`。
+- 当前 active release：`globe-chain-smartphone-2023.10`。
 
 ## 当前验证状态
 
@@ -67,4 +67,3 @@ GlobeChain 是一个面向普通用户、学生与产业研究者的全球商品
 3. 邀请 5—10 名目标用户体验并记录反馈。
 4. 优化移动端、导航文案和地图交互。
 5. 回到智能手机数据层，补齐更多组件、国家、年份与可验证证据。
-

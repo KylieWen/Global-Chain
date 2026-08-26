@@ -28,6 +28,7 @@ const EVIDENCE_GAP_REGISTRY_PATH = resolve(
   "content/evidence-gaps/generic-smartphone-2023.json"
 );
 const PROCESSOR_MEMORY_GAP_PATH = resolve(ROOT, "content/evidence-gaps/generic-smartphone-processor-memory-2023.json");
+const COMPONENT_GAP_PATH = resolve(ROOT, "content/evidence-gaps/generic-smartphone-components-2023.json");
 const RAW_DIR = resolve(ROOT, "data/published/raw");
 const BILATERAL_SNAPSHOT_PATH = resolve(
   RAW_DIR,
@@ -1303,6 +1304,7 @@ function buildFixture(
   industryRoleContent,
   semiconductorRoleContent,
   processorMemoryGapContent,
+  componentGapContent,
   gapRegistry
 ) {
   const fixture = clone(sample);
@@ -1339,7 +1341,7 @@ function buildFixture(
   );
   fixture.sources = sources;
   fixture.evidence = evidence;
-  fixture.evidenceGaps = [...(gapRegistry.evidenceGaps ?? []), ...(processorMemoryGapContent.evidenceGaps ?? [])]
+  fixture.evidenceGaps = [...(gapRegistry.evidenceGaps ?? []), ...(processorMemoryGapContent.evidenceGaps ?? []), ...(componentGapContent.evidenceGaps ?? [])]
     .map((gap) => ({ ...clone(gap), contentVersionId: CONTENT_VERSION_ID, datasetVersionId: DATASET_ID }));
   applyCatalogMetadata(fixture);
   extendProcessorMemoryCatalog(fixture);
@@ -1539,6 +1541,7 @@ async function main() {
     semiconductorRoleContent,
     processorMemoryRouteRaw,
     processorMemoryGapContent,
+    componentGapContent,
     gapRegistry
   ] = await Promise.all([
     readJson(SAMPLE_PATH),
@@ -1553,6 +1556,7 @@ async function main() {
     readJson(SEMICONDUCTOR_ROLE_EVIDENCE_PATH),
     readJson(PROCESSOR_MEMORY_ROUTE_PATH),
     readJson(PROCESSOR_MEMORY_GAP_PATH),
+    readJson(COMPONENT_GAP_PATH),
     readJson(EVIDENCE_GAP_REGISTRY_PATH)
   ]);
   const baseRouteContent = JSON.parse(routeContentRaw);
@@ -1572,6 +1576,7 @@ async function main() {
     semiconductorRoleContent.productId !== sample.productId ||
     processorMemoryRouteRaw.productId !== sample.productId ||
     processorMemoryGapContent.productId !== sample.productId ||
+    componentGapContent.productId !== sample.productId ||
     gapRegistry.productId !== sample.productId
   ) {
     throw new Error("Published evidence inputs do not match the smartphone build scope");
@@ -1588,6 +1593,7 @@ async function main() {
     industryRoleContent,
     semiconductorRoleContent,
     processorMemoryGapContent,
+    componentGapContent,
     gapRegistry
   );
   assertBuildInvariants(fixture, comtradeRaw);
@@ -1614,7 +1620,8 @@ async function main() {
       "../../content/evidence/industry-roles-2023.json",
       "../../content/evidence/semiconductor-roles-2023.json",
       "../../content/evidence-gaps/generic-smartphone-processor-memory-2023.json",
-      "../../content/evidence-gaps/generic-smartphone-2023.json"
+      "../../content/evidence-gaps/generic-smartphone-2023.json",
+      "../../content/evidence-gaps/generic-smartphone-components-2023.json"
     ],
     sourceSnapshots: [
       "raw/world-bank-wdi-2023.json",
@@ -1629,7 +1636,7 @@ async function main() {
       "The published fixture intentionally omits countries/flows absent from the Comtrade response rather than filling zero.",
       "The fixture now contains specific bilateral HS 851713 customs observations, kept separate from world totals and from the representative supply-chain edges.",
       "All current supply-chain edges remain representative and quantity-free because customs trade does not prove assembly, consumption or entry into this curated route.",
-      "Evidence gaps are versioned content and cover every current node and edge."
+      "Evidence gaps are versioned content and cover every current node and edge, including uncovered first-level components."
     ],
     release: {
       productId: fixture.productId,

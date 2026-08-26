@@ -4,6 +4,66 @@
   "contentVersionId": "content-smartphone-route-2023-3",
   "nodes": [
     {
+      "id": "node-component-camera-catalog",
+      "nodeType": "entity",
+      "label": "通用智能手机 · 摄像头组件（待补证据）",
+      "entityId": null,
+      "itemId": "camera",
+      "itemType": "component",
+      "processStageId": "component_manufacturing",
+      "sourceIds": ["source-globe-chain-route-methodology"],
+      "evidenceIds": ["evidence-globe-chain-route-methodology"],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "evidenceLevel": "representative",
+      "notes": "目录覆盖节点；尚无可验证国家角色或手机用途证据，不代表具体供应商或路线。"
+    },
+    {
+      "id": "node-component-pcb-catalog",
+      "nodeType": "entity",
+      "label": "通用智能手机 · PCB 与连接器（待补证据）",
+      "entityId": null,
+      "itemId": "pcb-connector",
+      "itemType": "component",
+      "processStageId": "component_manufacturing",
+      "sourceIds": ["source-globe-chain-route-methodology"],
+      "evidenceIds": ["evidence-globe-chain-route-methodology"],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "evidenceLevel": "representative",
+      "notes": "目录覆盖节点；普通 PCB 贸易不能直接证明手机用途。"
+    },
+    {
+      "id": "node-component-enclosure-catalog",
+      "nodeType": "entity",
+      "label": "通用智能手机 · 外壳与结构件（待补证据）",
+      "entityId": null,
+      "itemId": "enclosure-structure",
+      "itemType": "component",
+      "processStageId": "component_manufacturing",
+      "sourceIds": ["source-globe-chain-route-methodology"],
+      "evidenceIds": ["evidence-globe-chain-route-methodology"],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "evidenceLevel": "representative",
+      "notes": "目录覆盖节点；普通铝、玻璃或塑料贸易不能直接证明手机外壳用途。"
+    },
+    {
+      "id": "node-component-sensor-audio-catalog",
+      "nodeType": "entity",
+      "label": "通用智能手机 · 传感器与音频部件（待补证据）",
+      "entityId": null,
+      "itemId": "sensor-audio",
+      "itemType": "component",
+      "processStageId": "component_manufacturing",
+      "sourceIds": ["source-globe-chain-route-methodology"],
+      "evidenceIds": ["evidence-globe-chain-route-methodology"],
+      "method": "curated",
+      "dataStatus": "unknown",
+      "evidenceLevel": "representative",
+      "notes": "目录覆盖节点；通用元件贸易不能直接证明手机用途。"
+    },
+    {
       "id": "node-us-application-processor",
       "nodeType": "entity",
       "label": "美国 · 处理器设计/技术角色（代表性）",
@@ -50,6 +110,17 @@
     }
   ],
   "steps": [
+    {
+      "id": "step-component-coverage-gaps",
+      "order": 8,
+      "title": "其他手机组件（待补证据）",
+      "description": "摄像头、PCB 与连接器、外壳与结构件、传感器与音频部件已进入目录覆盖，但当前仅保留待补证据节点，不发布国家角色或双边路线。",
+      "nodeIds": ["node-component-camera-catalog", "node-component-pcb-catalog", "node-component-enclosure-catalog", "node-component-sensor-audio-catalog"],
+      "flowIds": [],
+      "evidenceIds": ["evidence-globe-chain-route-methodology"],
+      "method": "curated",
+      "contentStatus": "published"
+    },
     {
       "id": "step-processor-memory-background",
       "order": 7,

@@ -3,21 +3,22 @@
   "fixtures": [
     {
       "productId": "generic-smartphone",
-      "path": "releases/generic-smartphone/globe-chain-smartphone-2023.7/fixture.json"
+      "path": "releases/generic-smartphone/globe-chain-smartphone-2023.10/fixture.json"
     }
   ],
-  "datasetVersion": "globe-chain-smartphone-2023.7",
+  "datasetVersion": "globe-chain-smartphone-2023.10",
   "generatedAt": "2026-08-25",
-  "fixtureSha256": "9f9860bedf48690916a89c578de961b35a66c93546e66274987354eeddee5be9",
+  "fixtureSha256": "9ea2610679f8374bc60d1739ba18919d896e996b4f5c6dd904321a25c05bcad8",
   "routeContentVersion": "smartphone-route-2023.3",
-  "routeContentSha256": "5c0c03afebb61f420bef483e7c6cd4cf1f53b97e41ede16577be1b72b6712a66",
+  "routeContentSha256": "addf060c2bc7536d47b8b8ae17751dd4966bff72244bfaadeb5b313ec437b1f5",
   "contentSources": [
     "../../content/routes/generic-smartphone-2023.json",
     "../../content/routes/generic-smartphone-processor-memory-2023.json",
     "../../content/evidence/industry-roles-2023.json",
     "../../content/evidence/semiconductor-roles-2023.json",
     "../../content/evidence-gaps/generic-smartphone-processor-memory-2023.json",
-    "../../content/evidence-gaps/generic-smartphone-2023.json"
+    "../../content/evidence-gaps/generic-smartphone-2023.json",
+    "../../content/evidence-gaps/generic-smartphone-components-2023.json"
   ],
   "sourceSnapshots": [
     "raw/world-bank-wdi-2023.json",
@@ -32,14 +33,14 @@
     "The published fixture intentionally omits countries/flows absent from the Comtrade response rather than filling zero.",
     "The fixture now contains specific bilateral HS 851713 customs observations, kept separate from world totals and from the representative supply-chain edges.",
     "All current supply-chain edges remain representative and quantity-free because customs trade does not prove assembly, consumption or entry into this curated route.",
-    "Evidence gaps are versioned content and cover every current node and edge."
+    "Evidence gaps are versioned content and cover every current node and edge, including uncovered first-level components."
   ],
   "release": {
     "productId": "generic-smartphone",
-    "datasetVersion": "globe-chain-smartphone-2023.7",
-    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2023.7",
+    "datasetVersion": "globe-chain-smartphone-2023.10",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2023.10",
     "immutable": true
   },
-  "activeDatasetVersion": "globe-chain-smartphone-2023.7",
+  "activeDatasetVersion": "globe-chain-smartphone-2023.10",
   "activeManifest": true
 }

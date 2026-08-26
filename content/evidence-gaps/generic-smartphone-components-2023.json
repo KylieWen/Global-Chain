@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "evidence-gap-registry.v1",
+  "productId": "generic-smartphone",
+  "evidenceGaps": [
+    {
+      "gapId": "gap-component-camera-role",
+      "nodeId": "node-component-camera-catalog",
+      "flowId": null,
+      "currentClaim": "摄像头是通用智能手机的一级组件目录项。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少可绑定到 2023 年国家角色、摄像头模组商品分类和手机用途的公开证据。",
+      "acceptableEvidenceTypes": ["country_role", "classification", "process_context"],
+      "candidateSources": [
+        { "name": "国家统计或产业协会摄像头模组资料", "publisher": "待核验", "url": null, "license": "需核验许可证", "notes": "必须明确期间、国家角色和产品范围。" }
+      ],
+      "classificationCandidates": [],
+      "status": "open",
+      "nonInferences": ["不得把相机传感器或镜头贸易推断为进入手机。", "不得推断具体企业、工厂或双边路线。"],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-3"
+    },
+    {
+      "gapId": "gap-component-pcb-connector-role",
+      "nodeId": "node-component-pcb-catalog",
+      "flowId": null,
+      "currentClaim": "PCB 与连接器是通用智能手机的一级组件目录项。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少可验证的国家产业角色、精确分类映射和手机用途证据。",
+      "acceptableEvidenceTypes": ["country_role", "classification", "process_context"],
+      "candidateSources": [
+        { "name": "电子制造产业统计或企业年报", "publisher": "待核验", "url": null, "license": "需核验许可证", "notes": "仅在产品范围和期间清楚时采用。" }
+      ],
+      "classificationCandidates": [],
+      "status": "open",
+      "nonInferences": ["不得把印刷电路板贸易等同于手机 PCB。", "不得从国家角色推断相邻双边流向。"],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-3"
+    },
+    {
+      "gapId": "gap-component-enclosure-structure-role",
+      "nodeId": "node-component-enclosure-catalog",
+      "flowId": null,
+      "currentClaim": "外壳与结构件是通用智能手机的一级组件目录项。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少将铝、玻璃、塑料或结构件分类与手机外壳制造角色连接的公开证据。",
+      "acceptableEvidenceTypes": ["country_role", "classification", "process_context"],
+      "candidateSources": [
+        { "name": "电子产品结构件产业资料", "publisher": "待核验", "url": null, "license": "需核验许可证", "notes": "普通铝、玻璃或塑料贸易不能直接证明手机用途。" }
+      ],
+      "classificationCandidates": [],
+      "status": "open",
+      "nonInferences": ["不得把普通铝材或塑料贸易升级为手机外壳事实。", "不得推断指定工厂或品牌型号。"],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-3"
+    },
+    {
+      "gapId": "gap-component-sensor-audio-role",
+      "nodeId": "node-component-sensor-audio-catalog",
+      "flowId": null,
+      "currentClaim": "传感器与音频部件是通用智能手机的一级组件目录项。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "缺少可验证的国家角色、部件级分类和手机用途证据。",
+      "acceptableEvidenceTypes": ["country_role", "classification", "process_context"],
+      "candidateSources": [
+        { "name": "传感器、扬声器与麦克风产业资料", "publisher": "待核验", "url": null, "license": "需核验许可证", "notes": "需要区分通用电子元件贸易与手机专用部件。" }
+      ],
+      "classificationCandidates": [],
+      "status": "open",
+      "nonInferences": ["不得把通用传感器或音频元件贸易推断为手机用途。", "不得推断连续供应链或双边路线。"],
+      "evidenceIds": [],
+      "period": { "granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023" },
+      "method": "curated",
+      "datasetVersionId": "dataset-smartphone-published-2023",
+      "contentVersionId": "content-smartphone-route-2023-3"
+    }
+  ]
+}

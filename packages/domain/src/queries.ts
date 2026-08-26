@@ -920,6 +920,7 @@ function createStoryView(
         step.nodeIds.some((nodeId) => selectedNodeIds.has(nodeId))
       );
     })
+    .sort((left, right) => left.order - right.order)
     .map((step): ResolvedStoryStepView => {
       const filteredStep = Object.freeze({
         ...step,

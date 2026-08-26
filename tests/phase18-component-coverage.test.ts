@@ -15,14 +15,14 @@ describe("phase 18 smartphone component data coverage", () => {
     expect(coverage.get("processor-memory")?.status).toBe("partial_route");
     expect(coverage.get("processor-memory")?.nodeCount).toBe(3);
     expect(coverage.get("processor-memory")?.flowCount).toBe(0);
-    expect(coverage.get("camera")?.status).toBe("catalog_only");
+    expect(coverage.get("camera")?.status).toBe("partial_route");
   });
 
   it("does not turn catalog-only components into unsupported route claims", async () => {
     const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
     const overview = createProductQueryService(repository).getProductOverview("generic-smartphone");
-    const catalogOnly = overview?.componentCoverage.filter((entry) => entry.status === "catalog_only") ?? [];
-    expect(catalogOnly.length).toBeGreaterThan(0);
-    expect(catalogOnly.every((entry) => entry.nodeCount === 0 && entry.flowCount === 0 && entry.evidenceLevels.length === 0)).toBe(true);
+    const evidencePending = overview?.componentCoverage.filter((entry) => ["camera", "pcb-connector", "enclosure-structure", "sensor-audio"].includes(entry.item.id)) ?? [];
+    expect(evidencePending).toHaveLength(4);
+    expect(evidencePending.every((entry) => entry.status === "partial_route" && entry.flowCount === 0)).toBe(true);
   });
 });
