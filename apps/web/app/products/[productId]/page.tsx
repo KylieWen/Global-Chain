@@ -42,6 +42,12 @@ export default async function ProductOverviewPage({
           actions={<><Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>查看供应链全图</Link><Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link></>}
         />
 
+        <section className="exploration-position" aria-label="当前探索位置">
+          <span className="exploration-position-label">你正在看</span>
+          <strong>{overview.product.name}</strong>
+          <span>先了解组成，再选择一条路线深入查看。</span>
+        </section>
+
         <nav className="exploration-nav" aria-label="商品研究层级">
           <span className="active">① 商品总览</span>
           <Link href={supplyChainPath(productId, undefined, pageContext)}>② 供应链路线</Link>
@@ -56,7 +62,10 @@ export default async function ProductOverviewPage({
           <StatCard label="发布状态" value={<PublicationBadge status={overview.datasetVersion.status} />} detail="页面只读" />
         </div>
 
-        <WarningList warnings={overview.warnings} />
+        {overview.warnings.length > 0 && <details className="detail-collapsible compact-detail">
+          <summary className="detail-summary"><strong>数据说明与限制</strong><span>{overview.warnings.length} 条</span></summary>
+          <WarningList warnings={overview.warnings} />
+        </details>}
 
         <section className="section-block" aria-labelledby="breakdown-title">
           <div className="section-heading">
@@ -119,14 +128,17 @@ export default async function ProductOverviewPage({
           </div>
         </details>
 
-        <section className="section-block method-strip" aria-label="页面方法说明">
+        <details className="section-block detail-collapsible method-details" aria-label="页面方法说明">
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">Data notes</p><h2>数据说明</h2></div><span className="section-caption">了解数据如何整理</span></summary>
+          <div className="method-strip">
           <div>
             <p className="eyebrow">Method boundary</p>
             <h2>如何阅读这张链路</h2>
           </div>
           <p>供应链流是人工整理的代表性内容；贸易观察与宏观指标是独立事实类型。路线金额或数量只在数据明确发布时展示，缺失值不会被补成零。</p>
           <Link className="button button-secondary" href={provenancePath(productId, pageContext)}>查看来源与版本</Link>
-        </section>
+          </div>
+        </details>
 
         <section className="hierarchy-next-step"><strong>继续探索</strong><span>从组件路线开始，查看节点、国家角色和证据等级；来源、许可证与版本信息单独保留在下一层。</span><Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>进入供应链路线 →</Link></section>
       </div>

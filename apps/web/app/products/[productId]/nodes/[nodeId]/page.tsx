@@ -65,7 +65,10 @@ export default async function SupplyChainNodePage({
           <Link href={evidenceGapsPath(productId, pageContext)}>④ 证据与缺口</Link>
         </nav>
 
-        <WarningList warnings={node.warnings} />
+        {node.warnings.length > 0 && <details className="detail-collapsible compact-detail">
+          <summary className="detail-summary"><strong>节点阅读提示</strong><span>{node.warnings.length} 条</span></summary>
+          <WarningList warnings={node.warnings} />
+        </details>}
         <section className="node-identity-panel">
           <div className="node-identity-main">
             <span className="node-type">{node.node.node.nodeType}</span>

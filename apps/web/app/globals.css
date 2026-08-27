@@ -405,6 +405,17 @@ p { line-height: 1.7; }
 .context-banner-warning { border-color: #d99b54; background: #fff8ef; }
 .context-banner ul { margin: 0; padding-left: 1.2rem; color: #75481e; }
 
+.exploration-position { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.45rem 0.75rem; margin: -0.45rem 0 1.35rem; padding: 0.7rem 0.9rem; border-left: 0.25rem solid var(--blue); border-radius: 0.55rem; color: var(--ink-soft); background: #f7faff; font-size: 0.8rem; }
+.exploration-position strong { color: var(--navy); font-size: 0.9rem; }
+.exploration-position-label { color: var(--blue); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.compact-detail { margin: 1rem 0; padding: 0.75rem 0.9rem; border: 1px solid var(--line); border-radius: 0.75rem; background: #fff; }
+.compact-detail > summary { display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: var(--ink-soft); font-size: 0.82rem; }
+.compact-detail .warning-panel { margin-top: 0.8rem; }
+.route-declaration-details { align-self: start; padding: 0.8rem; border-radius: 0.7rem; background: rgb(255 255 255 / 70%); }
+.route-declaration-details > summary { cursor: pointer; color: var(--blue); font-size: 0.78rem; font-weight: 750; }
+.route-declaration-details .route-declaration-meta { margin-top: 0.7rem; }
+.method-details > .method-strip { margin-top: 0.4rem; }
+
 .coverage-list { display: grid; gap: 0.65rem; }
 .coverage-details > summary { list-style: none; cursor: pointer; }
 .coverage-details > summary::-webkit-details-marker { display: none; }

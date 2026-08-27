@@ -84,6 +84,12 @@ export default async function SupplyChainPage({
           )}
         />
 
+        <section className="exploration-position" aria-label="当前探索位置">
+          <span className="exploration-position-label">当前探索</span>
+          <strong>{overview.product.name}</strong>
+          <span>{focusName} · {story.period.label}</span>
+        </section>
+
         <div className="stat-grid">
           <StatCard label="路径节点" value={story.nodes.length} detail="国家/市场与商品节点" />
           <StatCard label="流转关系" value={story.flows.length} detail="每条边独立标记证据等级" />
@@ -92,7 +98,10 @@ export default async function SupplyChainPage({
           <StatCard label="内容版本" value={story.route.contentVersion?.version ?? "未提供"} detail={`数据集 ${story.datasetVersion.version}`} />
         </div>
 
-        <WarningList warnings={story.warnings} />
+        {story.warnings.length > 0 && <details className="detail-collapsible compact-detail">
+          <summary className="detail-summary"><strong>阅读提示与限制</strong><span>{story.warnings.length} 条</span></summary>
+          <WarningList warnings={story.warnings} />
+        </details>}
 
         <section className="route-declaration" aria-label="代表性路线声明">
           <div>
@@ -100,6 +109,8 @@ export default async function SupplyChainPage({
             <h2>如何理解这条路线</h2>
             <p>{story.route.representativeStatement ?? "代表性路线不等于某件具体商品的唯一真实路线。"}</p>
           </div>
+          <details className="route-declaration-details">
+            <summary>查看数据与证据等级</summary>
           <div className="route-declaration-meta">
             <MetadataItem label="method" value={story.route.method} />
             <MetadataItem label="datasetVersion" value={story.datasetVersion.version} />
@@ -109,6 +120,7 @@ export default async function SupplyChainPage({
             ...story.nodes.map((node) => node.evidenceLevel),
             ...story.flows.map((flow) => flow.evidenceLevel)
           ]} />
+          </details>
         </section>
 
         <section className="filter-strip" aria-label="路径筛选">
