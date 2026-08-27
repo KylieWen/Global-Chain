@@ -469,6 +469,39 @@ p { line-height: 1.7; }
 .map-trade-export { stroke: var(--teal); }
 .map-trade-import { stroke: var(--blue); }
 .map-note { margin: 0.75rem 0 0; color: var(--ink-soft); font-size: 0.76rem; }
+.country-map-workspace { margin-top: 1rem; }
+.map-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.7rem; }
+.map-toolbar > div:first-child { display: grid; gap: 0.2rem; }
+.map-toolbar strong { color: var(--navy); }
+.map-toolbar span { color: var(--ink-soft); font-size: 0.76rem; }
+.map-zoom-controls { display: flex; gap: 0.35rem; }
+.map-zoom-controls button { min-width: 2.5rem; min-height: 2.5rem; padding: 0.35rem 0.65rem; border: 1px solid var(--line-strong); border-radius: 0.55rem; color: var(--navy); background: #fff; cursor: pointer; font-weight: 750; }
+.map-zoom-controls button:hover { border-color: #9bb6e9; background: var(--blue-soft); }
+.map-legend { display: flex; flex-wrap: wrap; gap: 0.55rem 1rem; margin-bottom: 0.65rem; color: var(--ink-soft); font-size: 0.72rem; }
+.map-legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+.map-legend i { display: inline-block; width: 1rem; height: 0.65rem; border-radius: 0.15rem; }
+.legend-country-covered { background: #8eb2ed; }
+.legend-country-selected { background: var(--blue); }
+.legend-trade-export { height: 2px !important; background: var(--teal); }
+.legend-trade-import { height: 2px !important; background: var(--orange); }
+.legend-trade-node { width: 0.55rem !important; height: 0.55rem !important; border-radius: 50% !important; background: var(--navy); }
+.map-viewport { overflow: hidden; border: 1px solid var(--line); border-radius: 1rem; background: #dfeaf7; touch-action: none; }
+.world-country-map { display: block; width: 100%; height: auto; cursor: grab; user-select: none; }
+.world-country-map:active { cursor: grabbing; }
+.map-ocean { fill: #edf5fc; }
+.map-country-shape { fill: #e1e6ec; stroke: #fff; stroke-width: 0.7; vector-effect: non-scaling-stroke; transition: fill 140ms ease; }
+.map-country-shape.has-data { fill: #91b4eb; cursor: pointer; }
+.map-country-shape.has-data:hover, .map-country-shape.hovered { fill: var(--teal); }
+.map-country-shape.selected { fill: var(--blue); stroke: var(--navy); stroke-width: 1.5; }
+.country-trade-line { pointer-events: none; }
+.country-trade-line line { fill: none; stroke-width: 1.7; opacity: 0.72; vector-effect: non-scaling-stroke; }
+.country-trade-line circle { fill: var(--navy); stroke: #fff; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.country-trade-export line { stroke: var(--teal); }
+.country-trade-import line { stroke: var(--orange); stroke-dasharray: 5 4; }
+.map-selection-summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 6.5rem; margin-top: 0.75rem; padding: 1rem 1.1rem; border: 1px solid #cbdcf3; border-radius: 0.85rem; background: #f5f9ff; }
+.map-selection-summary h2 { margin: 0.35rem 0 0.2rem; font-size: 1.3rem; }
+.map-selection-summary p { margin: 0; color: var(--ink-soft); font-size: 0.8rem; }
+.map-selection-actions { display: flex; align-items: center; gap: 0.8rem; color: var(--ink-soft); font-size: 0.76rem; }
 .graph-filter-title { display: grid; gap: 0.2rem; min-width: 10rem; }
 .graph-filter-title strong { color: var(--navy); font-size: 0.82rem; }
 .graph-filter-title span { color: var(--muted); font-size: 0.7rem; }
@@ -478,6 +511,7 @@ p { line-height: 1.7; }
 .map-country-list { display: grid; gap: 0.55rem; }
 .map-country-row { display: grid; grid-template-columns: minmax(10rem, 1fr) minmax(14rem, 1.5fr) auto; gap: 1rem; align-items: center; padding: 0.8rem 1rem; border: 1px solid var(--line); border-radius: 0.7rem; background: #fff; }
 .map-country-row:hover { border-color: #9bb6e9; background: #f8fbff; }
+.map-country-row.selected { border-color: var(--blue); background: var(--blue-soft); }
 .map-country-row span { color: var(--ink-soft); font-size: 0.76rem; }
 .home-entry-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; margin-top: 1.5rem; }
 .home-entry-card { display: flex; flex-direction: column; min-height: 15rem; padding: 1.25rem; border: 1px solid var(--line); border-radius: 1rem; background: #fff; transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
@@ -554,6 +588,9 @@ p { line-height: 1.7; }
   .activity-evidence-details { max-width: none; text-align: left; }
   .interpreted-metric, .trade-observation-list { grid-template-columns: 1fr; }
   .fact-metadata-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .map-toolbar, .map-selection-summary { align-items: stretch; flex-direction: column; }
+  .map-zoom-controls { justify-content: flex-start; }
+  .map-selection-actions { align-items: stretch; flex-direction: column; }
   .graph-filter-bar { display: grid; gap: 0.65rem; }
   .graph-filter-options { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.2rem; }
   .graph-filter-options .filter-chip { flex: 0 0 auto; }
