@@ -163,10 +163,10 @@ export default async function SupplyChainPage({
             {story.steps.map((view) => {
               const { step } = view;
               return (
-                <details className="step-card step-card-collapsible" key={step.id} open={step.order === 0}>
+                <details className="step-card step-card-collapsible" id={`route-step-${step.id}`} key={step.id} open={step.order === 0}>
                   <summary className="step-summary">
                     <span className="step-marker">{String(step.order + 1).padStart(2, "0")}</span>
-                    <span className="step-summary-copy"><strong>{step.title}</strong><small>{step.description}</small></span>
+                    <span className="step-summary-copy"><strong>{step.title}</strong><small>{step.description}</small><em>第 {step.order + 1} 步 / 共 {story.steps.length} 步</em></span>
                     <span className="step-summary-meta"><span className="content-status">{step.contentStatus}</span><span className="method-chip">{step.method}</span></span>
                   </summary>
                   <div className="step-body">
@@ -202,6 +202,10 @@ export default async function SupplyChainPage({
                       <summary>查看本步骤的直接证据定位</summary>
                       <ResolvedEvidenceList evidence={view.evidence} compact />
                     </details>
+                    <nav className="step-sequence-nav" aria-label={`${step.title}步骤导航`}>
+                      {story.steps[step.order - 1] ? <a className="button button-secondary" href={`#route-step-${story.steps[step.order - 1].step.id}`}>← 上一步</a> : <span />}
+                      {story.steps[step.order + 1] ? <a className="button button-primary" href={`#route-step-${story.steps[step.order + 1].step.id}`}>下一步 →</a> : <Link className="button button-primary" href={provenancePath(productId, pageContext)}>查看来源 →</Link>}
+                    </nav>
                   </div>
                 </details>
               );
