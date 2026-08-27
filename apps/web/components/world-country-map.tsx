@@ -34,6 +34,7 @@ const atlas = worldAtlas as unknown as Topology<{ countries: GeometryCollection 
 const countryFeatures = feature(atlas, atlas.objects.countries).features;
 const projection = geoEqualEarth().fitExtent([[18, 18], [mapWidth - 18, mapHeight - 18]], { type: "Sphere" });
 const pathGenerator = geoPath(projection);
+const stableCoordinate = (value: number) => Number(value.toFixed(4));
 
 export function WorldCountryMap({ countries, tradeLines, productId, selectedCountryId, direction, context }: { countries: readonly MapCountry[]; tradeLines: readonly MapTradeLine[]; productId: string; selectedCountryId?: string; direction?: "import" | "export"; context: PageContext }) {
   const router = useRouter();
@@ -84,13 +85,13 @@ export function WorldCountryMap({ countries, tradeLines, productId, selectedCoun
         <desc id="world-country-map-description">采用 Equal Earth 等积投影。蓝色国家表示当前数据集有记录，点击国家可以查看贸易账本；贸易线连接国家质心节点。</desc>
         <rect className="map-ocean" width={mapWidth} height={mapHeight} rx="16" />
         <g transform={`translate(${transform.x} ${transform.y}) scale(${transform.scale})`}>
-          {countryFeatures.map((countryFeature) => {
-            const m49 = String(countryFeature.id).padStart(3, "0");
-            const country = countryByM49.get(m49);
+          {countryFeatures.map((countryFeature, featureIndex) => {
+            const m49 = countryFeature.id == null ? null : String(countryFeature.id).padStart(3, "0");
+            const country = m49 ? countryByM49.get(m49) : undefined;
             const selected = country?.id === selectedCountryId;
             const hovered = country?.id === hoveredId;
             const d = pathGenerator(countryFeature as GeoPermissibleObjects) ?? undefined;
-            return <path key={m49} d={d} className={`map-country-shape${country ? " has-data" : ""}${selected ? " selected" : ""}${hovered ? " hovered" : ""}`} role={country ? "button" : undefined} aria-label={country ? `${country.name}，${country.roles.slice(0, 2).join("，") || "有当前数据"}` : undefined} tabIndex={country ? 0 : undefined} onMouseEnter={() => country && setHoveredId(country.id)} onMouseLeave={() => setHoveredId(null)} onFocus={() => country && setHoveredId(country.id)} onBlur={() => setHoveredId(null)} onClick={() => country && selectCountry(country)} onKeyDown={(event) => { if (country && (event.key === "Enter" || event.key === " ")) selectCountry(country); }} />;
+            return <path key={m49 ?? `unidentified-${featureIndex}`} d={d} className={`map-country-shape${country ? " has-data" : ""}${selected ? " selected" : ""}${hovered ? " hovered" : ""}`} role={country ? "button" : undefined} aria-label={country ? `${country.name}，${country.roles.slice(0, 2).join("，") || "有当前数据"}` : undefined} tabIndex={country ? 0 : undefined} onMouseEnter={() => country && setHoveredId(country.id)} onMouseLeave={() => setHoveredId(null)} onFocus={() => country && setHoveredId(country.id)} onBlur={() => setHoveredId(null)} onClick={() => country && selectCountry(country)} onKeyDown={(event) => { if (country && (event.key === "Enter" || event.key === " ")) selectCountry(country); }} />;
           })}
           <g className="map-trade-layer" aria-label="双边贸易观察">
             {tradeLines.map((line) => {
@@ -100,7 +101,8 @@ export function WorldCountryMap({ countries, tradeLines, productId, selectedCoun
               const from = projection(geoCentroid(fromFeature));
               const to = projection(geoCentroid(toFeature));
               if (!from || !to) return null;
-              return <g key={line.id} className={`country-trade-line country-trade-${line.direction}`}><line x1={from[0]} y1={from[1]} x2={to[0]} y2={to[1]} /><circle cx={from[0]} cy={from[1]} r={3.2 / transform.scale} /><circle cx={to[0]} cy={to[1]} r={3.2 / transform.scale} /></g>;
+              const x1 = stableCoordinate(from[0]); const y1 = stableCoordinate(from[1]); const x2 = stableCoordinate(to[0]); const y2 = stableCoordinate(to[1]);
+              return <g key={line.id} className={`country-trade-line country-trade-${line.direction}`}><line x1={x1} y1={y1} x2={x2} y2={y2} /><circle cx={x1} cy={y1} r={3.2 / transform.scale} /><circle cx={x2} cy={y2} r={3.2 / transform.scale} /></g>;
             })}
           </g>
         </g>
