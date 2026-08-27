@@ -17,12 +17,17 @@ export function SiteShell({ children }: { children: ReactNode }) {
             </span>
           </Link>
           <nav className="site-nav" aria-label="主导航">
-            <Link href="/products">商品目录</Link>
-            <Link href="/categories">商品门类</Link>
-            <Link href="/countries">国家目录</Link>
-            <Link href="/versions">数据版本</Link>
+            <Link href="/products">商品探索</Link>
+            <Link href="/countries">国家账本</Link>
             <Link href="/map">世界地图</Link>
+            <Link href="/versions">数据版本</Link>
+            <Link href="/help">阅读指南</Link>
           </nav>
+          <form className="global-search" action="/search" role="search">
+            <label className="sr-only" htmlFor="global-search-input">搜索商品或国家</label>
+            <input id="global-search-input" name="q" placeholder="搜索商品或国家" />
+            <button type="submit">搜索</button>
+          </form>
           <span className={`mode-pill ${preview ? "mode-preview" : "mode-published"}`}>
             {preview ? "预览数据" : "已发布数据"}
           </span>
@@ -47,9 +52,10 @@ export function Breadcrumbs({
 }: {
   items: ReadonlyArray<{ label: string; href?: string }>;
 }) {
+  const breadcrumbItems = items[0]?.label === "首页" ? items : [{ label: "首页", href: "/" }, ...items];
   return (
     <nav className="breadcrumbs" aria-label="面包屑导航">
-      {items.map((item, index) => (
+      {breadcrumbItems.map((item, index) => (
         <span className="breadcrumb-item" key={`${item.label}-${index}`}>
           {index > 0 ? <span className="breadcrumb-separator">/</span> : null}
           {item.href ? <Link href={item.href}>{item.label}</Link> : <span>{item.label}</span>}

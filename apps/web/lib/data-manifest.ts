@@ -62,6 +62,5 @@ export function listPublishedDatasetVersions(): readonly string[] {
   return readdirSync(root, { withFileTypes: true })
     .filter((entry) => entry.isDirectory() && existsSync(resolve(root, entry.name, "manifest.json")))
     .map((entry) => entry.name)
-    .sort()
-    .reverse();
+    .sort((left, right) => right.localeCompare(left, undefined, { numeric: true }));
 }

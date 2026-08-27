@@ -68,6 +68,7 @@ export interface CountryCatalogView {
   readonly relatedNodeCount: number;
   readonly hasTradeLedger: boolean;
   readonly datasetVersion: ReadonlyDatasetVersion;
+  readonly roles: readonly string[];
 }
 
 export interface TradeNetworkObservationView {
@@ -1016,13 +1017,19 @@ export function listCountries(repository: FixtureRepository): readonly CountryCa
   products.forEach((fixture) => {
     fixture.entities.filter((entity) => entity.kind === "country").forEach((entity) => {
       const relatedNodeCount = fixture.storyGraph.nodes.filter((node) => node.entityId === entity.id).length;
+      const roles = fixture.storyGraph.nodes.filter((node) => node.entityId === entity.id).map((node) => {
+        const item = fixture.items.find((candidate) => candidate.id === node.itemId)?.name;
+        const stage = fixture.processStages.find((candidate) => candidate.id === node.processStageId)?.label;
+        return item && stage ? `${item} · ${stage}` : item ?? stage ?? node.label;
+      });
       const current = byEntity.get(entity.id);
       byEntity.set(entity.id, {
         entity,
         productIds: freezeArray([...(current?.productIds ?? []), fixture.productId]),
         relatedNodeCount: (current?.relatedNodeCount ?? 0) + relatedNodeCount,
         hasTradeLedger: (current?.hasTradeLedger ?? false) || fixture.tradeObservations.some((observation) => observation.reporterEntityId === entity.id) || fixture.macroIndicators.some((observation) => observation.entityId === entity.id),
-        datasetVersion: fixture.datasetVersion
+        datasetVersion: fixture.datasetVersion,
+        roles: freezeArray([...new Set([...(current?.roles ?? []), ...roles])])
       });
     });
   });

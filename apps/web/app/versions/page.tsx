@@ -13,8 +13,8 @@ export default async function VersionsPage() {
     try { return JSON.parse(await readFile(resolve(process.cwd(), "data/published/releases/generic-smartphone", version, "manifest.json"), "utf8")) as { datasetVersion?: string; generatedAt?: string; notes?: string[]; release?: { immutable?: boolean } }; } catch { return {}; }
   }));
   return <SiteShell><div className="content-column narrow-column">
-    <Breadcrumbs items={[{ label: "商品目录", href: "/products" }, { label: "数据版本" }]} />
-    <PageIntro eyebrow="Dataset history" title="数据版本" description="不同版本是不可变的研究快照。切换版本只改变读取的已发布数据，不会在运行时调用外部 API。" actions={<Link className="button button-secondary" href="/products">返回商品目录</Link>} />
-    <div className="version-list">{versions.map((version, index) => { const manifest = manifests[index] ?? {}; return <article className="version-card" key={version}><div className="version-card-top"><span className="publication-badge publication-published">published</span><strong>{version}</strong>{index === 0 ? <span className="coverage-status coverage-status-route_published">当前列表首项</span> : null}</div><p>{manifest.notes?.[0] ?? "不可变 published 数据集"}</p><div className="version-meta"><span>生成：{manifest.generatedAt ?? "未提供"}</span><span>immutable：{manifest.release?.immutable ? "是" : "未提供"}</span></div><Link className="card-footer" href={productPath("generic-smartphone", { datasetVersion: version })}>使用此版本探索手机 →</Link></article>; })}</div>
+    <Breadcrumbs items={[{ label: "数据版本" }]} />
+    <PageIntro eyebrow="Dataset history" title="数据版本" description="每个版本都是一个独立的数据快照。你可以选择不同版本，查看当时已经整理的国家、节点和证据。" actions={<Link className="button button-secondary" href="/products">返回商品探索</Link>} />
+    <div className="version-list">{versions.map((version, index) => { const manifest = manifests[index] ?? {}; return <article className="version-card" key={version}><div className="version-card-top"><strong>{version}</strong>{index === 0 ? <span className="coverage-status coverage-status-route_published">最新版本</span> : null}</div><p>{manifest.notes?.[0] ?? "当前版本的研究数据快照"}</p><div className="version-meta"><span>更新时间：{manifest.generatedAt ?? "未提供"}</span></div><Link className="card-footer" href={productPath("generic-smartphone", { datasetVersion: version })}>使用此版本探索手机 →</Link></article>; })}</div>
   </div></SiteShell>;
 }
