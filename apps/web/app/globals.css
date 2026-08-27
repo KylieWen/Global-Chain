@@ -108,6 +108,7 @@ p { line-height: 1.7; }
 .card-footer { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-top: auto; padding-top: 1rem; color: var(--blue); font-size: 0.78rem; font-weight: 750; }
 .component-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
 .component-card { min-height: 12rem; }
+.component-card .coverage-status { align-self: start; margin-top: 0.25rem; }
 .component-card .status-badge { align-self: start; margin-top: auto; }
 
 .product-tree, .product-tree ul { margin: 0; padding-left: 1.4rem; list-style: none; }
@@ -417,6 +418,13 @@ p { line-height: 1.7; }
 .exploration-position { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.45rem 0.75rem; margin: -0.45rem 0 1.35rem; padding: 0.7rem 0.9rem; border-left: 0.25rem solid var(--blue); border-radius: 0.55rem; color: var(--ink-soft); background: #f7faff; font-size: 0.8rem; }
 .exploration-position strong { color: var(--navy); font-size: 0.9rem; }
 .exploration-position-label { color: var(--blue); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.product-focus-strip { display: flex; justify-content: space-between; gap: 1.2rem; margin: 1.1rem 0 1.7rem; padding: 1rem 1.1rem; border: 1px solid #cbdcf3; border-radius: 0.85rem; background: linear-gradient(110deg, #f2f7ff, #fff); }
+.product-focus-strip > div:first-child { display: grid; gap: 0.25rem; }
+.product-focus-kicker { color: var(--blue); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.product-focus-strip strong { color: var(--navy); }
+.product-focus-strip p { margin: 0; color: var(--ink-soft); font-size: 0.78rem; }
+.product-focus-meta { display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 0.6rem 0.9rem; color: var(--ink-soft); font-size: 0.72rem; }
+.product-focus-meta > span strong { color: var(--blue); font-size: 1rem; }
 .compact-detail { margin: 1rem 0; padding: 0.75rem 0.9rem; border: 1px solid var(--line); border-radius: 0.75rem; background: #fff; }
 .compact-detail > summary { display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: var(--ink-soft); font-size: 0.82rem; }
 .compact-detail .warning-panel { margin-top: 0.8rem; }
@@ -573,6 +581,8 @@ p { line-height: 1.7; }
   .section-caption, .filter-note { display: block; margin-top: 0.6rem; }
   .filter-note { text-align: left; }
   .tree-node { align-items: start; flex-direction: column; }
+  .product-focus-strip { display: grid; }
+  .product-focus-meta { justify-content: flex-start; }
   .provenance-grid { grid-template-columns: 1fr; }
   .evidence-scope-grid { grid-template-columns: 1fr; }
   .route-methodology-heading { display: block; }

@@ -28,6 +28,8 @@ export default async function ProductOverviewPage({
   const provenance = queries.getProvenance(productId);
   if (!overview || !breakdown || !provenance) notFound();
   const coverageByItemId = new Map(overview.componentCoverage.map((coverage) => [coverage.item.id, coverage]));
+  const publishedComponents = overview.componentCoverage.filter((coverage) => coverage.status === "route_published");
+  const pendingComponents = overview.componentCoverage.filter((coverage) => coverage.status !== "route_published");
   const mismatches = contextMismatch(pageContext, { period: overview.period.label, datasetVersion: overview.datasetVersion.version, contentVersion: provenance.route.contentVersion?.version });
 
   return (
@@ -54,6 +56,19 @@ export default async function ProductOverviewPage({
           <Link href={materialObservationsPath(productId, pageContext)}>③ 材料贸易</Link>
           <Link href={provenancePath(productId, pageContext)}>④ 来源与版本</Link>
         </nav>
+
+        <section className="product-focus-strip" aria-label="当前商品覆盖重点">
+          <div>
+            <span className="product-focus-kicker">当前深度案例</span>
+            <strong>{publishedComponents.length ? publishedComponents.map((coverage) => coverage.item.name).join("、") : "正在整理"}</strong>
+            <p>先从已有完整路线的组件开始，再逐步补齐其他部件的国家、贸易和证据。</p>
+          </div>
+          <div className="product-focus-meta">
+            <span><strong>{publishedComponents.length}</strong> 个组件已有路线</span>
+            <span><strong>{pendingComponents.length}</strong> 个组件待补证</span>
+            {publishedComponents[0] ? <Link className="button button-primary" href={supplyChainPath(productId, publishedComponents[0].item.id, pageContext)}>开始查看 →</Link> : null}
+          </div>
+        </section>
 
         <div className="stat-grid">
           <StatCard label="直接组成" value={overview.directChildren.length} detail="个节点" />
@@ -83,8 +98,9 @@ export default async function ProductOverviewPage({
           <div className="section-heading">
             <div>
               <p className="eyebrow">First-level components</p>
-              <h2 id="children-title">第一层组成</h2>
+              <h2 id="children-title">手机由哪些部分组成？</h2>
             </div>
+            <span className="section-caption">先看组件，再进入对应的供应链路线</span>
           </div>
           <div className="component-grid">
             {overview.directChildren.map((item) => {
@@ -94,12 +110,14 @@ export default async function ProductOverviewPage({
                 <span className="card-kicker">{item.category}</span>
                 <h3>{item.name}</h3>
                 <p>{item.description ?? "暂无说明"}</p>
+                <span className={`coverage-status coverage-status-${coverage?.status ?? "catalog_only"}`}>{hasRoute ? "已有代表性路线" : "组件记录，路线待补"}</span>
                 <StatusBadge status={item.dataStatus} method={item.method} />
                 <span className="card-footer">进入代表性路径 <span>→</span></span>
               </Link> : <article className="component-card component-card-disabled" key={item.id}>
                 <span className="card-kicker">{item.category}</span>
                 <h3>{item.name}</h3>
                 <p>{item.description ?? "暂无说明"}</p>
+                <span className="coverage-status coverage-status-catalog_only">组件记录，路线待补</span>
                 <StatusBadge status={item.dataStatus} method={item.method} />
                 <span className="card-footer">尚无已发布供应链路线</span>
               </article>;
