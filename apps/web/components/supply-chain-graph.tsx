@@ -19,6 +19,7 @@ export function SupplyChainGraph({ story, productId, context }: { story: SupplyC
   const [selectedFlowId, setSelectedFlowId] = useState<string | null>(null);
   const [stageFilter, setStageFilter] = useState<number | null>(null);
   const stageOrders = useMemo(() => [...new Set(story.nodes.map(({ processStage }) => processStage?.order ?? 0))].sort((a, b) => a - b), [story.nodes]);
+  const stageInfo = useMemo(() => stageOrders.map((order) => ({ order, label: story.nodes.find(({ processStage }) => processStage?.order === order)?.processStage?.label ?? `阶段 ${order + 1}`, count: story.nodes.filter(({ processStage }) => (processStage?.order ?? 0) === order).length })), [stageOrders, story.nodes]);
   const stageColumn = new Map(stageOrders.map((order, index) => [order, index]));
   const visibleNodes = story.nodes.filter(({ processStage }) => stageFilter === null || (processStage?.order ?? 0) === stageFilter);
   const visibleIds = new Set(visibleNodes.map(({ node }) => node.id));
@@ -43,8 +44,12 @@ export function SupplyChainGraph({ story, productId, context }: { story: SupplyC
   return <section className="section-block visual-graph-section" aria-labelledby="visual-graph-title">
     <div className="section-heading"><div><p className="eyebrow">Visual route</p><h2 id="visual-graph-title">供应链路线图</h2></div><span className="section-caption">点击节点或连接查看解释</span></div>
     <div className="graph-filter-bar" aria-label="阶段筛选">
-      <button className={stageFilter === null ? "filter-chip active" : "filter-chip"} onClick={() => setStageFilter(null)}>全部阶段</button>
-      {stageOrders.map((order) => <button key={order} className={stageFilter === order ? "filter-chip active" : "filter-chip"} onClick={() => setStageFilter(order)}>{story.nodes.find(({ processStage }) => processStage?.order === order)?.processStage?.label ?? `阶段 ${order + 1}`}</button>)}
+      <div className="graph-filter-title"><strong>按阶段探索</strong><span>选择一个阶段聚焦查看节点</span></div>
+      <div className="graph-filter-options">
+        <button aria-pressed={stageFilter === null} className={stageFilter === null ? "filter-chip active" : "filter-chip"} onClick={() => setStageFilter(null)}>全部阶段 <small>{story.nodes.length}</small></button>
+        {stageInfo.map(({ order, label, count }) => <button aria-pressed={stageFilter === order} key={order} className={stageFilter === order ? "filter-chip active" : "filter-chip"} onClick={() => setStageFilter(order)}>{label} <small>{count}</small></button>)}
+      </div>
+      <span className="filter-note">{stageFilter === null ? "完整路线" : `当前聚焦：${stageInfo.find((stage) => stage.order === stageFilter)?.label ?? "当前阶段"}`}</span>
     </div>
     <div className="route-graph-shell">
       <svg className="route-graph" viewBox={`0 0 ${width} ${graphHeight}`} role="img" aria-label="供应链代表性路线图">
@@ -67,7 +72,7 @@ export function SupplyChainGraph({ story, productId, context }: { story: SupplyC
           </g>;
         })}
       </svg>
-      <div className="route-graph-note">路线为代表性策展连接；箭头不表示每一件具体手机的唯一真实物流路径。数量未知显示为未知，不等于零。</div>
+      <div className="route-graph-note">路线为代表性策展连接；箭头不表示每一件具体手机的唯一真实物流路径。数量未知显示为未知，不等于零。<span className="graph-scroll-hint">节点较多时可横向滚动查看。</span></div>
     </div>
     <GraphSelection node={selectedNode} flow={selectedFlow} productId={productId} context={context} onClear={() => { setSelectedNodeId(null); setSelectedFlowId(null); }} />
   </section>;

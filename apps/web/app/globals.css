@@ -458,6 +458,12 @@ p { line-height: 1.7; }
 .map-trade-export { stroke: var(--teal); }
 .map-trade-import { stroke: var(--blue); }
 .map-note { margin: 0.75rem 0 0; color: var(--ink-soft); font-size: 0.76rem; }
+.graph-filter-title { display: grid; gap: 0.2rem; min-width: 10rem; }
+.graph-filter-title strong { color: var(--navy); font-size: 0.82rem; }
+.graph-filter-title span { color: var(--muted); font-size: 0.7rem; }
+.graph-filter-options { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.graph-filter-options .filter-chip small { margin-left: 0.2rem; color: currentColor; opacity: 0.7; font-size: 0.65rem; }
+.graph-scroll-hint { display: inline-block; margin-left: 0.5rem; color: var(--blue); }
 .map-country-list { display: grid; gap: 0.55rem; }
 .map-country-row { display: grid; grid-template-columns: minmax(10rem, 1fr) minmax(14rem, 1.5fr) auto; gap: 1rem; align-items: center; padding: 0.8rem 1rem; border: 1px solid var(--line); border-radius: 0.7rem; background: #fff; }
 .map-country-row:hover { border-color: #9bb6e9; background: #f8fbff; }
@@ -530,4 +536,8 @@ p { line-height: 1.7; }
   .activity-evidence-details { max-width: none; text-align: left; }
   .interpreted-metric, .trade-observation-list { grid-template-columns: 1fr; }
   .fact-metadata-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .graph-filter-bar { display: grid; gap: 0.65rem; }
+  .graph-filter-options { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.2rem; }
+  .graph-filter-options .filter-chip { flex: 0 0 auto; }
+  .graph-scroll-hint { display: block; margin: 0.25rem 0 0; }
 }
