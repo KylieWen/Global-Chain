@@ -273,8 +273,10 @@ p { line-height: 1.7; }
 .graph-clear-button { padding: 0.3rem 0.55rem; border: 1px solid var(--line-strong); border-radius: 0.5rem; color: var(--ink-soft); background: #fff; cursor: pointer; }
 .graph-selection-meta { display: flex; flex-wrap: wrap; gap: 0.45rem; }
 .graph-selection-meta span { padding: 0.25rem 0.5rem; border-radius: 999px; color: var(--ink-soft); background: #fff; font-size: 0.7rem; }
+.graph-selection-status { display: flex; flex-wrap: wrap; gap: 0.45rem; }
 .graph-selection p { margin: 0; color: var(--ink-soft); font-size: 0.8rem; }
 .graph-selection-evidence { display: grid; gap: 0.45rem; }
+.graph-selection-evidence > summary { cursor: pointer; color: var(--blue); font-size: 0.76rem; font-weight: 750; }
 .graph-selection-evidence > div { display: grid; gap: 0.15rem; padding: 0.55rem 0.65rem; border-radius: 0.55rem; background: #fff; font-size: 0.72rem; }
 .graph-selection-evidence small { color: var(--muted); overflow-wrap: anywhere; }
 .step-card-collapsible { display: block; padding: 0; overflow: hidden; }

@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import type { ResolvedSupplyFlowView, ResolvedStoryNodeView, SupplyChainStoryView } from "@globe-chain/domain";
 import type { PageContext } from "../lib/context";
 import { nodePath } from "../lib/paths";
+import { StatusBadge } from "./data-display";
 
 const width = 1180;
 const columnWidth = 210;
@@ -80,13 +81,14 @@ export function SupplyChainGraph({ story, productId, context }: { story: SupplyC
 
 function GraphSelection({ node, flow, productId, context, onClear }: { node: ResolvedStoryNodeView | null; flow: ResolvedSupplyFlowView | null; productId: string; context: PageContext; onClear: () => void }) {
   if (!node && !flow) return <div className="graph-selection-empty">选择一个节点或连接，查看其商品、阶段、证据等级和来源。</div>;
-  const title = node ? node.node.label : `${flow?.from.entity?.name ?? "起点"} → ${flow?.to.entity?.name ?? "终点"}`;
+  const title = node ? node.node.label : `${flow?.from.entity?.name ?? flow?.from.node?.node.label ?? "起点"} → ${flow?.to.entity?.name ?? flow?.to.node?.node.label ?? "终点"}`;
   const evidence = node ? node.evidence : flow?.evidence ?? [];
   return <aside className="graph-selection" aria-live="polite">
     <div className="graph-selection-heading"><div><p className="eyebrow">Selection detail</p><h3>{title}</h3></div><button className="graph-clear-button" onClick={onClear}>清除</button></div>
-    <div className="graph-selection-meta"><span>{node?.item?.name ?? flow?.item?.name ?? "未知货物"}</span><span>{node?.processStage?.label ?? flow?.processStage?.label ?? "未知阶段"}</span><span>{node?.evidenceLevel.label ?? flow?.evidenceLevel.label}</span><span>{node?.node.dataStatus ?? flow?.flow.dataStatus}</span></div>
-    <p>{node?.node.notes ?? flow?.flow.notes ?? "当前记录没有额外说明。"}</p>
-    <div className="graph-selection-evidence"><strong>证据与来源（{evidence.length}）</strong>{evidence.length === 0 ? <span className="muted">尚无直接证据记录。</span> : evidence.map(({ evidence: record, source }) => <div key={record.id}><span>{record.supportType}</span><small>{source?.name ?? record.sourceId} · {record.locator}</small></div>)}</div>
+    <div className="graph-selection-meta"><span>{node?.entity?.name ?? flow?.from.entity?.name ?? "未指定地区"}</span><span>{node?.item?.name ?? flow?.item?.name ?? "未知货物"}</span><span>{node?.processStage?.label ?? flow?.processStage?.label ?? "未知阶段"}</span></div>
+    <div className="graph-selection-status"><span className={`evidence-level-badge evidence-level-${(node?.evidenceLevel.code ?? flow?.evidenceLevel.code)}`}>{node?.evidenceLevel.label ?? flow?.evidenceLevel.label}</span><StatusBadge status={node?.node.dataStatus ?? flow?.flow.dataStatus ?? "unknown"} method={node?.node.method ?? flow?.flow.method} /></div>
+    <p>{node?.node.notes ?? flow?.flow.notes ?? (node ? "该节点代表一个国家、市场或生产环节。" : "该连接表示两个节点之间的代表性流转关系。")}</p>
+    <details className="graph-selection-evidence"><summary>查看证据与来源（{evidence.length}）</summary>{evidence.length === 0 ? <span className="muted">尚无直接证据记录。</span> : evidence.map(({ evidence: record, source }) => <div key={record.id}><span>{record.supportType}</span><small>{source?.name ?? record.sourceId} · {record.locator}</small></div>)}</details>
     {node && <Link className="text-link" href={nodePath(productId, node.node.id, context)}>打开完整节点详情 →</Link>}
   </aside>;
 }
