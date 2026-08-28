@@ -105,19 +105,21 @@ export default async function ProductOverviewPage({
           <div className="component-grid">
             {overview.directChildren.map((item) => {
               const coverage = coverageByItemId.get(item.id);
-              const hasRoute = coverage?.status === "route_published";
-              return hasRoute ? <Link className="component-card" href={supplyChainPath(productId, item.id, pageContext)} key={item.id}>
+              const hasInspectableStory = coverage?.hasInspectableStory ?? false;
+              return hasInspectableStory ? <Link className="component-card" href={supplyChainPath(productId, item.id, pageContext)} key={item.id}>
                 <span className="card-kicker">{item.category}</span>
                 <h3>{item.name}</h3>
                 <p>{item.description ?? "暂无说明"}</p>
-                <span className={`coverage-status coverage-status-${coverage?.status ?? "catalog_only"}`}>{hasRoute ? "已有代表性路线" : "组件记录，路线待补"}</span>
+                <span className={`coverage-status coverage-status-${coverage?.status ?? "catalog_only"}`}>{coverage?.statusLabel ?? "组件记录，路线待补"}</span>
+                <small className="muted">{coverage?.statusDescription}</small>
                 <StatusBadge status={item.dataStatus} method={item.method} />
                 <span className="card-footer">进入代表性路径 <span>→</span></span>
               </Link> : <article className="component-card component-card-disabled" key={item.id}>
                 <span className="card-kicker">{item.category}</span>
                 <h3>{item.name}</h3>
                 <p>{item.description ?? "暂无说明"}</p>
-                <span className="coverage-status coverage-status-catalog_only">组件记录，路线待补</span>
+                <span className={`coverage-status coverage-status-${coverage?.status ?? "catalog_only"}`}>{coverage?.statusLabel ?? "组件记录，路线待补"}</span>
+                <small className="muted">{coverage?.statusDescription ?? "已登记该组件，尚未发布可查看的路线证据。"}</small>
                 <StatusBadge status={item.dataStatus} method={item.method} />
                 <span className="card-footer">尚无已发布供应链路线</span>
               </article>;
@@ -134,8 +136,9 @@ export default async function ProductOverviewPage({
             {overview.componentCoverage.map((coverage) => (
               <article className="coverage-row" key={coverage.item.id}>
                 <div><strong>{coverage.item.name}</strong><span className="muted">{coverage.item.category}</span></div>
-                <span className={`coverage-status coverage-status-${coverage.status}`}>{coverage.status === "route_published" ? "已有已发布路线" : coverage.status === "partial_route" ? "路线不完整" : "仅有目录记录"}</span>
+                <span className={`coverage-status coverage-status-${coverage.status}`}>{coverage.statusLabel}</span>
                 <span className="muted">节点 {coverage.nodeCount} · 连接 {coverage.flowCount} · 缺口 {coverage.evidenceGapCount}</span>
+                <span className="muted">{coverage.statusDescription}</span>
                 <span className="muted">证据：{coverage.evidenceLevels.length ? coverage.evidenceLevels.join("、") : "尚无路线证据"}</span>
                 {coverage.classificationMappings.length > 0 && <div className="muted">
                   分类候选：{coverage.classificationMappings.map(({ classification, mappingType }) => `${classification.system} ${classification.version}/${classification.code} · ${mappingType}`).join("；")}

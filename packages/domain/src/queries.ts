@@ -118,6 +118,10 @@ export type ComponentCoverageStatus = "route_published" | "partial_route" | "cat
 export interface ComponentCoverageView {
   readonly item: ReadonlyItem;
   readonly status: ComponentCoverageStatus;
+  /** Human-readable status supplied by the domain layer, not assembled by the page. */
+  readonly statusLabel: string;
+  readonly statusDescription: string;
+  readonly hasInspectableStory: boolean;
   readonly nodeCount: number;
   readonly flowCount: number;
   readonly evidenceGapCount: number;
@@ -1117,6 +1121,13 @@ export function getProductOverview(
     return Object.freeze({
       item,
       status: nodeCount > 0 && flowCount > 0 ? "route_published" : nodeCount > 0 || flowCount > 0 ? "partial_route" : "catalog_only",
+      statusLabel: nodeCount > 0 && flowCount > 0 ? "已有代表性路线" : nodeCount > 0 || flowCount > 0 ? "已有部分证据" : "组件记录，路线待补",
+      statusDescription: nodeCount > 0 && flowCount > 0
+        ? "可沿节点和连接查看一条代表性路线。"
+        : nodeCount > 0 || flowCount > 0
+          ? "已有国家角色或组件证据，但尚未形成可验证的完整双边路线。"
+          : "已登记该组件，尚未发布可查看的路线证据。",
+      hasInspectableStory: nodeCount > 0 || flowCount > 0,
       nodeCount,
       flowCount,
       evidenceGapCount: story.evidenceGaps.length,
