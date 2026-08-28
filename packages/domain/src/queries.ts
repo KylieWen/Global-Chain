@@ -232,7 +232,23 @@ export interface SupplyChainStoryView {
   readonly sources: readonly ReadonlySource[];
   readonly evidence: readonly ResolvedEvidenceView[];
   readonly evidenceGaps: readonly ResolvedEvidenceGapView[];
+  readonly interpretationSummary: SupplyChainInterpretationSummary;
   readonly warnings: readonly string[];
+}
+
+export interface SupplyChainInterpretationItem {
+  readonly code: "country_roles" | "direct_bilateral_flows" | "representative_connections" | "unknown_quantities";
+  readonly label: string;
+  readonly count: number;
+  readonly description: string;
+  readonly tone: "supported" | "direct" | "representative" | "unknown";
+}
+
+export interface SupplyChainInterpretationSummary {
+  readonly mode: "route" | "evidence_only" | "empty";
+  readonly title: string;
+  readonly description: string;
+  readonly items: readonly SupplyChainInterpretationItem[];
 }
 
 export interface SupplyChainNodeView {
@@ -977,6 +993,31 @@ function createStoryView(
     )
     .map((gap) => resolveEvidenceGap(fixture, gap, allResolvedNodes, selectedFlowById));
 
+  const roleSupportedNodeCount = selectedNodes.filter(({ evidenceLevel }) => evidenceLevel.supportsCountryRole).length;
+  const bilateralSupportedFlowCount = resolvedFlows.filter(({ evidenceLevel }) => evidenceLevel.supportsBilateralFlow).length;
+  const representativeFlowCount = resolvedFlows.filter(({ evidenceLevel }) => evidenceLevel.isRepresentative).length;
+  const unknownQuantityFlowCount = resolvedFlows.filter(({ quantityDataStatus }) => quantityDataStatus === "unknown").length;
+  const interpretationMode: SupplyChainInterpretationSummary["mode"] = resolvedFlows.length > 0
+    ? "route"
+    : selectedNodes.length > 0
+      ? "evidence_only"
+      : "empty";
+  const interpretationSummary = Object.freeze({
+    mode: interpretationMode,
+    title: interpretationMode === "route" ? "这张图目前能够说明什么？" : interpretationMode === "evidence_only" ? "当前只有组件或国家角色证据" : "当前没有已发布的路线证据",
+    description: interpretationMode === "route"
+      ? "国家产业角色、直接双边流向与代表性连接分别统计；一种证据不会自动升级成另一种主张。"
+      : interpretationMode === "evidence_only"
+        ? "你可以查看已有节点及其来源，但这些节点尚不能连接成一条有证据支持的国家间供应链。"
+        : "该组件已登记，但当前版本没有可展示的节点或连接。",
+    items: freezeArray([
+      Object.freeze({ code: "country_roles" as const, label: "有来源支持的国家角色", count: roleSupportedNodeCount, description: "来源支持某国参与相关生产或市场环节，不代表它必然向下一国供货。", tone: "supported" as const }),
+      Object.freeze({ code: "direct_bilateral_flows" as const, label: "直接支持的双边连接", count: bilateralSupportedFlowCount, description: "只有证据同时支持起点、终点、方向和期间时才计入。", tone: "direct" as const }),
+      Object.freeze({ code: "representative_connections" as const, label: "代表性整理连接", count: representativeFlowCount, description: "用于帮助理解典型结构，不是某台手机的确定物流记录。", tone: "representative" as const }),
+      Object.freeze({ code: "unknown_quantities" as const, label: "数量尚未提供的连接", count: unknownQuantityFlowCount, description: "未知数量保持未知，不会被显示或计算为 0。", tone: "unknown" as const })
+    ])
+  });
+
   return Object.freeze({
     product,
     period: fixture.storyGraph.period,
@@ -988,6 +1029,7 @@ function createStoryView(
     sources,
     evidence,
     evidenceGaps: freezeArray(evidenceGaps),
+    interpretationSummary,
     warnings: mergeWarnings(fixture.warnings, fixture.storyGraph.warnings)
   });
 }

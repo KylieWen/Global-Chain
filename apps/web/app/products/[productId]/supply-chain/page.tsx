@@ -149,6 +149,23 @@ export default async function SupplyChainPage({
           <Link href={provenancePath(productId, pageContext)}>④ 来源与版本</Link>
         </nav>
 
+        <section className="interpretation-summary" aria-labelledby="interpretation-summary-title">
+          <div className="interpretation-summary-heading">
+            <p className="eyebrow">Evidence at a glance</p>
+            <h2 id="interpretation-summary-title">{story.interpretationSummary.title}</h2>
+            <p>{story.interpretationSummary.description}</p>
+          </div>
+          <div className="interpretation-summary-grid">
+            {story.interpretationSummary.items.map((item) => (
+              <article className={`interpretation-card interpretation-card-${item.tone}`} key={item.code}>
+                <strong>{item.count}</strong>
+                <span>{item.label}</span>
+                <small>{item.description}</small>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <SupplyChainGraph story={story} productId={productId} context={pageContext} />
 
         <section className="section-block" aria-labelledby="route-steps-title">

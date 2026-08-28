@@ -41,9 +41,15 @@ export function SupplyChainGraph({ story, productId, context }: { story: SupplyC
   const graphHeight = Math.max(260, Math.max(...[...positions.values()].map(({ y }) => y), 0) + 112);
   const selectedNode = story.nodes.find(({ node }) => node.id === selectedNodeId) ?? null;
   const selectedFlow = story.flows.find(({ flow }) => flow.id === selectedFlowId) ?? null;
+  const isEvidenceOnly = story.interpretationSummary.mode === "evidence_only";
 
   return <section className="section-block visual-graph-section" aria-labelledby="visual-graph-title">
-    <div className="section-heading"><div><p className="eyebrow">Visual route</p><h2 id="visual-graph-title">供应链路线图</h2></div><span className="section-caption">点击节点或连接查看解释</span></div>
+    <div className="section-heading"><div><p className="eyebrow">{isEvidenceOnly ? "Evidence view" : "Visual route"}</p><h2 id="visual-graph-title">{isEvidenceOnly ? "组件证据视图" : "供应链路线图"}</h2></div><span className="section-caption">{isEvidenceOnly ? "当前节点尚未构成有证据支持的双边路线" : "点击节点或连接查看解释"}</span></div>
+    <div className="graph-reading-key" aria-label="路线图例">
+      <span><i className="graph-key-node" />国家或生产环节</span>
+      <span><i className="graph-key-line graph-key-line-direct" />直接双边证据</span>
+      <span><i className="graph-key-line graph-key-line-representative" />代表性整理连接</span>
+    </div>
     <div className="graph-filter-bar" aria-label="阶段筛选">
       <div className="graph-filter-title"><strong>按阶段探索</strong><span>选择一个阶段聚焦查看节点</span></div>
       <div className="graph-filter-options">
@@ -69,11 +75,11 @@ export function SupplyChainGraph({ story, productId, context }: { story: SupplyC
           const position = positions.get(node.node.id); if (!position) return null;
           const selected = selectedNodeId === node.node.id;
           return <g key={node.node.id} className={selected ? "graph-node selected" : "graph-node"} onClick={() => { setSelectedNodeId(node.node.id); setSelectedFlowId(null); }} role="button" tabIndex={0} aria-label={`查看 ${node.node.label}`} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") setSelectedNodeId(node.node.id); }}>
-            <rect x={position.x} y={position.y} width="176" height="76" rx="12" /><text className="graph-node-country" x={position.x + 12} y={position.y + 20}>{shortLabel(node.entity?.name ?? "未指定地区", 15)}</text><text className="graph-node-label" x={position.x + 12} y={position.y + 42}>{shortLabel(node.item?.name ?? node.node.label)}</text><text className="graph-node-status" x={position.x + 12} y={position.y + 62}>{node.evidenceLevel.label} · {node.node.dataStatus}</text>
+            <rect x={position.x} y={position.y} width="176" height="76" rx="12" /><text className="graph-node-country" x={position.x + 12} y={position.y + 20}>{shortLabel(node.entity?.name ?? "未指定地区", 15)}</text><text className="graph-node-label" x={position.x + 12} y={position.y + 42}>{shortLabel(node.item?.name ?? node.node.label)}</text><text className="graph-node-status" x={position.x + 12} y={position.y + 62}>{node.evidenceLevel.label}</text>
           </g>;
         })}
       </svg>
-      <div className="route-graph-note">路线为代表性策展连接；箭头不表示每一件具体手机的唯一真实物流路径。数量未知显示为未知，不等于零。<span className="graph-scroll-hint">节点较多时可横向滚动查看。</span></div>
+      <div className="route-graph-note">{isEvidenceOnly ? "当前视图只展示已登记的组件或国家角色证据，节点之间没有已发布连接。" : "路线中的虚线是代表性整理连接；箭头不表示每一件具体手机的唯一真实物流路径。"} 数量未知显示为未知，不等于零。<span className="graph-scroll-hint">节点较多时可横向滚动查看。</span></div>
     </div>
     <GraphSelection node={selectedNode} flow={selectedFlow} productId={productId} context={context} onClear={() => { setSelectedNodeId(null); setSelectedFlowId(null); }} />
   </section>;

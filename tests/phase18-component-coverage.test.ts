@@ -25,4 +25,19 @@ describe("phase 18 smartphone component data coverage", () => {
     expect(evidencePending).toHaveLength(4);
     expect(evidencePending.every((entry) => entry.status === "partial_route" && entry.flowCount === 0)).toBe(true);
   });
+
+  it("summarizes role evidence separately from bilateral and representative flows", async () => {
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const queries = createProductQueryService(repository);
+    const fullStory = queries.getSupplyChainStory("generic-smartphone");
+    const processorStory = queries.getSupplyChainStory("generic-smartphone", { focusItemId: "processor-memory" });
+
+    expect(fullStory?.interpretationSummary.mode).toBe("route");
+    expect(fullStory?.interpretationSummary.items.find(({ code }) => code === "country_roles")?.count).toBeGreaterThan(0);
+    expect(fullStory?.interpretationSummary.items.find(({ code }) => code === "direct_bilateral_flows")?.count).toBe(0);
+    expect(fullStory?.interpretationSummary.items.find(({ code }) => code === "representative_connections")?.count).toBeGreaterThan(0);
+    expect(processorStory?.interpretationSummary.mode).toBe("evidence_only");
+    expect(processorStory?.flows).toHaveLength(0);
+    expect(processorStory?.interpretationSummary.items.find(({ code }) => code === "country_roles")?.count).toBe(3);
+  });
 });
