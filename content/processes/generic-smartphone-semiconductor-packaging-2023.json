@@ -30,31 +30,51 @@
   ],
   "facilities": [],
   "processChains": [
-    { "id": "process-chain-semiconductor-packaging", "itemId": "chip-packaging", "title": "半导体封装与测试关键工序", "description": "从晶圆后段处理到封装测试的首批代表性工艺链，重点展示每道工序所需设备类别和具备公开产品能力的厂商。", "sourceIds": ["source-packaging-process-methodology"], "evidenceIds": ["evidence-packaging-process-curation"], "limitations": ["不是所有封装类型都经过全部工序。", "不对应某款手机、芯片、封装厂或生产批次。", "厂商能力不等于已证实向路线中的企业供货。"] }
+    { "id": "process-chain-semiconductor-packaging", "itemId": "chip-packaging", "title": "半导体封装与测试工艺链", "description": "从来料检查、晶圆后段处理到封装测试与包装的代表性工艺知识结构，并区分线焊与倒装两类常见路线。", "sourceIds": ["source-packaging-process-methodology"], "evidenceIds": ["evidence-packaging-process-curation"], "limitations": ["不是所有封装类型都经过全部工序。", "路线分支是教育性工艺分类，不对应某款手机、芯片、封装厂或生产批次。", "厂商能力不等于已证实向路线中的企业供货。"] }
+  ],
+  "routeVariants": [
+    { "id": "route-variant-wire-bond", "processChainId": "process-chain-semiconductor-packaging", "name": "线焊封装代表路线", "description": "以固晶和引线键合形成芯片与封装端子互连的代表性路线。", "applicability": "适用于部分采用引线框架或基板与线焊互连的封装类型。", "stepIds": ["process-incoming-inspection","process-wafer-mounting","process-wafer-thinning","process-wafer-cleaning","process-wafer-dicing","process-die-attach","process-wire-bonding","process-molding","process-post-mold-cure","process-plating-marking","process-singulation","process-burn-in","process-electrical-test","process-final-inspection","process-packing"], "sourceIds": ["source-packaging-process-methodology"], "evidenceIds": ["evidence-packaging-process-curation"], "limitations": ["并非所有线焊封装都使用完全相同的顺序、设备或质量检验配置。"] },
+    { "id": "route-variant-flip-chip", "processChainId": "process-chain-semiconductor-packaging", "name": "倒装封装代表路线", "description": "以晶圆凸点、倒装贴合和底部填充形成互连的代表性路线。", "applicability": "适用于部分采用倒装互连和封装基板的封装类型。", "stepIds": ["process-incoming-inspection","process-wafer-mounting","process-wafer-bumping","process-wafer-thinning","process-wafer-cleaning","process-wafer-dicing","process-flip-chip-attach","process-underfill","process-molding","process-post-mold-cure","process-singulation","process-burn-in","process-electrical-test","process-final-inspection","process-packing"], "sourceIds": ["source-packaging-process-methodology"], "evidenceIds": ["evidence-packaging-process-curation"], "limitations": ["不代表所有先进封装；晶圆级、扇出、2.5D/3D 等路线还需要独立建模。"] }
   ],
   "processSteps": [
-    ["process-wafer-thinning",0,"晶圆减薄","通过背磨等方式降低晶圆厚度，为后续切割和封装尺寸要求做准备。"],
-    ["process-wafer-dicing",1,"晶圆切割","将完成前道制造的晶圆分割为独立裸片；具体方法可包括机械切割或激光相关工艺。"],
-    ["process-die-attach",2,"固晶 / Die Attach","把裸片固定到封装基板、引线框架或载体上。"],
-    ["process-flip-chip-attach",3,"倒装贴合","在采用倒装结构时，将带凸点的裸片翻转并连接到基板；不是所有封装都使用。"],
-    ["process-wire-bonding",4,"引线键合","在采用线焊结构时，用金属键合线连接裸片焊盘和封装端子；与倒装路线可能是替代或并存关系。"],
-    ["process-molding",5,"塑封 / Encapsulation","使用封装材料保护裸片和互连结构。"],
-    ["process-plating-marking",6,"电镀与标记","形成部分外部表面处理并标记器件信息；具体配置取决于封装类型。"],
-    ["process-singulation",7,"封装分割","把面板或条带上的多个封装单元分割为独立器件。"],
-    ["process-electrical-test",8,"电性能测试","使用自动测试设备执行功能、电参数或分档测试。"],
-    ["process-final-inspection",9,"最终检测与计量","检查封装外观、尺寸和缺陷；设备组合随封装类型和质量要求变化。"]
+    ["process-incoming-inspection",0,"来料与晶圆检查","确认晶圆、载体或基板的标识、外观与可进入后段工艺的状态。","准备与前处理",["route-variant-wire-bond","route-variant-flip-chip"]],
+    ["process-wafer-mounting",1,"晶圆贴膜与装框","把晶圆固定在切割膜和框架上，支持减薄、搬运或切割。","准备与前处理",["route-variant-wire-bond","route-variant-flip-chip"]],
+    ["process-wafer-bumping",2,"晶圆凸点形成","在采用倒装互连时形成焊凸点或相关互连结构；并非所有倒装工艺在同一封装厂完成。","晶圆级互连",["route-variant-flip-chip"]],
+    ["process-wafer-thinning",3,"晶圆减薄","通过背磨等方式降低晶圆厚度，为后续切割和封装尺寸要求做准备。","晶圆后段处理",["route-variant-wire-bond","route-variant-flip-chip"]],
+    ["process-wafer-cleaning",4,"晶圆清洗与干燥","去除减薄或切割准备过程中的残留，并控制颗粒与表面状态。","晶圆后段处理",["route-variant-wire-bond","route-variant-flip-chip"]],
+    ["process-wafer-dicing",5,"晶圆切割","将完成前道制造的晶圆分割为独立裸片；具体方法可包括机械切割或激光相关工艺。","晶圆后段处理",["route-variant-wire-bond","route-variant-flip-chip"]],
+    ["process-die-attach",6,"固晶 / Die Attach","把裸片固定到封装基板、引线框架或载体上。","芯片贴装与互连",["route-variant-wire-bond"]],
+    ["process-flip-chip-attach",7,"倒装贴合","将带凸点的裸片翻转、对准并连接到基板。","芯片贴装与互连",["route-variant-flip-chip"]],
+    ["process-wire-bonding",8,"引线键合","用金属键合线连接裸片焊盘和封装端子。","芯片贴装与互连",["route-variant-wire-bond"]],
+    ["process-underfill",9,"底部填充","在部分倒装结构中填充裸片与基板之间的间隙，以改善机械和热可靠性。","封装保护",["route-variant-flip-chip"]],
+    ["process-molding",10,"塑封 / Encapsulation","使用封装材料保护裸片和互连结构。","封装保护",["route-variant-wire-bond","route-variant-flip-chip"]],
+    ["process-post-mold-cure",11,"塑封后固化","通过受控加热使封装材料达到规定固化状态。","封装保护",["route-variant-wire-bond","route-variant-flip-chip"]],
+    ["process-plating-marking",12,"电镀与标记","形成部分外部表面处理并标记器件信息；具体配置取决于封装类型。","后处理与成型",["route-variant-wire-bond"]],
+    ["process-singulation",13,"封装分割","把面板或条带上的多个封装单元分割为独立器件。","后处理与成型",["route-variant-wire-bond","route-variant-flip-chip"]],
+    ["process-burn-in",14,"老化与可靠性筛选","对部分产品执行受控温度、电应力或抽样可靠性筛选；并非所有器件逐颗执行。","测试与质量",["route-variant-wire-bond","route-variant-flip-chip"]],
+    ["process-electrical-test",15,"电性能测试","使用自动测试设备执行功能、电参数或分档测试。","测试与质量",["route-variant-wire-bond","route-variant-flip-chip"]],
+    ["process-final-inspection",16,"最终检测与计量","检查封装外观、尺寸和缺陷；设备组合随封装类型和质量要求变化。","测试与质量",["route-variant-wire-bond","route-variant-flip-chip"]],
+    ["process-packing",17,"编带、托盘与出货包装","按照器件形态完成编带、托盘、标签和防潮包装等出货准备。","包装与出货",["route-variant-wire-bond","route-variant-flip-chip"]]
   ],
   "equipmentCategories": [
+    ["equipment-incoming-inspection","来料检查与晶圆检测设备","用于标识、外观、尺寸或基础缺陷检查；具体组合取决于来料规范。"],
+    ["equipment-wafer-mounter","晶圆贴膜装框设备","用于晶圆、切割膜和框架的贴合与装载。"],
+    ["equipment-wafer-bumping-line","晶圆凸点与互连加工设备","用于部分倒装路线的凸点形成或相关晶圆级互连加工。"],
     ["equipment-wafer-grinder","晶圆减薄设备","用于晶圆背磨、减薄及相关精密加工。"],
+    ["equipment-wafer-cleaner","晶圆清洗与干燥设备","用于后段处理中的清洗、漂洗和干燥。"],
     ["equipment-dicing-system","晶圆切割设备","用于机械或其他方式分割晶圆。"],
     ["equipment-die-bonder","固晶设备","用于裸片拾取、定位和贴装。"],
     ["equipment-flip-chip-bonder","倒装贴合设备","用于倒装裸片的高精度对准和贴合。"],
     ["equipment-wire-bonder","引线键合设备","用于裸片与封装端子之间的金属线键合。"],
+    ["equipment-underfill-dispenser","底部填充点胶设备","用于在部分倒装结构中施加底部填充材料。"],
     ["equipment-molding-system","塑封设备","用于树脂成型和封装保护。"],
+    ["equipment-curing-oven","固化炉与温控设备","用于塑封后固化及受控热处理。"],
     ["equipment-plating-marking-line","电镀与标记设备","用于外部表面处理和器件标记；首版尚未发布厂商能力。"],
     ["equipment-singulation-system","封装分割设备","用于封装条带或面板的切割与分离。"],
+    ["equipment-burn-in-system","老化与可靠性筛选设备","用于受控温度和电应力下的筛选或抽样验证。"],
     ["equipment-ate","自动测试设备（ATE）","用于半导体器件电性能和功能测试。"],
-    ["equipment-package-inspection","封装检测与计量设备","用于封装外观、尺寸、缺陷和过程控制检查。"]
+    ["equipment-package-inspection","封装检测与计量设备","用于封装外观、尺寸、缺陷和过程控制检查。"],
+    ["equipment-device-packing","器件编带与包装设备","用于编带、托盘装载、标签或防潮包装等出货准备。"]
   ],
   "capabilities": [
     ["capability-disco-grinder","org-disco","equipment-wafer-grinder","DISCO 公开资料支持其提供晶圆减薄/磨削设备。","evidence-disco-grinding-dicing-capability"],

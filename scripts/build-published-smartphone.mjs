@@ -47,7 +47,7 @@ const PERIOD = {
   label: YEAR
 };
 const DATASET_ID = "dataset-smartphone-published-2023";
-const DEFAULT_DATASET_VERSION = "globe-chain-smartphone-2023.13";
+const DEFAULT_DATASET_VERSION = "globe-chain-smartphone-2023.14";
 const DATASET_VERSION = process.env.GLOBECHAIN_DATASET_VERSION?.trim() || DEFAULT_DATASET_VERSION;
 const PUBLISHED_DIR = resolve(ROOT, "data/published");
 const RELEASE_DIR = resolve(PUBLISHED_DIR, "releases/generic-smartphone", DATASET_VERSION);
@@ -57,7 +57,7 @@ const MANIFEST_PATH = resolve(OUTPUT_DIR, "manifest.json");
 const ACTIVE_MANIFEST_PATH = resolve(PUBLISHED_DIR, "active-manifest.json");
 const COMPAT_MANIFEST_PATH = resolve(PUBLISHED_DIR, "manifest.json");
 const CONTENT_VERSION_ID = "content-smartphone-route-2023-3";
-const PROCESS_CONTENT_VERSION_ID = "content-smartphone-packaging-process-2023-1";
+const PROCESS_CONTENT_VERSION_ID = "content-smartphone-packaging-process-2023-2";
 const SOURCE_IDS = {
   wdi: "source-world-bank-wdi",
   comtrade: "source-un-comtrade",
@@ -228,19 +228,22 @@ function applyManufacturingProcessContent(fixture, content) {
   fixture.contentVersions.push({
     id: PROCESS_CONTENT_VERSION_ID,
     productId: fixture.productId,
-    version: "smartphone-packaging-process-2023.1",
+    version: "smartphone-packaging-process-2023.2",
     status: "published",
     createdAt: "2026-08-28",
     publishedAt: "2026-08-28",
     sourceIds: content.sources.map((source) => source.id),
-    notes: "首批半导体封装工序、设备类别与厂商能力内容；不包含客户供货关系。"
+    notes: "半导体封装工艺路线结构化：增加线焊/倒装分支、18 道工序和逐工序设备证据缺口；不包含客户供货关系。"
   });
   fixture.organizations = content.organizations.map((organization) => ({ ...organization, ...metadata }));
   fixture.facilities = content.facilities.map((facility) => ({ ...facility, ...metadata, contentVersionId: PROCESS_CONTENT_VERSION_ID }));
   fixture.manufacturingProcessChains = content.processChains.map((chain) => ({ ...chain, ...metadata, contentVersionId: PROCESS_CONTENT_VERSION_ID }));
-  fixture.manufacturingProcessSteps = content.processSteps.map(([id, order, name, description]) => ({
-    id, processChainId: "process-chain-semiconductor-packaging", order, name, description,
-    inputItemIds: [], outputItemIds: [], sourceIds: ["source-packaging-process-methodology"],
+  fixture.manufacturingRouteVariants = content.routeVariants.map((variant) => ({ ...variant, ...metadata, contentVersionId: PROCESS_CONTENT_VERSION_ID }));
+  fixture.manufacturingProcessSteps = content.processSteps.map(([id, order, name, description, phase, routeVariantIds]) => ({
+    id, processChainId: "process-chain-semiconductor-packaging", order, name, description, phase, routeVariantIds,
+    inputItemIds: id === "process-incoming-inspection" ? ["semiconductor-wafer"] : [],
+    outputItemIds: id === "process-packing" ? ["chip-packaging"] : [],
+    sourceIds: ["source-packaging-process-methodology"],
     evidenceIds: ["evidence-packaging-process-curation"], limitations: [], ...metadata,
     contentVersionId: PROCESS_CONTENT_VERSION_ID
   }));
@@ -1522,8 +1525,11 @@ function assertBuildInvariants(fixture, comtradeRaw) {
   if (fixture.storyGraph.flows.some((flow) => flow.evidenceLevel === "bilateral_supported")) {
     throw new Error("The current route has no direct bilateral evidence");
   }
-  if (fixture.manufacturingProcessSteps.length !== 10 || fixture.equipmentCategories.length !== 10) {
-    throw new Error("Expected ten initial packaging steps and equipment categories");
+  if (fixture.manufacturingProcessSteps.length !== 18 || fixture.equipmentCategories.length !== 18) {
+    throw new Error("Expected eighteen structured packaging steps and equipment categories");
+  }
+  if (fixture.manufacturingRouteVariants.length !== 2 || fixture.manufacturingRouteVariants.some((variant) => variant.stepIds.length < 15)) {
+    throw new Error("Expected two reusable packaging route variants with explicit step membership");
   }
   if (fixture.organizationCapabilities.length !== 9) {
     throw new Error("Expected nine evidence-backed manufacturer capability records");

@@ -21,6 +21,7 @@ export default async function ManufacturingProcessPage({
   const equipmentCount = new Set(view.steps.flatMap((step) => step.requirements.flatMap((requirement) => requirement.equipmentCategory ? [requirement.equipmentCategory.id] : []))).size;
   const capabilityCount = view.steps.reduce((total, step) => total + step.requirements.reduce((sum, requirement) => sum + requirement.capabilities.length, 0), 0);
   const commercialRelationshipCount = view.steps.reduce((total, step) => total + step.requirements.reduce((sum, requirement) => sum + requirement.capabilities.filter(({ capability }) => capability.commercialRelationshipClaimed).length, 0), 0);
+  const equipmentWithManufacturerCount = new Set(view.steps.flatMap((step) => step.requirements.filter((requirement) => requirement.capabilities.length > 0).flatMap((requirement) => requirement.equipmentCategory ? [requirement.equipmentCategory.id] : []))).size;
 
   return <SiteShell>
     <div className="content-column wide-column">
@@ -42,9 +43,22 @@ export default async function ManufacturingProcessPage({
         <StatCard label="关键工序" value={view.steps.length} detail="首批代表性拆解" />
         <StatCard label="设备类别" value={equipmentCount} detail="按工序关联" />
         <StatCard label="厂商能力记录" value={capabilityCount} detail={`${view.organizations.length} 家企业`} />
+        <StatCard label="厂商证据覆盖" value={`${equipmentWithManufacturerCount}/${equipmentCount}`} detail="其余设备类别明确保留为待补" />
         <StatCard label="已证实客户供货关系" value={commercialRelationshipCount} detail="没有证据时保持 0 条关系记录" />
         <StatCard label="适用期间" value={<PeriodLabel period={view.chain.period} />} detail={view.datasetVersion.version} />
       </div>
+
+      <section className="section-block" aria-labelledby="process-variants-title">
+        <div className="section-heading"><div><p className="eyebrow">Route variants</p><h2 id="process-variants-title">先选择工艺路线，再阅读具体工序</h2></div><span className="section-caption">不同路线共享部分工序，也包含互相替代的步骤</span></div>
+        <div className="process-variant-grid">
+          {view.routeVariants.map((variant) => <article className="process-variant-card" key={variant.id}>
+            <div><span className="card-kicker">{variant.stepIds.length} 道关联工序</span><h3>{variant.name}</h3></div>
+            <p>{variant.description}</p>
+            <strong>{variant.applicability}</strong>
+            <small>{variant.limitations.join("；")}</small>
+          </article>)}
+        </div>
+      </section>
 
       <section className="section-block" aria-labelledby="process-flow-title">
         <div className="section-heading"><div><p className="eyebrow">Process sequence</p><h2 id="process-flow-title">从晶圆后段到封装测试</h2></div><span className="section-caption">不同封装类型可能跳过、替换或重排部分工序</span></div>
@@ -52,7 +66,7 @@ export default async function ManufacturingProcessPage({
           {view.steps.map((step) => <li className="manufacturing-step" key={step.step.id}>
             <div className="manufacturing-step-index">{String(step.step.order + 1).padStart(2, "0")}</div>
             <div className="manufacturing-step-main">
-              <div className="manufacturing-step-heading"><div><h3>{step.step.name}</h3><p>{step.step.description}</p></div><span className="coverage-status coverage-status-route_published">工艺背景已整理</span></div>
+              <div className="manufacturing-step-heading"><div><span className="card-kicker">{step.step.phase}</span><h3>{step.step.name}</h3><p>{step.step.description}</p><div className="process-route-tags">{step.routeVariants.map((variant) => <span key={variant.id}>{variant.name}</span>)}</div></div><span className="coverage-status coverage-status-route_published">工艺背景已整理</span></div>
               {step.requirements.map((requirement) => <section className="equipment-requirement" key={requirement.requirement.id}>
                 <div className="equipment-requirement-heading"><div><span className="card-kicker">主要设备类别</span><h4>{requirement.equipmentCategory?.name ?? requirement.requirement.name}</h4></div><span className="method-chip">{requirement.requirement.necessity === "core" ? "核心设备" : "辅助设备"}</span></div>
                 <p>{requirement.equipmentCategory?.description ?? requirement.requirement.description}</p>

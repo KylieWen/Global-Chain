@@ -92,6 +92,7 @@ quality_note
 ## 制造工艺、设备与企业能力模型
 
 - `ManufacturingProcessChain`：某个商品或部件的代表性工艺链及适用范围。
+- `ManufacturingRouteVariant`：同一工艺链内可选择的技术路线及其适用工序，例如线焊或倒装；路线不是特定工厂的实际生产记录。
 - `ManufacturingProcessStep`：有顺序的具体工序；不同技术路线可以跳过或替换步骤。
 - `ProcessRequirement`：工序所需设备、材料、耗材、软件或服务。
 - `EquipmentCategory`：通用设备类别，不等同于某个厂商型号。

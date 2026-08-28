@@ -487,6 +487,14 @@ p { line-height: 1.7; }
 .method-details > .method-strip { margin-top: 0.4rem; }
 
 .coverage-list { display: grid; gap: 0.65rem; }
+.process-variant-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
+.process-variant-card { display: grid; gap: 0.7rem; padding: 1.1rem; border: 1px solid #cbdcf3; border-radius: 0.9rem; background: linear-gradient(135deg, #f4f8ff, #fff); }
+.process-variant-card h3 { margin: 0.35rem 0 0; color: var(--navy); }
+.process-variant-card p, .process-variant-card small { margin: 0; color: var(--ink-soft); }
+.process-variant-card strong { color: var(--blue); font-size: 0.78rem; }
+.process-variant-card small { font-size: 0.7rem; }
+.process-route-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.65rem; }
+.process-route-tags span { padding: 0.25rem 0.48rem; border-radius: 999px; color: #2459ac; background: var(--blue-soft); font-size: 0.66rem; font-weight: 700; }
 .coverage-details > summary { list-style: none; cursor: pointer; }
 .coverage-details > summary::-webkit-details-marker { display: none; }
 .coverage-summary::after { content: "+"; color: var(--muted); font-size: 1.2rem; }
@@ -591,6 +599,7 @@ p { line-height: 1.7; }
 @media (max-width: 640px) { .map-country-row { grid-template-columns: 1fr; gap: 0.3rem; } }
 @media (max-width: 900px) { .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .category-grid { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .process-variant-grid { grid-template-columns: 1fr; } }
 @media (max-width: 900px) { .country-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .country-grid { grid-template-columns: 1fr; } }
 @media (max-width: 900px) { .home-entry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .home-method-strip { grid-template-columns: 1fr; } }

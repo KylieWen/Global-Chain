@@ -26,6 +26,7 @@ import {
   EquipmentCategorySchema,
   FacilitySchema,
   ManufacturingProcessChainSchema,
+  ManufacturingRouteVariantSchema,
   ManufacturingProcessStepSchema,
   OrganizationCapabilitySchema,
   OrganizationSchema,
@@ -56,6 +57,7 @@ export const ProductFixtureSchema = z
     organizations: z.array(OrganizationSchema).default([]),
     facilities: z.array(FacilitySchema).default([]),
     manufacturingProcessChains: z.array(ManufacturingProcessChainSchema).default([]),
+    manufacturingRouteVariants: z.array(ManufacturingRouteVariantSchema).default([]),
     manufacturingProcessSteps: z.array(ManufacturingProcessStepSchema).default([]),
     equipmentCategories: z.array(EquipmentCategorySchema).default([]),
     processRequirements: z.array(ProcessRequirementSchema).default([]),
@@ -82,6 +84,7 @@ export const ProductFixtureSchema = z
     const organizationIds = new Set(fixture.organizations.map((organization) => organization.id));
     const processChainIds = new Set(fixture.manufacturingProcessChains.map((chain) => chain.id));
     const processStepIds = new Set(fixture.manufacturingProcessSteps.map((step) => step.id));
+    const processRouteVariantIds = new Set(fixture.manufacturingRouteVariants.map((variant) => variant.id));
     const equipmentCategoryIds = new Set(fixture.equipmentCategories.map((equipment) => equipment.id));
 
     const checkUnique = (values: string[], path: (string | number)[], label: string) => {
@@ -134,6 +137,7 @@ export const ProductFixtureSchema = z
     checkUnique(fixture.organizations.map((record) => record.id), ["organizations"], "Organization");
     checkUnique(fixture.facilities.map((record) => record.id), ["facilities"], "Facility");
     checkUnique(fixture.manufacturingProcessChains.map((record) => record.id), ["manufacturingProcessChains"], "Manufacturing process chain");
+    checkUnique(fixture.manufacturingRouteVariants.map((record) => record.id), ["manufacturingRouteVariants"], "Manufacturing route variant");
     checkUnique(fixture.manufacturingProcessSteps.map((record) => record.id), ["manufacturingProcessSteps"], "Manufacturing process step");
     checkUnique(fixture.equipmentCategories.map((record) => record.id), ["equipmentCategories"], "Equipment category");
     checkUnique(fixture.processRequirements.map((record) => record.id), ["processRequirements"], "Process requirement");
@@ -878,9 +882,19 @@ export const ProductFixtureSchema = z
       checkContentVersionReference(chain.contentVersionId, ["manufacturingProcessChains", index, "contentVersionId"], "Manufacturing process chain");
     });
 
+    fixture.manufacturingRouteVariants.forEach((variant, index) => {
+      if (!processChainIds.has(variant.processChainId)) context.addIssue({ code: "custom", path: ["manufacturingRouteVariants", index, "processChainId"], message: "Manufacturing route variant references an unknown chain" });
+      variant.stepIds.forEach((stepId) => { if (!processStepIds.has(stepId)) context.addIssue({ code: "custom", path: ["manufacturingRouteVariants", index, "stepIds"], message: `Manufacturing route variant references unknown step ${stepId}` }); });
+      checkSourceReferences(variant.sourceIds, ["manufacturingRouteVariants", index, "sourceIds"], "Manufacturing route variant");
+      checkEvidenceReferences(variant.evidenceIds, variant.sourceIds, ["manufacturingRouteVariants", index, "evidenceIds"], "Manufacturing route variant");
+      checkDatasetReference(variant.datasetVersionId, ["manufacturingRouteVariants", index, "datasetVersionId"], "Manufacturing route variant");
+      checkContentVersionReference(variant.contentVersionId, ["manufacturingRouteVariants", index, "contentVersionId"], "Manufacturing route variant");
+    });
+
     fixture.manufacturingProcessSteps.forEach((step, index) => {
       if (!processChainIds.has(step.processChainId)) context.addIssue({ code: "custom", path: ["manufacturingProcessSteps", index, "processChainId"], message: "Manufacturing process step references an unknown chain" });
       [...step.inputItemIds, ...step.outputItemIds].forEach((itemId) => { if (!itemIds.has(itemId)) context.addIssue({ code: "custom", path: ["manufacturingProcessSteps", index], message: `Manufacturing process step references unknown item ${itemId}` }); });
+      step.routeVariantIds.forEach((variantId) => { if (!processRouteVariantIds.has(variantId)) context.addIssue({ code: "custom", path: ["manufacturingProcessSteps", index, "routeVariantIds"], message: `Manufacturing process step references unknown route variant ${variantId}` }); });
       checkSourceReferences(step.sourceIds, ["manufacturingProcessSteps", index, "sourceIds"], "Manufacturing process step");
       checkEvidenceReferences(step.evidenceIds, step.sourceIds, ["manufacturingProcessSteps", index, "evidenceIds"], "Manufacturing process step");
       checkDatasetReference(step.datasetVersionId, ["manufacturingProcessSteps", index, "datasetVersionId"], "Manufacturing process step");

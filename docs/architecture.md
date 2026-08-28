@@ -55,7 +55,7 @@ Node、pnpm、Next.js、React、TypeScript、ESLint 和 Vitest 的实际版本�
 
 ### 制造工艺与设备能力
 
-工艺深度层独立维护 `ManufacturingProcessChain`、`ManufacturingProcessStep`、`ProcessRequirement`、`EquipmentCategory`、`Organization`、`Facility` 和 `OrganizationCapability`。它通过商品 ID 连接供应链层，但不自动生成国家间流向。企业产品或年报只能支持“厂商具备某设备类别能力”；只有明确披露客户、设备、期间和关系的来源才能建立商业供货关系记录。
+工艺深度层独立维护 `ManufacturingProcessChain`、`ManufacturingRouteVariant`、`ManufacturingProcessStep`、`ProcessRequirement`、`EquipmentCategory`、`Organization`、`Facility` 和 `OrganizationCapability`。路线变体显式保存适用工序，避免把线焊、倒装或未来先进封装误画成一条必经直线。它通过商品 ID 连接供应链层，但不自动生成国家间流向。企业产品或年报只能支持“厂商具备某设备类别能力”；只有明确披露客户、设备、期间和关系的来源才能建立商业供货关系记录。
 
 ## 存储分离与连接
 

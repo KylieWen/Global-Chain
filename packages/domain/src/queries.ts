@@ -12,6 +12,7 @@ import type {
   MacroIndicatorObservation,
   MaterialTradeObservation,
   ManufacturingProcessChain,
+  ManufacturingRouteVariant,
   ManufacturingProcessStep,
   EquipmentCategory,
   ProcessRequirement,
@@ -51,6 +52,7 @@ type ReadonlyMaterialTradeObservation = DeepReadonly<MaterialTradeObservation>;
 type ReadonlyMacroIndicatorObservation = DeepReadonly<MacroIndicatorObservation>;
 type ReadonlyIndicatorDefinition = DeepReadonly<IndicatorDefinition>;
 type ReadonlyManufacturingProcessChain = DeepReadonly<ManufacturingProcessChain>;
+type ReadonlyManufacturingRouteVariant = DeepReadonly<ManufacturingRouteVariant>;
 type ReadonlyManufacturingProcessStep = DeepReadonly<ManufacturingProcessStep>;
 type ReadonlyEquipmentCategory = DeepReadonly<EquipmentCategory>;
 type ReadonlyProcessRequirement = DeepReadonly<ProcessRequirement>;
@@ -173,6 +175,7 @@ export interface ResolvedProcessRequirementView {
 
 export interface ResolvedManufacturingProcessStepView {
   readonly step: ReadonlyManufacturingProcessStep;
+  readonly routeVariants: readonly ReadonlyManufacturingRouteVariant[];
   readonly requirements: readonly ResolvedProcessRequirementView[];
   readonly sources: readonly ReadonlySource[];
   readonly evidence: readonly ResolvedEvidenceView[];
@@ -184,6 +187,7 @@ export interface ManufacturingProcessChainView {
   readonly item: ReadonlyItem | null;
   readonly componentItem: ReadonlyItem | null;
   readonly steps: readonly ResolvedManufacturingProcessStepView[];
+  readonly routeVariants: readonly ReadonlyManufacturingRouteVariant[];
   readonly organizations: readonly ReadonlyOrganization[];
   readonly sources: readonly ReadonlySource[];
   readonly evidence: readonly ResolvedEvidenceView[];
@@ -1609,6 +1613,7 @@ export function getManufacturingProcessChain(
         });
       return Object.freeze({
         step,
+        routeVariants: freezeArray(fixture.manufacturingRouteVariants.filter((variant) => step.routeVariantIds.includes(variant.id))),
         requirements: freezeArray(requirements),
         sources: uniqueSources([...sourcesForIds(fixture, step.sourceIds), ...stepEvidence.map((record) => record.source), ...requirements.flatMap((requirement) => requirement.sources)]),
         evidence: stepEvidence
@@ -1634,6 +1639,7 @@ export function getManufacturingProcessChain(
     item: fixture.items.find((candidate) => candidate.id === chain.itemId) ?? null,
     componentItem,
     steps: freezeArray(steps),
+    routeVariants: freezeArray(fixture.manufacturingRouteVariants.filter((variant) => variant.processChainId === chain.id)),
     organizations: freezeArray(organizations),
     sources,
     evidence,

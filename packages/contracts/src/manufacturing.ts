@@ -68,12 +68,32 @@ export const ManufacturingProcessChainSchema = z.object({
 }).superRefine(validateFactMetadata);
 export type ManufacturingProcessChain = z.infer<typeof ManufacturingProcessChainSchema>;
 
+export const ManufacturingRouteVariantSchema = z.object({
+  id: IdSchema,
+  processChainId: IdSchema,
+  name: NonEmptyStringSchema,
+  description: NonEmptyStringSchema,
+  stepIds: z.array(IdSchema).min(1),
+  applicability: NonEmptyStringSchema,
+  period: PeriodSchema,
+  sourceIds: SourceIdsSchema,
+  evidenceIds: EvidenceIdsSchema.default([]),
+  method: DataMethodSchema,
+  dataStatus: FactStatusSchema,
+  datasetVersionId: NullableIdSchema,
+  contentVersionId: NullableIdSchema.default(null),
+  limitations: z.array(NonEmptyStringSchema).min(1)
+}).superRefine(validateFactMetadata);
+export type ManufacturingRouteVariant = z.infer<typeof ManufacturingRouteVariantSchema>;
+
 export const ManufacturingProcessStepSchema = z.object({
   id: IdSchema,
   processChainId: IdSchema,
   order: z.number().int().nonnegative(),
   name: NonEmptyStringSchema,
   description: NonEmptyStringSchema,
+  phase: NonEmptyStringSchema.default("未分组"),
+  routeVariantIds: z.array(IdSchema).default([]),
   inputItemIds: z.array(IdSchema).default([]),
   outputItemIds: z.array(IdSchema).default([]),
   period: PeriodSchema,

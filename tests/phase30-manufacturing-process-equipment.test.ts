@@ -11,7 +11,7 @@ describe("phase 30 manufacturing process, equipment and manufacturer capabilitie
     const queries = createProductQueryService(repository);
     const view = queries.getManufacturingProcessChain("generic-smartphone", "process-chain-semiconductor-packaging");
 
-    expect(view?.steps).toHaveLength(10);
+    expect(view?.steps).toHaveLength(18);
     expect(view?.steps.map(({ step }) => step.name)).toEqual(expect.arrayContaining([
       "晶圆减薄", "晶圆切割", "固晶 / Die Attach", "引线键合", "塑封 / Encapsulation", "电性能测试"
     ]));
@@ -44,7 +44,7 @@ describe("phase 30 manufacturing process, equipment and manufacturer capabilitie
   it("keeps mock fixtures untouched and validates the new published fixture", () => {
     const activeManifest = JSON.parse(readFileSync(resolve("data/published/manifest.json"), "utf8"));
     const fixturePath = resolve("data/published", activeManifest.fixtures[0].path);
-    expect(ProductFixtureSchema.parse(JSON.parse(readFileSync(fixturePath, "utf8"))).datasetVersion.version).toBe("globe-chain-smartphone-2023.13");
+    expect(ProductFixtureSchema.parse(JSON.parse(readFileSync(fixturePath, "utf8"))).datasetVersion.version).toBe("globe-chain-smartphone-2023.14");
     expect(readFileSync(resolve("data/samples/smartphone/fixture.json"), "utf8")).not.toContain("process-chain-semiconductor-packaging");
   });
 });
