@@ -22,6 +22,15 @@ import {
 } from "./provenance";
 import { IdSchema, NonEmptyStringSchema } from "./primitives";
 import { StoryGraphSchema } from "./story";
+import {
+  EquipmentCategorySchema,
+  FacilitySchema,
+  ManufacturingProcessChainSchema,
+  ManufacturingProcessStepSchema,
+  OrganizationCapabilitySchema,
+  OrganizationSchema,
+  ProcessRequirementSchema
+} from "./manufacturing";
 
 export const ProductFixtureSchema = z
   .object({
@@ -44,6 +53,13 @@ export const ProductFixtureSchema = z
     macroIndicators: z.array(MacroIndicatorObservationSchema),
     /** Optional for backwards compatibility with draft/mock fixtures. */
     indicatorDefinitions: z.array(IndicatorDefinitionSchema).default([]),
+    organizations: z.array(OrganizationSchema).default([]),
+    facilities: z.array(FacilitySchema).default([]),
+    manufacturingProcessChains: z.array(ManufacturingProcessChainSchema).default([]),
+    manufacturingProcessSteps: z.array(ManufacturingProcessStepSchema).default([]),
+    equipmentCategories: z.array(EquipmentCategorySchema).default([]),
+    processRequirements: z.array(ProcessRequirementSchema).default([]),
+    organizationCapabilities: z.array(OrganizationCapabilitySchema).default([]),
     /** Human-readable release notes for known missing or semantically limited data. */
     missingDataNotes: z.array(NonEmptyStringSchema).default([]),
     warnings: z.array(NonEmptyStringSchema)
@@ -63,6 +79,10 @@ export const ProductFixtureSchema = z
     const fixturePeriod = fixture.storyGraph.period;
     const datasetVersionIds = new Set([fixture.datasetVersion.id]);
     const contentVersionIds = new Set(fixture.contentVersions.map((version) => version.id));
+    const organizationIds = new Set(fixture.organizations.map((organization) => organization.id));
+    const processChainIds = new Set(fixture.manufacturingProcessChains.map((chain) => chain.id));
+    const processStepIds = new Set(fixture.manufacturingProcessSteps.map((step) => step.id));
+    const equipmentCategoryIds = new Set(fixture.equipmentCategories.map((equipment) => equipment.id));
 
     const checkUnique = (values: string[], path: (string | number)[], label: string) => {
       if (new Set(values).size !== values.length) {
@@ -111,6 +131,13 @@ export const ProductFixtureSchema = z
       ["indicatorDefinitions"],
       "Indicator definition"
     );
+    checkUnique(fixture.organizations.map((record) => record.id), ["organizations"], "Organization");
+    checkUnique(fixture.facilities.map((record) => record.id), ["facilities"], "Facility");
+    checkUnique(fixture.manufacturingProcessChains.map((record) => record.id), ["manufacturingProcessChains"], "Manufacturing process chain");
+    checkUnique(fixture.manufacturingProcessSteps.map((record) => record.id), ["manufacturingProcessSteps"], "Manufacturing process step");
+    checkUnique(fixture.equipmentCategories.map((record) => record.id), ["equipmentCategories"], "Equipment category");
+    checkUnique(fixture.processRequirements.map((record) => record.id), ["processRequirements"], "Process requirement");
+    checkUnique(fixture.organizationCapabilities.map((record) => record.id), ["organizationCapabilities"], "Organization capability");
     const indicatorKeys = fixture.indicatorDefinitions.map((definition) => definition.indicator);
     if (new Set(indicatorKeys).size !== indicatorKeys.length) {
       context.addIssue({
@@ -824,6 +851,68 @@ export const ProductFixtureSchema = z
         ["indicatorDefinitions", index, "datasetVersionId"],
         "Indicator definition"
       );
+    });
+
+    fixture.organizations.forEach((organization, index) => {
+      checkSourceReferences(organization.sourceIds, ["organizations", index, "sourceIds"], "Organization");
+      checkDatasetReference(organization.datasetVersionId, ["organizations", index, "datasetVersionId"], "Organization");
+      if (organization.headquartersEntityId && !entityIds.has(organization.headquartersEntityId)) {
+        context.addIssue({ code: "custom", path: ["organizations", index, "headquartersEntityId"], message: "Organization references an unknown headquarters entity" });
+      }
+    });
+
+    fixture.facilities.forEach((facility, index) => {
+      if (!organizationIds.has(facility.organizationId)) context.addIssue({ code: "custom", path: ["facilities", index, "organizationId"], message: "Facility references an unknown organization" });
+      if (!entityIds.has(facility.entityId)) context.addIssue({ code: "custom", path: ["facilities", index, "entityId"], message: "Facility references an unknown entity" });
+      checkSourceReferences(facility.sourceIds, ["facilities", index, "sourceIds"], "Facility");
+      checkEvidenceReferences(facility.evidenceIds, facility.sourceIds, ["facilities", index, "evidenceIds"], "Facility");
+      checkDatasetReference(facility.datasetVersionId, ["facilities", index, "datasetVersionId"], "Facility");
+      checkContentVersionReference(facility.contentVersionId, ["facilities", index, "contentVersionId"], "Facility");
+    });
+
+    fixture.manufacturingProcessChains.forEach((chain, index) => {
+      if (!itemIds.has(chain.itemId)) context.addIssue({ code: "custom", path: ["manufacturingProcessChains", index, "itemId"], message: "Manufacturing process chain references an unknown item" });
+      checkSourceReferences(chain.sourceIds, ["manufacturingProcessChains", index, "sourceIds"], "Manufacturing process chain");
+      checkEvidenceReferences(chain.evidenceIds, chain.sourceIds, ["manufacturingProcessChains", index, "evidenceIds"], "Manufacturing process chain");
+      checkDatasetReference(chain.datasetVersionId, ["manufacturingProcessChains", index, "datasetVersionId"], "Manufacturing process chain");
+      checkContentVersionReference(chain.contentVersionId, ["manufacturingProcessChains", index, "contentVersionId"], "Manufacturing process chain");
+    });
+
+    fixture.manufacturingProcessSteps.forEach((step, index) => {
+      if (!processChainIds.has(step.processChainId)) context.addIssue({ code: "custom", path: ["manufacturingProcessSteps", index, "processChainId"], message: "Manufacturing process step references an unknown chain" });
+      [...step.inputItemIds, ...step.outputItemIds].forEach((itemId) => { if (!itemIds.has(itemId)) context.addIssue({ code: "custom", path: ["manufacturingProcessSteps", index], message: `Manufacturing process step references unknown item ${itemId}` }); });
+      checkSourceReferences(step.sourceIds, ["manufacturingProcessSteps", index, "sourceIds"], "Manufacturing process step");
+      checkEvidenceReferences(step.evidenceIds, step.sourceIds, ["manufacturingProcessSteps", index, "evidenceIds"], "Manufacturing process step");
+      checkDatasetReference(step.datasetVersionId, ["manufacturingProcessSteps", index, "datasetVersionId"], "Manufacturing process step");
+      checkContentVersionReference(step.contentVersionId, ["manufacturingProcessSteps", index, "contentVersionId"], "Manufacturing process step");
+    });
+
+    fixture.equipmentCategories.forEach((equipment, index) => {
+      checkSourceReferences(equipment.sourceIds, ["equipmentCategories", index, "sourceIds"], "Equipment category");
+      checkDatasetReference(equipment.datasetVersionId, ["equipmentCategories", index, "datasetVersionId"], "Equipment category");
+    });
+
+    fixture.processRequirements.forEach((requirement, index) => {
+      if (!processStepIds.has(requirement.processStepId)) context.addIssue({ code: "custom", path: ["processRequirements", index, "processStepId"], message: "Process requirement references an unknown process step" });
+      if (requirement.equipmentCategoryId && !equipmentCategoryIds.has(requirement.equipmentCategoryId)) context.addIssue({ code: "custom", path: ["processRequirements", index, "equipmentCategoryId"], message: "Process requirement references an unknown equipment category" });
+      if (requirement.itemId && !itemIds.has(requirement.itemId)) context.addIssue({ code: "custom", path: ["processRequirements", index, "itemId"], message: "Process requirement references an unknown item" });
+      checkSourceReferences(requirement.sourceIds, ["processRequirements", index, "sourceIds"], "Process requirement");
+      checkEvidenceReferences(requirement.evidenceIds, requirement.sourceIds, ["processRequirements", index, "evidenceIds"], "Process requirement");
+      checkDatasetReference(requirement.datasetVersionId, ["processRequirements", index, "datasetVersionId"], "Process requirement");
+      checkContentVersionReference(requirement.contentVersionId, ["processRequirements", index, "contentVersionId"], "Process requirement");
+    });
+
+    fixture.organizationCapabilities.forEach((capability, index) => {
+      if (!organizationIds.has(capability.organizationId)) context.addIssue({ code: "custom", path: ["organizationCapabilities", index, "organizationId"], message: "Organization capability references an unknown organization" });
+      if (!equipmentCategoryIds.has(capability.equipmentCategoryId)) context.addIssue({ code: "custom", path: ["organizationCapabilities", index, "equipmentCategoryId"], message: "Organization capability references an unknown equipment category" });
+      if (capability.customerOrganizationId && !organizationIds.has(capability.customerOrganizationId)) context.addIssue({ code: "custom", path: ["organizationCapabilities", index, "customerOrganizationId"], message: "Organization capability references an unknown customer organization" });
+      checkSourceReferences(capability.sourceIds, ["organizationCapabilities", index, "sourceIds"], "Organization capability");
+      checkEvidenceReferences(capability.evidenceIds, capability.sourceIds, ["organizationCapabilities", index, "evidenceIds"], "Organization capability");
+      checkDatasetReference(capability.datasetVersionId, ["organizationCapabilities", index, "datasetVersionId"], "Organization capability");
+      checkContentVersionReference(capability.contentVersionId, ["organizationCapabilities", index, "contentVersionId"], "Organization capability");
+      const supportTypes = capability.evidenceIds.map((id) => evidenceById.get(id)?.supportType);
+      if (capability.capabilityEvidenceLevel === "manufacturer_supported" && !supportTypes.includes("manufacturer_capability")) context.addIssue({ code: "custom", path: ["organizationCapabilities", index, "capabilityEvidenceLevel"], message: "Manufacturer-supported capability requires manufacturer_capability evidence" });
+      if (capability.capabilityEvidenceLevel === "commercial_relationship_supported" && !supportTypes.includes("commercial_relationship")) context.addIssue({ code: "custom", path: ["organizationCapabilities", index, "capabilityEvidenceLevel"], message: "Commercial relationship capability requires commercial_relationship evidence" });
     });
 
     checkContentVersionReference(

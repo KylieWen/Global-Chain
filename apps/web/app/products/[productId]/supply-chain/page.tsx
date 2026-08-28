@@ -16,7 +16,7 @@ import {
 } from "../../../../components/data-display";
 import { FlowTable } from "../../../../components/flow-table";
 import { SupplyChainGraph } from "../../../../components/supply-chain-graph";
-import { evidenceGapsPath, ledgerPath, nodePath, productPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
+import { evidenceGapsPath, ledgerPath, manufacturingProcessPath, nodePath, productPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -62,6 +62,9 @@ export default async function SupplyChainPage({
       ?? story.nodes.find((node) => node.item?.id === focusItemId)?.item?.name
       ?? focusItemId
     : "全部代表性路径";
+  const focusedProcessChains = focusItemId
+    ? overview.componentCoverage.find((coverage) => coverage.item.id === focusItemId)?.processChains ?? []
+    : [];
 
   return (
     <SiteShell>
@@ -165,6 +168,11 @@ export default async function SupplyChainPage({
             ))}
           </div>
         </section>
+
+        {focusedProcessChains.length > 0 && <section className="process-depth-callout" aria-label="工艺与设备深度入口">
+          <div><p className="eyebrow">Go deeper</p><h2>继续深入到具体工序与设备</h2><p>国家角色视图之下，还可以逐道查看制造工序、设备类别和公开资料支持的设备厂商。</p></div>
+          <div className="process-depth-callout-actions">{focusedProcessChains.map((chain) => <Link className="button button-primary" href={manufacturingProcessPath(productId, chain.id, pageContext)} key={chain.id}>{chain.title} →</Link>)}</div>
+        </section>}
 
         <SupplyChainGraph story={story} productId={productId} context={pageContext} />
 

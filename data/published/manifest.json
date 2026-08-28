@@ -3,12 +3,12 @@
   "fixtures": [
     {
       "productId": "generic-smartphone",
-      "path": "releases/generic-smartphone/globe-chain-smartphone-2023.11/fixture.json"
+      "path": "releases/generic-smartphone/globe-chain-smartphone-2023.13/fixture.json"
     }
   ],
-  "datasetVersion": "globe-chain-smartphone-2023.11",
-  "generatedAt": "2026-08-25",
-  "fixtureSha256": "eed9939a6e970e0437b3aea0301935c76015d0913c02c5fc341ff0a9cd969f5a",
+  "datasetVersion": "globe-chain-smartphone-2023.13",
+  "generatedAt": "2026-08-28",
+  "fixtureSha256": "d6c706fd16cd8775d5f686e886781363443d40c76042b92aae48cf4a4bbdb573",
   "routeContentVersion": "smartphone-route-2023.3",
   "routeContentSha256": "2d696c8171adb6c56f41bddb7a5ddebdb8f06804a167271f4c0d5e39c7627bad",
   "contentSources": [
@@ -18,7 +18,8 @@
     "../../content/evidence/semiconductor-roles-2023.json",
     "../../content/evidence-gaps/generic-smartphone-processor-memory-2023.json",
     "../../content/evidence-gaps/generic-smartphone-2023.json",
-    "../../content/evidence-gaps/generic-smartphone-components-2023.json"
+    "../../content/evidence-gaps/generic-smartphone-components-2023.json",
+    "../../content/processes/generic-smartphone-semiconductor-packaging-2023.json"
   ],
   "sourceSnapshots": [
     "raw/world-bank-wdi-2023.json",
@@ -37,10 +38,10 @@
   ],
   "release": {
     "productId": "generic-smartphone",
-    "datasetVersion": "globe-chain-smartphone-2023.11",
-    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2023.11",
+    "datasetVersion": "globe-chain-smartphone-2023.13",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2023.13",
     "immutable": true
   },
-  "activeDatasetVersion": "globe-chain-smartphone-2023.11",
+  "activeDatasetVersion": "globe-chain-smartphone-2023.13",
   "activeManifest": true
 }

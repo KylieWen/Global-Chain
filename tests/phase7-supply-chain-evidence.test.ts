@@ -320,11 +320,10 @@ describe("phase 7 supply-chain evidence interpretation", () => {
     expect(provenance.route.limitations.length).toBeGreaterThanOrEqual(5);
     expect(provenance.route.limitations.some((text) => text.includes("13 条边"))).toBe(true);
     expect(provenance.route.contentVersion?.id).toBe(routeContentVersionId);
-    expect(provenance.contentVersions).toHaveLength(1);
-    expect(provenance.contentVersions[0]).toMatchObject({
+    expect(provenance.contentVersions).toEqual(expect.arrayContaining([expect.objectContaining({
       id: routeContentVersionId,
       status: "published"
-    });
+    })]));
     expect(
       provenance.resolvedEvidence.every(
         (record) => record.source?.id === record.evidence.sourceId

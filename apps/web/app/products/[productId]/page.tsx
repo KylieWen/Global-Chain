@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getQueryService } from "../../../lib/data";
 import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../components/site-shell";
 import { ProductTree } from "../../../components/product-tree";
-import { materialObservationsPath, provenancePath, supplyChainPath } from "../../../lib/paths";
+import { manufacturingProcessPath, materialObservationsPath, provenancePath, supplyChainPath } from "../../../lib/paths";
 import { contextMismatch, readPageContext, type SearchParamsLike } from "../../../lib/context";
 import {
   PeriodLabel,
@@ -30,6 +30,7 @@ export default async function ProductOverviewPage({
   const coverageByItemId = new Map(overview.componentCoverage.map((coverage) => [coverage.item.id, coverage]));
   const publishedComponents = overview.componentCoverage.filter((coverage) => coverage.status === "route_published");
   const pendingComponents = overview.componentCoverage.filter((coverage) => coverage.status !== "route_published");
+  const processChains = [...new Map(overview.componentCoverage.flatMap((coverage) => coverage.processChains).map((chain) => [chain.id, chain])).values()];
   const mismatches = contextMismatch(pageContext, { period: overview.period.label, datasetVersion: overview.datasetVersion.version, contentVersion: provenance.route.contentVersion?.version });
 
   return (
@@ -126,6 +127,22 @@ export default async function ProductOverviewPage({
             })}
           </div>
         </section>
+
+        {processChains.length > 0 && <section className="section-block" aria-labelledby="process-depth-title">
+          <div className="section-heading">
+            <div><p className="eyebrow">Process and equipment depth</p><h2 id="process-depth-title">深入到工序、设备与厂商</h2></div>
+            <span className="section-caption">厂商能力不等于已证实供货关系</span>
+          </div>
+          <div className="process-chain-entry-grid">
+            {processChains.map((chain) => <article className="process-chain-entry" key={chain.id}>
+              <span className="card-kicker">{chain.item?.name ?? "制造工艺"}</span>
+              <h3>{chain.title}</h3>
+              <p>按工序查看所需设备类别，以及公开资料支持的设备厂商能力。</p>
+              <div className="process-chain-entry-meta"><span>{chain.stepCount} 道关键工序</span><span>{chain.equipmentCategoryCount} 类设备</span><span>{chain.manufacturerCount} 家已整理厂商</span></div>
+              <Link className="button button-primary" href={manufacturingProcessPath(productId, chain.id, pageContext)}>查看工艺与设备 →</Link>
+            </article>)}
+          </div>
+        </section>}
 
         <details className="section-block coverage-details" aria-labelledby="coverage-title">
           <summary className="section-heading coverage-summary">

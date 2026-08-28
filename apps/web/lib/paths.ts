@@ -41,6 +41,10 @@ export function materialObservationPath(productId: string, observationId: string
   return `/products/${segment(productId)}/materials/${segment(observationId)}${contextQuery(context)}`;
 }
 
+export function manufacturingProcessPath(productId: string, processChainId: string, context?: PageContext): string {
+  return `/products/${segment(productId)}/processes/${segment(processChainId)}${contextQuery(context)}`;
+}
+
 export type MapFilters = PageContext & {
   product?: string;
   country?: string;

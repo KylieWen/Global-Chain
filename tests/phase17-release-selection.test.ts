@@ -5,7 +5,7 @@ describe("phase 17 published release selection", () => {
   it("lists immutable releases and resolves a valid historical manifest", () => {
     const versions = listPublishedDatasetVersions();
     expect(versions).toEqual(expect.arrayContaining(["globe-chain-smartphone-2023.3", "globe-chain-smartphone-2023.4", "globe-chain-smartphone-2023.6"]));
-    expect(versions[0]).toBe("globe-chain-smartphone-2023.11");
+    expect(versions[0]).toBe("globe-chain-smartphone-2023.13");
     expect(getPublishedReleaseManifestPath("globe-chain-smartphone-2023.3")).toContain("globe-chain-smartphone-2023.3\\manifest.json");
   });
 

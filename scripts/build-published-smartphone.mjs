@@ -23,6 +23,7 @@ const ROUTE_CONTENT_PATH = resolve(ROOT, "content/routes/generic-smartphone-2023
 const INDUSTRY_ROLE_EVIDENCE_PATH = resolve(ROOT, "content/evidence/industry-roles-2023.json");
 const SEMICONDUCTOR_ROLE_EVIDENCE_PATH = resolve(ROOT, "content/evidence/semiconductor-roles-2023.json");
 const PROCESSOR_MEMORY_ROUTE_PATH = resolve(ROOT, "content/routes/generic-smartphone-processor-memory-2023.json");
+const PACKAGING_PROCESS_PATH = resolve(ROOT, "content/processes/generic-smartphone-semiconductor-packaging-2023.json");
 const EVIDENCE_GAP_REGISTRY_PATH = resolve(
   ROOT,
   "content/evidence-gaps/generic-smartphone-2023.json"
@@ -46,7 +47,7 @@ const PERIOD = {
   label: YEAR
 };
 const DATASET_ID = "dataset-smartphone-published-2023";
-const DEFAULT_DATASET_VERSION = "globe-chain-smartphone-2023.6";
+const DEFAULT_DATASET_VERSION = "globe-chain-smartphone-2023.13";
 const DATASET_VERSION = process.env.GLOBECHAIN_DATASET_VERSION?.trim() || DEFAULT_DATASET_VERSION;
 const PUBLISHED_DIR = resolve(ROOT, "data/published");
 const RELEASE_DIR = resolve(PUBLISHED_DIR, "releases/generic-smartphone", DATASET_VERSION);
@@ -56,6 +57,7 @@ const MANIFEST_PATH = resolve(OUTPUT_DIR, "manifest.json");
 const ACTIVE_MANIFEST_PATH = resolve(PUBLISHED_DIR, "active-manifest.json");
 const COMPAT_MANIFEST_PATH = resolve(PUBLISHED_DIR, "manifest.json");
 const CONTENT_VERSION_ID = "content-smartphone-route-2023-3";
+const PROCESS_CONTENT_VERSION_ID = "content-smartphone-packaging-process-2023-1";
 const SOURCE_IDS = {
   wdi: "source-world-bank-wdi",
   comtrade: "source-un-comtrade",
@@ -214,6 +216,56 @@ function extendDisplayCameraCatalog(fixture) {
     datasetVersionId: DATASET_ID,
     validPeriod: period()
   })));
+}
+
+function applyManufacturingProcessContent(fixture, content) {
+  const metadata = {
+    period: period(),
+    method: "curated",
+    dataStatus: "observed",
+    datasetVersionId: DATASET_ID
+  };
+  fixture.contentVersions.push({
+    id: PROCESS_CONTENT_VERSION_ID,
+    productId: fixture.productId,
+    version: "smartphone-packaging-process-2023.1",
+    status: "published",
+    createdAt: "2026-08-28",
+    publishedAt: "2026-08-28",
+    sourceIds: content.sources.map((source) => source.id),
+    notes: "首批半导体封装工序、设备类别与厂商能力内容；不包含客户供货关系。"
+  });
+  fixture.organizations = content.organizations.map((organization) => ({ ...organization, ...metadata }));
+  fixture.facilities = content.facilities.map((facility) => ({ ...facility, ...metadata, contentVersionId: PROCESS_CONTENT_VERSION_ID }));
+  fixture.manufacturingProcessChains = content.processChains.map((chain) => ({ ...chain, ...metadata, contentVersionId: PROCESS_CONTENT_VERSION_ID }));
+  fixture.manufacturingProcessSteps = content.processSteps.map(([id, order, name, description]) => ({
+    id, processChainId: "process-chain-semiconductor-packaging", order, name, description,
+    inputItemIds: [], outputItemIds: [], sourceIds: ["source-packaging-process-methodology"],
+    evidenceIds: ["evidence-packaging-process-curation"], limitations: [], ...metadata,
+    contentVersionId: PROCESS_CONTENT_VERSION_ID
+  }));
+  fixture.equipmentCategories = content.equipmentCategories.map(([id, name, description]) => ({
+    id, name, description, sourceIds: ["source-packaging-process-methodology"], ...metadata
+  }));
+  fixture.processRequirements = fixture.manufacturingProcessSteps.map((step, index) => {
+    const equipment = fixture.equipmentCategories[index];
+    return {
+      id: `requirement-${step.id}-equipment`, processStepId: step.id, requirementType: "equipment",
+      equipmentCategoryId: equipment.id, itemId: null, name: equipment.name, necessity: "core",
+      description: `该代表性工序对应的主要设备类别：${equipment.name}。`,
+      sourceIds: ["source-packaging-process-methodology"], evidenceIds: ["evidence-packaging-process-curation"],
+      limitations: ["设备类别是工艺层需求，不代表任一厂商已向指定工厂供货。"], ...metadata,
+      contentVersionId: PROCESS_CONTENT_VERSION_ID
+    };
+  });
+  const evidenceById = new Map(content.evidence.map((record) => [record.id, record]));
+  fixture.organizationCapabilities = content.capabilities.map(([id, organizationId, equipmentCategoryId, claim, evidenceId]) => ({
+    id, organizationId, equipmentCategoryId, capabilityEvidenceLevel: "manufacturer_supported",
+    claim, commercialRelationshipClaimed: false, customerOrganizationId: null,
+    sourceIds: [evidenceById.get(evidenceId).sourceId], evidenceIds: [evidenceId],
+    limitations: ["只说明厂商公开资料支持其具备该设备类别能力；不证明具体客户、订单、出货、安装地点或手机芯片用途。"],
+    ...metadata, contentVersionId: PROCESS_CONTENT_VERSION_ID
+  }));
 }
 
 function sha256(value) {
@@ -1331,7 +1383,8 @@ function buildFixture(
   semiconductorRoleContent,
   processorMemoryGapContent,
   componentGapContent,
-  gapRegistry
+  gapRegistry,
+  packagingProcessContent
 ) {
   const fixture = clone(sample);
   fixture.schemaVersion = "product-fixture.v1";
@@ -1340,7 +1393,7 @@ function buildFixture(
     id: DATASET_ID,
     name: "GlobeChain 通用智能手机 2023 published 数据集",
     version: DATASET_VERSION,
-    publishedAt: "2026-08-25",
+    publishedAt: "2026-08-28",
     sourceIds: [
       SOURCE_IDS.wdi,
       SOURCE_IDS.comtrade,
@@ -1350,6 +1403,7 @@ function buildFixture(
       SOURCE_IDS.routeMethod,
       ...(industryRoleContent.sources ?? []).map((source) => source.id),
       ...(semiconductorRoleContent.sources ?? []).map((source) => source.id)
+      ,...(packagingProcessContent.sources ?? []).map((source) => source.id)
     ],
     coverage: null,
     status: "published",
@@ -1367,12 +1421,15 @@ function buildFixture(
   );
   fixture.sources = sources;
   fixture.evidence = evidence;
+  fixture.sources.push(...packagingProcessContent.sources.map(clone));
+  fixture.evidence.push(...packagingProcessContent.evidence.map(clone));
   fixture.evidenceGaps = [...(gapRegistry.evidenceGaps ?? []), ...(processorMemoryGapContent.evidenceGaps ?? []), ...(componentGapContent.evidenceGaps ?? [])]
     .map((gap) => ({ ...clone(gap), contentVersionId: CONTENT_VERSION_ID, datasetVersionId: DATASET_ID }));
   applyCatalogMetadata(fixture);
   extendProcessorMemoryCatalog(fixture);
   extendDisplayCameraCatalog(fixture);
   applyRouteContent(fixture, routeContent);
+  applyManufacturingProcessContent(fixture, packagingProcessContent);
   fixture.tradeObservations = [
     ...buildTradeObservations(comtradeRaw),
     ...buildBilateralTradeObservations(bilateralRaw)
@@ -1395,6 +1452,7 @@ function buildFixture(
     "新增国家角色证据分别说明中国移动通信手持机生产、韩国通用电芯供应链、日本宽泛电子组件/LCD 生产以及美德进口市场；每条证据的商品和用途局限保存在 scope 中，相邻边不升级。",
     "partnerCode=0 世界总计观察与具体 partnerCode 双边观察分开保存；两个世界总计观察仍不能拼成双边事实，镜像双边报告也不平均或合并。",
     "铜和铝在当前路线中作为简化的电芯相关材料输入，中间冶炼和箔材加工阶段尚未发布。"
+    ,"半导体封装工艺层当前覆盖 10 个代表性关键工序、10 类设备和 6 家公开资料支持的设备厂商；厂商能力不等于已证实供货关系。"
   ];
   fixture.warnings = [
     "本数据集使用 2023 完整自然年；不混合其他年份或财年。",
@@ -1403,6 +1461,7 @@ function buildFixture(
     "电池供应链是有来源的代表性策展路径，不代表唯一真实路线，也不提供成本、增加值或利润分配。",
     "Comtrade 估算和质量标记保存在 qualityNote，并影响独立的金额/数量状态；运行时不请求外部 API。",
     "所有现有路线边均为 representative 且数量未知；双边海关 evidence 和 observations 不等于路线边已被证明。"
+    ,"封装工艺和设备厂商数据是独立研究层；当前没有发布任何具体客户、订单、设备安装或工厂供货关系。"
   ];
   return fixture;
 }
@@ -1462,6 +1521,18 @@ function assertBuildInvariants(fixture, comtradeRaw) {
   }
   if (fixture.storyGraph.flows.some((flow) => flow.evidenceLevel === "bilateral_supported")) {
     throw new Error("The current route has no direct bilateral evidence");
+  }
+  if (fixture.manufacturingProcessSteps.length !== 10 || fixture.equipmentCategories.length !== 10) {
+    throw new Error("Expected ten initial packaging steps and equipment categories");
+  }
+  if (fixture.organizationCapabilities.length !== 9) {
+    throw new Error("Expected nine evidence-backed manufacturer capability records");
+  }
+  if (fixture.organizationCapabilities.some((record) => record.commercialRelationshipClaimed || record.customerOrganizationId)) {
+    throw new Error("Initial manufacturer capabilities must not claim customer supply relationships");
+  }
+  if (fixture.organizationCapabilities.some((record) => record.capabilityEvidenceLevel !== "manufacturer_supported")) {
+    throw new Error("Initial capability records must remain manufacturer-supported only");
   }
   if (fixture.tradeObservations.some((row) => row.period.label !== YEAR)) throw new Error("Trade period mismatch");
   if (fixture.macroIndicators.some((row) => row.period.label !== YEAR)) throw new Error("Macro period mismatch");
@@ -1569,7 +1640,8 @@ async function main() {
     processorMemoryRouteRaw,
     processorMemoryGapContent,
     componentGapContent,
-    gapRegistry
+    gapRegistry,
+    packagingProcessContent
   ] = await Promise.all([
     readJson(SAMPLE_PATH),
     readFile(ROUTE_CONTENT_PATH, "utf8"),
@@ -1584,7 +1656,8 @@ async function main() {
     readJson(PROCESSOR_MEMORY_ROUTE_PATH),
     readJson(PROCESSOR_MEMORY_GAP_PATH),
     readJson(COMPONENT_GAP_PATH),
-    readJson(EVIDENCE_GAP_REGISTRY_PATH)
+    readJson(EVIDENCE_GAP_REGISTRY_PATH),
+    readJson(PACKAGING_PROCESS_PATH)
   ]);
   const baseRouteContent = JSON.parse(routeContentRaw);
   const routeContent = {
@@ -1604,7 +1677,8 @@ async function main() {
     processorMemoryRouteRaw.productId !== sample.productId ||
     processorMemoryGapContent.productId !== sample.productId ||
     componentGapContent.productId !== sample.productId ||
-    gapRegistry.productId !== sample.productId
+    gapRegistry.productId !== sample.productId ||
+    packagingProcessContent.productId !== sample.productId
   ) {
     throw new Error("Published evidence inputs do not match the smartphone build scope");
   }
@@ -1621,7 +1695,8 @@ async function main() {
     semiconductorRoleContent,
     processorMemoryGapContent,
     componentGapContent,
-    gapRegistry
+    gapRegistry,
+    packagingProcessContent
   );
   assertBuildInvariants(fixture, comtradeRaw);
   await mkdir(OUTPUT_DIR, { recursive: true });
@@ -1637,7 +1712,7 @@ async function main() {
     schemaVersion: "fixture-manifest.v1",
     fixtures: [{ productId: fixture.productId, path: "fixture.json" }],
     datasetVersion: DATASET_VERSION,
-    generatedAt: "2026-08-25",
+    generatedAt: "2026-08-28",
     fixtureSha256: sha256(serialized),
     routeContentVersion: routeContent.contentVersion.version,
     routeContentSha256: sha256(JSON.stringify(routeContent)),
@@ -1649,6 +1724,7 @@ async function main() {
       "../../content/evidence-gaps/generic-smartphone-processor-memory-2023.json",
       "../../content/evidence-gaps/generic-smartphone-2023.json",
       "../../content/evidence-gaps/generic-smartphone-components-2023.json"
+      ,"../../content/processes/generic-smartphone-semiconductor-packaging-2023.json"
     ],
     sourceSnapshots: [
       "raw/world-bank-wdi-2023.json",

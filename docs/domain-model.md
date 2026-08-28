@@ -89,6 +89,17 @@ quality_note
 
 当需要展示伙伴排名或占比时，保存计算输入版本、分母定义、舍入规则和结果版本；不要只保存无来源的最终百分比。
 
+## 制造工艺、设备与企业能力模型
+
+- `ManufacturingProcessChain`：某个商品或部件的代表性工艺链及适用范围。
+- `ManufacturingProcessStep`：有顺序的具体工序；不同技术路线可以跳过或替换步骤。
+- `ProcessRequirement`：工序所需设备、材料、耗材、软件或服务。
+- `EquipmentCategory`：通用设备类别，不等同于某个厂商型号。
+- `Organization` / `Facility`：企业及其有证据支持的地点；没有工厂证据时不得按总部推断生产地点。
+- `OrganizationCapability`：企业公开提供某类设备的能力记录。
+
+能力证据分为 `manufacturer_supported`、`commercial_relationship_supported`、`representative` 和 `none`。`manufacturer_supported` 不得显示成客户供货；商业关系必须明确保存客户组织和直接证据。
+
 ## Provenance 与发布模型
 
 ### Source

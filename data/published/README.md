@@ -35,6 +35,10 @@ sample 的 `storyGraph` 或 `productionActivities` 提升 published 路线。Web
 - 内部门类：农产品、食品、矿物能源、化工品、工业品、机械设备、电子产品、
   交通设备、纺织品、其他消费品；通用智能手机归入电子产品。
 
+## 制造工艺与设备能力层
+
+`globe-chain-smartphone-2023.13` 加入半导体封装与测试的代表性工艺深度层，并保留前一构建版本用于审计。该层的企业记录只表示公开资料支持的设备类别能力，不表示客户订单、设备出货、安装工厂、手机芯片用途或连续供应关系。没有可验证厂商资料的工序保留为空缺，不使用推测补齐。
+
 完整决策、代码和语义见 [`docs/adr/0002-published-data-sources.md`](../../docs/adr/0002-published-data-sources.md)。
 
 当前发布清单（`data/published/manifest.json`）的数字版本为

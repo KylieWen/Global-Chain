@@ -11,6 +11,12 @@ import type {
   Item,
   MacroIndicatorObservation,
   MaterialTradeObservation,
+  ManufacturingProcessChain,
+  ManufacturingProcessStep,
+  EquipmentCategory,
+  ProcessRequirement,
+  Organization,
+  OrganizationCapability,
   Period,
   ProductionActivity,
   ProcessStage,
@@ -44,6 +50,12 @@ type ReadonlyTradeObservation = DeepReadonly<TradeObservation>;
 type ReadonlyMaterialTradeObservation = DeepReadonly<MaterialTradeObservation>;
 type ReadonlyMacroIndicatorObservation = DeepReadonly<MacroIndicatorObservation>;
 type ReadonlyIndicatorDefinition = DeepReadonly<IndicatorDefinition>;
+type ReadonlyManufacturingProcessChain = DeepReadonly<ManufacturingProcessChain>;
+type ReadonlyManufacturingProcessStep = DeepReadonly<ManufacturingProcessStep>;
+type ReadonlyEquipmentCategory = DeepReadonly<EquipmentCategory>;
+type ReadonlyProcessRequirement = DeepReadonly<ProcessRequirement>;
+type ReadonlyOrganization = DeepReadonly<Organization>;
+type ReadonlyOrganizationCapability = DeepReadonly<OrganizationCapability>;
 type ReadonlyClassificationCode = DeepReadonly<ClassificationCode>;
 
 export interface PeriodFilter {
@@ -127,6 +139,57 @@ export interface ComponentCoverageView {
   readonly evidenceGapCount: number;
   readonly evidenceLevels: readonly EvidenceLevelView["code"][];
   readonly classificationMappings: readonly ComponentClassificationView[];
+  readonly processChains: readonly ManufacturingProcessChainSummaryView[];
+}
+
+export interface ManufacturingProcessChainSummaryView {
+  readonly id: string;
+  readonly title: string;
+  readonly item: ReadonlyItem | null;
+  readonly stepCount: number;
+  readonly equipmentCategoryCount: number;
+  readonly manufacturerCount: number;
+}
+
+export interface ResolvedOrganizationCapabilityView {
+  readonly capability: ReadonlyOrganizationCapability;
+  readonly organization: ReadonlyOrganization | null;
+  readonly headquarters: ReadonlyGeoEntity | null;
+  readonly equipmentCategory: ReadonlyEquipmentCategory | null;
+  readonly sources: readonly ReadonlySource[];
+  readonly evidence: readonly ResolvedEvidenceView[];
+  readonly relationshipLabel: string;
+  readonly relationshipDescription: string;
+}
+
+export interface ResolvedProcessRequirementView {
+  readonly requirement: ReadonlyProcessRequirement;
+  readonly equipmentCategory: ReadonlyEquipmentCategory | null;
+  readonly item: ReadonlyItem | null;
+  readonly capabilities: readonly ResolvedOrganizationCapabilityView[];
+  readonly sources: readonly ReadonlySource[];
+  readonly evidence: readonly ResolvedEvidenceView[];
+}
+
+export interface ResolvedManufacturingProcessStepView {
+  readonly step: ReadonlyManufacturingProcessStep;
+  readonly requirements: readonly ResolvedProcessRequirementView[];
+  readonly sources: readonly ReadonlySource[];
+  readonly evidence: readonly ResolvedEvidenceView[];
+}
+
+export interface ManufacturingProcessChainView {
+  readonly product: ReadonlyItem;
+  readonly chain: ReadonlyManufacturingProcessChain;
+  readonly item: ReadonlyItem | null;
+  readonly componentItem: ReadonlyItem | null;
+  readonly steps: readonly ResolvedManufacturingProcessStepView[];
+  readonly organizations: readonly ReadonlyOrganization[];
+  readonly sources: readonly ReadonlySource[];
+  readonly evidence: readonly ResolvedEvidenceView[];
+  readonly datasetVersion: ReadonlyDatasetVersion;
+  readonly contentVersion: ReadonlyContentVersion | null;
+  readonly warnings: readonly string[];
 }
 
 export interface ComponentClassificationView {
@@ -379,6 +442,7 @@ export interface ProductResearchExportView {
     | "supply_chain"
     | "trade_ledger"
     | "material_trade"
+    | "manufacturing_process"
     | "provenance"
     | "evidence_gaps"
   )[];
@@ -393,6 +457,11 @@ export interface ProductResearchExportView {
     readonly sources: number;
     readonly evidence: number;
     readonly evidenceGaps: number;
+    readonly manufacturingProcessChains: number;
+    readonly manufacturingProcessSteps: number;
+    readonly equipmentCategories: number;
+    readonly organizations: number;
+    readonly organizationCapabilities: number;
   };
   readonly interpretationRules: readonly {
     readonly code: string;
@@ -432,6 +501,7 @@ export interface ProductQueryService {
   getEvidenceGaps(productId: string): readonly ResolvedEvidenceGapView[];
   getMaterialTradeObservations(productId: string, options?: MaterialTradeObservationOptions): readonly MaterialTradeObservationView[];
   getMaterialTradeObservation(productId: string, observationId: string): MaterialTradeObservationView | null;
+  getManufacturingProcessChain(productId: string, processChainId: string): ManufacturingProcessChainView | null;
 }
 
 export class DomainQueryError extends Error {
@@ -1160,6 +1230,22 @@ export function getProductOverview(
         });
       })
       .filter((value): value is ComponentClassificationView => value !== null);
+    const processChains = fixture.manufacturingProcessChains
+      .filter((chain) => itemIds.has(chain.itemId))
+      .map((chain): ManufacturingProcessChainSummaryView => {
+        const steps = fixture.manufacturingProcessSteps.filter((step) => step.processChainId === chain.id);
+        const requirements = fixture.processRequirements.filter((requirement) => steps.some((step) => step.id === requirement.processStepId));
+        const equipmentIds = new Set(requirements.flatMap((requirement) => requirement.equipmentCategoryId ? [requirement.equipmentCategoryId] : []));
+        const manufacturerIds = new Set(fixture.organizationCapabilities.filter((capability) => equipmentIds.has(capability.equipmentCategoryId)).map((capability) => capability.organizationId));
+        return Object.freeze({
+          id: chain.id,
+          title: chain.title,
+          item: fixture.items.find((candidate) => candidate.id === chain.itemId) ?? null,
+          stepCount: steps.length,
+          equipmentCategoryCount: equipmentIds.size,
+          manufacturerCount: manufacturerIds.size
+        });
+      });
     return Object.freeze({
       item,
       status: nodeCount > 0 && flowCount > 0 ? "route_published" : nodeCount > 0 || flowCount > 0 ? "partial_route" : "catalog_only",
@@ -1174,7 +1260,8 @@ export function getProductOverview(
       flowCount,
       evidenceGapCount: story.evidenceGaps.length,
       evidenceLevels: freezeArray(evidenceLevels),
-      classificationMappings: freezeArray(classificationMappings)
+      classificationMappings: freezeArray(classificationMappings),
+      processChains: freezeArray(processChains)
     });
   });
 
@@ -1471,6 +1558,91 @@ export function getMaterialTradeObservation(repository: FixtureRepository, produ
   return getMaterialTradeObservations(repository, productId).find((view) => view.observation.observationId === observationId) ?? null;
 }
 
+export function getManufacturingProcessChain(
+  repository: FixtureRepository,
+  productId: string,
+  processChainId: string
+): ManufacturingProcessChainView | null {
+  const fixture = getFixtureOrNull(repository, productId);
+  if (!fixture) return null;
+  const product = getProductItem(fixture);
+  const chain = fixture.manufacturingProcessChains.find((candidate) => candidate.id === processChainId);
+  if (!product || !chain) return null;
+
+  const resolveCapability = (capability: ReadonlyOrganizationCapability): ResolvedOrganizationCapabilityView => {
+    const organization = fixture.organizations.find((candidate) => candidate.id === capability.organizationId) ?? null;
+    const evidence = resolveEvidenceRecords(fixture, capability.evidenceIds, capability.sourceIds);
+    return Object.freeze({
+      capability,
+      organization,
+      headquarters: organization?.headquartersEntityId ? fixture.entities.find((entity) => entity.id === organization.headquartersEntityId) ?? null : null,
+      equipmentCategory: fixture.equipmentCategories.find((equipment) => equipment.id === capability.equipmentCategoryId) ?? null,
+      sources: uniqueSources([...sourcesForIds(fixture, capability.sourceIds), ...evidence.map((record) => record.source)]),
+      evidence,
+      relationshipLabel: capability.commercialRelationshipClaimed ? "公开披露的供货关系" : "厂商设备能力",
+      relationshipDescription: capability.commercialRelationshipClaimed
+        ? "来源明确披露该厂商与指定客户之间的商业关系。"
+        : "来源只支持该企业提供此类设备，不证明它向路线中的任何指定客户或工厂供货。"
+    });
+  };
+
+  const steps = fixture.manufacturingProcessSteps
+    .filter((step) => step.processChainId === chain.id)
+    .sort((left, right) => left.order - right.order)
+    .map((step): ResolvedManufacturingProcessStepView => {
+      const stepEvidence = resolveEvidenceRecords(fixture, step.evidenceIds, step.sourceIds);
+      const requirements = fixture.processRequirements
+        .filter((requirement) => requirement.processStepId === step.id)
+        .map((requirement): ResolvedProcessRequirementView => {
+          const evidence = resolveEvidenceRecords(fixture, requirement.evidenceIds, requirement.sourceIds);
+          const capabilities = requirement.equipmentCategoryId
+            ? fixture.organizationCapabilities.filter((capability) => capability.equipmentCategoryId === requirement.equipmentCategoryId).map(resolveCapability)
+            : [];
+          return Object.freeze({
+            requirement,
+            equipmentCategory: requirement.equipmentCategoryId ? fixture.equipmentCategories.find((equipment) => equipment.id === requirement.equipmentCategoryId) ?? null : null,
+            item: requirement.itemId ? fixture.items.find((item) => item.id === requirement.itemId) ?? null : null,
+            capabilities: freezeArray(capabilities),
+            sources: uniqueSources([...sourcesForIds(fixture, requirement.sourceIds), ...evidence.map((record) => record.source), ...capabilities.flatMap((capability) => capability.sources)]),
+            evidence
+          });
+        });
+      return Object.freeze({
+        step,
+        requirements: freezeArray(requirements),
+        sources: uniqueSources([...sourcesForIds(fixture, step.sourceIds), ...stepEvidence.map((record) => record.source), ...requirements.flatMap((requirement) => requirement.sources)]),
+        evidence: stepEvidence
+      });
+    });
+  const evidence = uniqueResolvedEvidence([
+    ...resolveEvidenceRecords(fixture, chain.evidenceIds, chain.sourceIds),
+    ...steps.flatMap((step) => step.evidence),
+    ...steps.flatMap((step) => step.requirements.flatMap((requirement) => requirement.capabilities.flatMap((capability) => capability.evidence)))
+  ]);
+  const sources = uniqueSources([...sourcesForIds(fixture, chain.sourceIds), ...steps.flatMap((step) => step.sources), ...evidence.map((record) => record.source)]);
+  const organizations = [...new Map(steps.flatMap((step) => step.requirements.flatMap((requirement) => requirement.capabilities.map((capability) => capability.organization))).filter((organization): organization is ReadonlyOrganization => Boolean(organization)).map((organization) => [organization.id, organization])).values()];
+  let componentItem = fixture.items.find((candidate) => candidate.id === chain.itemId) ?? null;
+  while (componentItem?.parentItemId && componentItem.parentItemId !== fixture.productId) {
+    const parent = fixture.items.find((candidate) => candidate.id === componentItem?.parentItemId);
+    if (!parent || parent.id === componentItem.id) break;
+    componentItem = parent;
+  }
+
+  return Object.freeze({
+    product,
+    chain,
+    item: fixture.items.find((candidate) => candidate.id === chain.itemId) ?? null,
+    componentItem,
+    steps: freezeArray(steps),
+    organizations: freezeArray(organizations),
+    sources,
+    evidence,
+    datasetVersion: fixture.datasetVersion,
+    contentVersion: contentVersionForId(fixture, chain.contentVersionId),
+    warnings: mergeWarnings(fixture.warnings, chain.limitations, ["厂商能力记录不等于具体客户供货关系；当前链没有发布任何订单、设备安装地点或指定手机芯片证据。"])
+  });
+}
+
 export function getProductResearchExport(
   repository: FixtureRepository,
   productId: string
@@ -1491,6 +1663,7 @@ export function getProductResearchExport(
       "supply_chain",
       "trade_ledger",
       "material_trade",
+      "manufacturing_process",
       "provenance",
       "evidence_gaps"
     ] as const),
@@ -1505,6 +1678,11 @@ export function getProductResearchExport(
       sources: fixture.sources.length,
       evidence: fixture.evidence.length,
       evidenceGaps: fixture.evidenceGaps.length
+      ,manufacturingProcessChains: fixture.manufacturingProcessChains.length
+      ,manufacturingProcessSteps: fixture.manufacturingProcessSteps.length
+      ,equipmentCategories: fixture.equipmentCategories.length
+      ,organizations: fixture.organizations.length
+      ,organizationCapabilities: fixture.organizationCapabilities.length
     }),
     interpretationRules: freezeArray([
       Object.freeze({
@@ -1526,6 +1704,10 @@ export function getProductResearchExport(
       Object.freeze({
         code: "versions_are_independent",
         statement: "统计数据集版本与策展内容版本独立演进，使用时必须同时保留。"
+      }),
+      Object.freeze({
+        code: "manufacturer_capability_is_not_supply_relationship",
+        statement: "企业公开提供某类设备不等于该企业向指定客户、工厂、芯片或商品路线实际供货。"
       })
     ]),
     snapshot: fixture
@@ -1558,5 +1740,6 @@ export function createProductQueryService(
     getEvidenceGaps: (productId: string) => getEvidenceGaps(repository, productId),
     getMaterialTradeObservations: (productId: string, options?: MaterialTradeObservationOptions) => getMaterialTradeObservations(repository, productId, options),
     getMaterialTradeObservation: (productId: string, observationId: string) => getMaterialTradeObservation(repository, productId, observationId)
+    ,getManufacturingProcessChain: (productId: string, processChainId: string) => getManufacturingProcessChain(repository, productId, processChainId)
   });
 }

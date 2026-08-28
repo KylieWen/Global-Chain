@@ -60,7 +60,9 @@ const evidenceSupportLabels: Record<EvidenceSupportType, string> = {
   process_context: "生产阶段背景",
   trade_observation: "贸易观察",
   classification: "分类与维度",
-  curation_method: "策展方法"
+  curation_method: "策展方法",
+  manufacturer_capability: "厂商设备能力",
+  commercial_relationship: "公开商业关系"
 };
 
 const evidenceGapStatusLabels: Record<ResolvedEvidenceGapView["gap"]["status"], string> = {

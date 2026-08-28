@@ -53,6 +53,10 @@ Node、pnpm、Next.js、React、TypeScript、ESLint 和 Vitest 的实际版本�
 
 当前实现：`loadFixtureRepositoryFromManifest` 默认只加载 `published`；读取 `draft` 必须显式传入 `allowedStatuses`。`packages/domain` 不依赖文件系统，只依赖只读 `FixtureRepository`，并提供商品目录、拆解树、供应链故事、节点详情、国家账本和 provenance 查询。供应链查询负责解析节点、边、生产活动、步骤、来源、逐条 evidence 和内容版本，Web 页面不得自行连接这些 ID。
 
+### 制造工艺与设备能力
+
+工艺深度层独立维护 `ManufacturingProcessChain`、`ManufacturingProcessStep`、`ProcessRequirement`、`EquipmentCategory`、`Organization`、`Facility` 和 `OrganizationCapability`。它通过商品 ID 连接供应链层，但不自动生成国家间流向。企业产品或年报只能支持“厂商具备某设备类别能力”；只有明确披露客户、设备、期间和关系的来源才能建立商业供货关系记录。
+
 ## 存储分离与连接
 
 供应链和贸易账本使用不同的事实表/逻辑 schema，避免把示意路线误当作海关统计：

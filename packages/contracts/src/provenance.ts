@@ -32,7 +32,9 @@ export const EvidenceSupportTypeSchema = z.enum([
   "process_context",
   "trade_observation",
   "classification",
-  "curation_method"
+  "curation_method",
+  "manufacturer_capability",
+  "commercial_relationship"
 ]);
 export type EvidenceSupportType = z.infer<typeof EvidenceSupportTypeSchema>;
 
@@ -43,6 +45,9 @@ export const EvidenceScopeSchema = z
     toEntityId: NullableIdSchema.default(null),
     itemIds: z.array(IdSchema).default([]),
     processStageIds: z.array(IdSchema).default([]),
+    processStepIds: z.array(IdSchema).default([]),
+    equipmentCategoryIds: z.array(IdSchema).default([]),
+    organizationIds: z.array(IdSchema).default([]),
     classificationCodes: z
       .array(
         z.object({
@@ -60,6 +65,8 @@ export const EvidenceScopeSchema = z
     supportsCountryRole: z.boolean(),
     supportsBilateralFlow: z.boolean(),
     supportsProcessContext: z.boolean(),
+    supportsManufacturerCapability: z.boolean().default(false),
+    supportsCommercialRelationship: z.boolean().default(false),
     limitations: z.array(NonEmptyStringSchema).min(1)
   })
   .superRefine((scope, context) => {
@@ -132,6 +139,12 @@ export const EvidenceSchema = z
         path: ["scope", "supportsProcessContext"],
         message: "process_context evidence must explicitly support process context"
       });
+    }
+    if (evidence.supportType === "manufacturer_capability" && !evidence.scope.supportsManufacturerCapability) {
+      context.addIssue({ code: "custom", path: ["scope", "supportsManufacturerCapability"], message: "manufacturer_capability evidence must explicitly support a manufacturer capability" });
+    }
+    if (evidence.supportType === "commercial_relationship" && !evidence.scope.supportsCommercialRelationship) {
+      context.addIssue({ code: "custom", path: ["scope", "supportsCommercialRelationship"], message: "commercial_relationship evidence must explicitly support a commercial relationship" });
     }
   });
 export type Evidence = z.infer<typeof EvidenceSchema>;
