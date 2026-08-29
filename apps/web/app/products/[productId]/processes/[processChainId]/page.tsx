@@ -68,8 +68,9 @@ export default async function ManufacturingProcessPage({
             <div className="manufacturing-step-main">
               <div className="manufacturing-step-heading"><div><span className="card-kicker">{step.step.phase}</span><h3>{step.step.name}</h3><p>{step.step.description}</p><div className="process-route-tags">{step.routeVariants.map((variant) => <span key={variant.id}>{variant.name}</span>)}</div></div><span className="coverage-status coverage-status-route_published">工艺背景已整理</span></div>
               {step.requirements.map((requirement) => <section className="equipment-requirement" key={requirement.requirement.id}>
-                <div className="equipment-requirement-heading"><div><span className="card-kicker">主要设备类别</span><h4>{requirement.equipmentCategory?.name ?? requirement.requirement.name}</h4></div><span className="method-chip">{requirement.requirement.necessity === "core" ? "核心设备" : "辅助设备"}</span></div>
+                <div className="equipment-requirement-heading"><div><span className="card-kicker">{requirement.requirement.requirementType === "equipment" ? "主要设备类别" : "材料 / 耗材需求"}</span><h4>{requirement.equipmentCategory?.name ?? requirement.requirement.name}</h4></div><span className="method-chip">{requirement.requirement.necessity === "core" ? "核心" : "辅助"}</span></div>
                 <p>{requirement.equipmentCategory?.description ?? requirement.requirement.description}</p>
+                {requirement.item && <small className="requirement-item-link">关联商品维度：{requirement.item.name}</small>}
                 <div className="manufacturer-capability-list">
                   {requirement.capabilities.length > 0 ? requirement.capabilities.map((capability) => <article className="manufacturer-capability" key={capability.capability.id}>
                     <div className="manufacturer-capability-heading"><div><strong>{capability.organization?.name ?? "未知厂商"}</strong><span>{capability.headquarters?.name ?? "总部地区未纳入当前国家维度"}</span></div><span className="coverage-status coverage-status-partial_route">{capability.relationshipLabel}</span></div>

@@ -76,6 +76,16 @@
     ["equipment-package-inspection","封装检测与计量设备","用于封装外观、尺寸、缺陷和过程控制检查。"],
     ["equipment-device-packing","器件编带与包装设备","用于编带、托盘装载、标签或防潮包装等出货准备。"]
   ],
+  "materialRequirements": [
+    { "id": "requirement-wafer-mounting-dicing-film", "processStepId": "process-wafer-mounting", "itemId": "packaging-consumables", "requirementType": "consumable", "name": "切割膜与支撑框架", "necessity": "core", "description": "用于晶圆贴膜、装框、搬运与切割支撑；具体材料规格随工艺和设备而变。" },
+    { "id": "requirement-die-attach-attach-material", "processStepId": "process-die-attach", "itemId": "packaging-consumables", "requirementType": "material", "name": "固晶胶或连接材料", "necessity": "core", "description": "用于裸片与载体之间的固定或连接；具体胶材、焊料或工艺取决于封装方案。" },
+    { "id": "requirement-wire-bond-bonding-wire", "processStepId": "process-wire-bonding", "itemId": "bonding-wire", "requirementType": "consumable", "name": "键合线", "necessity": "core", "description": "用于裸片焊盘与封装端子之间的金属互连；不代表每种键合线均为同一材质。" },
+    { "id": "requirement-flip-chip-underfill-material", "processStepId": "process-underfill", "itemId": "underfill-material", "requirementType": "material", "name": "底部填充胶", "necessity": "core", "description": "用于部分倒装结构的间隙填充和可靠性改善；不证明特定配方或供应商。" },
+    { "id": "requirement-molding-compound", "processStepId": "process-molding", "itemId": "molding-compound", "requirementType": "material", "name": "封装模塑料", "necessity": "core", "description": "用于包覆和保护裸片与互连结构；实际配方取决于封装类型。" },
+    { "id": "requirement-plating-metal-finish", "processStepId": "process-plating-marking", "itemId": "packaging-consumables", "requirementType": "consumable", "name": "电镀与表面处理材料", "necessity": "supporting", "description": "用于部分端子或外部表面处理；不代表具体化学品或来源。" },
+    { "id": "requirement-electrical-test-contact", "processStepId": "process-electrical-test", "itemId": "packaging-consumables", "requirementType": "consumable", "name": "测试探针、插座与治具", "necessity": "supporting", "description": "用于器件接触、定位和测试配置；具体耗材由产品规格和测试平台决定。" },
+    { "id": "requirement-packing-moisture-barrier", "processStepId": "process-packing", "itemId": "packaging-consumables", "requirementType": "consumable", "name": "防潮包装与标签材料", "necessity": "supporting", "description": "用于编带、托盘、防潮袋、干燥剂和标签等出货准备。" }
+  ],
   "capabilities": [
     ["capability-disco-grinder","org-disco","equipment-wafer-grinder","DISCO 公开资料支持其提供晶圆减薄/磨削设备。","evidence-disco-grinding-dicing-capability"],
     ["capability-disco-dicing","org-disco","equipment-dicing-system","DISCO 公开资料支持其提供晶圆切割设备。","evidence-disco-grinding-dicing-capability"],

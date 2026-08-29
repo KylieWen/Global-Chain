@@ -19,10 +19,12 @@ describe("phase 31 manufacturing route variants and coverage gaps", () => {
     const view = createProductQueryService(repository).getManufacturingProcessChain("generic-smartphone", "process-chain-semiconductor-packaging");
     const equipmentRequirements = view?.steps.flatMap(({ requirements }) => requirements) ?? [];
 
-    expect(equipmentRequirements).toHaveLength(18);
-    expect(equipmentRequirements.every(({ equipmentCategory }) => equipmentCategory !== null)).toBe(true);
+    expect(equipmentRequirements).toHaveLength(26);
+    expect(equipmentRequirements.filter(({ requirement }) => requirement.requirementType === "equipment")).toHaveLength(18);
+    expect(equipmentRequirements.filter(({ requirement }) => requirement.requirementType !== "equipment")).toHaveLength(8);
+    expect(equipmentRequirements.filter(({ requirement }) => requirement.requirementType === "equipment").every(({ equipmentCategory }) => equipmentCategory !== null)).toBe(true);
     expect(equipmentRequirements.filter(({ capabilities }) => capabilities.length > 0)).toHaveLength(9);
-    expect(equipmentRequirements.filter(({ capabilities }) => capabilities.length === 0)).toHaveLength(9);
+    expect(equipmentRequirements.filter(({ capabilities }) => capabilities.length === 0)).toHaveLength(17);
   });
 
   it("records the chain boundary without inventing intermediate material lineage", async () => {

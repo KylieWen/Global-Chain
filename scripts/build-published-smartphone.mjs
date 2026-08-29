@@ -47,7 +47,7 @@ const PERIOD = {
   label: YEAR
 };
 const DATASET_ID = "dataset-smartphone-published-2023";
-const DEFAULT_DATASET_VERSION = "globe-chain-smartphone-2023.14";
+const DEFAULT_DATASET_VERSION = "globe-chain-smartphone-2023.15";
 const DATASET_VERSION = process.env.GLOBECHAIN_DATASET_VERSION?.trim() || DEFAULT_DATASET_VERSION;
 const PUBLISHED_DIR = resolve(ROOT, "data/published");
 const RELEASE_DIR = resolve(PUBLISHED_DIR, "releases/generic-smartphone", DATASET_VERSION);
@@ -57,7 +57,7 @@ const MANIFEST_PATH = resolve(OUTPUT_DIR, "manifest.json");
 const ACTIVE_MANIFEST_PATH = resolve(PUBLISHED_DIR, "active-manifest.json");
 const COMPAT_MANIFEST_PATH = resolve(PUBLISHED_DIR, "manifest.json");
 const CONTENT_VERSION_ID = "content-smartphone-route-2023-3";
-const PROCESS_CONTENT_VERSION_ID = "content-smartphone-packaging-process-2023-2";
+const PROCESS_CONTENT_VERSION_ID = "content-smartphone-packaging-process-2023-3";
 const SOURCE_IDS = {
   wdi: "source-world-bank-wdi",
   comtrade: "source-un-comtrade",
@@ -174,7 +174,11 @@ function extendProcessorMemoryCatalog(fixture) {
     ["dram", "DRAM 存储器", "处理器与存储器", "动态随机存取存储器的通用组件节点。"],
     ["nand-flash", "NAND Flash 存储器", "处理器与存储器", "非易失性 NAND Flash 存储器的通用组件节点。"],
     ["semiconductor-wafer", "半导体晶圆制造", "处理器与存储器", "晶圆制造阶段的通用产业节点，不代表具体制程或工厂。"],
-    ["chip-packaging", "芯片封装与测试", "处理器与存储器", "封装与测试阶段的通用产业节点。"]
+    ["chip-packaging", "芯片封装与测试", "处理器与存储器", "封装与测试阶段的通用产业节点。"],
+    ["bonding-wire", "半导体键合线", "处理器与存储器", "芯片封装中的金属互连耗材，不代表具体材质、供应商或手机用途。"],
+    ["molding-compound", "封装模塑料", "处理器与存储器", "用于封装保护的材料类别，不代表具体配方或供应商。"],
+    ["underfill-material", "底部填充材料", "处理器与存储器", "部分倒装封装使用的填充材料类别。"],
+    ["packaging-consumables", "封装工艺耗材", "处理器与存储器", "切割膜、治具、标签和防潮包装等耗材类别。"]
   ];
   fixture.items.push(...additions.filter(([id]) => !existing.has(id)).map(([id, name, category, description]) => ({
     id,
@@ -228,7 +232,7 @@ function applyManufacturingProcessContent(fixture, content) {
   fixture.contentVersions.push({
     id: PROCESS_CONTENT_VERSION_ID,
     productId: fixture.productId,
-    version: "smartphone-packaging-process-2023.2",
+    version: "smartphone-packaging-process-2023.3",
     status: "published",
     createdAt: "2026-08-28",
     publishedAt: "2026-08-28",
@@ -261,6 +265,22 @@ function applyManufacturingProcessContent(fixture, content) {
       contentVersionId: PROCESS_CONTENT_VERSION_ID
     };
   });
+  const materialRequirements = (content.materialRequirements ?? []).map((record) => ({
+    id: record.id,
+    processStepId: record.processStepId,
+    requirementType: record.requirementType ?? "material",
+    equipmentCategoryId: null,
+    itemId: record.itemId,
+    name: record.name,
+    necessity: record.necessity ?? "supporting",
+    description: record.description,
+    sourceIds: ["source-packaging-process-methodology"],
+    evidenceIds: ["evidence-packaging-process-curation"],
+    limitations: ["该输入物是工艺层的代表性需求，不证明来自某个具体供应商、批次或手机产品。"],
+    ...metadata,
+    contentVersionId: PROCESS_CONTENT_VERSION_ID
+  }));
+  fixture.processRequirements.push(...materialRequirements);
   const evidenceById = new Map(content.evidence.map((record) => [record.id, record]));
   fixture.organizationCapabilities = content.capabilities.map(([id, organizationId, equipmentCategoryId, claim, evidenceId]) => ({
     id, organizationId, equipmentCategoryId, capabilityEvidenceLevel: "manufacturer_supported",

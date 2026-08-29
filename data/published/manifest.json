@@ -3,12 +3,12 @@
   "fixtures": [
     {
       "productId": "generic-smartphone",
-      "path": "releases/generic-smartphone/globe-chain-smartphone-2023.14/fixture.json"
+      "path": "releases/generic-smartphone/globe-chain-smartphone-2023.15/fixture.json"
     }
   ],
-  "datasetVersion": "globe-chain-smartphone-2023.14",
+  "datasetVersion": "globe-chain-smartphone-2023.15",
   "generatedAt": "2026-08-28",
-  "fixtureSha256": "859d8141758dc32b8919daf39d520aa51d319755f7a9ade49d7b1d550b841622",
+  "fixtureSha256": "e90e8d8026603e06431f97d3bcce00f029a03c67150460f81d678dcf101caf20",
   "routeContentVersion": "smartphone-route-2023.3",
   "routeContentSha256": "2d696c8171adb6c56f41bddb7a5ddebdb8f06804a167271f4c0d5e39c7627bad",
   "contentSources": [
@@ -38,10 +38,10 @@
   ],
   "release": {
     "productId": "generic-smartphone",
-    "datasetVersion": "globe-chain-smartphone-2023.14",
-    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2023.14",
+    "datasetVersion": "globe-chain-smartphone-2023.15",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2023.15",
     "immutable": true
   },
-  "activeDatasetVersion": "globe-chain-smartphone-2023.14",
+  "activeDatasetVersion": "globe-chain-smartphone-2023.15",
   "activeManifest": true
 }

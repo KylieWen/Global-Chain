@@ -495,6 +495,7 @@ p { line-height: 1.7; }
 .process-variant-card small { font-size: 0.7rem; }
 .process-route-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.65rem; }
 .process-route-tags span { padding: 0.25rem 0.48rem; border-radius: 999px; color: #2459ac; background: var(--blue-soft); font-size: 0.66rem; font-weight: 700; }
+.requirement-item-link { display: block; margin-top: 0.35rem; color: var(--muted); font-size: 0.7rem; }
 .coverage-details > summary { list-style: none; cursor: pointer; }
 .coverage-details > summary::-webkit-details-marker { display: none; }
 .coverage-summary::after { content: "+"; color: var(--muted); font-size: 1.2rem; }
