@@ -597,6 +597,23 @@ p { line-height: 1.7; }
 .help-card { padding: 1.2rem; border: 1px solid var(--line); border-radius: 0.95rem; background: #fff; }
 .help-card h2 { margin-top: 0.85rem; color: var(--navy); font-size: 1.25rem; }
 .help-card p { margin: 0; color: var(--ink-soft); font-size: 0.86rem; }
+.intro-action-stack { display: grid; justify-items: end; gap: 0.65rem; }
+.text-link { color: var(--blue); font-size: 0.78rem; font-weight: 750; }
+.demo-callout, .demo-boundary-note { display: flex; gap: 0.8rem; align-items: baseline; margin: 1rem 0 1.5rem; padding: 1rem 1.1rem; border-left: 0.25rem solid var(--blue); border-radius: 0.65rem; color: var(--ink-soft); background: var(--blue-soft); font-size: 0.82rem; }
+.demo-callout strong, .demo-boundary-note strong { color: var(--navy); white-space: nowrap; }
+.demo-step-list { display: grid; gap: 0.9rem; margin: 1.5rem 0; padding: 0; list-style: none; }
+.demo-step-card { display: grid; grid-template-columns: 3.3rem minmax(0, 1fr); gap: 1rem; padding: 1.2rem; border: 1px solid var(--line); border-radius: 1rem; background: #fff; }
+.demo-step-number { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 0.8rem; color: #fff; background: var(--navy); font-weight: 800; }
+.demo-step-card h2 { margin: 0.35rem 0 0.45rem; color: var(--navy); font-size: 1.25rem; }
+.demo-step-card p:not(.card-kicker) { max-width: 58rem; color: var(--ink-soft); font-size: 0.84rem; }
+.demo-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.demo-audience-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; margin: 1.5rem 0; }
+.demo-audience-grid article { min-height: 9rem; padding: 1.1rem; border: 1px solid var(--line); border-radius: 0.9rem; background: #f8fbff; }
+.demo-audience-grid h2 { margin: 0.45rem 0; color: var(--navy); font-size: 1.05rem; }
+.demo-audience-grid p:not(.card-kicker) { margin: 0; color: var(--ink-soft); font-size: 0.78rem; }
+.demo-boundary-note { margin-top: 1.8rem; color: #75481e; background: #fff8ef; border-left-color: #d99b54; }
+@media (max-width: 900px) { .demo-audience-grid { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .intro-action-stack { justify-items: start; } .demo-callout, .demo-boundary-note { display: grid; gap: 0.3rem; } .demo-step-card { grid-template-columns: 2.5rem minmax(0, 1fr); } .demo-step-number { width: 2.4rem; height: 2.4rem; font-size: 0.78rem; } }
 @media (max-width: 640px) { .map-country-row { grid-template-columns: 1fr; gap: 0.3rem; } }
 @media (max-width: 900px) { .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .category-grid { grid-template-columns: 1fr; } }

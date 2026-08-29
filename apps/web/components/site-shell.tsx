@@ -18,6 +18,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </Link>
           <nav className="site-nav" aria-label="主导航">
             <Link href="/products">商品探索</Link>
+            <Link href="/demo">3 分钟演示</Link>
             <Link href="/countries">国家账本</Link>
             <Link href="/map">世界地图</Link>
             <Link href="/versions">数据版本</Link>
