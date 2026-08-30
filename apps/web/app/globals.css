@@ -515,6 +515,7 @@ p { line-height: 1.7; }
 .country-role-list { display: flex; flex-wrap: wrap; gap: 0.35rem; min-height: 1.7rem; margin: 0.65rem 0 0.2rem; }
 .role-chip { padding: 0.25rem 0.45rem; border-radius: 999px; color: #2459ac; background: var(--blue-soft); font-size: 0.68rem; font-weight: 700; }
 .country-card-meta { display: flex; flex-wrap: wrap; gap: 0.35rem 0.7rem; margin-top: auto; color: var(--muted); font-size: 0.7rem; }
+.country-card-actions { display: grid; gap: 0.35rem; margin-top: 0.75rem; }
 .category-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.9rem; }
 .category-card { min-height: 12rem; padding: 1.25rem; border: 1px solid var(--line); border-radius: 1rem; background: #fff; }
 .category-card h2 { margin-top: 1rem; color: var(--navy); font-size: 1.35rem; }
@@ -584,6 +585,17 @@ p { line-height: 1.7; }
 .map-country-row.selected { border-color: var(--blue); background: var(--blue-soft); }
 .map-country-row span { color: var(--ink-soft); font-size: 0.76rem; }
 .home-entry-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; margin-top: 1.5rem; }
+.home-guide-hero { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: 1.25rem; padding: 1.35rem 1.45rem; border: 1px solid #b8d2ef; border-radius: 1rem; background: linear-gradient(120deg, #eaf3ff, #fff); }
+.home-guide-hero h2 { max-width: 48rem; margin: 0.45rem 0 0.55rem; color: var(--navy); font-size: clamp(1.35rem, 2.2vw, 2rem); }
+.home-guide-hero p:not(.eyebrow) { max-width: 52rem; margin: 0; color: var(--ink-soft); font-size: 0.86rem; line-height: 1.7; }
+.home-guide-hero > .button { flex: 0 0 auto; }
+.home-audience-strip { display: grid; grid-template-columns: minmax(12rem, 0.8fr) repeat(2, minmax(0, 1fr)); gap: 0.8rem; align-items: stretch; margin-top: 0.9rem; }
+.home-audience-intro, .home-audience-card { padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: 0.85rem; background: #fff; }
+.home-audience-intro { background: #f8fbff; }
+.home-audience-intro h2 { margin: 0.35rem 0 0; color: var(--navy); font-size: 1.1rem; }
+.home-audience-card { display: grid; gap: 0.35rem; }
+.home-audience-card strong { color: var(--navy); font-size: 0.9rem; }
+.home-audience-card span { color: var(--ink-soft); font-size: 0.76rem; line-height: 1.55; }
 .home-entry-card { display: flex; flex-direction: column; min-height: 15rem; padding: 1.25rem; border: 1px solid var(--line); border-radius: 1rem; background: #fff; transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
 .home-entry-card:hover { border-color: #9bb6e9; box-shadow: 0 12px 28px rgb(40 75 135 / 10%); transform: translateY(-2px); }
 .home-entry-card h2 { margin-top: 1rem; color: var(--navy); font-size: 1.35rem; }
@@ -612,8 +624,74 @@ p { line-height: 1.7; }
 .demo-audience-grid h2 { margin: 0.45rem 0; color: var(--navy); font-size: 1.05rem; }
 .demo-audience-grid p:not(.card-kicker) { margin: 0; color: var(--ink-soft); font-size: 0.78rem; }
 .demo-boundary-note { margin-top: 1.8rem; color: #75481e; background: #fff8ef; border-left-color: #d99b54; }
+.trade-guide-workbench { margin: 1.25rem 0 1.5rem; padding: 1.25rem; border: 1px solid #bfd3ee; border-radius: 1rem; background: linear-gradient(135deg, #f1f7ff, #fff); }
+.trade-guide-workbench-heading, .trade-guide-results-heading { display: flex; align-items: end; justify-content: space-between; gap: 1rem; }
+.trade-guide-workbench-heading h2, .trade-guide-results-heading h2 { margin: 0.35rem 0 0; color: var(--navy); }
+.trade-guide-workbench-heading > span, .trade-guide-results-heading > span { color: var(--muted); font-size: 0.75rem; }
+.trade-guide-form { display: grid; grid-template-columns: minmax(10rem, 1fr) minmax(12rem, 1.2fr) minmax(9rem, 0.8fr) auto; gap: 0.75rem; align-items: end; margin-top: 1rem; }
+.trade-guide-form label { display: grid; gap: 0.35rem; color: var(--ink-soft); font-size: 0.74rem; font-weight: 700; }
+.trade-guide-form select { min-height: 2.7rem; padding: 0.55rem 0.65rem; border: 1px solid var(--line-strong); border-radius: 0.55rem; color: var(--ink); background: #fff; font: inherit; }
+.trade-guide-form-note { margin: 0.9rem 0 0; color: var(--muted); font-size: 0.74rem; }
+.trade-guide-intro-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; margin: 1.25rem 0 2rem; }
+.trade-guide-intro-grid article { min-height: 9rem; padding: 1.05rem; border: 1px solid var(--line); border-radius: 0.85rem; background: #fff; }
+.trade-guide-intro-grid h2 { margin: 0.55rem 0 0.35rem; color: var(--navy); font-size: 1.1rem; }
+.trade-guide-intro-grid p { margin: 0; color: var(--ink-soft); font-size: 0.78rem; }
+.trade-guide-directory { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.85rem; margin-top: 1rem; }
+.trade-guide-summary-card { display: grid; gap: 0.75rem; padding: 1.1rem; border: 1px solid #cbd9e8; border-radius: 0.95rem; background: #fff; box-shadow: 0 8px 20px rgb(40 75 135 / 5%); }
+.trade-guide-summary-card h2 { margin: 0.35rem 0 0.2rem; color: var(--navy); font-size: 1.1rem; }
+.trade-guide-summary-card .trade-guide-summary { font-size: 0.8rem; }
+.trade-guide-summary-meta { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.trade-guide-summary-meta span { padding: 0.25rem 0.45rem; border-radius: 999px; color: #2459ac; background: var(--blue-soft); font-size: 0.67rem; font-weight: 700; }
+.trade-guide-summary-action { justify-self: start; }
+.trade-guide-results { display: grid; gap: 1.2rem; margin-top: 1rem; }
+.trade-guide-card { display: grid; gap: 1rem; padding: 1.25rem; border: 1px solid #cbd9e8; border-radius: 1rem; background: #fff; box-shadow: 0 8px 20px rgb(40 75 135 / 5%); }
+.trade-guide-card-heading { display: flex; align-items: start; justify-content: space-between; gap: 1rem; }
+.trade-guide-card-heading h2 { margin: 0.35rem 0 0.2rem; color: var(--navy); font-size: 1.4rem; }
+.trade-guide-jurisdiction { margin: 0; color: var(--ink-soft); font-size: 0.78rem; }
+.trade-guide-summary { margin: 0; color: var(--ink-soft); font-size: 0.88rem; line-height: 1.65; }
+.trade-guide-scope { display: flex; flex-wrap: wrap; gap: 0.55rem 1.15rem; padding: 0.8rem 0.9rem; border-radius: 0.7rem; background: #f7f9fc; }
+.trade-guide-scope .metadata-item { min-width: 8rem; }
+.trade-guide-section { display: grid; gap: 0.7rem; padding-top: 0.2rem; }
+.trade-guide-section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.trade-guide-section-heading h3 { margin: 0; color: var(--navy); font-size: 1rem; }
+.trade-tariff-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
+.trade-tariff-card { display: grid; gap: 0.35rem; padding: 0.85rem; border: 1px solid var(--line); border-radius: 0.7rem; background: #fbfdff; }
+.trade-tariff-heading { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
+.trade-tariff-heading strong { color: var(--navy); font-size: 0.84rem; }
+.trade-tariff-value { color: var(--blue); font-size: 1.1rem; }
+.trade-tariff-card > span, .trade-tariff-card small { color: var(--ink-soft); font-size: 0.72rem; }
+.trade-requirement-list { display: grid; gap: 0.55rem; }
+.trade-requirement-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.7rem 1rem; padding: 0.8rem 0.9rem; border: 1px solid var(--line); border-radius: 0.7rem; background: #fff; }
+.trade-requirement-row > div:first-child { display: grid; gap: 0.25rem; }
+.trade-requirement-row strong { color: var(--navy); font-size: 0.82rem; }
+.trade-requirement-row span, .trade-requirement-row li { color: var(--ink-soft); font-size: 0.74rem; }
+.trade-requirement-row ul { grid-column: 1 / -1; margin: 0; padding-left: 1.1rem; }
+.trade-requirement-meta { display: flex; flex-wrap: wrap; justify-content: end; gap: 0.35rem; align-content: start; }
+.trade-requirement-meta span { padding: 0.22rem 0.4rem; border-radius: 999px; color: #2459ac; background: var(--blue-soft); font-size: 0.66rem; font-weight: 700; white-space: nowrap; }
+.trade-document-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.55rem; }
+.trade-document-card { display: grid; gap: 0.3rem; padding: 0.75rem; border: 1px solid var(--line); border-radius: 0.65rem; background: #fbfdff; }
+.trade-document-card strong { color: var(--navy); font-size: 0.78rem; }
+.trade-document-card span { color: var(--blue); font-size: 0.68rem; font-weight: 700; }
+.trade-document-card small { color: var(--ink-soft); font-size: 0.68rem; }
+.trade-procedure-purpose { margin: 0; color: var(--ink-soft); font-size: 0.78rem; }
+.trade-procedure-list { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.trade-procedure-list li { display: grid; grid-template-columns: 2.1rem minmax(0, 1fr); gap: 0.65rem; align-items: start; padding: 0.55rem 0; border-bottom: 1px dashed var(--line); }
+.trade-procedure-list li:last-child { border-bottom: 0; }
+.trade-step-index { display: grid; place-items: center; width: 1.8rem; height: 1.8rem; border-radius: 0.45rem; color: #fff; background: var(--navy); font-size: 0.68rem; font-weight: 800; }
+.trade-procedure-list li > div { display: grid; gap: 0.2rem; }
+.trade-procedure-list strong { color: var(--navy); font-size: 0.8rem; }
+.trade-procedure-list span, .trade-procedure-list small { color: var(--ink-soft); font-size: 0.7rem; }
+.trade-guide-sources { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 1fr); gap: 1rem; padding-top: 0.9rem; border-top: 1px solid var(--line); }
+.trade-source-links { display: flex; flex-wrap: wrap; gap: 0.4rem 0.8rem; margin-top: 0.45rem; }
+.trade-source-links a, .trade-source-links span { color: var(--blue); font-size: 0.72rem; font-weight: 700; }
+.trade-guide-boundary { display: grid; gap: 0.3rem; padding: 0.75rem; border-left: 0.2rem solid #d99b54; color: #75481e; background: #fff8ef; font-size: 0.72rem; }
+.trade-guide-boundary strong { color: #75481e; }
+.trade-guide-disclaimer { display: grid; gap: 0.3rem; margin-top: 1.5rem; padding: 0.95rem 1rem; border-left: 0.25rem solid #d99b54; border-radius: 0.65rem; color: #75481e; background: #fff8ef; font-size: 0.76rem; }
+.trade-guide-disclaimer strong { color: #5f3616; }
 @media (max-width: 900px) { .demo-audience-grid { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .intro-action-stack { justify-items: start; } .demo-callout, .demo-boundary-note { display: grid; gap: 0.3rem; } .demo-step-card { grid-template-columns: 2.5rem minmax(0, 1fr); } .demo-step-number { width: 2.4rem; height: 2.4rem; font-size: 0.78rem; } }
+@media (max-width: 900px) { .trade-guide-form { grid-template-columns: repeat(2, minmax(0, 1fr)); } .trade-guide-intro-grid, .trade-document-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .trade-guide-sources { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .trade-guide-workbench-heading, .trade-guide-results-heading, .trade-guide-card-heading, .trade-guide-section-heading { display: grid; align-items: start; } .trade-guide-form, .trade-tariff-grid, .trade-guide-intro-grid, .trade-document-grid { grid-template-columns: 1fr; } .trade-requirement-row { grid-template-columns: 1fr; } .trade-requirement-meta { justify-content: start; } }
 @media (max-width: 640px) { .map-country-row { grid-template-columns: 1fr; gap: 0.3rem; } }
 @media (max-width: 900px) { .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .category-grid { grid-template-columns: 1fr; } }
@@ -621,7 +699,8 @@ p { line-height: 1.7; }
 @media (max-width: 900px) { .country-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .country-grid { grid-template-columns: 1fr; } }
 @media (max-width: 900px) { .home-entry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .home-method-strip { grid-template-columns: 1fr; } }
-@media (max-width: 640px) { .home-entry-grid { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .home-entry-grid { grid-template-columns: 1fr; } .home-guide-hero, .home-audience-strip { display: grid; } .trade-guide-directory { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .home-audience-strip { grid-template-columns: 1fr; } }
 @media (max-width: 900px) { .coverage-row { grid-template-columns: 1fr 1fr; } }
 
 @media (max-width: 900px) {

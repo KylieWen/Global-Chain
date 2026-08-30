@@ -3,6 +3,7 @@ import type { ProductCatalogView } from "@globe-chain/domain";
 import { PageIntro, SiteShell } from "./site-shell";
 import { PublicationBadge, StatCard, WarningList } from "./data-display";
 import { productPath } from "../lib/paths";
+import { tradeGuidePath } from "../lib/paths";
 
 export function ProductCatalogPage({ products }: { products: readonly ProductCatalogView[] }) {
   const warnings = [...new Set(products.flatMap((product) => product.warnings))];
@@ -10,13 +11,13 @@ export function ProductCatalogPage({ products }: { products: readonly ProductCat
     <SiteShell>
       <div className="content-column">
         <PageIntro
-          eyebrow="商品目录 / Product catalog"
-          title="从一件商品开始，沿着世界的链路走下去"
-          description="GlobeChain 将商品拆解、代表性供应链内容和国家贸易事实放在同一套可追溯维度中；数据状态与发布模式会在页面中明确标识。"
+          eyebrow="商品背景 / Product catalog"
+          title="先确定商品，再进入进出口查询"
+          description="商品页提供组成、供应链和贸易数据背景；如果你要做实际进出口调研，请先进入贸易指南，按国家和方向查看手续与官方入口。"
           actions={
             products[0] ? (
-              <Link className="button button-primary" href={productPath(products[0].productId)}>
-                打开第一个商品
+              <Link className="button button-primary" href={tradeGuidePath({ product: products[0].productId })}>
+                查进出口要求
               </Link>
             ) : undefined
           }
@@ -25,9 +26,9 @@ export function ProductCatalogPage({ products }: { products: readonly ProductCat
         <section className="hero-panel">
           <div className="hero-orbit" aria-hidden="true"><span /><span /><span /></div>
           <div>
-            <p className="eyebrow">Passive data atlas</p>
-            <h2>看见商品，不替你下结论</h2>
-            <p>每条路线都标记期间、来源、方法和不确定性。贸易金额不是利润，代表性路线也不是唯一真实路线。</p>
+            <p className="eyebrow">Research background</p>
+            <h2>商品背景与贸易指南分开</h2>
+            <p>商品路线帮助你理解产业结构；贸易指南帮助你整理进出口核验项。两者都保留来源和限制，不把示意路线当成交易撮合。</p>
           </div>
           <div className="hero-facts">
             <StatCard label="当前商品" value={products.length} detail="个 fixture" />

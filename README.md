@@ -1,6 +1,6 @@
 # GlobeChain
 
-GlobeChain 是一个被动式全球商品供应链与贸易数据可视化平台。本仓库已完成工程骨架、通用数据契约、mock 商品 fixture、只读领域查询、首个无地图 Web 探索路径，以及首份 2023 年智能手机 `published` 数据快照。
+GlobeChain 是一个面向跨境采购和外贸调研人员的进出口贸易信息查询与指南针网站。本仓库已完成工程骨架、通用数据契约、只读领域查询、首个 2023 年智能手机 `published` 数据快照和静态贸易指南工作台；供应链、国家账本、材料与地图作为背景研究模块保留。
 
 ## 当前工程边界
 
@@ -8,7 +8,7 @@ GlobeChain 是一个被动式全球商品供应链与贸易数据可视化平台
 - `apps/web` 是最小 Next.js App Router + TypeScript Web 应用。
 - `packages/contracts` 提供 Zod 数据契约；`packages/domain` 提供只读仓储接口和领域查询；`packages/db` 提供 fixture 文件加载适配器。
 - `pipelines` 只提供未来 Python 数据管线的目录和配置占位。
-- `apps/web` 已提供四入口首页、商品门类、商品拆解、供应链路径、节点详情、国家目录/账本、世界节点图、来源版本页面和带 provenance 的研究快照下载；地图与贸易流线是国家级示意展示，仍不包含 PostgreSQL 查询、运行时外部 API、AI/LLM、聊天、问答或运行时文本生成。
+- `apps/web` 已提供贸易指南、商品背景、商品拆解、供应链路径、节点详情、国家目录/账本、世界节点图、来源版本页面和带 provenance 的研究快照下载；地图与贸易流线是国家级示意展示，仍不包含 PostgreSQL 查询、运行时外部政策 API、AI/LLM、聊天、问答或运行时文本生成。
 - 外部数据只在显式的本地快照脚本中抓取，不在 Web 请求期间访问；当前不安装 Polars、DuckDB 等数据处理依赖。
 
 ## 前置工具
@@ -58,7 +58,7 @@ Published release 管理命令：
 ```bash
 pnpm run data:release:list
 pnpm run data:release:verify
-pnpm run data:release:activate -- globe-chain-smartphone-2023.4
+  pnpm run data:release:activate -- globe-chain-smartphone-2023.16
 pnpm run data:release:rollback
 ```
 
@@ -79,7 +79,7 @@ pnpm run build
 
 首份 `generic-smartphone` 数据集固定为 2023 自然年：宏观商品进出口和官方储备
 来自 World Bank WDI，智能手机 HS 2022 六位码 `851713` 的世界总计贸易观察来自
-UN Comtrade。原料到组装的路线仍是带来源的代表性策展内容，不是唯一真实路线。
+UN Comtrade。原料到组装的路线仍是带来源的代表性策展内容，不是唯一真实路线。贸易指南是静态、部分覆盖的查询起点；税率、许可和产品要求未收录时显示“待核验”。
 
 重建本地快照（会访问外部 API，仅用于显式数据更新）：
 

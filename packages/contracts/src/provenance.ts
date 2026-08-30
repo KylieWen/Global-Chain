@@ -34,7 +34,8 @@ export const EvidenceSupportTypeSchema = z.enum([
   "classification",
   "curation_method",
   "manufacturer_capability",
-  "commercial_relationship"
+  "commercial_relationship",
+  "policy_guidance"
 ]);
 export type EvidenceSupportType = z.infer<typeof EvidenceSupportTypeSchema>;
 
@@ -67,16 +68,17 @@ export const EvidenceScopeSchema = z
     supportsProcessContext: z.boolean(),
     supportsManufacturerCapability: z.boolean().default(false),
     supportsCommercialRelationship: z.boolean().default(false),
+    supportsPolicyGuidance: z.boolean().default(false),
     limitations: z.array(NonEmptyStringSchema).min(1)
   })
   .superRefine((scope, context) => {
     const hasFrom = Boolean(scope.fromEntityId);
     const hasTo = Boolean(scope.toEntityId);
-    if (hasFrom !== hasTo) {
+    if (hasFrom !== hasTo && !scope.supportsPolicyGuidance) {
       context.addIssue({
         code: "custom",
         path: [hasFrom ? "toEntityId" : "fromEntityId"],
-        message: "Evidence scope must provide both bilateral endpoints or neither"
+        message: "Evidence scope must provide both bilateral endpoints or neither (unless it is policy guidance)"
       });
     }
     if (
@@ -145,6 +147,9 @@ export const EvidenceSchema = z
     }
     if (evidence.supportType === "commercial_relationship" && !evidence.scope.supportsCommercialRelationship) {
       context.addIssue({ code: "custom", path: ["scope", "supportsCommercialRelationship"], message: "commercial_relationship evidence must explicitly support a commercial relationship" });
+    }
+    if (evidence.supportType === "policy_guidance" && !evidence.scope.supportsPolicyGuidance) {
+      context.addIssue({ code: "custom", path: ["scope", "supportsPolicyGuidance"], message: "policy_guidance evidence must explicitly support policy guidance" });
     }
   });
 export type Evidence = z.infer<typeof EvidenceSchema>;

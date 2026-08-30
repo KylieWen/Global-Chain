@@ -13,10 +13,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <span className="brand-mark" aria-hidden="true">G</span>
             <span>
               <strong>GlobeChain</strong>
-              <small>全球商品链路观察</small>
+              <small>进出口贸易指南针</small>
             </span>
           </Link>
           <nav className="site-nav" aria-label="主导航">
+            <Link href="/trade-guide">贸易指南</Link>
             <Link href="/products">商品探索</Link>
             <Link href="/demo">3 分钟演示</Link>
             <Link href="/countries">国家账本</Link>
@@ -41,8 +42,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
       ) : null}
       <main className="main-content">{children}</main>
       <footer className="site-footer">
-        <span>GlobeChain · 被动式全球供应链与贸易数据可视化</span>
-        <span>未知值保持未知，代表性路线不等于唯一事实</span>
+        <span>GlobeChain · 全球商品与进出口信息查询</span>
+        <span>指南是研究起点；具体规则请以官方系统和专业意见为准</span>
       </footer>
     </div>
   );

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getQueryService } from "../../../lib/data";
 import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../components/site-shell";
 import { ProductTree } from "../../../components/product-tree";
-import { manufacturingProcessPath, materialObservationsPath, provenancePath, supplyChainPath } from "../../../lib/paths";
+import { manufacturingProcessPath, materialObservationsPath, provenancePath, supplyChainPath, tradeGuidePath } from "../../../lib/paths";
 import { contextMismatch, readPageContext, type SearchParamsLike } from "../../../lib/context";
 import {
   PeriodLabel,
@@ -42,7 +42,7 @@ export default async function ProductOverviewPage({
           eyebrow={`${overview.product.category} / ${overview.product.slug}`}
           title={overview.product.name}
           description={overview.product.description ?? "这是一个由数据配置驱动的通用商品对象。"}
-          actions={<><Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>查看供应链全图</Link><Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link></>}
+          actions={<><Link className="button button-primary" href={tradeGuidePath({ product: productId, ...pageContext })}>查进出口要求</Link><Link className="button button-secondary" href={supplyChainPath(productId, undefined, pageContext)}>查看背景链路</Link><Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link></>}
         />
 
         <section className="exploration-position" aria-label="当前探索位置">
@@ -53,9 +53,10 @@ export default async function ProductOverviewPage({
 
         <nav className="exploration-nav" aria-label="商品研究层级">
           <span className="active">① 商品总览</span>
-          <Link href={supplyChainPath(productId, undefined, pageContext)}>② 供应链路线</Link>
-          <Link href={materialObservationsPath(productId, pageContext)}>③ 材料贸易</Link>
-          <Link href={provenancePath(productId, pageContext)}>④ 来源与版本</Link>
+          <Link href={tradeGuidePath({ product: productId, ...pageContext })}>② 进出口指南</Link>
+          <Link href={supplyChainPath(productId, undefined, pageContext)}>③ 背景链路</Link>
+          <Link href={materialObservationsPath(productId, pageContext)}>④ 材料贸易</Link>
+          <Link href={provenancePath(productId, pageContext)}>⑤ 来源与版本</Link>
         </nav>
 
         <section className="product-focus-strip" aria-label="当前商品覆盖重点">

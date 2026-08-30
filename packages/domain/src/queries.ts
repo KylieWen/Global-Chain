@@ -26,6 +26,13 @@ import type {
   StoryStep,
   SupplyChainEvidenceLevel,
   SupplyFlow,
+  PolicyDocument,
+  TariffMeasure,
+  TradeDocumentRequirement,
+  TradeGuide,
+  TradeProcedure,
+  TradeProcedureStep,
+  TradeRequirement,
   TradeObservation
 } from "@globe-chain/contracts";
 import type {
@@ -59,6 +66,13 @@ type ReadonlyProcessRequirement = DeepReadonly<ProcessRequirement>;
 type ReadonlyOrganization = DeepReadonly<Organization>;
 type ReadonlyOrganizationCapability = DeepReadonly<OrganizationCapability>;
 type ReadonlyClassificationCode = DeepReadonly<ClassificationCode>;
+type ReadonlyTradeGuide = DeepReadonly<TradeGuide>;
+type ReadonlyTariffMeasure = DeepReadonly<TariffMeasure>;
+type ReadonlyTradeRequirement = DeepReadonly<TradeRequirement>;
+type ReadonlyTradeProcedure = DeepReadonly<TradeProcedure>;
+type ReadonlyTradeProcedureStep = DeepReadonly<TradeProcedureStep>;
+type ReadonlyTradeDocumentRequirement = DeepReadonly<TradeDocumentRequirement>;
+type ReadonlyPolicyDocument = DeepReadonly<PolicyDocument>;
 
 export interface PeriodFilter {
   granularity?: Period["granularity"];
@@ -373,6 +387,74 @@ export interface MaterialTradeObservationOptions extends PeriodFilter {
   readonly classificationMappingType?: ReadonlyMaterialTradeObservation["classificationMappingType"];
 }
 
+export interface TradeGuideOptions extends PeriodFilter {
+  readonly jurisdictionEntityId?: string;
+  readonly direction?: ReadonlyTradeGuide["scope"]["direction"];
+  readonly itemId?: string;
+}
+
+export interface TradeGuideTariffView {
+  readonly measure: ReadonlyTariffMeasure;
+  readonly measureTypeLabel: string;
+  readonly rateTypeLabel: string;
+  readonly applicabilityLabel: string;
+  readonly displayValue: string;
+}
+
+export interface TradeGuideDocumentView {
+  readonly document: ReadonlyTradeDocumentRequirement;
+  readonly mandatoryStatusLabel: string;
+}
+
+export interface TradeGuideRequirementView {
+  readonly requirement: ReadonlyTradeRequirement;
+  readonly requirementTypeLabel: string;
+  readonly applicabilityLabel: string;
+  readonly evidenceLevelLabel: string;
+  readonly documents: readonly TradeGuideDocumentView[];
+}
+
+export interface TradeGuideProcedureStepView {
+  readonly step: ReadonlyTradeProcedureStep;
+  readonly actorLabel: string;
+  readonly channelLabel: string;
+  readonly mandatoryStatusLabel: string;
+  readonly documents: readonly TradeGuideDocumentView[];
+}
+
+export interface TradeGuideProcedureView {
+  readonly procedure: ReadonlyTradeProcedure;
+  readonly processingTimeLabel: string;
+  readonly steps: readonly TradeGuideProcedureStepView[];
+}
+
+export interface TradeGuideView {
+  readonly guide: ReadonlyTradeGuide;
+  readonly jurisdiction: ReadonlyGeoEntity | null;
+  readonly item: ReadonlyItem | null;
+  readonly classification: ReadonlyClassificationCode | null;
+  readonly directionLabel: string;
+  /** User-facing explanation of whether the selected jurisdiction is the origin or destination. */
+  readonly jurisdictionRoleLabel: string;
+  readonly originScopeLabel: string;
+  readonly regimeLabel: string;
+  readonly scopeSummary: string;
+  readonly coverageLabel: string;
+  readonly reviewStatusLabel: string;
+  readonly lastReviewedLabel: string;
+  readonly nextReviewLabel: string | null;
+  readonly tariffs: readonly TradeGuideTariffView[];
+  readonly requirements: readonly TradeGuideRequirementView[];
+  readonly procedures: readonly TradeGuideProcedureView[];
+  readonly documents: readonly TradeGuideDocumentView[];
+  readonly policyDocuments: readonly ReadonlyPolicyDocument[];
+  readonly contentVersion: ReadonlyContentVersion | null;
+  readonly datasetVersion: ReadonlyDatasetVersion;
+  readonly sources: readonly ReadonlySource[];
+  readonly evidence: readonly ResolvedEvidenceView[];
+  readonly warnings: readonly string[];
+}
+
 export interface ResolvedTradeObservationView {
   readonly observation: ReadonlyTradeObservation;
   readonly reporter: ReadonlyGeoEntity | null;
@@ -445,6 +527,7 @@ export interface ProductResearchExportView {
     | "catalog"
     | "supply_chain"
     | "trade_ledger"
+    | "trade_guidance"
     | "material_trade"
     | "manufacturing_process"
     | "provenance"
@@ -456,6 +539,13 @@ export interface ProductResearchExportView {
     readonly storyNodes: number;
     readonly storyFlows: number;
     readonly tradeObservations: number;
+    readonly tradeGuides: number;
+    readonly tariffMeasures: number;
+    readonly tradeRequirements: number;
+    readonly tradeProcedures: number;
+    readonly tradeProcedureSteps: number;
+    readonly tradeDocumentRequirements: number;
+    readonly policyDocuments: number;
     readonly materialTradeObservations: number;
     readonly macroIndicators: number;
     readonly sources: number;
@@ -505,6 +595,8 @@ export interface ProductQueryService {
   getEvidenceGaps(productId: string): readonly ResolvedEvidenceGapView[];
   getMaterialTradeObservations(productId: string, options?: MaterialTradeObservationOptions): readonly MaterialTradeObservationView[];
   getMaterialTradeObservation(productId: string, observationId: string): MaterialTradeObservationView | null;
+  getTradeGuides(productId: string, options?: TradeGuideOptions): readonly TradeGuideView[];
+  getTradeGuide(productId: string, guideId: string): TradeGuideView | null;
   getManufacturingProcessChain(productId: string, processChainId: string): ManufacturingProcessChainView | null;
 }
 
@@ -637,6 +729,240 @@ const evidenceLevelViews: Readonly<Record<SupplyChainEvidenceLevel, EvidenceLeve
 
 function evidenceLevelView(level: SupplyChainEvidenceLevel): EvidenceLevelView {
   return evidenceLevelViews[level];
+}
+
+const tradeDirectionLabels: Record<"import" | "export", string> = {
+  import: "进口",
+  export: "出口"
+};
+
+const tradeJurisdictionRoleLabels: Record<"import" | "export", string> = {
+  import: "进口目的地/管辖区",
+  export: "出口起运地/管辖区"
+};
+
+const tradeOriginScopeLabels: Record<string, string> = {
+  all_origins: "所有原产地",
+  specific_origin: "指定原产地",
+  preferential_agreement: "优惠协定原产地",
+  unknown: "原产地待核验"
+};
+
+const tradeRegimeLabels: Record<string, string> = {
+  standard: "一般贸易规则",
+  preferential: "优惠贸易规则",
+  transit: "过境/转运规则",
+  temporary: "暂时进出境规则",
+  other: "其他规则"
+};
+
+const tradeCoverageLabels: Record<string, string> = {
+  available: "资料较完整",
+  partial: "部分覆盖",
+  not_available: "暂无可用资料",
+  not_publicly_observable: "公开资料不可观测"
+};
+
+const tradeReviewStatusLabels: Record<string, string> = {
+  draft: "整理中",
+  validated: "已校验",
+  published: "已发布",
+  deprecated: "已下线"
+};
+
+const tariffMeasureLabels: Record<string, string> = {
+  customs_duty: "关税",
+  preferential_duty: "优惠关税",
+  vat: "进口环节增值税",
+  excise: "消费税",
+  anti_dumping: "反倾销措施",
+  safeguard: "保障措施",
+  export_tax: "出口税费",
+  quota: "配额",
+  other: "其他费用/措施"
+};
+
+const tariffRateLabels: Record<string, string> = {
+  ad_valorem: "从价税",
+  specific: "从量税",
+  compound: "复合税",
+  free: "免税",
+  prohibited: "禁止",
+  quota: "配额管理",
+  unknown: "税率未收录"
+};
+
+const policyApplicabilityLabels: Record<string, string> = {
+  required: "通常需要",
+  conditional: "视情况而定",
+  recommended: "建议准备",
+  prohibited: "禁止",
+  not_applicable: "不适用",
+  unknown: "待核验"
+};
+
+const requirementTypeLabels: Record<string, string> = {
+  import_license: "进口许可证",
+  export_license: "出口许可证",
+  customs_declaration: "海关申报",
+  registration: "主体登记",
+  conformity: "产品合规",
+  labeling: "标签与说明",
+  origin_proof: "原产地证明",
+  inspection: "检验检疫",
+  sanction: "制裁/禁限措施",
+  prohibited: "禁止进口/出口",
+  restricted: "限制管理",
+  quota: "配额",
+  tax_registration: "税务登记",
+  other: "其他要求"
+};
+
+const policyEvidenceLevelLabels: Record<string, string> = {
+  official_legal: "官方法律文本",
+  official_guidance: "官方办事指引",
+  international: "国际组织资料",
+  secondary: "二手资料",
+  curated: "人工整理",
+  none: "暂无证据"
+};
+
+const actorLabels: Record<string, string> = {
+  trader: "进出口企业",
+  customs_broker: "报关代理",
+  authority: "主管机关",
+  carrier: "承运人",
+  other: "其他参与方"
+};
+
+const channelLabels: Record<string, string> = {
+  online: "线上系统",
+  office: "办事窗口",
+  port: "口岸现场",
+  unknown: "渠道待核验"
+};
+
+function guidanceRateDisplay(measure: ReadonlyTariffMeasure): string {
+  if (measure.dataStatus === "unknown") return "未收录（按原产地、归类和日期核验）";
+  if (measure.dataStatus === "withheld") return "未披露";
+  if (measure.dataStatus === "estimated") return measure.rateValue === null ? "估算值未提供" : `约 ${measure.rateValue}${measure.rateUnit ? ` ${measure.rateUnit}` : "%"}`;
+  if (measure.rateValue === null) return tariffRateLabels[measure.rateType] ?? "未提供";
+  if (measure.rateType === "free" || measure.rateValue === 0) return "0（来源报告为零/免税）";
+  return `${measure.rateValue}${measure.rateUnit ? ` ${measure.rateUnit}` : "%"}`;
+}
+
+function resolveTradeDocumentView(
+  document: ReadonlyTradeDocumentRequirement
+): TradeGuideDocumentView {
+  return Object.freeze({
+    document,
+    mandatoryStatusLabel: policyApplicabilityLabels[document.mandatoryStatus] ?? document.mandatoryStatus
+  });
+}
+
+function resolveTradeGuideView(
+  fixture: ReadonlyProductFixture,
+  guide: ReadonlyTradeGuide
+): TradeGuideView {
+  const documentById = new Map(
+    (fixture.tradeDocumentRequirements ?? [])
+      .filter((document) => document.guideId === guide.id)
+      .map((document) => [document.id, resolveTradeDocumentView(document)])
+  );
+  const documents = freezeArray([...documentById.values()]);
+  const guideEvidence = resolveEvidenceRecords(fixture, guide.evidenceIds, guide.sourceIds);
+  const guideSources = sourcesForIds(fixture, guide.sourceIds);
+  const tariffs = freezeArray((fixture.tariffMeasures ?? [])
+    .filter((measure) => measure.guideId === guide.id)
+    .map((measure) => Object.freeze({
+      measure,
+      measureTypeLabel: tariffMeasureLabels[measure.measureType] ?? measure.measureType,
+      rateTypeLabel: tariffRateLabels[measure.rateType] ?? measure.rateType,
+      applicabilityLabel: policyApplicabilityLabels[measure.applicability] ?? measure.applicability,
+      displayValue: guidanceRateDisplay(measure)
+    })));
+  const requirements = freezeArray((fixture.tradeRequirements ?? [])
+    .filter((requirement) => requirement.guideId === guide.id)
+    .map((requirement) => Object.freeze({
+      requirement,
+      requirementTypeLabel: requirementTypeLabels[requirement.requirementType] ?? requirement.requirementType,
+      applicabilityLabel: policyApplicabilityLabels[requirement.applicability] ?? requirement.applicability,
+      evidenceLevelLabel: policyEvidenceLevelLabels[requirement.evidenceLevel] ?? requirement.evidenceLevel,
+      documents: freezeArray(requirement.documentRequirementIds.map((id) => documentById.get(id)).filter((document): document is TradeGuideDocumentView => Boolean(document)))
+    })));
+  const procedures = freezeArray((fixture.tradeProcedures ?? [])
+    .filter((procedure) => procedure.guideId === guide.id)
+    .sort((left, right) => left.id.localeCompare(right.id))
+    .map((procedure) => {
+      const steps = freezeArray(procedure.stepIds
+        .map((stepId) => (fixture.tradeProcedureSteps ?? []).find((step) => step.id === stepId))
+        .filter((step): step is ReadonlyTradeProcedureStep => Boolean(step))
+        .sort((left, right) => left.order - right.order)
+        .map((step) => Object.freeze({
+          step,
+          actorLabel: actorLabels[step.actorType] ?? step.actorType,
+          channelLabel: channelLabels[step.channel] ?? step.channel,
+          mandatoryStatusLabel: policyApplicabilityLabels[step.mandatoryStatus] ?? step.mandatoryStatus,
+          documents: freezeArray(step.documentRequirementIds.map((id) => documentById.get(id)).filter((document): document is TradeGuideDocumentView => Boolean(document)))
+        })));
+      return Object.freeze({
+        procedure,
+        processingTimeLabel: procedure.processingTime.value === null
+          ? "未提供"
+          : `${procedure.processingTime.value} ${procedure.processingTime.unit ?? ""}`.trim(),
+        steps
+      });
+    }));
+  const policyDocuments = freezeArray((fixture.policyDocuments ?? []).filter((document) => document.jurisdictionEntityId === guide.scope.jurisdictionEntityId && guide.sourceIds.includes(document.sourceId)));
+  const evidence = uniqueResolvedEvidence([
+    ...guideEvidence,
+    ...requirements.flatMap((view) => resolveEvidenceRecords(fixture, view.requirement.evidenceIds, view.requirement.sourceIds)),
+    ...tariffs.flatMap((view) => resolveEvidenceRecords(fixture, view.measure.evidenceIds, view.measure.sourceIds)),
+    ...procedures.flatMap((view) => [
+      ...resolveEvidenceRecords(fixture, view.procedure.evidenceIds, view.procedure.sourceIds),
+      ...view.steps.flatMap((step) => resolveEvidenceRecords(fixture, step.step.evidenceIds, step.step.sourceIds))
+    ]),
+    ...documents.flatMap((view) => resolveEvidenceRecords(fixture, view.document.evidenceIds, view.document.sourceIds)),
+    ...policyDocuments.flatMap((document) => resolveEvidenceRecords(fixture, document.evidenceIds, document.sourceIds))
+  ]);
+  const sources = uniqueSources([
+    ...guideSources,
+    ...evidence.map((record) => record.source),
+    ...policyDocuments.map((document) => sourceForId(fixture, document.sourceId))
+  ]);
+  const item = guide.scope.itemId
+    ? fixture.items.find((candidate) => candidate.id === guide.scope.itemId) ?? null
+    : null;
+  const classification = guide.scope.classification
+    ? fixture.classificationCodes.find((candidate) => candidate.system === guide.scope.classification?.system && candidate.version === guide.scope.classification?.version && candidate.code === guide.scope.classification?.code) ?? null
+    : null;
+  const jurisdiction = fixture.entities.find((entity) => entity.id === guide.scope.jurisdictionEntityId) ?? null;
+  const jurisdictionName = jurisdiction?.name ?? "未指定国家/地区";
+  return Object.freeze({
+    guide,
+    jurisdiction,
+    item,
+    classification,
+    directionLabel: tradeDirectionLabels[guide.scope.direction],
+    jurisdictionRoleLabel: tradeJurisdictionRoleLabels[guide.scope.direction],
+    originScopeLabel: tradeOriginScopeLabels[guide.scope.originScope] ?? guide.scope.originScope,
+    regimeLabel: tradeRegimeLabels[guide.scope.regime] ?? guide.scope.regime,
+    scopeSummary: `${tradeJurisdictionRoleLabels[guide.scope.direction]}：${jurisdictionName}`,
+    coverageLabel: tradeCoverageLabels[guide.coverageStatus] ?? guide.coverageStatus,
+    reviewStatusLabel: tradeReviewStatusLabels[guide.reviewStatus] ?? guide.reviewStatus,
+    lastReviewedLabel: guide.lastReviewedAt,
+    nextReviewLabel: guide.nextReviewAt ?? null,
+    tariffs,
+    requirements,
+    procedures,
+    documents,
+    policyDocuments,
+    contentVersion: contentVersionForId(fixture, guide.contentVersionId),
+    datasetVersion: fixture.datasetVersion,
+    sources,
+    evidence,
+    warnings: mergeWarnings(fixture.warnings, guide.limitations, ["政策指南是静态人工整理的查询起点；税率、许可和产品要求必须在官方系统按当前日期、原产地和规格复核。"])
+  });
 }
 
 function createRouteProvenance(
@@ -1562,6 +1888,40 @@ export function getMaterialTradeObservation(repository: FixtureRepository, produ
   return getMaterialTradeObservations(repository, productId).find((view) => view.observation.observationId === observationId) ?? null;
 }
 
+export function getTradeGuides(
+  repository: FixtureRepository,
+  productId: string,
+  options?: TradeGuideOptions
+): readonly TradeGuideView[] {
+  const fixture = getFixtureOrNull(repository, productId);
+  if (!fixture) return freezeArray([]);
+  const guides = (fixture.tradeGuides ?? [])
+    .filter((guide) =>
+      (!options?.jurisdictionEntityId || guide.scope.jurisdictionEntityId === options.jurisdictionEntityId) &&
+      (!options?.direction || guide.scope.direction === options.direction) &&
+      (!options?.itemId || guide.scope.itemId === options.itemId) &&
+      matchesPeriod(guide.period, options)
+    )
+    .sort((left, right) =>
+      left.scope.jurisdictionEntityId.localeCompare(right.scope.jurisdictionEntityId) ||
+      left.scope.direction.localeCompare(right.scope.direction) ||
+      left.title.localeCompare(right.title)
+    )
+    .map((guide) => resolveTradeGuideView(fixture, guide));
+  return freezeArray(guides);
+}
+
+export function getTradeGuide(
+  repository: FixtureRepository,
+  productId: string,
+  guideId: string
+): TradeGuideView | null {
+  const fixture = getFixtureOrNull(repository, productId);
+  if (!fixture) return null;
+  const guide = (fixture.tradeGuides ?? []).find((candidate) => candidate.id === guideId);
+  return guide ? resolveTradeGuideView(fixture, guide) : null;
+}
+
 export function getManufacturingProcessChain(
   repository: FixtureRepository,
   productId: string,
@@ -1668,6 +2028,7 @@ export function getProductResearchExport(
       "catalog",
       "supply_chain",
       "trade_ledger",
+      "trade_guidance",
       "material_trade",
       "manufacturing_process",
       "provenance",
@@ -1679,6 +2040,13 @@ export function getProductResearchExport(
       storyNodes: fixture.storyGraph.nodes.length,
       storyFlows: fixture.storyGraph.flows.length,
       tradeObservations: fixture.tradeObservations.length,
+      tradeGuides: fixture.tradeGuides.length,
+      tariffMeasures: fixture.tariffMeasures.length,
+      tradeRequirements: fixture.tradeRequirements.length,
+      tradeProcedures: fixture.tradeProcedures.length,
+      tradeProcedureSteps: fixture.tradeProcedureSteps.length,
+      tradeDocumentRequirements: fixture.tradeDocumentRequirements.length,
+      policyDocuments: fixture.policyDocuments.length,
       materialTradeObservations: fixture.materialTradeObservations.length,
       macroIndicators: fixture.macroIndicators.length,
       sources: fixture.sources.length,
@@ -1745,7 +2113,9 @@ export function createProductQueryService(
       getProductResearchExport(repository, productId),
     getEvidenceGaps: (productId: string) => getEvidenceGaps(repository, productId),
     getMaterialTradeObservations: (productId: string, options?: MaterialTradeObservationOptions) => getMaterialTradeObservations(repository, productId, options),
-    getMaterialTradeObservation: (productId: string, observationId: string) => getMaterialTradeObservation(repository, productId, observationId)
+    getMaterialTradeObservation: (productId: string, observationId: string) => getMaterialTradeObservation(repository, productId, observationId),
+    getTradeGuides: (productId: string, options?: TradeGuideOptions) => getTradeGuides(repository, productId, options),
+    getTradeGuide: (productId: string, guideId: string) => getTradeGuide(repository, productId, guideId)
     ,getManufacturingProcessChain: (productId: string, processChainId: string) => getManufacturingProcessChain(repository, productId, processChainId)
   });
 }

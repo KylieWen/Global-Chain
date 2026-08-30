@@ -39,7 +39,13 @@ sample 的 `storyGraph` 或 `productionActivities` 提升 published 路线。Web
 
 `globe-chain-smartphone-2023.13` 加入半导体封装与测试的代表性工艺深度层，并保留前一构建版本用于审计。该层的企业记录只表示公开资料支持的设备类别能力，不表示客户订单、设备出货、安装工厂、手机芯片用途或连续供应关系。没有可验证厂商资料的工序保留为空缺，不使用推测补齐。
 
-完整决策、代码和语义见 [`docs/adr/0002-published-data-sources.md`](../../docs/adr/0002-published-data-sources.md)。
+完整决策、代码和语义见 [`docs/adr/0002-published-data-sources.md`](../../docs/adr/0002-published-data-sources.md)。产品方向收敛为贸易指南针的决策见 [`docs/adr/0004-trade-guide-product-pivot.md`](../../docs/adr/0004-trade-guide-product-pivot.md)。
+
+### 贸易指南层
+
+`content/trade-guides/generic-smartphone-2023.json` 维护面向跨境采购和外贸调研的静态示范指南，当前覆盖美国、德国/欧盟和中国的进口/出口场景。每组指南包含商品编码范围、关税核验项、手续、建议文件、办理步骤、官方入口、覆盖状态、最近复核日期、来源和证据。
+
+指南不提供交易撮合、报价、订单、报关代理或法律意见。税率、许可证和产品要求会随原产地、具体规格、日期和目的地政策变化；未收录时保持 `unknown`，页面显示“待核验”，不补成 0%。
 
 当前发布清单（`data/published/manifest.json`）的数字版本为
 `globe-chain-smartphone-2023.6`；路线拓扑和策展说明的内容版本为

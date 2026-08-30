@@ -62,7 +62,8 @@ const evidenceSupportLabels: Record<EvidenceSupportType, string> = {
   classification: "分类与维度",
   curation_method: "策展方法",
   manufacturer_capability: "厂商设备能力",
-  commercial_relationship: "公开商业关系"
+  commercial_relationship: "公开商业关系",
+  policy_guidance: "政策/手续指引"
 };
 
 const evidenceGapStatusLabels: Record<ResolvedEvidenceGapView["gap"]["status"], string> = {

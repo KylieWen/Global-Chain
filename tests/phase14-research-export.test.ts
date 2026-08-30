@@ -13,14 +13,16 @@ describe("phase 14 versioned research export", () => {
     const researchExport = queries.getProductResearchExport("generic-smartphone");
 
     expect(researchExport?.formatVersion).toBe("product-research-export.v1");
-    expect(researchExport?.release.datasetVersion.version).toBe("globe-chain-smartphone-2023.15");
+    expect(researchExport?.release.datasetVersion.version).toBe("globe-chain-smartphone-2023.16");
     expect(researchExport?.release.contentVersions.map(({ version }) => version)).toContain("smartphone-route-2023.3");
     expect(researchExport?.release.contentVersions.map(({ version }) => version)).toContain("smartphone-packaging-process-2023.3");
+    expect(researchExport?.release.contentVersions.map(({ version }) => version)).toContain("smartphone-trade-guide-2023.1");
     expect(researchExport?.release.period.label).toBe("2023");
     expect(researchExport?.includedModules).toEqual([
       "catalog",
       "supply_chain",
       "trade_ledger",
+      "trade_guidance",
       "material_trade",
       "manufacturing_process",
       "provenance",
@@ -31,6 +33,7 @@ describe("phase 14 versioned research export", () => {
     expect(researchExport?.recordCounts.materialTradeObservations).toBeGreaterThan(0);
     expect(researchExport?.recordCounts.manufacturingProcessSteps).toBe(18);
     expect(researchExport?.recordCounts.organizationCapabilities).toBe(9);
+    expect(researchExport?.recordCounts.tradeGuides).toBe(4);
   });
 
   it("preserves evidence boundaries and unknown values in the exported snapshot", async () => {

@@ -3,12 +3,12 @@
   "fixtures": [
     {
       "productId": "generic-smartphone",
-      "path": "releases/generic-smartphone/globe-chain-smartphone-2023.15/fixture.json"
+      "path": "releases/generic-smartphone/globe-chain-smartphone-2023.16/fixture.json"
     }
   ],
-  "datasetVersion": "globe-chain-smartphone-2023.15",
-  "generatedAt": "2026-08-28",
-  "fixtureSha256": "e90e8d8026603e06431f97d3bcce00f029a03c67150460f81d678dcf101caf20",
+  "datasetVersion": "globe-chain-smartphone-2023.16",
+  "generatedAt": "2026-08-30",
+  "fixtureSha256": "4cc68813535566840d6af6857e6580090a24f018dd4fdfdfb6d7ffd0e90708fc",
   "routeContentVersion": "smartphone-route-2023.3",
   "routeContentSha256": "2d696c8171adb6c56f41bddb7a5ddebdb8f06804a167271f4c0d5e39c7627bad",
   "contentSources": [
@@ -19,7 +19,8 @@
     "../../content/evidence-gaps/generic-smartphone-processor-memory-2023.json",
     "../../content/evidence-gaps/generic-smartphone-2023.json",
     "../../content/evidence-gaps/generic-smartphone-components-2023.json",
-    "../../content/processes/generic-smartphone-semiconductor-packaging-2023.json"
+    "../../content/processes/generic-smartphone-semiconductor-packaging-2023.json",
+    "../../content/trade-guides/generic-smartphone-2023.json"
   ],
   "sourceSnapshots": [
     "raw/world-bank-wdi-2023.json",
@@ -34,14 +35,15 @@
     "The published fixture intentionally omits countries/flows absent from the Comtrade response rather than filling zero.",
     "The fixture now contains specific bilateral HS 851713 customs observations, kept separate from world totals and from the representative supply-chain edges.",
     "All current supply-chain edges remain representative and quantity-free because customs trade does not prove assembly, consumption or entry into this curated route.",
-    "Evidence gaps are versioned content and cover every current node and edge, including uncovered first-level components."
+    "Evidence gaps are versioned content and cover every current node and edge, including uncovered first-level components.",
+    "Trade guides are static, partially covered checklists linked to official portals; unknown tariffs are intentionally not calculated."
   ],
   "release": {
     "productId": "generic-smartphone",
-    "datasetVersion": "globe-chain-smartphone-2023.15",
-    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2023.15",
+    "datasetVersion": "globe-chain-smartphone-2023.16",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2023.16",
     "immutable": true
   },
-  "activeDatasetVersion": "globe-chain-smartphone-2023.15",
+  "activeDatasetVersion": "globe-chain-smartphone-2023.16",
   "activeManifest": true
 }

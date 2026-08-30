@@ -30,6 +30,7 @@ const EVIDENCE_GAP_REGISTRY_PATH = resolve(
 );
 const PROCESSOR_MEMORY_GAP_PATH = resolve(ROOT, "content/evidence-gaps/generic-smartphone-processor-memory-2023.json");
 const COMPONENT_GAP_PATH = resolve(ROOT, "content/evidence-gaps/generic-smartphone-components-2023.json");
+const TRADE_GUIDANCE_CONTENT_PATH = resolve(ROOT, "content/trade-guides/generic-smartphone-2023.json");
 const RAW_DIR = resolve(ROOT, "data/published/raw");
 const BILATERAL_SNAPSHOT_PATH = resolve(
   RAW_DIR,
@@ -47,7 +48,7 @@ const PERIOD = {
   label: YEAR
 };
 const DATASET_ID = "dataset-smartphone-published-2023";
-const DEFAULT_DATASET_VERSION = "globe-chain-smartphone-2023.15";
+const DEFAULT_DATASET_VERSION = "globe-chain-smartphone-2023.16";
 const DATASET_VERSION = process.env.GLOBECHAIN_DATASET_VERSION?.trim() || DEFAULT_DATASET_VERSION;
 const PUBLISHED_DIR = resolve(ROOT, "data/published");
 const RELEASE_DIR = resolve(PUBLISHED_DIR, "releases/generic-smartphone", DATASET_VERSION);
@@ -58,6 +59,7 @@ const ACTIVE_MANIFEST_PATH = resolve(PUBLISHED_DIR, "active-manifest.json");
 const COMPAT_MANIFEST_PATH = resolve(PUBLISHED_DIR, "manifest.json");
 const CONTENT_VERSION_ID = "content-smartphone-route-2023-3";
 const PROCESS_CONTENT_VERSION_ID = "content-smartphone-packaging-process-2023-3";
+const TRADE_GUIDANCE_CONTENT_VERSION_ID = "content-smartphone-trade-guide-2023-1";
 const SOURCE_IDS = {
   wdi: "source-world-bank-wdi",
   comtrade: "source-un-comtrade",
@@ -235,7 +237,7 @@ function applyManufacturingProcessContent(fixture, content) {
     version: "smartphone-packaging-process-2023.3",
     status: "published",
     createdAt: "2026-08-28",
-    publishedAt: "2026-08-28",
+    publishedAt: "2026-08-30",
     sourceIds: content.sources.map((source) => source.id),
     notes: "半导体封装工艺路线结构化：增加线焊/倒装分支、18 道工序和逐工序设备证据缺口；不包含客户供货关系。"
   });
@@ -289,6 +291,195 @@ function applyManufacturingProcessContent(fixture, content) {
     limitations: ["只说明厂商公开资料支持其具备该设备类别能力；不证明具体客户、订单、出货、安装地点或手机芯片用途。"],
     ...metadata, contentVersionId: PROCESS_CONTENT_VERSION_ID
   }));
+}
+
+/**
+ * Adds the reviewed, static trade-guide layer to a published fixture.
+ *
+ * The content file is intentionally compact and human-editable; this function
+ * expands it into the normalized arrays consumed by the contracts and domain
+ * query layer.  Policy guidance is kept separate from customs observations:
+ * a guide can explain where to verify a rule while its tariff value remains
+ * unknown.
+ */
+function applyTradeGuidanceContent(fixture, content) {
+  if (content.productId !== fixture.productId) {
+    throw new Error(`Trade guidance productId mismatch: ${content.productId}`);
+  }
+  if (content.contentVersion?.id !== TRADE_GUIDANCE_CONTENT_VERSION_ID) {
+    throw new Error(`Unexpected trade guidance content version: ${content.contentVersion?.id}`);
+  }
+
+  const sourceIds = new Set(fixture.sources.map((source) => source.id));
+  for (const source of content.sources ?? []) {
+    if (sourceIds.has(source.id)) throw new Error(`Duplicate trade guidance source: ${source.id}`);
+    fixture.sources.push(clone(source));
+    sourceIds.add(source.id);
+  }
+
+  const evidenceIds = new Set(fixture.evidence.map((evidence) => evidence.id));
+  for (const evidence of content.evidence ?? []) {
+    if (evidenceIds.has(evidence.id)) throw new Error(`Duplicate trade guidance evidence: ${evidence.id}`);
+    fixture.evidence.push(clone(evidence));
+    evidenceIds.add(evidence.id);
+  }
+
+  fixture.contentVersions.push(clone(content.contentVersion));
+  fixture.tradeGuides = [];
+  fixture.tariffMeasures = [];
+  fixture.tradeRequirements = [];
+  fixture.tradeProcedures = [];
+  fixture.tradeProcedureSteps = [];
+  fixture.tradeDocumentRequirements = [];
+  fixture.policyDocuments = [];
+
+  const classification = {
+    system: "HS",
+    version: "2022",
+    code: "851713",
+    label: "Smartphones",
+    mappingType: "exact"
+  };
+  const makeScope = (guide) => ({
+    jurisdictionEntityId: guide.jurisdictionEntityId,
+    direction: guide.direction,
+    itemId: fixture.productId,
+    classification,
+    originScope: "all_origins",
+    originEntityId: null,
+    destinationEntityId: guide.direction === "import" ? guide.jurisdictionEntityId : null,
+    regime: "standard",
+    period: period()
+  });
+  const metadata = (guide, overrides = {}) => ({
+    period: period(),
+    method: "curated",
+    sourceIds: [...guide.sourceIds],
+    evidenceIds: [...guide.evidenceIds],
+    dataStatus: "observed",
+    datasetVersionId: DATASET_ID,
+    contentVersionId: TRADE_GUIDANCE_CONTENT_VERSION_ID,
+    limitations: [...guide.limitations],
+    ...overrides
+  });
+
+  for (const guide of content.guides ?? []) {
+    const guideRecord = {
+      id: guide.id,
+      scope: makeScope(guide),
+      title: guide.title,
+      summary: guide.summary,
+      coverageStatus: guide.coverageStatus,
+      reviewStatus: "published",
+      lastReviewedAt: "2026-08-30",
+      nextReviewAt: null,
+      disclaimer: "这是官方入口和人工整理的研究起点，不是法律意见、报关代理服务或税额承诺。",
+      ...metadata(guide)
+    };
+    fixture.tradeGuides.push(guideRecord);
+
+    for (const [index, tariff] of (guide.tariffs ?? []).entries()) {
+      fixture.tariffMeasures.push({
+        id: `${guide.id}-tariff-${index + 1}`,
+        guideId: guide.id,
+        measureType: tariff.measureType,
+        rateType: tariff.rateType,
+        rateValue: tariff.rateValue ?? null,
+        rateCurrency: tariff.rateCurrency ?? null,
+        rateUnit: tariff.rateUnit ?? null,
+        calculationBasis: tariff.calculationBasis,
+        formula: tariff.formula ?? null,
+        applicability: tariff.applicability,
+        lifecycleStatus: tariff.lifecycleStatus,
+        ...metadata(guide, {
+          dataStatus: tariff.dataStatus ?? (tariff.rateValue === null ? "unknown" : "observed"),
+          limitations: [tariff.limitation, ...guide.limitations]
+        })
+      });
+    }
+
+    const documentIdByKey = new Map();
+    for (const [index, document] of (guide.documents ?? []).entries()) {
+      const id = `${guide.id}-document-${index + 1}`;
+      documentIdByKey.set(document.documentType, id);
+      fixture.tradeDocumentRequirements.push({
+        id,
+        guideId: guide.id,
+        documentType: document.documentType,
+        label: document.label,
+        mandatoryStatus: document.mandatoryStatus,
+        issuer: document.issuer ?? null,
+        purpose: document.purpose,
+        format: document.format ?? null,
+        conditions: [...(document.conditions ?? [])],
+        ...metadata(guide)
+      });
+    }
+
+    const procedureId = `${guide.id}-procedure`;
+    const stepIds = (guide.procedure?.steps ?? []).map((_, index) => `${procedureId}-step-${index + 1}`);
+    fixture.tradeProcedures.push({
+      id: procedureId,
+      guideId: guide.id,
+      title: guide.procedure.title,
+      purpose: guide.procedure.purpose,
+      authority: guide.procedure.authority ?? null,
+      officialUrl: guide.procedure.officialUrl ?? null,
+      stepIds,
+      processingTime: { ...guide.procedure.processingTime },
+      ...metadata(guide)
+    });
+    for (const [index, action] of (guide.procedure.steps ?? []).entries()) {
+      fixture.tradeProcedureSteps.push({
+        id: stepIds[index],
+        procedureId,
+        order: index,
+        action,
+        actorType: "trader",
+        mandatoryStatus: "recommended",
+        documentRequirementIds: [...documentIdByKey.values()],
+        channel: "online",
+        notes: "具体办理渠道、字段和时限以官方系统当前页面为准。",
+        ...metadata(guide)
+      });
+    }
+
+    for (const [index, requirement] of (guide.requirements ?? []).entries()) {
+      fixture.tradeRequirements.push({
+        id: `${guide.id}-requirement-${index + 1}`,
+        guideId: guide.id,
+        requirementType: requirement.requirementType,
+        title: requirement.title,
+        summary: requirement.summary,
+        applicability: requirement.applicability,
+        conditions: [...(requirement.conditions ?? [])],
+        authority: requirement.authority ?? null,
+        legalBasis: requirement.legalBasis ?? null,
+        documentRequirementIds: [...documentIdByKey.values()],
+        procedureId,
+        evidenceLevel: requirement.evidenceLevel ?? "official_guidance",
+        ...metadata(guide)
+      });
+    }
+
+    for (const [index, document] of (guide.policyDocuments ?? []).entries()) {
+      fixture.policyDocuments.push({
+        id: `${guide.id}-policy-document-${index + 1}`,
+        jurisdictionEntityId: guide.jurisdictionEntityId,
+        documentType: document.documentType,
+        title: document.title,
+        issuingAuthority: document.issuingAuthority ?? null,
+        identifier: document.identifier ?? null,
+        sourceId: document.sourceId,
+        language: document.language ?? null,
+        effectiveFrom: document.effectiveFrom ?? null,
+        effectiveTo: document.effectiveTo ?? null,
+        retrievedAt: document.retrievedAt,
+        redistributionRestriction: document.redistributionRestriction ?? null,
+        ...metadata(guide, { sourceIds: [...new Set([...guide.sourceIds, document.sourceId])] })
+      });
+    }
+  }
 }
 
 function sha256(value) {
@@ -1406,8 +1597,9 @@ function buildFixture(
   semiconductorRoleContent,
   processorMemoryGapContent,
   componentGapContent,
-  gapRegistry,
-  packagingProcessContent
+    gapRegistry,
+    packagingProcessContent,
+    tradeGuidanceContent
 ) {
   const fixture = clone(sample);
   fixture.schemaVersion = "product-fixture.v1";
@@ -1416,7 +1608,7 @@ function buildFixture(
     id: DATASET_ID,
     name: "GlobeChain 通用智能手机 2023 published 数据集",
     version: DATASET_VERSION,
-    publishedAt: "2026-08-28",
+    publishedAt: "2026-08-30",
     sourceIds: [
       SOURCE_IDS.wdi,
       SOURCE_IDS.comtrade,
@@ -1427,11 +1619,12 @@ function buildFixture(
       ...(industryRoleContent.sources ?? []).map((source) => source.id),
       ...(semiconductorRoleContent.sources ?? []).map((source) => source.id)
       ,...(packagingProcessContent.sources ?? []).map((source) => source.id)
+      ,...(tradeGuidanceContent.sources ?? []).map((source) => source.id)
     ],
     coverage: null,
     status: "published",
     notes:
-      "2023 完整自然年；宏观指标来自 WDI，智能手机单品观察来自 UN Comtrade HS 2022 851713，路线为数量未知的代表性策展内容。"
+      "2023 完整自然年；宏观指标来自 WDI，智能手机单品观察来自 UN Comtrade HS 2022 851713，路线为数量未知的代表性策展内容；贸易指南是官方门户人工整理的静态核验清单。"
   };
   const { sources, evidence } = makeSourceAndEvidence(
     wdiRaw,
@@ -1453,6 +1646,7 @@ function buildFixture(
   extendDisplayCameraCatalog(fixture);
   applyRouteContent(fixture, routeContent);
   applyManufacturingProcessContent(fixture, packagingProcessContent);
+  applyTradeGuidanceContent(fixture, tradeGuidanceContent);
   fixture.tradeObservations = [
     ...buildTradeObservations(comtradeRaw),
     ...buildBilateralTradeObservations(bilateralRaw)
@@ -1649,6 +1843,36 @@ function assertBuildInvariants(fixture, comtradeRaw) {
       throw new Error(`Role-supported node requires structured evidence scope: ${node.id}`);
     }
   }
+  if (fixture.tradeGuides.length === 0) throw new Error("Trade guidance records are required for the published pivot");
+  if (!fixture.contentVersions.some((version) => version.id === TRADE_GUIDANCE_CONTENT_VERSION_ID && version.status === "published")) {
+    throw new Error("Published trade guidance content version is missing");
+  }
+  const guideIds = new Set(fixture.tradeGuides.map((guide) => guide.id));
+  const guidanceRecords = [
+    ...fixture.tradeGuides,
+    ...fixture.tariffMeasures,
+    ...fixture.tradeRequirements,
+    ...fixture.tradeProcedures,
+    ...fixture.tradeProcedureSteps,
+    ...fixture.tradeDocumentRequirements,
+    ...fixture.policyDocuments
+  ];
+  for (const record of guidanceRecords) {
+    if (record.period?.label !== YEAR) throw new Error(`Trade guidance period mismatch: ${record.id}`);
+    if (record.datasetVersionId !== DATASET_ID) throw new Error(`Trade guidance dataset mismatch: ${record.id}`);
+    if (record.contentVersionId !== TRADE_GUIDANCE_CONTENT_VERSION_ID) throw new Error(`Trade guidance content mismatch: ${record.id}`);
+    if (record.method === "mock") throw new Error(`Published trade guidance cannot use mock method: ${record.id}`);
+    if (!record.sourceIds?.length || !record.evidenceIds?.length) throw new Error(`Trade guidance provenance is incomplete: ${record.id}`);
+    for (const sourceId of record.sourceIds) if (!fixture.sources.some((source) => source.id === sourceId)) throw new Error(`Unknown trade guidance source ${sourceId}`);
+    for (const evidenceId of record.evidenceIds) if (!fixture.evidence.some((evidence) => evidence.id === evidenceId)) throw new Error(`Unknown trade guidance evidence ${evidenceId}`);
+  }
+  for (const guide of fixture.tradeGuides) {
+    if (!guideIds.has(guide.id) || guide.scope.itemId !== fixture.productId) throw new Error(`Trade guide scope mismatch: ${guide.id}`);
+  }
+  for (const tariff of fixture.tariffMeasures) {
+    if (!guideIds.has(tariff.guideId)) throw new Error(`Tariff measure references unknown guide: ${tariff.id}`);
+    if (tariff.dataStatus === "unknown" && tariff.rateValue !== null) throw new Error(`Unknown tariff must not have a numeric value: ${tariff.id}`);
+  }
 }
 
 async function main() {
@@ -1667,7 +1891,8 @@ async function main() {
     processorMemoryGapContent,
     componentGapContent,
     gapRegistry,
-    packagingProcessContent
+    packagingProcessContent,
+    tradeGuidanceContent
   ] = await Promise.all([
     readJson(SAMPLE_PATH),
     readFile(ROUTE_CONTENT_PATH, "utf8"),
@@ -1683,7 +1908,8 @@ async function main() {
     readJson(PROCESSOR_MEMORY_GAP_PATH),
     readJson(COMPONENT_GAP_PATH),
     readJson(EVIDENCE_GAP_REGISTRY_PATH),
-    readJson(PACKAGING_PROCESS_PATH)
+    readJson(PACKAGING_PROCESS_PATH),
+    readJson(TRADE_GUIDANCE_CONTENT_PATH)
   ]);
   const baseRouteContent = JSON.parse(routeContentRaw);
   const routeContent = {
@@ -1704,7 +1930,8 @@ async function main() {
     processorMemoryGapContent.productId !== sample.productId ||
     componentGapContent.productId !== sample.productId ||
     gapRegistry.productId !== sample.productId ||
-    packagingProcessContent.productId !== sample.productId
+    packagingProcessContent.productId !== sample.productId ||
+    tradeGuidanceContent.productId !== sample.productId
   ) {
     throw new Error("Published evidence inputs do not match the smartphone build scope");
   }
@@ -1722,7 +1949,8 @@ async function main() {
     processorMemoryGapContent,
     componentGapContent,
     gapRegistry,
-    packagingProcessContent
+    packagingProcessContent,
+    tradeGuidanceContent
   );
   assertBuildInvariants(fixture, comtradeRaw);
   await mkdir(OUTPUT_DIR, { recursive: true });
@@ -1738,7 +1966,7 @@ async function main() {
     schemaVersion: "fixture-manifest.v1",
     fixtures: [{ productId: fixture.productId, path: "fixture.json" }],
     datasetVersion: DATASET_VERSION,
-    generatedAt: "2026-08-28",
+    generatedAt: "2026-08-30",
     fixtureSha256: sha256(serialized),
     routeContentVersion: routeContent.contentVersion.version,
     routeContentSha256: sha256(JSON.stringify(routeContent)),
@@ -1751,6 +1979,7 @@ async function main() {
       "../../content/evidence-gaps/generic-smartphone-2023.json",
       "../../content/evidence-gaps/generic-smartphone-components-2023.json"
       ,"../../content/processes/generic-smartphone-semiconductor-packaging-2023.json"
+      ,"../../content/trade-guides/generic-smartphone-2023.json"
     ],
     sourceSnapshots: [
       "raw/world-bank-wdi-2023.json",
@@ -1765,7 +1994,8 @@ async function main() {
       "The published fixture intentionally omits countries/flows absent from the Comtrade response rather than filling zero.",
       "The fixture now contains specific bilateral HS 851713 customs observations, kept separate from world totals and from the representative supply-chain edges.",
       "All current supply-chain edges remain representative and quantity-free because customs trade does not prove assembly, consumption or entry into this curated route.",
-      "Evidence gaps are versioned content and cover every current node and edge, including uncovered first-level components."
+      "Evidence gaps are versioned content and cover every current node and edge, including uncovered first-level components.",
+      "Trade guides are static, partially covered checklists linked to official portals; unknown tariffs are intentionally not calculated."
     ],
     release: {
       productId: fixture.productId,

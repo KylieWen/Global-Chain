@@ -45,6 +45,16 @@ export function manufacturingProcessPath(productId: string, processChainId: stri
   return `/products/${segment(productId)}/processes/${segment(processChainId)}${contextQuery(context)}`;
 }
 
+export type TradeGuideFilters = PageContext & {
+  product?: string;
+  jurisdiction?: string;
+  direction?: "import" | "export";
+};
+
+export function tradeGuidePath(filters?: TradeGuideFilters): string {
+  return `/trade-guide${contextQuery(filters)}`;
+}
+
 export type MapFilters = PageContext & {
   product?: string;
   country?: string;

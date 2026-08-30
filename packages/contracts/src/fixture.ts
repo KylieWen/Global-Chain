@@ -32,6 +32,15 @@ import {
   OrganizationSchema,
   ProcessRequirementSchema
 } from "./manufacturing";
+import {
+  PolicyDocumentSchema,
+  TariffMeasureSchema,
+  TradeDocumentRequirementSchema,
+  TradeGuideSchema,
+  TradeProcedureSchema,
+  TradeProcedureStepSchema,
+  TradeRequirementSchema
+} from "./trade-guidance";
 
 export const ProductFixtureSchema = z
   .object({
@@ -62,6 +71,13 @@ export const ProductFixtureSchema = z
     equipmentCategories: z.array(EquipmentCategorySchema).default([]),
     processRequirements: z.array(ProcessRequirementSchema).default([]),
     organizationCapabilities: z.array(OrganizationCapabilitySchema).default([]),
+    tradeGuides: z.array(TradeGuideSchema).default([]),
+    tariffMeasures: z.array(TariffMeasureSchema).default([]),
+    tradeRequirements: z.array(TradeRequirementSchema).default([]),
+    tradeProcedures: z.array(TradeProcedureSchema).default([]),
+    tradeProcedureSteps: z.array(TradeProcedureStepSchema).default([]),
+    tradeDocumentRequirements: z.array(TradeDocumentRequirementSchema).default([]),
+    policyDocuments: z.array(PolicyDocumentSchema).default([]),
     /** Human-readable release notes for known missing or semantically limited data. */
     missingDataNotes: z.array(NonEmptyStringSchema).default([]),
     warnings: z.array(NonEmptyStringSchema)
@@ -86,6 +102,9 @@ export const ProductFixtureSchema = z
     const processStepIds = new Set(fixture.manufacturingProcessSteps.map((step) => step.id));
     const processRouteVariantIds = new Set(fixture.manufacturingRouteVariants.map((variant) => variant.id));
     const equipmentCategoryIds = new Set(fixture.equipmentCategories.map((equipment) => equipment.id));
+    const tradeGuideIds = new Set(fixture.tradeGuides.map((guide) => guide.id));
+    const tradeProcedureIds = new Set(fixture.tradeProcedures.map((procedure) => procedure.id));
+    const tradeDocumentIds = new Set(fixture.tradeDocumentRequirements.map((document) => document.id));
 
     const checkUnique = (values: string[], path: (string | number)[], label: string) => {
       if (new Set(values).size !== values.length) {
@@ -142,6 +161,13 @@ export const ProductFixtureSchema = z
     checkUnique(fixture.equipmentCategories.map((record) => record.id), ["equipmentCategories"], "Equipment category");
     checkUnique(fixture.processRequirements.map((record) => record.id), ["processRequirements"], "Process requirement");
     checkUnique(fixture.organizationCapabilities.map((record) => record.id), ["organizationCapabilities"], "Organization capability");
+    checkUnique(fixture.tradeGuides.map((record) => record.id), ["tradeGuides"], "Trade guide");
+    checkUnique(fixture.tariffMeasures.map((record) => record.id), ["tariffMeasures"], "Tariff measure");
+    checkUnique(fixture.tradeRequirements.map((record) => record.id), ["tradeRequirements"], "Trade requirement");
+    checkUnique(fixture.tradeProcedures.map((record) => record.id), ["tradeProcedures"], "Trade procedure");
+    checkUnique(fixture.tradeProcedureSteps.map((record) => record.id), ["tradeProcedureSteps"], "Trade procedure step");
+    checkUnique(fixture.tradeDocumentRequirements.map((record) => record.id), ["tradeDocumentRequirements"], "Trade document requirement");
+    checkUnique(fixture.policyDocuments.map((record) => record.id), ["policyDocuments"], "Policy document");
     const indicatorKeys = fixture.indicatorDefinitions.map((definition) => definition.indicator);
     if (new Set(indicatorKeys).size !== indicatorKeys.length) {
       context.addIssue({
@@ -927,6 +953,63 @@ export const ProductFixtureSchema = z
       const supportTypes = capability.evidenceIds.map((id) => evidenceById.get(id)?.supportType);
       if (capability.capabilityEvidenceLevel === "manufacturer_supported" && !supportTypes.includes("manufacturer_capability")) context.addIssue({ code: "custom", path: ["organizationCapabilities", index, "capabilityEvidenceLevel"], message: "Manufacturer-supported capability requires manufacturer_capability evidence" });
       if (capability.capabilityEvidenceLevel === "commercial_relationship_supported" && !supportTypes.includes("commercial_relationship")) context.addIssue({ code: "custom", path: ["organizationCapabilities", index, "capabilityEvidenceLevel"], message: "Commercial relationship capability requires commercial_relationship evidence" });
+    });
+
+    const procedureStepIds = new Set(fixture.tradeProcedureSteps.map((step) => step.id));
+    fixture.tradeGuides.forEach((guide, index) => {
+      if (!entityIds.has(guide.scope.jurisdictionEntityId)) context.addIssue({ code: "custom", path: ["tradeGuides", index, "scope", "jurisdictionEntityId"], message: "Trade guide references an unknown jurisdiction" });
+      if (guide.scope.itemId && !itemIds.has(guide.scope.itemId)) context.addIssue({ code: "custom", path: ["tradeGuides", index, "scope", "itemId"], message: "Trade guide references an unknown item" });
+      checkSourceReferences(guide.sourceIds, ["tradeGuides", index, "sourceIds"], "Trade guide");
+      checkEvidenceReferences(guide.evidenceIds, guide.sourceIds, ["tradeGuides", index, "evidenceIds"], "Trade guide");
+      checkDatasetReference(guide.datasetVersionId, ["tradeGuides", index, "datasetVersionId"], "Trade guide");
+      checkContentVersionReference(guide.contentVersionId, ["tradeGuides", index, "contentVersionId"], "Trade guide");
+    });
+    fixture.tariffMeasures.forEach((measure, index) => {
+      if (!tradeGuideIds.has(measure.guideId)) context.addIssue({ code: "custom", path: ["tariffMeasures", index, "guideId"], message: "Tariff measure references an unknown trade guide" });
+      checkSourceReferences(measure.sourceIds, ["tariffMeasures", index, "sourceIds"], "Tariff measure");
+      checkEvidenceReferences(measure.evidenceIds, measure.sourceIds, ["tariffMeasures", index, "evidenceIds"], "Tariff measure");
+      checkDatasetReference(measure.datasetVersionId, ["tariffMeasures", index, "datasetVersionId"], "Tariff measure");
+      checkContentVersionReference(measure.contentVersionId, ["tariffMeasures", index, "contentVersionId"], "Tariff measure");
+    });
+    fixture.tradeRequirements.forEach((requirement, index) => {
+      if (!tradeGuideIds.has(requirement.guideId)) context.addIssue({ code: "custom", path: ["tradeRequirements", index, "guideId"], message: "Trade requirement references an unknown trade guide" });
+      requirement.documentRequirementIds.forEach((id) => { if (!tradeDocumentIds.has(id)) context.addIssue({ code: "custom", path: ["tradeRequirements", index, "documentRequirementIds"], message: `Trade requirement references unknown document ${id}` }); });
+      if (requirement.procedureId && !tradeProcedureIds.has(requirement.procedureId)) context.addIssue({ code: "custom", path: ["tradeRequirements", index, "procedureId"], message: "Trade requirement references an unknown procedure" });
+      checkSourceReferences(requirement.sourceIds, ["tradeRequirements", index, "sourceIds"], "Trade requirement");
+      checkEvidenceReferences(requirement.evidenceIds, requirement.sourceIds, ["tradeRequirements", index, "evidenceIds"], "Trade requirement");
+      checkDatasetReference(requirement.datasetVersionId, ["tradeRequirements", index, "datasetVersionId"], "Trade requirement");
+      checkContentVersionReference(requirement.contentVersionId, ["tradeRequirements", index, "contentVersionId"], "Trade requirement");
+    });
+    fixture.tradeProcedures.forEach((procedure, index) => {
+      if (!tradeGuideIds.has(procedure.guideId)) context.addIssue({ code: "custom", path: ["tradeProcedures", index, "guideId"], message: "Trade procedure references an unknown trade guide" });
+      procedure.stepIds.forEach((id) => { if (!procedureStepIds.has(id)) context.addIssue({ code: "custom", path: ["tradeProcedures", index, "stepIds"], message: `Trade procedure references unknown step ${id}` }); });
+      checkSourceReferences(procedure.sourceIds, ["tradeProcedures", index, "sourceIds"], "Trade procedure");
+      checkEvidenceReferences(procedure.evidenceIds, procedure.sourceIds, ["tradeProcedures", index, "evidenceIds"], "Trade procedure");
+      checkDatasetReference(procedure.datasetVersionId, ["tradeProcedures", index, "datasetVersionId"], "Trade procedure");
+      checkContentVersionReference(procedure.contentVersionId, ["tradeProcedures", index, "contentVersionId"], "Trade procedure");
+    });
+    fixture.tradeProcedureSteps.forEach((step, index) => {
+      if (!tradeProcedureIds.has(step.procedureId)) context.addIssue({ code: "custom", path: ["tradeProcedureSteps", index, "procedureId"], message: "Trade procedure step references an unknown procedure" });
+      step.documentRequirementIds.forEach((id) => { if (!tradeDocumentIds.has(id)) context.addIssue({ code: "custom", path: ["tradeProcedureSteps", index, "documentRequirementIds"], message: `Trade procedure step references unknown document ${id}` }); });
+      checkSourceReferences(step.sourceIds, ["tradeProcedureSteps", index, "sourceIds"], "Trade procedure step");
+      checkEvidenceReferences(step.evidenceIds, step.sourceIds, ["tradeProcedureSteps", index, "evidenceIds"], "Trade procedure step");
+      checkDatasetReference(step.datasetVersionId, ["tradeProcedureSteps", index, "datasetVersionId"], "Trade procedure step");
+      checkContentVersionReference(step.contentVersionId, ["tradeProcedureSteps", index, "contentVersionId"], "Trade procedure step");
+    });
+    fixture.tradeDocumentRequirements.forEach((document, index) => {
+      if (!tradeGuideIds.has(document.guideId)) context.addIssue({ code: "custom", path: ["tradeDocumentRequirements", index, "guideId"], message: "Trade document requirement references an unknown trade guide" });
+      checkSourceReferences(document.sourceIds, ["tradeDocumentRequirements", index, "sourceIds"], "Trade document requirement");
+      checkEvidenceReferences(document.evidenceIds, document.sourceIds, ["tradeDocumentRequirements", index, "evidenceIds"], "Trade document requirement");
+      checkDatasetReference(document.datasetVersionId, ["tradeDocumentRequirements", index, "datasetVersionId"], "Trade document requirement");
+      checkContentVersionReference(document.contentVersionId, ["tradeDocumentRequirements", index, "contentVersionId"], "Trade document requirement");
+    });
+    fixture.policyDocuments.forEach((document, index) => {
+      if (!entityIds.has(document.jurisdictionEntityId)) context.addIssue({ code: "custom", path: ["policyDocuments", index, "jurisdictionEntityId"], message: "Policy document references an unknown jurisdiction" });
+      if (!sourceIdSet.has(document.sourceId)) context.addIssue({ code: "custom", path: ["policyDocuments", index, "sourceId"], message: "Policy document references an unknown source" });
+      checkSourceReferences(document.sourceIds, ["policyDocuments", index, "sourceIds"], "Policy document");
+      checkEvidenceReferences(document.evidenceIds, document.sourceIds, ["policyDocuments", index, "evidenceIds"], "Policy document");
+      checkDatasetReference(document.datasetVersionId, ["policyDocuments", index, "datasetVersionId"], "Policy document");
+      checkContentVersionReference(document.contentVersionId, ["policyDocuments", index, "contentVersionId"], "Policy document");
     });
 
     checkContentVersionReference(

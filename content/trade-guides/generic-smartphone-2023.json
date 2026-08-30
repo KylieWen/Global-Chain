@@ -1,0 +1,237 @@
+{
+  "schemaVersion": "trade-guidance-content.v1",
+  "productId": "generic-smartphone",
+  "contentVersion": {
+    "id": "content-smartphone-trade-guide-2023-1",
+    "version": "smartphone-trade-guide-2023.1",
+    "status": "published",
+    "publishedAt": "2026-08-30",
+    "notes": "面向跨境采购和外贸调研的静态进口/出口查询清单；内容由官方门户人工整理，不替代报关行、海关或法律意见。"
+  },
+  "sources": [
+    {
+      "id": "source-trade-us-cbp",
+      "name": "Importing into the United States",
+      "publisher": "U.S. Customs and Border Protection",
+      "url": "https://www.cbp.gov/trade/basic-import-export/importing-into-united-states",
+      "license": "U.S. Government website; retain attribution and link; specific documents and marks may have separate terms",
+      "publishedAt": null,
+      "retrievedAt": "2026-08-30",
+      "datasetVersion": "CBP-import-export-guidance-accessed-2026-08-30",
+      "notes": "仅作为美国进出口官方入口和流程核验入口；本项目不复制法律文本或计算最终税额。"
+    },
+    {
+      "id": "source-trade-eu-access2markets",
+      "name": "Access2Markets",
+      "publisher": "European Commission",
+      "url": "https://trade.ec.europa.eu/access-to-markets/en/home",
+      "license": "European Commission website terms; retain attribution and link; verify current reuse conditions",
+      "publishedAt": null,
+      "retrievedAt": "2026-08-30",
+      "datasetVersion": "EU-Access2Markets-portal-accessed-2026-08-30",
+      "notes": "德国适用欧盟共同关税和成员国边境/产品规则；具体税率与要求必须按 HS、原产地和日期重新查询。"
+    },
+    {
+      "id": "source-trade-china-single-window",
+      "name": "国际贸易单一窗口",
+      "publisher": "中国国际贸易单一窗口",
+      "url": "https://www.singlewindow.cn/",
+      "license": "中国国际贸易单一窗口网站版权与使用条件适用；仅保留必要摘要并链接原页面",
+      "publishedAt": null,
+      "retrievedAt": "2026-08-30",
+      "datasetVersion": "CN-single-window-portal-accessed-2026-08-30",
+      "notes": "作为中国报关、申报和业务办理入口；本项目不替代海关申报系统。"
+    },
+    {
+      "id": "source-trade-china-customs",
+      "name": "中华人民共和国海关总署",
+      "publisher": "中华人民共和国海关总署",
+      "url": "https://www.customs.gov.cn/",
+      "license": "海关总署网站版权与使用条件适用；仅保留必要摘要并链接原页面",
+      "publishedAt": null,
+      "retrievedAt": "2026-08-30",
+      "datasetVersion": "CN-customs-portal-accessed-2026-08-30",
+      "notes": "用于查询现行监管公告、商品归类、许可和检验要求；页面摘要不构成具体商品的法律结论。"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence-policy-us-import-2023",
+      "sourceId": "source-trade-us-cbp",
+      "supportType": "policy_guidance",
+      "scope": {
+        "entityIds": ["country-us"],
+        "fromEntityId": null,
+        "toEntityId": "country-us",
+        "itemIds": ["generic-smartphone"],
+        "processStageIds": [],
+        "classificationCodes": [{"system": "HS", "version": "2022", "code": "851713", "mappingType": "exact", "description": "Smartphones；实际申报仍需核验适用税则版本"}],
+        "direction": "import",
+        "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"},
+        "scopeDescription": "支持美国进口商应从 CBP 官方入口核验进口流程、申报资料和适用规则；不提供该商品的确定税率。",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "supportsPolicyGuidance": true,
+        "limitations": ["官方入口是规则检索起点，不等于对任一具体货物的预裁定。", "税率、原产地、监管许可和贸易救济措施需要按申报时点重新核验。"]
+      },
+      "locator": "CBP Importing into the United States portal, sections on importer responsibilities, entry documentation and customs clearance",
+      "excerpt": "官方入口提供进口商责任、申报文件和通关流程的核验路径。",
+      "notes": "该证据支持政策查询入口和一般流程背景，不支持某个品牌、型号、批次或确定税额。"
+    },
+    {
+      "id": "evidence-policy-eu-import-2023",
+      "sourceId": "source-trade-eu-access2markets",
+      "supportType": "policy_guidance",
+      "scope": {
+        "entityIds": ["country-de"],
+        "fromEntityId": null,
+        "toEntityId": "country-de",
+        "itemIds": ["generic-smartphone"],
+        "processStageIds": [],
+        "classificationCodes": [{"system": "HS", "version": "2022", "code": "851713", "mappingType": "exact", "description": "Smartphones；欧盟 TARIC 查询需核验当前代码"}],
+        "direction": "import",
+        "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"},
+        "scopeDescription": "支持德国进口调研应从欧盟 Access2Markets 入口查询关税、原产地、产品要求和手续；不提供确定税率。",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "supportsPolicyGuidance": true,
+        "limitations": ["德国进口规则包含欧盟层面和成员国执行层面要求。", "税率和产品合规要求随原产地、日期、具体规格和措施变化。"]
+      },
+      "locator": "European Commission Access2Markets portal, My Trade Assistant / tariffs and procedures entry points",
+      "excerpt": "官方入口按商品、原产地和目的地查询关税、税费、程序和产品要求。",
+      "notes": "该证据支持德国/欧盟规则检索入口，不支持某一批手机的实际清关结果。"
+    },
+    {
+      "id": "evidence-policy-cn-import-2023",
+      "sourceId": "source-trade-china-single-window",
+      "supportType": "policy_guidance",
+      "scope": {
+        "entityIds": ["country-cn"],
+        "fromEntityId": null,
+        "toEntityId": "country-cn",
+        "itemIds": ["generic-smartphone"],
+        "processStageIds": [],
+        "classificationCodes": [{"system": "HS", "version": "2022", "code": "851713", "mappingType": "exact", "description": "Smartphones；中国税则和监管条件需按当前版本核验"}],
+        "direction": "import",
+        "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"},
+        "scopeDescription": "支持中国进口调研从国际贸易单一窗口进入申报和业务办理流程；不提供确定税率或监管证件结论。",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "supportsPolicyGuidance": true,
+        "limitations": ["实际申报需由企业或报关代理在官方系统核验。", "具体税率、许可证、检验和原产地待遇依商品规格、原产地和当期公告而变。"]
+      },
+      "locator": "中国国际贸易单一窗口门户，货物申报、公共查询和业务办理入口",
+      "excerpt": "官方系统提供货物申报和相关业务办理入口。",
+      "notes": "该证据支持办理入口，不替代海关对具体商品的归类和监管判定。"
+    },
+    {
+      "id": "evidence-policy-cn-export-2023",
+      "sourceId": "source-trade-china-customs",
+      "supportType": "policy_guidance",
+      "scope": {
+        "entityIds": ["country-cn"],
+        "fromEntityId": "country-cn",
+        "toEntityId": null,
+        "itemIds": ["generic-smartphone"],
+        "processStageIds": [],
+        "classificationCodes": [{"system": "HS", "version": "2022", "code": "851713", "mappingType": "exact", "description": "Smartphones；出口申报代码与监管条件需按当前版本核验"}],
+        "direction": "export",
+        "period": {"granularity": "annual", "start": "2023-01-01", "end": "2023-12-31", "label": "2023"},
+        "scopeDescription": "支持中国出口调研从海关总署官方入口核验商品归类、监管公告和申报规则；不提供确定税费。",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "supportsPolicyGuidance": true,
+        "limitations": ["出口申报条件须结合当前税则、监管证件和目的地要求核验。", "不能从政策入口推断任一具体企业、订单或实际出口伙伴。"]
+      },
+      "locator": "中华人民共和国海关总署门户，政策法规、公告和商品归类查询入口",
+      "excerpt": "官方门户用于核验现行政策、公告和申报相关规则。",
+      "notes": "该证据支持政策查询入口，不等于一票货物已经发生出口。"
+    }
+  ],
+  "guides": [
+    {
+      "id": "guide-us-import-smartphone-2023",
+      "jurisdictionEntityId": "country-us",
+      "direction": "import",
+      "title": "美国进口智能手机：先查什么",
+      "summary": "面向进入美国市场的采购或外贸调研，提供官方入口、资料清单和核验顺序。",
+      "coverageStatus": "partial",
+      "sourceIds": ["source-trade-us-cbp"],
+      "evidenceIds": ["evidence-policy-us-import-2023"],
+      "tariffs": [
+        {"measureType": "customs_duty", "rateType": "unknown", "rateValue": null, "calculationBasis": "customs_value", "applicability": "conditional", "lifecycleStatus": "unknown", "limitation": "税率未在本演示中固化；需按当前 HTS、原产地、贸易救济和申报日期核验。"},
+        {"measureType": "other", "rateType": "unknown", "rateValue": null, "calculationBasis": "other", "applicability": "conditional", "lifecycleStatus": "unknown", "limitation": "州税、费用或产品监管要求不在本指南中计算。"}
+      ],
+      "requirements": [
+        {"requirementType": "customs_declaration", "title": "确认进口商和申报责任", "summary": "确定进口商主体或报关代理，并在官方入口核验申报责任。", "applicability": "recommended", "conditions": ["具体主体、担保和申报方式需由 CBP 或报关代理确认。"], "authority": "U.S. Customs and Border Protection", "legalBasis": null, "evidenceLevel": "official_guidance"},
+        {"requirementType": "conformity", "title": "核验无线电与产品合规要求", "summary": "涉及无线通信设备时，先确认是否需要 FCC 等产品合规资料。", "applicability": "conditional", "conditions": ["按设备功能、销售方式和适用法规核验。"], "authority": "相关美国监管机构", "legalBasis": null, "evidenceLevel": "official_guidance"},
+        {"requirementType": "origin_proof", "title": "准备原产地与贸易措施信息", "summary": "按原产地和当前贸易措施核验是否需要额外证明或适用措施。", "applicability": "conditional", "conditions": ["不能用生产国角色或供应链示意代替原产地证明。"], "authority": "U.S. Customs and Border Protection", "legalBasis": null, "evidenceLevel": "official_guidance"}
+      ],
+      "documents": [
+        {"documentType": "commercial_invoice", "label": "商业发票", "mandatoryStatus": "recommended", "issuer": "出口商/卖方", "purpose": "支持货值、交易方和货物描述核验。", "format": "按承运人或报关代理要求", "conditions": []},
+        {"documentType": "packing_list", "label": "装箱单", "mandatoryStatus": "recommended", "issuer": "出口商/卖方", "purpose": "支持件数、包装和货物识别。", "format": "按承运人或报关代理要求", "conditions": []},
+        {"documentType": "transport_document", "label": "运输单据", "mandatoryStatus": "recommended", "issuer": "承运人", "purpose": "支持运输和交付信息。", "format": "提单或同等运输凭证", "conditions": []},
+        {"documentType": "origin_proof", "label": "原产地证明（如适用）", "mandatoryStatus": "conditional", "issuer": "出口商或签发机构", "purpose": "支持原产地和优惠待遇核验。", "format": "按适用协定或监管要求", "conditions": ["是否需要取决于原产地、措施和申报场景。"]}
+      ],
+      "procedure": {"title": "美国进口前核验流程", "purpose": "把商品归类、原产地、合规和申报资料按顺序核验。", "authority": "U.S. Customs and Border Protection", "officialUrl": "https://www.cbp.gov/trade/basic-import-export/importing-into-united-states", "processingTime": {"value": null, "unit": "工作日", "dataStatus": "unknown"}, "steps": ["确认进口商或报关代理", "核验 HS/HTS 归类与原产地", "检查产品合规和贸易措施", "准备发票、装箱单和运输资料", "通过官方流程提交申报并留存记录"]},
+      "policyDocuments": [{"documentType": "portal", "title": "CBP 美国进口官方入口", "issuingAuthority": "U.S. Customs and Border Protection", "identifier": null, "sourceId": "source-trade-us-cbp", "language": "English", "effectiveFrom": null, "effectiveTo": null, "retrievedAt": "2026-08-30", "redistributionRestriction": "仅链接和必要摘要；具体页面条款优先。"}],
+      "limitations": ["本指南是静态研究起点，不是法律意见或报关代理服务。", "税率和监管条件未固化为一个数字，必须按当前 HTS、原产地和货物规格核验。", "页面不保证覆盖所有州级、产品级或贸易救济措施。"]
+    },
+    {
+      "id": "guide-de-import-smartphone-2023",
+      "jurisdictionEntityId": "country-de",
+      "direction": "import",
+      "title": "德国进口智能手机：先查什么",
+      "summary": "德国进口通常需要同时查看欧盟关税与产品规则，再确认德国境内执行和申报安排。",
+      "coverageStatus": "partial",
+      "sourceIds": ["source-trade-eu-access2markets"],
+      "evidenceIds": ["evidence-policy-eu-import-2023"],
+      "tariffs": [{"measureType": "customs_duty", "rateType": "unknown", "rateValue": null, "calculationBasis": "customs_value", "applicability": "conditional", "lifecycleStatus": "unknown", "limitation": "需在 Access2Markets/TARIC 按 HS、原产地和日期核验；本页不显示固定税率。"}, {"measureType": "vat", "rateType": "unknown", "rateValue": null, "calculationBasis": "customs_value", "applicability": "conditional", "lifecycleStatus": "unknown", "limitation": "税费计算取决于进口场景和适用规则，未在演示中计算。"}],
+      "requirements": [
+        {"requirementType": "customs_declaration", "title": "确认欧盟进口申报主体", "summary": "确认进口商、EORI 和报关安排，并通过欧盟官方入口核验。", "applicability": "recommended", "conditions": ["具体注册和代理要求需按企业身份确认。"], "authority": "European Commission / German customs", "legalBasis": null, "evidenceLevel": "official_guidance"},
+        {"requirementType": "conformity", "title": "核验 CE 与产品合规资料", "summary": "智能手机涉及无线、电气和消费者产品规则，需核验适用的合规文件。", "applicability": "conditional", "conditions": ["实际适用法规取决于设备规格、投放市场方式和当前法规。"], "authority": "European Union / competent market-surveillance authorities", "legalBasis": null, "evidenceLevel": "official_guidance"},
+        {"requirementType": "labeling", "title": "检查标签与说明书要求", "summary": "确认包装、说明书和责任主体信息是否满足目的地市场要求。", "applicability": "conditional", "conditions": ["语言、回收和生产者责任要求需另行核验。"], "authority": "European Union / Germany", "legalBasis": null, "evidenceLevel": "official_guidance"}
+      ],
+      "documents": [{"documentType": "commercial_invoice", "label": "商业发票", "mandatoryStatus": "recommended", "issuer": "出口商/卖方", "purpose": "支持海关货值和交易信息。", "format": "按欧盟/承运人要求", "conditions": []}, {"documentType": "packing_list", "label": "装箱单", "mandatoryStatus": "recommended", "issuer": "出口商/卖方", "purpose": "支持包装和件数核验。", "format": "按承运人要求", "conditions": []}, {"documentType": "transport_document", "label": "运输单据", "mandatoryStatus": "recommended", "issuer": "承运人", "purpose": "支持运输信息。", "format": "提单或同等凭证", "conditions": []}, {"documentType": "conformity_declaration", "label": "合规声明或技术文件（如适用）", "mandatoryStatus": "conditional", "issuer": "制造商/进口商", "purpose": "支持产品合规核验。", "format": "按适用法规", "conditions": ["不能用贸易统计或供应链角色替代。"]}],
+      "procedure": {"title": "德国/欧盟进口前核验流程", "purpose": "从 TARIC/Access2Markets 入口核验归类、原产地、关税和产品要求。", "authority": "European Commission / German customs", "officialUrl": "https://trade.ec.europa.eu/access-to-markets/en/home", "processingTime": {"value": null, "unit": "工作日", "dataStatus": "unknown"}, "steps": ["确认欧盟进口主体与 EORI", "按商品、原产地和目的地查询 TARIC/Access2Markets", "核验 CE、无线、电气和标签要求", "准备商业发票、装箱单和运输资料", "由进口商或报关代理提交申报并保存合规档案"]},
+      "policyDocuments": [{"documentType": "portal", "title": "欧盟 Access2Markets 官方查询入口", "issuingAuthority": "European Commission", "identifier": null, "sourceId": "source-trade-eu-access2markets", "language": "English / EU languages", "effectiveFrom": null, "effectiveTo": null, "retrievedAt": "2026-08-30", "redistributionRestriction": "仅链接和必要摘要；具体页面条款优先。"}],
+      "limitations": ["德国进口规则同时涉及欧盟统一规则和德国执行安排。", "税率、增值税、产品合规和生产者责任未在本页固化为确定结论。", "本指南不是法律意见或清关承诺。"]
+    },
+    {
+      "id": "guide-cn-import-smartphone-2023",
+      "jurisdictionEntityId": "country-cn",
+      "direction": "import",
+      "title": "中国进口智能手机：先查什么",
+      "summary": "从单一窗口和海关官方入口开始，按归类、监管条件、产品合规和申报材料逐项核验。",
+      "coverageStatus": "partial",
+      "sourceIds": ["source-trade-china-single-window", "source-trade-china-customs"],
+      "evidenceIds": ["evidence-policy-cn-import-2023"],
+      "tariffs": [{"measureType": "customs_duty", "rateType": "unknown", "rateValue": null, "calculationBasis": "customs_value", "applicability": "conditional", "lifecycleStatus": "unknown", "limitation": "需按中国现行税则、原产地和监管条件核验；本页不计算税额。"}, {"measureType": "vat", "rateType": "unknown", "rateValue": null, "calculationBasis": "customs_value", "applicability": "conditional", "lifecycleStatus": "unknown", "limitation": "进口环节税费和优惠待遇需由申报主体核验。"}],
+      "requirements": [{"requirementType": "customs_declaration", "title": "确认申报主体和单一窗口账号", "summary": "确认进口企业或报关代理，并通过单一窗口办理或查询。", "applicability": "recommended", "conditions": ["账号、资质和代理关系需按官方系统要求确认。"], "authority": "中国海关 / 国际贸易单一窗口", "legalBasis": null, "evidenceLevel": "official_guidance"}, {"requirementType": "conformity", "title": "核验无线电和产品准入要求", "summary": "按设备功能和销售场景核验无线电、认证和产品质量要求。", "applicability": "conditional", "conditions": ["实际适用条件取决于设备规格、用途和现行目录。"], "authority": "相关中国监管机构", "legalBasis": null, "evidenceLevel": "official_guidance"}, {"requirementType": "labeling", "title": "检查中文标签与说明资料", "summary": "确认包装、说明书和必要的责任主体信息。", "applicability": "conditional", "conditions": ["按现行产品和消费者保护规则核验。"], "authority": "相关中国监管机构", "legalBasis": null, "evidenceLevel": "official_guidance"}],
+      "documents": [{"documentType": "commercial_invoice", "label": "商业发票", "mandatoryStatus": "recommended", "issuer": "出口商/卖方", "purpose": "支持货值和交易信息核验。", "format": "按申报和代理要求", "conditions": []}, {"documentType": "packing_list", "label": "装箱单", "mandatoryStatus": "recommended", "issuer": "出口商/卖方", "purpose": "支持件数和包装核验。", "format": "按承运人或代理要求", "conditions": []}, {"documentType": "transport_document", "label": "运输单据", "mandatoryStatus": "recommended", "issuer": "承运人", "purpose": "支持运输信息。", "format": "提单或同等凭证", "conditions": []}, {"documentType": "origin_proof", "label": "原产地证明（如适用）", "mandatoryStatus": "conditional", "issuer": "出口商或签发机构", "purpose": "支持原产地待遇和监管核验。", "format": "按适用协定和规则", "conditions": []}],
+      "procedure": {"title": "中国进口前核验流程", "purpose": "依次确认归类、原产地、监管条件、产品合规和申报材料。", "authority": "中国海关 / 国际贸易单一窗口", "officialUrl": "https://www.singlewindow.cn/", "processingTime": {"value": null, "unit": "工作日", "dataStatus": "unknown"}, "steps": ["确认进口主体或报关代理", "查询现行税则、归类和原产地规则", "核验无线电、认证和标签要求", "准备发票、装箱单、运输和原产地资料", "通过单一窗口或海关指定流程申报并留存记录"]},
+      "policyDocuments": [{"documentType": "portal", "title": "中国国际贸易单一窗口官方入口", "issuingAuthority": "中国国际贸易单一窗口", "identifier": null, "sourceId": "source-trade-china-single-window", "language": "中文", "effectiveFrom": null, "effectiveTo": null, "retrievedAt": "2026-08-30", "redistributionRestriction": "仅链接和必要摘要；具体页面条款优先。"}, {"documentType": "portal", "title": "中国海关总署官方入口", "issuingAuthority": "中华人民共和国海关总署", "identifier": null, "sourceId": "source-trade-china-customs", "language": "中文", "effectiveFrom": null, "effectiveTo": null, "retrievedAt": "2026-08-30", "redistributionRestriction": "仅链接和必要摘要；具体页面条款优先。"}],
+      "limitations": ["中国税则、监管证件和产品准入要求需要按当前版本和具体规格核验。", "本指南不替代海关归类、检测认证或报关代理意见。", "政策入口不证明任何实际进口交易已经发生。"]
+    },
+    {
+      "id": "guide-cn-export-smartphone-2023",
+      "jurisdictionEntityId": "country-cn",
+      "direction": "export",
+      "title": "中国出口智能手机：先查什么",
+      "summary": "从出口归类和监管条件出发，再核验目的地市场的关税、产品合规和文件要求。",
+      "coverageStatus": "partial",
+      "sourceIds": ["source-trade-china-customs", "source-trade-china-single-window"],
+      "evidenceIds": ["evidence-policy-cn-export-2023"],
+      "tariffs": [{"measureType": "export_tax", "rateType": "unknown", "rateValue": null, "calculationBasis": "customs_value", "applicability": "conditional", "lifecycleStatus": "unknown", "limitation": "出口税费、退税和监管条件需按现行税则、商品归类和企业资格核验。"}],
+      "requirements": [{"requirementType": "customs_declaration", "title": "确认出口申报主体和归类", "summary": "确认出口主体、报关代理和适用商品编码。", "applicability": "recommended", "conditions": ["不能以手机供应链路线或贸易观察代替商品归类。"], "authority": "中华人民共和国海关总署", "legalBasis": null, "evidenceLevel": "official_guidance"}, {"requirementType": "origin_proof", "title": "准备原产地和目的地资料", "summary": "按目的地要求准备原产地、贸易协定和产品资料。", "applicability": "conditional", "conditions": ["优惠待遇和证明形式取决于目的地和适用协定。"], "authority": "出口商 / 签发机构", "legalBasis": null, "evidenceLevel": "official_guidance"}, {"requirementType": "conformity", "title": "核验目的地产品合规", "summary": "出口前把目的地无线、电气、标签和回收等规则列为核验项。", "applicability": "conditional", "conditions": ["目的地国家/地区要求不同。"], "authority": "目的地主管机关", "legalBasis": null, "evidenceLevel": "official_guidance"}],
+      "documents": [{"documentType": "commercial_invoice", "label": "商业发票", "mandatoryStatus": "recommended", "issuer": "出口商/卖方", "purpose": "支持出口申报和交易信息。", "format": "按海关、承运人或买方要求", "conditions": []}, {"documentType": "packing_list", "label": "装箱单", "mandatoryStatus": "recommended", "issuer": "出口商/卖方", "purpose": "支持包装和件数信息。", "format": "按承运人要求", "conditions": []}, {"documentType": "transport_document", "label": "运输单据", "mandatoryStatus": "recommended", "issuer": "承运人", "purpose": "支持运输和交付信息。", "format": "提单或同等凭证", "conditions": []}, {"documentType": "origin_proof", "label": "原产地证明（如适用）", "mandatoryStatus": "conditional", "issuer": "出口商或签发机构", "purpose": "支持目的地原产地待遇核验。", "format": "按目的地和协定要求", "conditions": []}],
+      "procedure": {"title": "中国出口前核验流程", "purpose": "依次确认出口归类、监管条件、目的地规则和申报资料。", "authority": "中华人民共和国海关总署 / 国际贸易单一窗口", "officialUrl": "https://www.customs.gov.cn/", "processingTime": {"value": null, "unit": "工作日", "dataStatus": "unknown"}, "steps": ["确认出口主体或报关代理", "核验出口商品编码与监管条件", "查询目的地关税、原产地和产品合规规则", "准备发票、装箱单、运输及原产地资料", "通过官方流程提交申报并保留凭证"]},
+      "policyDocuments": [{"documentType": "portal", "title": "中国海关总署出口政策入口", "issuingAuthority": "中华人民共和国海关总署", "identifier": null, "sourceId": "source-trade-china-customs", "language": "中文", "effectiveFrom": null, "effectiveTo": null, "retrievedAt": "2026-08-30", "redistributionRestriction": "仅链接和必要摘要；具体页面条款优先。"}],
+      "limitations": ["出口退税、监管证件和目的地准入要求未在本页计算或穷尽。", "本指南不替代海关归类、企业合规或目的地法律意见。", "政策信息不证明某个企业、订单或双边交易。"]
+    }
+  ]
+}
