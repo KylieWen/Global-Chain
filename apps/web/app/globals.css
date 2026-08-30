@@ -654,6 +654,15 @@ p { line-height: 1.7; }
 .trade-guide-card-heading h2 { margin: 0.35rem 0 0.2rem; color: var(--navy); font-size: 1.4rem; }
 .trade-guide-jurisdiction { margin: 0; color: var(--ink-soft); font-size: 0.78rem; }
 .trade-guide-summary { margin: 0; color: var(--ink-soft); font-size: 0.88rem; line-height: 1.65; }
+.trade-guide-action-panel { display: grid; grid-template-columns: minmax(13rem, 0.8fr) minmax(0, 1.2fr); gap: 1rem; align-items: center; padding: 0.85rem 0.95rem; border: 1px solid #c8dbf2; border-radius: 0.75rem; background: #f5f9ff; }
+.trade-guide-action-lead { display: grid; gap: 0.22rem; }
+.trade-guide-action-lead strong { color: var(--navy); font-size: 0.92rem; }
+.trade-guide-action-lead > span:last-child { color: var(--ink-soft); font-size: 0.74rem; line-height: 1.5; }
+.trade-guide-action-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.55rem; margin: 0; padding: 0; list-style: none; }
+.trade-guide-action-steps li { display: grid; grid-template-columns: auto 1fr; gap: 0.45rem; align-items: start; min-width: 0; }
+.trade-guide-action-steps li > span { display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border-radius: 50%; color: #2459ac; background: #dcecff; font-size: 0.68rem; font-weight: 800; }
+.trade-guide-action-steps strong { color: var(--ink); font-size: 0.73rem; line-height: 1.45; }
+.trade-guide-action-empty { color: var(--muted); font-size: 0.74rem; }
 .trade-guide-scope { display: flex; flex-wrap: wrap; gap: 0.55rem 1.15rem; padding: 0.8rem 0.9rem; border-radius: 0.7rem; background: #f7f9fc; }
 .trade-guide-scope .metadata-item { min-width: 8rem; }
 .trade-guide-section { display: grid; gap: 0.7rem; padding-top: 0.2rem; }
@@ -696,7 +705,7 @@ p { line-height: 1.7; }
 @media (max-width: 900px) { .demo-audience-grid { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .intro-action-stack { justify-items: start; } .demo-callout, .demo-boundary-note { display: grid; gap: 0.3rem; } .demo-step-card { grid-template-columns: 2.5rem minmax(0, 1fr); } .demo-step-number { width: 2.4rem; height: 2.4rem; font-size: 0.78rem; } }
 @media (max-width: 900px) { .trade-guide-form { grid-template-columns: repeat(2, minmax(0, 1fr)); } .trade-guide-intro-grid, .trade-document-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .trade-guide-sources { grid-template-columns: 1fr; } }
-@media (max-width: 640px) { .trade-guide-workbench-heading, .trade-guide-results-heading, .trade-guide-card-heading, .trade-guide-section-heading { display: grid; align-items: start; } .trade-guide-form, .trade-tariff-grid, .trade-guide-intro-grid, .trade-document-grid { grid-template-columns: 1fr; } .trade-requirement-row { grid-template-columns: 1fr; } .trade-requirement-meta { justify-content: start; } }
+@media (max-width: 640px) { .trade-guide-workbench-heading, .trade-guide-results-heading, .trade-guide-card-heading, .trade-guide-section-heading { display: grid; align-items: start; } .trade-guide-form, .trade-tariff-grid, .trade-guide-intro-grid, .trade-document-grid, .trade-guide-action-panel, .trade-guide-action-steps { grid-template-columns: 1fr; } .trade-requirement-row { grid-template-columns: 1fr; } .trade-requirement-meta { justify-content: start; } }
 @media (max-width: 640px) { .map-country-row { grid-template-columns: 1fr; gap: 0.3rem; } }
 @media (max-width: 900px) { .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .category-grid { grid-template-columns: 1fr; } }

@@ -35,6 +35,8 @@ export function TradeGuideDirectory({ views, productId }: { views: readonly Trad
 
 export function TradeGuideCard({ view }: { view: TradeGuideView }) {
   const { guide, jurisdiction, item, classification } = view;
+  const firstProcedure = view.procedures[0];
+  const nextSteps = firstProcedure?.steps.slice(0, 3) ?? [];
   return (
     <article className="trade-guide-card">
       <div className="trade-guide-card-heading">
@@ -46,6 +48,17 @@ export function TradeGuideCard({ view }: { view: TradeGuideView }) {
         <StatusBadge status={guide.dataStatus} method={guide.method} />
       </div>
       <p className="trade-guide-summary">{guide.summary}</p>
+
+      <section className="trade-guide-action-panel" aria-label="开始前先做什么">
+        <div className="trade-guide-action-lead">
+          <span className="card-kicker">Start here · 开始前</span>
+          <strong>{view.directionLabel} · {jurisdiction?.name ?? "未指定国家/地区"}</strong>
+          <span>先按顺序确认商品归类、管辖区规则和申报主体，再准备文件。</span>
+        </div>
+        {nextSteps.length ? <ol className="trade-guide-action-steps">
+          {nextSteps.map(({ step }) => <li key={step.id}><span>{step.order + 1}</span><strong>{step.action}</strong></li>)}
+        </ol> : <span className="trade-guide-action-empty">暂无已发布的办理步骤，请直接打开官方入口核验。</span>}
+      </section>
 
       <div className="trade-guide-scope">
         <MetadataItem label="整理范围" value={guide.period.label} />
