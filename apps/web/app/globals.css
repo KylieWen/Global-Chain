@@ -632,6 +632,11 @@ p { line-height: 1.7; }
 .trade-guide-form label { display: grid; gap: 0.35rem; color: var(--ink-soft); font-size: 0.74rem; font-weight: 700; }
 .trade-guide-form select { min-height: 2.7rem; padding: 0.55rem 0.65rem; border: 1px solid var(--line-strong); border-radius: 0.55rem; color: var(--ink); background: #fff; font: inherit; }
 .trade-guide-form-note { margin: 0.9rem 0 0; color: var(--muted); font-size: 0.74rem; }
+.trade-guide-presets { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; margin-top: 1rem; }
+.trade-guide-presets-label { color: var(--ink-soft); font-size: 0.72rem; font-weight: 800; }
+.trade-guide-preset { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.38rem 0.58rem; border: 1px solid #c9d9ee; border-radius: 999px; color: #2459ac; background: #fff; font-size: 0.7rem; font-weight: 700; }
+.trade-guide-preset:hover { border-color: var(--blue); background: var(--blue-soft); }
+.trade-guide-preset span { font-size: 0.8rem; }
 .trade-guide-intro-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; margin: 1.25rem 0 2rem; }
 .trade-guide-intro-grid article { min-height: 9rem; padding: 1.05rem; border: 1px solid var(--line); border-radius: 0.85rem; background: #fff; }
 .trade-guide-intro-grid h2 { margin: 0.55rem 0 0.35rem; color: var(--navy); font-size: 1.1rem; }

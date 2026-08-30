@@ -35,6 +35,8 @@ export default async function TradeGuidePage({
   const allGuides = product ? queries.getTradeGuides(selectedProductId, { ...context }) : [];
   const period = product?.item.validPeriod;
   const hasFilters = Boolean(jurisdiction || direction);
+  const guideJurisdictionIds = new Set(allGuides.map((view) => view.guide.scope.jurisdictionEntityId));
+  const guideCountries = countries.filter(({ entity }) => guideJurisdictionIds.has(entity.id));
   const jurisdictionFieldLabel = direction === "import"
     ? "进口目的地 / 管辖区"
     : direction === "export"
@@ -55,13 +57,17 @@ export default async function TradeGuidePage({
 
         <section className="trade-guide-workbench" aria-label="贸易指南查询条件">
           <div className="trade-guide-workbench-heading"><div><p className="eyebrow">Start with three choices</p><h2>你要查哪一组进出口要求？</h2></div><span>当前已发布：{allGuides.length} 组指南</span></div>
+          {allGuides.length ? <div className="trade-guide-presets" aria-label="快捷查询任务">
+            <span className="trade-guide-presets-label">快捷任务</span>
+            {allGuides.slice(0, 4).map((view) => <Link className="trade-guide-preset" href={`/trade-guide?product=${encodeURIComponent(selectedProductId)}&jurisdiction=${encodeURIComponent(view.guide.scope.jurisdictionEntityId)}&direction=${view.guide.scope.direction}`} key={view.guide.id}>{view.directionLabel} · {view.jurisdiction?.name ?? "未指定国家/地区"} <span>→</span></Link>)}
+          </div> : null}
           <form className="trade-guide-form" method="get">
             <label><span>商品</span><select name="product" defaultValue={selectedProductId}>{products.map((entry) => <option value={entry.productId} key={entry.productId}>{entry.item.name}</option>)}</select></label>
-            <label><span>{jurisdictionFieldLabel}</span><select name="jurisdiction" defaultValue={jurisdiction ?? ""}><option value="">全部已收录国家</option>{countries.map(({ entity }) => <option value={entity.id} key={entity.id}>{entity.name}</option>)}</select></label>
+            <label><span>{jurisdictionFieldLabel}</span><select name="jurisdiction" defaultValue={jurisdiction ?? ""}><option value="">全部已有指南的国家</option>{guideCountries.map(({ entity }) => <option value={entity.id} key={entity.id}>{entity.name}</option>)}</select></label>
             <label><span>方向</span><select name="direction" defaultValue={direction ?? ""}><option value="">进口 + 出口</option><option value="import">进口</option><option value="export">出口</option></select></label>
             <button className="button button-primary" type="submit">开始查询 →</button>
           </form>
-          <p className="trade-guide-form-note">进口时选择目的地，出口时选择起运地。当前只发布了智能手机的少量国家示范指南；没有收录不代表该国没有规则，税率也不会用默认值填充。</p>
+          <p className="trade-guide-form-note">进口时选择目的地，出口时选择起运地。当前只发布了智能手机的少量国家示范指南；国家目录中的其他国家暂未发布指南，不代表该国没有规则，税率也不会用默认值填充。</p>
         </section>
 
         <section className="trade-guide-intro-grid" aria-label="贸易指南说明">
