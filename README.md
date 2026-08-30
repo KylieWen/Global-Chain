@@ -62,6 +62,8 @@ pnpm run data:release:verify
 pnpm run data:release:rollback
 ```
 
+结项验收、评审演示路径和运行卡见 [`docs/submission/final-acceptance.md`](docs/submission/final-acceptance.md) 与 [`docs/submission/demo-runbook.md`](docs/submission/demo-runbook.md)。
+
 数据重建使用统一入口 `pnpm run data:rebuild:smartphone`；它先准备主数据和全部材料 raw 快照，再生成新的 release。raw 快照默认不可覆盖，只有显式传入 `--replace` 才允许更新来源批次。
 
 ## 质量检查

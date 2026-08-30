@@ -61,7 +61,13 @@ GlobeChain 是一个面向跨境采购和外贸调研人员的进出口贸易信
 
 ![世界节点图](./screenshots/04-world-map-demo.png)
 
-## 下一阶段
+## 结项状态
+
+本版本已按“进出口贸易信息查询与指南针”方向收敛，进入结项维护状态。评审演示优先使用贸易指南入口，供应链、国家账本、材料、工艺和地图作为背景研究，不再扩展新的业务模块。
+
+结项验收与运行步骤见 [`final-acceptance.md`](./final-acceptance.md) 和 [`demo-runbook.md`](./demo-runbook.md)。
+
+## 结项后的维护顺序
 
 1. 把 Demo 部署到公开网络，形成评委可访问的 URL。
 2. 完成 2 分钟演示视频。
