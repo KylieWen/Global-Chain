@@ -17,17 +17,22 @@ export function SiteShell({ children }: { children: ReactNode }) {
             </span>
           </Link>
           <nav className="site-nav" aria-label="主导航">
-            <Link href="/trade-guide">贸易指南</Link>
-            <Link href="/products">商品探索</Link>
-            <Link href="/demo">3 分钟演示</Link>
-            <Link href="/countries">国家账本</Link>
-            <Link href="/map">世界地图</Link>
-            <Link href="/versions">数据版本</Link>
-            <Link href="/help">阅读指南</Link>
+            <Link className="site-nav-primary" href="/trade-guide">开始查询</Link>
+            <Link href="/products">商品背景</Link>
+            <Link href="/countries">国家与地区</Link>
+            <Link href="/help">数据依据</Link>
+            <details className="site-nav-more">
+              <summary>更多</summary>
+              <div className="site-nav-more-menu">
+                <Link href="/demo">3 分钟演示</Link>
+                <Link href="/map">世界地图</Link>
+                <Link href="/versions">数据版本</Link>
+              </div>
+            </details>
           </nav>
           <form className="global-search" action="/search" role="search">
             <label className="sr-only" htmlFor="global-search-input">搜索商品或国家</label>
-            <input id="global-search-input" name="q" placeholder="搜索商品或国家" />
+            <input id="global-search-input" name="q" placeholder="搜索商品 / 国家" />
             <button type="submit">搜索</button>
           </form>
           <span className={`mode-pill ${preview ? "mode-preview" : "mode-published"}`}>

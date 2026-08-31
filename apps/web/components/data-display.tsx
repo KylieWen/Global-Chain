@@ -119,6 +119,13 @@ const statusDescriptions: Record<FactStatus, string> = {
   invalid: "数值未通过数据质量校验，不应作为事实使用"
 };
 
+const methodLabels: Record<string, string> = {
+  official: "官方来源",
+  derived: "确定性计算",
+  curated: "公开资料整理",
+  mock: "演示样例"
+};
+
 export function StatusBadge({
   status,
   method
@@ -133,7 +140,7 @@ export function StatusBadge({
       aria-label={`数据状态：${statusLabels[status]}`}
     >
       {statusLabels[status]}
-      {method === "mock" ? " · mock" : method ? ` · ${method}` : ""}
+      {method ? ` · ${methodLabels[method] ?? method}` : ""}
     </span>
   );
 }
@@ -189,10 +196,10 @@ export function StatusLegend() {
 
 export function PublicationBadge({ status }: { status: DatasetVersion["status"] }) {
   const labels: Record<DatasetVersion["status"], string> = {
-    draft: "draft",
-    validated: "validated",
-    published: "published",
-    deprecated: "deprecated"
+    draft: "编辑中",
+    validated: "已核验",
+    published: "已发布",
+    deprecated: "历史版本"
   };
   return <span className={`publication-badge publication-${status}`}>{labels[status]}</span>;
 }
@@ -386,17 +393,23 @@ export function EvidenceScopeDetails({
   );
 }
 
-function evidenceGapTarget(view: ResolvedEvidenceGapView): ReactNode {
+function evidenceGapTarget(
+  view: ResolvedEvidenceGapView,
+  options: { fallbackToId?: boolean } = {}
+): ReactNode {
   const { gap, node, flow } = view;
   if (node) {
     return <>{node.node.label}{node.entity ? ` · ${node.entity.name}` : ""}</>;
   }
   if (flow) {
     const endpointLabel = (endpoint: typeof flow.from) =>
-      endpoint.node?.node.label ?? endpoint.entity?.name ?? endpoint.referenceId;
+      endpoint.node?.node.label ?? endpoint.entity?.name ??
+      (options.fallbackToId === false ? "未解析节点" : endpoint.referenceId);
     return <>{endpointLabel(flow.from)} → {endpointLabel(flow.to)}</>;
   }
-  return gap.nodeId ?? gap.flowId ?? "未解析目标";
+  return options.fallbackToId === false
+    ? "未解析的登记目标"
+    : gap.nodeId ?? gap.flowId ?? "未解析目标";
 }
 
 export function EvidenceGapStatusBadge({
@@ -433,88 +446,239 @@ export function EvidenceGapSummary({
   );
 }
 
+type EvidenceGapRegistryProps = {
+  gaps: readonly ResolvedEvidenceGapView[];
+  compact?: boolean;
+  /**
+   * Use the human-facing progressive disclosure treatment on the standalone
+   * registry page. Existing compact/provenance usages retain the complete
+   * audit-oriented rendering by default.
+   */
+  progressiveDisclosure?: boolean;
+  /** Number of priority items shown before the remaining registry is folded. */
+  visibleCount?: number;
+};
+
+function evidenceGapPriority(status: ResolvedEvidenceGapView["gap"]["status"]): number {
+  // Unresolved claims are the most useful starting point for a reader. Closed
+  // role claims remain available, but should not displace open/partial gaps.
+  return {
+    open: 0,
+    partial: 1,
+    not_publicly_observable: 2,
+    closed: 3
+  }[status];
+}
+
+function sortEvidenceGapsForReading(
+  gaps: readonly ResolvedEvidenceGapView[]
+): readonly ResolvedEvidenceGapView[] {
+  return [...gaps].sort((left, right) => {
+    const priority = evidenceGapPriority(left.gap.status) - evidenceGapPriority(right.gap.status);
+    if (priority !== 0) return priority;
+    return left.gap.gapId.localeCompare(right.gap.gapId);
+  });
+}
+
+function renderEvidenceGapAudit(view: ResolvedEvidenceGapView) {
+  const { gap } = view;
+  return (
+    <details className="evidence-gap-audit">
+      <summary>查看来源与审计详情</summary>
+      <div className="evidence-gap-audit-body">
+        <div className="evidence-gap-meta">
+          <MetadataItem label="当前主张" value={gap.currentClaim} />
+          <MetadataItem label="当前证据等级" value={evidenceLevelCodeLabels[gap.currentEvidenceLevel]} />
+          <MetadataItem label="期间" value={<PeriodLabel period={gap.period} />} />
+          <MetadataItem label="method" value={gap.method} />
+          <MetadataItem label="登记项 ID" value={<code>{gap.gapId}</code>} />
+          <MetadataItem label="datasetVersion" value={<code>{gap.datasetVersionId}</code>} />
+          <MetadataItem label="contentVersion" value={<code>{gap.contentVersionId}</code>} />
+        </div>
+        <div className="evidence-gap-copy">
+          <div><strong>缺少的证据</strong><p>{gap.missingEvidence}</p></div>
+          <div><strong>不可推断内容</strong><ul>{gap.nonInferences.map((item) => <li key={item}>{item}</li>)}</ul></div>
+        </div>
+        <div className="evidence-gap-detail-grid">
+          <div>
+            <strong>可接受的证据类型</strong>
+            <div className="evidence-scope-values">
+              {gap.acceptableEvidenceTypes.map((type) => <span className="evidence-support" key={type}>{evidenceSupportLabels[type]}</span>)}
+            </div>
+          </div>
+          <div>
+            <strong>候选来源</strong>
+            <ul className="gap-candidate-list">
+              {gap.candidateSources.map((candidate) => (
+                <li key={`${candidate.publisher}-${candidate.name}`}>
+                  <span><strong>{candidate.name}</strong> · {candidate.publisher}</span>
+                  <span>许可证：{candidate.license}</span>
+                  {candidate.url ? <a className="text-link" href={candidate.url} target="_blank" rel="noreferrer">打开来源</a> : null}
+                  <small>{candidate.notes}</small>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        {gap.classificationCandidates.length > 0 ? (
+          <div className="evidence-gap-subsection">
+            <strong>分类候选与限制</strong>
+            <ul className="gap-classification-list">
+              {gap.classificationCandidates.map((candidate) => (
+                <li key={`${candidate.system}-${candidate.version}-${candidate.code}`}>
+                  <code>{candidate.system} {candidate.version} · {candidate.code}</code>
+                  <span className={`classification-mapping mapping-${candidate.mappingType}`}>{mappingTypeLabels[candidate.mappingType]}</span>
+                  <span>{candidate.label}</span>
+                  <small>{candidate.limitation}{candidate.supportsEndUse ? " · 明确支持终端用途" : " · 不支持终端用途推断"}</small>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+        <div className="evidence-gap-subsection">
+          <strong>关联证据</strong>
+          <ResolvedEvidenceList evidence={view.evidence} compact />
+        </div>
+      </div>
+    </details>
+  );
+}
+
+function renderEvidenceGapCard(
+  view: ResolvedEvidenceGapView,
+  options: { humanMode?: boolean } = {}
+) {
+  const { gap, node, flow } = view;
+  const humanMode = options.humanMode === true;
+  const targetKind = node ? "节点主张" : flow ? "连接主张" : "登记项";
+  if (humanMode) {
+    return (
+      <article className="evidence-gap-card evidence-gap-card-human" key={gap.gapId}>
+        <div className="evidence-gap-card-heading">
+          <div>
+            <span className="evidence-gap-kind">{targetKind}</span>
+            <h3>{evidenceGapTarget(view, { fallbackToId: false })}</h3>
+          </div>
+          <EvidenceGapStatusBadge status={gap.status} />
+        </div>
+        <div className="evidence-gap-human-summary">
+          <div><strong>目前能确认</strong><p>{gap.currentClaim}</p></div>
+          <div><strong>还需要核验</strong><p>{gap.missingEvidence}</p></div>
+          <div className="evidence-gap-human-meta">
+            <MetadataItem label="证据范围" value={evidenceLevelCodeLabels[gap.currentEvidenceLevel]} />
+            <MetadataItem label="期间" value={<PeriodLabel period={gap.period} />} />
+          </div>
+        </div>
+        {renderEvidenceGapAudit(view)}
+      </article>
+    );
+  }
+
+  return (
+    <article className="evidence-gap-card" key={gap.gapId}>
+      <div className="evidence-gap-card-heading">
+        <div>
+          <span className="eyebrow">{gap.gapId}</span>
+          <h3>{evidenceGapTarget(view)}</h3>
+        </div>
+        <EvidenceGapStatusBadge status={gap.status} />
+      </div>
+      <div className="evidence-gap-meta">
+        <MetadataItem label="当前主张" value={gap.currentClaim} />
+        <MetadataItem label="当前证据等级" value={evidenceLevelCodeLabels[gap.currentEvidenceLevel]} />
+        <MetadataItem label="期间" value={<PeriodLabel period={gap.period} />} />
+        <MetadataItem label="method" value={gap.method} />
+        <MetadataItem label="datasetVersion" value={gap.datasetVersionId} />
+        <MetadataItem label="contentVersion" value={gap.contentVersionId} />
+      </div>
+      <div className="evidence-gap-copy">
+        <div><strong>缺少的证据</strong><p>{gap.missingEvidence}</p></div>
+        <div><strong>不可推断内容</strong><ul>{gap.nonInferences.map((item) => <li key={item}>{item}</li>)}</ul></div>
+      </div>
+      <div className="evidence-gap-detail-grid">
+        <div>
+          <strong>可接受的证据类型</strong>
+          <div className="evidence-scope-values">
+            {gap.acceptableEvidenceTypes.map((type) => <span className="evidence-support" key={type}>{evidenceSupportLabels[type]}</span>)}
+          </div>
+        </div>
+        <div>
+          <strong>候选来源</strong>
+          <ul className="gap-candidate-list">
+            {gap.candidateSources.map((candidate) => (
+              <li key={`${candidate.publisher}-${candidate.name}`}>
+                <span><strong>{candidate.name}</strong> · {candidate.publisher}</span>
+                <span>许可证：{candidate.license}</span>
+                {candidate.url ? <a className="text-link" href={candidate.url} target="_blank" rel="noreferrer">打开来源</a> : null}
+                <small>{candidate.notes}</small>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      {gap.classificationCandidates.length > 0 ? (
+        <div className="evidence-gap-subsection">
+          <strong>分类候选与限制</strong>
+          <ul className="gap-classification-list">
+            {gap.classificationCandidates.map((candidate) => (
+              <li key={`${candidate.system}-${candidate.version}-${candidate.code}`}>
+                <code>{candidate.system} {candidate.version} · {candidate.code}</code>
+                <span className={`classification-mapping mapping-${candidate.mappingType}`}>{mappingTypeLabels[candidate.mappingType]}</span>
+                <span>{candidate.label}</span>
+                <small>{candidate.limitation}{candidate.supportsEndUse ? " · 明确支持终端用途" : " · 不支持终端用途推断"}</small>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+      <div className="evidence-gap-subsection">
+        <strong>关联证据</strong>
+        <ResolvedEvidenceList evidence={view.evidence} compact />
+      </div>
+    </article>
+  );
+}
+
 /** Renders the reusable, data-driven evidence-gap registry. */
 export function EvidenceGapRegistry({
   gaps,
-  compact = false
-}: {
-  gaps: readonly ResolvedEvidenceGapView[];
-  compact?: boolean;
-}) {
+  compact = false,
+  progressiveDisclosure = false,
+  visibleCount = 5
+}: EvidenceGapRegistryProps) {
   if (gaps.length === 0) {
     return <div className="empty-state">当前期间没有登记的证据缺口。</div>;
   }
+  const orderedGaps = progressiveDisclosure ? sortEvidenceGapsForReading(gaps) : gaps;
+  const priorityCount = Math.max(1, Math.min(visibleCount, orderedGaps.length));
+  const visibleGaps = progressiveDisclosure ? orderedGaps.slice(0, priorityCount) : orderedGaps;
+  const remainingGaps = progressiveDisclosure ? orderedGaps.slice(priorityCount) : [];
+  const registryClassName = [
+    compact ? "evidence-gap-registry evidence-gap-registry-compact" : "evidence-gap-registry",
+    progressiveDisclosure ? "evidence-gap-registry-progressive" : ""
+  ].filter(Boolean).join(" ");
   return (
-    <div className={compact ? "evidence-gap-registry evidence-gap-registry-compact" : "evidence-gap-registry"}>
+    <div className={registryClassName}>
       <EvidenceGapSummary gaps={gaps} />
+      {progressiveDisclosure ? (
+        <p className="evidence-gap-reading-note">
+          优先显示仍待补充或仅部分支持的主张；已闭合项和较少影响当前阅读的登记项收在“其余登记项”中。每张卡片都可以展开查看完整审计信息。
+        </p>
+      ) : null}
       <div className="evidence-gap-list">
-        {gaps.map((view) => {
-          const { gap } = view;
-          return (
-            <article className="evidence-gap-card" key={gap.gapId}>
-              <div className="evidence-gap-card-heading">
-                <div>
-                  <span className="eyebrow">{gap.gapId}</span>
-                  <h3>{evidenceGapTarget(view)}</h3>
-                </div>
-                <EvidenceGapStatusBadge status={gap.status} />
-              </div>
-              <div className="evidence-gap-meta">
-                <MetadataItem label="当前主张" value={gap.currentClaim} />
-                <MetadataItem label="当前证据等级" value={evidenceLevelCodeLabels[gap.currentEvidenceLevel]} />
-                <MetadataItem label="期间" value={<PeriodLabel period={gap.period} />} />
-                <MetadataItem label="method" value={gap.method} />
-                <MetadataItem label="datasetVersion" value={gap.datasetVersionId} />
-                <MetadataItem label="contentVersion" value={gap.contentVersionId} />
-              </div>
-              <div className="evidence-gap-copy">
-                <div><strong>缺少的证据</strong><p>{gap.missingEvidence}</p></div>
-                <div><strong>不可推断内容</strong><ul>{gap.nonInferences.map((item) => <li key={item}>{item}</li>)}</ul></div>
-              </div>
-              <div className="evidence-gap-detail-grid">
-                <div>
-                  <strong>可接受的证据类型</strong>
-                  <div className="evidence-scope-values">
-                    {gap.acceptableEvidenceTypes.map((type) => <span className="evidence-support" key={type}>{evidenceSupportLabels[type]}</span>)}
-                  </div>
-                </div>
-                <div>
-                  <strong>候选来源</strong>
-                  <ul className="gap-candidate-list">
-                    {gap.candidateSources.map((candidate) => (
-                      <li key={`${candidate.publisher}-${candidate.name}`}>
-                        <span><strong>{candidate.name}</strong> · {candidate.publisher}</span>
-                        <span>许可证：{candidate.license}</span>
-                        {candidate.url ? <a className="text-link" href={candidate.url} target="_blank" rel="noreferrer">打开来源</a> : null}
-                        <small>{candidate.notes}</small>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              {gap.classificationCandidates.length > 0 ? (
-                <div className="evidence-gap-subsection">
-                  <strong>分类候选与限制</strong>
-                  <ul className="gap-classification-list">
-                    {gap.classificationCandidates.map((candidate) => (
-                      <li key={`${candidate.system}-${candidate.version}-${candidate.code}`}>
-                        <code>{candidate.system} {candidate.version} · {candidate.code}</code>
-                        <span className={`classification-mapping mapping-${candidate.mappingType}`}>{mappingTypeLabels[candidate.mappingType]}</span>
-                        <span>{candidate.label}</span>
-                        <small>{candidate.limitation}{candidate.supportsEndUse ? " · 明确支持终端用途" : " · 不支持终端用途推断"}</small>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-              <div className="evidence-gap-subsection">
-                <strong>关联证据</strong>
-                <ResolvedEvidenceList evidence={view.evidence} compact />
-              </div>
-            </article>
-          );
-        })}
+        {visibleGaps.map((view) => renderEvidenceGapCard(view, { humanMode: progressiveDisclosure }))}
       </div>
+      {remainingGaps.length > 0 ? (
+        <details className="evidence-gap-all">
+          <summary className="evidence-gap-all-summary">
+            <strong>查看其余 {remainingGaps.length} 条登记项</strong>
+            <span>包括已闭合、部分可观测和其他补充记录</span>
+          </summary>
+          <div className="evidence-gap-list evidence-gap-list-secondary">
+            {remainingGaps.map((view) => renderEvidenceGapCard(view, { humanMode: true }))}
+          </div>
+        </details>
+      ) : null}
     </div>
   );
 }

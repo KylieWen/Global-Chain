@@ -35,4 +35,13 @@ describe("phase 31 manufacturing route variants and coverage gaps", () => {
     expect(view?.steps.at(-1)?.step.outputItemIds).toEqual(["chip-packaging"]);
     expect(view?.steps.slice(1, -1).every(({ step }) => step.inputItemIds.length === 0 && step.outputItemIds.length === 0)).toBe(true);
   });
+
+  it("resolves process inputs and outputs for presentation without page-side ID lookups", async () => {
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const view = createProductQueryService(repository).getManufacturingProcessChain("generic-smartphone", "process-chain-semiconductor-packaging");
+
+    expect(view?.steps[0]?.inputItems.map(({ id }) => id)).toEqual(["semiconductor-wafer"]);
+    expect(view?.steps.at(-1)?.outputItems.map(({ id }) => id)).toEqual(["chip-packaging"]);
+    expect(view?.steps.slice(1, -1).every(({ inputItems, outputItems }) => inputItems.length === 0 && outputItems.length === 0)).toBe(true);
+  });
 });

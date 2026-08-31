@@ -189,6 +189,11 @@ export interface ResolvedProcessRequirementView {
 
 export interface ResolvedManufacturingProcessStepView {
   readonly step: ReadonlyManufacturingProcessStep;
+  /** Resolved item dimensions so presentation code never needs to dereference IDs. */
+  readonly inputItems: readonly ReadonlyItem[];
+  readonly outputItems: readonly ReadonlyItem[];
+  readonly datasetVersion: ReadonlyDatasetVersion | null;
+  readonly contentVersion: ReadonlyContentVersion | null;
   readonly routeVariants: readonly ReadonlyManufacturingRouteVariant[];
   readonly requirements: readonly ResolvedProcessRequirementView[];
   readonly sources: readonly ReadonlySource[];
@@ -1973,6 +1978,10 @@ export function getManufacturingProcessChain(
         });
       return Object.freeze({
         step,
+        inputItems: freezeArray(step.inputItemIds.map((itemId) => fixture.items.find((item) => item.id === itemId)).filter((item): item is ReadonlyItem => Boolean(item))),
+        outputItems: freezeArray(step.outputItemIds.map((itemId) => fixture.items.find((item) => item.id === itemId)).filter((item): item is ReadonlyItem => Boolean(item))),
+        datasetVersion: datasetVersionForId(fixture, step.datasetVersionId),
+        contentVersion: contentVersionForId(fixture, step.contentVersionId),
         routeVariants: freezeArray(fixture.manufacturingRouteVariants.filter((variant) => step.routeVariantIds.includes(variant.id))),
         requirements: freezeArray(requirements),
         sources: uniqueSources([...sourcesForIds(fixture, step.sourceIds), ...stepEvidence.map((record) => record.source), ...requirements.flatMap((requirement) => requirement.sources)]),

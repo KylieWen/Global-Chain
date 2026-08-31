@@ -60,6 +60,12 @@ export default async function CountryLedgerPage({
   });
   const firstRelatedNode = ledger.relatedNodes[0];
   const tradeClassification = ledger.tradeClassifications[0];
+  const macroByIndicator = new Map(ledger.resolvedMacroIndicators.map((view) => [view.observation.indicator, view]));
+  const summaryMetric = (indicator: string) => macroByIndicator.get(indicator);
+  const exportsMetric = summaryMetric("merchandise_exports_current_usd");
+  const importsMetric = summaryMetric("merchandise_imports_current_usd");
+  const balanceMetric = summaryMetric("merchandise_trade_balance_current_usd");
+  const reservesMetric = summaryMetric("official_reserves_including_gold_current_usd");
 
   return (
     <SiteShell>
@@ -94,7 +100,18 @@ export default async function CountryLedgerPage({
 
         <WarningList warnings={ledger.warnings} />
 
-        <details className="section-block detail-collapsible" aria-labelledby="macro-title" open>
+        <section className="ledger-snapshot" aria-labelledby="ledger-snapshot-title">
+          <div className="section-heading"><div><p className="eyebrow">先看结论</p><h2 id="ledger-snapshot-title">{ledger.entity.name} 的贸易快照</h2></div><span className="section-caption">{ledger.period.label} · 美元现价</span></div>
+          <div className="stat-grid ledger-snapshot-grid">
+            <StatCard label="商品出口总额" value={exportsMetric ? <ValueDisplay value={exportsMetric.observation.value} status={exportsMetric.observation.dataStatus} currency={exportsMetric.observation.currency} unit={exportsMetric.observation.unit} /> : <UnknownValue label="未提供" />} detail="海关商品贸易统计" />
+            <StatCard label="商品进口总额" value={importsMetric ? <ValueDisplay value={importsMetric.observation.value} status={importsMetric.observation.dataStatus} currency={importsMetric.observation.currency} unit={importsMetric.observation.unit} /> : <UnknownValue label="未提供" />} detail="海关商品贸易统计" />
+            <StatCard label="商品贸易差额" value={balanceMetric ? <ValueDisplay value={balanceMetric.observation.value} status={balanceMetric.observation.dataStatus} currency={balanceMetric.observation.currency} unit={balanceMetric.observation.unit} /> : <UnknownValue label="未提供" />} detail="出口总额 − 进口总额" />
+            <StatCard label="官方储备（含黄金）" value={reservesMetric ? <ValueDisplay value={reservesMetric.observation.value} status={reservesMetric.observation.dataStatus} currency={reservesMetric.observation.currency} unit={reservesMetric.observation.unit} /> : <UnknownValue label="未提供" />} detail="World Bank FI.RES.TOTL.CD" />
+          </div>
+          <p className="ledger-reading-note">这里展示的是国家层面的统计摘要；它不等于企业利润、生产成本或一部手机的价格。单项观察和来源细节请展开下方栏目查看。</p>
+        </section>
+
+        <details className="section-block detail-collapsible" aria-labelledby="macro-title">
           <summary className="section-heading detail-summary"><div><p className="eyebrow">Macro ledger</p><h2 id="macro-title">国家宏观贸易账本</h2></div><span className="section-caption">{ledger.resolvedMacroIndicators.length} 项摘要指标 · 统计详情可展开</span></summary>
           {ledger.resolvedMacroIndicators.length === 0 ? <div className="empty-state">当前期间没有已发布的宏观指标。</div> : (
             <div className="metric-list interpreted-metrics">
@@ -128,7 +145,7 @@ export default async function CountryLedgerPage({
           )}
         </details>
 
-        <details className="section-block detail-collapsible" aria-labelledby="trade-title" open>
+        <details className="section-block detail-collapsible" aria-labelledby="trade-title">
           <summary className="section-heading detail-summary"><div><p className="eyebrow">Product trade observations</p><h2 id="trade-title">
                 {ledger.product.name} {tradeClassification ? `${tradeClassification.system} ${tradeClassification.version} / ${tradeClassification.code}` : "分类未提供"} 进出口观察
               </h2></div><span className="section-caption">{ledger.resolvedTradeObservations.length} 条观察 · unknown 不等于 0</span></summary>

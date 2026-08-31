@@ -24,6 +24,9 @@ type MapTradeLine = {
   reporterM49: string;
   partnerM49: string;
   direction: "import" | "export";
+  value: number | null;
+  currency: string | null;
+  valueDataStatus: string;
 };
 
 type Transform = { x: number; y: number; scale: number };
@@ -44,6 +47,8 @@ export function WorldCountryMap({ countries, tradeLines, productId, selectedCoun
   const countryByM49 = useMemo(() => new Map(countries.filter((country) => country.m49).map((country) => [country.m49 as string, country])), [countries]);
   const featureByM49 = useMemo(() => new Map(countryFeatures.map((country) => [String(country.id).padStart(3, "0"), country])), []);
   const activeCountry = countries.find((country) => country.id === (hoveredId ?? selectedCountryId)) ?? null;
+  const visibleTradeLines = selectedCountryId ? tradeLines.filter((line) => line.reporterM49 === countries.find((country) => country.id === selectedCountryId)?.m49 || line.partnerM49 === countries.find((country) => country.id === selectedCountryId)?.m49) : tradeLines;
+  const maxTradeValue = Math.max(...visibleTradeLines.map((line) => typeof line.value === "number" && line.value > 0 ? line.value : 0), 1);
 
   const changeZoom = (factor: number) => setTransform((current) => ({ ...current, scale: Math.min(6, Math.max(1, current.scale * factor)) }));
   const reset = () => setTransform({ x: 0, y: 0, scale: 1 });
@@ -94,7 +99,11 @@ export function WorldCountryMap({ countries, tradeLines, productId, selectedCoun
             return <path key={m49 ?? `unidentified-${featureIndex}`} d={d} className={`map-country-shape${country ? " has-data" : ""}${selected ? " selected" : ""}${hovered ? " hovered" : ""}`} role={country ? "button" : undefined} aria-label={country ? `${country.name}，${country.roles.slice(0, 2).join("，") || "有当前数据"}` : undefined} tabIndex={country ? 0 : undefined} onMouseEnter={() => country && setHoveredId(country.id)} onMouseLeave={() => setHoveredId(null)} onFocus={() => country && setHoveredId(country.id)} onBlur={() => setHoveredId(null)} onClick={() => country && selectCountry(country)} onKeyDown={(event) => { if (country && (event.key === "Enter" || event.key === " ")) selectCountry(country); }} />;
           })}
           <g className="map-trade-layer" aria-label="双边贸易观察">
-            {tradeLines.map((line) => {
+            <defs>
+              <marker id="trade-arrow-export" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3.5 L0,7 z" fill="currentColor" /></marker>
+              <marker id="trade-arrow-import" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3.5 L0,7 z" fill="currentColor" /></marker>
+            </defs>
+            {visibleTradeLines.map((line) => {
               const fromFeature = featureByM49.get(line.reporterM49);
               const toFeature = featureByM49.get(line.partnerM49);
               if (!fromFeature || !toFeature) return null;
@@ -102,14 +111,16 @@ export function WorldCountryMap({ countries, tradeLines, productId, selectedCoun
               const to = projection(geoCentroid(toFeature));
               if (!from || !to) return null;
               const x1 = stableCoordinate(from[0]); const y1 = stableCoordinate(from[1]); const x2 = stableCoordinate(to[0]); const y2 = stableCoordinate(to[1]);
-              return <g key={line.id} className={`country-trade-line country-trade-${line.direction}`}><line x1={x1} y1={y1} x2={x2} y2={y2} /><circle cx={x1} cy={y1} r={3.2 / transform.scale} /><circle cx={x2} cy={y2} r={3.2 / transform.scale} /></g>;
+              const width = typeof line.value === "number" && line.value > 0 ? 1.5 + 6 * Math.sqrt(line.value / maxTradeValue) : 1.5;
+              const statusLabel = line.valueDataStatus === "unknown" ? "金额未知" : line.valueDataStatus === "estimated" ? "金额为估算" : "金额已观察";
+              return <g key={line.id} className={`country-trade-line country-trade-${line.direction}`}><line x1={x1} y1={y1} x2={x2} y2={y2} style={{ strokeWidth: width }} markerEnd={`url(#trade-arrow-${line.direction})`}><title>{`${line.direction === "export" ? "出口" : "进口"} · ${line.value === null ? "金额未知" : `${line.currency ?? ""} ${line.value.toLocaleString()}`} · ${statusLabel}`}</title></line><circle cx={x1} cy={y1} r={3.2 / transform.scale} /><circle cx={x2} cy={y2} r={3.2 / transform.scale} /></g>;
             })}
           </g>
         </g>
       </svg>
     </div>
     <aside className="map-selection-summary" aria-live="polite">
-      {activeCountry ? <><div><span className="iso-chip">{activeCountry.m49 ?? "—"}</span><h2>{activeCountry.name}</h2><p>{activeCountry.roles.slice(0, 3).join(" · ") || "当前数据集中有国家记录"}</p></div><div className="map-selection-actions"><span>{activeCountry.relatedNodeCount} 个供应链节点</span><Link className="button button-primary" href={ledgerPath(productId, activeCountry.id, context)}>打开国家账本 →</Link></div></> : <><div><h2>选择一个国家</h2><p>有当前数据的国家以蓝色轮廓显示。点击国家整体，而不是地图节点。</p></div></>}
+      {activeCountry ? <><div><span className="iso-chip">{activeCountry.m49 ?? "—"}</span><h2>{activeCountry.name}</h2><p>{activeCountry.roles.slice(0, 3).join(" · ") || "当前数据集中有国家记录"}</p></div><div className="map-selection-actions"><span>{activeCountry.relatedNodeCount} 个供应链节点 · {visibleTradeLines.length} 条相关贸易观察</span><Link className="button button-primary" href={ledgerPath(productId, activeCountry.id, context)}>打开国家账本 →</Link></div></> : <><div><h2>选择一个国家</h2><p>有当前数据的国家以蓝色轮廓显示。点击国家整体，而不是地图节点。</p></div></>}
     </aside>
   </section>;
 }

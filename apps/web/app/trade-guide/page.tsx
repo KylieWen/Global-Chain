@@ -56,7 +56,7 @@ export default async function TradeGuidePage({
         />
 
         <section className="trade-guide-workbench" aria-label="贸易指南查询条件">
-          <div className="trade-guide-workbench-heading"><div><p className="eyebrow">Start with three choices</p><h2>你要查哪一组进出口要求？</h2></div><span>当前已发布：{allGuides.length} 组指南</span></div>
+          <div className="trade-guide-workbench-heading"><div><p className="eyebrow">Start with a task</p><h2>你要查哪一组进出口要求？</h2></div><span>当前已发布：{allGuides.length} 组指南</span></div>
           {allGuides.length ? <div className="trade-guide-presets" aria-label="快捷查询任务">
             <span className="trade-guide-presets-label">快捷任务</span>
             {allGuides.slice(0, 4).map((view) => <Link className="trade-guide-preset" href={`/trade-guide?product=${encodeURIComponent(selectedProductId)}&jurisdiction=${encodeURIComponent(view.guide.scope.jurisdictionEntityId)}&direction=${view.guide.scope.direction}`} key={view.guide.id}>{view.directionLabel} · {view.jurisdiction?.name ?? "未指定国家/地区"} <span>→</span></Link>)}
@@ -67,7 +67,8 @@ export default async function TradeGuidePage({
             <label><span>方向</span><select name="direction" defaultValue={direction ?? ""}><option value="">进口 + 出口</option><option value="import">进口</option><option value="export">出口</option></select></label>
             <button className="button button-primary" type="submit">开始查询 →</button>
           </form>
-          <p className="trade-guide-form-note">进口时选择目的地，出口时选择起运地。当前只发布了智能手机的少量国家示范指南；国家目录中的其他国家暂未发布指南，不代表该国没有规则，税率也不会用默认值填充。</p>
+          <div className="trade-guide-task-note"><strong>{direction === "import" ? "进口查询" : direction === "export" ? "出口查询" : "查询提示"}</strong><span>{direction === "import" ? "这里选择的是进口目的地；原产地、商品细分和申报日期仍需在官方系统中继续选择。" : direction === "export" ? "这里选择的是出口起运地；目的地规则和原产地待遇仍需在官方系统中继续核验。" : "进口时选择目的地，出口时选择起运地；具体原产地和日期需要在官方系统中进一步核验。"}</span></div>
+          <p className="trade-guide-form-note">当前只发布了智能手机的少量国家示范指南；国家目录中的其他国家暂未发布指南，不代表该国没有规则，税率也不会用默认值填充。</p>
         </section>
 
         <section className="trade-guide-intro-grid" aria-label="贸易指南说明">
@@ -76,7 +77,7 @@ export default async function TradeGuidePage({
           <article><span className="card-kicker">03 · 最后复核</span><h2>官方入口</h2><p>每组指南都链接到官方门户；实际申报前请按当前日期、原产地和规格重新核验。</p></article>
         </section>
 
-        <div className="trade-guide-results-heading"><div><p className="eyebrow">Published guidance</p><h2>{hasFilters ? "筛选结果" : "选择一组示范指南"}</h2></div><span>{guides.length} 组结果 · 不是交易撮合</span></div>
+        <div className="trade-guide-results-heading"><div><p className="eyebrow">Published guidance · 已发布资料</p><h2>{hasFilters ? "筛选结果" : "选择一组示范指南"}</h2></div><span>{guides.length} 组结果 · 不是交易撮合</span></div>
         {hasFilters ? <TradeGuideResults views={guides} productId={selectedProductId} /> : <TradeGuideDirectory views={guides} productId={selectedProductId} />}
 
         <aside className="trade-guide-disclaimer"><strong>重要边界</strong><span>指南内容是静态、部分覆盖的研究起点；税率、许可、认证和手续可能随 HS 细分、原产地、日期和目的地政策变化。请以官方系统、海关或专业报关/法律意见为准。页面不会把供应链示意或贸易统计自动解释成某家企业的供货关系。</span></aside>

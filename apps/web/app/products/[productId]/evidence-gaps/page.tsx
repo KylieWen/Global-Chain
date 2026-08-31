@@ -37,9 +37,9 @@ export default async function ProductEvidenceGapsPage({
         ]} />
         <ContextBanner period={overview.period.label} datasetVersion={provenance.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
         <PageIntro
-          eyebrow="Evidence gap registry"
+          eyebrow="证据完整度"
           title={`${overview.product.name} · 证据缺口登记册`}
-          description="逐节点、逐连接记录当前主张、可接受证据和不可推断内容。登记册只展示已发布数据与内容配置，不会在运行时补齐事实。"
+          description="这里列出当前仍需核验的节点和连接。先看摘要，再按需展开来源、证据范围和审计细节；未收录的数据不会被补成零。"
           actions={(
             <>
               <Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>供应链路径</Link>
@@ -57,10 +57,10 @@ export default async function ProductEvidenceGapsPage({
         <WarningList warnings={provenance.warnings} />
         <section className="section-block" aria-labelledby="registry-title">
           <div className="section-heading">
-            <div><p className="eyebrow">Claim boundaries</p><h2 id="registry-title">所有登记项</h2></div>
-            <span className="section-caption">open、partial、closed 和公开资料不可观测分别呈现</span>
+            <div><p className="eyebrow">主张边界</p><h2 id="registry-title">关键缺口与完整登记</h2></div>
+            <span className="section-caption">先看最需要核验的 5 条主张，其余登记项可展开</span>
           </div>
-          <EvidenceGapRegistry gaps={provenance.evidenceGaps} />
+          <EvidenceGapRegistry gaps={provenance.evidenceGaps} progressiveDisclosure visibleCount={5} />
         </section>
       </div>
     </SiteShell>

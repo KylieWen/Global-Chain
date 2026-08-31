@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
 import { Breadcrumbs, PageIntro, SiteShell } from "../../components/site-shell";
-import { listPublishedDatasetVersions } from "../../lib/data-manifest";
+import { getPublishedReleaseManifestPath, listPublishedDatasetVersions } from "../../lib/data-manifest";
 import { productPath } from "../../lib/paths";
 
 export const dynamic = "force-dynamic";
@@ -10,7 +9,11 @@ export const dynamic = "force-dynamic";
 export default async function VersionsPage() {
   const versions = listPublishedDatasetVersions();
   const manifests = await Promise.all(versions.map(async (version) => {
-    try { return JSON.parse(await readFile(resolve(process.cwd(), "data/published/releases/generic-smartphone", version, "manifest.json"), "utf8")) as { datasetVersion?: string; generatedAt?: string; notes?: string[]; release?: { immutable?: boolean } }; } catch { return {}; }
+    try {
+      const manifestPath = getPublishedReleaseManifestPath(version);
+      if (!manifestPath) return {};
+      return JSON.parse(await readFile(manifestPath, "utf8")) as { datasetVersion?: string; generatedAt?: string; notes?: string[]; release?: { immutable?: boolean } };
+    } catch { return {}; }
   }));
   return <SiteShell><div className="content-column narrow-column">
     <Breadcrumbs items={[{ label: "数据版本" }]} />

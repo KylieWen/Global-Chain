@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>GlobeChain 项目简介</title>
+<style>
+  @page { size: A4; margin: 12mm 14mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    color: #1a2332;
+    font-size: 9.5pt;
+    line-height: 1.5;
+    background: #fff;
+  }
+  .header {
+    border-bottom: 3px solid #1e5aa8;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  .header h1 {
+    font-size: 20pt;
+    color: #1e5aa8;
+    font-weight: 800;
+    letter-spacing: 1px;
+  }
+  .header .subtitle {
+    font-size: 10pt;
+    color: #4a5568;
+    margin-top: 3px;
+    font-weight: 500;
+  }
+  .header .meta {
+    font-size: 8pt;
+    color: #718096;
+    margin-top: 4px;
+  }
+  .section { margin-bottom: 9px; }
+  .section-title {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #1e5aa8;
+    border-left: 4px solid #1e5aa8;
+    padding-left: 7px;
+    margin-bottom: 5px;
+  }
+  .two-col { display: flex; gap: 14px; }
+  .col { flex: 1; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
+  .tag {
+    display: inline-block;
+    background: #eaf1fb;
+    color: #1e5aa8;
+    padding: 1px 7px;
+    border-radius: 3px;
+    font-size: 8pt;
+    font-weight: 600;
+  }
+  ul.feature-list { list-style: none; }
+  ul.feature-list li {
+    padding: 2px 0 2px 14px;
+    position: relative;
+  }
+  ul.feature-list li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: #1e5aa8;
+    font-weight: 700;
+  }
+  .feature-name { font-weight: 700; color: #1a2332; }
+  .feature-desc { color: #4a5568; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .card {
+    background: #f7faff;
+    border: 1px solid #d6e4f7;
+    border-radius: 5px;
+    padding: 6px 8px;
+  }
+  .card h4 {
+    font-size: 9pt;
+    color: #1e5aa8;
+    margin-bottom: 3px;
+    font-weight: 700;
+  }
+  .card p { font-size: 8.5pt; color: #4a5568; line-height: 1.45; }
+  .footer {
+    margin-top: 10px;
+    padding-top: 7px;
+    border-top: 1px solid #cbd5e0;
+    font-size: 7.5pt;
+    color: #718096;
+    line-height: 1.45;
+  }
+  .footer strong { color: #4a5568; }
+  .highlight-box {
+    background: linear-gradient(135deg, #1e5aa8, #2d7dd2);
+    color: #fff;
+    border-radius: 5px;
+    padding: 7px 10px;
+    margin-bottom: 9px;
+  }
+  .highlight-box .label { font-size: 8pt; opacity: 0.85; font-weight: 600; }
+  .highlight-box .text { font-size: 10pt; font-weight: 600; margin-top: 2px; line-height: 1.4; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>GlobeChain</h1>
+  <div class="subtitle">进出口贸易信息查询与指南针 · 面向跨境采购与外贸调研</div>
+  <div class="meta">大工黑客松 S2 · 奇绩创坛赛道「为现实打个补丁」· 2026-08</div>
+</div>
+
+<div class="highlight-box">
+  <div class="label">一句话定位</div>
+  <div class="text">用户选择「商品 + 国家/地区 + 进口/出口方向」，获得关税核验、手续、文件清单和官方入口，再沿供应链、国家账本和来源证据补充背景。</div>
+</div>
+
+<div class="section">
+  <div class="section-title">问题与背景</div>
+  <p>一部手机连接矿产、材料、芯片、封装设备、制造国和消费市场，但信息分散在海关数据库、企业资料和产业报告中，普通人看不懂，研究者需反复手工拼接；代表性产业路线常被误读为某台手机的唯一真实路线，海关金额也常被等同于企业利润。跨境采购人员在业务前需要快速确认商品归类、目的地规则、税费核验入口、资料清单和办理顺序，却缺乏统一、可追溯、不猜测的查询起点。</p>
+</div>
+
+<div class="section">
+  <div class="section-title">核心功能</div>
+  <div class="two-col">
+    <div class="col">
+      <ul class="feature-list">
+        <li><span class="feature-name">进出口贸易指南（主入口）</span><span class="feature-desc">：商品+国家+方向查询，关税核验、手续、文件清单、官方入口；未知税率显示「待核验」</span></li>
+        <li><span class="feature-name">商品背景与拆解</span><span class="feature-desc">：通用智能手机拆解树，成品→部件→材料→矿产</span></li>
+        <li><span class="feature-name">代表性供应链路线</span><span class="feature-desc">：电池路径（锂/钴→材料→电芯→模组→组装），带来源与证据等级</span></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="feature-list">
+        <li><span class="feature-name">半导体封装工艺</span><span class="feature-desc">：线焊/倒装两类路线，18 道工序、18 类设备与厂商能力记录</span></li>
+        <li><span class="feature-name">国家贸易账本</span><span class="feature-desc">：进出口、贸易差额、官方储备、HS 851713 贸易观察</span></li>
+        <li><span class="feature-name">可交互世界地图</span><span class="feature-desc">：Natural Earth 国家轮廓 + Equal Earth 投影，本地静态 SVG</span></li>
+        <li><span class="feature-name">来源版本与研究快照</span><span class="feature-desc">：不可变 release、可回滚、确定性快照导出</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">技术方案</div>
+  <div class="tag-row">
+    <span class="tag">Next.js 15</span>
+    <span class="tag">React 19</span>
+    <span class="tag">TypeScript</span>
+    <span class="tag">pnpm workspace</span>
+    <span class="tag">模块化单体</span>
+    <span class="tag">Zod 数据契约</span>
+    <span class="tag">只读领域查询</span>
+    <span class="tag">d3-geo Equal Earth</span>
+    <span class="tag">Natural Earth 1:110m</span>
+    <span class="tag">Vitest 115 测试</span>
+    <span class="tag">GitHub Actions CI</span>
+    <span class="tag">无运行时外部 API</span>
+    <span class="tag">无 AI/LLM</span>
+  </div>
+  <p style="margin-top:5px;color:#4a5568;">数据来源：World Bank WDI、UN Comtrade、UN M49、USGS、IEA、JEITA/METI、SIA、TSMC/SK hynix/ASML 年报、中国国家统计局；贸易指南为人工整理静态资料，带来源、复核日期和覆盖状态。</p>
+</div>
+
+<div class="section">
+  <div class="section-title">创新点与应用价值</div>
+  <div class="grid-3">
+    <div class="card">
+      <h4>查询与背景统一维度</h4>
+      <p>进出口查询清单与供应链、国家账本、制造工艺放在同一套可追溯维度，从政策核验一路追溯到商品背景和来源证据。</p>
+    </div>
+    <div class="card">
+      <h4>严格的不确定性语义</h4>
+      <p>官方资料、人工整理、unknown、withheld、estimated 和真实 0 明确区分；未知税率显示「待核验」而非 0%。</p>
+    </div>
+    <div class="card">
+      <h4>可审计的数据发布</h4>
+      <p>每个版本不可变、可校验、可回滚；研究快照携带数据集版本、内容版本、来源、证据和缺口；运行时零外部依赖。</p>
+    </div>
+  </div>
+  <p style="margin-top:6px;color:#4a5568;"><strong>应用价值：</strong>跨境采购人员快速形成采购前核验清单；外贸调研人员获得可引用、可追溯的研究路径；学生、教师、记者和公众获得可解释的全球化生产与贸易教学材料。</p>
+</div>
+
+<div class="footer">
+  <strong>可信边界：</strong>GlobeChain 是静态、部分覆盖的研究起点，不是海关预裁定、法律意见、报关代理服务、供应商担保或交易平台。贸易金额不等于成本/利润/手机价格；供应链路线不证明特定企业供货关系；材料贸易不证明材料进入某部手机；未知数据不填为 0；税率须按当前日期、原产地和官方系统重新核验。
+</div>
+
+</body>
+</html>
