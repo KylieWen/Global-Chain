@@ -28,7 +28,9 @@ describe("trade guidance pivot", () => {
     expect(guide.jurisdiction?.name).toBe("美国");
     expect(guide.directionLabel).toBe("进口");
     expect(guide.coverageLabel).toBe("部分覆盖");
-    expect(guide.tariffs[0].displayValue).toContain("未收录");
+    expect(guide.tariffs[0].measure.rateValue).toBe(0);
+    expect(guide.tariffs[0].measure.limitations.join(" ")).toContain("Chapter 99");
+    expect(guide.tariffs[1].displayValue).toContain("未收录");
     expect(guide.requirements[0].requirementTypeLabel).toBe("海关申报");
     expect(guide.procedures[0].steps.length).toBeGreaterThan(2);
     expect(guide.sources.some((source) => source.publisher.includes("Customs"))).toBe(true);

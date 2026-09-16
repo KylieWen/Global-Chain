@@ -2,7 +2,7 @@
 
 ## 当前基线（2026-08-25）
 
-项目已完成最小工程骨架、通用数据契约、只读 fixture loader、领域查询层、2023 年通用智能手机 published 数据集、贸易指南页面、供应链背景、国家账本、材料观察、制造工艺和国家轮廓地图。产品主入口现为“进出口贸易信息查询与指南针”；供应链、贸易账本和地图属于辅助研究模块。政策指南、统计事实与路线内容均从本地 active manifest 指向的不可变 release fixture 只读展示；当前仍没有数据库迁移、运行时外部 API 或 AI 服务。
+项目已完成最小工程骨架、通用数据契约、只读 fixture loader、领域查询层、2023 年通用智能手机 published 数据集、贸易指南页面、供应链背景、国家账本、材料观察、制造工艺和国家轮廓地图。产品以商品供应链与贸易数据可视化为主体，商品拆解、代表性路线、国家账本和世界地图是核心模块；进出口指南是延伸方向之一。政策指南、统计事实与路线内容均从本地 active manifest 指向的不可变 release fixture 只读展示；当前仍没有数据库迁移、运行时外部 API 或 AI 服务。
 
 ## 总体决策
 
@@ -13,21 +13,21 @@
 1. **Web 层**：路由、页面、交互状态、图表和可访问性；只消费应用查询接口，不持有业务事实常量。
 2. **应用/领域层**：商品、国家、贸易指南、供应链流、贸易账本、指标定义、过滤和跨模块链接的用例与规则。
 3. **数据处理层**：导入、清洗、标准化、分类映射、校验、聚合和发布批次；可作为同一仓库中的批处理 CLI/作业运行。
-4. **数据库层**：标准维度、发布事实、路线内容、来源、方法和版本记录；供应链流与官方贸易统计分开存储。
+4. **只读快照数据层**：fixture adapter + 深度冻结内存仓储；标准维度、统计事实与路线内容分开保存。PostgreSQL 仅在容量与查询需求触发后评估。
 5. **内容配置层**：人工编辑的商品简介、贸易指南、政策文档、路线节点/边、标签、免责声明和导航配置；通过 schema 校验后发布。
 
 ## 技术栈状态
 
 - 应用：已初始化 TypeScript + React + Next.js（单一 Web/服务端应用，适合服务端渲染和静态/动态混合）。
 - 包管理：已使用 pnpm workspace；首版保持模块化单体，不引入 Turborepo。
-- 数据库：目标为 PostgreSQL；当前尚未创建迁移，运行时由 `packages/db` 的只读 fixture loader 提供开发数据。
-- 数据处理：Python（pandas/polars + Pydantic）或 TypeScript CLI；优先选择团队已熟悉且便于批量校验的方案，不在 MVP 同时引入两套复杂框架。
-- 校验：TypeScript 侧 Zod，数据处理侧 Pydantic/JSON Schema；同一领域 schema 生成或双向测试保持一致。
-- 可视化：先采用成熟的 React 图表库；地图能力在确认数据与 UX 后再引入 MapLibre 等库，不为本次文档阶段安装依赖。
+- 数据层：`packages/db` 是只读快照适配器，没有数据库连接或迁移。
+- 数据处理：现有 TypeScript/JavaScript CLI 脚本抓取、构建和校验，Python 管线尚未实现。
+- 校验：已实现 TypeScript 侧 Zod 契约与发布测试；没有 Pydantic 管线。
+- 可视化：Web 内置 d3-geo Equal Earth 投影、TopoJSON 转换与本地 SVG 地图；`packages/map` 保留占位并注明现状。
 - 测试：Vitest/Playwright（或团队已有等价工具）分别覆盖领域规则、查询契约和关键用户流。
 - CI：`.github/workflows/ci.yml` 执行 frozen install、active release 校验、类型检查、lint、测试和构建；不在运行时拉取未经审核的外部数据。
 
-Node、pnpm、Next.js、React、TypeScript、ESLint 和 Vitest 的实际版本记录在根目录 `package.json`、锁文件和 README 中。PostgreSQL、Python/uv、地图和图表依赖尚未接入；接入前仍需记录版本、许可证和可替代方案。
+Node、pnpm、Next.js、React、TypeScript、ESLint 和 Vitest 的实际版本记录在根目录 `package.json`、锁文件和 README 中。PostgreSQL 与 Python 管线尚未接入；地图已使用本地 d3-geo 与 world-atlas。CI 无部署 job。
 
 ## 模块边界
 

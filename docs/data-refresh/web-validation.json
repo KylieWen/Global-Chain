@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-09-16T09:55:34.118Z",
+  "checks": [
+    "Chinese ledger exposes 2025 macro data and current release",
+    {
+      "country": "us",
+      "values": [
+        "0（来源报告为零/免税）",
+        "未收录（按原产地、归类和日期核验）"
+      ]
+    },
+    {
+      "country": "de",
+      "values": [
+        "0（来源报告为零/免税）",
+        "19 %"
+      ]
+    },
+    {
+      "country": "cn",
+      "values": [
+        "0（来源报告为零/免税）",
+        "13 %"
+      ]
+    },
+    "All 8 map lines expose actual 2024/2025 year"
+  ],
+  "pageErrors": []
+}

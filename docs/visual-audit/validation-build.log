@@ -1,0 +1,61 @@
+$ pnpm --filter @globe-chain/web build
+$ next build
+   ▲ Next.js 15.5.23
+
+   Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy] Skipped not serializable cache item 'Compilation/modules|D:\Global Chain\node_modules\.pnpm\next@15.5.23_react-dom@19.2.8_react@19.2.8__react@19.2.8\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[14].oneOf[10].use[2]!D:\Global Chain\node_modules\.pnpm\next@15.5.23_react-dom@19.2.8_react@19.2.8__react@19.2.8\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[14].oneOf[10].use[3]!D:\Global Chain\apps\web\app\globals.css': No serializer registered for Warning
+<w> while serializing webpack/lib/cache/PackFileCacheStrategy.PackContentItems -> webpack/lib/NormalModule -> Array { 1 items } -> webpack/lib/ModuleWarning -> Warning
+ ⚠ Compiled with warnings in 1831ms
+
+./app/globals.css.webpack[javascript/auto]!=!../../node_modules/.pnpm/next@15.5.23_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!../../node_modules/.pnpm/next@15.5.23_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./app/globals.css
+Warning
+
+(777:100) autoprefixer: start value has mixed support, consider using flex-start instead
+
+Import trace for requested module:
+./app/globals.css.webpack[javascript/auto]!=!../../node_modules/.pnpm/next@15.5.23_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!../../node_modules/.pnpm/next@15.5.23_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./app/globals.css
+./app/globals.css
+
+ ✓ Compiled successfully in 4.7s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/4) ...
+   Generating static pages (1/4) 
+   Generating static pages (2/4) 
+   Generating static pages (3/4) 
+ ✓ Generating static pages (4/4)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                              Size  First Load JS
+┌ ƒ /                                                   206 B         106 kB
+├ ○ /_not-found                                         129 B         103 kB
+├ ƒ /api/health                                         129 B         103 kB
+├ ƒ /api/products/[productId]/research-export           129 B         103 kB
+├ ƒ /categories                                         206 B         106 kB
+├ ƒ /countries                                          206 B         106 kB
+├ ƒ /demo                                               206 B         106 kB
+├ ƒ /help                                               206 B         106 kB
+├ ƒ /map                                              52.1 kB         158 kB
+├ ƒ /products                                           206 B         106 kB
+├ ƒ /products/[productId]                               206 B         106 kB
+├ ƒ /products/[productId]/evidence-gaps                 206 B         106 kB
+├ ƒ /products/[productId]/ledger/[entityId]             206 B         106 kB
+├ ƒ /products/[productId]/materials                     206 B         106 kB
+├ ƒ /products/[productId]/materials/[observationId]     206 B         106 kB
+├ ƒ /products/[productId]/nodes/[nodeId]                206 B         106 kB
+├ ƒ /products/[productId]/processes/[processChainId]    206 B         106 kB
+├ ƒ /products/[productId]/provenance                    206 B         106 kB
+├ ƒ /products/[productId]/supply-chain                 4.1 kB         110 kB
+├ ƒ /search                                             206 B         106 kB
+├ ƒ /trade-guide                                        206 B         106 kB
+└ ƒ /versions                                           206 B         106 kB
++ First Load JS shared by all                          102 kB
+  ├ chunks/635-8d770860d36fa8fb.js                    46.2 kB
+  ├ chunks/f625b344-4dca96ade7eb2f50.js               54.2 kB
+  └ other shared chunks (total)                       1.99 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

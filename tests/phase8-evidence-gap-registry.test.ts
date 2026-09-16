@@ -21,7 +21,7 @@ describe("phase 8 evidence gap registry", () => {
   it("separates specific partners from partnerCode=0 world totals", async () => {
     const queries = await loadPublishedQueries();
     const ledger = queries.getCountryLedger("generic-smartphone", "country-cn", {
-      label: "2023",
+      label: "2024",
       itemId: "generic-smartphone"
     });
     expect(ledger?.resolvedTradeObservations.filter((row) => row.partnerScope === "world_total")).toHaveLength(2);

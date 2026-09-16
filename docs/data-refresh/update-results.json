@@ -1,0 +1,529 @@
+{
+  "version": "globe-chain-smartphone-2026.1",
+  "refreshed": [
+    {
+      "id": "trade-aus-smartphone-export",
+      "period": "2025"
+    },
+    {
+      "id": "trade-aus-smartphone-import",
+      "period": "2025"
+    },
+    {
+      "id": "trade-chl-smartphone-export",
+      "period": "2025"
+    },
+    {
+      "id": "trade-chl-smartphone-import",
+      "period": "2025"
+    },
+    {
+      "id": "trade-chn-156-276-smartphone-export",
+      "period": "2024"
+    },
+    {
+      "id": "trade-chn-156-276-smartphone-import",
+      "period": "2024"
+    },
+    {
+      "id": "trade-chn-156-842-smartphone-export",
+      "period": "2024"
+    },
+    {
+      "id": "trade-chn-156-842-smartphone-import",
+      "period": "2024"
+    },
+    {
+      "id": "trade-chn-smartphone-export",
+      "period": "2024"
+    },
+    {
+      "id": "trade-chn-smartphone-import",
+      "period": "2024"
+    },
+    {
+      "id": "trade-deu-276-156-smartphone-export",
+      "period": "2025"
+    },
+    {
+      "id": "trade-deu-276-156-smartphone-import",
+      "period": "2025"
+    },
+    {
+      "id": "trade-deu-smartphone-export",
+      "period": "2025"
+    },
+    {
+      "id": "trade-deu-smartphone-import",
+      "period": "2025"
+    },
+    {
+      "id": "trade-idn-smartphone-export",
+      "period": "2025"
+    },
+    {
+      "id": "trade-idn-smartphone-import",
+      "period": "2025"
+    },
+    {
+      "id": "trade-jpn-smartphone-export",
+      "period": "2025"
+    },
+    {
+      "id": "trade-jpn-smartphone-import",
+      "period": "2025"
+    },
+    {
+      "id": "trade-kor-smartphone-export",
+      "period": "2025"
+    },
+    {
+      "id": "trade-kor-smartphone-import",
+      "period": "2025"
+    },
+    {
+      "id": "trade-usa-842-156-smartphone-export",
+      "period": "2025"
+    },
+    {
+      "id": "trade-usa-842-156-smartphone-import",
+      "period": "2025"
+    },
+    {
+      "id": "trade-usa-smartphone-export",
+      "period": "2025"
+    },
+    {
+      "id": "trade-usa-smartphone-import",
+      "period": "2025"
+    },
+    {
+      "id": "material-aluminum-0-M-4",
+      "period": "2024"
+    },
+    {
+      "id": "material-aluminum-0-X-10",
+      "period": "2024"
+    },
+    {
+      "id": "material-aluminum-842-M-4",
+      "period": "2024"
+    },
+    {
+      "id": "material-aluminum-842-X-10",
+      "period": "2024"
+    },
+    {
+      "id": "material-cobalt-0-M-5",
+      "period": "2024"
+    },
+    {
+      "id": "material-cobalt-0-X-11",
+      "period": "2024"
+    },
+    {
+      "id": "material-cobalt-842-M-5",
+      "period": "2024"
+    },
+    {
+      "id": "material-cobalt-842-X-11",
+      "period": "2024"
+    },
+    {
+      "id": "material-copper-0-M-2",
+      "period": "2024"
+    },
+    {
+      "id": "material-copper-0-X-8",
+      "period": "2024"
+    },
+    {
+      "id": "material-copper-842-M-2",
+      "period": "2024"
+    },
+    {
+      "id": "material-copper-842-X-8",
+      "period": "2024"
+    },
+    {
+      "id": "material-graphite-0-M-0",
+      "period": "2024"
+    },
+    {
+      "id": "material-graphite-0-X-6",
+      "period": "2024"
+    },
+    {
+      "id": "material-graphite-842-M-0",
+      "period": "2024"
+    },
+    {
+      "id": "material-graphite-842-X-6",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-kor-intermediate-380110-M-0",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-kor-intermediate-380110-X-7",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-kor-intermediate-380190-M-1",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-kor-intermediate-380190-X-8",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-kor-intermediate-382499-M-2",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-kor-intermediate-382499-X-9",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-kor-intermediate-741011-M-3",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-kor-intermediate-741011-X-10",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-kor-intermediate-741012-M-4",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-kor-intermediate-741012-X-11",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-kor-intermediate-760711-M-5",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-kor-intermediate-760711-X-12",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-kor-intermediate-760719-M-6",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-kor-intermediate-760719-X-13",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-usa-intermediate-380110-M-0",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-usa-intermediate-380110-X-7",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-usa-intermediate-380190-M-1",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-usa-intermediate-380190-X-8",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-usa-intermediate-382499-M-2",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-usa-intermediate-382499-X-9",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-usa-intermediate-741011-M-3",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-usa-intermediate-741011-X-10",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-usa-intermediate-741012-M-4",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-usa-intermediate-741012-X-11",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-usa-intermediate-760711-M-5",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-usa-intermediate-760711-X-12",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-usa-intermediate-760719-M-6",
+      "period": "2024"
+    },
+    {
+      "id": "material-intermediate-chn-usa-intermediate-760719-X-13",
+      "period": "2024"
+    },
+    {
+      "id": "material-lithium-0-M-1",
+      "period": "2024"
+    },
+    {
+      "id": "material-lithium-0-X-7",
+      "period": "2024"
+    },
+    {
+      "id": "material-lithium-842-M-1",
+      "period": "2024"
+    },
+    {
+      "id": "material-lithium-842-X-7",
+      "period": "2024"
+    },
+    {
+      "id": "material-nickel-0-M-3",
+      "period": "2024"
+    },
+    {
+      "id": "material-nickel-0-X-9",
+      "period": "2024"
+    },
+    {
+      "id": "material-nickel-842-M-3",
+      "period": "2024"
+    },
+    {
+      "id": "material-nickel-842-X-9",
+      "period": "2024"
+    },
+    {
+      "id": "material-role-aus-chn-aluminum-M-0",
+      "period": "2025"
+    },
+    {
+      "id": "material-role-aus-chn-aluminum-X-1",
+      "period": "2025"
+    },
+    {
+      "id": "material-role-aus-chn-lithium-M-0",
+      "period": "2025"
+    },
+    {
+      "id": "material-role-chl-chn-copper-M-0",
+      "period": "2025"
+    },
+    {
+      "id": "material-role-chl-chn-copper-X-1",
+      "period": "2025"
+    },
+    {
+      "id": "material-role-chn-kor-graphite-M-0",
+      "period": "2024"
+    },
+    {
+      "id": "material-role-chn-kor-graphite-X-1",
+      "period": "2024"
+    },
+    {
+      "id": "material-role-idn-chn-nickel-M-0",
+      "period": "2025"
+    },
+    {
+      "id": "material-role-idn-chn-nickel-X-1",
+      "period": "2025"
+    },
+    {
+      "id": "macro-aus-merchandise-exports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-aus-merchandise-imports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-aus-official-reserves-including-gold",
+      "period": "2025"
+    },
+    {
+      "id": "macro-cod-merchandise-exports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-cod-merchandise-imports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-chl-merchandise-exports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-chl-merchandise-imports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-chl-official-reserves-including-gold",
+      "period": "2025"
+    },
+    {
+      "id": "macro-chn-merchandise-exports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-chn-merchandise-imports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-chn-official-reserves-including-gold",
+      "period": "2025"
+    },
+    {
+      "id": "macro-deu-merchandise-exports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-deu-merchandise-imports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-deu-official-reserves-including-gold",
+      "period": "2025"
+    },
+    {
+      "id": "macro-idn-merchandise-exports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-idn-merchandise-imports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-idn-official-reserves-including-gold",
+      "period": "2025"
+    },
+    {
+      "id": "macro-jpn-merchandise-exports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-jpn-merchandise-imports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-jpn-official-reserves-including-gold",
+      "period": "2025"
+    },
+    {
+      "id": "macro-kor-merchandise-exports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-kor-merchandise-imports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-kor-official-reserves-including-gold",
+      "period": "2025"
+    },
+    {
+      "id": "macro-usa-merchandise-exports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-usa-merchandise-imports",
+      "period": "2025"
+    },
+    {
+      "id": "macro-usa-official-reserves-including-gold",
+      "period": "2025"
+    },
+    {
+      "id": "macro-aus-merchandise-balance",
+      "period": "2025"
+    },
+    {
+      "id": "macro-cod-merchandise-balance",
+      "period": "2025"
+    },
+    {
+      "id": "macro-chl-merchandise-balance",
+      "period": "2025"
+    },
+    {
+      "id": "macro-chn-merchandise-balance",
+      "period": "2025"
+    },
+    {
+      "id": "macro-deu-merchandise-balance",
+      "period": "2025"
+    },
+    {
+      "id": "macro-idn-merchandise-balance",
+      "period": "2025"
+    },
+    {
+      "id": "macro-jpn-merchandise-balance",
+      "period": "2025"
+    },
+    {
+      "id": "macro-kor-merchandise-balance",
+      "period": "2025"
+    },
+    {
+      "id": "macro-usa-merchandise-balance",
+      "period": "2025"
+    }
+  ],
+  "retained": [
+    {
+      "id": "material-role-cod-chn-cobalt-X-0",
+      "period": "2023",
+      "reason": "No matching newer official observation; not zero."
+    },
+    {
+      "id": "macro-cod-official-reserves-including-gold",
+      "period": "2023",
+      "reason": "WDI has no non-null 2024/2025 value."
+    }
+  ],
+  "quantityFilled": [
+    "trade-chl-smartphone-import",
+    "trade-deu-276-156-smartphone-export",
+    "trade-deu-276-156-smartphone-import",
+    "trade-deu-smartphone-export",
+    "trade-deu-smartphone-import",
+    "trade-idn-smartphone-export",
+    "trade-kor-smartphone-export",
+    "trade-kor-smartphone-import",
+    "material-aluminum-0-M-4",
+    "material-aluminum-842-M-4",
+    "material-cobalt-0-M-5",
+    "material-cobalt-0-X-11",
+    "material-cobalt-842-M-5",
+    "material-copper-0-M-2",
+    "material-copper-0-X-8",
+    "material-copper-842-M-2",
+    "material-graphite-0-M-0",
+    "material-graphite-0-X-6",
+    "material-graphite-842-M-0",
+    "material-intermediate-chn-kor-intermediate-382499-M-2",
+    "material-intermediate-chn-usa-intermediate-382499-M-2",
+    "material-intermediate-chn-usa-intermediate-741012-X-11",
+    "material-intermediate-chn-usa-intermediate-760719-M-6",
+    "material-lithium-0-M-1",
+    "material-lithium-0-X-7",
+    "material-lithium-842-M-1",
+    "material-lithium-842-X-7",
+    "material-nickel-0-M-3",
+    "material-nickel-0-X-9",
+    "material-role-aus-chn-aluminum-M-0"
+  ]
+}

@@ -1,31 +1,18 @@
 import Link from "next/link";
 import { Breadcrumbs, PageIntro, SiteShell } from "../../components/site-shell";
 import { getQueryService } from "../../lib/data";
-import { productPath, manufacturingProcessPath, mapPath, tradeGuidePath } from "../../lib/paths";
-
+import { productPath, supplyChainPath, tradeGuidePath } from "../../lib/paths";
 export const dynamic = "force-dynamic";
-
 export default async function DemoPage() {
   const queries = await getQueryService();
-  const products = queries.listProducts();
-  const featured = products[0];
-  const productId = featured?.productId ?? "generic-smartphone";
-  return <SiteShell><div className="content-column wide-column">
-    <Breadcrumbs items={[{ label: "3 分钟演示" }]} />
-    <PageIntro eyebrow="Guided demo · 约 3 分钟" title="从一件商品，到一条可执行的进出口核验路径" description="先用贸易指南选择国家和方向，再回到智能手机的组成、供应链和国家账本，看清哪些是办理信息，哪些只是研究背景。" actions={<Link className="button button-primary" href={tradeGuidePath({ product: productId })}>直接进入贸易指南 →</Link>} />
-
-    <section className="demo-callout" aria-label="演示说明">
-      <strong>演示重点</strong><span>不是展示一张“看起来很复杂”的地图，而是展示每个节点为什么出现、证据支持到哪里，以及哪些内容仍然未知。</span>
-    </section>
-
-    <ol className="demo-step-list">
-      <li className="demo-step-card"><span className="demo-step-number">01</span><div><p className="card-kicker">贸易指南</p><h2>先选商品、国家和方向</h2><p>查看关税核验入口、手续顺序、文件清单和当前资料覆盖范围；税率未收录时会明确显示。</p><Link className="button button-secondary" href={tradeGuidePath({ product: productId })}>打开贸易指南 →</Link></div></li>
-      <li className="demo-step-card"><span className="demo-step-number">02</span><div><p className="card-kicker">商品背景</p><h2>再理解商品如何形成</h2><p>进入通用智能手机组件树，选择电池、处理器与存储器等部件，阅读代表性国家角色和工艺设备背景。</p><div className="demo-actions"><Link className="button button-secondary" href={productPath(productId)}>打开商品总览 →</Link><Link className="button button-secondary" href={manufacturingProcessPath(productId, "process-chain-semiconductor-packaging")}>看工艺设备 →</Link></div></div></li>
-      <li className="demo-step-card"><span className="demo-step-number">03</span><div><p className="card-kicker">国家与空间</p><h2>最后回到国家账本和地图</h2><p>查看国家整体贸易、单品观察和世界轮廓；官方统计与代表性路线始终分开。</p><div className="demo-actions"><Link className="button button-secondary" href="/countries">打开国家账本 →</Link><Link className="button button-secondary" href={mapPath()}>打开世界地图 →</Link></div></div></li>
-    </ol>
-
-    <section className="demo-audience-grid" aria-label="适用场景"><article><p className="card-kicker">给研究者</p><h2>可追溯</h2><p>每条路线、指标和设备能力都能回到来源、版本与证据说明。</p></article><article><p className="card-kicker">给采购与战略</p><h2>可探索</h2><p>先定位材料、工序和国家角色，再决定需要补查哪些直接证据。</p></article><article><p className="card-kicker">给课堂与公众</p><h2>可理解</h2><p>用一件日常商品解释全球分工，而不是把统计表直接丢给用户。</p></article></section>
-
-    <section className="demo-boundary-note"><strong>请这样理解 Demo：</strong><span>供应链路线是代表性、可解释的策展路径；贸易金额是海关统计，不等于企业利润、成本或某台具体手机的价格。未知值保持未知。</span></section>
-  </div></SiteShell>;
+  const featured = queries.listProducts()[0];
+  const steps = [
+    { title: "一件商品，连接世界", label: "旅程与地图", copy: "在世界地图查看高亮国家与双边贸易观察。连线有统计依据，但不代表运输路径。", href: "/map" },
+    { title: "先拆开，再逐层看清", label: "商品拆解", copy: "从成品进入组件树，选择已有路线的部件；待补证的部分会明确标出。", href: featured ? productPath(featured.productId) : "/products" },
+    { title: "沿生产环节追到证据", label: "代表性供应链", copy: "查看原料、加工、部件和组装环节，区分国家角色与直接双边证据。数量未知不填零。", href: featured ? supplyChainPath(featured.productId) : "/products" },
+    { title: "看看国家之间的贸易", label: "国家账本", copy: "核对进出口、贸易差额、官方储备与商品观察。每个数字带单位、年份、来源和状态；贸易额不等于利润。", href: "/countries" },
+    { title: "进一步查手续与官方入口", label: "进出口指南 · 延伸方向之一", copy: "选择国家与方向，查看编码归类、关税核验、手续与文件；未收录税率显示待核验。", href: tradeGuidePath(featured ? { product: featured.productId } : undefined) },
+    { title: "带着来源继续研究", label: "可信边界", copy: "当前为有限覆盖的公开数据示范。查看来源与版本，保留未知、估算、未披露和真实零值的区别。", href: "/help" }
+  ];
+  return <SiteShell><div className="content-column wide-column"><Breadcrumbs items={[{ label: "3 分钟演示" }]} /><PageIntro eyebrow="演示路径 · 约 3 分钟" title="看懂一件商品，如何连接世界" description="从地图进入商品拆解与代表性路线，再看国家账本；进出口指南作为延伸方向，帮助你继续核验。" actions={<Link className="button button-primary" href="/map">从世界地图开始 →</Link>} /><ol className="demo-step-list">{steps.map((step,index)=><li className="demo-step-card" key={step.label}><span className="demo-step-number">{String(index+1).padStart(2,"0")}</span><div><p className="card-kicker">{step.label}</p><h2>{step.title}</h2><p>{step.copy}</p><Link className="button button-secondary" href={step.href}>打开查看 →</Link></div></li>)}</ol><section className="demo-boundary-note"><strong>请这样理解 Demo：</strong><span>代表性路线不证明某台商品、工厂或订单的真实路径。海关贸易额不等于企业利润。每条信息都应回到其来源和版本。</span></section></div></SiteShell>;
 }

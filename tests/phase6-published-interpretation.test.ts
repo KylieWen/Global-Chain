@@ -12,7 +12,7 @@ import {
   createProductQueryService
 } from "@globe-chain/domain";
 
-const publishedManifestPath = resolve("data/published/manifest.json");
+const publishedManifestPath = resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2023.16/manifest.json");
 
 async function loadPublishedQueries() {
   const repository = await loadFixtureRepositoryFromManifest(publishedManifestPath, {

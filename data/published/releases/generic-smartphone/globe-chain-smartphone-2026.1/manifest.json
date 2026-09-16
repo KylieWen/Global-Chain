@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-smartphone",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-smartphone-2026.1",
+  "generatedAt": "2026-09-16",
+  "fixtureSha256": "5e768c6d1022214cd3005f90cfdd087a5f0b378923d4478bd238599251ace7f9",
+  "routeContentVersion": "smartphone-route-2023.3",
+  "routeContentSha256": "2d696c8171adb6c56f41bddb7a5ddebdb8f06804a167271f4c0d5e39c7627bad",
+  "contentSources": [
+    "../../content/routes/generic-smartphone-2023.json",
+    "../../content/routes/generic-smartphone-processor-memory-2023.json",
+    "../../content/evidence/industry-roles-2023.json",
+    "../../content/evidence/semiconductor-roles-2023.json",
+    "../../content/evidence-gaps/generic-smartphone-processor-memory-2023.json",
+    "../../content/evidence-gaps/generic-smartphone-2023.json",
+    "../../content/evidence-gaps/generic-smartphone-components-2023.json",
+    "../../content/processes/generic-smartphone-semiconductor-packaging-2023.json",
+    "../../content/trade-guides/generic-smartphone-2023.json"
+  ],
+  "sourceSnapshots": [
+    "raw/world-bank-wdi-2023.json",
+    "raw/un-comtrade-hs2022-851713-2023.json",
+    "raw/un-comtrade-hs2022-851713-bilateral-2023.json",
+    "raw/un-comtrade-hs2022-materials-2023.json",
+    "raw/un-comtrade-hs2022-material-role-pairs-2023.json",
+    "raw/un-comtrade-hs2022-material-intermediate-2023.json",
+    "raw/refresh-2026-09-16/comtrade-152-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-152-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-152-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-152-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-156-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-156-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-156-276-2024.json",
+    "raw/refresh-2026-09-16/comtrade-156-276-2025.json",
+    "raw/refresh-2026-09-16/comtrade-156-410-2024.json",
+    "raw/refresh-2026-09-16/comtrade-156-410-2025.json",
+    "raw/refresh-2026-09-16/comtrade-156-842-2024.json",
+    "raw/refresh-2026-09-16/comtrade-156-842-2025.json",
+    "raw/refresh-2026-09-16/comtrade-180-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-180-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-276-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-276-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-276-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-276-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-36-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-36-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-36-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-36-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-360-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-360-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-360-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-360-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-392-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-392-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-410-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-410-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-842-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-842-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-842-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-842-156-2025.json",
+    "raw/refresh-2026-09-16/wdi-TX.VAL.MRCH.CD.WT.json",
+    "raw/refresh-2026-09-16/wdi-TM.VAL.MRCH.CD.WT.json",
+    "raw/refresh-2026-09-16/wdi-FI.RES.TOTL.CD.json"
+  ],
+  "notes": [
+    "2026-09-16 抓取官方数据；统计按系列取最新可用年度，历史路线与未重新核验的事实保留原期间；详见 docs/data-refresh。"
+  ],
+  "release": {
+    "productId": "generic-smartphone",
+    "datasetVersion": "globe-chain-smartphone-2026.1",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2026.1",
+    "immutable": true
+  },
+  "refreshContentSource": "content/refresh-2026-09-16.json",
+  "refreshContentPathBase": "repository-root",
+  "refreshContentSha256": "4be2f302a28da81ff549e739b00617ec484a064e768cfd7915796fa71ee40520"
+}

@@ -273,6 +273,7 @@ export const MaterialTradeObservationSchema = z.object({
   currency: CurrencySchema.nullable(),
   value: NonNegativeNumberSchema.nullable(),
   quantity: NonNegativeNumberSchema.nullable(),
+  unit: UnitSchema.nullable().optional(),
   valueDataStatus: FactStatusSchema,
   quantityDataStatus: FactStatusSchema,
   quality: z.record(z.string(), z.union([z.string(), z.number(), z.boolean(), z.null()])).default({}),

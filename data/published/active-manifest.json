@@ -3,12 +3,12 @@
   "fixtures": [
     {
       "productId": "generic-smartphone",
-      "path": "releases/generic-smartphone/globe-chain-smartphone-2023.16/fixture.json"
+      "path": "releases/generic-smartphone/globe-chain-smartphone-2026.1/fixture.json"
     }
   ],
-  "datasetVersion": "globe-chain-smartphone-2023.16",
-  "generatedAt": "2026-08-30",
-  "fixtureSha256": "4cc68813535566840d6af6857e6580090a24f018dd4fdfdfb6d7ffd0e90708fc",
+  "datasetVersion": "globe-chain-smartphone-2026.1",
+  "generatedAt": "2026-09-16",
+  "fixtureSha256": "5e768c6d1022214cd3005f90cfdd087a5f0b378923d4478bd238599251ace7f9",
   "routeContentVersion": "smartphone-route-2023.3",
   "routeContentSha256": "2d696c8171adb6c56f41bddb7a5ddebdb8f06804a167271f4c0d5e39c7627bad",
   "contentSources": [
@@ -28,22 +28,57 @@
     "raw/un-comtrade-hs2022-851713-bilateral-2023.json",
     "raw/un-comtrade-hs2022-materials-2023.json",
     "raw/un-comtrade-hs2022-material-role-pairs-2023.json",
-    "raw/un-comtrade-hs2022-material-intermediate-2023.json"
+    "raw/un-comtrade-hs2022-material-intermediate-2023.json",
+    "raw/refresh-2026-09-16/comtrade-152-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-152-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-152-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-152-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-156-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-156-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-156-276-2024.json",
+    "raw/refresh-2026-09-16/comtrade-156-276-2025.json",
+    "raw/refresh-2026-09-16/comtrade-156-410-2024.json",
+    "raw/refresh-2026-09-16/comtrade-156-410-2025.json",
+    "raw/refresh-2026-09-16/comtrade-156-842-2024.json",
+    "raw/refresh-2026-09-16/comtrade-156-842-2025.json",
+    "raw/refresh-2026-09-16/comtrade-180-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-180-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-276-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-276-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-276-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-276-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-36-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-36-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-36-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-36-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-360-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-360-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-360-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-360-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-392-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-392-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-410-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-410-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-842-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-842-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-842-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-842-156-2025.json",
+    "raw/refresh-2026-09-16/wdi-TX.VAL.MRCH.CD.WT.json",
+    "raw/refresh-2026-09-16/wdi-TM.VAL.MRCH.CD.WT.json",
+    "raw/refresh-2026-09-16/wdi-FI.RES.TOTL.CD.json"
   ],
   "notes": [
-    "Numeric observations are generated from immutable local raw snapshots; reviewed route topology and evidence bindings come from the versioned content source. No runtime API calls are made.",
-    "The published fixture intentionally omits countries/flows absent from the Comtrade response rather than filling zero.",
-    "The fixture now contains specific bilateral HS 851713 customs observations, kept separate from world totals and from the representative supply-chain edges.",
-    "All current supply-chain edges remain representative and quantity-free because customs trade does not prove assembly, consumption or entry into this curated route.",
-    "Evidence gaps are versioned content and cover every current node and edge, including uncovered first-level components.",
-    "Trade guides are static, partially covered checklists linked to official portals; unknown tariffs are intentionally not calculated."
+    "2026-09-16 抓取官方数据；统计按系列取最新可用年度，历史路线与未重新核验的事实保留原期间；详见 docs/data-refresh。"
   ],
   "release": {
     "productId": "generic-smartphone",
-    "datasetVersion": "globe-chain-smartphone-2023.16",
-    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2023.16",
+    "datasetVersion": "globe-chain-smartphone-2026.1",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2026.1",
     "immutable": true
   },
-  "activeDatasetVersion": "globe-chain-smartphone-2023.16",
+  "refreshContentSource": "content/refresh-2026-09-16.json",
+  "refreshContentPathBase": "repository-root",
+  "refreshContentSha256": "4be2f302a28da81ff549e739b00617ec484a064e768cfd7915796fa71ee40520",
+  "activeDatasetVersion": "globe-chain-smartphone-2026.1",
   "activeManifest": true
 }

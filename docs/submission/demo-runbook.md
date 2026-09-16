@@ -1,32 +1,31 @@
-# GlobeChain 演示运行卡
+# 演示运行卡
 
 ## 启动
 
-```bash
-cd "D:\\Global Chain"
-pnpm install
-pnpm run dev
+在仓库根目录执行：
+
+```sh
+pnpm install --frozen-lockfile
+pnpm run data:release:verify
+pnpm run build
+pnpm run start
 ```
 
-浏览器打开：<http://localhost:3000/>
+访问 http://localhost:3000/。必须等构建成功后启动。普通模式只读 published，勿在录制前重建数据。
 
-## 重点 URL
+## 演示顺序
 
-| 场景 | URL |
-| --- | --- |
-| 首页 | `/` |
-| 贸易指南目录 | `/trade-guide` |
-| 美国进口智能手机 | `/trade-guide?jurisdiction=country-us&direction=import` |
-| 德国/欧盟进口智能手机 | `/trade-guide?jurisdiction=country-de&direction=import` |
-| 中国出口智能手机 | `/trade-guide?jurisdiction=country-cn&direction=export` |
-| 智能手机背景 | `/products/generic-smartphone` |
-| 供应链路径 | `/products/generic-smartphone/supply-chain` |
-| 世界地图 | `/map` |
-| 3 分钟演示 | `/demo` |
+首页 → /map（点击国家）→ /products/generic-smartphone（拆解树）→ 电池供应链 → 国家账本 → 来源与版本 → /trade-guide（延伸方向）。/demo 提供可点击入口。
 
-## 演示重点
+幻灯片打开 deck/index.html，左右键翻页，F 全屏；旁白见 deck/deck-script.md。安装依赖与构建后可断开外网演示，官方来源链接需网络。视频必须由所有者重新录制并上传。
 
-- 先展示“查询任务”，再展示供应链背景。
-- 税率显示“待核验”是有意设计，不是缺陷：系统不猜测税率。
-- 代表性路线、贸易统计和政策指南是三类不同证据，不能互相替代。
-- 演示使用本地 published release，不依赖现场网络或运行时外部 API。
+## 重新生成素材
+
+保持生产服务运行，另一个终端在根目录执行：
+
+```sh
+node scripts/capture-deck-screenshots.mjs
+node scripts/verify-deck.mjs
+```
+
+默认使用本机 Chrome；可用 DECK_BROWSER_PATH 指定 Chrome/Edge 完整路径。输出目录、截图来源和打印步骤见 deck/HANDOFF.md。

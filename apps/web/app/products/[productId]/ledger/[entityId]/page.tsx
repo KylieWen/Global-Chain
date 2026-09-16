@@ -80,8 +80,8 @@ export default async function CountryLedgerPage({
         <PageIntro
           eyebrow="Country trade ledger"
           title={`${ledger.entity.name} · 国家账本`}
-          description="宏观商品贸易、官方储备与 HS 单品海关观察按各自统计口径展示。没有观察不补零，海关贸易金额也不解释为企业利润、成本或手机价格。"
-          actions={<Link className="button button-secondary" href={firstRelatedNode ? nodePath(productId, firstRelatedNode.node.id, pageContext) : supplyChainPath(productId, undefined, pageContext)}>返回节点路径</Link>}
+          description="查看商品进出口、贸易差额和官方储备，继续探索具体商品与贸易伙伴。"
+          actions={<Link className="button button-secondary" href={firstRelatedNode ? nodePath(productId, firstRelatedNode.node.id, pageContext) : supplyChainPath(productId, undefined, pageContext)}>查看供应链</Link>}
         />
 
         <nav className="exploration-nav" aria-label="国家研究层级">
@@ -91,6 +91,7 @@ export default async function CountryLedgerPage({
           <Link href={ledger.relatedNodes[0] ? nodePath(productId, ledger.relatedNodes[0].node.id, pageContext) : supplyChainPath(productId, undefined, pageContext)}>④ 相关节点</Link>
         </nav>
 
+        <details className="reading-details"><summary>国家与版本信息</summary>
         <div className="stat-grid">
           <StatCard label="国家/地区代码" value={ledger.entity.iso3 ?? ledger.entity.name} detail={`ISO2 ${ledger.entity.iso2 ?? "未知"} · UN M49 ${ledger.entity.m49 ?? "未知"}`} />
           <StatCard label="统计期间" value={<PeriodLabel period={ledger.period} />} detail={`${ledger.period.start} 至 ${ledger.period.end}`} />
@@ -98,17 +99,19 @@ export default async function CountryLedgerPage({
           <StatCard label={`${ledger.product.name}贸易观察`} value={ledger.tradeObservations.length} detail={ledger.tradeAvailability === "available" ? "已发布观察" : "未知，不是零"} />
         </div>
 
+        </details>
+
         <WarningList warnings={ledger.warnings} />
 
         <section className="ledger-snapshot" aria-labelledby="ledger-snapshot-title">
           <div className="section-heading"><div><p className="eyebrow">先看结论</p><h2 id="ledger-snapshot-title">{ledger.entity.name} 的贸易快照</h2></div><span className="section-caption">{ledger.period.label} · 美元现价</span></div>
           <div className="stat-grid ledger-snapshot-grid">
-            <StatCard label="商品出口总额" value={exportsMetric ? <ValueDisplay value={exportsMetric.observation.value} status={exportsMetric.observation.dataStatus} currency={exportsMetric.observation.currency} unit={exportsMetric.observation.unit} /> : <UnknownValue label="未提供" />} detail="海关商品贸易统计" />
-            <StatCard label="商品进口总额" value={importsMetric ? <ValueDisplay value={importsMetric.observation.value} status={importsMetric.observation.dataStatus} currency={importsMetric.observation.currency} unit={importsMetric.observation.unit} /> : <UnknownValue label="未提供" />} detail="海关商品贸易统计" />
-            <StatCard label="商品贸易差额" value={balanceMetric ? <ValueDisplay value={balanceMetric.observation.value} status={balanceMetric.observation.dataStatus} currency={balanceMetric.observation.currency} unit={balanceMetric.observation.unit} /> : <UnknownValue label="未提供" />} detail="出口总额 − 进口总额" />
-            <StatCard label="官方储备（含黄金）" value={reservesMetric ? <ValueDisplay value={reservesMetric.observation.value} status={reservesMetric.observation.dataStatus} currency={reservesMetric.observation.currency} unit={reservesMetric.observation.unit} /> : <UnknownValue label="未提供" />} detail="World Bank FI.RES.TOTL.CD" />
+            <StatCard label="商品出口总额" value={exportsMetric ? <ValueDisplay compact value={exportsMetric.observation.value} status={exportsMetric.observation.dataStatus} currency={exportsMetric.observation.currency} unit={exportsMetric.observation.unit} /> : <UnknownValue label="未提供" />} detail={`${exportsMetric?.observation.period.label ?? "无期间"} · 海关商品贸易统计`} />
+            <StatCard label="商品进口总额" value={importsMetric ? <ValueDisplay compact value={importsMetric.observation.value} status={importsMetric.observation.dataStatus} currency={importsMetric.observation.currency} unit={importsMetric.observation.unit} /> : <UnknownValue label="未提供" />} detail={`${importsMetric?.observation.period.label ?? "无期间"} · 海关商品贸易统计`} />
+            <StatCard label="商品贸易差额" value={balanceMetric ? <ValueDisplay compact value={balanceMetric.observation.value} status={balanceMetric.observation.dataStatus} currency={balanceMetric.observation.currency} unit={balanceMetric.observation.unit} /> : <UnknownValue label="未提供" />} detail={`${balanceMetric?.observation.period.label ?? "无期间"} · 同年出口 − 进口`} />
+            <StatCard label="官方储备（含黄金）" value={reservesMetric ? <ValueDisplay compact value={reservesMetric.observation.value} status={reservesMetric.observation.dataStatus} currency={reservesMetric.observation.currency} unit={reservesMetric.observation.unit} /> : <UnknownValue label="未提供" />} detail={`${reservesMetric?.observation.period.label ?? "无期间"} · World Bank FI.RES.TOTL.CD`} />
           </div>
-          <p className="ledger-reading-note">这里展示的是国家层面的统计摘要；它不等于企业利润、生产成本或一部手机的价格。单项观察和来源细节请展开下方栏目查看。</p>
+          <p className="ledger-reading-note">展开下方栏目，查看各项指标和商品贸易明细。</p>
         </section>
 
         <details className="section-block detail-collapsible" aria-labelledby="macro-title">
@@ -148,7 +151,7 @@ export default async function CountryLedgerPage({
         <details className="section-block detail-collapsible" aria-labelledby="trade-title">
           <summary className="section-heading detail-summary"><div><p className="eyebrow">Product trade observations</p><h2 id="trade-title">
                 {ledger.product.name} {tradeClassification ? `${tradeClassification.system} ${tradeClassification.version} / ${tradeClassification.code}` : "分类未提供"} 进出口观察
-              </h2></div><span className="section-caption">{ledger.resolvedTradeObservations.length} 条观察 · unknown 不等于 0</span></summary>
+              </h2></div><span className="section-caption">{ledger.resolvedTradeObservations.length} 条观察</span></summary>
           {ledger.resolvedTradeObservations.length === 0 ? (
             <div className="empty-state missing-observation">
               <strong>当前期间没有已发布的{ledger.product.name}贸易观察。</strong>

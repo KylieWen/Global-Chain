@@ -132,6 +132,7 @@ export interface CategoryCatalogView {
 }
 
 export interface ProductOverviewView {
+  readonly statisticsPeriodLabel: string;
   readonly product: ReadonlyItem;
   readonly directChildren: readonly ReadonlyItem[];
   readonly period: ReadonlyPeriod;
@@ -1074,6 +1075,17 @@ function tradeQuantityDataStatus(observation: ReadonlyTradeObservation): FactSta
       : observation.dataStatus);
 }
 
+function statisticsPeriodLabel(records: readonly { readonly period: ReadonlyPeriod }[]): string {
+  const labels = [...new Set(records.map((record) => record.period.label))].sort();
+  return labels.length ? labels.join(" / ") : "无统计记录";
+}
+
+function statisticsPeriod(records: readonly { readonly period: ReadonlyPeriod }[], fallback: ReadonlyPeriod): ReadonlyPeriod {
+  if (!records.length) return fallback;
+  const periods = records.map((record) => record.period);
+  return Object.freeze({ ...periods[0], start: periods.map((p) => p.start).sort()[0], end: periods.map((p) => p.end).sort().at(-1)!, label: statisticsPeriodLabel(records) });
+}
+
 function matchesPeriod(period: ReadonlyPeriod, filter?: PeriodFilter): boolean {
   if (!filter) return true;
   if (filter.granularity && period.granularity !== filter.granularity) return false;
@@ -1524,7 +1536,7 @@ export function getTradeNetwork(repository: FixtureRepository, productId: string
     quantityDataStatus: tradeQuantityDataStatus(observation)
   }));
   const countries = [...new Map(observations.flatMap(({ reporter, partner }) => [reporter, partner]).filter((entity): entity is ReadonlyGeoEntity => Boolean(entity)).map((entity) => [entity.id, entity])).values()];
-  return Object.freeze({ product, period: fixture.storyGraph.period, observations: freezeArray(observations), countries: freezeArray(countries), datasetVersion: fixture.datasetVersion, warnings: mergeWarnings(fixture.warnings, ["贸易网络只包含具体 partnerEntity 的观察；partnerCode=0 世界总计不会被画成双边流线。", "双边贸易观察证明统计分类、报告方、伙伴、方向和期间，不证明进入某部手机或连续供应链。"]) });
+  return Object.freeze({ product, period: statisticsPeriod(observations.map((view) => view.observation), fixture.storyGraph.period), observations: freezeArray(observations), countries: freezeArray(countries), datasetVersion: fixture.datasetVersion, warnings: mergeWarnings(fixture.warnings, ["贸易网络只包含具体 partnerEntity 的观察；partnerCode=0 世界总计不会被画成双边流线。", "双边贸易观察证明统计分类、报告方、伙伴、方向和期间，不证明进入某部手机或连续供应链。"]) });
 }
 
 export function getProductOverview(
@@ -1604,6 +1616,7 @@ export function getProductOverview(
     product,
     directChildren: freezeArray(directChildren),
     componentCoverage: freezeArray(componentCoverage),
+    statisticsPeriodLabel: statisticsPeriodLabel([...fixture.tradeObservations, ...fixture.materialTradeObservations, ...fixture.macroIndicators]),
     period: fixture.storyGraph.period,
     datasetVersion: fixture.datasetVersion,
     sources: freezeArray(fixture.sources),
@@ -1786,7 +1799,7 @@ export function getCountryLedger(
   return Object.freeze({
     product,
     entity,
-    period: fixture.storyGraph.period,
+    period: statisticsPeriod([...sortedTradeObservations, ...sortedMacroIndicators], fixture.storyGraph.period),
     tradeObservations: freezeArray(sortedTradeObservations),
     resolvedTradeObservations: freezeArray(sortedResolvedTradeObservations),
     macroIndicators: freezeArray(sortedMacroIndicators),

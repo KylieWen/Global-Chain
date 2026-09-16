@@ -1,0 +1,101 @@
+1228
+序号 税则号列 货品名称 最惠国税率(%) 协定税率(%) 特惠税率(%) 普通税率(%)
+7457 8516.8000 -加热电阻器 7 0 东盟AS,智CL,巴PK,新西兰NZ,新加坡SG,秘
+PE,哥CR,瑞CH,冰IS,韩KR,澳AU,格GE,毛
+MU,东盟RASR
+,澳RAUR
+,新西兰RNZR
+,柬KH,
+尼NI,厄EC,马MV,港HK,澳门MO
+0 惠LD 40
+2.8 塞RS
+5 韩RKRR
+5.5 日R
+JPR
+-零件：
+7458 8516.9010 ---土壤加热器及加热电阻器用 6 0 东盟AS,智CL,巴PK,新西兰NZ,秘PE,哥CR,
+瑞CH,冰IS,韩KR,澳AU,格GE,毛MU,东盟
+RASR
+,澳RAUR
+,新西兰RNZR
+,柬KH,尼NI,厄
+EC,马MV,港HK,澳门MO
+0 惠LD 40
+4 韩RKRR
+4.2 塞RS
+4.4 日R
+JPR
+7459 8516.9090 ---其他 6 0 东盟AS,智CL,新西兰NZ,新加坡SG,秘PE,哥
+CR,瑞CH,冰IS,韩KR,澳AU,格GE,毛MU,柬
+KH,尼NI,厄EC,塞RS,马MV,港HK,澳门MO
+0 惠LD 100
+1.8 巴PK
+6 东盟RASR
+,澳RAUR
+,韩RKRR
+6.5 日R
+JPR
+7.2 新西兰RNZR
+85.17 电话机，包括用于蜂窝网络或其
+他无线网络的智能手机及其他电
+话机；其他发送或接收声音、图
+像或其他数据用的设备，包括有
+线或无线网络（例如，局域网或
+广域网）的通信设备，但税目
+84.43、85.25、85.27或85.28的发
+送或接收设备除外：
+-电话机，包括蜂窝网络或其他无
+线网络用智能手机及其他电话
+机：
+7460 8517.1100 --无绳电话机 0 0 东盟AS,智CL,巴PK,新西兰NZ,秘PE,哥CR,
+瑞CH,冰IS,韩KR,澳AU,格GE,毛MU,东盟
+RASR
+,澳RAUR
+,日R
+JPR
+,韩RKRR
+,新西兰RNZR
+,
+柬KH,尼NI,厄EC,塞RS,马MV,港HK,澳门
+MO
+0 惠LD 30
+7461 8517.1300 --智能手机 0 0 东盟AS,智CL,巴PK,新西兰NZ,秘PE,哥CR,
+瑞CH,冰IS,韩KR,澳AU,格GE,毛MU,东盟
+RASR
+,澳RAUR
+,日R
+JPR
+,韩RKRR
+,新西兰RNZR
+,
+柬KH,尼NI,厄EC,塞RS,马MV,港HK,澳门
+MO
+0 惠LD 20
+--其他用于蜂窝网络或其他无线
+网络的电话机：
+7462 8517.1410 ---手持（包括车载）式无线电话
+机
+0 0 东盟AS,智CL,巴PK,新西兰NZ,秘PE,哥CR,
+瑞CH,冰IS,韩KR,澳AU,格GE,毛MU,东盟
+RASR
+,澳RAUR
+,日R
+JPR
+,韩RKRR
+,新西兰RNZR
+,
+柬KH,尼NI,厄EC,塞RS,马MV,港HK,澳门
+MO
+0 惠LD 20
+7463 8517.1420 ---对讲机 0 0 东盟AS,智CL,巴PK,新西兰NZ,秘PE,哥CR,
+瑞CH,冰IS,韩KR,澳AU,格GE,毛MU,东盟
+RASR
+,澳RAUR
+,日R
+JPR
+,韩RKRR
+,新西兰RNZR
+,
+柬KH,尼NI,厄EC,塞RS,马MV,港HK,澳门
+MO
+0 惠LD 17

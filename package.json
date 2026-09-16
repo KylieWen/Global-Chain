@@ -24,9 +24,10 @@
     "test": "vitest run"
   },
   "devDependencies": {
+    "@globe-chain/contracts": "workspace:*",
     "@globe-chain/db": "workspace:*",
     "@globe-chain/domain": "workspace:*",
-    "@globe-chain/contracts": "workspace:*",
+    "playwright": "^1.63.0",
     "vitest": "^2.1.9"
   }
 }

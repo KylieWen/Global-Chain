@@ -6,9 +6,6 @@ import { ProductTree } from "../../../components/product-tree";
 import { manufacturingProcessPath, materialObservationsPath, provenancePath, supplyChainPath, tradeGuidePath } from "../../../lib/paths";
 import { contextMismatch, readPageContext, type SearchParamsLike } from "../../../lib/context";
 import {
-  PeriodLabel,
-  PublicationBadge,
-  StatCard,
   StatusBadge,
   WarningList
 } from "../../../components/data-display";
@@ -29,7 +26,6 @@ export default async function ProductOverviewPage({
   if (!overview || !breakdown || !provenance) notFound();
   const coverageByItemId = new Map(overview.componentCoverage.map((coverage) => [coverage.item.id, coverage]));
   const publishedComponents = overview.componentCoverage.filter((coverage) => coverage.status === "route_published");
-  const pendingComponents = overview.componentCoverage.filter((coverage) => coverage.status !== "route_published");
   const processChains = [...new Map(overview.componentCoverage.flatMap((coverage) => coverage.processChains).map((chain) => [chain.id, chain])).values()];
   const mismatches = contextMismatch(pageContext, { period: overview.period.label, datasetVersion: overview.datasetVersion.version, contentVersion: provenance.route.contentVersion?.version });
 
@@ -41,21 +37,18 @@ export default async function ProductOverviewPage({
         <PageIntro
           eyebrow={`${overview.product.category} / ${overview.product.slug}`}
           title={overview.product.name}
-          description={overview.product.description ?? "这是一个由数据配置驱动的通用商品对象。"}
-          actions={<><Link className="button button-primary" href={tradeGuidePath({ product: productId, ...pageContext })}>查进出口要求</Link><Link className="button button-secondary" href={supplyChainPath(productId, undefined, pageContext)}>查看背景链路</Link><Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link></>}
+          description="从部件组成出发，沿供应链探索各国的生产与贸易联系。"
+          actions={<><Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>查看供应链路线</Link><Link className="button button-secondary" href={tradeGuidePath({ product: productId, ...pageContext })}>查进出口要求</Link><Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link></>}
         />
 
-        <section className="exploration-position" aria-label="当前探索位置">
-          <span className="exploration-position-label">你正在看</span>
-          <strong>{overview.product.name}</strong>
-          <span>先了解组成，再选择一条路线深入查看。</span>
-        </section>
+
+
 
         <nav className="exploration-nav" aria-label="商品研究层级">
           <span className="active">① 商品总览</span>
-          <Link href={tradeGuidePath({ product: productId, ...pageContext })}>② 进出口指南</Link>
-          <Link href={supplyChainPath(productId, undefined, pageContext)}>③ 背景链路</Link>
-          <Link href={materialObservationsPath(productId, pageContext)}>④ 材料贸易</Link>
+                    <Link href={supplyChainPath(productId, undefined, pageContext)}>② 供应链路线</Link>
+          <Link href={materialObservationsPath(productId, pageContext)}>③ 材料贸易</Link>
+          <Link href={tradeGuidePath({ product: productId, ...pageContext })}>④ 进出口指南</Link>
           <Link href={provenancePath(productId, pageContext)}>⑤ 来源与版本</Link>
         </nav>
 
@@ -63,26 +56,16 @@ export default async function ProductOverviewPage({
           <div>
             <span className="product-focus-kicker">当前深度案例</span>
             <strong>{publishedComponents.length ? publishedComponents.map((coverage) => coverage.item.name).join("、") : "正在整理"}</strong>
-            <p>先从已有完整路线的组件开始，再逐步补齐其他部件的国家、贸易和证据。</p>
+
           </div>
           <div className="product-focus-meta">
             <span><strong>{publishedComponents.length}</strong> 个组件已有路线</span>
-            <span><strong>{pendingComponents.length}</strong> 个组件待补证</span>
             {publishedComponents[0] ? <Link className="button button-primary" href={supplyChainPath(productId, publishedComponents[0].item.id, pageContext)}>开始查看 →</Link> : null}
           </div>
         </section>
 
-        <div className="stat-grid">
-          <StatCard label="直接组成" value={overview.directChildren.length} detail="个节点" />
-          <StatCard label="适用期间" value={<PeriodLabel period={overview.period} />} detail={overview.period.start} />
-          <StatCard label="数据集" value={overview.datasetVersion.version} detail={overview.datasetVersion.name} />
-          <StatCard label="发布状态" value={<PublicationBadge status={overview.datasetVersion.status} />} detail="页面只读" />
-        </div>
 
-        {overview.warnings.length > 0 && <details className="detail-collapsible compact-detail">
-          <summary className="detail-summary"><strong>数据说明与限制</strong><span>{overview.warnings.length} 条</span></summary>
-          <WarningList warnings={overview.warnings} />
-        </details>}
+
 
         <section className="section-block" aria-labelledby="breakdown-title">
           <div className="section-heading">
@@ -90,17 +73,16 @@ export default async function ProductOverviewPage({
               <p className="eyebrow">Product breakdown</p>
               <h2 id="breakdown-title">商品拆解树</h2>
             </div>
-            <span className="section-caption">点击任意节点进入该节点的代表性路径</span>
+            <span className="section-caption">{overview.directChildren.length} 个部件 · 选择节点查看路线</span>
           </div>
           <ProductTree root={breakdown} maxDepth={1} productId={productId} context={pageContext} />
-          <div className="hierarchy-card compact-hierarchy-card"><span>先选择一个组件，再进入它的代表性供应链路线。更深层的拆解会在组件路线页面中展开。</span><Link className="text-link" href={supplyChainPath(productId, undefined, pageContext)}>查看全部路线 →</Link></div>
         </section>
 
         <section className="section-block" aria-labelledby="children-title">
           <div className="section-heading">
             <div>
               <p className="eyebrow">First-level components</p>
-              <h2 id="children-title">手机由哪些部分组成？</h2>
+              <h2 id="children-title">商品由哪些部分组成？</h2>
             </div>
             <span className="section-caption">先看组件，再进入对应的供应链路线</span>
           </div>
@@ -113,7 +95,6 @@ export default async function ProductOverviewPage({
                 <h3>{item.name}</h3>
                 <p>{item.description ?? "暂无说明"}</p>
                 <span className={`coverage-status coverage-status-${coverage?.status ?? "catalog_only"}`}>{coverage?.statusLabel ?? "组件记录，路线待补"}</span>
-                <small className="muted">{coverage?.statusDescription}</small>
                 <StatusBadge status={item.dataStatus} method={item.method} />
                 <span className="card-footer">进入代表性路径 <span>→</span></span>
               </Link> : <article className="component-card component-card-disabled" key={item.id}>
@@ -121,7 +102,6 @@ export default async function ProductOverviewPage({
                 <h3>{item.name}</h3>
                 <p>{item.description ?? "暂无说明"}</p>
                 <span className={`coverage-status coverage-status-${coverage?.status ?? "catalog_only"}`}>{coverage?.statusLabel ?? "组件记录，路线待补"}</span>
-                <small className="muted">{coverage?.statusDescription ?? "已登记该组件，尚未发布可查看的路线证据。"}</small>
                 <StatusBadge status={item.dataStatus} method={item.method} />
                 <span className="card-footer">尚无已发布供应链路线</span>
               </article>;
@@ -132,7 +112,7 @@ export default async function ProductOverviewPage({
         {processChains.length > 0 && <section className="section-block" aria-labelledby="process-depth-title">
           <div className="section-heading">
             <div><p className="eyebrow">Process and equipment depth</p><h2 id="process-depth-title">深入到工序、设备与厂商</h2></div>
-            <span className="section-caption">厂商能力不等于已证实供货关系</span>
+            <span className="section-caption">逐步查看制造过程</span>
           </div>
           <div className="process-chain-entry-grid">
             {processChains.map((chain) => <article className="process-chain-entry" key={chain.id}>
@@ -174,12 +154,13 @@ export default async function ProductOverviewPage({
             <p className="eyebrow">Method boundary</p>
             <h2>如何阅读这张链路</h2>
           </div>
+          <WarningList warnings={overview.warnings} />
           <p>供应链流是人工整理的代表性内容；贸易观察与宏观指标是独立事实类型。路线金额或数量只在数据明确发布时展示，缺失值不会被补成零。</p>
           <Link className="button button-secondary" href={provenancePath(productId, pageContext)}>查看来源与版本</Link>
           </div>
         </details>
 
-        <section className="hierarchy-next-step"><strong>继续探索</strong><span>从组件路线开始，查看节点、国家角色和证据等级；来源、许可证与版本信息单独保留在下一层。</span><Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>进入供应链路线 →</Link></section>
+        <section className="hierarchy-next-step"><strong>继续探索</strong><span>选择一个组件，沿着路线继续探索。</span><Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>进入供应链路线 →</Link></section>
       </div>
     </SiteShell>
   );

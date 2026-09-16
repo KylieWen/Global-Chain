@@ -4,7 +4,7 @@ import { loadFixtureRepositoryFromManifest } from "@globe-chain/db";
 import { createProductQueryService } from "@globe-chain/domain";
 
 const loadQueries = async () => createProductQueryService(
-  await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"))
+  await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2023.16/manifest.json"))
 );
 
 describe("phase 14 versioned research export", () => {

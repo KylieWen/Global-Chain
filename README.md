@@ -1,14 +1,22 @@
 # GlobeChain
 
-GlobeChain 是一个面向跨境采购和外贸调研人员的进出口贸易信息查询与指南针网站。本仓库已完成工程骨架、通用数据契约、只读领域查询、首个 2023 年智能手机 `published` 数据快照和静态贸易指南工作台；供应链、国家账本、材料与地图作为背景研究模块保留。
+GlobeChain 是一个全球商品供应链与贸易数据可视化平台：以智能手机为例，把商品拆解、代表性供应链路线、各国贸易账本和可交互世界地图串起来，看清一件商品如何连接世界；进出口贸易指南是延伸查询方向之一。
+
+## 浏览体验与地图升级（2026-09-16）
+
+首页现提供三步探索路径，商品拆解与账本数字提前展示，世界地图采用细弧线和联动贸易列表，手机端保留主导航。重复说明已收进详情。两条2023年统计经官方接口复查仍无同口径更新。详见 [视觉审计与验证](docs/visual-audit/report.md)。
+
+## 近期数据更新（2026-09-16）
+
+当前版本 `globe-chain-smartphone-2026.1`：120/122条统计更新至2024或2025年，16项组件类别补充官方来源，6项基础税费补充数值与条件。历史供应链路线保留原期间；未披露货流与未核验附加税没有改成已知。详见 [数据更新报告](docs/data-refresh/report.md)。
 
 ## 当前工程边界
 
 - 使用 pnpm workspace 和模块化单体结构。
 - `apps/web` 是最小 Next.js App Router + TypeScript Web 应用。
 - `packages/contracts` 提供 Zod 数据契约；`packages/domain` 提供只读仓储接口和领域查询；`packages/db` 提供 fixture 文件加载适配器。
-- `pipelines` 只提供未来 Python 数据管线的目录和配置占位。
-- `apps/web` 已提供贸易指南、商品背景、商品拆解、供应链路径、节点详情、国家目录/账本、世界节点图、来源版本页面和带 provenance 的研究快照下载；地图与贸易流线是国家级示意展示，仍不包含 PostgreSQL 查询、运行时外部政策 API、AI/LLM、聊天、问答或运行时文本生成。
+- `pipelines` 是未来管线的目录占位；当前通过 `scripts/fetch-*.mjs`、构建与发布校验脚本处理快照，详见 `pipelines/README.md`。
+- `apps/web` 已提供贸易指南、商品拆解、供应链路径、节点详情、国家目录/账本、世界地图、来源版本页面和带 provenance 的研究快照下载；地图与贸易流线是国家级示意展示，仍不包含 PostgreSQL 查询、运行时外部政策 API、AI/LLM、聊天、问答或运行时文本生成。
 - 外部数据只在显式的本地快照脚本中抓取，不在 Web 请求期间访问；当前不安装 Polars、DuckDB 等数据处理依赖。
 
 ## 前置工具
@@ -25,7 +33,7 @@ GlobeChain 是一个面向跨境采购和外贸调研人员的进出口贸易信
 ## 安装依赖
 
 ```bash
-pnpm install
+pnpm install --frozen-lockfile
 ```
 
 ## 启动开发服务器
@@ -116,3 +124,24 @@ pipelines/data/raw
 - 数据库运行时查询和实时外部数据接入
 - AI、LLM、聊天、问答或运行时生成文本
 - 品牌/型号、工厂、批次、成本或利润模型
+
+## 生产部署与环境配置
+
+应用使用 RSC 和服务端 node:fs 读取 fixture，不能静态导出。当前提供整仓自托管方案，CI 没有部署 job，也没有已发布的线上 Demo。
+
+1. 将完整仓库放到 Node.js >=20.9、pnpm 11.19.0 的主机；保留 apps、packages、content、data/published（含历史 releases 和 active-manifest）及锁文件。不要只复制 .next。
+2. 从仓库根目录执行 pnpm install --frozen-lockfile 和上述全部质量命令；构建完成后执行 pnpm run start。
+3. 访问 /api/health 和 /map 验证，再由主机进程管理器保持服务运行；公网访问由主机反向代理配置 HTTPS。仓库不含自动部署配置。
+4. 正式运行无需 API Key 或数据库凭据。默认 published；可设置 GLOBECHAIN_DATA_MODE=published。GLOBECHAIN_DATA_MANIFEST 如需覆盖请使用主机上的绝对路径。GLOBECHAIN_ALLOW_DRAFT 只用于显式本地预览，不用于正式演示。
+
+.env 与 .env.* 已被忽略（.env.example 例外）；不要在仓库、日志或录屏中放凭据。
+
+## 本轮演示材料
+
+- [HTML Deck](docs/submission/deck/index.html)、[逐页脚本](docs/submission/deck/deck-script.md)、[素材与打印交接](docs/submission/deck/HANDOFF.md)
+- [一页简介](docs/submission/one-page-intro.html)、[表单文案](docs/submission/hackathon-form-content.md)
+- [验收报告](docs/submission/review-fix-report.md)
+
+2023 年公开数据 · 单商品示范版本 · 覆盖有限 · 未收录税率显示待核验。
+
+截图工具仅开发期使用：保持生产服务运行后执行 node scripts/capture-deck-screenshots.mjs。默认使用本机 Chrome；无 Chrome 时将 DECK_BROWSER_PATH 设为 Edge/Chromium 路径。

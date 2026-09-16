@@ -96,9 +96,9 @@ export default async function SupplyChainPage({
         <div className="stat-grid">
           <StatCard label="路径节点" value={story.nodes.length} detail="国家/市场与商品节点" />
           <StatCard label="流转关系" value={story.flows.length} detail="每条边独立标记证据等级" />
-          <StatCard label="证据缺口" value={story.evidenceGaps.length} detail="节点与连接的待验证主张" />
+
           <StatCard label="期间" value={<PeriodLabel period={story.period} />} detail={story.period.start} />
-          <StatCard label="内容版本" value={story.route.contentVersion?.version ?? "未提供"} detail={`数据集 ${story.datasetVersion.version}`} />
+
         </div>
 
         {story.warnings.length > 0 && <details className="detail-collapsible compact-detail">
@@ -106,25 +106,7 @@ export default async function SupplyChainPage({
           <WarningList warnings={story.warnings} />
         </details>}
 
-        <section className="route-declaration" aria-label="代表性路线声明">
-          <div>
-            <p className="eyebrow">Interpretation boundary</p>
-            <h2>如何理解这条路线</h2>
-            <p>{story.route.representativeStatement ?? "代表性路线不等于某件具体商品的唯一真实路线。"}</p>
-          </div>
-          <details className="route-declaration-details">
-            <summary>查看数据与证据等级</summary>
-          <div className="route-declaration-meta">
-            <MetadataItem label="method" value={story.route.method} />
-            <MetadataItem label="datasetVersion" value={story.datasetVersion.version} />
-            <MetadataItem label="contentVersion" value={story.route.contentVersion?.version ?? <UnknownValue label="未提供" />} />
-          </div>
-          <EvidenceLevelLegend levels={[
-            ...story.nodes.map((node) => node.evidenceLevel),
-            ...story.flows.map((flow) => flow.evidenceLevel)
-          ]} />
-          </details>
-        </section>
+        <details className="route-declaration reading-details"><summary>路线说明与资料</summary><p>{story.route.representativeStatement}</p><MetadataItem label="版本" value={story.route.contentVersion?.version ?? "未提供"} /><EvidenceLevelLegend levels={[...story.nodes.map((node) => node.evidenceLevel), ...story.flows.map((flow) => flow.evidenceLevel)]} /></details>
 
         <section className="filter-strip" aria-label="路径筛选">
           <div>

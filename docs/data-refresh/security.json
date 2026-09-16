@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-09-16T09:48:38.268Z",
+  "gitExecutable": "C:/Users/12509/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/git/cmd/git.exe",
+  "workspaceFiles": 560,
+  "historyBlobs": 928,
+  "historyCommits": 59,
+  "shallowRepository": "false",
+  "skippedBinary": 334,
+  "findings": [],
+  "limitations": "Pattern scan of workspace text and all reachable local refs, including commit messages; not credential revocation, remote audit, unreachable object scan, or binary/OCR inspection."
+}

@@ -50,3 +50,14 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Local preview and authoring caches; deliverables are under docs/submission.
+.preview/
+.lark-slides/
+.video_vo/
+
+# Feishu authoring session files stay local; only the finished PPTX is versioned.
+docs/submission/feishu-deck/**
+!docs/submission/feishu-deck/exports/
+docs/submission/feishu-deck/exports/**
+!docs/submission/feishu-deck/exports/*.pptx

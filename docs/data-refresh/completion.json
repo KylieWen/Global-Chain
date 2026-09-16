@@ -1,0 +1,12 @@
+{
+  "completedAt": "2026-09-16T09:23:55.450679+00:00",
+  "release": "globe-chain-smartphone-2026.1",
+  "qualityChecksPassed": 6,
+  "testsPassed": 121,
+  "webChecksPassed": true,
+  "visualReviewPassed": true,
+  "securityFindings": 0,
+  "publicDeployment": false,
+  "allUnknownsResolved": false,
+  "limitationsDocument": "docs/data-refresh/report.md#4-仍未解决的缺口"
+}

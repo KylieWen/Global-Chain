@@ -51,7 +51,7 @@ export default async function TradeGuidePage({
         <PageIntro
           eyebrow="Trade guide · 查询工作台"
           title="进出口贸易指南针"
-          description="选择商品、国家和方向，先得到核验顺序、资料清单与官方入口。GlobeChain 负责整理查询路径，不替你作法律判断或报关承诺。"
+          description="选择商品、国家和方向，查看基础税费、手续与文件清单。"
           actions={<Link className="button button-secondary" href="/products">查看商品背景</Link>}
         />
 
@@ -68,19 +68,14 @@ export default async function TradeGuidePage({
             <button className="button button-primary" type="submit">开始查询 →</button>
           </form>
           <div className="trade-guide-task-note"><strong>{direction === "import" ? "进口查询" : direction === "export" ? "出口查询" : "查询提示"}</strong><span>{direction === "import" ? "这里选择的是进口目的地；原产地、商品细分和申报日期仍需在官方系统中继续选择。" : direction === "export" ? "这里选择的是出口起运地；目的地规则和原产地待遇仍需在官方系统中继续核验。" : "进口时选择目的地，出口时选择起运地；具体原产地和日期需要在官方系统中进一步核验。"}</span></div>
-          <p className="trade-guide-form-note">当前只发布了智能手机的少量国家示范指南；国家目录中的其他国家暂未发布指南，不代表该国没有规则，税率也不会用默认值填充。</p>
+
         </section>
 
-        <section className="trade-guide-intro-grid" aria-label="贸易指南说明">
-          <article><span className="card-kicker">01 · 先定位</span><h2>商品 + 目的地</h2><p>先确定 HS/产品范围和目的地，再查看需要核验的关税、产品准入与申报步骤。</p></article>
-          <article><span className="card-kicker">02 · 再准备</span><h2>手续 + 文件</h2><p>把商业发票、装箱单、运输资料和可能需要的合规/原产地资料列成待办。</p></article>
-          <article><span className="card-kicker">03 · 最后复核</span><h2>官方入口</h2><p>每组指南都链接到官方门户；实际申报前请按当前日期、原产地和规格重新核验。</p></article>
-        </section>
 
-        <div className="trade-guide-results-heading"><div><p className="eyebrow">Published guidance · 已发布资料</p><h2>{hasFilters ? "筛选结果" : "选择一组示范指南"}</h2></div><span>{guides.length} 组结果 · 不是交易撮合</span></div>
+        <div className="trade-guide-results-heading"><div><p className="eyebrow">Published guidance · 已发布资料</p><h2>{hasFilters ? "筛选结果" : "选择一组示范指南"}</h2></div><span>{guides.length} 组结果</span></div>
         {hasFilters ? <TradeGuideResults views={guides} productId={selectedProductId} /> : <TradeGuideDirectory views={guides} productId={selectedProductId} />}
 
-        <aside className="trade-guide-disclaimer"><strong>重要边界</strong><span>指南内容是静态、部分覆盖的研究起点；税率、许可、认证和手续可能随 HS 细分、原产地、日期和目的地政策变化。请以官方系统、海关或专业报关/法律意见为准。页面不会把供应链示意或贸易统计自动解释成某家企业的供货关系。</span></aside>
+
       </div>
     </SiteShell>
   );

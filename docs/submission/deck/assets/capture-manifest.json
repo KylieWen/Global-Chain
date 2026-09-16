@@ -1,0 +1,67 @@
+{
+  "capturedAt": "2026-09-15T23:00:40.514Z",
+  "datasetVersion": "globe-chain-smartphone-2023.16",
+  "fixtureSha256": "4cc68813535566840d6af6857e6580090a24f018dd4fdfdfb6d7ffd0e90708fc",
+  "viewport": {
+    "width": 1920,
+    "height": 1080,
+    "deviceScaleFactor": 2
+  },
+  "mapZoom": 1,
+  "records": [
+    {
+      "file": "home.png",
+      "url": "/",
+      "selector": "viewport",
+      "sha256": "2f56b730cedf1e4c03ead84eadc640a1f8bd47b06414b6da9b0cb5e04137449d"
+    },
+    {
+      "file": "map-hero.png",
+      "url": "/map?product=generic-smartphone",
+      "selector": ".map-viewport",
+      "sha256": "c273bfacd4e25e7a229ab0ab0122d2a2df4c331eb0c52fedf03f626916793734"
+    },
+    {
+      "file": "map-interaction.png",
+      "url": "/map?product=generic-smartphone&country=country-us",
+      "selector": ".country-map-workspace",
+      "sha256": "2433d0b23beb015392555f40d1a8cfde13768441ab560eddae09c3f3259aea21"
+    },
+    {
+      "file": "breakdown-tree.png",
+      "url": "/products/generic-smartphone",
+      "selector": "[aria-labelledby=\"breakdown-title\"]",
+      "sha256": "62ebf8a3eda59e52ea302fa055cc10468904591e382689d50ab919554ade33fa"
+    },
+    {
+      "file": "supply-chain-route.png",
+      "url": "/products/generic-smartphone/supply-chain?focus=battery",
+      "selector": ".route-graph-shell",
+      "sha256": "543e14928729c3f1d0bc95e256e49e0240644457d2891d2f9e745085c027e427"
+    },
+    {
+      "file": "country-ledger.png",
+      "url": "/products/generic-smartphone/ledger/country-au",
+      "selector": "viewport",
+      "clip": {
+        "x": 320,
+        "y": 0,
+        "width": 1280,
+        "height": 1000
+      },
+      "sha256": "2773a5f4fdb266bf98105a5a080565d7863cfb222fe7bda2824788d7791ef578"
+    },
+    {
+      "file": "trade-guide.png",
+      "url": "/trade-guide?product=generic-smartphone&jurisdiction=country-us&direction=import",
+      "selector": "viewport",
+      "clip": {
+        "x": 320,
+        "y": 0,
+        "width": 1280,
+        "height": 1000
+      },
+      "sha256": "2bcb20a03aefd76c95fb3332c3f5d73a12b607f3972b59ee2dea9b2ecd78ebc4"
+    }
+  ]
+}

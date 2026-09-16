@@ -1,0 +1,8 @@
+$ node scripts/manage-published-release.mjs verify
+{
+  "status": "ok",
+  "activeDatasetVersion": "globe-chain-smartphone-2026.1",
+  "fixture": "D:\\Global Chain\\data\\published\\releases\\generic-smartphone\\globe-chain-smartphone-2026.1\\fixture.json",
+  "fixtureSha256": "5e768c6d1022214cd3005f90cfdd087a5f0b378923d4478bd238599251ace7f9",
+  "productId": "generic-smartphone"
+}

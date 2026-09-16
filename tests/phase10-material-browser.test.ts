@@ -19,8 +19,8 @@ describe("phase 10 material observation browser queries", () => {
     const queries = await loadQueries();
     const observations = queries.getMaterialTradeObservations("generic-smartphone");
     const copper = observations.find(({ observation }) => observation.materialItemId === "copper" && observation.partnerScope === "entity");
-    expect(copper?.source?.id).toBe("source-un-comtrade");
-    expect(copper?.observation.quality.requestUrl).toContain("cmdCode=7403");
+    expect(copper?.source?.id).toBe("source-un-comtrade-refresh-20260916");
+    expect(new URL(String(copper?.observation.quality.requestUrl)).searchParams.get("cmdCode")?.split(",")).toContain("7403");
     expect(copper?.observation.quality.rawResponseSha256).toMatch(/^[a-f0-9]{64}$/);
     expect(copper?.evidenceLevel.code).toBe("bilateral_supported");
     expect(copper?.relatedEvidenceGaps.some(({ gap }) => gap.gapId === "gap-flow-copper-intermediate-stages")).toBe(true);

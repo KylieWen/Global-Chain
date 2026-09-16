@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-09-16T09:55:28.297Z",
+  "visited": [
+    "/",
+    "/demo",
+    "/map",
+    "/products/generic-smartphone/ledger/country-us",
+    "/products/generic-smartphone",
+    "/products/generic-smartphone/supply-chain?focus=battery",
+    "/countries",
+    "/help",
+    "/trade-guide",
+    "/trade-guide?product=generic-smartphone&jurisdiction=country-cn&direction=export"
+  ],
+  "mainNavigation": true,
+  "mapKeyboardSelection": true,
+  "mapZoomReset": true,
+  "scopedKnownTariff": true,
+  "externalRequests": 0,
+  "pageErrors": 0
+}

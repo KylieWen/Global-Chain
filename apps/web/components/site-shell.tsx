@@ -13,19 +13,19 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <span className="brand-mark" aria-hidden="true">G</span>
             <span>
               <strong>GlobeChain</strong>
-              <small>进出口贸易指南针</small>
+              <small>全球商品供应链与贸易可视化</small>
             </span>
           </Link>
           <nav className="site-nav" aria-label="主导航">
-            <Link className="site-nav-primary" href="/trade-guide">开始查询</Link>
-            <Link href="/products">商品背景</Link>
-            <Link href="/countries">国家与地区</Link>
+            <Link className="site-nav-primary" href="/products">商品与供应链</Link>
+            <Link href="/map">世界地图</Link>
+            <Link href="/countries">国家账本</Link>
+            <Link href="/trade-guide">进出口指南</Link>
             <Link href="/help">数据依据</Link>
             <details className="site-nav-more">
               <summary>更多</summary>
               <div className="site-nav-more-menu">
                 <Link href="/demo">3 分钟演示</Link>
-                <Link href="/map">世界地图</Link>
                 <Link href="/versions">数据版本</Link>
               </div>
             </details>
@@ -47,8 +47,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
       ) : null}
       <main className="main-content">{children}</main>
       <footer className="site-footer">
-        <span>GlobeChain · 全球商品与进出口信息查询</span>
-        <span>指南是研究起点；具体规则请以官方系统和专业意见为准</span>
+        <span>GlobeChain · 全球商品供应链与贸易数据可视化</span>
+        <Link href="/help">使用帮助与数据说明 ↗</Link>
       </footer>
     </div>
   );
@@ -107,9 +107,10 @@ export function ContextBanner({
   mismatches?: readonly string[];
 }) {
   return (
-    <section className={`context-banner${mismatches.length ? " context-banner-warning" : ""}`} aria-label="研究上下文">
+    <details className={`context-banner${mismatches.length ? " context-banner-warning" : ""}`} open={mismatches.length > 0} aria-label="研究上下文">
+      <summary>期间 {period} · 版本详情{mismatches.length ? " · 版本需核对" : ""}</summary>
       <span><strong>研究上下文</strong> · 期间 {period} · 数据集 {datasetVersion} · 内容 {contentVersion ?? "未提供"}</span>
       {mismatches.length ? <ul>{mismatches.map((message) => <li key={message}>{message}</li>)}</ul> : null}
-    </section>
+    </details>
   );
 }

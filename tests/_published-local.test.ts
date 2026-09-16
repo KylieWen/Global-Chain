@@ -5,7 +5,7 @@ import { loadFixtureRepositoryFromManifest } from "@globe-chain/db";
 describe("local published fixture", () => {
   it("passes the fixture loader and published status filter", async () => {
     const repository = await loadFixtureRepositoryFromManifest(
-      resolve("data/published/manifest.json"),
+      resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2023.16/manifest.json"),
       { allowedStatuses: ["published"] }
     );
     const fixture = repository.getProductFixture("generic-smartphone");

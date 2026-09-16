@@ -1,0 +1,961 @@
+{
+  "sources": [
+    {
+      "id": "source-policy-20260916-de",
+      "name": "德国海关手机税率表",
+      "publisher": "German Customs",
+      "url": "https://www.zoll.de/SharedDocs/Boxen/DE/Fragen/0082_beispiele_zollsaetze.html",
+      "retrievedAt": "2026-09-16T04:12:06.346Z",
+      "publishedAt": null,
+      "datasetVersion": "policy-snapshot-2026-09-16",
+      "license": "Official source; attribution and source terms apply.",
+      "notes": "原文 germany.html SHA256 ee54baacb84cadef2a910d03a6e3bc13682193a6bffb4a2a9ee72d2ce6a13fc4；只核验所引基础规则，不覆盖所有附加措施。"
+    },
+    {
+      "id": "source-policy-20260916-us",
+      "name": "USITC HTS 8517.13.00.00",
+      "publisher": "U.S. International Trade Commission",
+      "url": "https://hts.usitc.gov/reststop/search?keyword=8517.13",
+      "retrievedAt": "2026-09-16T04:12:08.317Z",
+      "publishedAt": null,
+      "datasetVersion": "policy-snapshot-2026-09-16",
+      "license": "Official source; attribution and source terms apply.",
+      "notes": "原文 us.html SHA256 36c4e5e76487431b192ced641b6aa8f15c8fcb1d0c90d4f185d0ad07a695ed44；只核验所引基础规则，不覆盖所有附加措施。"
+    },
+    {
+      "id": "source-policy-20260916-cn",
+      "name": "中华人民共和国进出口税则（2026）",
+      "publisher": "国务院关税税则委员会",
+      "url": "https://gss.mof.gov.cn/gzdt/zhengcefabu/202512/P020251231607833453633.pdf",
+      "retrievedAt": "2026-09-16T04:11:59.984Z",
+      "publishedAt": "2025-12-31",
+      "datasetVersion": "policy-snapshot-2026-09-16",
+      "license": "Official source; attribution and source terms apply.",
+      "notes": "原文 china.pdf SHA256 76af4db0b3af966ef4f95f4ffc6b4b2e34f1a95ef47f68e7299670a18b337d57；只核验所引基础规则，不覆盖所有附加措施。"
+    },
+    {
+      "id": "source-policy-20260916-vat",
+      "name": "中华人民共和国增值税法",
+      "publisher": "国家税务总局上海市税务局",
+      "url": "https://shanghai.chinatax.gov.cn/sjtax/ztzl/yshj/ldjj/202412/t474700.html",
+      "retrievedAt": "2026-09-16T04:13:24.795Z",
+      "publishedAt": "2024-12-27",
+      "datasetVersion": "policy-snapshot-2026-09-16",
+      "license": "Official source; attribution and source terms apply.",
+      "notes": "原文 vat-shanghai.html SHA256 805c8b7a0e368aa445855e2400b14b9a967a88f851daea23eef38a01791149e5；只核验所引基础规则，不覆盖所有附加措施。"
+    },
+    {
+      "id": "source-catalog-20260916-apple",
+      "name": "Apple iPhone 17 technical specifications",
+      "publisher": "Apple",
+      "url": "https://www.apple.com/iphone-17/specs/",
+      "retrievedAt": "2026-09-16T04:20:19.059Z",
+      "publishedAt": null,
+      "datasetVersion": "catalog-verification-2026-09-16",
+      "license": "Link and limited summary; publisher terms apply.",
+      "notes": "仅支持组件或工艺类别的存在与通用用途；不证明某个手机型号采用该厂商产品或国别路线。原文 SHA256 0f93d61941fbee8b9bb8426e383d582b1a1c443cc6506c6e7acc67e101f23706"
+    },
+    {
+      "id": "source-catalog-20260916-memory",
+      "name": "Memory business and mobile MCP",
+      "publisher": "Samsung Electronics",
+      "url": "https://semiconductor.samsung.com/about-us/business-area/memory/",
+      "retrievedAt": "2026-09-16T04:20:20.406Z",
+      "publishedAt": null,
+      "datasetVersion": "catalog-verification-2026-09-16",
+      "license": "Link and limited summary; publisher terms apply.",
+      "notes": "仅支持组件或工艺类别的存在与通用用途；不证明某个手机型号采用该厂商产品或国别路线。原文 SHA256 e2b439fc005b79958e5a11a60b715db13f8169a5a8c4767bf5f721c27c453b11"
+    },
+    {
+      "id": "source-catalog-20260916-packaging",
+      "name": "Semiconductor packaging materials",
+      "publisher": "Henkel",
+      "url": "https://next.henkel-adhesives.com/us/en/industries/semiconductor/semiconductor-packaging.html",
+      "retrievedAt": "2026-09-16T04:20:26.661Z",
+      "publishedAt": null,
+      "datasetVersion": "catalog-verification-2026-09-16",
+      "license": "Link and limited summary; publisher terms apply.",
+      "notes": "仅支持组件或工艺类别的存在与通用用途；不证明某个手机型号采用该厂商产品或国别路线。原文 SHA256 7d67d0a4995276ada9d2101667060eeb5b46ffc8ba548067458f04871d7ad770"
+    },
+    {
+      "id": "source-catalog-20260916-wires",
+      "name": "Bonding wires portfolio",
+      "publisher": "Heraeus Electronics",
+      "url": "https://www.heraeus-electronics.com/en/products-and-solutions/bonding-wires/",
+      "retrievedAt": "2026-09-16T04:20:27.722Z",
+      "publishedAt": null,
+      "datasetVersion": "catalog-verification-2026-09-16",
+      "license": "Link and limited summary; publisher terms apply.",
+      "notes": "仅支持组件或工艺类别的存在与通用用途；不证明某个手机型号采用该厂商产品或国别路线。原文 SHA256 b73056cc598171fa301fd35cca58b5729d8bf42dff278c8edc0426e2f8b31458"
+    },
+    {
+      "id": "source-catalog-20260916-modem",
+      "name": "X85 modem RF product",
+      "publisher": "Qualcomm",
+      "url": "https://www.qualcomm.com/modems/products/qualcomm-x85-5g-modem-rf",
+      "retrievedAt": "2026-09-16T04:20:29.564Z",
+      "publishedAt": null,
+      "datasetVersion": "catalog-verification-2026-09-16",
+      "license": "Link and limited summary; publisher terms apply.",
+      "notes": "仅支持组件或工艺类别的存在与通用用途；不证明某个手机型号采用该厂商产品或国别路线。原文 SHA256 a089464db444c45bd18d6491ab6c9f33fb3617e03e57d82f972f40dc95887fb5"
+    },
+    {
+      "id": "source-catalog-20260916-display",
+      "name": "Samsung Display module glossary",
+      "publisher": "Samsung Display",
+      "url": "https://global.samsungdisplay.com/29778",
+      "retrievedAt": "2026-09-16T04:22:05.741Z",
+      "publishedAt": null,
+      "datasetVersion": "catalog-verification-2026-09-16",
+      "license": "Link and limited summary; source terms apply.",
+      "notes": "只支持公开组件/工艺类别和通用用途，不支持机型供货或国别货流。原文 SHA256 8e259921ffc5e1aeffd5133ec044210538fa8cdcd321021e29c28bf9ca8192bc"
+    },
+    {
+      "id": "source-catalog-20260916-sensor",
+      "name": "Device Solutions product categories",
+      "publisher": "Samsung Electronics",
+      "url": "https://www.samsung.com/us/about-us/our-business/device-solutions/",
+      "retrievedAt": "2026-09-16T04:22:06.421Z",
+      "publishedAt": null,
+      "datasetVersion": "catalog-verification-2026-09-16",
+      "license": "Link and limited summary; source terms apply.",
+      "notes": "只支持公开组件/工艺类别和通用用途，不支持机型供货或国别货流。原文 SHA256 37a000423ade89dd848bca46f6fb39835e79aa5cdda04566c0903d15b1c33b69"
+    },
+    {
+      "id": "source-catalog-20260916-tsmc-web",
+      "name": "TSMC 公开产品与工艺类别",
+      "publisher": "TSMC",
+      "url": "https://investor.tsmc.com/static/annualReports/2025/english/index.html",
+      "retrievedAt": "2026-09-16T04:23:11.808Z",
+      "publishedAt": null,
+      "datasetVersion": "catalog-verification-2026-09-16",
+      "license": "Limited paraphrase and link; publisher terms apply.",
+      "notes": "2025年报记载晶圆制造服务及先进封装技术，包括CoWoS、InFO与SoIC；只用于确认工艺类别。 核验记录 SHA256 264af1f586919119e2383ccbdab128d48de8309c9150937d7009e368573775b9；Official page opened via web retrieval; direct Node request returned HTTP 403."
+    },
+    {
+      "id": "source-catalog-20260916-camera-web",
+      "name": "Samsung Electro-Mechanics 公开产品与工艺类别",
+      "publisher": "Samsung Electro-Mechanics",
+      "url": "https://sem.samsung.com/global/product/module/camera-module.do",
+      "retrievedAt": "2026-09-16T04:23:11.810Z",
+      "publishedAt": null,
+      "datasetVersion": "catalog-verification-2026-09-16",
+      "license": "Limited paraphrase and link; publisher terms apply.",
+      "notes": "官方相机模组产品页描述手机拍摄用途，并列出镜头、执行器和PCB等核心部件。只确认组件类别，不确认客户。 核验记录 SHA256 06cdb54eae84f29a074ce71c723ff9d7cabaeb27f31a56ec6553317d3592b18e；Official-domain search excerpt reviewed; full-page retrieval timed out."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence-refreshed-guide-us-import-smartphone-2023-tariff-1",
+      "sourceId": "source-policy-20260916-us",
+      "supportType": "policy_guidance",
+      "scope": {
+        "entityIds": [
+          "country-us"
+        ],
+        "fromEntityId": null,
+        "toEntityId": "country-us",
+        "itemIds": [
+          "generic-smartphone"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones；实际申报仍需核验适用税则版本"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（核验月份）"
+        },
+        "scopeDescription": "美国HTS 8517.13.00.00第一栏一般基础关税0%，第二栏35%；Chapter 99、原产地附加税和其他费用需另核，基础0%不等于总税负为零。",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "supportsPolicyGuidance": true,
+        "limitations": [
+          "美国HTS 8517.13.00.00第一栏一般基础关税0%，第二栏35%；Chapter 99、原产地附加税和其他费用需另核，基础0%不等于总税负为零。"
+        ]
+      },
+      "locator": "HTS 8517.13.00.00, General Free / Other 35%",
+      "excerpt": null,
+      "notes": "美国HTS 8517.13.00.00第一栏一般基础关税0%，第二栏35%；Chapter 99、原产地附加税和其他费用需另核，基础0%不等于总税负为零。"
+    },
+    {
+      "id": "evidence-refreshed-guide-de-import-smartphone-2023-tariff-1",
+      "sourceId": "source-policy-20260916-de",
+      "supportType": "policy_guidance",
+      "scope": {
+        "entityIds": [
+          "country-de"
+        ],
+        "fromEntityId": null,
+        "toEntityId": "country-de",
+        "itemIds": [
+          "generic-smartphone"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones；欧盟 TARIC 查询需核验当前代码"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（核验月份）"
+        },
+        "scopeDescription": "德国海关手机示例表基础关税0%；特殊措施与申报条件另核。",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "supportsPolicyGuidance": true,
+        "limitations": [
+          "德国海关手机示例表基础关税0%；特殊措施与申报条件另核。"
+        ]
+      },
+      "locator": "Mobiltelefone 行：Zollsatz 0 / Einfuhrumsatzsteuer 19",
+      "excerpt": null,
+      "notes": "德国海关手机示例表基础关税0%；特殊措施与申报条件另核。"
+    },
+    {
+      "id": "evidence-refreshed-guide-de-import-smartphone-2023-tariff-2",
+      "sourceId": "source-policy-20260916-de",
+      "supportType": "policy_guidance",
+      "scope": {
+        "entityIds": [
+          "country-de"
+        ],
+        "fromEntityId": null,
+        "toEntityId": "country-de",
+        "itemIds": [
+          "generic-smartphone"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones；欧盟 TARIC 查询需核验当前代码"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（核验月份）"
+        },
+        "scopeDescription": "德国手机标准进口增值税19%，按法定进口增值税税基计征；豁免和特殊交易另核。",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "supportsPolicyGuidance": true,
+        "limitations": [
+          "德国手机标准进口增值税19%，按法定进口增值税税基计征；豁免和特殊交易另核。"
+        ]
+      },
+      "locator": "Mobiltelefone 行：Zollsatz 0 / Einfuhrumsatzsteuer 19",
+      "excerpt": null,
+      "notes": "德国手机标准进口增值税19%，按法定进口增值税税基计征；豁免和特殊交易另核。"
+    },
+    {
+      "id": "evidence-refreshed-guide-cn-import-smartphone-2023-tariff-1",
+      "sourceId": "source-policy-20260916-cn",
+      "supportType": "policy_guidance",
+      "scope": {
+        "entityIds": [
+          "country-cn"
+        ],
+        "fromEntityId": null,
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "generic-smartphone"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones；中国税则和监管条件需按当前版本核验"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（核验月份）"
+        },
+        "scopeDescription": "中国85171300智能手机最惠国基础关税0%，普通税率20%；原产地附加措施与待遇资格另核，0%不是所有来源的总税率。",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "supportsPolicyGuidance": true,
+        "limitations": [
+          "中国85171300智能手机最惠国基础关税0%，普通税率20%；原产地附加措施与待遇资格另核，0%不是所有来源的总税率。"
+        ]
+      },
+      "locator": "PDF页1238（印刷页1228）第7461项 8517.1300",
+      "excerpt": null,
+      "notes": "中国85171300智能手机最惠国基础关税0%，普通税率20%；原产地附加措施与待遇资格另核，0%不是所有来源的总税率。"
+    },
+    {
+      "id": "evidence-refreshed-guide-cn-import-smartphone-2023-tariff-2",
+      "sourceId": "source-policy-20260916-vat",
+      "supportType": "policy_guidance",
+      "scope": {
+        "entityIds": [
+          "country-cn"
+        ],
+        "fromEntityId": null,
+        "toEntityId": "country-cn",
+        "itemIds": [
+          "generic-smartphone"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones；中国税则和监管条件需按当前版本核验"
+          }
+        ],
+        "direction": "import",
+        "period": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（核验月份）"
+        },
+        "scopeDescription": "中国标准货物进口增值税13%；组成计税价格为关税计税价格加关税和消费税，具体优惠或特殊交易另核。",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "supportsPolicyGuidance": true,
+        "limitations": [
+          "中国标准货物进口增值税13%；组成计税价格为关税计税价格加关税和消费税，具体优惠或特殊交易另核。"
+        ]
+      },
+      "locator": "第十条第一项、第十四条、第三十八条",
+      "excerpt": null,
+      "notes": "中国标准货物进口增值税13%；组成计税价格为关税计税价格加关税和消费税，具体优惠或特殊交易另核。"
+    },
+    {
+      "id": "evidence-refreshed-guide-cn-export-smartphone-2023-tariff-1",
+      "sourceId": "source-policy-20260916-cn",
+      "supportType": "policy_guidance",
+      "scope": {
+        "entityIds": [
+          "country-cn"
+        ],
+        "fromEntityId": "country-cn",
+        "toEntityId": null,
+        "itemIds": [
+          "generic-smartphone"
+        ],
+        "processStageIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "851713",
+            "mappingType": "exact",
+            "description": "Smartphones；出口申报代码与监管条件需按当前版本核验"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（核验月份）"
+        },
+        "scopeDescription": "2026出口税则完整102项未列85171300智能手机，该表不征出口关税；不表示退税率或退税资格已确定。",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "supportsPolicyGuidance": true,
+        "limitations": [
+          "2026出口税则完整102项未列85171300智能手机，该表不征出口关税；不表示退税率或退税资格已确定。"
+        ]
+      },
+      "locator": "PDF页1489–1492，完整出口税表102项",
+      "excerpt": null,
+      "notes": "2026出口税则完整102项未列85171300智能手机，该表不征出口关税；不表示退税率或退税资格已确定。"
+    }
+  ],
+  "contentVersions": [
+    {
+      "id": "content-policy-refresh-20260916",
+      "version": "policy-refresh-2026.1",
+      "status": "published",
+      "publishedAt": "2026-09-16",
+      "notes": "官方基础税率核验，不宣称已全面审查附加措施。"
+    }
+  ],
+  "records": [
+    {
+      "collection": "tariffMeasures",
+      "id": "guide-us-import-smartphone-2023-tariff-1",
+      "changes": {
+        "period": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（核验月份）"
+        },
+        "rateType": "free",
+        "rateValue": 0,
+        "rateUnit": "%",
+        "dataStatus": "observed",
+        "lifecycleStatus": "active",
+        "sourceIds": [
+          "source-policy-20260916-us"
+        ],
+        "evidenceIds": [
+          "evidence-refreshed-guide-us-import-smartphone-2023-tariff-1"
+        ],
+        "contentVersionId": "content-policy-refresh-20260916",
+        "calculationBasis": "customs_value",
+        "formula": null,
+        "limitations": [
+          "美国HTS 8517.13.00.00第一栏一般基础关税0%，第二栏35%；Chapter 99、原产地附加税和其他费用需另核，基础0%不等于总税负为零。",
+          "核验日期2026-09-16；申报时需复核后续调整。"
+        ]
+      }
+    },
+    {
+      "collection": "tariffMeasures",
+      "id": "guide-de-import-smartphone-2023-tariff-1",
+      "changes": {
+        "period": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（核验月份）"
+        },
+        "rateType": "free",
+        "rateValue": 0,
+        "rateUnit": "%",
+        "dataStatus": "observed",
+        "lifecycleStatus": "active",
+        "sourceIds": [
+          "source-policy-20260916-de"
+        ],
+        "evidenceIds": [
+          "evidence-refreshed-guide-de-import-smartphone-2023-tariff-1"
+        ],
+        "contentVersionId": "content-policy-refresh-20260916",
+        "calculationBasis": "customs_value",
+        "formula": null,
+        "limitations": [
+          "德国海关手机示例表基础关税0%；特殊措施与申报条件另核。",
+          "核验日期2026-09-16；申报时需复核后续调整。"
+        ]
+      }
+    },
+    {
+      "collection": "tariffMeasures",
+      "id": "guide-de-import-smartphone-2023-tariff-2",
+      "changes": {
+        "period": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（核验月份）"
+        },
+        "rateType": "ad_valorem",
+        "rateValue": 19,
+        "rateUnit": "%",
+        "dataStatus": "observed",
+        "lifecycleStatus": "active",
+        "sourceIds": [
+          "source-policy-20260916-de"
+        ],
+        "evidenceIds": [
+          "evidence-refreshed-guide-de-import-smartphone-2023-tariff-2"
+        ],
+        "contentVersionId": "content-policy-refresh-20260916",
+        "calculationBasis": "other",
+        "formula": "法定进口增值税税基 × 19%",
+        "limitations": [
+          "德国手机标准进口增值税19%，按法定进口增值税税基计征；豁免和特殊交易另核。",
+          "核验日期2026-09-16；申报时需复核后续调整。"
+        ]
+      }
+    },
+    {
+      "collection": "tariffMeasures",
+      "id": "guide-cn-import-smartphone-2023-tariff-1",
+      "changes": {
+        "period": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（核验月份）"
+        },
+        "rateType": "free",
+        "rateValue": 0,
+        "rateUnit": "%",
+        "dataStatus": "observed",
+        "lifecycleStatus": "active",
+        "sourceIds": [
+          "source-policy-20260916-cn"
+        ],
+        "evidenceIds": [
+          "evidence-refreshed-guide-cn-import-smartphone-2023-tariff-1"
+        ],
+        "contentVersionId": "content-policy-refresh-20260916",
+        "calculationBasis": "customs_value",
+        "formula": null,
+        "limitations": [
+          "中国85171300智能手机最惠国基础关税0%，普通税率20%；原产地附加措施与待遇资格另核，0%不是所有来源的总税率。",
+          "核验日期2026-09-16；申报时需复核后续调整。"
+        ]
+      }
+    },
+    {
+      "collection": "tariffMeasures",
+      "id": "guide-cn-import-smartphone-2023-tariff-2",
+      "changes": {
+        "period": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（核验月份）"
+        },
+        "rateType": "ad_valorem",
+        "rateValue": 13,
+        "rateUnit": "%",
+        "dataStatus": "observed",
+        "lifecycleStatus": "active",
+        "sourceIds": [
+          "source-policy-20260916-vat"
+        ],
+        "evidenceIds": [
+          "evidence-refreshed-guide-cn-import-smartphone-2023-tariff-2"
+        ],
+        "contentVersionId": "content-policy-refresh-20260916",
+        "calculationBasis": "other",
+        "formula": "（关税计税价格 + 关税 + 消费税） × 13%",
+        "limitations": [
+          "中国标准货物进口增值税13%；组成计税价格为关税计税价格加关税和消费税，具体优惠或特殊交易另核。",
+          "核验日期2026-09-16；申报时需复核后续调整。"
+        ]
+      }
+    },
+    {
+      "collection": "tariffMeasures",
+      "id": "guide-cn-export-smartphone-2023-tariff-1",
+      "changes": {
+        "period": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（核验月份）"
+        },
+        "rateType": "free",
+        "rateValue": 0,
+        "rateUnit": "%",
+        "dataStatus": "observed",
+        "lifecycleStatus": "active",
+        "sourceIds": [
+          "source-policy-20260916-cn"
+        ],
+        "evidenceIds": [
+          "evidence-refreshed-guide-cn-export-smartphone-2023-tariff-1"
+        ],
+        "contentVersionId": "content-policy-refresh-20260916",
+        "calculationBasis": "customs_value",
+        "formula": null,
+        "limitations": [
+          "2026出口税则完整102项未列85171300智能手机，该表不征出口关税；不表示退税率或退税资格已确定。",
+          "核验日期2026-09-16；申报时需复核后续调整。"
+        ]
+      }
+    },
+    {
+      "collection": "items",
+      "id": "application-processor",
+      "changes": {
+        "dataStatus": "observed",
+        "method": "curated",
+        "sourceIds": [
+          "source-catalog-20260916-apple"
+        ],
+        "validPeriod": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（类别核验）"
+        },
+        "description": "处理器设计与系统级芯片的通用组件节点。 2026-09-16已核验该类别的公开产品资料；这里只确认类别和用途，具体机型、供货关系与国别路线另列证据。"
+      }
+    },
+    {
+      "collection": "items",
+      "id": "display-panel",
+      "changes": {
+        "dataStatus": "observed",
+        "method": "curated",
+        "sourceIds": [
+          "source-catalog-20260916-apple"
+        ],
+        "validPeriod": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（类别核验）"
+        },
+        "description": "显示面板的通用组件节点，不代表特定手机型号。 2026-09-16已核验该类别的公开产品资料；这里只确认类别和用途，具体机型、供货关系与国别路线另列证据。"
+      }
+    },
+    {
+      "collection": "items",
+      "id": "cover-glass",
+      "changes": {
+        "dataStatus": "observed",
+        "method": "curated",
+        "sourceIds": [
+          "source-catalog-20260916-apple"
+        ],
+        "validPeriod": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（类别核验）"
+        },
+        "description": "显示组件上游的通用盖板玻璃节点。 2026-09-16已核验该类别的公开产品资料；这里只确认类别和用途，具体机型、供货关系与国别路线另列证据。"
+      }
+    },
+    {
+      "collection": "items",
+      "id": "dram",
+      "changes": {
+        "dataStatus": "observed",
+        "method": "curated",
+        "sourceIds": [
+          "source-catalog-20260916-memory"
+        ],
+        "validPeriod": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（类别核验）"
+        },
+        "description": "动态随机存取存储器的通用组件节点。 2026-09-16已核验该类别的公开产品资料；这里只确认类别和用途，具体机型、供货关系与国别路线另列证据。"
+      }
+    },
+    {
+      "collection": "items",
+      "id": "nand-flash",
+      "changes": {
+        "dataStatus": "observed",
+        "method": "curated",
+        "sourceIds": [
+          "source-catalog-20260916-memory"
+        ],
+        "validPeriod": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（类别核验）"
+        },
+        "description": "非易失性 NAND Flash 存储器的通用组件节点。 2026-09-16已核验该类别的公开产品资料；这里只确认类别和用途，具体机型、供货关系与国别路线另列证据。"
+      }
+    },
+    {
+      "collection": "items",
+      "id": "molding-compound",
+      "changes": {
+        "dataStatus": "observed",
+        "method": "curated",
+        "sourceIds": [
+          "source-catalog-20260916-packaging"
+        ],
+        "validPeriod": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（类别核验）"
+        },
+        "description": "用于封装保护的材料类别，不代表具体配方或供应商。 2026-09-16已核验该类别的公开产品资料；这里只确认类别和用途，具体机型、供货关系与国别路线另列证据。"
+      }
+    },
+    {
+      "collection": "items",
+      "id": "underfill-material",
+      "changes": {
+        "dataStatus": "observed",
+        "method": "curated",
+        "sourceIds": [
+          "source-catalog-20260916-packaging"
+        ],
+        "validPeriod": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（类别核验）"
+        },
+        "description": "部分倒装封装使用的填充材料类别。 2026-09-16已核验该类别的公开产品资料；这里只确认类别和用途，具体机型、供货关系与国别路线另列证据。"
+      }
+    },
+    {
+      "collection": "items",
+      "id": "packaging-consumables",
+      "changes": {
+        "dataStatus": "observed",
+        "method": "curated",
+        "sourceIds": [
+          "source-catalog-20260916-packaging"
+        ],
+        "validPeriod": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（类别核验）"
+        },
+        "description": "切割膜、治具、标签和防潮包装等耗材类别。 2026-09-16已核验该类别的公开产品资料；这里只确认类别和用途，具体机型、供货关系与国别路线另列证据。"
+      }
+    },
+    {
+      "collection": "items",
+      "id": "bonding-wire",
+      "changes": {
+        "dataStatus": "observed",
+        "method": "curated",
+        "sourceIds": [
+          "source-catalog-20260916-wires"
+        ],
+        "validPeriod": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（类别核验）"
+        },
+        "description": "芯片封装中的金属互连耗材，不代表具体材质、供应商或手机用途。 2026-09-16已核验该类别的公开产品资料；这里只确认类别和用途，具体机型、供货关系与国别路线另列证据。"
+      }
+    },
+    {
+      "collection": "items",
+      "id": "baseband-chip",
+      "changes": {
+        "dataStatus": "observed",
+        "method": "curated",
+        "sourceIds": [
+          "source-catalog-20260916-modem"
+        ],
+        "validPeriod": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（类别核验）"
+        },
+        "description": "移动通信基带和相关通信芯片的通用组件节点。 2026-09-16已核验该类别的公开产品资料；这里只确认类别和用途，具体机型、供货关系与国别路线另列证据。"
+      }
+    },
+    {
+      "collection": "tradeGuides",
+      "id": "guide-us-import-smartphone-2023",
+      "changes": {
+        "summary": "面向进入美国市场的采购或外贸调研，提供官方入口、资料清单和核验顺序。 基础税率已于2026-09-16专项核验；手续清单与未核验附加措施仍为部分覆盖，分别按各条记录期间阅读。",
+        "lastReviewedAt": "2026-09-16",
+        "nextReviewAt": "2026-10-16",
+        "sourceIds": [
+          "source-trade-us-cbp",
+          "source-policy-20260916-us"
+        ],
+        "limitations": [
+          "2026-09-16只完成基础税率专项核验，不表示所有监管、原产地附加税或手续均已重新审查。",
+          "基础税率及其条件见下方；未收录附加费用不当作零。",
+          "规则可能调整，申报前应复核。"
+        ]
+      }
+    },
+    {
+      "collection": "tradeGuides",
+      "id": "guide-de-import-smartphone-2023",
+      "changes": {
+        "summary": "德国进口通常需要同时查看欧盟关税与产品规则，再确认德国境内执行和申报安排。 基础税率已于2026-09-16专项核验；手续清单与未核验附加措施仍为部分覆盖，分别按各条记录期间阅读。",
+        "lastReviewedAt": "2026-09-16",
+        "nextReviewAt": "2026-10-16",
+        "sourceIds": [
+          "source-trade-eu-access2markets",
+          "source-policy-20260916-de"
+        ],
+        "limitations": [
+          "2026-09-16只完成基础税率专项核验，不表示所有监管、原产地附加税或手续均已重新审查。",
+          "基础税率及其条件见下方；未收录附加费用不当作零。",
+          "规则可能调整，申报前应复核。"
+        ]
+      }
+    },
+    {
+      "collection": "tradeGuides",
+      "id": "guide-cn-import-smartphone-2023",
+      "changes": {
+        "summary": "从单一窗口和海关官方入口开始，按归类、监管条件、产品合规和申报材料逐项核验。 基础税率已于2026-09-16专项核验；手续清单与未核验附加措施仍为部分覆盖，分别按各条记录期间阅读。",
+        "lastReviewedAt": "2026-09-16",
+        "nextReviewAt": "2026-10-16",
+        "sourceIds": [
+          "source-trade-china-single-window",
+          "source-trade-china-customs",
+          "source-policy-20260916-cn",
+          "source-policy-20260916-vat"
+        ],
+        "limitations": [
+          "2026-09-16只完成基础税率专项核验，不表示所有监管、原产地附加税或手续均已重新审查。",
+          "基础税率及其条件见下方；未收录附加费用不当作零。",
+          "规则可能调整，申报前应复核。"
+        ]
+      }
+    },
+    {
+      "collection": "tradeGuides",
+      "id": "guide-cn-export-smartphone-2023",
+      "changes": {
+        "summary": "从出口归类和监管条件出发，再核验目的地市场的关税、产品合规和文件要求。 基础税率已于2026-09-16专项核验；手续清单与未核验附加措施仍为部分覆盖，分别按各条记录期间阅读。",
+        "lastReviewedAt": "2026-09-16",
+        "nextReviewAt": "2026-10-16",
+        "sourceIds": [
+          "source-trade-china-customs",
+          "source-trade-china-single-window",
+          "source-policy-20260916-cn"
+        ],
+        "limitations": [
+          "2026-09-16只完成基础税率专项核验，不表示所有监管、原产地附加税或手续均已重新审查。",
+          "基础税率及其条件见下方；未收录附加费用不当作零。",
+          "规则可能调整，申报前应复核。"
+        ]
+      }
+    },
+    {
+      "collection": "items",
+      "id": "display-module",
+      "changes": {
+        "dataStatus": "observed",
+        "method": "curated",
+        "sourceIds": [
+          "source-catalog-20260916-display"
+        ],
+        "validPeriod": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（类别核验）"
+        },
+        "description": "面板、驱动与触控层组成的通用显示模组节点。 类别及用途已于2026-09-16按官方资料核验；特定机型、客户和国家关系不由此确认。"
+      }
+    },
+    {
+      "collection": "items",
+      "id": "image-sensor",
+      "changes": {
+        "dataStatus": "observed",
+        "method": "curated",
+        "sourceIds": [
+          "source-catalog-20260916-sensor"
+        ],
+        "validPeriod": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（类别核验）"
+        },
+        "description": "摄像头中的图像传感器通用组件节点。 类别及用途已于2026-09-16按官方资料核验；特定机型、客户和国家关系不由此确认。"
+      }
+    },
+    {
+      "collection": "items",
+      "id": "semiconductor-wafer",
+      "changes": {
+        "dataStatus": "observed",
+        "sourceIds": [
+          "source-catalog-20260916-tsmc-web"
+        ],
+        "method": "curated",
+        "validPeriod": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（类别核验）"
+        },
+        "description": "晶圆制造阶段的通用产业节点，不代表具体制程或工厂。 2025年报记载晶圆制造服务及先进封装技术，包括CoWoS、InFO与SoIC；只用于确认工艺类别。"
+      }
+    },
+    {
+      "collection": "items",
+      "id": "chip-packaging",
+      "changes": {
+        "dataStatus": "observed",
+        "sourceIds": [
+          "source-catalog-20260916-tsmc-web"
+        ],
+        "method": "curated",
+        "validPeriod": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（类别核验）"
+        },
+        "description": "封装与测试阶段的通用产业节点。 2025年报记载晶圆制造服务及先进封装技术，包括CoWoS、InFO与SoIC；只用于确认工艺类别。"
+      }
+    },
+    {
+      "collection": "items",
+      "id": "camera-lens",
+      "changes": {
+        "dataStatus": "observed",
+        "sourceIds": [
+          "source-catalog-20260916-camera-web"
+        ],
+        "method": "curated",
+        "validPeriod": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（类别核验）"
+        },
+        "description": "摄像头中的镜头通用组件节点。 官方相机模组产品页描述手机拍摄用途，并列出镜头、执行器和PCB等核心部件。只确认组件类别，不确认客户。"
+      }
+    },
+    {
+      "collection": "items",
+      "id": "camera-module",
+      "changes": {
+        "dataStatus": "observed",
+        "sourceIds": [
+          "source-catalog-20260916-camera-web"
+        ],
+        "method": "curated",
+        "validPeriod": {
+          "granularity": "monthly",
+          "start": "2026-09-01",
+          "end": "2026-09-30",
+          "label": "2026-09（类别核验）"
+        },
+        "description": "图像传感器、镜头和封装组成的通用模组节点。 官方相机模组产品页描述手机拍摄用途，并列出镜头、执行器和PCB等核心部件。只确认组件类别，不确认客户。"
+      }
+    }
+  ]
+}

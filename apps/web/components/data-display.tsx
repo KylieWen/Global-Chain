@@ -231,6 +231,7 @@ export function ValueDisplay({
   status,
   currency,
   unit,
+  compact = false,
   unknownLabel = "未知"
 }: {
   value?: number | null;
@@ -238,6 +239,7 @@ export function ValueDisplay({
   currency?: string | null;
   unit?: string | null;
   unknownLabel?: string;
+  compact?: boolean;
 }) {
   if (status === "unknown") return <UnknownValue label={unknownLabel} />;
   if (status === "withheld") return <UnknownValue label="未披露" />;
@@ -272,9 +274,9 @@ export function ValueDisplay({
         status === "estimated" ? "estimated-value" : "",
         isObservedZero ? "zero-value" : ""
       ].filter(Boolean).join(" ") || undefined}
-      title={isObservedZero ? "来源明确观测为零；这不是缺失数据" : undefined}
+      title={compact ? `${value.toLocaleString("zh-CN")} ${currency ?? unit ?? ""}` : isObservedZero ? "来源明确观测为零；这不是缺失数据" : undefined}
     >
-      {value.toLocaleString("zh-CN")}{suffix ? ` ${suffix}` : ""}
+      {compact ? new Intl.NumberFormat("zh-CN", { notation: "compact", maximumFractionDigits: 2 }).format(value) : value.toLocaleString("zh-CN")}{compact ? ` ${currency ?? unit ?? ""}` : suffix ? ` ${suffix}` : ""}
       {status === "estimated" ? " · 估算" : ""}
       {isObservedZero ? " · 真实为零" : ""}
     </span>
@@ -735,12 +737,12 @@ export function SourceMetadata({
 export function WarningList({ warnings }: { warnings: readonly string[] }) {
   if (warnings.length === 0) return null;
   return (
-    <aside className="warning-panel" aria-label="数据限制说明">
-      <strong>阅读提示</strong>
+    <details className="reading-details" aria-label="数据限制说明">
+      <summary>数据说明</summary>
       <ul>
         {warnings.map((warning) => <li key={warning}>{warning}</li>)}
       </ul>
-    </aside>
+    </details>
   );
 }
 

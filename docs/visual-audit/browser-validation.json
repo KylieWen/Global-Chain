@@ -1,0 +1,71 @@
+{
+  "checkedAt": "2026-09-16T09:55:19.662Z",
+  "checks": [
+    {
+      "name": "home",
+      "width": 1440,
+      "horizontalOverflow": false
+    },
+    {
+      "name": "catalog",
+      "width": 1440,
+      "horizontalOverflow": false
+    },
+    {
+      "name": "map",
+      "width": 1440,
+      "horizontalOverflow": false
+    },
+    {
+      "mapFitsFirstScreen": true,
+      "linkedHover": true,
+      "emptyStateRecovery": true
+    },
+    {
+      "name": "product",
+      "width": 1440,
+      "horizontalOverflow": false
+    },
+    {
+      "name": "ledger",
+      "width": 1440,
+      "horizontalOverflow": false
+    },
+    {
+      "name": "guide",
+      "width": 1440,
+      "horizontalOverflow": false
+    },
+    {
+      "name": "home",
+      "width": 390,
+      "horizontalOverflow": false
+    },
+    {
+      "name": "catalog",
+      "width": 390,
+      "horizontalOverflow": false
+    },
+    {
+      "name": "map",
+      "width": 390,
+      "horizontalOverflow": false
+    },
+    {
+      "name": "product",
+      "width": 390,
+      "horizontalOverflow": false
+    },
+    {
+      "name": "ledger",
+      "width": 390,
+      "horizontalOverflow": false
+    },
+    {
+      "name": "guide",
+      "width": 390,
+      "horizontalOverflow": false
+    }
+  ],
+  "pageErrors": []
+}

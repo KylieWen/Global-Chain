@@ -1,0 +1,44 @@
+[
+  {
+    "command": "pnpm install --frozen-lockfile",
+    "exitCode": 0,
+    "startedAt": "2026-09-16T06:59:03.6641656+08:00",
+    "finishedAt": "2026-09-16T06:59:04.2261375+08:00",
+    "log": ".preview/review-fix/quality-frozen-lockfile.log"
+  },
+  {
+    "command": "pnpm run data:release:verify",
+    "exitCode": 0,
+    "startedAt": "2026-09-16T06:59:04.2598940+08:00",
+    "finishedAt": "2026-09-16T06:59:04.8170777+08:00",
+    "log": ".preview/review-fix/quality-data-release-verify.log"
+  },
+  {
+    "command": "pnpm run lint",
+    "exitCode": 0,
+    "startedAt": "2026-09-16T06:59:04.8199582+08:00",
+    "finishedAt": "2026-09-16T06:59:08.7503174+08:00",
+    "log": ".preview/review-fix/quality-lint.log"
+  },
+  {
+    "command": "pnpm run typecheck",
+    "exitCode": 0,
+    "startedAt": "2026-09-16T06:59:08.7522052+08:00",
+    "finishedAt": "2026-09-16T06:59:15.5162134+08:00",
+    "log": ".preview/review-fix/quality-typecheck.log"
+  },
+  {
+    "command": "pnpm run test",
+    "exitCode": 0,
+    "startedAt": "2026-09-16T06:59:15.5182756+08:00",
+    "finishedAt": "2026-09-16T06:59:20.9179000+08:00",
+    "log": ".preview/review-fix/quality-test.log"
+  },
+  {
+    "command": "pnpm run build",
+    "exitCode": 0,
+    "startedAt": "2026-09-16T06:59:20.9196038+08:00",
+    "finishedAt": "2026-09-16T06:59:40.7878246+08:00",
+    "log": ".preview/review-fix/quality-build.log"
+  }
+]

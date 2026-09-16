@@ -1,0 +1,44 @@
+[
+  {
+    "finishedAt": "2026-09-16T12:35:37.0623858+08:00",
+    "command": "pnpm install --frozen-lockfile",
+    "startedAt": "2026-09-16T12:35:36.6088766+08:00",
+    "exitCode": 0,
+    "name": "install"
+  },
+  {
+    "finishedAt": "2026-09-16T12:35:37.6065598+08:00",
+    "command": "pnpm run data:release:verify",
+    "startedAt": "2026-09-16T12:35:37.0632276+08:00",
+    "exitCode": 0,
+    "name": "release"
+  },
+  {
+    "finishedAt": "2026-09-16T12:35:40.7575949+08:00",
+    "command": "pnpm run lint",
+    "startedAt": "2026-09-16T12:35:37.6066704+08:00",
+    "exitCode": 0,
+    "name": "lint"
+  },
+  {
+    "finishedAt": "2026-09-16T12:35:47.4565330+08:00",
+    "command": "pnpm run typecheck",
+    "startedAt": "2026-09-16T12:35:40.7577840+08:00",
+    "exitCode": 0,
+    "name": "typecheck"
+  },
+  {
+    "finishedAt": "2026-09-16T12:35:52.3891219+08:00",
+    "command": "pnpm run test",
+    "startedAt": "2026-09-16T12:35:47.4566340+08:00",
+    "exitCode": 0,
+    "name": "test"
+  },
+  {
+    "finishedAt": "2026-09-16T12:36:15.0514159+08:00",
+    "command": "pnpm run build",
+    "startedAt": "2026-09-16T12:35:52.3892448+08:00",
+    "exitCode": 0,
+    "name": "build"
+  }
+]

@@ -1,0 +1,5 @@
+$ pnpm --filter @globe-chain/web typecheck && pnpm --filter @globe-chain/contracts typecheck && pnpm --filter @globe-chain/domain typecheck && pnpm --filter @globe-chain/db typecheck
+$ tsc --noEmit
+$ tsc --noEmit
+$ tsc --noEmit
+$ tsc --noEmit

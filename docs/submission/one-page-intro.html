@@ -94,7 +94,7 @@
   }
   .footer strong { color: #4a5568; }
   .highlight-box {
-    background: linear-gradient(135deg, #1e5aa8, #2d7dd2);
+    background: #1e5aa8;
     color: #fff;
     border-radius: 5px;
     padding: 7px 10px;
@@ -105,78 +105,13 @@
 </style>
 </head>
 <body>
-
-<div class="header">
-  <h1>GlobeChain</h1>
-  <div class="subtitle">进出口贸易信息查询与指南针 · 面向跨境采购与外贸调研</div>
-  <div class="meta">大工黑客松 S2 · 奇绩创坛赛道「为现实打个补丁」· 2026-08</div>
-</div>
-
-<div class="highlight-box">
-  <div class="label">一句话定位</div>
-  <div class="text">查进出口手续不瞎猜：选好商品、国家和方向，一次看清关税怎么查、要办哪些手续、准备哪些文件、去哪个官方网站核验；再顺手看懂这件商品是怎么做出来的。</div>
-</div>
-
-<div class="section">
-  <div class="section-title">问题与背景</div>
-  <p>你手里的手机，锂可能来自澳大利亚、钴来自刚果、芯片在台湾制造、最后在中国组装。想搞清楚这些事，得在海关数据库、产业报告、政府政策文件之间来回翻，做跨境采购和外贸调研的人尤其头疼。更麻烦的是，「代表性产业路线」常被当成某台手机的唯一真实路线，「海关贸易额」也常被当成企业利润。我们缺的不是更多数据，而是一个把这些信息整理好、讲清楚、不瞎猜的查询起点。</p>
-</div>
-
-<div class="section">
-  <div class="section-title">核心功能</div>
-  <div class="two-col">
-    <div class="col">
-      <ul class="feature-list">
-        <li><span class="feature-name">进出口贸易指南（主入口）</span><span class="feature-desc">：选商品+国家+方向，得到商品编码、关税核验入口、手续顺序、文件清单和官方网址；未收录的税率明确标「待核验」，不瞎填</span></li>
-        <li><span class="feature-name">商品拆解与供应链背景</span><span class="feature-desc">：以智能手机为例，展示从成品到部件、材料、矿产的拆解，点进电池可看到原料来源国和加工环节</span></li>
-        <li><span class="feature-name">代表性供应链路线</span><span class="feature-desc">：锂/钴→材料→电芯→模组→组装的代表路线，每个节点带来源和证据等级，并明确标注「非唯一真实路线」</span></li>
-      </ul>
-    </div>
-    <div class="col">
-      <ul class="feature-list">
-        <li><span class="feature-name">半导体封装工艺</span><span class="feature-desc">：线焊/倒装两类主流封装方式，18 道工序、18 类设备与厂商能力记录，已验证和未验证分开标注</span></li>
-        <li><span class="feature-name">国家贸易账本</span><span class="feature-desc">：各参与国的进出口、贸易差额、官方储备，以及智能手机 HS 851713 的具体贸易观察，每个数字带来源</span></li>
-        <li><span class="feature-name">可交互世界地图</span><span class="feature-desc">：国家轮廓可点击、可缩放，连线只展示有数据支撑的双边贸易；本地渲染，断网也能演示</span></li>
-        <li><span class="feature-name">来源与版本</span><span class="feature-desc">：每条信息带来源、复核日期和版本；可一键导出研究快照，写报告引用放心</span></li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div class="section">
-  <div class="section-title">技术方案</div>
-  <div class="tag-row">
-    <span class="tag">现代 Web 前端</span>
-    <span class="tag">数据本地处理与发布</span>
-    <span class="tag">运行时不调用外部 API</span>
-    <span class="tag">数据可追溯可回滚</span>
-    <span class="tag">自动化测试与持续集成</span>
-  </div>
-  <p style="margin-top:5px;color:#4a5568;">数据来源包括世界银行 WDI、联合国 Comtrade、美国地质调查局 USGS、国际能源署 IEA、日本 JEITA、半导体行业协会 SIA 及主要厂商公开年报；贸易指南为人工整理的静态政策资料，每条标来源和复核时间。断网可演示，无 API 密钥、无使用成本。</p>
-</div>
-
-<div class="section">
-  <div class="section-title">创新点与应用价值</div>
-  <div class="grid-3">
-    <div class="card">
-      <h4>查询与背景放在一起</h4>
-      <p>以前查关税要跑海关网站、看产业背景要翻报告、查贸易数据要下数据库；现在同一网站、同一套维度，查完手续顺手看懂商品全球生产脉络。</p>
-    </div>
-    <div class="card">
-      <h4>明确说「我不知道」</h4>
-      <p>未知、未收录、估算、保密、真实为零明确区分；税率没收录就显示「待核验」，路线不确定就标「代表性路线」，不拿表面「完整」误导用户。</p>
-    </div>
-    <div class="card">
-      <h4>每条信息能回到来源</h4>
-      <p>不是笼统标「数据来源：互联网」，而是每条事实带具体机构、获取时间、数据版本；数据版本不可变、可回滚，引用和复核都放心。</p>
-    </div>
-  </div>
-  <p style="margin-top:6px;color:#4a5568;"><strong>应用价值：</strong>跨境采购人员快速形成核验清单、减少漏文件风险；外贸调研人员获得可引用可追溯的研究路径；学生、教师、记者和公众获得看得懂的全球化生产与贸易讲解。</p>
-</div>
-
-<div class="footer">
-  <strong>可信边界：</strong>GlobeChain 是静态、部分覆盖的研究起点，不是海关预裁定、法律意见、报关代理服务或交易平台。贸易金额不等于成本、利润或手机价格；供应链路线不证明特定企业供货关系；材料贸易不证明材料进入某部手机；未知数据不填为 0；税率须按当前日期、原产地和官方系统重新核验。
-</div>
-
-</body>
-</html>
+<div class="header"><h1>GlobeChain</h1><div class="subtitle">全球商品供应链与贸易数据可视化平台</div><div class="meta">大工黑客松 S2 · 奇绩创坛赛道「为现实打个补丁」</div></div>
+<div class="highlight-box"><div class="label">看懂一件商品，怎么来、怎么走</div><div class="text">以智能手机为例，把商品拆解、代表性供应链、国家贸易账本和可交互世界地图串起来，看清一件商品如何连接世界；进出口指南提供延伸查询方向。</div></div>
+<div class="section"><div class="section-title">问题与背景</div><p>手机背后的矿产、材料、芯片和生产环节连接着不同国家，相关资料却分散在海关数据库、产业报告和政策文件里。普通人难读，研究者需要手工拼接；代表性路线容易被当成单台手机的真实路径，海关贸易额也容易被误读成企业利润。我们提供一个整理好、讲清楚、不瞎猜的研究起点。</p></div>
+<div class="section"><div class="section-title">核心功能</div><div class="two-col"><div class="col"><ul class="feature-list"><li><span class="feature-name">商品拆解与供应链可视化：</span>从成品进入部件、材料与矿产，点进电池查看上游国家角色与加工环节。</li><li><span class="feature-name">代表性供应链路线：</span>原料、材料加工、电芯、模组与组装逐层连接，每节点带来源、证据等级和限制。</li><li><span class="feature-name">国家贸易账本：</span>查看进出口、贸易差额、官方储备和 HS 851713 商品观察，保留单位、年份和状态。</li></ul></div><div class="col"><ul class="feature-list"><li><span class="feature-name">可交互世界地图：</span>国家轮廓可点击、可缩放，只用明确报告方与伙伴的统计观察绘制连线。</li><li><span class="feature-name">进出口指南（延伸方向之一）：</span>编码归类、关税核验、手续、文件与官方入口；未收录税率显示待核验。</li><li><span class="feature-name">来源与版本：</span>查看具体来源与证据缺口，导出包含来源、方法与版本的研究快照。</li></ul></div></div></div>
+<div class="section"><div class="section-title">怎么实现</div><p>本地不可变 JSON 快照，经清单索引、Zod 契约校验与深度冻结后进入只读仓储；领域查询将来源与状态一起交给服务端页面，地图使用本地地理数据绘制。版本指针支持发布与回滚，CI 校验数据、类型、测试与构建。</p><div class="tag-row"><span class="tag">只读快照数据层</span><span class="tag">运行时不调用外部 API</span><span class="tag">本地地图</span><span class="tag">版本可复核</span></div><p style="margin-top:5px">当前未接真实数据库、自动调度管线或线上部署。依赖安装后，启动本地服务即可断网演示；访问官方来源需要网络。</p></div>
+<div class="section"><div class="section-title">数据来源</div><p>World Bank WDI（宏观贸易与官方储备）· UN Comtrade（商品贸易）· USGS、IEA、JEITA、SIA 与厂商年报（产业角色）· Natural Earth（国家轮廓）· 官方政策门户（静态指南）。来源按实际支持范围引用，角色资料不证明客户供货。</p></div>
+<div class="section"><div class="section-title">创新点与应用价值</div><div class="grid-3"><div class="card"><h4>把商品讲清楚</h4><p>公众、学生与记者可逐层探索日常商品背后的全球分工；外贸与采购调研者沿资料继续核验。</p></div><div class="card"><h4>不知道，就保留未知</h4><p>unknown ≠ 0；未知、估算、未披露、已观察与真实零值分别呈现，示意不冒充事实。</p></div><div class="card"><h4>引用可以回到版本</h4><p>数据不可变、可校验、可回滚；每条信息保留来源、年份、方法与状态，研究快照可复核。</p></div></div></div>
+<div class="section"><div class="section-title">现状与体验路径</div><p><strong>2023 年公开数据 · 单商品示范版本 · 覆盖有限 · 未收录税率显示待核验。</strong></p><p>首页 → 世界地图 → 商品拆解 → 电池路线 → 国家账本 → 来源与版本 → 进出口指南。仓库根目录安装依赖、构建并运行 pnpm run start；/demo 提供分步引导。下一步更新数据并扩展商品与国家。</p></div>
+<div class="footer"><strong>可信边界：</strong>代表性路线不证明某批货物的唯一真实路径或具体企业供货；贸易额不等于利润、成本或单件商品价格。政策是静态、部分覆盖的研究起点，实际申报须按当前日期、原产地、规格和官方系统重新核验。没有交易撮合、报价、实时物流或运行时 AI。<br><strong>代码仓库：</strong>https://github.com/&lt;所有者确认的账号&gt;/Global-Chain（地址待确认；线上 Demo 尚未部署）</div>
+</body></html>

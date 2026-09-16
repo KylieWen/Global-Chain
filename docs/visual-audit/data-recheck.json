@@ -1,0 +1,20 @@
+[
+  {
+    "url": "https://api.worldbank.org/v2/country/COD/indicator/FI.RES.TOTL.CD?date=2023:2026&format=json&per_page=100",
+    "status": 200,
+    "retrievedAt": "2026-09-16T09:29:44.423Z",
+    "body": "[{\"page\":1,\"pages\":1,\"per_page\":100,\"total\":3,\"sourceid\":\"2\",\"lastupdated\":\"2026-07-13\"},[{\"indicator\":{\"id\":\"FI.RES.TOTL.CD\",\"value\":\"Total reserves (includes gold, current US$)\"},\"country\":{\"id\":\"CD\",\"value\":\"Congo, Dem. Rep.\"},\"countryiso3code\":\"COD\",\"date\":\"2025\",\"value\":null,\"unit\":\"\",\"obs_status\":\"\",\"decimal\":0},{\"indicator\":{\"id\":\"FI.RES.TOTL.CD\",\"value\":\"Total reserves (includes gold, current US$)\"},\"country\":{\"id\":\"CD\",\"value\":\"Congo, Dem. Rep.\"},\"countryiso3code\":\"COD\",\"date\":\"2024\",\"value\":null,\"unit\":\"\",\"obs_status\":\"\",\"decimal\":0},{\"indicator\":{\"id\":\"FI.RES.TOTL.CD\",\"value\":\"Total reserves (includes gold, current US$)\"},\"country\":{\"id\":\"CD\",\"value\":\"Congo, Dem. Rep.\"},\"countryiso3code\":\"COD\",\"date\":\"2023\",\"value\":5104181646.5526,\"unit\":\"\",\"obs_status\":\"\",\"decimal\":0}]]"
+  },
+  {
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=180&partnerCode=156&cmdCode=8105&flowCode=X&period=2025&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+    "status": 200,
+    "retrievedAt": "2026-09-16T09:29:49.111Z",
+    "body": "{\"elapsedTime\":\"0.02 secs\",\"count\":0,\"data\":[],\"error\":\"\"}"
+  },
+  {
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=180&partnerCode=156&cmdCode=8105&flowCode=X&period=2024&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+    "status": 200,
+    "retrievedAt": "2026-09-16T09:29:51.668Z",
+    "body": "{\"elapsedTime\":\"0.02 secs\",\"count\":0,\"data\":[],\"error\":\"\"}"
+  }
+]

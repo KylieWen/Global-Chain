@@ -1,0 +1,52 @@
+[
+  {
+    "key": "apple",
+    "ids": [
+      "application-processor",
+      "display-panel",
+      "cover-glass"
+    ],
+    "status": "verified"
+  },
+  {
+    "key": "memory",
+    "ids": [
+      "dram",
+      "nand-flash"
+    ],
+    "status": "verified"
+  },
+  {
+    "key": "packaging",
+    "ids": [
+      "molding-compound",
+      "underfill-material",
+      "packaging-consumables"
+    ],
+    "status": "verified"
+  },
+  {
+    "key": "wires",
+    "ids": [
+      "bonding-wire"
+    ],
+    "status": "verified"
+  },
+  {
+    "key": "camera",
+    "status": "unfilled",
+    "reason": "fetch failed"
+  },
+  {
+    "key": "modem",
+    "ids": [
+      "baseband-chip"
+    ],
+    "status": "verified"
+  },
+  {
+    "key": "tsmc",
+    "status": "unfilled",
+    "reason": "Missing official content 403"
+  }
+]

@@ -1,0 +1,279 @@
+{
+  "auditedAt": "2026-09-16T04:03:35.483Z",
+  "datasetVersion": "globe-chain-smartphone-2023.16",
+  "summary": {
+    "sources": {
+      "records": 24,
+      "states": {},
+      "nullFields": {
+        "publishedAt": 7,
+        "url": 2
+      }
+    },
+    "evidence": {
+      "records": 74,
+      "states": {},
+      "nullFields": {
+        "fromEntityId": 31,
+        "toEntityId": 29,
+        "direction": 26,
+        "excerpt": 54
+      }
+    },
+    "entities": {
+      "records": 9,
+      "states": {},
+      "nullFields": {
+        "parentId": 9
+      }
+    },
+    "items": {
+      "records": 34,
+      "states": {
+        "dataStatus:unknown": 16
+      },
+      "nullFields": {
+        "parentItemId": 1
+      }
+    },
+    "processStages": {
+      "records": 7,
+      "states": {},
+      "nullFields": {}
+    },
+    "productionActivities": {
+      "records": 14,
+      "states": {
+        "dataStatus:unknown": 8,
+        "evidenceLevel:representative": 8
+      },
+      "nullFields": {}
+    },
+    "classificationCodes": {
+      "records": 13,
+      "states": {},
+      "nullFields": {}
+    },
+    "classificationCrosswalks": {
+      "records": 14,
+      "states": {},
+      "nullFields": {
+        "confidence": 13
+      }
+    },
+    "tradeObservations": {
+      "records": 24,
+      "states": {
+        "quantityDataStatus:estimated": 9
+      },
+      "nullFields": {
+        "partnerEntityId": 16,
+        "quantity": 9
+      }
+    },
+    "macroIndicators": {
+      "records": 36,
+      "states": {},
+      "nullFields": {
+        "quantity": 36
+      }
+    },
+    "warnings": {
+      "records": 7,
+      "states": {},
+      "nullFields": {}
+    },
+    "evidenceGaps": {
+      "records": 42,
+      "states": {
+        "currentEvidenceLevel:representative": 26,
+        "status:partial": 20
+      },
+      "nullFields": {
+        "flowId": 23,
+        "nodeId": 19,
+        "url": 10
+      }
+    },
+    "contentVersions": {
+      "records": 3,
+      "states": {},
+      "nullFields": {}
+    },
+    "organizations": {
+      "records": 6,
+      "states": {},
+      "nullFields": {
+        "headquartersEntityId": 1
+      }
+    },
+    "facilities": {
+      "records": 0,
+      "states": {},
+      "nullFields": {}
+    },
+    "manufacturingProcessChains": {
+      "records": 1,
+      "states": {},
+      "nullFields": {}
+    },
+    "manufacturingRouteVariants": {
+      "records": 2,
+      "states": {},
+      "nullFields": {}
+    },
+    "manufacturingProcessSteps": {
+      "records": 18,
+      "states": {},
+      "nullFields": {}
+    },
+    "equipmentCategories": {
+      "records": 18,
+      "states": {},
+      "nullFields": {}
+    },
+    "processRequirements": {
+      "records": 26,
+      "states": {},
+      "nullFields": {
+        "itemId": 18,
+        "equipmentCategoryId": 8
+      }
+    },
+    "organizationCapabilities": {
+      "records": 9,
+      "states": {},
+      "nullFields": {
+        "customerOrganizationId": 9
+      }
+    },
+    "tradeGuides": {
+      "records": 4,
+      "states": {
+        "coverageStatus:partial": 4
+      },
+      "nullFields": {
+        "originEntityId": 4,
+        "nextReviewAt": 4,
+        "destinationEntityId": 1
+      }
+    },
+    "tariffMeasures": {
+      "records": 7,
+      "states": {
+        "rateType:unknown": 7,
+        "lifecycleStatus:unknown": 7,
+        "dataStatus:unknown": 7
+      },
+      "nullFields": {
+        "rateValue": 7,
+        "rateCurrency": 7,
+        "rateUnit": 7,
+        "formula": 7
+      }
+    },
+    "tradeRequirements": {
+      "records": 12,
+      "states": {},
+      "nullFields": {
+        "legalBasis": 12
+      }
+    },
+    "tradeProcedures": {
+      "records": 4,
+      "states": {
+        "dataStatus:unknown": 4
+      },
+      "nullFields": {
+        "value": 4
+      }
+    },
+    "tradeProcedureSteps": {
+      "records": 20,
+      "states": {},
+      "nullFields": {}
+    },
+    "tradeDocumentRequirements": {
+      "records": 16,
+      "states": {},
+      "nullFields": {}
+    },
+    "policyDocuments": {
+      "records": 5,
+      "states": {},
+      "nullFields": {
+        "identifier": 5,
+        "effectiveFrom": 5,
+        "effectiveTo": 5
+      }
+    },
+    "materialTradeObservations": {
+      "records": 62,
+      "states": {
+        "quantityDataStatus:estimated": 22
+      },
+      "nullFields": {
+        "partnerEntityId": 12,
+        "quantity": 22
+      }
+    },
+    "indicatorDefinitions": {
+      "records": 4,
+      "states": {},
+      "nullFields": {
+        "formula": 3
+      }
+    },
+    "missingDataNotes": {
+      "records": 12,
+      "states": {},
+      "nullFields": {}
+    },
+    "storyGraph.methodology": {
+      "records": 3,
+      "states": {},
+      "nullFields": {}
+    },
+    "storyGraph.limitations": {
+      "records": 6,
+      "states": {},
+      "nullFields": {}
+    },
+    "storyGraph.nodes": {
+      "records": 27,
+      "states": {
+        "dataStatus:unknown": 21,
+        "evidenceLevel:representative": 13
+      },
+      "nullFields": {
+        "entityId": 10
+      }
+    },
+    "storyGraph.flows": {
+      "records": 13,
+      "states": {
+        "dataStatus:unknown": 13,
+        "valueDataStatus:unknown": 13,
+        "quantityDataStatus:unknown": 13,
+        "evidenceLevel:representative": 13
+      },
+      "nullFields": {
+        "value": 13,
+        "quantity": 13,
+        "currency": 13,
+        "unit": 13,
+        "confidence": 13
+      }
+    },
+    "storyGraph.steps": {
+      "records": 9,
+      "states": {},
+      "nullFields": {}
+    },
+    "storyGraph.warnings": {
+      "records": 3,
+      "states": {},
+      "nullFields": {}
+    }
+  }
+}

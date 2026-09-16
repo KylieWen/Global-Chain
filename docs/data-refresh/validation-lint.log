@@ -1,0 +1,2 @@
+$ pnpm --filter @globe-chain/web lint
+$ eslint . --max-warnings=0

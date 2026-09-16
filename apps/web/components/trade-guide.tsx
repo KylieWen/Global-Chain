@@ -68,11 +68,11 @@ export function TradeGuideCard({ view }: { view: TradeGuideView }) {
         <div className="trade-guide-conclusion-heading">
           <span className="card-kicker">Quick read · 快速判断</span>
           <strong>{view.directionLabel} · {jurisdiction?.name ?? "未指定国家/地区"}</strong>
-          <span>这是一份核验起点：先用已整理内容缩小范围，再回到官方系统确认当前规则。</span>
+          <span>查看税费，再准备手续与文件。</span>
         </div>
         <div className="trade-guide-conclusion-grid">
           <div><span>已整理</span><strong>{confirmedCount} 项</strong><small>手续、文件、流程或官方入口</small></div>
-          <div><span>仍需核验</span><strong>{pendingCount} 项</strong><small>{hasUnknownTariff ? "税率和适用措施未固化" : "按货物规格和日期复核"}</small></div>
+          <div><span>仍需核验</span><strong>{pendingCount} 项</strong><small>{hasUnknownTariff ? "部分税费或适用条件仍待核验" : "按货物规格和日期复核"}</small></div>
           <div>{officialSource?.url ? <a className="button button-secondary" href={officialSource.url} target="_blank" rel="noreferrer">打开官方入口 ↗</a> : <span className="trade-guide-action-empty">暂无官方链接</span>}<small>实际申报以前以官方页面为准</small></div>
         </div>
       </section>
@@ -93,7 +93,7 @@ export function TradeGuideCard({ view }: { view: TradeGuideView }) {
       </details>
 
       <details className="trade-guide-details" open>
-        <summary><span>税费核验</span><small>先查规则，再算金额 · 本演示不固化税率</small></summary>
+        <summary><span>税费核验</span><small>已收录基础规则 · 适用条件与附加措施另核</small></summary>
         <section className="trade-guide-section" aria-labelledby={`${guide.id}-tariff-title`}>
           <div className="trade-guide-section-heading"><h3 id={`${guide.id}-tariff-title`}>税费：先查规则，再算金额</h3><span className="section-caption">按原产地、归类和日期核验</span></div>
           <div className="trade-tariff-grid">
@@ -102,6 +102,7 @@ export function TradeGuideCard({ view }: { view: TradeGuideView }) {
                 <div className="trade-tariff-heading"><strong>{measureTypeLabel}</strong><StatusBadge status={measure.dataStatus} method={measure.method} /></div>
                 <strong className="trade-tariff-value">{displayValue}</strong>
                 <span>{rateTypeLabel} · {applicabilityLabel}</span>
+                <small>记录期间：{measure.period.label}</small>
                 <small>{measure.limitations[0]}</small>
               </div>
             )) : <UnknownValue label="暂无税费记录" />}
@@ -126,7 +127,7 @@ export function TradeGuideCard({ view }: { view: TradeGuideView }) {
       </details>
 
       <details className="trade-guide-details">
-        <summary><span>文件清单</span><small>{view.documents.length} 项 · 强制性请重新核验</small></summary>
+        <summary><span>文件清单</span><small>{view.documents.length} 项</small></summary>
         <section className="trade-guide-section" aria-labelledby={`${guide.id}-documents-title`}>
           <div className="trade-guide-section-heading"><h3 id={`${guide.id}-documents-title`}>建议准备的资料</h3><span className="section-caption">是否强制以官方规则为准</span></div>
           <div className="trade-document-grid">
@@ -136,7 +137,7 @@ export function TradeGuideCard({ view }: { view: TradeGuideView }) {
       </details>
 
       <details className="trade-guide-details">
-        <summary><span>办理步骤</span><small>{view.procedures.reduce((count, procedure) => count + procedure.steps.length, 0)} 步 · 时限未提供时不作承诺</small></summary>
+        <summary><span>办理步骤</span><small>{view.procedures.reduce((count, procedure) => count + procedure.steps.length, 0)} 步</small></summary>
         {view.procedures.map(({ procedure, processingTimeLabel, steps }) => (
           <section className="trade-guide-section" aria-labelledby={`${procedure.id}-title`} key={procedure.id}>
             <div className="trade-guide-section-heading"><h3 id={`${procedure.id}-title`}>{procedure.title}</h3><span className="section-caption">办理时限：{processingTimeLabel}</span></div>
@@ -149,7 +150,7 @@ export function TradeGuideCard({ view }: { view: TradeGuideView }) {
       </details>
 
       <details className="trade-guide-details">
-        <summary><span>官方入口与数据依据</span><small>{view.sources.length} 个来源 · 查看来源限制</small></summary>
+        <summary><span>官方入口与数据依据</span><small>{view.sources.length} 个来源</small></summary>
         <section className="trade-guide-sources" aria-label="官方入口与限制">
           <div><strong>官方入口</strong><div className="trade-source-links">{view.sources.map((source) => source.url ? <a href={source.url} target="_blank" rel="noreferrer" key={source.id}>{source.name} ↗</a> : <span key={source.id}>{source.name}</span>)}</div></div>
           <div className="trade-guide-boundary"><strong>使用边界</strong><span>{guide.disclaimer}</span><span>{guide.limitations[0]}</span></div>
