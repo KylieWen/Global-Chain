@@ -60,6 +60,7 @@ export type MapFilters = PageContext & {
   country?: string;
   direction?: "import" | "export";
   layer?: "supply-chain" | "trade";
+  scope?: "bilateral" | "world";
   focus?: string;
   year?: string;
 };

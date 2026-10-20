@@ -13,17 +13,22 @@ export type MapCountry = {
   hasRouteNodes: boolean;
 };
 
-export type MapLine = {
+export type MapRecord = {
   id: string;
+  observationId: string;
   kind: "trade" | "supply-chain";
-  fromCountryId: string;
-  toCountryId: string;
-  fromM49: string;
-  toM49: string;
+  recordKind: "product_trade" | "material_trade" | "supply_chain";
+  partnerScope: "entity" | "world_total" | "unspecified" | "not_applicable";
+  fromCountryId: string | null;
+  toCountryId: string | null;
+  fromM49: string | null;
+  toM49: string | null;
+  itemId: string | null;
   itemName: string;
   stageLabel: string | null;
   reporterName: string | null;
   reporterId: string | null;
+  reporterM49: string | null;
   direction: "import" | "export" | null;
   periodLabel: string;
   value: number | null;
@@ -33,26 +38,23 @@ export type MapLine = {
   unit: string | null;
   quantityDataStatus: string;
   method: string;
-  datasetVersion: string;
+  datasetVersion: string | null;
   contentVersion: string | null;
   classification: string | null;
+  classificationCode: string | null;
+  classificationLabel: string | null;
+  classificationMappingType: string | null;
+  evidenceCode: string | null;
   evidenceLabel: string;
-  evidenceDescription: string;
   notes: string | null;
   sources: readonly Source[];
   fromNodeId: string | null;
   toNodeId: string | null;
 };
 
-export type MapNode = {
-  id: string;
-  countryId: string;
-  label: string;
-  itemName: string;
-  stageLabel: string;
-  periodLabel: string;
-  evidenceLabel: string;
-};
+export type MapLine = MapRecord & { fromCountryId: string; toCountryId: string; fromM49: string; toM49: string };
+export type MapItemOption = { id: string; name: string; depth: number; directTradeCount: number; relatedTradeCount: number };
+export type MapNode = { id: string; countryId: string; label: string; itemName: string; stageLabel: string; periodLabel: string; evidenceLabel: string };
 
 export function mapItemOptions(node: ProductBreakdownNode): { id: string; name: string; depth: number }[] {
   return [{ id: node.item.id, name: node.item.name, depth: node.depth }, ...node.children.flatMap(mapItemOptions)];
@@ -67,7 +69,7 @@ function findItem(node: ProductBreakdownNode, id: string): ProductBreakdownNode 
   return null;
 }
 
-/** Walk upstream and downstream separately so a shared assembly node cannot pull in unrelated component inputs. */
+/** Walk each direction independently: shared assembly nodes must not pull in other component inputs. */
 export function mapStoryWithContext(story: SupplyChainStoryView, breakdown: ProductBreakdownNode, focus?: string): SupplyChainStoryView {
   if (!focus || focus === breakdown.item.id) return story;
   const focusedItem = findItem(breakdown, focus);
@@ -95,72 +97,88 @@ export function mapStoryWithContext(story: SupplyChainStoryView, breakdown: Prod
   return { ...story, nodes: story.nodes.filter(view => selectedNodes.has(view.node.id)), flows: story.flows.filter(view => selectedFlows.has(view.flow.id)) };
 }
 
-/** Build a map only from resolved domain queries; statistical and curated lines never share a layer. */
+function isMapLine(record: MapRecord): record is MapLine {
+  return record.partnerScope === "entity" && Boolean(record.fromCountryId && record.toCountryId && record.fromM49 && record.toM49);
+}
+
+/** Consume resolved domain statistics; world totals remain records, never become bilateral geometry. */
 export function createMapView(queries: ProductQueryService, filters: MapFilters & { product: string }) {
   const overview = queries.getProductOverview(filters.product);
   const breakdown = queries.getProductBreakdown(filters.product);
   if (!overview || !breakdown) return null;
-  const items = mapItemOptions(breakdown);
   const focus = filters.focus || undefined;
-  if (focus && !items.some(item => item.id === focus)) return null;
+  const baseTrade = queries.getTradeMapView(filters.product, { focusItemId: focus });
+  if (!baseTrade) return null;
+  const items: MapItemOption[] = mapItemOptions(breakdown).map(item => {
+    const coverage = baseTrade.itemCoverage.find(candidate => candidate.item.id === item.id);
+    return { ...item, directTradeCount: coverage?.directObservationCount ?? 0, relatedTradeCount: coverage?.relatedObservationCount ?? 0 };
+  });
   const layer = filters.layer ?? "supply-chain";
+  const scope = filters.scope ?? (baseTrade.observations.some(record => record.partnerScope === "entity") ? "bilateral" : "world");
+  const matchesScope = (record: { partnerScope: string }) => scope === "world" ? record.partnerScope === "world_total" : record.partnerScope === "entity";
   const allBaseStory = queries.getSupplyChainStory(filters.product);
   const baseStory = allBaseStory ? mapStoryWithContext(allBaseStory, breakdown, focus) : null;
-  const baseNetwork = queries.getTradeNetwork(filters.product, { itemId: focus ?? filters.product, direction: filters.direction });
   const years = [...new Set(layer === "trade"
-    ? baseNetwork?.observations.map(view => view.observation.period.label) ?? []
+    ? baseTrade.observations.filter(matchesScope).map(record => record.period.label)
     : [...(baseStory?.nodes.map(view => view.period.label) ?? []), ...(baseStory?.flows.map(view => view.flow.period.label) ?? [])])].sort().reverse();
   const allStory = queries.getSupplyChainStory(filters.product, { label: filters.year });
   const story = allStory ? mapStoryWithContext(allStory, breakdown, focus) : null;
-  const network = queries.getTradeNetwork(filters.product, { itemId: focus ?? filters.product, label: filters.year, direction: filters.direction });
-  const tradeLines: MapLine[] = network?.observations.flatMap(view => {
-    const { observation: record, reporter, partner } = view;
-    if (!reporter?.m49 || !partner?.m49) return [];
-    const from = record.direction === "export" ? reporter : partner;
-    const to = record.direction === "export" ? partner : reporter;
-    return [{
-      id: record.id, kind: "trade", fromCountryId: from.id, toCountryId: to.id,
-      fromM49: from.m49!, toM49: to.m49!, itemName: view.item?.name ?? "未关联商品", stageLabel: null,
-      reporterName: reporter.name, reporterId: reporter.id, direction: record.direction, periodLabel: record.period.label,
-      value: record.value ?? null, currency: record.currency ?? null, valueDataStatus: view.valueDataStatus,
-      quantity: record.quantity ?? null, unit: record.unit ?? null, quantityDataStatus: view.quantityDataStatus,
-      method: record.method, datasetVersion: network!.datasetVersion.version, contentVersion: null,
-      classification: `${record.classificationSystem} ${record.classificationVersion} · ${record.classificationCode}`,
-      evidenceLabel: "官方双边贸易观察", evidenceDescription: "报告方、伙伴、分类和期间明确的海关统计；不证明进入某件商品或连续供应链。",
-      notes: null, sources: view.source ? [view.source] : [], fromNodeId: null, toNodeId: null
-    }];
-  }) ?? [];
-  const routeLines: MapLine[] = story?.flows.flatMap(view => {
-    const from = view.from.entity; const to = view.to.entity;
-    if (!from?.m49 || !to?.m49) return [];
-    const record = view.flow;
-    return [{
-      id: record.id, kind: "supply-chain", fromCountryId: from.id, toCountryId: to.id,
-      fromM49: from.m49, toM49: to.m49, itemName: view.item?.name ?? "未关联商品", stageLabel: view.processStage?.label ?? null,
-      reporterName: null, reporterId: null, direction: null, periodLabel: record.period.label,
-      value: record.value ?? null, currency: record.currency ?? null, valueDataStatus: view.valueDataStatus,
-      quantity: record.quantity ?? null, unit: record.unit ?? null, quantityDataStatus: view.quantityDataStatus,
-      method: record.method, datasetVersion: view.datasetVersion?.version ?? story!.datasetVersion.version,
-      contentVersion: view.contentVersion?.version ?? null, classification: null,
-      evidenceLabel: view.evidenceLevel.label, evidenceDescription: view.evidenceLevel.description, notes: record.notes ?? null,
-      sources: view.sources, fromNodeId: view.from.node?.node.id ?? null, toNodeId: view.to.node?.node.id ?? null
-    }];
-  }) ?? [];
+  const trade = queries.getTradeMapView(filters.product, { focusItemId: focus, label: filters.year, direction: filters.direction })!;
+  const tradeRecords: MapRecord[] = trade.observations.map(record => {
+    const from = record.direction === "export" ? record.reporter : record.partner;
+    const to = record.direction === "export" ? record.partner : record.reporter;
+    return {
+      id: `${record.recordKind}:${record.id}`, observationId: record.id, kind: "trade", recordKind: record.recordKind, partnerScope: record.partnerScope,
+      fromCountryId: from?.id ?? null, toCountryId: to?.id ?? null, fromM49: from?.m49 ?? null, toM49: to?.m49 ?? null,
+      itemId: record.item?.id ?? null, itemName: record.item?.name ?? "未关联商品", stageLabel: null,
+      reporterName: record.reporter?.name ?? null, reporterId: record.reporter?.id ?? null, reporterM49: record.reporter?.m49 ?? null,
+      direction: record.direction, periodLabel: record.period.label,
+      value: record.value, currency: record.currency, valueDataStatus: record.valueDataStatus,
+      quantity: record.quantity, unit: record.unit, quantityDataStatus: record.quantityDataStatus,
+      method: record.method, datasetVersion: record.datasetVersion?.version ?? null, contentVersion: null,
+      classification: `${record.classification.system} ${record.classification.version} · ${record.classification.code}`,
+      classificationCode: record.classification.code, classificationLabel: record.classification.label, classificationMappingType: record.classification.mappingType,
+      evidenceCode: null, evidenceLabel: record.partnerScope === "world_total" ? "世界总计" : "双边统计", notes: record.limitation,
+      sources: record.source ? [record.source] : [], fromNodeId: null, toNodeId: null
+    };
+  });
+  const routeRecords: MapRecord[] = story?.flows.map(view => ({
+    id: view.flow.id, observationId: view.flow.id, kind: "supply-chain", recordKind: "supply_chain", partnerScope: "entity",
+    fromCountryId: view.from.entity?.id ?? null, toCountryId: view.to.entity?.id ?? null,
+    fromM49: view.from.entity?.m49 ?? null, toM49: view.to.entity?.m49 ?? null,
+    itemId: view.item?.id ?? null, itemName: view.item?.name ?? "未关联商品", stageLabel: view.processStage?.label ?? null,
+    reporterName: null, reporterId: null, reporterM49: null, direction: null, periodLabel: view.flow.period.label,
+    value: view.flow.value ?? null, currency: view.flow.currency ?? null, valueDataStatus: view.valueDataStatus,
+    quantity: view.flow.quantity ?? null, unit: view.flow.unit ?? null, quantityDataStatus: view.quantityDataStatus,
+    method: view.flow.method, datasetVersion: view.datasetVersion?.version ?? null, contentVersion: view.contentVersion?.version ?? null,
+    classification: null, classificationCode: null, classificationLabel: null, classificationMappingType: null,
+    evidenceCode: view.evidenceLevel.code, evidenceLabel: view.evidenceLevel.label, notes: view.flow.notes ?? null, sources: view.sources,
+    fromNodeId: view.from.node?.node.id ?? null, toNodeId: view.to.node?.node.id ?? null
+  })) ?? [];
   const nodes: MapNode[] = story?.nodes.flatMap(view => view.entity ? [{
     id: view.node.id, countryId: view.entity.id, label: view.node.label, itemName: view.item?.name ?? "未关联商品",
-    stageLabel: view.processStage?.label ?? "未提供环节", periodLabel: view.period.label, evidenceLabel: view.evidenceLevel.label
+    stageLabel: view.processStage?.label ?? "生产环节", periodLabel: view.period.label, evidenceLabel: view.evidenceLevel.label
   }] : []) ?? [];
+  const concernsCountry = (record: MapRecord) => !filters.country || record.reporterId === filters.country || record.fromCountryId === filters.country || record.toCountryId === filters.country;
+  const activeTradeRecords = tradeRecords.filter(matchesScope);
   const countries: MapCountry[] = queries.listCountries().filter(country => country.productIds.includes(filters.product)).map(({ entity }) => {
     const ledger = queries.getCountryLedger(filters.product, entity.id);
     return {
       id: entity.id, name: entity.name, m49: entity.m49 ?? null,
       roles: [...new Set(nodes.filter(node => node.countryId === entity.id).map(node => `${node.itemName} · ${node.stageLabel}`))],
       hasTradeLedger: Boolean(ledger && (ledger.tradeObservations.length || ledger.macroIndicators.length)),
-      hasTradeRecords: tradeLines.some(line => line.fromCountryId === entity.id || line.toCountryId === entity.id),
+      hasTradeRecords: activeTradeRecords.some(record => record.reporterId === entity.id || record.fromCountryId === entity.id || record.toCountryId === entity.id),
       hasRouteNodes: nodes.some(node => node.countryId === entity.id)
     };
   });
-  const selectedLines = layer === "trade" ? tradeLines : routeLines;
-  const lines = selectedLines.filter(line => !filters.country || line.fromCountryId === filters.country || line.toCountryId === filters.country);
-  return { countries, lines, nodes: layer === "supply-chain" ? nodes : [], years, items, layer, datasetVersion: overview.datasetVersion.version, routeStatement: story?.route.representativeStatement ?? null };
+  const records = (layer === "trade" ? activeTradeRecords : routeRecords).filter(concernsCountry);
+  const relatedMaterials = baseTrade.relatedItems.filter(item => item.id !== baseTrade.selectedItem.id).map(item => ({ id: item.id, name: item.name }));
+  return {
+    countries, records, lines: records.filter(isMapLine), nodes: layer === "supply-chain" ? nodes : [], years, items, layer, scope,
+    datasetVersion: overview.datasetVersion.version, selectedItemName: baseTrade.selectedItem.name, relatedMaterials,
+    hasFocusTradeCoverage: baseTrade.observations.length > 0,
+    scopeCounts: { bilateral: tradeRecords.filter(record => record.partnerScope === "entity" && concernsCountry(record)).length, world: tradeRecords.filter(record => record.partnerScope === "world_total" && concernsCountry(record)).length }
+  };
 }
+
+export type MapViewModel = NonNullable<ReturnType<typeof createMapView>>;

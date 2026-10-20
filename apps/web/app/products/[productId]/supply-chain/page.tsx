@@ -9,14 +9,12 @@ import {
   MetadataItem,
   PeriodLabel,
   ResolvedEvidenceList,
-  StatCard,
   StatusBadge,
-  UnknownValue,
   WarningList
 } from "../../../../components/data-display";
 import { FlowTable } from "../../../../components/flow-table";
 import { SupplyChainGraph } from "../../../../components/supply-chain-graph";
-import { evidenceGapsPath, ledgerPath, manufacturingProcessPath, mapPath, nodePath, productPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
+import { ledgerPath, manufacturingProcessPath, mapPath, nodePath, productPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -44,8 +42,7 @@ export default async function SupplyChainPage({
   try {
     story = queries.getSupplyChainStory(productId, {
       focusItemId,
-      label,
-      granularity: overview.period.granularity
+      label
     });
   } catch {
     notFound();
@@ -68,7 +65,7 @@ export default async function SupplyChainPage({
 
   return (
     <SiteShell>
-      <div className="content-column wide-column">
+      <div className="content-column wide-column route-page">
         <Breadcrumbs items={[
           { label: "商品目录", href: "/products" },
           { label: overview.product.name, href: productPath(productId, pageContext) },
@@ -78,36 +75,14 @@ export default async function SupplyChainPage({
         <PageIntro
           eyebrow="Representative supply chain"
           title={`${overview.product.name} · ${focusName}`}
-          description={story.route.representativeStatement ?? "这是经过整理的代表性供应链内容，不宣称唯一、完整或实时。"}
+          description="从材料、部件到整机，点击生产环节继续向上下游探索。"
           actions={(
             <>
               <Link className="button button-primary" href={mapPath({ ...pageContext, product: productId, layer: "supply-chain", focus: focusItemId })}>在地图上查看这些环节</Link>
               <Link className="button button-secondary" href={provenancePath(productId, pageContext)}>来源与版本</Link>
-              <Link className="button button-secondary" href={evidenceGapsPath(productId, pageContext)}>证据缺口登记册</Link>
             </>
           )}
         />
-
-        <section className="exploration-position" aria-label="当前探索位置">
-          <span className="exploration-position-label">当前探索</span>
-          <strong>{overview.product.name}</strong>
-          <span>{focusName} · {story.period.label}</span>
-        </section>
-
-        <div className="stat-grid">
-          <StatCard label="路径节点" value={story.nodes.length} detail="国家/市场与商品节点" />
-          <StatCard label="流转关系" value={story.flows.length} detail="每条边独立标记证据等级" />
-
-          <StatCard label="期间" value={<PeriodLabel period={story.period} />} detail={story.period.start} />
-
-        </div>
-
-        {story.warnings.length > 0 && <details className="detail-collapsible compact-detail">
-          <summary className="detail-summary"><strong>阅读提示与限制</strong><span>{story.warnings.length} 条</span></summary>
-          <WarningList warnings={story.warnings} />
-        </details>}
-
-        <details className="route-declaration reading-details"><summary>路线说明与资料</summary><p>{story.route.representativeStatement}</p><MetadataItem label="版本" value={story.route.contentVersion?.version ?? "未提供"} /><EvidenceLevelLegend levels={[...story.nodes.map((node) => node.evidenceLevel), ...story.flows.map((flow) => flow.evidenceLevel)]} /></details>
 
         <section className="filter-strip" aria-label="路径筛选">
           <div>
@@ -121,22 +96,24 @@ export default async function SupplyChainPage({
                   key={coverage.item.id}
                   title={coverage.statusDescription}
                 >
-                  {coverage.item.name}{coverage.status === "partial_route" ? " · 部分环节" : ""}
+                  {coverage.item.name}
                 </Link>
               ) : <span className="filter-chip muted" aria-disabled="true" key={coverage.item.id}>{coverage.item.name} · 仅类别说明</span>)}
             </div>
           </div>
-          <span className="filter-note">期间筛选：{story.period.label}</span>
+          <span className="filter-note">{story.nodes.length} 个环节 · {story.flows.length} 条连接</span>
         </section>
 
-        <nav className="exploration-nav" aria-label="商品研究层级">
-          <Link href={productPath(productId, pageContext)}>① 商品总览</Link>
-          <span className="active">② 供应链路线</span>
-          <Link href={evidenceGapsPath(productId, pageContext)}>③ 证据缺口</Link>
-          <Link href={provenancePath(productId, pageContext)}>④ 来源与版本</Link>
-        </nav>
+        <SupplyChainGraph story={story} productId={productId} context={pageContext} />
 
-        <section className="interpretation-summary" aria-labelledby="interpretation-summary-title">
+        {story.warnings.length > 0 && <details className="detail-collapsible compact-detail">
+          <summary className="detail-summary"><strong>阅读提示与限制</strong><span>{story.warnings.length} 条</span></summary>
+          <WarningList warnings={story.warnings} />
+        </details>}
+
+        <details className="route-declaration reading-details"><summary>路线说明与资料</summary><p>{story.route.representativeStatement}</p><MetadataItem label="版本" value={story.route.contentVersion?.version ?? "未提供"} /><EvidenceLevelLegend levels={[...story.nodes.map((node) => node.evidenceLevel), ...story.flows.map((flow) => flow.evidenceLevel)]} /></details>
+
+        <details className="reading-details"><summary>路线资料概览</summary><section className="interpretation-summary" aria-labelledby="interpretation-summary-title">
           <div className="interpretation-summary-heading">
             <p className="eyebrow">Evidence at a glance</p>
             <h2 id="interpretation-summary-title">{story.interpretationSummary.title}</h2>
@@ -153,12 +130,12 @@ export default async function SupplyChainPage({
           </div>
         </section>
 
+        </details>
+
         {focusedProcessChains.length > 0 && <section className="process-depth-callout" aria-label="工艺与设备深度入口">
           <div><p className="eyebrow">Go deeper</p><h2>继续深入到具体工序与设备</h2><p>国家角色视图之下，还可以逐道查看制造工序、设备类别和公开资料支持的设备厂商。</p></div>
           <div className="process-depth-callout-actions">{focusedProcessChains.map((chain) => <Link className="button button-primary" href={manufacturingProcessPath(productId, chain.id, pageContext)} key={chain.id}>{chain.title} →</Link>)}</div>
         </section>}
-
-        <SupplyChainGraph story={story} productId={productId} context={pageContext} />
 
         <section className="section-block" aria-labelledby="route-steps-title">
           <div className="section-heading">
@@ -166,7 +143,7 @@ export default async function SupplyChainPage({
               <p className="eyebrow">Route steps</p>
               <h2 id="route-steps-title">按环节阅读</h2>
             </div>
-            <span className="section-caption">表格优先，保证每条边都有出处和状态</span>
+            <span className="section-caption">按生产顺序查看投入、产出与相关国家</span>
           </div>
           <div className="step-stack">
             {story.steps.map((view) => {
@@ -176,7 +153,6 @@ export default async function SupplyChainPage({
                   <summary className="step-summary">
                     <span className="step-marker">{String(step.order + 1).padStart(2, "0")}</span>
                     <span className="step-summary-copy"><strong>{step.title}</strong><small>{step.description}</small><em>第 {step.order + 1} 步 / 共 {story.steps.length} 步</em></span>
-                    <span className="step-summary-meta"><span className="content-status">{step.contentStatus}</span><span className="method-chip">{step.method}</span></span>
                   </summary>
                   <div className="step-body">
                     <div className="step-heading">
@@ -184,10 +160,7 @@ export default async function SupplyChainPage({
                         <h3>{step.title}</h3>
                         <p>{step.description}</p>
                       </div>
-                      <div className="step-status-stack">
-                        <span className="content-status">{step.contentStatus}</span>
-                        <span className="method-chip">{step.method}</span>
-                      </div>
+
                     </div>
                     <div className="step-context">
                       <div>
@@ -200,15 +173,11 @@ export default async function SupplyChainPage({
                           ))}
                         </div>
                       </div>
-                      <div className="step-version-meta">
-                        <MetadataItem label="contentVersion" value={view.contentVersion?.version ?? <UnknownValue label="未提供" />} />
-                        <MetadataItem label="来源" value={`${view.sources.length} 个`} />
-                        <MetadataItem label="证据" value={`${view.evidence.length} 条`} />
-                      </div>
+
                     </div>
                     <FlowTable flows={view.flows} productId={productId} context={pageContext} />
                     <details className="step-evidence-details">
-                      <summary>查看本步骤的直接证据定位</summary>
+                      <summary>查看本步骤的资料来源</summary>
                       <ResolvedEvidenceList evidence={view.evidence} compact />
                     </details>
                     <nav className="step-sequence-nav" aria-label={`${step.title}步骤导航`}>
@@ -222,18 +191,6 @@ export default async function SupplyChainPage({
           </div>
         </section>
 
-        <section className="section-block evidence-gap-section" aria-labelledby="route-gaps-title">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">Evidence gap registry</p>
-              <h2 id="route-gaps-title">当前路线的证据缺口</h2>
-            </div>
-            <Link className="text-link" href={evidenceGapsPath(productId, pageContext)}>查看完整登记册 →</Link>
-          </div>
-          <p className="section-caption">缺口不会被默认补成零；国家角色、双边流向和代表性策展连接分别记录。</p>
-          <div className="hierarchy-card"><strong>{story.evidenceGaps.length} 条证据缺口登记</strong><span>当前页面只显示摘要；进入证据缺口页面查看逐条主张、候选来源和不可推断内容。</span><Link className="button button-secondary" href={evidenceGapsPath(productId, pageContext)}>打开证据缺口登记册 →</Link></div>
-        </section>
-
         <section className="section-block" aria-labelledby="route-nodes-title">
           <div className="section-heading">
             <div>
@@ -245,7 +202,7 @@ export default async function SupplyChainPage({
             {story.nodes.slice(0, 6).map((node) => (
               <article className="node-card" key={node.node.id}>
                 <div className="node-card-top">
-                  <span className="node-type">{node.node.nodeType}</span>
+                  <span className="node-type">{node.processStage?.label}</span>
                   {node.entity ? <span className="iso-chip">{node.entity.iso3 ?? node.entity.id}</span> : null}
                 </div>
                 <h3>{node.node.label}</h3>
@@ -256,8 +213,6 @@ export default async function SupplyChainPage({
                 </div>
                 <div className="node-card-meta">
                   <MetadataItem label="期间" value={<PeriodLabel period={node.period} />} />
-                  <MetadataItem label="datasetVersion" value={node.datasetVersion?.version ?? <UnknownValue label="未提供" />} />
-                  <MetadataItem label="contentVersion" value={node.contentVersion?.version ?? <UnknownValue label="未提供" />} />
                 </div>
                 <div className="node-links">
                   <Link className="text-link" href={nodePath(productId, node.node.id, pageContext)}>节点详情 →</Link>
@@ -268,7 +223,7 @@ export default async function SupplyChainPage({
           </div>
           {story.nodes.length > 6 ? <div className="hierarchy-card compact-hierarchy-card"><span>还有 {story.nodes.length - 6} 个节点详情。</span><Link className="text-link" href={nodePath(productId, story.nodes[6].node.id, pageContext)}>从节点索引继续探索 →</Link></div> : null}
         </section>
-        <section className="hierarchy-next-step"><strong>下一层</strong><span>需要查看完整来源、证据定位、许可证和版本信息？</span><Link className="button button-primary" href={provenancePath(productId, pageContext)}>进入来源与版本 →</Link></section>
+        <section className="hierarchy-next-step"><strong>下一层</strong><span>想进一步了解这些环节？</span><Link className="button button-primary" href={provenancePath(productId, pageContext)}>查看相关资料 →</Link></section>
       </div>
     </SiteShell>
   );

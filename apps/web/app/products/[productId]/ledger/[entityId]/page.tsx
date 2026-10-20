@@ -48,7 +48,6 @@ export default async function CountryLedgerPage({
   if (!overview) notFound();
   const ledger = queries.getCountryLedger(productId, entityId, {
     label,
-    granularity: overview.period.granularity,
     itemId: productId
   });
   const provenance = queries.getProvenance(productId);
@@ -101,7 +100,7 @@ export default async function CountryLedgerPage({
 
         </details>
 
-        <WarningList warnings={ledger.warnings} />
+        <details className="reading-details"><summary>统计口径与资料说明</summary><WarningList warnings={ledger.warnings} /></details>
 
         <section className="ledger-snapshot" aria-labelledby="ledger-snapshot-title">
           <div className="section-heading"><div><p className="eyebrow">先看结论</p><h2 id="ledger-snapshot-title">{ledger.entity.name} 的贸易快照</h2></div><span className="section-caption">{ledger.period.label} · 美元现价</span></div>
@@ -165,11 +164,7 @@ export default async function CountryLedgerPage({
                 const partner = view.partnerScope === "world_total" ? (
                   <span>
                     世界总计
-                    <small className="block-note">
-                      {observation.partnerCode === null || observation.partnerCode === undefined
-                        ? "来源伙伴代码未提供"
-                        : `partnerCode=${observation.partnerCode}，不是具体国家`}
-                    </small>
+
                   </span>
                 ) : view.partner ? (
                         <Link className="text-link" href={ledgerPath(productId, view.partner.id, pageContext)}>{view.partner.name}</Link>
@@ -183,15 +178,15 @@ export default async function CountryLedgerPage({
                         <p>{view.classification?.system ?? observation.classificationSystem} {view.classification?.version ?? observation.classificationVersion} / {view.classification?.code ?? observation.classificationCode} · {view.classification?.label ?? "分类标签未提供"}</p>
                       </div>
                       <div className="fact-status-stack">
-                        <small>金额状态</small>
+
                         <StatusBadge status={view.valueDataStatus} method={observation.method} />
                       </div>
                     </div>
                     <div className="trade-values">
                       <div><span>金额</span><strong><ValueDisplay value={observation.value} status={view.valueDataStatus} currency={observation.currency} /></strong></div>
-                      <div><span>数量</span><strong><ValueDisplay value={observation.quantity} status={view.quantityDataStatus} unit={observation.unit} /></strong></div>
+                      {observation.quantity !== null && <div><span>数量</span><strong><ValueDisplay value={observation.quantity} status={view.quantityDataStatus} unit={observation.unit} /></strong></div>}
                     </div>
-                    <div className="fact-metadata-grid">
+                    <details className="reading-details"><summary>来源与统计详情 · {observation.period.label}</summary><div className="fact-metadata-grid">
                       <MetadataItem label="报告国" value={view.reporter?.name ?? <UnknownValue />} />
                       <MetadataItem label="伙伴" value={partner} />
                       <MetadataItem label="期间" value={<PeriodLabel period={observation.period} />} />
@@ -204,6 +199,7 @@ export default async function CountryLedgerPage({
                       <MetadataItem label="金额 dataStatus" value={<StatusBadge status={view.valueDataStatus} />} />
                       <MetadataItem label="数量 dataStatus" value={<StatusBadge status={view.quantityDataStatus} />} />
                     </div>
+                    </details>
                     {observation.qualityNote ? <details className="quality-details"><summary>查看来源质量标记</summary><code>{observation.qualityNote}</code></details> : null}
                   </article>
                 );
@@ -232,7 +228,7 @@ export default async function CountryLedgerPage({
           )}
         </section>
 
-        <section className="hierarchy-next-step"><strong>统计详情</strong><span>来源指标代码、许可证、method、数据状态和版本信息集中在来源页面。</span><Link className="button button-primary" href={`/products/${productId}/provenance`}>查看来源与版本 →</Link></section>
+        <section className="hierarchy-next-step"><strong>统计详情</strong><span>打开原始资料，了解数据的年份、统计方法与版本。</span><Link className="button button-primary" href={`/products/${productId}/provenance`}>查看来源与版本 →</Link></section>
       </div>
     </SiteShell>
   );

@@ -124,6 +124,57 @@ export interface TradeNetworkOptions extends PeriodFilter {
   readonly direction?: TradeObservation["direction"];
 }
 
+/** Product and material statistics share display dimensions, never an implied common classification or total. */
+export interface TradeMapObservationView {
+  readonly recordKind: "product_trade" | "material_trade";
+  readonly id: string;
+  readonly item: ReadonlyItem | null;
+  readonly reporter: ReadonlyGeoEntity | null;
+  readonly partner: ReadonlyGeoEntity | null;
+  readonly partnerScope: "world_total" | "entity" | "unspecified" | "not_applicable";
+  readonly direction: TradeObservation["direction"];
+  readonly period: ReadonlyPeriod;
+  readonly value: number | null;
+  readonly currency: string | null;
+  readonly valueDataStatus: FactStatus;
+  readonly quantity: number | null;
+  readonly unit: string | null;
+  readonly quantityDataStatus: FactStatus;
+  readonly classification: {
+    readonly system: string;
+    readonly version: string;
+    readonly code: string;
+    readonly label: string | null;
+    readonly mappingType: string | null;
+  };
+  readonly method: TradeObservation["method"];
+  readonly source: ReadonlySource | null;
+  readonly datasetVersion: ReadonlyDatasetVersion | null;
+  readonly limitation: string | null;
+}
+
+export interface TradeMapItemCoverage {
+  readonly item: ReadonlyItem;
+  readonly directObservationCount: number;
+  readonly relatedObservationCount: number;
+}
+
+export interface TradeMapView {
+  readonly product: ReadonlyItem;
+  readonly selectedItem: ReadonlyItem;
+  readonly relatedItems: readonly ReadonlyItem[];
+  readonly observations: readonly TradeMapObservationView[];
+  /** Coverage is independent of country, direction and year filters. */
+  readonly itemCoverage: readonly TradeMapItemCoverage[];
+  readonly datasetVersion: ReadonlyDatasetVersion;
+}
+
+export interface TradeMapOptions extends PeriodFilter {
+  readonly focusItemId?: string;
+  readonly countryEntityId?: string;
+  readonly direction?: TradeObservation["direction"];
+}
+
 export interface CategoryCatalogView {
   readonly category: string;
   readonly itemCount: number;
@@ -584,6 +635,7 @@ export interface ProductQueryService {
   listCountries(): readonly CountryCatalogView[];
   listCategories(): readonly CategoryCatalogView[];
   getTradeNetwork(productId: string, options?: TradeNetworkOptions): TradeNetworkView | null;
+  getTradeMapView(productId: string, options?: TradeMapOptions): TradeMapView | null;
   getProductOverview(productId: string): ProductOverviewView | null;
   getProductBreakdown(productId: string): ProductBreakdownNode | null;
   getSupplyChainStory(
@@ -1539,6 +1591,58 @@ export function getTradeNetwork(repository: FixtureRepository, productId: string
   return Object.freeze({ product, period: statisticsPeriod(observations.map((view) => view.observation), fixture.storyGraph.period), observations: freezeArray(observations), countries: freezeArray(countries), datasetVersion: fixture.datasetVersion, warnings: mergeWarnings(fixture.warnings, ["贸易网络只包含具体 partnerEntity 的观察；partnerCode=0 世界总计不会被画成双边流线。", "双边贸易观察证明统计分类、报告方、伙伴、方向和期间，不证明进入某部手机或连续供应链。"]) });
 }
 
+export function getTradeMapView(repository: FixtureRepository, productId: string, options?: TradeMapOptions): TradeMapView | null {
+  const fixture = getFixtureOrNull(repository, productId);
+  if (!fixture) return null;
+  const product = getProductItem(fixture);
+  const selectedItem = fixture.items.find(item => item.id === (options?.focusItemId ?? productId));
+  if (!product || !selectedItem) return null;
+  const classification = (system: string, version: string, code: string, mappingType: string | null) => Object.freeze({
+    system, version, code, mappingType,
+    label: fixture.classificationCodes.find(candidate => candidate.system === system && candidate.version === version && candidate.code === code)?.label ?? null
+  });
+  const productRecords: TradeMapObservationView[] = fixture.tradeObservations.map(observation => Object.freeze({
+    recordKind: "product_trade" as const, id: observation.id,
+    item: fixture.items.find(item => item.id === observation.itemId) ?? null,
+    reporter: fixture.entities.find(entity => entity.id === observation.reporterEntityId) ?? null,
+    partner: fixture.entities.find(entity => entity.id === observation.partnerEntityId) ?? null,
+    partnerScope: tradePartnerScope(observation), direction: observation.direction, period: observation.period,
+    value: observation.value ?? null, currency: observation.currency ?? null, valueDataStatus: tradeValueDataStatus(observation),
+    quantity: observation.quantity ?? null, unit: observation.unit ?? null, quantityDataStatus: tradeQuantityDataStatus(observation),
+    classification: classification(observation.classificationSystem, observation.classificationVersion, observation.classificationCode, null),
+    method: observation.method, source: sourceForId(fixture, observation.sourceId),
+    datasetVersion: datasetVersionForId(fixture, observation.datasetVersionId), limitation: null
+  }));
+  const materialRecords: TradeMapObservationView[] = fixture.materialTradeObservations.map(observation => Object.freeze({
+    recordKind: "material_trade" as const, id: observation.observationId,
+    item: fixture.items.find(item => item.id === observation.materialItemId) ?? null,
+    reporter: fixture.entities.find(entity => entity.id === observation.reporterEntityId) ?? null,
+    partner: fixture.entities.find(entity => entity.id === observation.partnerEntityId) ?? null,
+    partnerScope: observation.partnerScope, direction: observation.flow, period: observation.period,
+    value: observation.value, currency: observation.currency, valueDataStatus: observation.valueDataStatus,
+    quantity: observation.quantity, unit: observation.unit ?? null, quantityDataStatus: observation.quantityDataStatus,
+    classification: classification(observation.classificationSystem, observation.classificationVersion, observation.classificationCode, observation.classificationMappingType),
+    method: observation.method, source: sourceForId(fixture, observation.sourceId),
+    datasetVersion: datasetVersionForId(fixture, observation.datasetVersionId), limitation: observation.limitation
+  }));
+  const allRecords = [...productRecords, ...materialRecords];
+  // The finished-product view remains the product's own statistics; a component includes its configured descendants.
+  const selectedIds = selectedItem.id === productId ? new Set([productId]) : getDescendantItemIds(fixture, selectedItem.id);
+  const relatedIds = new Set(allRecords.filter(record => record.item && selectedIds.has(record.item.id)).flatMap(record => record.item ? [record.item.id] : []));
+  const observations = allRecords.filter(record => record.item && selectedIds.has(record.item.id) &&
+    (!options?.countryEntityId || record.reporter?.id === options.countryEntityId || record.partner?.id === options.countryEntityId) &&
+    (!options?.direction || record.direction === options.direction) && matchesPeriod(record.period, options));
+  const itemCoverage = fixture.items.map(item => {
+    const descendants = item.id === productId ? new Set([productId]) : getDescendantItemIds(fixture, item.id);
+    return Object.freeze({ item,
+      directObservationCount: allRecords.filter(record => record.item?.id === item.id).length,
+      relatedObservationCount: allRecords.filter(record => record.item && descendants.has(record.item.id)).length
+    });
+  });
+  return Object.freeze({ product, selectedItem, relatedItems: freezeArray(fixture.items.filter(item => relatedIds.has(item.id))),
+    observations: freezeArray(observations), itemCoverage: freezeArray(itemCoverage), datasetVersion: fixture.datasetVersion });
+}
+
 export function getProductOverview(
   repository: FixtureRepository,
   productId: string
@@ -2118,6 +2222,7 @@ export function createProductQueryService(
     listCountries: () => listCountries(repository),
     listCategories: () => listCategories(repository),
     getTradeNetwork: (productId: string, options?: TradeNetworkOptions) => getTradeNetwork(repository, productId, options),
+    getTradeMapView: (productId: string, options?: TradeMapOptions) => getTradeMapView(repository, productId, options),
     getProductOverview: (productId: string) => getProductOverview(repository, productId),
     getProductBreakdown: (productId: string) => getProductBreakdown(repository, productId),
     getSupplyChainStory: (productId: string, options?: SupplyChainStoryOptions) =>

@@ -121,7 +121,7 @@ const statusDescriptions: Record<FactStatus, string> = {
 
 const methodLabels: Record<string, string> = {
   official: "官方来源",
-  derived: "确定性计算",
+  derived: "计算值",
   curated: "公开资料整理",
   mock: "演示样例"
 };
@@ -133,6 +133,7 @@ export function StatusBadge({
   status: FactStatus;
   method?: string;
 }) {
+  if (status === "observed" && method !== "mock") return null;
   return (
     <span
       className={`status-badge status-${status}`}
@@ -156,7 +157,7 @@ export function EvidenceLevelBadge({
       title={level.description}
       aria-label={`证据等级：${level.label}`}
     >
-      {level.label}
+      {{ role_supported: "产地资料", bilateral_supported: "双边记录", representative: "代表性连接", none: "研究中" }[level.code]}
     </span>
   );
 }
@@ -211,14 +212,14 @@ export function PeriodLabel({
 }) {
   return (
     <span className="period-label" title={`${period.start} → ${period.end}`}>
-      {period.label} · {period.granularity}
+      {period.label}{({ year: "", quarter: " · 季度", month: " · 月度", day: " · 日度" } as Record<string, string>)[period.granularity] ?? ""}
     </span>
   );
 }
 
 export function UnknownValue({
   label = "未知",
-  title = "当前没有可用观察；不等于真实为零"
+  title = "查看资料了解当前记录"
 }: {
   label?: string;
   title?: string;
@@ -258,8 +259,8 @@ export function ValueDisplay({
   if (status === "estimated" && (value === null || value === undefined)) {
     return (
       <UnknownValue
-        label="估算值未作为精确值发布"
-        title="来源标记为估算，当前不发布精确数值"
+        label="估算范围见资料"
+        title="查看来源中的估算方法"
       />
     );
   }
@@ -278,7 +279,6 @@ export function ValueDisplay({
     >
       {compact ? new Intl.NumberFormat("zh-CN", { notation: "compact", maximumFractionDigits: 2 }).format(value) : value.toLocaleString("zh-CN")}{compact ? ` ${currency ?? unit ?? ""}` : suffix ? ` ${suffix}` : ""}
       {status === "estimated" ? " · 估算" : ""}
-      {isObservedZero ? " · 真实为零" : ""}
     </span>
   );
 }
@@ -696,7 +696,7 @@ export function SourceMetadata({
 }) {
   return (
     <dl className="source-metadata">
-      <div>
+      {source.url ? <div>
         <dt>URL</dt>
         <dd>
           {source.url ? (
@@ -711,19 +711,19 @@ export function SourceMetadata({
             </a>
           ) : <UnknownValue label="未提供" />}
         </dd>
-      </div>
-      <div>
+      </div> : null}
+      {source.license ? <div>
         <dt>许可证</dt>
-        <dd>{source.license ?? <UnknownValue label="未提供" />}</dd>
-      </div>
-      <div>
+        <dd>{source.license}</dd>
+      </div> : null}
+      {source.retrievedAt ? <div>
         <dt>获取时间</dt>
-        <dd>{source.retrievedAt ?? <UnknownValue label="未提供" />}</dd>
-      </div>
-      <div>
+        <dd>{source.retrievedAt}</dd>
+      </div> : null}
+      {source.datasetVersion ? <div>
         <dt>来源数据版本</dt>
-        <dd>{source.datasetVersion ?? <UnknownValue label="未提供" />}</dd>
-      </div>
+        <dd>{source.datasetVersion}</dd>
+      </div> : null}
       {source.publishedAt ? (
         <div>
           <dt>来源发布日期</dt>

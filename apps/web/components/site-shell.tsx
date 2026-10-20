@@ -21,7 +21,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <Link href="/map">世界地图</Link>
             <Link href="/countries">国家账本</Link>
             <Link href="/trade-guide">进出口指南</Link>
-            <Link href="/help">数据依据</Link>
+            <Link href="/help">使用指南</Link>
             <details className="site-nav-more">
               <summary>更多</summary>
               <div className="site-nav-more-menu">
@@ -35,14 +35,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <input id="global-search-input" name="q" placeholder="搜索商品 / 国家" />
             <button type="submit">搜索</button>
           </form>
-          <span className={`mode-pill ${preview ? "mode-preview" : "mode-published"}`}>
-            {preview ? "预览数据" : "已发布数据"}
-          </span>
+          {preview ? <span className="mode-pill mode-preview">开发预览</span> : null}
         </div>
       </header>
       {preview ? (
         <div className="preview-banner" role="status">
-          当前展示的是人工编写的 draft 演示数据，不代表官方统计或唯一真实供应链。
+          开发预览 · 合成样例
         </div>
       ) : null}
       <main className="main-content">{children}</main>
@@ -108,8 +106,8 @@ export function ContextBanner({
 }) {
   return (
     <details className={`context-banner${mismatches.length ? " context-banner-warning" : ""}`} open={mismatches.length > 0} aria-label="研究上下文">
-      <summary>期间 {period} · 版本详情{mismatches.length ? " · 版本需核对" : ""}</summary>
-      <span><strong>研究上下文</strong> · 期间 {period} · 数据集 {datasetVersion} · 内容 {contentVersion ?? "未提供"}</span>
+      <summary>{period} · 资料详情{mismatches.length ? " · 请检查所选版本" : ""}</summary>
+      <span>数据版本 {datasetVersion}{contentVersion ? ` · 路线版本 ${contentVersion}` : ""}</span>
       {mismatches.length ? <ul>{mismatches.map((message) => <li key={message}>{message}</li>)}</ul> : null}
     </details>
   );

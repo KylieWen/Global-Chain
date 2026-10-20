@@ -20,12 +20,12 @@ export default async function ProductOverviewPage({
   const { productId } = await params;
   const pageContext = readPageContext(await searchParams);
   const queries = await getQueryService(pageContext.datasetVersion);
+  const routeContext = { datasetVersion: pageContext.datasetVersion, contentVersion: pageContext.contentVersion };
   const overview = queries.getProductOverview(productId);
   const breakdown = queries.getProductBreakdown(productId);
   const provenance = queries.getProvenance(productId);
   if (!overview || !breakdown || !provenance) notFound();
   const coverageByItemId = new Map(overview.componentCoverage.map((coverage) => [coverage.item.id, coverage]));
-  const publishedComponents = overview.componentCoverage.filter((coverage) => coverage.status === "route_published");
   const processChains = [...new Map(overview.componentCoverage.flatMap((coverage) => coverage.processChains).map((chain) => [chain.id, chain])).values()];
   const mismatches = contextMismatch(pageContext, { period: overview.period.label, datasetVersion: overview.datasetVersion.version, contentVersion: provenance.route.contentVersion?.version });
 
@@ -35,10 +35,10 @@ export default async function ProductOverviewPage({
         <Breadcrumbs items={[{ label: "商品目录", href: "/products" }, { label: overview.product.name }]} />
         <ContextBanner period={overview.period.label} datasetVersion={overview.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
         <PageIntro
-          eyebrow={`${overview.product.category} / ${overview.product.slug}`}
+          eyebrow={overview.product.category}
           title={overview.product.name}
           description="从部件组成出发，沿供应链探索各国的生产与贸易联系。"
-          actions={<><Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>查看供应链路线</Link><Link className="button button-secondary" href={mapPath({ ...pageContext, product: productId, layer: "supply-chain" })}>在地图上探索</Link><Link className="button button-secondary" href={tradeGuidePath({ product: productId, ...pageContext })}>查进出口要求</Link><Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link></>}
+          actions={<><Link className="button button-primary" href={supplyChainPath(productId, undefined, routeContext)}>查看供应链路线</Link><Link className="button button-secondary" href={mapPath({ ...routeContext, product: productId, layer: "supply-chain" })}>在地图上探索</Link><Link className="button button-secondary" href={tradeGuidePath({ product: productId, ...pageContext })}>查进出口要求</Link><Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link></>}
         />
 
 
@@ -46,37 +46,11 @@ export default async function ProductOverviewPage({
 
         <nav className="exploration-nav" aria-label="商品研究层级">
           <span className="active">① 商品总览</span>
-                    <Link href={supplyChainPath(productId, undefined, pageContext)}>② 供应链路线</Link>
+                    <Link href={supplyChainPath(productId, undefined, routeContext)}>② 供应链路线</Link>
           <Link href={materialObservationsPath(productId, pageContext)}>③ 材料贸易</Link>
           <Link href={tradeGuidePath({ product: productId, ...pageContext })}>④ 进出口指南</Link>
           <Link href={provenancePath(productId, pageContext)}>⑤ 来源与版本</Link>
         </nav>
-
-        <section className="product-focus-strip" aria-label="当前商品覆盖重点">
-          <div>
-            <span className="product-focus-kicker">当前深度案例</span>
-            <strong>{publishedComponents.length ? publishedComponents.map((coverage) => coverage.item.name).join("、") : "正在整理"}</strong>
-
-          </div>
-          <div className="product-focus-meta">
-            <span><strong>{publishedComponents.length}</strong> 个组件已有路线</span>
-            {publishedComponents[0] ? <Link className="button button-primary" href={supplyChainPath(productId, publishedComponents[0].item.id, pageContext)}>开始查看 →</Link> : null}
-          </div>
-        </section>
-
-
-
-
-        <section className="section-block" aria-labelledby="breakdown-title">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">Product breakdown</p>
-              <h2 id="breakdown-title">商品拆解树</h2>
-            </div>
-            <span className="section-caption">{overview.directChildren.length} 个部件 · 选择节点查看路线</span>
-          </div>
-          <ProductTree root={breakdown} maxDepth={1} productId={productId} componentCoverage={overview.componentCoverage} context={pageContext} />
-        </section>
 
         <section className="section-block" aria-labelledby="children-title">
           <div className="section-heading">
@@ -90,24 +64,29 @@ export default async function ProductOverviewPage({
             {overview.directChildren.map((item) => {
               const coverage = coverageByItemId.get(item.id);
               const hasInspectableStory = coverage?.hasInspectableStory ?? false;
-              return hasInspectableStory ? <Link className="component-card" href={supplyChainPath(productId, item.id, pageContext)} key={item.id}>
+              return hasInspectableStory ? <Link className="component-card" href={supplyChainPath(productId, item.id, routeContext)} key={item.id}>
                 <span className="card-kicker">{item.category}</span>
                 <h3>{item.name}</h3>
-                <p>{item.description ?? "暂无说明"}</p>
-                <span className={`coverage-status coverage-status-${coverage?.status ?? "catalog_only"}`}>{coverage?.statusLabel ?? "组件记录，路线待补"}</span>
+                {item.description ? <p>{item.description}</p> : null}
+                <span className="muted">{coverage?.nodeCount ?? 0} 个生产环节</span>
                 <StatusBadge status={item.dataStatus} method={item.method} />
-                <span className="card-footer">{coverage?.status === "partial_route" ? "查看已整理环节" : "进入代表性路径"} <span>→</span></span>
+                <span className="card-footer">探索生产路线 <span>→</span></span>
               </Link> : <article className="component-card component-card-disabled" key={item.id}>
                 <span className="card-kicker">{item.category}</span>
                 <h3>{item.name}</h3>
-                <p>{item.description ?? "暂无说明"}</p>
-                <span className={`coverage-status coverage-status-${coverage?.status ?? "catalog_only"}`}>{coverage?.statusLabel ?? "组件记录，路线待补"}</span>
+                {item.description ? <p>{item.description}</p> : null}
+                <span className="muted">{coverage?.nodeCount ?? 0} 个生产环节</span>
                 <StatusBadge status={item.dataStatus} method={item.method} />
                 <span className="card-footer">尚无已发布供应链路线</span>
               </article>;
             })}
           </div>
         </section>
+
+        <details className="section-block detail-collapsible">
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">Product breakdown</p><h2>展开完整拆解树</h2></div><span className="section-caption">从整件商品查看组成关系</span></summary>
+          <ProductTree root={breakdown} productId={productId} componentCoverage={overview.componentCoverage} context={routeContext} />
+        </details>
 
         {processChains.length > 0 && <section className="section-block" aria-labelledby="process-depth-title">
           <div className="section-heading">
@@ -120,7 +99,7 @@ export default async function ProductOverviewPage({
               <h3>{chain.title}</h3>
               <p>按工序查看所需设备类别，以及公开资料支持的设备厂商能力。</p>
               <div className="process-chain-entry-meta"><span>{chain.stepCount} 道关键工序</span><span>{chain.equipmentCategoryCount} 类设备</span><span>{chain.manufacturerCount} 家已整理厂商</span></div>
-              <Link className="button button-primary" href={manufacturingProcessPath(productId, chain.id, pageContext)}>查看工艺与设备 →</Link>
+              <Link className="button button-primary" href={manufacturingProcessPath(productId, chain.id, routeContext)}>查看工艺与设备 →</Link>
             </article>)}
           </div>
         </section>}
@@ -160,7 +139,7 @@ export default async function ProductOverviewPage({
           </div>
         </details>
 
-        <section className="hierarchy-next-step"><strong>继续探索</strong><span>选择一个组件，沿着路线继续探索。</span><Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>进入供应链路线 →</Link></section>
+        <section className="hierarchy-next-step"><strong>继续探索</strong><span>选择一个组件，沿着路线继续探索。</span><Link className="button button-primary" href={supplyChainPath(productId, undefined, routeContext)}>进入供应链路线 →</Link></section>
       </div>
     </SiteShell>
   );

@@ -40,7 +40,7 @@ describe("map exploration with separate evidence layers", () => {
     expect(ids).toContain("flow-assembly-export");
     expect(ids).toContain("flow-assembly-germany-market");
     expect(ids).not.toContain("flow-components-assembly");
-    expect(battery.lines.every(line => line.evidenceLabel && line.evidenceDescription)).toBe(true);
+    expect(battery.lines.every(line => line.evidenceLabel && line.evidenceCode === "representative")).toBe(true);
   });
 
   it("distinguishes ledger coverage from bilateral records and filters selected countries", () => {
@@ -53,10 +53,55 @@ describe("map exploration with separate evidence layers", () => {
     expect(china.lines.every(line => line.fromCountryId === "country-cn" || line.toCountryId === "country-cn")).toBe(true);
   });
 
-  it("does not borrow finished product statistics for a component without observations", () => {
+  it("opens the component's actual material statistics without borrowing finished-product figures", () => {
     const component = createMapView(queries, { product: "generic-smartphone", layer: "trade", focus: "battery" })!;
-    expect(component.lines).toHaveLength(0);
+    expect(component.records.length).toBeGreaterThan(0);
+    expect(component.records.every(record => record.recordKind === "material_trade" && record.itemId !== "generic-smartphone")).toBe(true);
+    expect(component.relatedMaterials.some(item => item.id === "copper")).toBe(true);
+    expect(component.relatedMaterials.some(item => item.id === "lithium")).toBe(true);
     expect(createMapView(queries, { product: "generic-smartphone", focus: "missing-component" })).toBeNull();
+  });
+
+  it("makes all existing material records reachable while keeping world totals off the bilateral geometry", () => {
+    const view = queries.getTradeMapView("generic-smartphone", { focusItemId: "battery" })!;
+    expect(view.observations).toHaveLength(62);
+    expect(view.observations.every(record => record.recordKind === "material_trade")).toBe(true);
+    const bilateral = createMapView(queries, { product: "generic-smartphone", layer: "trade", focus: "battery", scope: "bilateral" })!;
+    const totals = createMapView(queries, { product: "generic-smartphone", layer: "trade", focus: "battery", scope: "world" })!;
+    expect(bilateral.records).toHaveLength(50);
+    expect(bilateral.lines).toHaveLength(50);
+    expect(totals.records).toHaveLength(12);
+    expect(totals.lines).toHaveLength(0);
+    expect(totals.records.every(record => record.partnerScope === "world_total" && (record.fromCountryId === null || record.toCountryId === null))).toBe(true);
+  });
+
+  it("preserves material classification granularity, units, annual periods and estimated quantities", () => {
+    const copper = createMapView(queries, { product: "generic-smartphone", layer: "trade", focus: "copper", scope: "bilateral" })!;
+    expect(copper.records.some(record => record.classificationCode === "7403")).toBe(true);
+    expect(copper.records.some(record => record.classificationCode === "741011")).toBe(true);
+    const lithium = createMapView(queries, { product: "generic-smartphone", layer: "trade", focus: "lithium", scope: "world" })!;
+    expect(lithium.records.every(record => record.classificationCode === "283691" && record.classificationMappingType === "exact" && record.unit === "kg" && record.periodLabel === "2024")).toBe(true);
+    expect(lithium.records.some(record => record.quantityDataStatus === "estimated" && record.quantity !== null)).toBe(true);
+    expect(lithium.records.every(record => record.sources[0]?.retrievedAt && record.method === "official" && record.datasetVersion)).toBe(true);
+    const cathode = createMapView(queries, { product: "generic-smartphone", layer: "trade", focus: "cathode-material" })!;
+    expect(cathode.records.every(record => record.classificationMappingType === "aggregate" && record.classificationLabel?.includes("近似分类"))).toBe(true);
+  });
+
+  it("keeps valid material coverage when a country, direction or year currently has no records", () => {
+    const view = createMapView(queries, { product: "generic-smartphone", layer: "trade", focus: "lithium", country: "country-de", direction: "import", year: "1900" })!;
+    expect(view.records).toHaveLength(0);
+    expect(view.hasFocusTradeCoverage).toBe(true);
+    expect(view.items.find(item => item.id === "lithium")?.directTradeCount).toBeGreaterThan(0);
+    expect(view.years).toContain("2025");
+    expect(view.years).toContain("2024");
+    expect(view.selectedItemName).toBe("锂及锂化合物");
+  });
+
+  it("retains finished product world totals as distinct observations with no fake partner", () => {
+    const view = createMapView(queries, { product: "generic-smartphone", layer: "trade", scope: "world" })!;
+    expect(view.records).toHaveLength(16);
+    expect(view.lines).toHaveLength(0);
+    expect(view.records.every(record => record.recordKind === "product_trade" && record.partnerScope === "world_total" && record.reporterId)).toBe(true);
   });
 
   it("preserves the active layer, component and actual year in map links", () => {

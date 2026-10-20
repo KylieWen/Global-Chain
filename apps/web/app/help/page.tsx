@@ -10,12 +10,12 @@ export default async function HelpPage() {
   const overview = featured ? queries.getProductOverview(featured.productId) : null;
   return <SiteShell><div className="content-column narrow-column">
     <Breadcrumbs items={[{ label: "阅读指南" }]} />
-    <PageIntro eyebrow="How to explore" title="如何使用 GlobeChain" description={`从商品拆解与供应链出发，在世界地图和国家账本查看贸易；进出口指南提供延伸查询。${overview?.statisticsPeriodLabel ?? "期间待核验"} 年分项统计 · ${queries.listProducts().length} 个商品示范 · 覆盖有限 · 未收录税率显示待核验。`} actions={<Link className="button button-primary" href="/products">开始商品探索</Link>} />
+    <PageIntro eyebrow="How to explore" title="带着好奇，从一件商品开始" description={`探索商品组成、生产分工和国际贸易。${overview ? `当前统计覆盖 ${overview.statisticsPeriodLabel} 年。` : ""}`} actions={<Link className="button button-primary" href="/products">开始探索</Link>} />
     <div className="help-list">
-      <section className="help-card"><span className="card-kicker">01 · 商品拆解与供应链</span><h2>从原料走到消费市场</h2><p>选择商品后，可以按原料、材料、部件、电芯、模组、组装和消费市场浏览代表性路线。它是研究背景，不是订单或唯一物流路线。</p></section>
-      <section className="help-card"><span className="card-kicker">02 · 国家账本与地图</span><h2>看一个国家如何嵌入贸易</h2><p>国家账本展示商品进出口、贸易差额、官方储备和所选商品贸易观察。海关金额不是企业利润，也不是单件商品价格。</p></section>
-      <section className="help-card"><span className="card-kicker">03 · 数据边界</span><h2>看清“未知”和“已知”</h2><p>没有收录不等于 0，代表性路线不等于确定交易，政策指南也不等于法律意见。每个页面都保留来源、版本和限制说明。</p></section>
-      <section className="help-card"><span className="card-kicker">04 · 进出口指南（延伸方向）</span><h2>先查商品、国家和方向</h2><p>指南给出关税核验入口、手续顺序、常见资料和官方链接。税率或许可未收录时会显示“待核验”，不会自动猜测。</p></section>
+      <section className="help-card"><span className="card-kicker">01 · 商品</span><h2>拆开看看，里面有什么</h2><p>从商品选择一个部件，沿材料、加工和组装环节向上游或下游探索；点击节点可以查看它的生产过程。</p></section>
+      <section className="help-card"><span className="card-kicker">02 · 地图</span><h2>看看这些环节发生在哪里</h2><p>供应链图层展示代表性生产分工，贸易图层展示海关记录。可以选择材料、国家和年份，点击连接查看详细数字。</p></section>
+      <section className="help-card"><span className="card-kicker">03 · 账本</span><h2>了解一个国家的贸易</h2><p>账本展示进出口、贸易差额、储备及相关商品。数字旁保留实际年份；“估算”标记表示数值经过估计。点开资料可以查看原始来源和计算方法。</p></section>
+      <section className="help-card"><span className="card-kicker">04 · 指南</span><h2>带着具体需求继续查</h2><p>选择商品、国家和进出口方向，查看基础税率、适用条件、文件和办理顺序，再通过官方入口了解具体申报要求。</p></section>
     </div>
   </div></SiteShell>;
 }
