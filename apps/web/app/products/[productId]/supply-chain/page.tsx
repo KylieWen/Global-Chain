@@ -16,7 +16,7 @@ import {
 } from "../../../../components/data-display";
 import { FlowTable } from "../../../../components/flow-table";
 import { SupplyChainGraph } from "../../../../components/supply-chain-graph";
-import { evidenceGapsPath, ledgerPath, manufacturingProcessPath, nodePath, productPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
+import { evidenceGapsPath, ledgerPath, manufacturingProcessPath, mapPath, nodePath, productPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -81,6 +81,7 @@ export default async function SupplyChainPage({
           description={story.route.representativeStatement ?? "这是经过整理的代表性供应链内容，不宣称唯一、完整或实时。"}
           actions={(
             <>
+              <Link className="button button-primary" href={mapPath({ ...pageContext, product: productId, layer: "supply-chain", focus: focusItemId })}>在地图上查看这些环节</Link>
               <Link className="button button-secondary" href={provenancePath(productId, pageContext)}>来源与版本</Link>
               <Link className="button button-secondary" href={evidenceGapsPath(productId, pageContext)}>证据缺口登记册</Link>
             </>
@@ -113,15 +114,16 @@ export default async function SupplyChainPage({
             <span className="filter-label">聚焦商品</span>
             <div className="filter-links">
               <Link className={!focusItemId ? "filter-chip active" : "filter-chip"} href={supplyChainPath(productId, undefined, pageContext)}>全部</Link>
-              {overview.directChildren.map((item) => (
+              {overview.componentCoverage.map((coverage) => coverage.hasInspectableStory ? (
                 <Link
-                  className={focusItemId === item.id ? "filter-chip active" : "filter-chip"}
-                  href={supplyChainPath(productId, item.id, pageContext)}
-                  key={item.id}
+                  className={focusItemId === coverage.item.id ? "filter-chip active" : "filter-chip"}
+                  href={supplyChainPath(productId, coverage.item.id, pageContext)}
+                  key={coverage.item.id}
+                  title={coverage.statusDescription}
                 >
-                  {item.name}
+                  {coverage.item.name}{coverage.status === "partial_route" ? " · 部分环节" : ""}
                 </Link>
-              ))}
+              ) : <span className="filter-chip muted" aria-disabled="true" key={coverage.item.id}>{coverage.item.name} · 仅类别说明</span>)}
             </div>
           </div>
           <span className="filter-note">期间筛选：{story.period.label}</span>

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "phone-bilateral-gap-review-audit.v1",
+  "batchId": "smartphone-bilateral-gaps-2026-10-21",
+  "reviewedAt": "2026-10-21",
+  "sourceRetrievedAt": "2026-08-25T05:09:37.034Z",
+  "sourceFile": "data/published/raw/un-comtrade-hs2022-851713-bilateral-2023.json",
+  "sourceFileSha256": "f9803ecf46184e946f6b8c2412bbacfc4ca8f97d298e97a533e91d5025164517",
+  "sourceBundleCanonicalSha256": "1eef4047820cbc8ef388d74c6213b3653086bfbeb05b55ea23aab72030dab047",
+  "baseDatasetVersion": "globe-chain-smartphone-2026.1",
+  "datasetVersion": "globe-chain-smartphone-2026.2",
+  "contentVersion": "smartphone-bilateral-gap-review-2026.1",
+  "method": "curated",
+  "validation": {
+    "rawFileHash": "passed",
+    "responseCanonicalHashes": "passed",
+    "bundleCanonicalHash": "passed",
+    "specificPartnerScope": "passed",
+    "evidenceScopeAndHashes": "passed",
+    "currentStatisticsUnchanged": true,
+    "routeSemanticsUnchanged": true
+  },
+  "comparisons": [
+    {
+      "gapId": "gap-flow-assembly-us-bilateral",
+      "partnerCode": 842,
+      "period": "2023",
+      "classification": "HS 2022/851713",
+      "currency": "USD",
+      "unit": "current USD",
+      "exportValue": 38369590318,
+      "importValue": 45203156861,
+      "differenceImportMinusExport": 6833566543,
+      "differenceMethod": "独立进口报告 primaryValue 减独立出口报告 primaryValue；不调和、不平均、不解释为利润。",
+      "exportValuation": "FOB",
+      "importValuation": "CIF",
+      "exported": {
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=156&cmdCode=851713&flowCode=X%2CM&partnerCode=842&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500",
+        "rawResponseSha256": "e30f7b73ecb7209dae1e219b98ad839c011cbf4025465607bdafd1912b636c1b",
+        "canonicalDataSha256": "fcc2948609a24481307122836c773ede529e6405361cdcb3ece0cd6c267d60aa"
+      },
+      "imported": {
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=842&cmdCode=851713&flowCode=X%2CM&partnerCode=156&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500",
+        "rawResponseSha256": "ee4ea4ff06d3b0d687ca1f45ff80dad21770f565821dafc9ffbbc7b7972952f5",
+        "canonicalDataSha256": "4fee67d8795a892ed9e470437cf558addcce6d08dc960903df5b6e1cf62bcd53"
+      },
+      "scopeNote": "842 为 UN Comtrade 的美国、波多黎各与美属维尔京群岛统计区，不等同于 ISO/M49 840。"
+    },
+    {
+      "gapId": "gap-flow-assembly-germany-bilateral",
+      "partnerCode": 276,
+      "period": "2023",
+      "classification": "HS 2022/851713",
+      "currency": "USD",
+      "unit": "current USD",
+      "exportValue": 1112346811,
+      "importValue": 8652969331.273,
+      "differenceImportMinusExport": 7540622520.273001,
+      "differenceMethod": "独立进口报告 primaryValue 减独立出口报告 primaryValue；不调和、不平均、不解释为利润。",
+      "exportValuation": "FOB",
+      "importValuation": "CIF",
+      "exported": {
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=156&cmdCode=851713&flowCode=X%2CM&partnerCode=276&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500",
+        "rawResponseSha256": "485dc715d918d008967db376c125f12341ff546d3d02cbc602d6af6aa6901bd3",
+        "canonicalDataSha256": "641312e2665525055cbbf44c26a950d692a24e258f18f843e07b3db6b747aae9"
+      },
+      "imported": {
+        "requestUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?period=2023&reporterCode=276&cmdCode=851713&flowCode=X%2CM&partnerCode=156&partner2Code=0&customsCode=C00&motCode=0&maxRecords=500",
+        "rawResponseSha256": "7350c89283d15588601f7dd393f375cc64ed512647e24dddade1928fd8dc0c2a",
+        "canonicalDataSha256": "5ff3ad77b303053fa380888418ecccb00e01ee235c26da1e4569d0be41e382de"
+      },
+      "scopeNote": "德国进口额不等于德国最终消费；双边统计不证明中国组装地点。"
+    }
+  ],
+  "limitations": [
+    "只关闭同一 2023 年、HS 2022/851713、具体报告方/伙伴/方向已存在直接海关观察和镜像差异说明这一窄主张。",
+    "镜像报告独立保留；进口报告与出口报告的金额差异不作平均、替代、调和或未经来源支持的原因归属。",
+    "国家级手机贸易观察不证明品牌、型号、厂商、工厂、组装地点、最终消费、利润或电池/材料连续谱系。",
+    "本批次不改供应链节点/边，不把 representative 提升为 bilateral_supported，不把未知金额或数量补成零。",
+    "使用既有本地原始快照，不重新抓取外部来源；2024/2025 年当前贸易统计原样保留。"
+  ]
+}

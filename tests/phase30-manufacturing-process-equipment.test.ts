@@ -44,7 +44,7 @@ describe("phase 30 manufacturing process, equipment and manufacturer capabilitie
   it("keeps mock fixtures untouched and validates the new published fixture", () => {
     const activeManifest = JSON.parse(readFileSync(resolve("data/published/manifest.json"), "utf8"));
     const fixturePath = resolve("data/published", activeManifest.fixtures[0].path);
-    expect(ProductFixtureSchema.parse(JSON.parse(readFileSync(fixturePath, "utf8"))).datasetVersion.version).toBe("globe-chain-smartphone-2026.1");
+    expect(ProductFixtureSchema.parse(JSON.parse(readFileSync(fixturePath, "utf8"))).datasetVersion.version).toBe(activeManifest.fixtures[0].datasetVersion ?? activeManifest.activeDatasetVersion);
     expect(readFileSync(resolve("data/samples/smartphone/fixture.json"), "utf8")).not.toContain("process-chain-semiconductor-packaging");
   });
 });

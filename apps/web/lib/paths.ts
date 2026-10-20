@@ -59,6 +59,9 @@ export type MapFilters = PageContext & {
   product?: string;
   country?: string;
   direction?: "import" | "export";
+  layer?: "supply-chain" | "trade";
+  focus?: string;
+  year?: string;
 };
 
 export function mapPath(filters?: MapFilters): string {

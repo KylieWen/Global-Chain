@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "phone-bilateral-gap-review.v1",
+  "batchId": "smartphone-bilateral-gaps-2026-10-21",
+  "reviewedAt": "2026-10-21",
+  "baseDatasetVersion": "globe-chain-smartphone-2026.1",
+  "baseFixtureSha256": "5e768c6d1022214cd3005f90cfdd087a5f0b378923d4478bd238599251ace7f9",
+  "datasetVersion": "globe-chain-smartphone-2026.2",
+  "datasetVersionId": "dataset-smartphone-published-2026-2",
+  "contentVersion": "smartphone-bilateral-gap-review-2026.1",
+  "contentVersionId": "content-smartphone-bilateral-gap-review-2026-1",
+  "rawSource": "data/published/raw/un-comtrade-hs2022-851713-bilateral-2023.json",
+  "rawSourceSha256": "f9803ecf46184e946f6b8c2412bbacfc4ca8f97d298e97a533e91d5025164517",
+  "claims": [
+    {
+      "gapId": "gap-flow-assembly-us-bilateral",
+      "partnerName": "美国统计区（UN Comtrade 842）",
+      "partnerEntityId": "country-us",
+      "partnerCode": 842,
+      "exportPairId": "chn-usa-area",
+      "importPairId": "usa-area-chn",
+      "exportEvidenceId": "evidence-comtrade-china-united-states-smartphone-bilateral-export-2023",
+      "importEvidenceId": "evidence-comtrade-united-states-china-smartphone-bilateral-import-2023",
+      "mirrorEvidenceId": "evidence-comtrade-china-us-mirror-review-2023-20261021",
+      "scopeNote": "842 为 UN Comtrade 的美国、波多黎各与美属维尔京群岛统计区，不等同于 ISO/M49 840。"
+    },
+    {
+      "gapId": "gap-flow-assembly-germany-bilateral",
+      "partnerName": "德国",
+      "partnerEntityId": "country-de",
+      "partnerCode": 276,
+      "exportPairId": "chn-deu",
+      "importPairId": "deu-chn",
+      "exportEvidenceId": "evidence-comtrade-china-germany-smartphone-bilateral-export-2023",
+      "importEvidenceId": "evidence-comtrade-germany-china-smartphone-bilateral-import-2023",
+      "mirrorEvidenceId": "evidence-comtrade-china-de-mirror-review-2023-20261021",
+      "scopeNote": "德国进口额不等于德国最终消费；双边统计不证明中国组装地点。"
+    }
+  ],
+  "limitations": [
+    "只关闭同一 2023 年、HS 2022/851713、具体报告方/伙伴/方向已存在直接海关观察和镜像差异说明这一窄主张。",
+    "镜像报告独立保留；进口报告与出口报告的金额差异不作平均、替代、调和或未经来源支持的原因归属。",
+    "国家级手机贸易观察不证明品牌、型号、厂商、工厂、组装地点、最终消费、利润或电池/材料连续谱系。",
+    "本批次不改供应链节点/边，不把 representative 提升为 bilateral_supported，不把未知金额或数量补成零。",
+    "使用既有本地原始快照，不重新抓取外部来源；2024/2025 年当前贸易统计原样保留。"
+  ]
+}

@@ -20,7 +20,7 @@ export default async function ProductProvenancePage({
   const overview = queries.getProductOverview(productId);
   const provenance = queries.getProvenance(productId);
   const materialObservations = queries.getMaterialTradeObservations(productId);
-  const releaseVersions = listPublishedDatasetVersions();
+  const releaseVersions = listPublishedDatasetVersions(productId);
   if (!overview || !provenance) notFound();
   const mismatches = contextMismatch(pageContext, { period: overview.period.label, datasetVersion: provenance.datasetVersion.version, contentVersion: provenance.route.contentVersion?.version });
 

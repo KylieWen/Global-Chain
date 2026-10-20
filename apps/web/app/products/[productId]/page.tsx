@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getQueryService } from "../../../lib/data";
 import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../components/site-shell";
 import { ProductTree } from "../../../components/product-tree";
-import { manufacturingProcessPath, materialObservationsPath, provenancePath, supplyChainPath, tradeGuidePath } from "../../../lib/paths";
+import { manufacturingProcessPath, mapPath, materialObservationsPath, provenancePath, supplyChainPath, tradeGuidePath } from "../../../lib/paths";
 import { contextMismatch, readPageContext, type SearchParamsLike } from "../../../lib/context";
 import {
   StatusBadge,
@@ -38,7 +38,7 @@ export default async function ProductOverviewPage({
           eyebrow={`${overview.product.category} / ${overview.product.slug}`}
           title={overview.product.name}
           description="从部件组成出发，沿供应链探索各国的生产与贸易联系。"
-          actions={<><Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>查看供应链路线</Link><Link className="button button-secondary" href={tradeGuidePath({ product: productId, ...pageContext })}>查进出口要求</Link><Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link></>}
+          actions={<><Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>查看供应链路线</Link><Link className="button button-secondary" href={mapPath({ ...pageContext, product: productId, layer: "supply-chain" })}>在地图上探索</Link><Link className="button button-secondary" href={tradeGuidePath({ product: productId, ...pageContext })}>查进出口要求</Link><Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link></>}
         />
 
 
@@ -75,7 +75,7 @@ export default async function ProductOverviewPage({
             </div>
             <span className="section-caption">{overview.directChildren.length} 个部件 · 选择节点查看路线</span>
           </div>
-          <ProductTree root={breakdown} maxDepth={1} productId={productId} context={pageContext} />
+          <ProductTree root={breakdown} maxDepth={1} productId={productId} componentCoverage={overview.componentCoverage} context={pageContext} />
         </section>
 
         <section className="section-block" aria-labelledby="children-title">
@@ -96,7 +96,7 @@ export default async function ProductOverviewPage({
                 <p>{item.description ?? "暂无说明"}</p>
                 <span className={`coverage-status coverage-status-${coverage?.status ?? "catalog_only"}`}>{coverage?.statusLabel ?? "组件记录，路线待补"}</span>
                 <StatusBadge status={item.dataStatus} method={item.method} />
-                <span className="card-footer">进入代表性路径 <span>→</span></span>
+                <span className="card-footer">{coverage?.status === "partial_route" ? "查看已整理环节" : "进入代表性路径"} <span>→</span></span>
               </Link> : <article className="component-card component-card-disabled" key={item.id}>
                 <span className="card-kicker">{item.category}</span>
                 <h3>{item.name}</h3>
