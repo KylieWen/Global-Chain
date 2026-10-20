@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "public-source-file-snapshot.v1",
+  "key": "sdi-production-network",
+  "url": "https://samsungsdi.com/about-sdi/global-network.html",
+  "finalUrl": "https://samsungsdi.com/about-sdi/global-network.html",
+  "retrievedAt": "2026-10-20T22:07:06.202Z",
+  "httpStatus": 200,
+  "contentType": "text/html; charset=UTF-8",
+  "sha256": "019c78e8c394fcb0a033a89944df6b3416985a599a25bc9bf722c3cf00556dab",
+  "file": "sdi-production-network.html",
+  "license": "Publisher terms apply; preserved for local evidence review, link and limited summaries in public product."
+}

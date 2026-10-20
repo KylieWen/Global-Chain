@@ -1,0 +1,1405 @@
+{
+  "schemaVersion": "phone-branch-content.v1",
+  "batchId": "smartphone-branches-2026-10-21",
+  "reviewedAt": "2026-10-21",
+  "baseDatasetVersion": "globe-chain-smartphone-2026.2",
+  "baseFixtureSha256": "616302fd02aa233cfc7de7e62f9f6669d709fc2e7c0ebcfbdc9d4d32835f74d0",
+  "datasetVersion": "globe-chain-smartphone-2026.3",
+  "datasetVersionId": "dataset-smartphone-published-2026-3",
+  "contentVersion": "smartphone-route-2026.1",
+  "contentVersionId": "content-smartphone-route-2026-1",
+  "sources": [
+    {
+      "key": "sem-audit-2023",
+      "name": "Samsung Electro-Mechanics 2023 audited financial statements",
+      "publisher": "Samsung Electro-Mechanics",
+      "period": "2023",
+      "terms": [
+        "Camera",
+        "manufacturing",
+        "Vietnam"
+      ],
+      "locator": "Consolidated subsidiaries, printed pp. 11-12; camera manufacturing in China and Vietnam. Kunshan PCB business discontinued in 2019 and is not used."
+    },
+    {
+      "key": "sem-camera-core",
+      "name": "Camera module core technology",
+      "publisher": "Samsung Electro-Mechanics",
+      "period": "2026-10",
+      "terms": [
+        "Actuator",
+        "Lens",
+        "PCB",
+        "assembly"
+      ],
+      "locator": "Main Core Technology: Actuator, Lens, PCB, Module PKG; current page verified in 2026-10."
+    },
+    {
+      "key": "avary-annual-2023",
+      "name": "鹏鼎控股2023年度报告",
+      "publisher": "鹏鼎控股",
+      "period": "2023",
+      "terms": [
+        "智能手机",
+        "铜箔基板",
+        "深圳",
+        "秦皇岛"
+      ],
+      "locator": "主要业务、产品用途、制造园区及主要原材料；只采用PCB能力和制造地点，不采用行业预测或市场份额。"
+    },
+    {
+      "key": "eurocircuits-pcb-process",
+      "name": "Making a PCB: manufacture step by step",
+      "publisher": "Eurocircuits",
+      "period": "2026-10",
+      "terms": [
+        "epoxy",
+        "glass",
+        "Drilling",
+        "soldermask",
+        "Electrical test"
+      ],
+      "locator": "Print/etch inner layers, lay-up and bond, drilling, plating, soldermask, electrical test; generic process, not a Chinese factory record."
+    },
+    {
+      "key": "aac-annual-2023",
+      "name": "AAC Technologies Annual Report 2023",
+      "publisher": "AAC Technologies",
+      "period": "2023",
+      "terms": [
+        "Manufacturing",
+        "Changzhou",
+        "MEMS",
+        "metal casing",
+        "smartphone"
+      ],
+      "locator": "Global Presence manufacturing map and Performance and Development of Business Segments: acoustics, MEMS microphones, haptics and precision mechanics."
+    },
+    {
+      "key": "aac-precision",
+      "name": "Precision manufacturing: mechanics and casing",
+      "publisher": "AAC Technologies",
+      "period": "2026-10",
+      "terms": [
+        "aluminum",
+        "CNC",
+        "stamping",
+        "forging"
+      ],
+      "locator": "Mechanics section: aluminium phone casings, CNC, stamping/forging and NMT; current page, not a 2023 process claim."
+    },
+    {
+      "key": "sony-nagasaki-2023",
+      "name": "長崎テクノロジーセンターFab 5最終拡張",
+      "publisher": "Sony Semiconductor Solutions",
+      "period": "2023",
+      "terms": [
+        "2023",
+        "長崎",
+        "CMOS"
+      ],
+      "locator": "2023-12-22 announcement; final expansion cleanroom operated from 2023-10; CMOS image sensor production."
+    },
+    {
+      "key": "china-smartphone-2023",
+      "name": "2023年我国手机和集成电路产量",
+      "publisher": "福建省工业和信息化厅（转工信部统计）",
+      "period": "2023",
+      "terms": [
+        "2023",
+        "智能手机产量11.4亿台"
+      ],
+      "locator": "2024-01-31 publication, major products section; above-designated-size electronics manufacturing output, 2023."
+    },
+    {
+      "key": "sdi-production-network",
+      "name": "Samsung SDI production network",
+      "publisher": "Samsung SDI",
+      "period": "2026-10",
+      "terms": [
+        "Small-Sized Battery",
+        "Cheonan",
+        "Plant"
+      ],
+      "locator": "Domestic production network: Cheonan small-sized battery plant. Supports general small-cell production, not a specific phone pouch cell."
+    },
+    {
+      "key": "btr-anode",
+      "name": "贝特瑞负极业务及国内产业链布局",
+      "publisher": "贝特瑞新材料集团",
+      "period": "2026-10",
+      "terms": [
+        "石墨",
+        "3C",
+        "深圳制造中心",
+        "负极材料"
+      ],
+      "locator": "天然石墨、人造石墨、3C数码应用、国内制造基地及提纯/改性工序；2026-10网页核验。"
+    },
+    {
+      "key": "easpring-annual-2023",
+      "name": "当升科技2023年度报告",
+      "publisher": "北京当升材料科技股份有限公司",
+      "period": "2023",
+      "terms": [
+        "钴酸锂",
+        "智能手机",
+        "生产",
+        "常州"
+      ],
+      "locator": "主要产品、国内制造子公司及小型锂电材料；不把材料总产量等同于手机用量。"
+    },
+    {
+      "key": "desay-annual-2023",
+      "name": "德赛电池2023年度报告",
+      "publisher": "深圳市德赛电池科技股份有限公司",
+      "period": "2023",
+      "terms": [
+        "PACK",
+        "锂电芯",
+        "电源管理系统",
+        "智能手机",
+        "惠州"
+      ],
+      "locator": "释义页BMS/PACK组成、主要业务及制造子公司；PACK由电芯、电源管理系统、结构件和辅料组成。"
+    },
+    {
+      "key": "apple-market-2023",
+      "name": "iPhone 15 retail availability, September 2023",
+      "publisher": "Apple",
+      "period": "2023",
+      "terms": [
+        "Germany",
+        "U.S.",
+        "September 22"
+      ],
+      "locator": "Pricing and Availability; brand-specific retail example used only to establish smartphone retail availability in the named markets."
+    },
+    {
+      "key": "vietnam-assembly-2024",
+      "name": "Samsung Vietnam Thai Nguyen phone production milestone",
+      "publisher": "Samsung Electronics Vietnam",
+      "period": "2024",
+      "terms": [
+        "17/04/2024",
+        "SEVT",
+        "Galaxy",
+        "điện thoại thông minh"
+      ],
+      "locator": "2024-04-17 official manufacturing announcement. Cumulative milestone is not used as annual smartphone output."
+    },
+    {
+      "key": "india-manufacturing-2023",
+      "name": "Make in India: electronics manufacturing led by mobile phones",
+      "publisher": "Press Information Bureau, Government of India",
+      "period": "2023",
+      "terms": [
+        "Noida",
+        "Samsung",
+        "manufacturing"
+      ],
+      "locator": "2023-04 policy brief, mobile-handset manufacturing ecosystem and Noida factory. Capacity is not treated as realised output."
+    },
+    {
+      "key": "display-module-existing",
+      "name": "OLED module process",
+      "publisher": "Samsung Display",
+      "period": "2026-09",
+      "existingSourceId": "source-catalog-20260916-display",
+      "snapshotPath": "data/published/raw/refresh-2026-09-16/catalog/display.json",
+      "terms": [
+        "OLED module",
+        "China, Vietnam and India"
+      ],
+      "locator": "Saved 2026-09-16 official page: panel, driver IC, FPCB, polarizer and cover-window assembly; module manufacturing in China, Vietnam and India."
+    },
+    {
+      "key": "tsmc-web-extract-2025",
+      "name": "TSMC Annual Report 2025 selected manufacturing disclosures",
+      "publisher": "TSMC",
+      "period": "2025",
+      "terms": [
+        "Taiwan",
+        "2025",
+        "封装"
+      ],
+      "locator": "About TSMC and manufacturing footprint; selected official-page extraction with direct-fetch HTTP 403 noted, not a full-file snapshot."
+    }
+  ],
+  "entities": [
+    {
+      "id": "country-tw",
+      "name": "中国台湾地区",
+      "iso2": "TW",
+      "iso3": "TWN",
+      "m49": "158",
+      "sourceKey": "tsmc-web-extract-2025",
+      "period": "2025"
+    },
+    {
+      "id": "country-vn",
+      "name": "越南",
+      "iso2": "VN",
+      "iso3": "VNM",
+      "m49": "704",
+      "sourceKey": "vietnam-assembly-2024",
+      "period": "2024"
+    },
+    {
+      "id": "country-in",
+      "name": "印度",
+      "iso2": "IN",
+      "iso3": "IND",
+      "m49": "356",
+      "sourceKey": "india-manufacturing-2023",
+      "period": "2023"
+    }
+  ],
+  "descriptions": {
+    "generic-smartphone": {
+      "name": "智能手机",
+      "description": "从屏幕、电池和芯片到相机与机身，逐层认识一部智能手机的材料、制造工序与全球分工。研究对象为通用商品，不限定品牌或型号。"
+    },
+    "battery": {
+      "description": "把化学能转成电能，为手机供电。电池包含正负极、电解液和隔膜，并配有管理电路与封装。"
+    },
+    "display": {
+      "description": "把电信号变成图像。面板、驱动电路、触控层与盖板玻璃经过贴合，组成可安装的显示模组。"
+    },
+    "processor-memory": {
+      "description": "处理器执行计算和通信任务；DRAM临时保存运行数据，NAND存储系统与照片。芯片经历设计、晶圆制造、封装测试，再装上电路板。"
+    },
+    "camera": {
+      "description": "镜头聚光，图像传感器把光转成电信号，执行器完成对焦和防抖；这些部件装配并校准为摄像头模组。"
+    },
+    "pcb-connector": {
+      "description": "电路板承载芯片和元件，铜线路负责传送电力与信号；柔性电路和连接器把屏幕、相机、电池与主板连在一起。"
+    },
+    "enclosure-structure": {
+      "description": "金属框架、玻璃或塑料外壳支撑并保护内部组件。材料要经过成形、精密加工、表面处理和装配。"
+    },
+    "sensor-audio": {
+      "description": "麦克风采集声音，扬声器发声，振动马达提供触觉反馈；各类传感器感知运动、距离、光线等状态。"
+    },
+    "chip-packaging": {
+      "name": "封装芯片与测试",
+      "description": "把晶圆切出的裸片连接到封装载体，完成保护、互连与电性能测试，形成可安装到电路板的器件。"
+    },
+    "semiconductor-wafer": {
+      "name": "加工后的半导体晶圆",
+      "description": "在硅晶圆上反复形成、图案化和连接微小器件，再通过晶圆测试筛选可用裸片。"
+    },
+    "display-panel": {
+      "description": "由发光或液晶像素阵列构成，接收驱动信号生成图像。"
+    },
+    "display-module": {
+      "description": "将面板与驱动电路、柔性连接、触控和保护层集成为屏幕组件。"
+    },
+    "cover-glass": {
+      "description": "覆盖屏幕表面，提供透光、触摸与防护界面。"
+    },
+    "image-sensor": {
+      "description": "由大量感光像素组成，把镜头形成的光学图像转成电子信号。"
+    },
+    "camera-lens": {
+      "description": "利用多片光学镜片收集光线并在图像传感器上成像。"
+    },
+    "camera-module": {
+      "description": "由镜头、图像传感器、对焦/防抖执行器与电路组成，装配后进行光学校准与测试。"
+    }
+  },
+  "items": [
+    [
+      "silicon-substrate",
+      "硅晶圆基片",
+      "material",
+      "processor-memory",
+      "电子产品",
+      "芯片和图像传感器制造使用的硅基片。",
+      "tsmc-web-extract-2025"
+    ],
+    [
+      "chip-design-layout",
+      "芯片电路设计",
+      "service",
+      "processor-memory",
+      "电子产品",
+      "把计算、通信功能转成可制造的电路版图与设计数据。",
+      "tsmc-web-extract-2025"
+    ],
+    [
+      "camera-actuator",
+      "对焦与防抖执行器",
+      "component",
+      "camera",
+      "电子产品",
+      "移动镜头以调整焦点、补偿手抖，并可提供光学变焦。",
+      "sem-camera-core"
+    ],
+    [
+      "pcb-copper-foil",
+      "电路用铜箔",
+      "material",
+      "pcb-connector",
+      "工业品",
+      "用于形成电路板导电图形的薄铜层。",
+      "eurocircuits-pcb-process"
+    ],
+    [
+      "pcb-laminate",
+      "树脂玻纤基材",
+      "material",
+      "pcb-connector",
+      "工业品",
+      "提供电路板的绝缘支撑；与铜箔、半固化片组成多层结构。",
+      "eurocircuits-pcb-process"
+    ],
+    [
+      "bare-pcb",
+      "裸印制电路板",
+      "component",
+      "pcb-connector",
+      "电子产品",
+      "完成线路、通孔和保护层，尚未安装芯片及其他元件。",
+      "eurocircuits-pcb-process"
+    ],
+    [
+      "populated-board",
+      "装配电路板",
+      "component",
+      "pcb-connector",
+      "电子产品",
+      "将芯片、无源器件和连接器安装到电路板上，形成电子功能组件。",
+      "avary-annual-2023"
+    ],
+    [
+      "phone-connector",
+      "连接器与柔性连接",
+      "component",
+      "pcb-connector",
+      "电子产品",
+      "在主板与相机、屏幕、电池等组件间传送电力和信号。",
+      "avary-annual-2023"
+    ],
+    [
+      "frame-alloy",
+      "机身用铝合金坯料",
+      "material",
+      "enclosure-structure",
+      "工业品",
+      "经成形与精密加工制成轻质机身框架的金属材料。",
+      "aac-precision"
+    ],
+    [
+      "phone-frame",
+      "精密机身框架",
+      "component",
+      "enclosure-structure",
+      "工业品",
+      "用来定位、支撑和连接内部模组的金属结构件。",
+      "aac-precision"
+    ],
+    [
+      "mems-microphone",
+      "MEMS麦克风",
+      "component",
+      "sensor-audio",
+      "电子产品",
+      "把声音转为电信号的小型微机电器件。",
+      "aac-annual-2023"
+    ],
+    [
+      "mini-speaker",
+      "微型扬声器",
+      "component",
+      "sensor-audio",
+      "电子产品",
+      "把电信号转成可听声音，用于通话和媒体播放。",
+      "aac-annual-2023"
+    ],
+    [
+      "haptic-motor",
+      "触觉振动马达",
+      "component",
+      "sensor-audio",
+      "电子产品",
+      "把电信号转成短促振动，提供触摸与通知反馈。",
+      "aac-annual-2023"
+    ],
+    [
+      "battery-bms",
+      "电池保护与管理电路",
+      "component",
+      "battery",
+      "电子产品",
+      "检测电压、电流与温度，防止过充、过放和过温。",
+      "desay-annual-2023"
+    ],
+    [
+      "battery-housing",
+      "电池封装与结构辅料",
+      "material",
+      "battery",
+      "工业品",
+      "连接、固定和保护电芯与管理电路的结构件及封装材料。",
+      "desay-annual-2023"
+    ],
+    [
+      "processed-graphite",
+      "纯化与改性的石墨",
+      "material",
+      "battery",
+      "工业品",
+      "原料石墨经提纯、球形化或表面改性后，按电池性能要求制成负极材料。",
+      "btr-anode"
+    ]
+  ],
+  "nodes": [
+    {
+      "id": "node-tw-wafer",
+      "entity": "country-tw",
+      "item": "semiconductor-wafer",
+      "stage": "component_manufacturing",
+      "label": "台湾地区 · 晶圆制造",
+      "period": "2025",
+      "sourceKey": "tsmc-web-extract-2025",
+      "role": true,
+      "notes": "台积电2025年报支持当地晶圆制造能力及智能手机应用背景。此处没有指定设计企业或客户。"
+    },
+    {
+      "id": "node-tw-chip-package",
+      "entity": "country-tw",
+      "item": "chip-packaging",
+      "stage": "component_manufacturing",
+      "label": "台湾地区 · 芯片封装与测试",
+      "period": "2025",
+      "sourceKey": "tsmc-web-extract-2025",
+      "role": false,
+      "notes": "按台积电公开先进封装技术整理的工序节点；没有绑定具体处理器、存储器或客户。"
+    },
+    {
+      "id": "node-image-sensor-catalog",
+      "entity": "country-jp",
+      "item": "image-sensor",
+      "stage": "component_manufacturing",
+      "label": "日本 · 图像传感器",
+      "period": "2023",
+      "sourceKey": "sony-nagasaki-2023",
+      "role": true,
+      "notes": "索尼长崎Fab 5在2023年披露CMOS图像传感器产线扩建；仅用于国家生产角色。"
+    },
+    {
+      "id": "node-camera-lens-catalog",
+      "entity": "country-cn",
+      "item": "camera-lens",
+      "stage": "component_manufacturing",
+      "label": "中国 · 光学镜片与镜头",
+      "period": "2023",
+      "sourceKey": "aac-annual-2023",
+      "role": true,
+      "notes": "AAC2023年报列示中国光学制造布局与手机镜头业务；不指定与本图其他企业的供货关系。"
+    },
+    {
+      "id": "node-camera-actuator",
+      "entity": "country-cn",
+      "item": "camera-actuator",
+      "stage": "component_manufacturing",
+      "label": "中国 · 对焦与防抖器件",
+      "period": "2023",
+      "sourceKey": "aac-annual-2023",
+      "role": false,
+      "notes": "执行器作为摄像头模组的结构性输入，国家位置为策展安排；不是披露的特定供货。"
+    },
+    {
+      "id": "node-camera-module-catalog",
+      "entity": "country-cn",
+      "item": "camera-module",
+      "stage": "assembly",
+      "label": "中国 · 摄像头模组",
+      "period": "2023",
+      "sourceKey": "sem-audit-2023",
+      "role": true,
+      "notes": "Samsung High-Tech Electro-Mechanics天津公司在2023审计报告中列为摄像头模组制造。"
+    },
+    {
+      "id": "node-component-camera-catalog",
+      "entity": "country-cn",
+      "item": "camera",
+      "stage": "assembly",
+      "label": "中国 · 相机校准与装配",
+      "period": "2023",
+      "sourceKey": "sem-audit-2023",
+      "role": false,
+      "notes": "将已组装模组校准后装入手机的工序结构；没有指定相机模块采购来源。"
+    },
+    {
+      "id": "node-vn-camera-module",
+      "entity": "country-vn",
+      "item": "camera-module",
+      "stage": "assembly",
+      "label": "越南 · 摄像头模组",
+      "period": "2023",
+      "sourceKey": "sem-audit-2023",
+      "role": true,
+      "notes": "Samsung Electro-Mechanics Vietnam在2023审计报告中列为摄像头模组制造；与中国模组节点为可选分支。"
+    },
+    {
+      "id": "node-pcb-materials",
+      "entity": "country-cn",
+      "item": "pcb-copper-foil",
+      "stage": "material_processing",
+      "label": "中国 · 电路板材料准备",
+      "period": "2023",
+      "sourceKey": "avary-annual-2023",
+      "role": false,
+      "notes": "年报列示铜箔基板、覆盖膜、半固化片等材料；材料来源国与份额未据此推定。"
+    },
+    {
+      "id": "node-bare-pcb",
+      "entity": "country-cn",
+      "item": "bare-pcb",
+      "stage": "component_manufacturing",
+      "label": "中国 · 线路板制造",
+      "period": "2023",
+      "sourceKey": "avary-annual-2023",
+      "role": true,
+      "notes": "鹏鼎年报列示深圳、秦皇岛和淮安制造布局与通讯电子PCB业务。"
+    },
+    {
+      "id": "node-component-pcb-catalog",
+      "entity": "country-cn",
+      "item": "pcb-connector",
+      "stage": "assembly",
+      "label": "中国 · 电路板与连接装配",
+      "period": "2023",
+      "sourceKey": "avary-annual-2023",
+      "role": false,
+      "notes": "以PCB与模组装配能力解释主板功能形成；不绑定下游手机品牌或订单。"
+    },
+    {
+      "id": "node-cn-populated-board",
+      "entity": "country-cn",
+      "item": "populated-board",
+      "stage": "assembly",
+      "label": "中国 · 芯片与元件装联",
+      "period": "2026-10",
+      "sourceKey": "eurocircuits-pcb-process",
+      "role": false,
+      "notes": "把已封装芯片等器件接入电路板的功能结构；工艺方法与国家角色分开引用。"
+    },
+    {
+      "id": "node-cn-frame-material",
+      "entity": "country-cn",
+      "item": "frame-alloy",
+      "stage": "material_processing",
+      "label": "中国 · 机身材料成形",
+      "period": "2026-10",
+      "sourceKey": "aac-precision",
+      "role": false,
+      "notes": "金属框架可采用铝合金、冲压或锻造成形；具体路线取决于材料与设计。"
+    },
+    {
+      "id": "node-component-enclosure-catalog",
+      "entity": "country-cn",
+      "item": "enclosure-structure",
+      "stage": "component_manufacturing",
+      "label": "中国 · 精密机身结构件",
+      "period": "2023",
+      "sourceKey": "aac-annual-2023",
+      "role": true,
+      "notes": "AAC2023年报披露中国精密机械制造布局和手机金属外壳业务。"
+    },
+    {
+      "id": "node-cn-frame-finish",
+      "entity": "country-cn",
+      "item": "phone-frame",
+      "stage": "component_manufacturing",
+      "label": "中国 · 框架精密加工",
+      "period": "2026-10",
+      "sourceKey": "aac-precision",
+      "role": false,
+      "notes": "依据CNC与金属成形技术整理框架制造步骤；不声称某厂实际采用全部工序。"
+    },
+    {
+      "id": "node-cn-microphone",
+      "entity": "country-cn",
+      "item": "mems-microphone",
+      "stage": "component_manufacturing",
+      "label": "中国 · MEMS麦克风",
+      "period": "2023",
+      "sourceKey": "aac-annual-2023",
+      "role": true,
+      "notes": "AAC2023年报列示中国传感器/半导体制造与手机MEMS麦克风业务。"
+    },
+    {
+      "id": "node-cn-speaker",
+      "entity": "country-cn",
+      "item": "mini-speaker",
+      "stage": "component_manufacturing",
+      "label": "中国 · 微型扬声器",
+      "period": "2023",
+      "sourceKey": "aac-annual-2023",
+      "role": true,
+      "notes": "AAC2023年报列示中国声学制造布局和手机声学产品。"
+    },
+    {
+      "id": "node-cn-haptics",
+      "entity": "country-cn",
+      "item": "haptic-motor",
+      "stage": "component_manufacturing",
+      "label": "中国 · 触觉器件",
+      "period": "2023",
+      "sourceKey": "aac-annual-2023",
+      "role": true,
+      "notes": "AAC2023年报列示中国电磁传动制造与智能手机振动马达业务。"
+    },
+    {
+      "id": "node-component-sensor-audio-catalog",
+      "entity": "country-cn",
+      "item": "sensor-audio",
+      "stage": "assembly",
+      "label": "中国 · 声学与触觉集成",
+      "period": "2023",
+      "sourceKey": "aac-annual-2023",
+      "role": false,
+      "notes": "把麦克风、扬声器和触觉器件归纳到手机功能系统；并非每款手机具有相同器件方案。"
+    },
+    {
+      "id": "node-cn-battery-pack",
+      "entity": "country-cn",
+      "item": "battery-module",
+      "stage": "assembly",
+      "label": "中国 · 电池封装集成",
+      "period": "2023",
+      "sourceKey": "desay-annual-2023",
+      "role": true,
+      "notes": "德赛2023年报支持消费电子BMS与PACK封装能力；输入电芯、管理电路、结构件与辅料。"
+    },
+    {
+      "id": "node-cn-bms",
+      "entity": "country-cn",
+      "item": "battery-bms",
+      "stage": "component_manufacturing",
+      "label": "中国 · 电池管理电路",
+      "period": "2023",
+      "sourceKey": "desay-annual-2023",
+      "role": true,
+      "notes": "BMS的功能与组成由年报释义支持；不声明向本路线其他厂商供货。"
+    },
+    {
+      "id": "node-cn-graphite-treatment",
+      "entity": "country-cn",
+      "item": "processed-graphite",
+      "stage": "material_processing",
+      "label": "中国 · 石墨提纯与改性",
+      "period": "2026-10",
+      "sourceKey": "btr-anode",
+      "role": true,
+      "notes": "贝特瑞网页列示国内纯化、石墨化、球形石墨和负极加工基地及3C应用。"
+    },
+    {
+      "id": "node-display-module-catalog",
+      "entity": "country-cn",
+      "item": "display-module",
+      "stage": "assembly",
+      "label": "中国 · 屏幕模组集成",
+      "period": "2026-09",
+      "sourceKey": "display-module-existing",
+      "role": true,
+      "notes": "保存的Samsung Display页面列示中国、越南、印度模组制造地点；不用于推定具体手机采购关系。"
+    },
+    {
+      "id": "node-cn-display-ready",
+      "entity": "country-cn",
+      "item": "display",
+      "stage": "assembly",
+      "label": "中国 · 屏幕贴合与接入",
+      "period": "2026-09",
+      "sourceKey": "display-module-existing",
+      "role": false,
+      "notes": "面板、驱动、柔性连接和盖板等组成屏幕模组；触控/指纹功能按设计可选。"
+    },
+    {
+      "id": "node-vn-assembly",
+      "entity": "country-vn",
+      "item": "generic-smartphone",
+      "stage": "assembly",
+      "label": "越南 · 整机组装",
+      "period": "2024",
+      "sourceKey": "vietnam-assembly-2024",
+      "role": true,
+      "notes": "2024官方制造公告支持越南太原厂智能手机生产角色；累计里程碑不作年度产量。"
+    },
+    {
+      "id": "node-in-assembly",
+      "entity": "country-in",
+      "item": "generic-smartphone",
+      "stage": "assembly",
+      "label": "印度 · 整机组装",
+      "period": "2023",
+      "sourceKey": "india-manufacturing-2023",
+      "role": true,
+      "notes": "印度政府2023资料支持手机制造生态和Noida制造基地；产能不当作实际产量。"
+    }
+  ],
+  "flows": [
+    [
+      "processor-design-wafer",
+      "node-us-application-processor",
+      "node-tw-wafer",
+      "application-processor",
+      "component_manufacturing",
+      "电路设计进入晶圆制造",
+      "tsmc-web-extract-2025"
+    ],
+    [
+      "wafer-package",
+      "node-tw-wafer",
+      "node-tw-chip-package",
+      "semiconductor-wafer",
+      "component_manufacturing",
+      "晶圆切分、封装与测试",
+      "tsmc-web-extract-2025"
+    ],
+    [
+      "dram-package",
+      "node-kr-dram",
+      "node-tw-chip-package",
+      "dram",
+      "component_manufacturing",
+      "存储裸片进入封装路径",
+      "tsmc-web-extract-2025"
+    ],
+    [
+      "nand-package",
+      "node-kr-nand",
+      "node-tw-chip-package",
+      "nand-flash",
+      "component_manufacturing",
+      "闪存裸片进入封装路径",
+      "tsmc-web-extract-2025"
+    ],
+    [
+      "package-board",
+      "node-tw-chip-package",
+      "node-cn-populated-board",
+      "chip-packaging",
+      "assembly",
+      "封装器件进入电路板装联",
+      "eurocircuits-pcb-process"
+    ],
+    [
+      "sensor-camera",
+      "node-image-sensor-catalog",
+      "node-camera-module-catalog",
+      "image-sensor",
+      "assembly",
+      "图像传感器进入相机模组",
+      "sem-camera-core"
+    ],
+    [
+      "lens-camera",
+      "node-camera-lens-catalog",
+      "node-camera-module-catalog",
+      "camera-lens",
+      "assembly",
+      "镜头与图像传感器形成光学系统",
+      "sem-camera-core"
+    ],
+    [
+      "actuator-camera",
+      "node-camera-actuator",
+      "node-camera-module-catalog",
+      "camera-actuator",
+      "assembly",
+      "执行器提供对焦和防抖",
+      "sem-camera-core"
+    ],
+    [
+      "camera-calibration",
+      "node-camera-module-catalog",
+      "node-component-camera-catalog",
+      "camera-module",
+      "assembly",
+      "完成光学校准与模组检测",
+      "sem-camera-core"
+    ],
+    [
+      "camera-phone",
+      "node-component-camera-catalog",
+      "node-cn-assembly",
+      "camera",
+      "assembly",
+      "摄像头模组接入整机",
+      "sem-camera-core"
+    ],
+    [
+      "pcb-materials-board",
+      "node-pcb-materials",
+      "node-bare-pcb",
+      "pcb-copper-foil",
+      "component_manufacturing",
+      "基材和铜层形成印制电路",
+      "eurocircuits-pcb-process"
+    ],
+    [
+      "bare-populated-board",
+      "node-bare-pcb",
+      "node-cn-populated-board",
+      "bare-pcb",
+      "assembly",
+      "裸板装联芯片与电子元件",
+      "eurocircuits-pcb-process"
+    ],
+    [
+      "populated-connections",
+      "node-cn-populated-board",
+      "node-component-pcb-catalog",
+      "populated-board",
+      "assembly",
+      "主板与柔性连接构成功能电路",
+      "avary-annual-2023"
+    ],
+    [
+      "board-phone",
+      "node-component-pcb-catalog",
+      "node-cn-assembly",
+      "pcb-connector",
+      "assembly",
+      "主板与其他模组互连",
+      "avary-annual-2023"
+    ],
+    [
+      "frame-form",
+      "node-cn-frame-material",
+      "node-cn-frame-finish",
+      "frame-alloy",
+      "component_manufacturing",
+      "铝合金成形与CNC精密加工",
+      "aac-precision"
+    ],
+    [
+      "frame-finish",
+      "node-cn-frame-finish",
+      "node-component-enclosure-catalog",
+      "phone-frame",
+      "component_manufacturing",
+      "框架与机身结构件组合",
+      "aac-precision"
+    ],
+    [
+      "frame-phone",
+      "node-component-enclosure-catalog",
+      "node-cn-assembly",
+      "enclosure-structure",
+      "assembly",
+      "机身固定并保护内部模组",
+      "aac-precision"
+    ],
+    [
+      "microphone-integration",
+      "node-cn-microphone",
+      "node-component-sensor-audio-catalog",
+      "mems-microphone",
+      "assembly",
+      "声音采集器件接入音频系统",
+      "aac-annual-2023"
+    ],
+    [
+      "speaker-integration",
+      "node-cn-speaker",
+      "node-component-sensor-audio-catalog",
+      "mini-speaker",
+      "assembly",
+      "扬声器接入音频系统",
+      "aac-annual-2023"
+    ],
+    [
+      "haptics-integration",
+      "node-cn-haptics",
+      "node-component-sensor-audio-catalog",
+      "haptic-motor",
+      "assembly",
+      "振动器件接入触觉系统",
+      "aac-annual-2023"
+    ],
+    [
+      "audio-phone",
+      "node-component-sensor-audio-catalog",
+      "node-cn-assembly",
+      "sensor-audio",
+      "assembly",
+      "声学、感知与触觉组件装入整机",
+      "aac-annual-2023"
+    ],
+    [
+      "cell-cn-pack",
+      "node-kr-cell",
+      "node-cn-battery-pack",
+      "cell",
+      "assembly",
+      "电芯进入封装集成的一种结构路径",
+      "desay-annual-2023"
+    ],
+    [
+      "bms-cn-pack",
+      "node-cn-bms",
+      "node-cn-battery-pack",
+      "battery-bms",
+      "assembly",
+      "管理电路与电芯组成电池包",
+      "desay-annual-2023"
+    ],
+    [
+      "cn-pack-phone",
+      "node-cn-battery-pack",
+      "node-cn-assembly",
+      "battery-module",
+      "assembly",
+      "电池包接入手机供电系统",
+      "desay-annual-2023"
+    ],
+    [
+      "graphite-treatment",
+      "node-cn-graphite",
+      "node-cn-graphite-treatment",
+      "graphite",
+      "material_processing",
+      "原料石墨经纯化和改性",
+      "btr-anode"
+    ],
+    [
+      "treated-graphite-anode",
+      "node-cn-graphite-treatment",
+      "node-cn-anode",
+      "processed-graphite",
+      "material_processing",
+      "加工石墨形成负极材料",
+      "btr-anode"
+    ],
+    [
+      "panel-module",
+      "node-display-panel-catalog",
+      "node-display-module-catalog",
+      "display-panel",
+      "assembly",
+      "面板连接驱动与柔性电路",
+      "display-module-existing"
+    ],
+    [
+      "cover-module",
+      "node-cover-glass-catalog",
+      "node-display-module-catalog",
+      "cover-glass",
+      "assembly",
+      "盖板与保护层加入屏幕模组",
+      "display-module-existing"
+    ],
+    [
+      "module-display",
+      "node-display-module-catalog",
+      "node-cn-display-ready",
+      "display-module",
+      "assembly",
+      "屏幕模组贴合与功能检测",
+      "display-module-existing"
+    ],
+    [
+      "display-phone",
+      "node-cn-display-ready",
+      "node-cn-assembly",
+      "display",
+      "assembly",
+      "屏幕接入整机",
+      "display-module-existing"
+    ],
+    [
+      "camera-vn-assembly",
+      "node-vn-camera-module",
+      "node-vn-assembly",
+      "camera-module",
+      "assembly",
+      "越南组装分支中的相机接入",
+      "sem-camera-core"
+    ],
+    [
+      "display-in-assembly",
+      "node-display-module-catalog",
+      "node-in-assembly",
+      "display-module",
+      "assembly",
+      "印度组装分支中的屏幕接入",
+      "display-module-existing"
+    ],
+    [
+      "board-in-assembly",
+      "node-component-pcb-catalog",
+      "node-in-assembly",
+      "pcb-connector",
+      "assembly",
+      "印度整机分支中的主板接入",
+      "avary-annual-2023"
+    ]
+  ],
+  "activityUpdates": [
+    {
+      "id": "activity-cn-cathode",
+      "entity": "country-cn",
+      "stage": "material_processing",
+      "inputs": [
+        "lithium",
+        "cobalt",
+        "nickel"
+      ],
+      "outputs": [
+        "cathode-material"
+      ],
+      "period": "2023",
+      "sourceKey": "easpring-annual-2023",
+      "role": true,
+      "notes": "按电池化学体系制备正极材料",
+      "researchNote": "正极材料按化学体系选择输入：钴酸锂侧重锂和钴，多元材料可含镍；列表为可选原料集合，非每种配方同时使用。国内材料制造及消费电子应用有年报支持。"
+    },
+    {
+      "id": "activity-cn-anode",
+      "entity": "country-cn",
+      "stage": "material_processing",
+      "inputs": [
+        "processed-graphite"
+      ],
+      "outputs": [
+        "anode-material"
+      ],
+      "period": "2026-10",
+      "sourceKey": "btr-anode",
+      "role": true,
+      "notes": "石墨提纯、改性与负极材料制备",
+      "researchNote": "原料经提纯、石墨化或改性形成适用负极材料；天然与人造石墨为不同可选路线。"
+    },
+    {
+      "id": "activity-kr-cell",
+      "entity": "country-kr",
+      "stage": "component_manufacturing",
+      "inputs": [
+        "cathode-material",
+        "anode-material",
+        "copper",
+        "aluminum"
+      ],
+      "outputs": [
+        "cell"
+      ],
+      "period": "2026-10",
+      "sourceKey": "sdi-production-network",
+      "role": true,
+      "notes": "小型电芯制造",
+      "researchNote": "韩国天安小型电池制造角色已公开；输入输出表示通用锂电电芯结构，不限定某款手机电芯、化学体系或数量。"
+    },
+    {
+      "id": "activity-jp-components",
+      "entity": "country-jp",
+      "stage": "component_manufacturing",
+      "inputs": [],
+      "outputs": [
+        "display"
+      ],
+      "period": "2023",
+      "existingEvidenceId": "evidence-jeita-japan-electronics-lcd-production-role-2023",
+      "notes": "LCD显示器件制造",
+      "researchNote": "日本2023年电子工业LCD生产资料支持显示产业角色；不再把处理器与摄像头一并挂在这个笼统活动下。"
+    },
+    {
+      "id": "activity-cn-assembly",
+      "entity": "country-cn",
+      "stage": "assembly",
+      "inputs": [
+        "battery-module",
+        "display",
+        "processor-memory",
+        "camera",
+        "pcb-connector",
+        "enclosure-structure",
+        "sensor-audio"
+      ],
+      "outputs": [
+        "generic-smartphone"
+      ],
+      "period": "2023",
+      "sourceKey": "china-smartphone-2023",
+      "role": true,
+      "notes": "七类功能组件汇入智能手机组装",
+      "researchNote": "2023年规模以上企业智能手机产量支持中国生产角色。七类输入是通用功能拆解，不是特定厂商BOM或实际采购清单。"
+    },
+    {
+      "id": "activity-us-distribution",
+      "entity": "country-us",
+      "stage": "distribution",
+      "inputs": [
+        "generic-smartphone"
+      ],
+      "outputs": [
+        "generic-smartphone"
+      ],
+      "period": "2023",
+      "sourceKey": "apple-market-2023",
+      "role": true,
+      "notes": "智能手机零售上市与渠道供给",
+      "researchNote": "用2023年公开上市安排支持美国手机零售供给的存在；不从进口额推导渠道销量。"
+    },
+    {
+      "id": "activity-de-consumption",
+      "entity": "country-de",
+      "stage": "distribution",
+      "inputs": [
+        "generic-smartphone"
+      ],
+      "outputs": [
+        "generic-smartphone"
+      ],
+      "period": "2023",
+      "sourceKey": "apple-market-2023",
+      "role": true,
+      "notes": "智能手机零售上市与渠道供给",
+      "researchNote": "活动改为有公开上市安排支持的零售市场供给；保留稳定ID，不再把进口额当作德国最终消费。"
+    }
+  ],
+  "stepUpdates": {
+    "step-raw-materials": [
+      "原料从哪里来",
+      "锂、钴、镍、石墨、铜和铝相关原料，经过不同加工环节进入电池与电子部件。"
+    ],
+    "step-materials": [
+      "制备正负极材料",
+      "正极材料按电池化学体系选用锂、钴、镍等原料；石墨经提纯与改性制成负极材料。"
+    ],
+    "step-cell": [
+      "制造电芯",
+      "正极、负极与集流体等组成电芯；电极结构与材料配方随电池类型而变化。"
+    ],
+    "step-module": [
+      "封装电池与管理电路",
+      "电芯与保护管理电路、结构件及辅料集成为电池包。韩国与中国的封装路径可分别查看。"
+    ],
+    "step-assembly": [
+      "装成一部手机",
+      "主板、屏幕、电池、相机、机身与声学部件在整机阶段汇合。中国、越南与印度展示不同的组装分支。"
+    ],
+    "step-distribution": [
+      "进入零售渠道",
+      "成品经分销、运营商与零售渠道进入市场，贸易统计与渠道上市资料分别查看。"
+    ],
+    "step-consumption": [
+      "到达使用者身边",
+      "零售市场资料说明手机何时可供购买；进口量、零售销量和最终消费采用各自口径。"
+    ],
+    "step-component-coverage-gaps": [
+      "把相机、电路与机身接起来",
+      "镜头、图像传感器与执行器组成相机；电路板连接各系统；机身、声学与触觉部件完成整机功能。"
+    ],
+    "step-processor-memory-background": [
+      "从电路设计到封装芯片",
+      "处理器和存储器经过电路设计、晶圆制造及封装测试，再安装到电路板。"
+    ]
+  },
+  "manufacturingChains": [
+    {
+      "id": "process-chain-camera-module",
+      "item": "camera",
+      "title": "摄像头模组：光学部件到整机接入",
+      "sourceKey": "sem-camera-core",
+      "period": "2026-10",
+      "steps": [
+        [
+          "准备光学与感光部件",
+          [
+            "camera-lens",
+            "image-sensor",
+            "camera-actuator"
+          ],
+          [
+            "camera-lens",
+            "image-sensor",
+            "camera-actuator"
+          ],
+          "镜头负责成像，传感器接收光信号，执行器提供对焦与防抖。"
+        ],
+        [
+          "安装并互连模组",
+          [
+            "camera-lens",
+            "image-sensor",
+            "camera-actuator",
+            "bare-pcb"
+          ],
+          [
+            "camera-module"
+          ],
+          "把光学部件、传感器和执行器安装到模组电路结构。"
+        ],
+        [
+          "校准与检测",
+          [
+            "camera-module"
+          ],
+          [
+            "camera"
+          ],
+          "通过光学对准、组装和检测评价使相机模组达到设计功能。"
+        ]
+      ]
+    },
+    {
+      "id": "process-chain-phone-pcb",
+      "item": "pcb-connector",
+      "title": "电路板：基材、线路与元件装联",
+      "sourceKey": "eurocircuits-pcb-process",
+      "period": "2026-10",
+      "steps": [
+        [
+          "准备覆铜基材",
+          [
+            "pcb-copper-foil",
+            "pcb-laminate"
+          ],
+          [
+            "bare-pcb"
+          ],
+          "树脂玻纤提供绝缘与强度，铜箔形成后续导电层。"
+        ],
+        [
+          "形成内层线路",
+          [
+            "bare-pcb"
+          ],
+          [
+            "bare-pcb"
+          ],
+          "将电路图形转移到铜层，蚀刻去除不需要的铜并检查线路。"
+        ],
+        [
+          "多层压合",
+          [
+            "bare-pcb",
+            "pcb-laminate"
+          ],
+          [
+            "bare-pcb"
+          ],
+          "对准内层，加入半固化片与铜层并压合。"
+        ],
+        [
+          "钻孔与镀铜",
+          [
+            "bare-pcb",
+            "pcb-copper-foil"
+          ],
+          [
+            "bare-pcb"
+          ],
+          "加工通孔并使孔壁导电，形成层间连接和外层线路。"
+        ],
+        [
+          "阻焊、表面处理与电测",
+          [
+            "bare-pcb"
+          ],
+          [
+            "bare-pcb"
+          ],
+          "施加保护层和可焊表面，检查开路、短路与板形。"
+        ],
+        [
+          "装联芯片与连接件",
+          [
+            "bare-pcb",
+            "chip-packaging",
+            "phone-connector"
+          ],
+          [
+            "populated-board"
+          ],
+          "将封装器件和连接件装到板上，形成可接入其他模组的电路组件；不同产品装联方案各异。"
+        ]
+      ],
+      "additionalSourceKeys": [
+        "avary-annual-2023"
+      ]
+    },
+    {
+      "id": "process-chain-phone-enclosure",
+      "item": "enclosure-structure",
+      "title": "机身结构：金属成形到精密框架",
+      "sourceKey": "aac-precision",
+      "period": "2026-10",
+      "steps": [
+        [
+          "材料与成形路线",
+          [
+            "frame-alloy"
+          ],
+          [
+            "phone-frame"
+          ],
+          "根据结构选择铝合金材料，并采用冲压或锻造等成形路线。"
+        ],
+        [
+          "CNC精密加工",
+          [
+            "phone-frame"
+          ],
+          [
+            "enclosure-structure"
+          ],
+          "加工定位、装配与功能接口，使框架适应内部部件布局。"
+        ],
+        [
+          "结构平台集成",
+          [
+            "enclosure-structure"
+          ],
+          [
+            "enclosure-structure"
+          ],
+          "把机械结构与声学、天线、散热等设计协调，形成可用的机身平台。"
+        ]
+      ]
+    },
+    {
+      "id": "process-chain-battery-pack",
+      "item": "battery",
+      "title": "电池包：电芯与保护管理系统",
+      "sourceKey": "desay-annual-2023",
+      "period": "2023",
+      "steps": [
+        [
+          "配置保护管理电路",
+          [
+            "bare-pcb",
+            "phone-connector"
+          ],
+          [
+            "battery-bms"
+          ],
+          "管理电路由电路板、电子元件和软件组成，检测电压、电流和温度。"
+        ],
+        [
+          "封装集成",
+          [
+            "cell",
+            "battery-bms",
+            "battery-housing"
+          ],
+          [
+            "battery-module"
+          ],
+          "把电芯、管理系统、结构件和辅料集成为电池包。"
+        ]
+      ]
+    }
+  ],
+  "limitations": [
+    "国家角色、工艺结构与具体企业供货是不同事实；新增连接按代表性结构保存，不作为观察到的双边运输。",
+    "节点按来源适用期记录2023、2024、2025或资料核验月；多期内容不构成同年完整物料谱系。",
+    "未知货量、份额、厂商客户关系不填默认数值；印度产能与越南累计里程碑不作为年度产量。"
+  ]
+}

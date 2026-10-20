@@ -1,0 +1,14 @@
+{
+  "file": "cottonworks-learning-hub.html",
+  "url": "https://cottonworks.com/learning-hub/",
+  "publisher": "Cotton Incorporated",
+  "publishedAt": null,
+  "retrievedAt": "2026-10-20T22:16:57.365284+00:00",
+  "method": "industry_primary",
+  "status": "downloaded",
+  "httpStatus": 200,
+  "finalUrl": "https://cottonworks.com/learning-hub/",
+  "contentType": "text/html; charset=UTF-8",
+  "bytes": 148496,
+  "sha256": "6a8bfcbbdcb1d7ea79cdd7f2f590d3ec2dd1a32bfabc093277e6f95b2f49f1ca"
+}

@@ -1,0 +1,17 @@
+{
+  "file": "comtrade-356-610910-2025.json",
+  "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=356&partnerCode=0%2C842&cmdCode=610910&flowCode=M%2CX&period=2025&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+  "publisher": "United Nations Statistics Division",
+  "publishedAt": null,
+  "retrievedAt": "2026-10-20T22:17:04.097194+00:00",
+  "method": "official",
+  "status": "downloaded",
+  "httpStatus": 200,
+  "finalUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=356&partnerCode=0%2C842&cmdCode=610910&flowCode=M%2CX&period=2025&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+  "contentType": "application/json; charset=utf-8",
+  "bytes": 58,
+  "sha256": "521c3442c33af89e73ffef06a0e06631bf52944cd98740a2e527c04641939e08",
+  "recordCount": 0,
+  "reportedCount": 0,
+  "previewLimit": 500
+}

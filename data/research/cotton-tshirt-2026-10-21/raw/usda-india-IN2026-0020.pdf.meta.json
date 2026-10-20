@@ -1,0 +1,14 @@
+{
+  "file": "usda-india-IN2026-0020.pdf",
+  "url": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Cotton+and+Products+Annual_New+Delhi_India_IN2026-0020.pdf",
+  "publisher": "USDA FAS",
+  "publishedAt": "2026-04-03",
+  "retrievedAt": "2026-10-20T22:16:52.211179+00:00",
+  "method": "official",
+  "status": "downloaded",
+  "httpStatus": 200,
+  "finalUrl": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Cotton+and+Products+Annual_New+Delhi_India_IN2026-0020.pdf",
+  "contentType": "application/pdf",
+  "bytes": 1090221,
+  "sha256": "945a889c8d69e5d74170f7022ee5d2f2e788e2481af915aad1484b4f662e6332"
+}

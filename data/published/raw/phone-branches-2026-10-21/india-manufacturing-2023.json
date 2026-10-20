@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "public-source-file-snapshot.v1",
+  "key": "india-manufacturing-2023",
+  "url": "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2023/apr/doc2023428189611.pdf",
+  "finalUrl": "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2023/apr/doc2023428189611.pdf",
+  "retrievedAt": "2026-10-20T22:07:09.049Z",
+  "httpStatus": 200,
+  "contentType": "application/pdf",
+  "sha256": "ab1f8c9e399673672ea114acd382a1a60d02fc2a2ced4230cd3955e517b45dca",
+  "file": "india-manufacturing-2023.pdf",
+  "license": "Publisher terms apply; preserved for local evidence review, link and limited summaries in public product."
+}

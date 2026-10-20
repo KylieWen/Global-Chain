@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "reviewed-primary-web-extract.v1",
+  "key": "tsmc-web-extract-2025",
+  "url": "https://investor.tsmc.com/static/annualReports/2025/english/index.html",
+  "supportingUrl": "https://investor.tsmc.com/sites/ir/sec-filings/2025_20F%20Report.pdf",
+  "retrievedAt": "2026-10-20T22:04:52Z",
+  "sourcePeriod": "2025",
+  "retrievalMethod": "Official page read using web retrieval; direct local-file request returned HTTP 403. This is a selected reviewed extraction, not the original full page.",
+  "selectedExcerpt": "four 12-inch wafer GIGAFAB® fabs, four 8-inch wafer fabs, and one 6-inch wafer fab – all in Taiwan",
+  "summary": "2025年报说明台积电制造客户设计的半导体，列示台湾地区晶圆制造布局，以及InFO、CoWoS和SoIC等封装技术；半导体产品用于智能手机等多个终端市场。20-F制造能力章节说明在硅晶圆上制造客户设计的电路。这些资料用于制造阶段与当地能力，不证明本项目展示的某一处理器、存储器或客户关系。",
+  "license": "TSMC terms apply. Link and limited summary; selected extraction only."
+}

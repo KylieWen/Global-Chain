@@ -1,0 +1,14 @@
+{
+  "file": "usda-china-CH2025-0087.pdf",
+  "url": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Cotton+and+Products+Annual_Beijing_China+-+People%27s+Republic+of_CH2025-0087.pdf",
+  "publisher": "USDA FAS",
+  "publishedAt": "2025-04-23",
+  "retrievedAt": "2026-10-20T22:16:43.971133+00:00",
+  "method": "official",
+  "status": "downloaded",
+  "httpStatus": 200,
+  "finalUrl": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Cotton+and+Products+Annual_Beijing_China+-+People%27s+Republic+of_CH2025-0087.pdf",
+  "contentType": "application/pdf",
+  "bytes": 1483295,
+  "sha256": "a1ba4366190f1e5e91f1e7f5da9ff1717da4e4ba0e961deeac815d8ef397e4d0"
+}

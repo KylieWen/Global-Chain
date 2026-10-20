@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "public-source-file-snapshot.v1",
+  "key": "apple-market-2023",
+  "url": "https://www.apple.com/newsroom/2023/09/apple-debuts-iphone-15-and-iphone-15-plus/",
+  "finalUrl": "https://www.apple.com/newsroom/2023/09/apple-debuts-iphone-15-and-iphone-15-plus/",
+  "retrievedAt": "2026-10-20T22:07:08.829Z",
+  "httpStatus": 200,
+  "contentType": "text/html;charset=utf-8",
+  "sha256": "0fbf1b95b2367af69746f8e4c917dc5493df385ab220fa42b90512c1564c3f53",
+  "file": "apple-market-2023.html",
+  "license": "Publisher terms apply; preserved for local evidence review, link and limited summaries in public product."
+}
