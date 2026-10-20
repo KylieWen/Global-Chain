@@ -1,0 +1,83 @@
+{
+  "status": "design-drafts",
+  "outputs": [
+    {
+      "style": "鲜明未来",
+      "size_mm": [
+        210.0,
+        297.0
+      ],
+      "pdf": "future-a4.pdf",
+      "svg": "future-a4.svg",
+      "preview": "future-a4-preview.png",
+      "pages": 1,
+      "vector_text_extraction": "passed"
+    },
+    {
+      "style": "鲜明未来",
+      "size_mm": [
+        800.0,
+        1200.0
+      ],
+      "pdf": "future-80x120cm.pdf",
+      "svg": "future-80x120cm.svg",
+      "preview": "future-80x120cm-preview.png",
+      "pages": 1,
+      "vector_text_extraction": "passed"
+    },
+    {
+      "style": "复古未来",
+      "size_mm": [
+        210.0,
+        297.0
+      ],
+      "pdf": "retro-a4.pdf",
+      "svg": "retro-a4.svg",
+      "preview": "retro-a4-preview.png",
+      "pages": 1,
+      "vector_text_extraction": "passed"
+    },
+    {
+      "style": "复古未来",
+      "size_mm": [
+        800.0,
+        1200.0
+      ],
+      "pdf": "retro-80x120cm.pdf",
+      "svg": "retro-80x120cm.svg",
+      "preview": "retro-80x120cm-preview.png",
+      "pages": 1,
+      "vector_text_extraction": "passed"
+    },
+    {
+      "style": "远未来",
+      "size_mm": [
+        210.0,
+        297.0
+      ],
+      "pdf": "farfuture-a4.pdf",
+      "svg": "farfuture-a4.svg",
+      "preview": "farfuture-a4-preview.png",
+      "pages": 1,
+      "vector_text_extraction": "passed"
+    },
+    {
+      "style": "远未来",
+      "size_mm": [
+        800.0,
+        1200.0
+      ],
+      "pdf": "farfuture-80x120cm.pdf",
+      "svg": "farfuture-80x120cm.svg",
+      "preview": "farfuture-80x120cm-preview.png",
+      "pages": 1,
+      "vector_text_extraction": "passed"
+    }
+  ],
+  "limitations": [
+    "Concept imagery is 1024 x 1536 pixels; large boards are physical-size design drafts, not 300 dpi print masters.",
+    "No QR code, public URL, coverage-count claim or AI product capability claim is included.",
+    "SVG text remains editable and uses local Microsoft YaHei; move the assets directory with the SVG files.",
+    "PDFs embed subset fonts. Printer-specific bleed, material, color proof and higher-resolution imagery are still required before production."
+  ]
+}
