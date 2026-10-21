@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "source-capture.v1",
+  "batchId": "china-hvac-equipment-2026-10-22",
+  "entries": [
+    {
+      "id": "hvaceq22-haitian-appliance",
+      "url": "https://haitianinter.com/cn/solutions/industries/home-appliance/",
+      "retrievedAt": "2026-10-21T16:55:43.244057Z",
+      "httpStatus": 200,
+      "finalUrl": "https://haitianinter.com/cn/solutions/industries/home-appliance/",
+      "contentType": "text/html; charset=UTF-8",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-haitian-appliance.html",
+      "sha256": "a1b60942863b375786796b5839bd17acc3877982d5528c1a4aa865096cbf4b36",
+      "bytes": 354895
+    },
+    {
+      "id": "hvaceq22-haitian-contact",
+      "url": "https://haitianinter.com/cn/contact-overview/",
+      "retrievedAt": "2026-10-21T16:55:43.245294Z",
+      "httpStatus": 200,
+      "finalUrl": "https://haitianinter.com/cn/contact-overview/",
+      "contentType": "text/html; charset=UTF-8",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-haitian-contact.html",
+      "sha256": "e0d9b67bc3bac46f9299442708cf3894605343037f4f1036b259eafc0a54bf90",
+      "bytes": 321564
+    },
+    {
+      "id": "hvaceq22-nide-equipment",
+      "url": "https://www.nidegroup.com/products.html",
+      "retrievedAt": "2026-10-21T16:55:43.246148Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.nidegroup.com/products.html",
+      "contentType": "text/html; charset=UTF-8",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-nide-equipment.html",
+      "sha256": "09eae09339776e9a61afb305f72ddd7e379e84653677670f94f1557ddb405a0b",
+      "bytes": 66038
+    },
+    {
+      "id": "hvaceq22-nide-contact",
+      "url": "https://www.nidegroup.com/contact.html?scrollTo=c1",
+      "retrievedAt": "2026-10-21T16:55:43.246780Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.nidegroup.com/contact.html?scrollTo=c1",
+      "contentType": "text/html; charset=UTF-8",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-nide-contact.html",
+      "sha256": "0ef38d9033b1759254f87d21e55468167c5379901028d6e6e8d4c8806d00165f",
+      "bytes": 50934
+    },
+    {
+      "id": "hvaceq22-rosetta-winder",
+      "url": "https://www.czrosettastone.com/cn/Straight-Winding-Machine/99.html",
+      "retrievedAt": "2026-10-21T16:55:43.247537Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.czrosettastone.com/cn/Straight-Winding-Machine/99.html",
+      "contentType": "text/html; Charset=utf-8",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-rosetta-winder.html",
+      "sha256": "67b4e464617e2630aab3efc6838fccd5371a113ee6017e61de99ab21f8b23bd8",
+      "bytes": 19038
+    },
+    {
+      "id": "hvaceq22-gree-service",
+      "url": "https://www.gree.com/zh/zh-CN/serviceCenter/",
+      "retrievedAt": "2026-10-21T16:55:44.454706Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.gree.com/zh/zh-CN/serviceCenter/",
+      "contentType": "text/html; charset=utf-8",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-gree-service.html",
+      "sha256": "3605cc450ca1cfdcf4a755882fe2db8e3d19414c03394b8abab9f318bff842f9",
+      "bytes": 168182
+    },
+    {
+      "id": "hvaceq22-gree-self-service",
+      "url": "https://sms.gree.com/default-front-greeshzzbx",
+      "retrievedAt": "2026-10-21T16:55:44.498109Z",
+      "httpStatus": 200,
+      "finalUrl": "https://sms.gree.com/h5",
+      "contentType": "text/html",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-gree-self-service.html",
+      "sha256": "bfeea2ab3660eb767e47e0024a2c6f35426dada3023ab3e4d5c475678109d20d",
+      "bytes": 2542
+    }
+  ]
+}

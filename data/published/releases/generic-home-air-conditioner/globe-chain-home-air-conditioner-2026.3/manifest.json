@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-home-air-conditioner",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-home-air-conditioner-2026.3",
+  "generatedAt": "2026-10-22",
+  "fixtureSha256": "6eeae623d9b686fbec7085fb1d1a590cf9103e57400aa3430fa88b8bee039377",
+  "release": {
+    "productId": "generic-home-air-conditioner",
+    "datasetVersion": "globe-chain-home-air-conditioner-2026.3",
+    "releasePath": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.3",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "china-hvac-equipment-2026-10-22",
+    "contentSource": "content/industry/china-hvac-equipment-supplement-2026-10-22.json",
+    "contentPathBase": "repository-root",
+    "contentSha256": "e4cce3382176de24c2e19ab443ea557184f4558b8a1a362fb43b50b4261b5aca",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "2fa78df2493c8a5a0daf19f521deaef9cb5690c8c681296e5476985d0698479b"
+  }
+}

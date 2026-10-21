@@ -22,3 +22,5 @@ data/raw/china-hvac-participants-2026-10-22/** -text
 data/raw/china-hvac-core-2026-10-22/** -text
 content/industry/china-hvac-supplement-2026-10-22.json -text
 content/industry/china-hvac-core-supplement-2026-10-22.json -text
+data/raw/china-hvac-equipment-2026-10-22/** -text
+content/industry/china-hvac-equipment-supplement-2026-10-22.json -text

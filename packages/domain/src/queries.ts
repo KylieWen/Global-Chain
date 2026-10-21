@@ -1,4 +1,4 @@
-import { getIndustryNetwork, type IndustryNetworkOptions, type IndustryNetworkView } from "./industry";
+import { getIndustryNetwork, type IndustryNetworkOptions, type IndustryNetworkView, type IndustryTopicView } from "./industry";
 import type {
   ClassificationCode,
   ClassificationCrosswalk,
@@ -246,6 +246,7 @@ export interface ResolvedManufacturingProcessStepView {
   /** Resolved item dimensions so presentation code never needs to dereference IDs. */
   readonly inputItems: readonly ReadonlyItem[];
   readonly outputItems: readonly ReadonlyItem[];
+  readonly relatedIndustryTopics: readonly IndustryTopicView[];
   readonly datasetVersion: ReadonlyDatasetVersion | null;
   readonly contentVersion: ReadonlyContentVersion | null;
   readonly routeVariants: readonly ReadonlyManufacturingRouteVariant[];
@@ -2108,6 +2109,7 @@ export function getManufacturingProcessChain(
     });
   };
 
+  const industry = getIndustryNetwork(repository, productId);
   const steps = fixture.manufacturingProcessSteps
     .filter((step) => step.processChainId === chain.id)
     .sort((left, right) => left.order - right.order)
@@ -2131,6 +2133,7 @@ export function getManufacturingProcessChain(
         });
       return Object.freeze({
         step,
+        relatedIndustryTopics: freezeArray((industry?.topics ?? []).filter(topic => ["material","component"].includes(topic.kind) && topic.itemIds?.some(id => [...step.inputItemIds,...step.outputItemIds].includes(id)))),
         inputItems: freezeArray(step.inputItemIds.map((itemId) => fixture.items.find((item) => item.id === itemId)).filter((item): item is ReadonlyItem => Boolean(item))),
         outputItems: freezeArray(step.outputItemIds.map((itemId) => fixture.items.find((item) => item.id === itemId)).filter((item): item is ReadonlyItem => Boolean(item))),
         datasetVersion: datasetVersionForId(fixture, step.datasetVersionId),

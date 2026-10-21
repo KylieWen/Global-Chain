@@ -27,14 +27,14 @@
     },
     {
       "productId": "generic-home-air-conditioner",
-      "path": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.2/fixture.json",
-      "datasetVersion": "globe-chain-home-air-conditioner-2026.2",
-      "fixtureSha256": "78028e78b4e2293ae59af289968afa7471867405d428666abefc6bb496eb1a33"
+      "path": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.3/fixture.json",
+      "datasetVersion": "globe-chain-home-air-conditioner-2026.3",
+      "fixtureSha256": "6eeae623d9b686fbec7085fb1d1a590cf9103e57400aa3430fa88b8bee039377"
     }
   ],
-  "datasetVersion": "globe-chain-home-air-conditioner-2026.2",
+  "datasetVersion": "globe-chain-home-air-conditioner-2026.3",
   "generatedAt": "2026-10-22",
-  "fixtureSha256": "78028e78b4e2293ae59af289968afa7471867405d428666abefc6bb496eb1a33",
+  "fixtureSha256": "6eeae623d9b686fbec7085fb1d1a590cf9103e57400aa3430fa88b8bee039377",
   "routeContentVersion": "smartphone-route-2026.1",
   "routeContentSha256": "f44dc5485d9a03c4be0ea8927ff59ae372485e303ce509795db9033a27ffb5df",
   "contentSources": [
@@ -98,22 +98,22 @@
   ],
   "release": {
     "productId": "generic-home-air-conditioner",
-    "datasetVersion": "globe-chain-home-air-conditioner-2026.2",
-    "releasePath": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.2",
+    "datasetVersion": "globe-chain-home-air-conditioner-2026.3",
+    "releasePath": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.3",
     "immutable": true
   },
   "refreshContentSource": "content/refresh-2026-09-16.json",
   "refreshContentPathBase": "repository-root",
   "refreshContentSha256": "4be2f302a28da81ff549e739b00617ec484a064e768cfd7915796fa71ee40520",
-  "activeDatasetVersion": "globe-chain-home-air-conditioner-2026.2",
+  "activeDatasetVersion": "globe-chain-home-air-conditioner-2026.3",
   "activeManifest": true,
   "evidenceReview": {
-    "batchId": "china-hvac-2026-10-22",
-    "contentSource": "content/industry/china-hvac-reviewed-2026-10.json",
+    "batchId": "china-hvac-equipment-2026-10-22",
+    "contentSource": "content/industry/china-hvac-equipment-supplement-2026-10-22.json",
     "contentPathBase": "repository-root",
-    "contentSha256": "9c3a46c05691ed644ee9e3c707d806a1d9a8f826e424042c4a03fdc69673937e",
+    "contentSha256": "e4cce3382176de24c2e19ab443ea557184f4558b8a1a362fb43b50b4261b5aca",
     "auditPath": "review-audit.json",
     "auditPathBase": "release-directory",
-    "auditSha256": "2e4f44cf0d5ed281ec4525dc98f4d1845c6b413f47b80bbf9f876bc127dc85d8"
+    "auditSha256": "2fa78df2493c8a5a0daf19f521deaef9cb5690c8c681296e5476985d0698479b"
   }
 }

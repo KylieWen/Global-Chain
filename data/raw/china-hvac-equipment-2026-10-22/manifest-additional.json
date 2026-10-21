@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "source-capture.v1",
+  "batchId": "china-hvac-equipment-2026-10-22",
+  "entries": [
+    {
+      "id": "hvaceq22-rosetta-contact",
+      "url": "https://www.czrosettastone.com/cn/Contact-us/",
+      "retrievedAt": "2026-10-21T16:56:33.753676Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.czrosettastone.com/cn/Contact-us/",
+      "contentType": "text/html; Charset=utf-8",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-rosetta-contact.html",
+      "sha256": "79b4e1d2fae4e8cd2fc87c2dd47d4beac71df2dba19c10ce0c60a9627f98b171",
+      "bytes": 12350
+    },
+    {
+      "id": "hvaceq22-gree-self-service-app",
+      "url": "https://sms.gree.com/h5/assets/index-fd38a37f.js",
+      "retrievedAt": "2026-10-21T16:56:33.754745Z",
+      "httpStatus": 200,
+      "finalUrl": "https://sms.gree.com/h5/assets/index-fd38a37f.js",
+      "contentType": "application/javascript",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-gree-self-service-app.js",
+      "sha256": "a393839c04d435287cc69c015487d7924de93e484f2afccaed6fd0f638cb2afa",
+      "bytes": 1096910
+    }
+  ]
+}

@@ -1,0 +1,637 @@
+{
+  "schemaVersion": "china-hvac-research.v1",
+  "id": "china-hvac-equipment-supplement-2026-10-22",
+  "label": "中国空调制造设备与官方售后导航补充",
+  "reviewedAt": "2026-10-22",
+  "period": {
+    "granularity": "snapshot",
+    "start": "2026-10-22",
+    "end": "2026-10-22",
+    "label": "2026-10-22制造设备与官方售后导航复核"
+  },
+  "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+  "method": "manual_review_of_official_public_material",
+  "status": "validated",
+  "scope": "现代制造设备公开能力与品牌官方售后、服务网点导航。",
+  "limitations": [
+    "NIDE公开的是电机制造设备范围，空调BLDC绕线用途由罗塞塔石具体产品页支持；不把二者转成实际客户供货关系。",
+    "海天资料支持家电注塑与空调塑料部件方向，不指定金发某PBT牌号、某品牌机型或具体工厂。",
+    "罗塞塔石保留进出口公司法定名称，只陈述其官方产品目录，不推断其自有制造厂。",
+    "格力服务中心和自助网页为用户自行打开的官方入口，没有代预约、提交表单或登录；本批未提取安装施工说明。",
+    "本批只追加新主题、关系和三家新企业，通过organizationExtensions给既有格力追加服务主题和链接，不重复计数。"
+  ],
+  "sources": [
+    {
+      "id": "hvaceq22-haitian-appliance",
+      "publisher": "海天塑机集团有限公司 / Haitian International",
+      "name": "家电行业注塑成型解决方案",
+      "url": "https://haitianinter.com/cn/solutions/industries/home-appliance/",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:55:43.244057Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件供复核。",
+      "scope": "企业官网公开设备能力或官方服务导航。",
+      "locator": "白色家电明确含空调；列液压三板机、两板机、电动机及家电面板、薄壁件、高光外观件应用。",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-haitian-appliance.html",
+      "sha256": "a1b60942863b375786796b5839bd17acc3877982d5528c1a4aa865096cbf4b36",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaceq22-haitian-appliance"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaceq22-haitian-contact",
+      "publisher": "海天塑机集团有限公司 / Haitian International",
+      "name": "海天官方销售与服务联系",
+      "url": "https://haitianinter.com/cn/contact-overview/",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:55:43.245294Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件供复核。",
+      "scope": "企业官网公开设备能力或官方服务导航。",
+      "locator": "列宁波海天塑机集团机构、内贸/外贸联络与销售服务查询。",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-haitian-contact.html",
+      "sha256": "e0d9b67bc3bac46f9299442708cf3894605343037f4f1036b259eafc0a54bf90",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaceq22-haitian-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaceq22-nide-equipment",
+      "publisher": "Ningbo NIDE Tech Co., Ltd.",
+      "name": "电机制造与定子绕线设备目录",
+      "url": "https://www.nidegroup.com/products.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:55:43.246148Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件供复核。",
+      "scope": "企业官网公开设备能力或官方服务导航。",
+      "locator": "定子线圈绕线、嵌线、整形、绑线、测试等设备；提供安装、调试、技术培训与售后支持。",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-nide-equipment.html",
+      "sha256": "09eae09339776e9a61afb305f72ddd7e379e84653677670f94f1557ddb405a0b",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaceq22-nide-equipment"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaceq22-nide-contact",
+      "publisher": "Ningbo NIDE Tech Co., Ltd.",
+      "name": "NIDE官方联系信息",
+      "url": "https://www.nidegroup.com/contact.html?scrollTo=c1",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:55:43.246780Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件供复核。",
+      "scope": "企业官网公开设备能力或官方服务导航。",
+      "locator": "宁波及江苏设备业务的机构地址和机构销售邮箱；只链接页面，不抄录个人手机。",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-nide-contact.html",
+      "sha256": "0ef38d9033b1759254f87d21e55468167c5379901028d6e6e8d4c8806d00165f",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaceq22-nide-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaceq22-rosetta-winder",
+      "publisher": "常州罗塞塔石进出口有限公司",
+      "name": "空调BLDC直条分叉绕线设备",
+      "url": "https://www.czrosettastone.com/cn/Straight-Winding-Machine/99.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:55:43.247537Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件供复核。",
+      "scope": "企业官网公开设备能力或官方服务导航。",
+      "locator": "明确用于空调塑封BLDC电机直条铁芯定子绕线。保留公司进出口贸易身份，不把产品目录转为自有工厂证明。",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-rosetta-winder.html",
+      "sha256": "67b4e464617e2630aab3efc6838fccd5371a113ee6017e61de99ab21f8b23bd8",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaceq22-rosetta-winder"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaceq22-rosetta-contact",
+      "publisher": "常州罗塞塔石进出口有限公司",
+      "name": "罗塞塔石官方联系",
+      "url": "https://www.czrosettastone.com/cn/Contact-us/",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:56:33.753676Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件供复核。",
+      "scope": "企业官网公开设备能力或官方服务导航。",
+      "locator": "公司机构地址、电话、邮箱与联系入口。",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-rosetta-contact.html",
+      "sha256": "79b4e1d2fae4e8cd2fc87c2dd47d4beac71df2dba19c10ce0c60a9627f98b171",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaceq22-rosetta-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaceq22-gree-service",
+      "publisher": "珠海格力电器股份有限公司",
+      "name": "格力官方服务中心",
+      "url": "https://www.gree.com/zh/zh-CN/serviceCenter/",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:55:44.454706Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件供复核。",
+      "scope": "企业官网公开设备能力或官方服务导航。",
+      "locator": "服务预约、品类服务标准、营销网络、线下门店与售后服务网点。",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-gree-service.html",
+      "sha256": "3605cc450ca1cfdcf4a755882fe2db8e3d19414c03394b8abab9f318bff842f9",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaceq22-gree-service"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaceq22-gree-self-service",
+      "publisher": "珠海格力电器股份有限公司",
+      "name": "格力自助服务网页",
+      "url": "https://sms.gree.com/default-front-greeshzzbx",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:55:44.498109Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件供复核。",
+      "scope": "企业官网公开设备能力或官方服务导航。",
+      "locator": "HTML标题格力服务；其直接引用公开index脚本含服务大厅、服务进度与服务网点路由。",
+      "rawFile": "data/raw/china-hvac-equipment-2026-10-22/hvaceq22-gree-self-service.html",
+      "sha256": "bfeea2ab3660eb767e47e0024a2c6f35426dada3023ab3e4d5c475678109d20d",
+      "httpStatus": 200,
+      "linkedRawIds": [
+        "hvaceq22-gree-self-service-app"
+      ],
+      "sourceIds": [
+        "hvaceq22-gree-self-service"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    }
+  ],
+  "topics": [
+    {
+      "id": "hvaceq22-injection-equipment",
+      "label": "家电注塑成型设备",
+      "kind": "equipment",
+      "description": "面向空调等家电塑料部件的两板、三板与电动注塑设备。",
+      "sourceIds": [
+        "hvaceq22-haitian-appliance"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaceq22-plastic-forming",
+      "label": "空调塑料部件注塑成型",
+      "kind": "process",
+      "description": "面板、薄壁件和外观件等家电塑料部件的注塑加工方向。",
+      "sourceIds": [
+        "hvaceq22-haitian-appliance"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaceq22-stator-winding-equipment",
+      "label": "电机定子绕线设备",
+      "kind": "equipment",
+      "description": "包括定子线圈绕线和空调BLDC直条铁芯定子绕线设备，可查看不同企业的产品范围。",
+      "sourceIds": [
+        "hvaceq22-nide-equipment",
+        "hvaceq22-rosetta-winder"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaceq22-stator-winding",
+      "label": "空调电机定子绕线",
+      "kind": "process",
+      "description": "对空调塑封BLDC电机的直条铁芯定子进行绕线。",
+      "sourceIds": [
+        "hvaceq22-rosetta-winder"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaceq22-official-after-sales",
+      "label": "空调售后与服务网点",
+      "kind": "service",
+      "description": "通过品牌官方服务中心查看服务预约、服务标准和售后网点。",
+      "sourceIds": [
+        "hvaceq22-gree-service",
+        "hvaceq22-gree-self-service"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    }
+  ],
+  "relations": [
+    {
+      "fromTopicId": "hvaceq22-injection-equipment",
+      "toTopicId": "hvaceq22-plastic-forming",
+      "kind": "equipment_for",
+      "description": "注塑设备支持空调等家电塑料部件成型。",
+      "displayDescription": "注塑设备支持空调等家电塑料部件成型。",
+      "sourceIds": [
+        "hvaceq22-haitian-appliance"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaceq22-plastic-forming",
+      "toTopicId": "room-air-conditioner",
+      "kind": "used_in",
+      "description": "注塑成型用于空调等白色家电的塑料部件加工。",
+      "displayDescription": "注塑成型用于空调等白色家电的塑料部件加工。",
+      "sourceIds": [
+        "hvaceq22-haitian-appliance"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaceq22-stator-winding-equipment",
+      "toTopicId": "hvaceq22-stator-winding",
+      "kind": "equipment_for",
+      "description": "直条绕线设备用于空调BLDC电机定子绕线。",
+      "displayDescription": "直条绕线设备用于空调BLDC电机定子绕线。",
+      "sourceIds": [
+        "hvaceq22-rosetta-winder"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaceq22-stator-winding",
+      "toTopicId": "hvaccore22-aircon-motor",
+      "kind": "used_in",
+      "description": "定子绕线是该类空调BLDC电机的加工环节。",
+      "displayDescription": "定子绕线是该类空调BLDC电机的加工环节。",
+      "sourceIds": [
+        "hvaceq22-rosetta-winder"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaceq22-official-after-sales",
+      "toTopicId": "room-air-conditioner",
+      "kind": "used_in",
+      "description": "官方售后服务支持家用空调的服务预约与网点查询。",
+      "displayDescription": "官方售后服务支持家用空调的服务预约与网点查询。",
+      "sourceIds": [
+        "hvaceq22-gree-service"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaceq22-injection-equipment",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "打开海天官方销售与服务联系入口。",
+      "displayDescription": "打开海天官方销售与服务联系入口。",
+      "sourceIds": [
+        "hvaceq22-haitian-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaceq22-stator-winding-equipment",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "打开设备企业官方产品与机构联系入口。",
+      "displayDescription": "打开设备企业官方产品与机构联系入口。",
+      "sourceIds": [
+        "hvaceq22-nide-contact",
+        "hvaceq22-rosetta-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    }
+  ],
+  "organizations": [
+    {
+      "id": "hvaceq22-org-haitian",
+      "name": "海天塑机集团有限公司",
+      "topicIds": [
+        "hvaceq22-injection-equipment"
+      ],
+      "description": "为家电塑料部件提供注塑设备与工艺方案，含两板、三板及电动机型。",
+      "productUrl": "https://haitianinter.com/cn/solutions/industries/home-appliance/",
+      "contactUrl": "https://haitianinter.com/cn/contact-overview/",
+      "links": [
+        {
+          "label": "家电注塑方案",
+          "kind": "product",
+          "url": "https://haitianinter.com/cn/solutions/industries/home-appliance/"
+        },
+        {
+          "label": "官方销售与服务",
+          "kind": "contact",
+          "url": "https://haitianinter.com/cn/contact-overview/"
+        }
+      ],
+      "sourceIds": [
+        "hvaceq22-haitian-appliance",
+        "hvaceq22-haitian-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaceq22-org-nide",
+      "name": "宁波 NIDE / Ningbo NIDE Tech Co., Ltd.",
+      "topicIds": [
+        "hvaceq22-stator-winding-equipment"
+      ],
+      "description": "提供电机定子绕线、嵌线和测试设备，以及设备安装、调试、培训与售后支持。",
+      "productUrl": "https://www.nidegroup.com/products.html",
+      "contactUrl": "https://www.nidegroup.com/contact.html?scrollTo=c1",
+      "links": [
+        {
+          "label": "电机制造设备",
+          "kind": "product",
+          "url": "https://www.nidegroup.com/products.html"
+        },
+        {
+          "label": "官方联系",
+          "kind": "contact",
+          "url": "https://www.nidegroup.com/contact.html?scrollTo=c1"
+        }
+      ],
+      "sourceIds": [
+        "hvaceq22-nide-equipment",
+        "hvaceq22-nide-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaceq22-org-rosetta",
+      "name": "常州罗塞塔石进出口有限公司",
+      "topicIds": [
+        "hvaceq22-stator-winding-equipment"
+      ],
+      "description": "官网目录提供空调BLDC电机直条定子绕线设备及机构联系入口。",
+      "productUrl": "https://www.czrosettastone.com/cn/Straight-Winding-Machine/99.html",
+      "contactUrl": "https://www.czrosettastone.com/cn/Contact-us/",
+      "links": [
+        {
+          "label": "空调电机绕线设备",
+          "kind": "product",
+          "url": "https://www.czrosettastone.com/cn/Straight-Winding-Machine/99.html"
+        },
+        {
+          "label": "官方联系",
+          "kind": "contact",
+          "url": "https://www.czrosettastone.com/cn/Contact-us/"
+        }
+      ],
+      "sourceIds": [
+        "hvaceq22-rosetta-winder",
+        "hvaceq22-rosetta-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    }
+  ],
+  "organizationExtensions": [
+    {
+      "id": "org-gree",
+      "topicIds": [
+        "hvaceq22-official-after-sales"
+      ],
+      "links": [
+        {
+          "label": "官方服务中心与网点",
+          "kind": "support",
+          "url": "https://www.gree.com/zh/zh-CN/serviceCenter/"
+        },
+        {
+          "label": "官方自助服务",
+          "kind": "support",
+          "url": "https://sms.gree.com/default-front-greeshzzbx"
+        }
+      ],
+      "sourceIds": [
+        "hvaceq22-gree-service",
+        "hvaceq22-gree-self-service"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22制造设备与官方售后导航复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-equipment-research-2026.10.1",
+      "status": "validated"
+    }
+  ]
+}

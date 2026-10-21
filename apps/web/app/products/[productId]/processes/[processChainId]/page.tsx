@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../../lib/data";
 import { readPageContext, type SearchParamsLike } from "../../../../../lib/context";
-import { productPath, provenancePath, supplyChainPath } from "../../../../../lib/paths";
+import { industryPath, productPath, provenancePath, supplyChainPath } from "../../../../../lib/paths";
 import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../../../components/site-shell";
 import {
   PeriodLabel,
@@ -37,18 +37,19 @@ export default async function ManufacturingProcessPage({
   const view = queries.getManufacturingProcessChain(productId, processChainId);
   if (!view) notFound();
 
+  const industry = queries.getIndustryNetwork(productId);
   const equipmentCount = new Set(view.steps.flatMap((step) => step.requirements.flatMap((requirement) => requirement.equipmentCategory ? [requirement.equipmentCategory.id] : []))).size;
   const capabilityCount = view.steps.reduce((total, step) => total + step.requirements.reduce((sum, requirement) => sum + requirement.capabilities.length, 0), 0);
 
   return <SiteShell>
-    <div className="content-column wide-column">
+    <div className="content-column wide-column manufacturing-page">
       <Breadcrumbs items={[{ label: "商品目录", href: "/products" }, { label: view.product.name, href: productPath(productId, pageContext) }, { label: view.chain.title }]} />
       <ContextBanner period={view.chain.period.label} datasetVersion={view.datasetVersion.version} contentVersion={view.contentVersion?.version} mismatches={[]} />
       <PageIntro
         eyebrow="Manufacturing process depth"
         title={view.chain.title}
         description={view.chain.description}
-        actions={<><Link className="button button-secondary" href={view.componentItem ? supplyChainPath(productId, view.componentItem.id, pageContext) : productPath(productId, pageContext)}>返回组件路线</Link><Link className="button button-secondary" href={provenancePath(productId, pageContext)}>来源与版本</Link></>}
+        actions={<>{industry && <Link className="button button-primary" href={industryPath(productId,undefined,pageContext)}>查企业与产业上下游</Link>}<Link className="button button-secondary" href={view.componentItem ? supplyChainPath(productId, view.componentItem.id, pageContext) : productPath(productId, pageContext)}>返回组件路线</Link><Link className="button button-secondary" href={provenancePath(productId, pageContext)}>来源与版本</Link></>}
       />
 
       <div className="stat-grid">
@@ -116,6 +117,7 @@ export default async function ManufacturingProcessPage({
                     </div>
                   </div>
 
+                  {stepView.relatedIndustryTopics.length > 0 && <div className="process-industry-links"><strong>继续查材料与部件的上下游</strong><div>{stepView.relatedIndustryTopics.map(topic => <Link key={topic.id} href={industryPath(productId,topic.id,pageContext)}>{topic.label} →</Link>)}</div></div>}
                   <div className="process-requirement-list">
                     {stepView.requirements.filter(({requirement}) => requirement.requirementType !== "material").map((requirementView) => {
                       const { requirement } = requirementView;
