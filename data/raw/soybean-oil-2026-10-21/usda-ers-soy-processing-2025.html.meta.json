@@ -1,0 +1,13 @@
+{
+  "file": "usda-ers-soy-processing-2025.html",
+  "url": "https://www.ers.usda.gov/data-products/charts-of-note/112861",
+  "publisher": "USDA Economic Research Service",
+  "retrievedAt": "2026-10-21T03:18:58.784270+00:00",
+  "method": "official",
+  "status": "downloaded",
+  "httpStatus": 200,
+  "finalUrl": "https://www.ers.usda.gov/data-products/charts-of-note/112861",
+  "bytes": 37752,
+  "sha256": "32cc0f78f70ac6c108487df79d2f3bd823c8820d344c71d8cdf8a85af3887626",
+  "contentType": "text/html; charset=utf-8"
+}

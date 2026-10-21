@@ -46,7 +46,7 @@ export function ProductCatalogPage({ products }: { products: readonly ProductCat
                   </div>
                   <p className="card-kicker">{product.item.category}</p>
                   <h3>{product.item.name}</h3>
-                  <p>{product.item.description ?? "暂无商品说明"}</p>
+                  {product.item.description && <p>{product.item.description.split("。")[0]}。</p>}
                   <span className="card-footer">{product.directChildCount} 个部件 <span>→</span></span>
                 </Link>
               ))}

@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "cotton-tshirt-content.v1",
+  "productId": "generic-cotton-tshirt",
+  "datasetVersion": "globe-chain-cotton-tshirt-2026.1",
+  "datasetVersionId": "dataset-cotton-tshirt-2026-1",
+  "contentVersionId": "content-cotton-tshirt-2026-1",
+  "contentVersion": "cotton-tshirt-route-2026.1",
+  "batchId": "cotton-tshirt-2026-10-21",
+  "reviewedAt": "2026-10-21",
+  "productName": "棉质针织 T 恤",
+  "description": "从棉花、纱线和针织面料到裁片与成衣，探索三组代表性加工分支，以及独立的棉制服装海关统计。范围为通用款式，主面料以棉为例；没有品牌、单件用量或工厂订单数据。",
+  "representativeStatement": "三组分支展示不同原料与加工起点：中国本地棉纺与服装、巴西皮棉进入孟加拉纺织、印度棉纱进入孟加拉针织。国家角色、原料贸易关系、工序连接与成品海关统计分别标明证据范围；不代表一件 T 恤的唯一真实路线。",
+  "limitations": [
+    "HS 2022/610910 同时包含棉制 T 恤、汗衫和其他背心，作为聚合映射，不能拆成某款 T 恤销量。",
+    "2025 年成品贸易仅有中国报告的世界总计与美国伙伴记录；其他国家未返回记录，不等于贸易为零。世界总计不与双边记录相加。",
+    "国家角色和连续工序属于不同证据层；代表性连接没有批次、重量、成本、份额或企业供货关系数据。",
+    "USDA 报告的市场年、部分市场年和报告所述产业角色期间分开保存；没有把报告中的未来预测转为已发生事实。",
+    "工艺知识以 2026 年编目期间组织，网页未注明统一发布日；该期间不是工厂生产年份。纺纱、染色位置和衣片结构可有其他方案。",
+    "缝线的具体纤维、领口结构、标签及辅料用量未固定；副产棉籽和裁剪余料不计入成衣组成或数量。"
+  ],
+  "methodology": [
+    "用 USDA 国家报告建立期间明确的产业角色；仅在原文直接说明供货国与目的国时登记原棉或棉纱双边关系。",
+    "用 Cotton Incorporated 的工艺资料整理输入输出、环锭与转杯两个纺纱分支。不同国家的同名环节不自动证明同一批货物连续流动。",
+    "UN Comtrade 原始响应逐条保留报告方、伙伴、方向、H6 分类、金额、数量与质量标志；H6 和单位码通过联合国参考表核对。",
+    "国家宏观背景仅复用既有 World Bank 官方原文中中国、美国的通用指标，保留原期间、来源版本和快照哈希；未复用任何手机贸易。"
+  ],
+  "periods": {
+    "story": { "granularity": "annual", "start": "2024-08-01", "end": "2026-12-31", "label": "2024/25–2026 · 分项期间见节点" },
+    "curation": { "granularity": "annual", "start": "2026-01-01", "end": "2026-12-31", "label": "工艺知识 · 2026 年编目" },
+    "cnRole": { "granularity": "annual", "start": "2025-01-01", "end": "2025-12-31", "label": "2025" },
+    "bdRole": { "granularity": "annual", "start": "2026-01-01", "end": "2026-12-31", "label": "2026" },
+    "cottonMY": { "granularity": "annual", "start": "2024-08-01", "end": "2025-07-31", "label": "MY 2024/25（8 月–次年 7 月）" },
+    "trade2025": { "granularity": "annual", "start": "2025-01-01", "end": "2025-12-31", "label": "2025" }
+  },
+  "countries": [
+    { "id": "country-cn", "name": "中国", "sourceName": "China", "iso2": "CN", "iso3": "CHN", "m49": "156" },
+    { "id": "country-br", "name": "巴西", "sourceName": "Brazil", "iso2": "BR", "iso3": "BRA", "m49": "076" },
+    { "id": "country-in", "name": "印度", "sourceName": "India", "iso2": "IN", "iso3": "IND", "m49": "356" },
+    { "id": "country-bd", "name": "孟加拉国", "sourceName": "Bangladesh", "iso2": "BD", "iso3": "BGD", "m49": "050" },
+    { "id": "country-us", "name": "美国", "sourceName": "United States of America", "iso2": "US", "iso3": "USA", "m49": "840" }
+  ],
+  "items": [
+    ["tshirt-body-panels", "衣身裁片", "component", "generic-cotton-tshirt", "garment", "前后衣身是本次裁剪缝制结构；数量、形状和重量随款式变化。"],
+    ["tshirt-sleeve-panels", "袖片", "component", "generic-cotton-tshirt", "garment", "有袖款的代表性裁片，版型和单件用量未固定。"],
+    ["tshirt-neck-trim", "领口包边", "component", "generic-cotton-tshirt", "garment", "以裁剪面料条的领口结构为例，不预设罗纹或弹性纤维配比。"],
+    ["tshirt-sewing-thread", "缝合线", "material", "generic-cotton-tshirt", "garment", "用于缝合衣片，具体纤维可能为天然或合成材料；本轮没有配比数据。"],
+    ["cotton-finished-knit", "整理后的棉针织面料", "material", "tshirt-body-panels", "finishing", "供衣身、袖片及领口裁剪使用的代表性面料，克重与损耗未知。"],
+    ["cotton-dyed-knit", "染色后的棉针织面料", "material", "cotton-finished-knit", "dyeing", "染色与清洗后的面料；此处选面料染色路线，纱染或成衣染未作为必经步骤。"],
+    ["cotton-greige-knit", "棉针织坯布", "material", "cotton-dyed-knit", "knit", "棉纱成圈形成的针织面料，不将机织作为针织 T 恤必经工序。"],
+    ["cotton-yarn", "棉纱", "material", "cotton-greige-knit", "yarn", "展示环锭或转杯纺制的代表性棉纱；纱支、股数和棉含量等级未固定。"],
+    ["cotton-roving", "棉粗纱", "material", "cotton-yarn", "preparation", "环锭路线的纺前输入，转杯路线不要求这一步。"],
+    ["cotton-sliver", "棉条", "material", "cotton-roving", "preparation", "梳理与并条后的中间形态，可按纺纱方案进入不同后续环节。"],
+    ["cotton-opened-fiber", "开清后的棉纤维", "raw_material", "cotton-sliver", "preparation", "皮棉开松、混合、清杂后的纤维，未给出损耗率。"],
+    ["cotton-lint", "皮棉", "raw_material", "cotton-opened-fiber", "ginning", "籽棉轧花后分离出的棉纤维；原棉贸易关系与成衣来源分开。"],
+    ["seed-cotton", "籽棉", "raw_material", "cotton-lint", "ginning", "收获后带籽的棉花，轧花分出皮棉和棉籽。"],
+    ["cotton-plant", "棉株", "raw_material", "seed-cotton", "ginning", "农业原料起点；未建立土地、灌溉或单位面积产量模型。"],
+    ["cotton-seed-byproduct", "棉籽（副产品）", "raw_material", null, "ginning", "轧花的副产输出，不作为 T 恤组成或皮棉重量。"],
+    ["tshirt-cutting-remnants", "裁剪余料（副产流）", "material", null, "garment", "裁片排料与切割剩余物，未发布回收去向或损耗数量。"]
+  ],
+  "stages": [
+    ["cotton-growing", "种植与收获", "ginning"],
+    ["cotton-ginning", "轧花", "ginning"],
+    ["cotton-sourcing", "皮棉供应与接收", "bd"],
+    ["cotton-spinning", "棉纺", "yarn"],
+    ["cotton-knitting", "针织成布", "knit"],
+    ["cotton-dye-finishing", "染色与整理", "dyeing"],
+    ["cotton-cut-sew", "裁剪与缝制", "garment"],
+    ["cotton-trade-market", "海关贸易伙伴", "hs"]
+  ],
+  "nodes": [
+    ["cotton-cn-growing", "中国 · 棉花种植", "country-cn", "seed-cotton", "cotton-growing", "cnRole", "cn-cotton", "role_supported", "来源支持中国棉花生产角色，不指定该批棉花进入哪件衣服。"],
+    ["cotton-cn-ginning", "中国 · 轧花", "country-cn", "cotton-lint", "cotton-ginning", "cnRole", "cn-cotton", "role_supported", "报告提及已分级和轧花的棉花；数量不在本路线中推算。"],
+    ["cotton-cn-yarn", "中国 · 棉纺", "country-cn", "cotton-yarn", "cotton-spinning", "cnRole", "cn-yarn", "role_supported", "行业角色有报告依据，与前一节点的连续物料关系为代表性连接。"],
+    ["cotton-cn-knit", "中国 · 针织环节示例", "country-cn", "cotton-greige-knit", "cotton-knitting", "cnRole", "cn-curation", "representative", "在中国纺织行业背景中配置通用针织工序；不是指定工厂的生产记录。"],
+    ["cotton-cn-finish", "中国 · 染整环节示例", "country-cn", "cotton-finished-knit", "cotton-dye-finishing", "cnRole", "cn-curation", "representative", "染整步骤来自通用工艺资料；未发布中国具体染整厂或批次资料。"],
+    ["cotton-cn-shirt", "中国 · 棉 T 恤加工示例", "country-cn", "generic-cotton-tshirt", "cotton-cut-sew", "cnRole", "cn-curation", "representative", "服装行业背景与 T 恤通用结构组合而成；不证明某件衣服的全程本地产地。"],
+    ["cotton-us-partner", "美国 · 中国报告的贸易伙伴", "country-us", "generic-cotton-tshirt", "cotton-trade-market", "trade2025", "us-partner", "role_supported", "中国 2025 年 HS610910 伙伴记录，范围还包括汗衫与其他背心；不是最终消费数据。"],
+    ["cotton-br-lint", "巴西 · 皮棉供应", "country-br", "cotton-lint", "cotton-sourcing", "cottonMY", "br-role", "role_supported", "报告直接记载巴西向孟加拉供应皮棉的市场年关系；未扩展为巴西成衣路线。"],
+    ["cotton-bd-lint", "孟加拉 · 皮棉接收与棉纺", "country-bd", "cotton-lint", "cotton-sourcing", "bdRole", "bd-lint", "role_supported", "进口原棉支撑当地棉纺行业；未把所有进口原棉归到 T 恤。"],
+    ["cotton-bd-yarn", "孟加拉 · 棉纱", "country-bd", "cotton-yarn", "cotton-spinning", "bdRole", "bd-yarn", "role_supported", "当地棉纺和进口棉纱是不同投入路径，在此汇入代表性针织结构。"],
+    ["cotton-bd-knit", "孟加拉 · 针织", "country-bd", "cotton-greige-knit", "cotton-knitting", "bdRole", "bd-knit", "role_supported", "USDA 记载当地针织配套，通用布种与具体批次仍为本内容的代表性范围。"],
+    ["cotton-bd-finish", "孟加拉 · 染整", "country-bd", "cotton-finished-knit", "cotton-dye-finishing", "bdRole", "bd-finish", "role_supported", "当地染色与整理行业角色有依据；没有工厂或订单产量。"],
+    ["cotton-bd-shirt", "孟加拉 · 棉 T 恤加工示例", "country-bd", "generic-cotton-tshirt", "cotton-cut-sew", "bdRole", "bd-curation", "representative", "报告支持成衣行业，T 恤工序来自通用资料；本批没有孟加拉 HS610910 数值记录。"],
+    ["cotton-in-yarn", "印度 · 棉纱供应", "country-in", "cotton-yarn", "cotton-spinning", "cottonMY", "in-yarn", "role_supported", "报告直接记载印度为孟加拉棉纱来源；未假设印度本地 T 恤成品路线。"]
+  ],
+  "flows": [
+    ["cotton-flow-cn-grow-gin", "cotton-cn-growing", "cotton-cn-ginning", "seed-cotton", "cotton-ginning", "cnRole", "cn-curation", "representative", "conversion", "收获到轧花的代表性衔接，未追踪同一批原料。"],
+    ["cotton-flow-cn-gin-yarn", "cotton-cn-ginning", "cotton-cn-yarn", "cotton-lint", "cotton-spinning", "cnRole", "cn-curation", "representative", "input", "皮棉进入棉纺的结构说明，重量和损耗未知。"],
+    ["cotton-flow-cn-yarn-knit", "cotton-cn-yarn", "cotton-cn-knit", "cotton-yarn", "cotton-knitting", "cnRole", "cn-curation", "representative", "conversion", "棉纱针织成布，不表示确定的中国工厂关系。"],
+    ["cotton-flow-cn-knit-finish", "cotton-cn-knit", "cotton-cn-finish", "cotton-greige-knit", "cotton-dye-finishing", "cnRole", "cn-curation", "representative", "conversion", "选择面料染整这一代表方案，其他染色位置可能存在。"],
+    ["cotton-flow-cn-finish-shirt", "cotton-cn-finish", "cotton-cn-shirt", "cotton-finished-knit", "cotton-cut-sew", "cnRole", "cn-curation", "representative", "assembly", "面料经裁剪缝制组成成衣；单件用量未知。"],
+    ["cotton-flow-cn-us-example", "cotton-cn-shirt", "cotton-us-partner", "generic-cotton-tshirt", "cotton-trade-market", "trade2025", "cn-curation", "representative", "trade", "中国对美 HS610910 官方统计单独保存在贸易层；此连接仍不证明原棉到该市场的连续谱系。"],
+    ["cotton-flow-br-bd-lint", "cotton-br-lint", "cotton-bd-lint", "cotton-lint", "cotton-sourcing", "cottonMY", "br-bd-lint", "bilateral_supported", "trade", "USDA 直接支持巴西向孟加拉供棉的市场年关系；不填推算量，不证明 T 恤最终用途。"],
+    ["cotton-flow-bd-lint-yarn", "cotton-bd-lint", "cotton-bd-yarn", "cotton-lint", "cotton-spinning", "bdRole", "bd-curation", "representative", "conversion", "进口皮棉到本地棉纱的代表性工序连接，未识别同一批次。"],
+    ["cotton-flow-in-bd-yarn", "cotton-in-yarn", "cotton-bd-yarn", "cotton-yarn", "cotton-spinning", "cottonMY", "in-bd-yarn", "bilateral_supported", "trade", "直接支持印度向孟加拉供棉纱的关系，分类为棉纱总体，不指定纱支与最终衣物。"],
+    ["cotton-flow-bd-yarn-knit", "cotton-bd-yarn", "cotton-bd-knit", "cotton-yarn", "cotton-knitting", "bdRole", "bd-curation", "representative", "conversion", "本地与进口棉纱是可选起点，不把两者叠加为单件配比。"],
+    ["cotton-flow-bd-knit-finish", "cotton-bd-knit", "cotton-bd-finish", "cotton-greige-knit", "cotton-dye-finishing", "bdRole", "bd-curation", "representative", "conversion", "针织面料到染整的代表性连接，不对应指定染整厂。"],
+    ["cotton-flow-bd-finish-shirt", "cotton-bd-finish", "cotton-bd-shirt", "cotton-finished-knit", "cotton-cut-sew", "bdRole", "bd-curation", "representative", "assembly", "成衣环节为棉 T 恤示例；孟加拉成品统计仍待补。"]
+  ],
+  "branches": [
+    { "id": "cotton-branch-cn", "title": "中国 · 本地棉纺与服装示例", "description": "从国内棉花与棉纺角色出发，接通针织、染整及成衣示例；美国为独立统计支持的贸易伙伴。", "nodeIds": ["cotton-cn-growing", "cotton-cn-ginning", "cotton-cn-yarn", "cotton-cn-knit", "cotton-cn-finish", "cotton-cn-shirt", "cotton-us-partner"], "flowIds": ["cotton-flow-cn-grow-gin", "cotton-flow-cn-gin-yarn", "cotton-flow-cn-yarn-knit", "cotton-flow-cn-knit-finish", "cotton-flow-cn-finish-shirt", "cotton-flow-cn-us-example"], "evidenceKeys": ["cn-cotton", "cn-yarn", "cn-curation", "us-partner"] },
+    { "id": "cotton-branch-br-bd", "title": "巴西皮棉 → 孟加拉棉纺与成衣", "description": "先看有直接来源的原棉供应关系，再进入当地纺纱、针织、染整与成衣的代表结构。", "nodeIds": ["cotton-br-lint", "cotton-bd-lint", "cotton-bd-yarn", "cotton-bd-knit", "cotton-bd-finish", "cotton-bd-shirt"], "flowIds": ["cotton-flow-br-bd-lint", "cotton-flow-bd-lint-yarn", "cotton-flow-bd-yarn-knit", "cotton-flow-bd-knit-finish", "cotton-flow-bd-finish-shirt"], "evidenceKeys": ["br-bd-lint", "bd-yarn", "bd-knit", "bd-finish", "bd-curation"] },
+    { "id": "cotton-branch-in-bd", "title": "印度棉纱 → 孟加拉针织与成衣", "description": "以已纺成的棉纱切入，展示可跳过当地原棉纺纱的另一种起点；不宣称与巴西分支的比例。", "nodeIds": ["cotton-in-yarn", "cotton-bd-yarn", "cotton-bd-knit", "cotton-bd-finish", "cotton-bd-shirt"], "flowIds": ["cotton-flow-in-bd-yarn", "cotton-flow-bd-yarn-knit", "cotton-flow-bd-knit-finish", "cotton-flow-bd-finish-shirt"], "evidenceKeys": ["in-bd-yarn", "bd-knit", "bd-finish", "bd-curation"] }
+  ],
+  "process": {
+    "id": "cotton-tshirt-process-chain",
+    "itemId": "cotton-finished-knit",
+    "title": "棉花到针织 T 恤：纺纱与裁剪缝制",
+    "description": "展示原料、中间品和裁片的输入输出。环锭与转杯纺纱作为可选分支，共享后续针织、面料染整和裁剪缝制；不要求所有分支依次执行。",
+    "steps": [
+      ["grow", "种植与收获", "农业原料", ["cotton-plant"], ["seed-cotton"], "ginning", "把收获籽棉作为后续轧花输入，未估算单件用棉或产量。", "harvester"],
+      ["gin", "轧花与分离棉籽", "农业原料", ["seed-cotton"], ["cotton-lint", "cotton-seed-byproduct"], "ginning", "纤维与棉籽分开输出；副产品不折算为成衣重量。", "gin"],
+      ["open", "开松、混合与清杂", "纺前准备", ["cotton-lint"], ["cotton-opened-fiber"], "preparation", "皮棉开松并去除杂质，为梳理准备纤维。", "opener"],
+      ["card", "梳理与并条", "纺前准备", ["cotton-opened-fiber"], ["cotton-sliver"], "preparation", "纤维整理成棉条并改善平行度；精梳可按规格另选，本版未列为必经。", "card-draw"],
+      ["rove", "粗纱准备", "环锭纺分支", ["cotton-sliver"], ["cotton-roving"], "preparation", "供环锭纺使用的较细中间条形态；转杯分支跳过本工序。", "roving-frame"],
+      ["ring", "环锭纺纱与络筒", "环锭纺分支", ["cotton-roving"], ["cotton-yarn"], "yarn", "粗纱经牵伸加捻并整理成可供后续针织的纱包。", "ring-frame"],
+      ["rotor", "转杯纺纱", "转杯纺分支", ["cotton-sliver"], ["cotton-yarn"], "yarn", "棉条进入转杯纺纱系统，形成供后续使用的纱包；不经过粗纱。", "rotor-frame"],
+      ["knit", "纬编针织成布", "面料形成", ["cotton-yarn"], ["cotton-greige-knit"], "knit", "以纱线成圈形成针织结构，选择通用圆机纬编示例。", "knitting-machine"],
+      ["dye", "面料染色与清洗", "染色整理", ["cotton-greige-knit"], ["cotton-dyed-knit"], "dyeing", "此处在面料阶段染色；染料配方、耗水、处理温度与用量未固定。", null],
+      ["finish", "干燥与机械整理", "染色整理", ["cotton-dyed-knit"], ["cotton-finished-knit"], "finishing", "以松弛干燥和压缩整理控制面料形态，具体配置按布种变化。", "dryer-compactor"],
+      ["cut", "排料与裁剪", "成衣制造", ["cotton-finished-knit"], ["tshirt-body-panels", "tshirt-sleeve-panels", "tshirt-neck-trim", "tshirt-cutting-remnants"], "garment", "面料裁出衣身、袖片与领口条，同时保留未知量的余料。", "cutting-machine"],
+      ["sew", "衣片缝合与成衣", "成衣制造", ["tshirt-body-panels", "tshirt-sleeve-panels", "tshirt-neck-trim", "tshirt-sewing-thread"], ["generic-cotton-tshirt"], "garment", "按代表性有袖结构连接肩部、领口、衣身和袖片；不固定某种缝线配方。", "sewing-machine"]
+    ],
+    "variants": [
+      { "id": "cotton-ring-knit-route", "name": "环锭纺 → 针织 → 面料染整 → 成衣", "stepKeys": ["grow", "gin", "open", "card", "rove", "ring", "knit", "dye", "finish", "cut", "sew"], "description": "经粗纱进入环锭纺，纱线络筒后进入针织。", "applicability": "解释采用环锭棉纱的一种针织服装工艺结构；不指定纱支、品牌或工厂。" },
+      { "id": "cotton-rotor-knit-route", "name": "转杯纺 → 针织 → 面料染整 → 成衣", "stepKeys": ["grow", "gin", "open", "card", "rotor", "knit", "dye", "finish", "cut", "sew"], "description": "由棉条直接进入转杯纺，不要求粗纱与单独络筒。", "applicability": "解释另一种棉纱制备方法；最终是否采用由产品规格和制造方案决定。" }
+    ],
+    "equipment": [
+      ["harvester", "采棉设备", "ginning"], ["gin", "轧花设备", "ginning"], ["opener", "开松与清杂设备", "preparation"], ["card-draw", "梳棉与并条设备", "preparation"], ["roving-frame", "粗纱机", "preparation"], ["ring-frame", "环锭纺与络筒设备", "yarn"], ["rotor-frame", "转杯纺纱设备", "yarn"], ["knitting-machine", "圆形纬编针织机", "knit"], ["dryer-compactor", "松弛干燥与压缩整理设备", "finishing"], ["cutting-machine", "面料裁剪设备", "garment"], ["sewing-machine", "工业缝纫设备", "garment"]
+    ]
+  }
+}

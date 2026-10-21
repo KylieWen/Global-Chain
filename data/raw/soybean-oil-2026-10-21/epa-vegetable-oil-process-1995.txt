@@ -1,0 +1,1385 @@
+--- PDF PAGE 1 ---
+Emission Factor Documentation for AP-42
+Section 9.11.1
+Vegetable Oil Processing
+Final Report
+For U. S. Environmental Protection Agency
+Office of Air Quality Planning and Standards
+Emission Factor and Inventory Group
+EPA Contract No. 68-D2-0159
+Work Assignment No. 2-03 and 3-01
+MRI Project No. 4602-03 and
+4603-01-03
+November 1995
+
+--- PDF PAGE 2 ---
+Emission Factor Documentation for AP-42
+Section 9.11.1
+Vegetable Oil Processing
+Final Report
+For U. S. Environmental Protection Agency
+Office of Air Quality Planning and Standards
+Emission Factor and Inventory Group
+Research Triangle Park, NC 27711
+Attn: Mr. Dallas Safriet (MD-14)
+EPA Contract No. 68-D2-0159
+Work Assignment No. 2-03 and 3-01
+MRI Project No. 4602-03 and
+4603-01-03
+November 1995
+
+--- PDF PAGE 3 ---
+NOTICE
+The information in this document has been funded wholly or in part by the United States
+Environmental Protection Agency under Contract No. 68-D2-0159 to Midwest Research Institute. It
+has been subjected to the Agency’s peer and administrative review, and it has been approved for
+publication as an EPA document. Mention of trade names or commercial products does not constitute
+endorsement or recommendation for use.
+ii
+
+--- PDF PAGE 4 ---
+PREFACE
+This report was prepared by Midwest Research Institute (MRI) for the Office of Air Quality
+Planning and Standards (OAQPS), U.S. Environmental Protection Agency (EPA), under Contract
+No. 68-D2-0159, Assignment No. 2-03 and 3-01. Mr. Dallas Safriet was the EPA work assignment
+manager for this project.
+Approved for:
+MIDWEST RESEARCH INSTITUTE
+Roy M. Neulicht
+Program Manager
+Environmental Engineering Department
+Jeff Shular
+Director, Environmental Engineering
+Department
+November 1995
+iii
+
+--- PDF PAGE 5 ---
+iv
+
+--- PDF PAGE 6 ---
+TABLE OF CONTENTS
+Page
+List of Figures ....................................................... v i i
+List of Tables ....................................................... v i i
+1. INTRODUCTION ................................................. 1 - 1
+2. INDUSTRY DESCRIPTION .......................................... 2 - 1
+2.1 INDUSTRY CHARACTERIZATION ................................ 2 - 1
+2.2 PROCESS DESCRIPTION ........................................ 2 - 1
+2.2.1 Soybean Oil Processing ..................................... 2 - 1
+2.2.2 Cottonseed Oil Processing ................................... 2-10
+2.2.3 Corn Oil Processing ....................................... 2-12
+2.2.4 Peanut Oil Processing ...................................... 2-12
+2.3 EMISSIONS .................................................. 2-14
+2.4 EMISSION CONTROL TECHNOLOGY .............................. 2-14
+3. GENERAL DATA REVIEW AND ANALYSIS PROCEDURES ................. 3 - 1
+3.1 LITERATURE SEARCH AND SCREENING ........................... 3 - 1
+3.2 DATA QUALITY RATING SYSTEM 1 ............................... 3 - 1
+3.3 EMISSION FACTOR QUALITY RATING SYSTEM ..................... 3 - 2
+4. AP-42 SECTION DEVELOPMENT ..................................... 4 - 1
+4.1 REVIEW OF SPECIFIC DATA SETS ................................ 4 - 1
+4.1.1 Reference 1 ............................................. 4 - 1
+4.1.2 Reference 2 ............................................. 4 - 1
+4.1.3 Reference 3 ............................................. 4 - 1
+4.1.4 Reference 4 ............................................. 4 - 1
+4.1.5 Reference 5 ............................................. 4 - 2
+4.1.6 Reference 6 ............................................. 4 - 2
+4.1.7 Reference 7 ............................................. 4 - 2
+4.1.8 Reference 8 ............................................. 4 - 3
+4.1.9 Reference 9 ............................................. 4 - 3
+4.1.10 Reference 10 ............................................ 4 - 3
+4.1.11 Reference 11 ............................................ 4 - 3
+4.1.12 Reference 12 ............................................ 4 - 4
+4.1.13 Reference 13 ............................................ 4 - 4
+4.1.14 Reference 14 ............................................ 4 - 4
+4.1.15 Reference 15 ............................................ 4 - 5
+4.1.16 Reference 16 ............................................ 4 - 5
+4.1.17 Reference 17 ............................................ 4 - 5
+4.1.18 Reference 18 ............................................ 4 - 6
+4.1.19 Review of XATEF and SPECIATE Data Base Emission Factors ........ 4 - 6
+4.1.20 Review of Test Data in AP-42 Background File ................... 4 - 6
+4.1.21 Summary ............................................... 4 - 7
+v
+
+--- PDF PAGE 7 ---
+TABLE OF CONTENTS (continued)
+Page
+4.2 DEVELOPMENT OF CANDIDATE EMISSION FACTORS ................ 4 - 7
+4.2.1 Total Emissions .......................................... 4 - 9
+4.2.2 Vent Emissions .......................................... 4 - 9
+4.2.3 Fugitive Emissions from Soybean Meal ......................... 4-10
+4.2.4 Comprehensiveness of the Source Test Data ...................... 4-12
+4.2.5 Summary of Emission Factors ................................ 4-13
+5. PROPOSED AP-42 SECTION 9.11.1 .................................... 5 - 1
+Appendix—Calculations and Source Test Data .................................... A - 1
+vi
+
+--- PDF PAGE 8 ---
+LIST OF FIGURES
+Number Page
+2-1 Flow diagram of typical soybean handling/elevator operations ............. 2 - 3
+2-2 Flow diagram of the typical process for preparing soybeans for solvent
+extraction ................................................. 2 - 5
+2-3 Flow diagram of the "conventional" solvent extraction process ............ 2 - 6
+2-4 Flow diagram for "conventional" process of dry material sizing, grinding, and
+loadout ................................................... 2 - 8
+2-5 Flow diagram of a typical cottonseed extraction process ................. 2-11
+2-6 Flow diagram of peanut oil extraction process ........................ 2-13
+LIST OF TABLES
+Number Page
+2-1 NUMBER OF PLANTS IN MAJOR VEGETABLE OIL PRODUCING
+STATES .................................................. 2 - 2
+4-1 SUMMARY OF SOYBEAN PROCESSING PARTICULATE EMISSION
+FACTORS FROM REFERENCE 18 .............................. 4 - 7
+4-2 DOCUMENTS REVIEWED FOR EMISSION FACTOR DEVELOPMENT . . . 4-8
+4-3 REPORTED HEXANE LOSS ................................... 4-10
+4-4 HEXANE CONCENTRATIONS IN SOYBEAN MEAL AND VENT GASES
+DURING PROCESSING IN L/MT (GAL/TON) ...................... 4-11
+4-5 TOTAL PARTICULATE EMISSION FACTORS FOR SOYBEAN
+MILLING ................................................. 4-15
+4-6 HEXANE EMISSION FACTORS FOR SOYBEAN OIL MANUFACTURING . 4-15
+vii
+
+--- PDF PAGE 9 ---
+EMISSION FACTOR DOCUMENTATION FOR AP-42 SECTION 9.11.1
+Vegetable Oil Processing
+1. INTRODUCTION
+The document Compilation of Air Pollutant Emissions Factors (AP-42) has been published by
+the U. S. Environmental Protection Agency (EPA) since 1972. Supplements to AP-42 have been
+routinely published to add new emission source categories and to update existing emission factors.
+AP-42 is routinely updated by EPA to respond to new emission factor needs of EPA, State and local
+air pollution control programs, and industry.
+An emission factor is a representative value that attempts to relate the quantity of a pollutant
+released to the atmosphere with an activity associated with the release of that pollutant. Emission
+factors usually are expressed as the weight of pollutant divided by the unit weight, volume, distance,
+or duration of the activity that emits the pollutant. The emission factors presented in AP-42 may be
+appropriate to use in a number of situations, such as making source-specific emission estimates for
+areawide inventories for dispersion modeling, developing control strategies, screening sources for
+compliance purposes, establishing operating permit fees, and making permit applicability
+determinations. The purpose of this report is to provide background information from test reports and
+other information to support preparation of AP-42 Section 9.11.1, Vegetable Oil Processing.
+This background report consists of five sections. Section 1 includes the introduction to the
+report. Section 2 gives a description of the vegetable oil processing industry. It includes a
+characterization of the industry, a description of the different process operations, a characterization of
+emission sources and pollutants emitted, and a description of the technology used to control emissions
+resulting from these sources. Section 3 is a review of emission data collection (and emission
+measurement) procedures. It describes the literature search, the screening of emission data reports, and
+the quality rating system for both emission data and emission factors. Section 4 details how the new
+AP-42 section was developed. It includes the review of specific data sets and a description of how
+candidate emission factors were developed. Section 5 presents the AP-42 Section 9.11.1, Vegetable
+Oil Processing. References and supporting documentation are presented in the Appendix.
+1-1
+
+--- PDF PAGE 10 ---
+2. INDUSTRY DESCRIPTION
+2.1 INDUSTRY CHARACTERIZATION 1-5
+The industry group, fats and oils (SIC 2070), includes cottonseed oil mills (SIC 2074),
+soybean oil mills (SIC 2075), vegetable oil mills except corn, cottonseed, and soybean (SIC 2076), and
+other fats and oils, n.e.c. (2079). SIC 2076 consists of peanut, sunflower, rapeseed (canola), and other
+oil seeds produced in smaller quantities. Approximately 137 vegetable oil plants operate in the United
+States. Soybean processing dominates the industry, producing approximately 80 percent of the volume
+of vegetable oil. Over the last 2 to 3 years, approximately 1.1 billion to 1.3 billion bushels of
+soybeans were processed each year. Other major vegetable oils are cottonseed, peanut, and corn. In
+1995 there were 86 soybean processing plants, 32 cottonseed oil mills, and 19 vegetable oil mills
+except corn, cottonseed, and soybean. Corn oil is processed primarily by wet corn mills (SIC 2046)
+which produce a variety of other corn by-products including starch, syrup, sugar, gluten, and corn
+meal. Not all wet corn mills are actively engaged in oil production. The Corn Refiners Association
+Inc. estimates that approximately 25 percent of the 27 wet corn mills engage in regular corn oil
+production. Table 2-1 lists the locations for soybean, cottonseed, and other vegetable oil mills by
+major vegetable oil producing states.
+The largest use of vegetable oils is in foodstuffs. Cooking oils, salad dressings, prepared/
+processed foods, shortenings, and margarines utilize over 90 percent of vegetable oils. Vegetable oils
+also are used in industrial applications such as protective coatings. Recently, there has been interest in
+using vegetable oils as fuels for motor vehicles and other combustion engines, in paints and other oil-
+based coatings, and as an oil base in inks for newspapers and magazines. These alternative currently
+do not represent a significant share of the total soybean oil market; however, they have potential
+environmental and product quality benefits that may result in substantial new markets for vegetable
+oils.
+2.2 PROCESS DESCRIPTION
+6-9
+A description of the processing operation for soybean oil, cottonseed oil, corn oil, and peanut
+oil is presented in this section. More detail is given to soybean processing because of its greater
+relative importance to the vegetable oil industry.
+2.2.1 Soybean Oil Processing
+Soybean oil processing typically consists of oilseed handling/elevator operations (receiving,
+storing, and cleaning the raw soybeans); preparing the soybeans for solvent extraction; solvent
+extracting and oil desolventizing; oil refining; and desolventizing and processing the spent soybean
+flakes. These five processes are described below.
+2.2.1.1 Oilseed Handling/Elevator Operations
+. Figure 2-1 is a schematic diagram of the
+typical soybean handling/elevator operations that precede the preparation of soybeans for the solvent
+extraction process. Soybeans received at a facility by truck or rail are sampled and analyzed for
+moisture content, foreign matter, and damaged seeds. All processing plants have maximum moisture
+specifications for the beans. After the sampling/analysis is completed, the beans are weighed and
+conveyed to large concrete silos or metal tanks for storage prior to processing. When the facility is
+ready to process the soybeans, the beans are removed from the silo or tank and cleaned of foreign
+2-1
+
+--- PDF PAGE 11 ---
+TABLE 2-1. NUMBER OF PLANTS IN MAJOR VEGETABLE OIL
+PRODUCING STATES
+State
+Type of oil produced
+Soybean oil Cottonseed oil Other vegetable oils a
+Alabama 1 2 1
+Arizona 2
+Arkansas 4 4
+California 2 2 5
+Delaware 1
+Georgia 3 4
+Hawaii 1
+Illinois 12 1
+Indiana 5 1
+Iowa 13
+Kansas 4
+Kentucky 1
+Louisiana 1 2
+Maryland 1
+Michigan 2
+Minnesota 6 3
+Mississippi 4 4
+Missouri 5
+Nebraska 5
+New York 1
+North Carolina 3
+North Dakota 3
+Ohio 6
+Oklahoma 2 1
+South Carolina 3 1
+Tennessee 1
+Texas 1 12
+Virginia 1
+TOTAL 86b 32 19
+Source: Reference 5.
+aPlants in SIC 2076 and 2079; does not include corn oil production
+bThe 86 soybean processing plants include 69 solvent extraction plants and 17 press plants.
+2-2
+
+--- PDF PAGE 12 ---
+Figure 2-1. Flow diagram of typical soybean handling/elevator operations.
+2-3
+
+--- PDF PAGE 13 ---
+materials and loose hulls. Screens are typically used to remove the foreign materials such as sticks,
+stems, pods, tramp metal, sand, and dirt. An aspiration system is used to remove loose hulls from the
+soybeans. Later in the process, these hulls may be combined with the hulls produced during dehulling
+aspiration. The beans are passed through dryers to reduce their moisture content to approximately
+10 percent to 11 percent moisture by weight and then conveyed to process bins for temporary storage
+and tempering in order to facilitate dehulling. The beans are tempered in the process bins for 1 to
+5 days.
+2.2.1.2 Preparation of Soybeans for Solvent Extraction
+. Figure 2-2 is a schematic diagram of
+the process of preparing soybeans for oil extraction. There are two principal methods for oil
+extraction. The first method is to press the soybeans, typically through a screw press. This method is
+not widely used since extraction efficiency is low. The widely-used second method is to extract the
+oil using a solvent, hexane, which dissolves the oil and strips it from the soybean flakes. The solvent
+extraction method requires stripping residual hexane from the oil and the soybean flakes. Since
+pressing is not believed to be a major source of volatile organic compound (VOC) emissions, only the
+solvent extraction method is described in detail.
+The process, which is fairly well standardized, consists of four principal operations: cracking,
+dehulling/hull removal, conditioning, and flaking. Soybeans are conveyed from the process bins to the
+mill by means of belts or mass flow conveyors and bucket elevators. In the mill, the beans may be
+aspirated again, weighed, cleaned of tramp metal by magnets, and fed into corrugated cracking rolls.
+The cracking rolls "crack" each bean into four to six particles to facilitate separation of the hulls from
+the oil-rich bean. The cracked beans are passed through an aspirator to remove the hulls, which are
+processed separately. These hulls may be combined with the hulls from the grain cleaning step. The
+cracked beans and residual bean chips are then conveyed to the conditioning area, where they are
+either put into a rotary steam tube device or into a stacked cooker and heated to "condition" them (i.e.,
+make them pliable and keep them hydrated). Conditioning is necessary to permit the flaking of the
+chips and to prevent their being broken into smaller particles. Finally, the heated, cracked beans are
+conveyed and fed to smooth, cylindrical rolls that press the particles into smooth "flakes," which vary
+in thickness from approximately 0.25 to 0.51 millimeters (0.010 to 0.020 inches). Flaking allows the
+soybean oil cells to be exposed and the oil to be more easily extracted.
+2.2.1.3 Solvent Extraction and Oil Desolventizing
+. The extraction process consists of
+"washing" the oil from the soybean flakes with hexane solvent in a countercurrent extractor and then
+evaporating the solvent (i.e., desolventizing) separately from both the solvent/oil mixture (micella) and
+the solvent-laden, defatted flakes (see Figure 2-3). The oil is desolventized by exposing the solvent/oil
+mixture to steam (contact and noncontact). Then the solvent is condensed, separated from the steam
+condensate, and reused. The desolventized oil, called "crude" soybean oil, is stored for further
+processing or loadout. Specific steps in the solvent extraction and oil desolventizing processes are
+described below.
+2.2.1.3.1 Extraction
+. Soybean flakes are conveyed into the extractor, where they are washed
+counter currently with various hexane/oil mixtures and, finally, with pure hexane. The initial oil
+content of the soybeans is approximately 18 percent to 20 percent by weight. After extraction, the
+defatted flakes contain approximately 0.5 percent to 2.0 percent oil by weight.
+Either a "deep bed" extractor or a "shallow bed" extractor is typically used in the extraction
+process. The deep bed extractor consists of pie-shaped mesh baskets that rotate around a shaft. The
+bed depth in this extractor varies from approximately 6 to 10 ft. The shallow bed extractor, a more
+2-4
+
+--- PDF PAGE 14 ---
+Figure 2-2. Flow diagram of the typical process for preparing soybeans for solvent extraction.
+2-5
+
+--- PDF PAGE 15 ---
+Soybean Extraction Facility--Total Hexane Losses
+(3-02-019-97)
+(3-02-019-98)
+Figure 2-3. Flow diagram of the "conventional" solvent extraction process.
+2-6
+
+--- PDF PAGE 16 ---
+recent design than the deep bed extractor, conveys the soybean flakes horizontally over closely spaced
+"vee-bars" while washing them first with oil and hexane and then with pure hexane. Bed depth in the
+shallow bed extractor normally varies from approximately 2 to 3 ft.
+2.2.1.3.2 Oil desolventizing
+. The oil/hexane mixture is removed from the extractor separately
+from the defatted flakes. The mixture is first pumped through heaters, then through film evaporators
+under vacuum and, finally, through a stripping column to remove the hexane. The hexane/water vapor
+mixture is removed from each oil desolventizing unit and condensed in a "separation" tank to separate
+the hexane from the water. Once separated from the water, the hexane is reused in the extraction
+process. Crude oil is cooled and stored in tanks for further processing or loadout.
+2.2.1.4 Oil Refining
+. Crude vegetable oils contain small amounts of naturally occurring
+materials including proteinaceous material, free fatty acids, and phosphatides which must be removed
+to produce a "finished" or "refined" oil. Phosphatides are removed for lecithin recovery or to prepare
+the crude oil for export by preventing the formation of precipitated gums during transit. The most
+common method of refining oil is by reacting it with an alkali solution which neutralizes the free fatty
+acids and reacts with the phosphatides. These reacted products and the proteinaceous materials are
+then removed by centrifuge. Following alkali refining, the oil is washed with water to remove residual
+soap, which is the result of saponification of small amounts of the triglycerides (oil).
+Color-producing substances within an oil (i.e., carotenoids, chlorophyll) are removed by a
+bleaching process which employs the use of adsorbents such as acid-activated clays. Volatile
+components which may cause undesirable odors or flavors are removed by deodorization. This
+process employs the use of steam injection under a high vacuum and temperature. The refined oil is
+then filtered and stored until used or transported. Nitrogen gas may be placed in the headspaces of
+tanks or transport vessels to reduce oxygen contact with the oil, thus preventing degradation of the oil
+by oxidation.
+2.2.1.5 Desolventizing and Processing Spent Soybean Flakes
+. The flakes leaving the extractor
+contain up to 35 percent to 40 percent solvent and must be desolventized before use. Flakes are
+desolventized either through a "conventional" desolventizing process or a specialty ("flash")
+desolventizing process, depending on the end use of the material.
+Conventional desolventizing takes place in a desolventizer-toaster where both contact and
+noncontact steam are used to evaporate the hexane. The hexane is condensed, separated from the
+steam condensate, and reused. In addition, the contact steam "toasts" the flakes, making them more
+usable for animal feeds. The desolventized and toasted flakes then pass to a dryer, where excess
+moisture is removed by heat, and then finally to a cooler, where ambient air is used to reduce the
+temperature of the dried flakes. The desolventized, defatted flakes are then ground for use as soybean
+meal—a protein source in animal feeds (see Figure 2-4). In the specialty or "flash" process, solvent is
+removed from the defatted flakes either with superheated solvent (hexane) or in a vacuum with a small
+quantity of noncontact steam. Flakes desolventized in this manner are typically used for human foods.
+Conventional and flash desolventizing are described in further detail below.
+2.2.1.5.1 Conventional desolventizing
+. The solvent-laden, defatted soybean flakes are
+conveyed from the extractor to a desolventizer-toaster (DT) where the solvent is removed. The DT
+contains stacked pans with a vertical center shaft equipped with "sweeps" that mix and stir the flakes
+while they are being heated to about 100 °C (212°F) with both contact and noncontact steam to
+evaporate the solvent. The resulting steam/solvent vapor mixture is exhausted from the top of the DT,
+2-7
+
+--- PDF PAGE 17 ---
+Figure 2-4. Flow diagram for "conventional" process of dry material sizing, grinding, and loadout.
+2-8
+
+--- PDF PAGE 18 ---
+and both are subsequently condensed and put into the same separation tank as that used in the oil
+desolventizing process. The desolventized flakes, whose moisture content has increased from
+approximately 10 percent to 11 percent by weight to approximately 18 percent to 22 percent by
+weight, are conveyed to a "dryer-cooler" to reduce their moisture back to approximately 12 percent.
+2.2.1.5.2 Specialty or "flash" desolventizing
+. Flash or specialty desolventizing is used when
+the flakes are intended for human consumption and the objective is to minimize the denaturation of the
+protein in the flakes that occurs with toasting. This is a specialty process that accounts for less than
+5 percent by volume of the annual nationwide soybean crush. In this process, flakes are "flash"
+desolventized in a vacuum with a small quantity of noncontact steam or in a pneumatic loop using
+superheated hexane. This step is followed by a final solvent stripping step using very small quantities
+of steam in a rotary or agitated vessel. The hexane vapor from the flash/vacuum desolventizer and the
+hexane and steam vapors from the stripper are directed to a condenser. From the condenser, the
+hexane vapor passes to the mineral oil scrubber system and the hexane-water condensate goes to the
+hexane-water separator. These latter steps from the condenser are the same steps as shown in
+Figure 2-3 for hexane and steam vapors from the "conventional" flake desolventizing and toasting step.
+The flakes produced by this desolventizing process are termed "white flakes". A process flow diagram
+for the "flash" desolventizing portion of the soybean processing is shown below.
+Specialty or "flash" desolventizing utilizes different equipment and is far less efficient than
+conventional desolventizing in both energy consumption and solvent removal. Given these factors,
+solvent emission factors are considerably higher for a specialty desolventizing process than for a
+similar-sized conventional desolventizing process.
+2.2.1.5.3 Dryer-coolers
+. Two types of dryer-coolers are used by the industry. One type is a
+horizontal, cylindrical dryer paired with a horizontal cylindrical cooler. The dryer is approximately 6
+to 10 ft in diameter, approximately 30 to 50 ft long, contains longitudinal steam tubes, and rotates on a
+2-9
+
+--- PDF PAGE 19 ---
+horizontal axis. The cooler is a horizontal cylinder of approximately the same dimensions through
+which ambient air is circulated to cool the dried flakes.
+The second type of dryer-cooler is a stacked pan unit similar in design to the DT discussed
+above. Each pan in the unit is perforated, and drying/cooling of the flakes is achieved by passing high
+volumes of air through the perforations and the defatted flakes. Heated air is circulated through the
+first few pans, and ambient air is circulated through the last few pans.
+2.2.2 Cottonseed Oil Processing
+8,10,11
+Cottonseed oil processing is similar to soybean oil processing. Figure 2-5 serves as a general
+process diagram. The process includes cleaning of the cottonseeds, preparation for oil extraction, oil
+extraction and refining, and processing spent cottonseed meal. As with the soybean process, extraction
+of cottonseed oil is accomplished by both pressing and solvent extraction methods. In some
+processing plants, however, cottonseed meals are prepressed to extract some oil before solvent
+extraction. Since pressing is a mechanical process, only the solvent extraction method is described in
+detail in this section.
+Cottonseeds are supplied by cotton gins, where the seeds are separated from the cotton fiber
+(see Section 9.7 of AP-42, Cotton Ginning, for process information). The cleaning process begins
+with screening and aspiration to remove the cotton lint (cotton fibers) and hull fragments remaining on
+the seeds after ginning. After cleaning, the cottonseed passes through a series of cylindrical saws,
+which remove the remaining fiber (fuzzy fiber/lint).
+Next, the cleaned and delinted seeds are prepared for oil extraction by hulling, flaking, and
+conditioning (cooking). The hulls are removed by bar-type hullers that split the hulls, and screens
+and/or aspirators separate the hulls from the seed meat. Further hull/meat separation is achieved with
+vibrating beaters. Cottonseed hulls are used as a source of protein and roughage in animal feeds.
+Prior to solvent extraction, the seeds are steam conditioned at approximately 82 °C (180°F).
+The flaking step follows, which breaks down the cell structure and increases the surface area for
+contact with the solvent. Some facilities use an expander option in which flaked cottonseed is pelleted
+using an extrusion device. Expander processes are used to improve solvent extraction and reduce the
+amount of time for solvent to drain from the flakes. Flaking of the cottonseed meats is the same as
+for the soybeans.
+Prepressing, which is used in some plants for initial oil extraction, is performed by mechanical
+screw presses exerting up to 2,000 pounds per square inch (psi) pressure. The remaining oil is
+extracted using the solvent extraction equipment. Likewise, the spent cottonseed meal is desolventized
+using the same desolventizer-toaster, dryer, and cooling processes as for soybeans. Oil refining and
+screened oil from prepressing produces fine solid material called foots or soapstock that is returned to
+the meal desolventizer.
+There are two primary differences between cottonseed and soybean crushing. First, when
+considering overall solvent loss, scale of size favors the larger plants. In almost all cases, soybean
+crushers are much larger than cottonseed crushers. Second, the cottonseed crushing industry utilizes
+the additional step of delintering in processing cottonseed, which increases PM-10 emissions per ton of
+raw product processed.
+2-10
+
+--- PDF PAGE 20 ---
+Figure 2-5. Flow diagram of a typical cottonseed extraction process.
+2-11
+
+--- PDF PAGE 21 ---
+2.2.3 Corn Oil Processing 8,12
+Extraction of corn oil differs from soybean and cottonseed oil processing because most of the
+oil in corn is present only in the seed germ. Therefore, the major difference in corn oil processing is
+the preparation of corn kernels for oil extraction.
+Corn is either wet milled or dry milled. Wet milling consists of steeping corn in water/sulfur
+dioxide (SO
+2) baths to loosen the hulls from the kernels. Dry milling involves only mechanical
+separation techniques.
+In wet milling, clean corn is steeped (soaked) in tanks of warm water and dissolved SO 2
+(approximately 0.1 percent reduces bacterial growth) to loosen the hulls from the corn kernels. The
+steeped corn is passed through a series of mills (of various types) to break down the kernel and loosen
+the germ. The ground corn, in a water slurry, flows to germ separators. The germ is separated from
+the slurry with cyclones, washed to remove starch, and dried. For dry milling, once germ separation
+has been achieved by mechanical milling, the germ is ground and passed through a solvent extraction
+device.
+Corn germ is typically prepressed through continuous screw presses or expellers before solvent
+extraction. Because pressing extracts about 80 percent of the germ ’s oil content, solvent extraction is
+typically used to remove the residual oil. After the expellers, the germ may be flaked and the
+remaining oil extracted using a solvent. Large wet milling operations use both prepress and solvent
+extraction. Again, solvent extraction processes are believed to be the only significant sources of
+VOCs.
+Oil extraction for both dry and wet milled germ is performed with the hexane solvent and uses
+equipment similar to that described in Section 2.2.1 for soybean oil processing. Solvent is driven off
+the spent germ meal by the desolventizer-toasters, dryers, and coolers also described in Section 2.2.1.
+2.2.4 Peanut Oil Processing
+13
+Peanut oil is extracted from peanuts via a process similar to that used for other high oil
+content oilseeds. Peanut kernels are typically cracked into small pieces, conditioned (cooked), and
+prepressed through continuous screw presses or expellers where approximately 50 percent of the oil is
+removed. The prepressed peanut cake is then conveyed to extraction where the balance of the oil is
+removed by hexane extraction.
+The hexane is removed from the oil by an evaporation and condensing system. The crude oil
+is stored for further processing or shipment. The extracted peanut cake is desolventized and the
+evaporated hexane is condensed for reuse. The extracted, desolventized peanut cake (now peanut
+meal) is dried, cooled, ground, sized, and stored for shipment. Figure 2-6 illustrates a typical peanut
+oil extraction process.
+2.3 EMISSIONS
+8,14-15
+There are two principal pollutants from vegetable oil processing: hexane, a reactive VOC
+commonly used to extract oil from the grains, and particulates, which are released as the raw grain is
+handled, cleaned and milled. Particulate emissions from grain handling are discussed in the
+background document and AP-42 Section 9.9.1, Grain Elevators and Processing.
+2-12
+
+--- PDF PAGE 22 ---
+Figure 2-6. Flow diagram of the typical peanut oil extraction process.
+2-13
+
+--- PDF PAGE 23 ---
+Solvent emissions arise from several sources within vegetable oil processing plants. There are
+potential solvent emissions from the transfer and storage of hexane onsite, as well as potential leaks of
+solvent from piping and tanks. Small quantities of solvent (up to 0.2 percent by volume of oil) are
+present in the crude vegetable oil, even after solvent recovery by film evaporators and the distillation
+stripper (see Section 2.2.1.3). This hexane may volatilize during the oil-refining process, although no
+emission data are available. Trace quantities of solvent also are present in the waste water collected
+from direct contact steam in the distillation stripper and desolventizer-toaster. Adequate emission data
+from waste water also are not available.
+Vents are another source of emissions. Solvent emissions are discharged from three vents:
+the main vent from the solvent recovery section, the vent from the meal dryer, and the vent from the
+meal cooler. The main vent receives gases from the oil extractor, the film evaporator and distillation
+stripper, and the desolventizer-toaster. The meal dryer and cooler typically vents to the atmosphere.
+Solvent retained in the meal after the desolventizer-toaster is a fugitive emission source. The
+hexane retained in the meal is believed to volatilize over time and may occur at the oil processing
+plant or offsite at a meal processing facility. Hexane concentrations reported from nine of the
+reviewed source tests showed that the average decrease in hexane concentration from the meal leaving
+the dryer and the meal leaving the cooler was 21 percent. Samples were taken from the conveyor
+immediately after the meal left the cooler. Hexane concentrations in meal leaving the cooler and
+leaving the flour mill (applies only to meal processed into soy flour) decreased by 52 percent. These
+results suggest that volatilization of hexane may occur from the soybean meal as it is processed into
+feedstuffs. Hexane in white flakes that is processed into flour for cooking or cooked food for human
+consumption will probably be volatilized during cooking.
+Hexane is listed as a hazardous air pollutant by the U. S. Environmental Protection Agency,
+and therefore vegetable oil plants represent a potential major source of hazardous air pollution. In
+addition, trace heavy metal particulate emissions have been identified at cottonseed oil mills at the
+seed cleaners and linter cyclones. Heavy metals detected were cadmium, chromium, copper, lead,
+manganese, nickel, zinc, and mercury; all of these metals are hazardous air pollutants. These
+emissions may be the result of the metals naturally present in soil and may occur in particulate
+emissions from other vegetable oil mills.
+2.4 EMISSION CONTROL TECHNOLOGY
+8
+Hexane is recovered and reused in the oil extraction process due to its cost. Condensers and
+mineral oil scrubbers are used together to recover hexane from exhaust streams. The most efficient
+recovery or control device is a mineral oil scrubber (MOS). Mineral oil scrubbers used to recover
+hexane from the main vent gases are approximately 95 percent efficient. However, over half of
+hexane loss may occur as a result of fugitive emissions from tanks, piping, and equipment shutdowns
+and breakdowns requiring extraction equipment to be opened. Process controls to reduce breakdowns
+and leaks can be used to effectively reduce emissions.
+2-14
+
+--- PDF PAGE 24 ---
+REFERENCES FOR SECTION 2
+1. P. T. Bartlett et al., National Vegetable Oil Processing Plant Inventory , Contract No. 68-01-4145,
+TRC Environmental Consultants Inc., Wethersfield, CT, April 1980.
+2. J. M. Farren et al., U.S. Industrial Outlook ’92 , U.S. Department of Commerce, 1992.
+3. 1987 Census of Manufactures: Fats and Oils , U.S. Department of Commerce, Bureau of Census,
+1988.
+4. Corn Annual 1992 , Corn Refiners Association Inc., Washington, DC, 1992.
+5. 95-96 Soya Bluebook Plus-Annual Directory of the World Oilseed Industry , Soyatech, Inc., Bar
+Harbor, ME; Data supplied by the National Oilseed Processors Association, September 1995.
+6. Handbook of Soy Oil Processing and Utilization , D. R. Erickson et al., editors, American
+Soybean Association and the American Oil Chemists ’ Society, St. Louis, MO, 1980.
+7. Vegetable Oil Manufacturing , Contract No. 68-02-2583, Pacific Environmental Services, Santa
+Monica, CA, September 1979.
+8. Control of Volatile Organic Emissions from Manufacture of Vegetable Oils , EPA-450/2-78-035,
+U. S. Environmental Protection Agency, Research Triangle Park, NC, June 1978.
+9. Written communication from D. C. Ailor, Director of Regulatory Affairs, National Oilseed
+Processors Association, Washington, DC, to D. Reisdorph, Midwest Research Institute,
+September 20, 1992.
+10. NFPA 36-Solvent Extraction Plants , 1993 Edition, National Fire Protection Association, Quincy,
+MA, February 1993.
+11. J. P. Cherry, "Cottonseed Oil," Journal of the American Oil Chemists’ Society , 60(2):360-367,
+February 1983.
+12. Corn Refining: The Processes, The Products , Corn Refiners Association Inc., Washington, DC,
+1992.
+13. Written communication from D. C. Ailor, Director of Regulatory Affairs, National Oilseed
+Processors Association, Washington, D.C., to T. Lapp, Midwest Research Institute, September 21,
+1995.
+14. R. L. Chessin, Investigating Sources of Hexane Emissions , Oil Mill Gazetteer, 86(2):35-36,38-39,
+August 1981.
+15. Particulate and Metals Pooled Source Tests, Western Cotton Services Corporation, BTC
+Environmental Inc., Ventura, CA, April 30-May 1, 1990.
+2-15
+
+--- PDF PAGE 25 ---
+3. GENERAL DATA REVIEW AND ANALYSIS PROCEDURES
+This section describes the literature search to collect emissions data and the EPA quality rating
+systems applied to data and to any emissions factors developed from those data.
+3.1 LITERATURE SEARCH AND SCREENING
+A literature search was performed to collect pertinent emissions data for operations associated
+with vegetable oil processing. Review of emissions data began with a literature and source test search.
+Literature and data from EPA were reviewed first, including a review of the AP-42 background files
+located in the Emission Factor and Inventory Group (EFIG), and data base searches on the Crosswalk/
+Air Toxic Emission Factor Data Base Management System (XATEF), VOC/PM Speciation Data Base
+Management System (SPECIATE), and Air Chief CD-ROM. Source tests from the Emissions,
+Monitoring, and Analysis Division (EMAD) also were reviewed.
+During the review of each document, the following criteria were used to determine the
+acceptability of reference documents for emission factor development:
+1. The report must be a primary reference:
+a. Source testing must be from a referenced study that does not reiterate information from
+previous studies.
+b. The document must constitute the original source of test data.
+2. The referenced study must contain test results based on more than one test run.
+3. The report must contain sufficient data to evaluate the testing procedures and source
+operating conditions.
+3.2 DATA QUALITY RATING SYSTEM
+1
+Based on OAQPS guidelines, the following data are always excluded from consideration in
+developing AP-42 emission factors:
+1. Test series averages reported in units that cannot be converted to the selected reporting
+units;
+2. Test series representing incompatible test methods; and
+3. Test series in which the production and control processes are not clearly identified and
+described.
+If there is no reason to exclude a particular data set, data are assigned a quality rating based on
+an A to D scale specified by OAQPS as follows:
+A—This rating requires that multiple tests be performed on the same source using sound
+methodology and reported in enough detail for adequate validation. Tests do not necessarily have to
+3-1
+
+--- PDF PAGE 26 ---
+conform to the methodology specified by EPA reference test methods, although such methods are used
+as guides.
+B—This rating is given to tests performed by a generally sound methodology but lacking
+enough detail for adequate validation.
+C—This rating is given to tests that are based on an untested or new methodology or that lack
+a significant amount of background data.
+D—This rating is given to tests that are based on a generally unacceptable method but may
+provide an order-of-magnitude value for the source.
+The following are the OAQPS criteria used to evaluate source test reports for sound
+methodology and adequate detail:
+1. Source operation. The manner in which the source was operated should be well
+documented in the report, and the source should be operating within typical parameters during the test.
+2. Sampling procedures . The sampling procedures should conform to a generally accepted
+methodology. If actual procedures deviate from accepted methods, the deviations must be well
+documented. When this occurs, an evaluation should be made of how such alternative procedures
+could influence the test results.
+3. Sampling and process data
+. Adequate sampling and process data should be documented in
+the report. Many variations can occur without warning during testing and sometimes without being
+noticed. Such variations can induce wide deviations in sampling results. If a large spread between
+test results cannot be explained by information contained in the test report, the data are suspect and are
+given a lower rating.
+4. Analysis and calculations
+. The test reports should contain original raw data sheets. The
+nomenclature and equations used are compared to those specified by EPA (if any) to establish
+equivalency. The depth of review of the calculations is dictated by the reviewer ’s confidence in the
+ability and conscientiousness of the tester, which in turn is based on factors such as consistency of
+results and completeness of other areas of the test report.
+3.3 EMISSION FACTOR QUALITY RATING SYSTEM
+1
+The EPA guidelines specify that the quality of the emission factors developed from analysis of
+the test data be rated utilizing the following general criteria:
+A—Excellent: The emission factor was developed only from A-rated test data taken from
+many randomly chosen facilities in the industry population. The source category* was specific
+enough to minimize variability within the source category population.
+* Source category: A category in the emission factor table for which an emission factor has been
+calculated.
+3-2
+
+--- PDF PAGE 27 ---
+B—Above average: The emission factor was developed only from A-rated test data from a
+reasonable number of facilities. Although no specific bias was evident, it was not clear if the facilities
+tested represented a random sample of the industries. As in the A-rating, the source category was
+specific enough to minimize variability within the source category population.
+C—Average
+: The emission factor was developed only from A- and B-rated test data from a
+reasonable number of facilities. Although no specific bias was evident, it was not clear if the facilities
+tested represented a random sample of the industry. As in the A-rating, the source category was
+specific enough to minimize variability within the source category population.
+D—Below average
+: The emission factor was developed only from A- and B-rated test data
+from a small number of facilities, and there was reason to suspect that these facilities did not represent
+a random sample of the industry. There also may be evidence of variability within the source category
+population. Limitations on the use of the emission factor are footnoted in the emission factor table.
+E—Poor
+: The emission factor was developed from C- and D-rated test data, and there was
+reason to suspect that the facilities tested did not represent a random sample of the industry. There
+also may be evidence of variability within the source category population. Limitations on the use of
+these factors are footnoted.
+The use of the above criteria is somewhat subjective depending to a large extent on the
+individual reviewer. Details of how each candidate emission factor was rated are provided in
+Section 4.
+REFERENCE FOR SECTION 3
+1. Technical Procedures for Developing AP-42 Emission Factors and Preparing AP-42 Sections ,
+Draft, Office of Air Quality Planning and Standards, U. S. Environmental Protection Agency,
+Research Triangle Park, NC, March 1992.
+3-3
+
+--- PDF PAGE 28 ---
+4. AP-42 SECTION DEVELOPMENT
+The new AP-42 Section 9.11.1, Vegetable Oil Processing, was developed using information
+provided by the American Soybean Association, National Oilseed Processors Association (NOPA),
+National Cotton Council (NCC), National Cottonseed Products Association (NCPA), reference
+documents, and source tests. Emission factor development is only for soybean vegetable oil because
+of lack of emissions data for other vegetable oil sources.
+4.1 REVIEW OF SPECIFIC DATA SETS
+For vegetable oil processing, 18 emission test reports and an engineering analysis of vegetable
+oil processing emissions were reviewed. Ten of the references (Nos. 4 to 9 and 11 to 14) documented
+a series of tests conducted during 1979 for the Office of Air Quality Planning and Standards (OAQPS)
+to quantify hexane emissions. These emission tests followed a methodology developed for the EPA to
+measure vegetable oil emissions. Other references included a draft AP-42 section prepared for EPA in
+1979 and a particulates and heavy metals source test performed at a cottonseed oil gin. A brief review
+of 18 documents selected during the literature search is given below. Full citations of these references
+are given at the end of this section.
+4.1.1 Reference 1
+This reference is an engineering analysis of hexane emissions from soybean oil processing.
+Since a detailed analysis was not provided, it cannot be determined how the emission factors were
+developed. No data rating was given because no original source test data were presented.
+4.1.2 Reference 2
+This report is an EPA-prepared document that analyzes emission control technology for the
+vegetable oil industry. The report provides process descriptions and a discussion of the sources of
+hexane emissions. Data from reference 1, an engineering analysis of air emissions, were used to create
+emission factors for vegetable oil manufacturing plants. The development of the emission factors is
+not completely described, and original data are not provided. Various potential control technologies
+are investigated for control efficiency, cost effectiveness, and adverse impacts. No data rating was
+applied to this report because it does not provide source test results.
+4.1.3 Reference 3
+This reference presents a test method using carbon disulfide to evaluate hexane emissions from
+vegetable oil processing for the Emission Measurement Center (EMC) of OAQPS. This method was
+used to analyze vent gases from vegetable oil manufacturers. No rating was assigned to this report
+because it does not provide source test results.
+4.1.4 Reference 4
+The Cargill Inc. (East Plant), Cedar Rapids, Iowa, vegetable oil manufacturing plant
+participated in a 1979 source test sponsored by EPA. Soybean meal samples were taken from the
+desolventizer-toaster exit, the cooler exit, and the final milling exit. Samples were drawn in triplicate
+4-1
+
+--- PDF PAGE 29 ---
+every hour for a 7-hr period. A volatilization headspace extraction technique and GC/FID analysis
+were used to measure hexane concentrations in meal.
+A rating of A was assigned to the test data. The report includes adequate detail, the
+methodologies appear to be sound, and no significant problems were reported during valid test runs.
+Data tables from this report are given in the Appendix (pp. A-3 to A-6).
+4.1.5 Reference 5
+The Cargill Inc. (West Plant), Cedar Rapids, Iowa, vegetable oil manufacturing plant
+participated in the 1979 source test sponsored by EPA. Soybean meal samples were taken from the
+desolventizer-toaster exit, the cooler exit, the flash-desolventizer-toaster exit, the meal grinding exit,
+the flash tank after the Schneckens cooker, and the flour milling exit. Samples were drawn in
+triplicate every hour for a 7-hr period. A volatilization headspace extraction technique and GC/FID
+analysis were used to measure hexane concentrations in soy meal samples. Hexane concentrations in
+the soymeal from the flash-desolventizer-toaster were higher than concentrations from conventional
+desolventizer-toasters at other facilities tested.
+A rating of A was assigned to the test data. The report includes adequate detail, the
+methodologies appear to be sound, and no significant problems were reported during valid test runs.
+Data tables from this report are given in the Appendix (pp. A-7 to A-9).
+4.1.6 Reference 6
+AGRI Industries, Mason City, Iowa, participated in the 1979 source test of soybean oil
+emissions sponsored by EPA. Soybean meal samples were taken from the desolventizer-toaster exit,
+the cooler exit, and the final milling exit. Samples were drawn in triplicate every hour for a 7-hr
+period. A volatilization headspace extraction technique and GC/FID analysis were used to measure
+hexane concentration in grab samples of the soybean meal.
+A rating of A was assigned to the test data. The report includes adequate detail, the
+methodologies appear to be sound, and no significant problems were reported during valid test runs.
+Data tables from this report are given in the Appendix (pp. A-11 to A-13).
+4.1.7 Reference 7
+The Cargill Inc., Fayetteville, North Carolina, vegetable oil extraction plant participated in the
+1979 source test sponsored by EPA. Soybean meal samples were taken from the desolventizer-toaster
+exit, the dryer exit, the cooler exit, and the meal grinder exit. Samples were drawn in triplicate every
+hour for a 5-hr period on July 12 and each hour for 2 hr on July 13. A volatilization headspace
+extraction technique and GC/FID analysis were used to measure hexane concentrations in soy meal
+samples.
+A rating of A was assigned to the test data. The report includes adequate detail, the
+methodologies appear to be sound, and no significant problems were reported during valid test runs.
+Data tables from this report are given in the Appendix (pp. A-15 to A-17).
+4-2
+
+--- PDF PAGE 30 ---
+4.1.8 Reference 8
+Central Soya Inc., Delphos, Ohio, participated in the EPA-sponsored test for vegetable oil
+emissions. Hexane vapor emissions were collected at the mineral oil scrubber (MOS) inlet, the
+mineral oil scrubber outlet, and the cooler vent. The dryer vent was omitted because of unsteady
+exhaust flow. Samples were drawn using a carbon disulfide (CS
+2) impinger train. A series of four
+runs were performed on the mineral oil scrubber and two runs were performed on the cooler using the
+EPA Method 25 to obtain samples. Soybean meal samples from the desolventizer-toaster, dryer, and
+cooler exits were analyzed using a volatilization headspace extraction technique and subsequent
+analysis with a GC/FID. Six meal sample runs were conducted at the desolventizer-toaster and three
+at the cooler. Fugitive emissions were measured on-site with an FID.
+A rating of A was assigned to the test data. The report includes adequate detail, the
+methodologies appear to be sound, and no significant problems were reported during valid test runs.
+Data tables from this report are given in the Appendix (pp. A-19 to A-23).
+4.1.9 Reference 9
+A. E. Staley Manufacturing Company, Des Moines, Iowa, was another site of the 1979 EPA-
+sponsored test for soybean vegetable oil emissions. Hexane vapor emissions were collected to
+determine the extent of solvent loss at vegetable oil plants. Emissions samples were collected from
+the mineral oil scrubber inlet and outlet, the cooler vent, and the dryer vent. A series of three test
+runs were conducted. Gas flow estimates were made using EPA Methods 1 and 2; however, the
+mineral oil scrubber ducts were too small to accommodate an S-type pitot tube so gas velocity was
+measured with a vane anometer. Emissions were sampled using an impinger train, a dry-ice freeze
+trap, and an evacuated cylinder. Soybean meal samples were drawn from the desolventizer-toaster
+exit, the dryer exit, the cooler exit, and the milling exit. Volatilization headspace extraction and
+GC/FID analysis were used to measure hexane concentrations.
+A rating of B was assigned to the test data. The report included adequate detail and the
+methodologies appeared to be sound; however, in later reports (see reference 16), it was suggested that
+the plant was not operating normally. Also, the gas flow measurement problem noted above
+downgrades the results. Data tables from this report are given in the Appendix (pp. A-25 to A-30).
+4.1.10 Reference 10
+A draft AP-42 section was prepared in this 1979 report for vegetable oil manufacturing. The
+emission factors developed relied exclusively on engineering analysis data reported in references 1 and
+2. No data rating was assigned to this reference because it provides no source test data.
+4.1.11 Reference 11
+MFA Soybeans, Mexico, Missouri, participated in the 1979 source test sponsored by EPA.
+Soybean meal samples were taken in a series of seven test runs from the desolventizer-toaster exit, the
+cooler exit, and the milling exit. A volatilization headspace extraction technique and GC/FID analysis
+were used to measure hexane concentrations in the soy meal samples.
+4-3
+
+--- PDF PAGE 31 ---
+A rating of A was assigned to the test data. The report included adequate detail, the
+methodology appeared to be sound, and no significant problems were reported during valid test runs.
+Data tables from this report are given in the Appendix (pp. A-31 to A-33).
+4.1.12 Reference 12
+The Cargill Inc. vegetable oil extraction plant in Sidney, Ohio, participated in a series of
+vegetable oil processing tests sponsored by EMB in 1979. Hexane vapor emissions were collected at
+the mineral oil scrubber inlet, the mineral oil scrubber outlet, and the cooler vent using a CS
+2 impinger
+train. The dryer vent was omitted because of unsteady exhaust flow. A series of four runs were
+conducted on the mineral oil scrubber and two runs on the cooler. EPA Method 25 was used to
+collect gas samples that were analyzed for hexane by GC/FID. Soybean meal samples were drawn
+from the desolventizer-toaster, dryer, cooler, and final milling exits and quantified for hexane using a
+volatilization headspace extraction technique and GC/FID analysis. Six meal sample runs were
+conducted at the desolventizer-toaster and three at the cooler.
+Fugitive emissions of VOCs were measured on-site with an organic vapor analyzer at the
+following points: outside of extraction building, and at flanges, valves, seams and doors, sightglasses,
+open-ended pipes, pumps, drains, and ventilation vents. Pumps at the two oil extractor units and at
+one desolventizer-toaster showed high levels of hexane concentration. The extractor pump hexane
+readings ranged from 220 ppm to 500 ppm. The desolventizer-toaster pump had readings of 2,000 to
+6,000 ppm hexane.
+A rating of A was assigned to the test data. The report includes adequate detail, the
+methodologies appear to be sound, and no significant problems were reported during valid test runs.
+Data tables from this report are given in the Appendix (pp. A-35 to A-45).
+4.1.13 Reference 13
+The Ralston Purina, Memphis, Tennessee, vegetable oil extraction plant participated in the
+1979 source test sponsored by EPA. Soybean meal samples were taken from the desolventizer-toaster
+exit, the cooler exit, and the final milling exit. Samples were drawn in triplicate every hour for a 7-hr
+period. A volatilization headspace extraction technique and GC/FID analysis were used to measure
+hexane concentrations in the grab samples of soy meal.
+A rating of A was assigned to the test data. The report includes adequate detail, the
+methodologies appear to be sound, and no significant problems were reported during valid test runs.
+Data tables from this report are given in the Appendix (pp. A-47 to A-49).
+4.1.14 Reference 14
+The Ralston Purina vegetable oil extraction plant in Bloomington, Illinois, also participated in
+the 1979 source test sponsored by EPA. Soybean meal samples were taken from the desolventizer-
+toaster exit, the dryer exit, the cooler exit, edible product meal stripper exit, edible product meal cooler
+exit, and the final meal product. Samples were drawn in triplicate every hour for a 7-hr period. A
+volatilization headspace extraction technique and GC/FID analysis were used to measure hexane
+concentrations in soybean meal samples.
+4-4
+
+--- PDF PAGE 32 ---
+A rating of A was assigned to the test data. The report includes adequate detail, the
+methodologies appear to be sound, and no significant problems were reported during valid test runs.
+Data tables from this report are given in the Appendix (pp. A-51 to A-53).
+4.1.15 Reference 15
+This report provides a national vegetable oil processing plant inventory and estimated
+emissions based on reference 1 emission factors. The report provides process descriptions and size
+and location data on most vegetable oil plants operating in the United States. This report provided
+throughput data for the source test plants. No data rating was given because no source test data were
+available.
+4.1.16 Reference 16
+Reference 16 is a technical article that analyzes the 1979 EMC vegetable oil source test
+results, which present the major hexane emission points at vegetable oil processing plants. Emission
+factors were developed using the combined source test data. Emissions from hexane remaining in
+meal are considered a significant source, even though the total measured emissions accounted for only
+approximately 25 percent to 50 percent of the total hexane usage reported by the plants. Emissions
+from vegetable oil and wastewater are considered very minimal, because laboratory analysis detected
+only trace quantities of hexane. Fugitive emissions other than from the meal are suspected to be a
+major source of hexane loss. Breakdowns, downtime, and leaks were estimated to account for
+20 percent to 25 percent of hexane loss. No data rating was given because original source test data
+were not presented. This article is provided in the Appendix (pp. A-55 to A-58).
+4.1.17 Reference 17
+This reference provides source emissions tests for particulate matter, metals, and crystalline
+silica for a cotton gin in Madera County, California. The tests were run on the No. 1 seed cleaner
+cyclone and the No. 2 linter cyclone. The test used EPA methods for the stack gas velocity and for
+the particulate emissions. The metals and crystalline silica analysis descriptions sufficiently explain
+the methods for their analysis.
+The ginning process emits small amounts of toxic metals listed as hazardous air pollutants in
+the Clean Air Act Amendments of 1990. The metals identified in emissions from cotton gins were
+arsenic, beryllium, cadmium, chromium, lead, manganese, mercury, nickel, and selenium. Since these
+are trace constituents in soil, the source of these metals is believed to be soil picked up during
+growing and harvesting operations. As with total particulate matter, the type and amount of metal
+emissions vary depending on the type of gin, geographic region, type of cotton, harvest method, trash
+content, climate, production rate, and type and number of controls used.
+No process description or process rates are contained in the report, but a Facility Emissions
+Diagram is included. However, it lacked detailed information on the facility. Therefore, the report
+could not be used for emission factor development due to the lack of process data. The emission
+summary data for this source test are included in the Appendix (pp. A-59 to A-61).
+4-5
+
+--- PDF PAGE 33 ---
+4.1.18 Reference 18
+Reference 18 presents the results of an engineering and cost study of the grain and feed
+industry. The report contains survey information from a variety of public and private sources on the
+emissions from grain elevators and grain processing operations, including soybean processing plants.
+Normally, data from such a report would not be considered for AP-42 emission factor development
+because no original test data are reported, and the references in the report are not sufficiently detailed
+to obtain the original references. However, because Reference 18 formed the basis for most of the
+particulate matter emission factors from handling operations at soybean plants, the data from this
+document were considered for those operations.
+For a survey report, the emission data reported in Reference 18 are reasonably well
+documented with explanations provided in the text concerning the general source of the data and the
+test methods or estimation techniques used to develop the emission estimates. However, original
+references could not be checked so all data from Reference 18 were rated D. The report contained
+four data tables with sufficient information for emission factor development, three based on Method 5
+type PM tests and one based on engineering estimates. The tables are included in the Appendix
+(pp. A-63 to A-66) and the emission factors that could be developed from the information in the tables
+are included in Table 4-1. Emission factors based on emission tests and on engineering estimates are
+presented separately in the table.
+4.1.19 Review of XATEF and SPECIATE Data Base Emission Factors
+Emission factors provided on XATEF were based on references 1 and 2, which are
+engineering analyses. Particulate matter emission factors also are provided, which come from Interim
+AP-42 Section 9.9.1, Grain Elevators and Processes, November 1995.
+4.1.20 Review of Test Data in AP-42 Background File
+A draft AP-42 section (reference 10) was prepared in 1979 for vegetable oil processing, but it
+was not accepted into AP-42. Emission factor data for the section were developed from an
+engineering analysis (reference 1) of hexane losses from vegetable oil processing plants. No emission
+tests were conducted for the analysis. The analysis was refined in reference 1 to estimate controlled
+and uncontrolled hexane emissions.
+The 1979 draft AP-42 section included emission factors for soybean, cottonseed, corn, and
+peanut oil production. The cottonseed, corn, and peanut oil emission factors were estimated from the
+soybean estimates, which were based upon oil content of the respective products and oil extraction
+efficiency. Although the analysis of reference 1 was thorough, the proposed emission factors for
+grains other than soybeans were not based on source test data. Moreover, because reference 16 did
+not provide a detailed discussion of how emission factors were estimated, no verification of the
+analysis could be made.
+The background file also includes the 10 primary references from the plants that participated in
+the 1979 source tests cited here to develop vegetable oil emission factors.
+4-6
+
+--- PDF PAGE 34 ---
+4.1.21 Summary
+TABLE 4-1. SUMMARY OF SOYBEAN PROCESSING PARTICULATE EMISSION
+FACTORS FROM REFERENCE 18 a
+Operation Control device
+Data
+sourceb
+No. of data
+points
+Emission factor
+kg/Mg lb/ton
+Truck dump pit Fabric filter T 1 0.0092 0.018
+Forsberg screen Cyclone T 1 0.010 0.021
+White flakes cooling system Cyclone T 1 0.48 0.95
+Hull toaster Cyclone T 1 0.041 0.082
+Flake roll aspiration Cyclone T 1 0.064 0.13
+Primary dehulling Cyclone T 1 0.16 0.31
+Hull screens and conveyor Cyclone T 1 0.010 0.020
+Meal cooler Cyclone (2) T 1 0.093 0.19
+Meal dryer Cyclone T 1 0.0052 0.010
+Cracking rolls Cyclone Q 1 0.020 0.039
+Primary dehulling aspirator Cyclone Q 2 0.17 0.33
+Secondary dehulling aspirator Cyclone Q 2 0.016 0.032
+Bean conditioner Cyclone Q 1 0.0055 0.011
+Hull grinder Cyclone Q 3 0.099 0.20
+Flaking rolls Cyclone Q 3 0.018 0.037
+Meal dryer Cyclone Q 5 0.076 0.15
+Meal grinder Cyclone Q 2 0.17 0.34
+aAll data are secondary data from unpublished sources.
+bT = source test , Q = questionnaire
+Table 4-2 summarizes the review of 18 references for purposes of developing emission factors
+for AP-42 Section 9.11.1, Vegetable Oil Processing.
+With respect to hexane emissions, the data presented in this section show that hexane
+emissions are variable over time and may occur from a number of point and fugitive sources
+throughout the process. However, there are insufficient data to document plant-to-plant and temporal
+variability from the various emission points and no data are available for several sources that may
+account for significant portions of total hexane emissions.
+4.2 DEVELOPMENT OF CANDIDATE EMISSION FACTORS
+The development of emission factors for vegetable oil processing is limited to soybean oil
+processing. Development of factors for cottonseed, corn, and peanuts was not possible because no
+emission measurements were available. Hexane emission factors have been developed for the main
+vent (controlled emissions only), the dryer vent, the cooler vent, and for fugitive emissions from
+volatilizing hexane in soybean meal (hexane concentrations in meal exiting the desolventizer-toaster
+4-7
+
+--- PDF PAGE 35 ---
+less dryer vent and cooler vent losses). Particulate matter emission factors for soybean handling were
+TABLE 4-2. DOCUMENTS REVIEWED FOR EMISSION
+FACTOR DEVELOPMENT
+Reference No. Comments
+1 Rejected —No source emission tests
+2 Rejected —No source emission tests
+3 Rejected —No source emission tests
+4 Used in emission factor development
+5 Used in emission factor development
+6 Used in emission factor development
+7 Used in emission factor development
+8 Used in emission factor development
+9 Used in emission factor development
+10 Rejected —No source emission tests
+11 Used in emission factor development
+12 Used in emission factor development
+13 Used in emission factor development
+14 Used in emission factor development
+15 Rejected —No source emission tests
+16 Rejected —No source emission tests
+17 Rejected-Insufficient process data
+18 Used in emission factor development
+obtained from secondary data provided in Reference 18.
+Hexane emissions from vegetable oil manufacture may occur throughout the process.
+Emissions are generated by:
+1. The hexane storage (working) tanks . Hexane volatilizes (breathes) from storage tanks
+under normal environmental conditions.
+2. Leaking or faulty equipment (extractor, oil/solvent strippers, desolventizer-toasters, etc.),
+seals, piping, vents, and so forth . Shutdowns and breakdowns are suspected to be a major source of
+hexane emissions because sealed equipment must be opened for repairs and adjustments, thereby
+releasing solvent.
+3. The main vent
+. Gases from the oil extractor, the oil/solvent stripping system, and the
+desolventizer-toaster are exhausted through the main vent in most plants. The main vent emissions are
+controlled by mineral oil scrubbers, which recover up to 95 percent of hexane in the vent gases.
+4. The meal dryer and cooler vents
+. These vents are typically exhausted to the atmosphere
+with only cyclone control to reduce particulate matter. Meal exiting the desolventizer-toaster contains
+residual hexane, which under normal ambient conditions may volatilize from the meal. During the
+4-8
+
+--- PDF PAGE 36 ---
+meal drying and cooling processes, hexane volatilizes from the meal and is vented to the atmosphere
+through the dryer and cooler vents.
+5. Soybean meal . As noted above, soybean meal, which contains hexane, normally volatilizes
+as it leaves the desolventizer-toaster. The meal is typically carried on open (nonsealed) conveyors
+when it exits the desolventizer-toaster, allowing hexane to volatilize to the atmosphere. All of the
+hexane in the meal is believed to volatilize (although not at the processing plant), except for possible
+trace amounts that may remain bound to any residual oil in the meal. Some of this hexane will be
+emitted through the dryer and cooler vents; however, the rest will be emitted to the atmosphere as
+fugitive emissions.
+6. Wastewater
+. The desolventizer-toaster and the oil/solvent distillation stripper contact steam
+is collected as wastewater. Trace quantities of hexane have been detected in the wastewater. Under
+normal conditions the hexane will volatilize from the wastewater.
+Following is a discussion of the summary results of the source tests, as well as a discussion of
+the reported data on total hexane loss from the 10 plants participating in the source tests. The
+discussion is divided into total emissions, emissions from vents, and fugitive emissions from soybean
+meal. Data are not available to adequately discuss emissions from equipment breakdown, storage
+tanks, oil refining and wastewater.
+4.2.1 Total Emissions
+The vegetable oil industry reports hexane disappearance or loss and, consequently, hexane
+makeup quantity (the amount of hexane replaced to make up losses), to estimate hexane emissions for
+air permitting purposes. Hexane is very volatile; therefore, it is assumed that all hexane lost becomes
+an air emission. Under Section 112 of the 1990 Clean Air Act Amendments, hexane is classified as a
+hazardous air pollutant (HAP). Data from state environmental agencies were unobtainable; however,
+reference 16 provides the reported hexane losses from the 10 plants that participated in the 1979
+source tests. The data on hexane loss were self-reported by the plant operators and are shown in Table
+4-3.
+The mean reported loss by the 10 plants is 3.3 liters per metric ton (L/MT) of raw soybeans
+processed (0.89 gal/ton). This mean loss is based on the quantity of hexane purchased to replenish
+solvent losses and the total quantity of soybeans processed. This loss rate is an estimate of a total
+emission factor for soybean oil processing. Hexane is used only during the oil extraction step so that
+the quantity of hexane purchased represents solvent losses during the extraction step and subsequent
+processing steps.
+4.2.2 Vent Emissions
+To develop hexane emission factors from the soybean processing source test reports, the vent
+gas hexane concentrations (in ppm) were converted into equivalent volume of liquid hexane released
+per weight of soybeans processed. This conversion was accomplished by taking hexane weight gas
+flow rates from the respective vents and dividing by the estimated weight of raw soybeans being
+processed in the test period. Calculations for the respective tests are shown in the Appendix,
+4-9
+
+--- PDF PAGE 37 ---
+Calculations and Source Test Data. Only the outlet data for the main vent were analyzed since all
+TABLE 4-3. REPORTED HEXANE LOSS a
+Ref.
+No. Plant
+Reported hexane loss
+(gal/ton raw soybeans)
+Reported hexane loss
+(L/MT raw soybeans)
+6 A 0.3 1.12
+14 B 1.75 6.52
+4 C 0.4 1.49
+9 D 0.85 3.17
+13 E 2.2 8.20
+5 F 0.9 3.35
+11 G 0.9 3.35
+12 H 0.3 1.12
+7 I 0.5 1.86
+8 J 0.75 2.79
+Average 0.89 3.3
+aReference 16.
+plants use condensers and mineral oil scrubbers to control hexane emissions.
+Table 4-4 provides the summary test data for the source tests. The average (mean) vent gas
+concentrations shown in Table 4-4 provide the emission factors for these sources. Data from
+reference 9 are not included in Table 4-4 because it was believed the plant was not operating normally
+at the time of the source test. Likewise, reference 9 data are not used to develop the final emission
+factors.
+Main vent emissions are largest, followed by the dryer vent and cooler vent emissions. The
+emissions drop considerably from the dryer vent to the cooler vent. This result was expected because
+the hexane concentration in soybean meal should be high when the meal exits the desolventizer toaster
+and should decline while the meal is dried.
+4.2.3 Fugitive Emissions from Soybean Meal
+Emission factors were estimated for fugitive emissions from soybean meal based upon the
+hexane concentration data, in parts per million (ppm), provided in the source test reports. To utilize
+the data, a conversion from ppm of hexane in the meal to gallons of hexane per weight of raw
+soybeans processed was used.
+16
+H = HC R (Eq. 4-1)
+where:
+H = gallons of hexane per ton of raw soybeans
+HC = hexane concentration in soybean meal, ppm (µg/g)
+R = 0.0003; gallons of hexane per ton of raw soybean equivalent to 1 ppm of hexane in the
+soybean meal.
+4-10
+
+--- PDF PAGE 38 ---
+TABLE 4-4. HEXANE CONCENTRATIONS IN SOYBEAN MEAL AND VENT GASES
+DURING PROCESSING IN L/MT (GAL/TON)
+Ref No. Plant
+Average meal concentrations Average vent gas concentrations
+Desolventizer
+toaster Dryer Cooler Main vent Dryer vent
+Cooler
+vent
+4 C 0.253
+(0.068)
+— 0.122
+(0.033)
+—— —
+5 F 1.54
+(0.414)
+— 0.492
+(0.132)
+—— —
+6 A 0.25
+(0.067)
+— 0.126
+(0.034)
+—— —
+7 I 0.82
+(0.220)
+0.668
+(0.179)
+0.731
+(0.196)
+—— —
+8 J 0.829
+(0.223)
+0.742
+(0.199)
+0.656
+(0.176)
+0.121
+(0.032)
+0.089
+(0.024)
+0.023
+(0.006)
+11 G 0.298
+(0.08)
+— 0.235
+(0.063)
+—— —
+12 H 0.195
+(0.052)
+0.117
+(0.031)
+0.119
+(0.032)
+0.184
+(0.05)
+— 0.018
+(0.005)
+13 E 0.463
+(0.124)
+0.277
+(0.074)
+—— — —
+14 B 0.433
+(0.116)
+0.406
+(0.109)
+0.396
+(0.106)
+—— —
+Average 0.565
+(0.152)
+0.442
+(0.119)
+0.360
+(0.097)
+0.153
+(0.041)
+0.089
+(0.024)
+0.021
+(0.005)
+4-11
+
+--- PDF PAGE 39 ---
+The processed weight of soybeans is less than the raw weight due to removal of debris and soybean
+hulls. The approximate weight reduction during processing for oil extraction is approximately 400 lb;
+therefore, 1 ton of raw soybeans yields 1,600 lb of processed bean.
+Table 4-4 shows the summary test data for hexane concentrations in meal exiting the
+desolventizer-toaster, the meal dryer, and the meal cooler. As expected, the data show on average that
+the hexane concentration decreases as the meal moves from the desolventizer-toaster to the dryer and
+cooler. The desolventizer-toaster hexane in meal concentration from the reference 5 plant was
+substantially higher than the average concentration from the nine plants. The high concentrations at
+the reference 5 plant may be because of the use of a specialty flash desolventizer that is believed to be
+less efficient than the standard desolventizer-toasters used at the other plants.
+The emission factor for fugitive emissions from soybean meal was estimated starting from the
+point where the meal exits the desolventizer-toaster. Fugitive emissions from the soybean meal equals
+the amount of hexane present in the meal exiting the desolventizer-toaster less the amount of hexane
+that is emitted through the dryer and cooler vents (References 1, 15, and 16).
+This approach compares the amount of hexane exiting the dryer and cooler vents and the
+amount of hexane present in meal exiting the desolventizer-toaster.
+FEF = DTC − (DVE + CVE) (Eq. 4-2)
+where:
+FEF = fugitive emission factor for hexane volatilizing from soybean meal
+DTC = average hexane concentration in soybean immediately exiting the desolventizer-toaster
+DVE = average hexane concentration for dryer vent gas emissions
+CVE = average hexane concentration for cooler vent gas emissions
+Applying Eq. 4-2 gives an emission factor for fugitive emissions from meal of 0.455 L/MT of
+soybeans processed (0.123 gal/ton). This factor is based on average concentration data reported in
+Table 4-4.
+4.2.4 Comprehensiveness of the Source Test Data
+Because the source test data do not cover all sources of hexane loss, the total hexane loss
+cannot be estimated from the source test data. Fugitive emissions from storage tanks, leaking or faulty
+equipment, and wastewater were not measured; appropriate throughput data were unavailable to
+develop total loss estimates. An estimate of the total amount of hexane loss was determined because
+each plant reported average hexane loss in gallons per ton (gal/ton) of raw soybeans processed. If an
+estimate of hexane loss attributable to fugitive losses from storage tanks, equipment, and from
+wastewater is necessary, subtraction of measured hexane losses from the total hexane loss can provide
+this estimate.
+Reference 8 is the only source test that provides measurements for losses from the main vent,
+cooler and dryer vents, and soybean meal (fugitive emission from soybean meal). Average (arithmetic
+4-12
+
+--- PDF PAGE 40 ---
+mean) values of hexane loss (L/MT of raw soybeans processed) for each source from reference 8 (see
+Table 4-4) are:
+Main vent—0.121 L/MT
+Dryer vent—0.089 L/MT
+Cooler vent—0.023 L/MT
+Soybean meal—0.717 L/MT (see Eq. 4-2)
+The reported total loss of hexane from the plant was 2.79 L/MT (0.75 gal/ton) of raw soybeans
+processed. Subtracting the emissions from the main vent, dryer vent, cooler vent, and soybean meal
+from the reported total hexane loss gives a difference of 1.84 L/MT (0.49 gal/ton) in emissions that
+were unaccounted for by this source test.
+4.2.5 Summary of Emission Factors
+The emission factors for the main vent, cooler vent, and dryer vent are rated D. Fugitive
+emissions are rated E because they are estimates derived from D-rated data. Although the source tests
+used were all A-rated, there were a relatively small number of source tests compared to the total
+number of soybean processing plants. Because of the small number of source tests, it is unlikely that
+the tested facilities represented a random sample of the industry.
+In addition, the source tests are conducted over a relatively short time period and are
+representative of the hexane usage and emissions at the time of the test. The quantity of hexane used
+for extraction is dependent, among other factors, on the type of soybean being processed and the
+moisture level of the beans. Depending on the particular soybean being processed, the conditions
+during the tests may not be representative of annual operations at that facility or representative of
+operations at facilities in other geographical regions.
+Only two source test results could be used to estimate cooler and main vent emissions.
+Although the data for the two source tests for cooler and main vent emissions appear to be consistent,
+the variability in vent emissions over short time periods may be large. The source tests did provide
+usable hexane concentrations in soybean meal from which fugitive emissions from soybean meal could
+be estimated. Only one source test result could be used to estimate dryer vent emissions.
+The recommended method for estimating annual hexane emissions from soybean solvent
+extraction facilities is to obtain the annual hexane usage from the specific plant ’s records, and assume
+that all hexane make-up is due to losses to the air (SCC 3-02-019-97). (Some hexane leaves the
+facilities as a small fraction of the oil or meal products, but this amount has not been quantified.) If
+the hexane usage amount is determined from purchase records and accounts for any change in amount
+stored on-site, then storage tank losses would already be accounted for in the loss estimate. If the
+usage is determined from the amount metered out of the storage tanks, then the storage tank losses
+should be calculated separately and in addition to the usage losses, using the equations in Chapter 7 or
+the TANKS software. Careful application of such a material balance approach should produce
+emission estimates comparable in quality to those derived from a B-rated emission factor.
+The mean total hexane loss reported by the plants in References 11 through 19 was 3.3 L/Mg
+(0.89 gal/ton) of raw soybeans processed (SCC 3-02-019-98). This represents an overall total loss
+factor for soybean oil processing, encompassing all sources of vented and fugitive emissions (and
+storage tanks), as well as any hexane leaving the facility as part of the oil or meal products. If a
+4-13
+
+--- PDF PAGE 41 ---
+facility is new or plant-specific usage data are unavailable, this factor can be used as a default value
+until the relevant data become available for the facility. The default value should be used only until
+the facility can compile the data needed to develop a plant-specific hexane loss for the period of
+interest. This emission factor is rated D.
+Limited data on PM emissions from soybean processing plants were presented in
+Reference 18. These data were obtained from unpublished emission test data and from industry
+questionnaires. Because all data were secondary data, the test data and questionnaire data were
+weighted equally in calculating emission factors, and the factors were calculated as arithmetic means
+of the data presented in Table 4-1. Table 4-5 presents the recommended total particulate emission
+factors for vegetable oil processing. Because the data are secondary, all emission factors are rated E.
+Table 4-6 presents the hexane emission factors for three specific processes and for fugitive
+emissions from the soybean meal. Main vent emissions are identified as oil extraction-main vent
+process, and the dryer and cooler vent emissions are identified as meal dryer and meal cooler
+processes. The emission factor for fugitive emissions from soybean meal is based on the assumption
+that all of the solvent remaining in the meal at the exit point from the desolventizer-toaster is released
+either through the dryer vent, meal cooler vent, or as fugitive emissions from the soybean meal.
+Residual hexane contained in the meal may be emitted when the meal is processed into feedstuffs.
+The emission factor in Table 4-6 represents total emissions from the meal. It does not represent
+hexane emissions from the meal at the oil processing facility; there are no data to quantify those
+emissions.
+These emission factors should be used only in the event that factors are required for specific
+processes. The sum of these factors do not represent total hexane emissions from the facility because
+there are other potential emission sources for which no emission data are available. Because these
+factors were developed using data from a small number of facilities, the factors should be used as
+default values until facility specific data are available.
+4-14
+
+--- PDF PAGE 42 ---
+TABLE 4-5. TOTAL PARTICULATE EMISSION FACTORS FOR SOYBEAN MILLING a
+EMISSION FACTOR RATING: E
+Operation
+Control
+device
+Emission factorb
+kg/Mg lb/ton
+Receivingc (SCC 3-02-007-81) None 0.075 0.15
+Handling (SCC 3-02-007-82) ND ND ND
+Cleaning (SCC 3-02-007-83) ND ND ND
+Drying (SCC 3-02-007-84) ND ND ND
+Cracking/dehulling (SCC 3-02-007-85) Cyclone 0.18 0.36
+Hull grinding (SCC 3-02-007-86) Cyclone 0.099 0.20
+Bean conditioning (SCC 3-02-007-87) Cyclone 0.005 0.010
+Flaking rolls (SCC 3-02-007-88) Cyclone 0.018 0.037
+White flake cooler (SCC 3-02-007-92) Cyclone 0.48 0.95
+Meal cooler (SCC 3-02-007-90) Cyclone 0.093 0.19
+Meal dryer (SCC 3-02-007-89) Cyclone 0.09 0.18
+Meal grinder/sizing (SCC 3-02-007-93) Cyclone 0.17 0.34
+Meal loadoutd (SCC 3-02-007-91) None 0.14 0.27
+a Emission factors are based on quantity of soybeans processed by the unit. Factors represent
+controlled emissions unless noted otherwise. SCC = Source Classification Code.
+b Reference 18. These data were obtained from unpublished emission test data and from industry
+questionnaires. Because these are secondary data, the test data and questionnaire results were
+weighed equally and the emission factors were calculated as arithmetic means of the data. The
+emission factor rating is a reflection of the source of the data.
+c See Interim AP-42 Section 9.9.1, Grain Elevators and Processes, dated November 1995.
+d Reference 19.
+TABLE 4-6. HEXANE EMISSION FACTORS FOR SOYBEAN OIL MANUFACTURING a
+Process
+Emission factor Emission
+factor ratingL/MT gal/ton
+Oil extraction-main vent b (SCC-3-02-019-16) 0.153 0.041 D
+Meal dryerc (SCC-3-02-007-89) 0.089 0.024 D
+Meal coolerc (SCC-3-02-007-90) 0.021 0.006 D
+Fugitive emissions from meal d (SCC-3-02-019-22) 0.455 0.122 E
+a Factors represent controlled emissions. SCC = Source Classification Code.
+b References 8 and 12.
+c Reference 8.
+d References 4-8, 11-14. This factor represents total emissions from the meal. A portion of the
+emissions may occur at the oil processing facility and the remainder may occur off site during
+subsequent processing of the meal.
+4-15
+
+--- PDF PAGE 43 ---
+REFERENCES FOR SECTION 4
+1. G. Anderson, Five Point Process Efficiency , Crown Iron Works Company, Minneapolis, MN,
+1976.
+2. Control of Volatile Organic Emissions from Manufacture of Vegetable Oils , EPA-450/2-78-035,
+U. S. Environmental Protection Agency, Research Triangle Park, NC, June 1978.
+3. Test Method for Evaluation of Hexane Emissions from Vegetable Oil Manufacturing , PEDCo
+Environmental Inc., Cincinnati, OH, April 1979.
+4. Vegetable Oil Production (Meal Processing) Emission Test Report, Cargill Incorporated, Cedar
+Rapids, Iowa, PEDCo Environmental Inc., Cincinnati, OH, June 1979.
+5. Vegetable Oil Production (Meal Processing) Emission Test Report, Cargill Incorporated, Cedar
+Rapids, Iowa, PEDCo Environmental Inc., Cincinnati, OH, June 1979.
+6. Vegetable Oil Production (Meal Processing) Emission Test Report, AGRI Industries, Mason City,
+Iowa, PEDCo Environmental Inc., Cincinnati, OH, June 1979.
+7. Vegetable Oil Production (Meal Processing) Emission Test Report, Cargill Incorporated,
+Fayetteville, North Carolina , PEDCo Environmental Inc., Cincinnati, OH, July 1979.
+8. Vegetable Oil Manufacturing Emission Test Report Central Soya Inc., Delphos, Ohio , EMB
+Report 78-VEG-4, U. S. Environmental Protection Agency, Research Triangle Park, NC,
+July 1979.
+9. Vegetable Oil Manufacturing Emission Test Report A. E. Staley Manufacturing Co., Des Moines,
+Iowa, EMB Report 78-VEG-3, U. S. Environmental Protection Agency, Research Triangle
+Park, NC, July 1979.
+10. Vegetable Oil Manufacturing, An AP-42 Update , Pacific Environmental Services Inc., Santa
+Monica, CA, July 1979.
+11. Vegetable Oil Production (Meal Processing) Emission Test Report, MFA Soybeans, Mexico,
+Missouri, PEDCo Environmental Inc., Cincinnati, OH, July 1979.
+12. Vegetable Oil Production (Meal Processing) Emission Test Report, Cargill Incorporated, Sidney,
+Ohio, PEDCo Environmental Inc., Cincinnati, OH, July 1979.
+13. Vegetable Oil Production (Meal Processing) Emission Test Report, Ralston Purina Company,
+Memphis, Tennessee, PEDCo Environmental Inc., Cincinnati, OH, August 1979.
+14. Vegetable Oil Production (Meal Processing) Emission Test Report, Ralston Purina Company,
+Bloomington, Illinois, PEDCo Environmental Inc., Cincinnati, OH, August 1979.
+15. Paul T. Bartlett et al., National Vegetable Oil Processing Plant Inventory , TRC Environmental
+Consultants Inc., Wethersfield, CT, April 1980.
+4-16
+
+--- PDF PAGE 44 ---
+16. R. L. Chessin, "Investigating Sources of Hexane Emissions," Oil Mill Gazetteer , 86(2):35-36, 38-
+39, August 1981.
+17. Particulate and Metals Pooled Source Tests, Western Cotton Services Corporation, BTC
+Environmental, Inc., Ventura, CA, April 30-May 1, 1990.
+18. Emissions Control in the Grain and Feed Industry, Volume I-Engineering and Cost Study ,
+EPA-450/3-73-003a, U. S. Environmental Protection Agency, Research Triangle Park, NC,
+December 1973.
+19. "Grain Elevators and Processing Plants", in Compilation of Air Pollutant Emission Factors;
+Volume I: Stationary Point and Area Sources, Fourth Edition, Supplement B, U. S.
+Environmental Protection Agency, Research Triangle Park, NC, September 1988.
+4-17

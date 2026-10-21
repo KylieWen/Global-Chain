@@ -1,0 +1,309 @@
+{
+  "schemaVersion": "cotton-tshirt-source-review.v1",
+  "reviewedAt": "2026-10-21",
+  "sourceSnapshots": [
+    {
+      "alias": "cn",
+      "path": "data/research/cotton-tshirt-2026-10-21/raw/usda-china-CH2025-0087.pdf",
+      "sha256": "a1ba4366190f1e5e91f1e7f5da9ff1717da4e4ba0e961deeac815d8ef397e4d0",
+      "source": {
+        "id": "source-cotton-cn",
+        "name": "中国棉花与产品年度报告",
+        "publisher": "USDA FAS",
+        "url": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Cotton+and+Products+Annual_Beijing_China+-+People%27s+Republic+of_CH2025-0087.pdf",
+        "publishedAt": "2025-04-23",
+        "retrievedAt": "2026-10-20T22:16:43.971133+00:00",
+        "datasetVersion": "CH2025-0087",
+        "license": "官方公开资料；适用发布机构使用条款。",
+        "notes": "原始快照 data/research/cotton-tshirt-2026-10-21/raw/usda-china-CH2025-0087.pdf；SHA-256 a1ba4366190f1e5e91f1e7f5da9ff1717da4e4ba0e961deeac815d8ef397e4d0。"
+      }
+    },
+    {
+      "alias": "bd",
+      "path": "data/research/cotton-tshirt-2026-10-21/raw/usda-bangladesh-BG2026-0003.pdf",
+      "sha256": "95b1fe1b06c773ec83e38f31771079858a0094380653f81ab51da1cb5aa393b9",
+      "source": {
+        "id": "source-cotton-bd",
+        "name": "孟加拉棉花与产品年度报告",
+        "publisher": "USDA FAS",
+        "url": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Cotton+and+Products+Annual_Dhaka_Bangladesh_BG2026-0003.pdf",
+        "publishedAt": "2026-04-06",
+        "retrievedAt": "2026-10-20T22:16:49.853483+00:00",
+        "datasetVersion": "BG2026-0003",
+        "license": "官方公开资料；适用发布机构使用条款。",
+        "notes": "原始快照 data/research/cotton-tshirt-2026-10-21/raw/usda-bangladesh-BG2026-0003.pdf；SHA-256 95b1fe1b06c773ec83e38f31771079858a0094380653f81ab51da1cb5aa393b9。"
+      }
+    },
+    {
+      "alias": "in",
+      "path": "data/research/cotton-tshirt-2026-10-21/raw/usda-india-IN2026-0020.pdf",
+      "sha256": "945a889c8d69e5d74170f7022ee5d2f2e788e2481af915aad1484b4f662e6332",
+      "source": {
+        "id": "source-cotton-in",
+        "name": "印度棉花与产品年度报告",
+        "publisher": "USDA FAS",
+        "url": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Cotton+and+Products+Annual_New+Delhi_India_IN2026-0020.pdf",
+        "publishedAt": "2026-04-03",
+        "retrievedAt": "2026-10-20T22:16:52.211179+00:00",
+        "datasetVersion": "IN2026-0020",
+        "license": "官方公开资料；适用发布机构使用条款。",
+        "notes": "原始快照 data/research/cotton-tshirt-2026-10-21/raw/usda-india-IN2026-0020.pdf；SHA-256 945a889c8d69e5d74170f7022ee5d2f2e788e2481af915aad1484b4f662e6332。"
+      }
+    },
+    {
+      "alias": "ginning",
+      "path": "data/research/cotton-tshirt-2026-10-21/raw/cottonworks-growing-ginning.html",
+      "sha256": "63f177c8bbcbb3ea32fcc64114f45e2ec6dd29a2b6da86e76656d21fdaf58264",
+      "source": {
+        "id": "source-cotton-ginning",
+        "name": "棉花生长、收获与轧花",
+        "publisher": "Cotton Incorporated",
+        "url": "https://cottonworks.com/fiber/fiber-science/cotton-fiber-growth-harvesting-and-ginning/",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-20T22:16:57.687652+00:00",
+        "datasetVersion": "snapshot-2026-10-21",
+        "license": "Cotton Incorporated 版权所有；仅发布自行整理的短述和出处。",
+        "notes": "原始快照 data/research/cotton-tshirt-2026-10-21/raw/cottonworks-growing-ginning.html；SHA-256 63f177c8bbcbb3ea32fcc64114f45e2ec6dd29a2b6da86e76656d21fdaf58264。网页未统一注明发布日期；2026 为编目快照年份。"
+      }
+    },
+    {
+      "alias": "knit",
+      "path": "data/research/cotton-tshirt-2026-10-21/raw/cottonworks-knit-basics.html",
+      "sha256": "3b98e799544806674345f05e94281ba49d0cf7f56575a5692f5b95b1ddc6f372",
+      "source": {
+        "id": "source-cotton-knit",
+        "name": "针织基础",
+        "publisher": "Cotton Incorporated",
+        "url": "https://cottonworks.com/learning-hub/knitting/knit-basics/",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-20T22:16:58.039171+00:00",
+        "datasetVersion": "snapshot-2026-10-21",
+        "license": "Cotton Incorporated 版权所有；仅发布自行整理的短述和出处。",
+        "notes": "原始快照 data/research/cotton-tshirt-2026-10-21/raw/cottonworks-knit-basics.html；SHA-256 3b98e799544806674345f05e94281ba49d0cf7f56575a5692f5b95b1ddc6f372。网页未统一注明发布日期；2026 为编目快照年份。"
+      }
+    },
+    {
+      "alias": "comtrade",
+      "path": "data/research/cotton-tshirt-2026-10-21/raw/comtrade-156-610910-2025.json",
+      "sha256": "eab18ff3b591debc32afe5d5e32f43556f9c9e025f508982c10e8f65c2ab9508",
+      "source": {
+        "id": "source-cotton-comtrade",
+        "name": "中国报告 HS610910 贸易观察",
+        "publisher": "United Nations Statistics Division",
+        "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0%2C842&cmdCode=610910&flowCode=M%2CX&period=2025&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-20T22:16:58.632337+00:00",
+        "datasetVersion": "UN-Comtrade-H6-2025-snapshot-2026-10-21",
+        "license": "官方公开资料；适用发布机构使用条款。",
+        "notes": "原始快照 data/research/cotton-tshirt-2026-10-21/raw/comtrade-156-610910-2025.json；SHA-256 eab18ff3b591debc32afe5d5e32f43556f9c9e025f508982c10e8f65c2ab9508。"
+      }
+    },
+    {
+      "alias": "hs",
+      "path": "data/raw/cotton-tshirt-2026-10-21/un-comtrade-H6.json",
+      "sha256": "e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15",
+      "source": {
+        "id": "source-cotton-hs",
+        "name": "HS2022 分类字典",
+        "publisher": "United Nations Statistics Division",
+        "url": "https://comtradeapi.un.org/files/v1/app/reference/H6.json",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-21T03:14:56.016021+00:00",
+        "datasetVersion": "HS2022",
+        "license": "官方公开资料；适用发布机构使用条款。",
+        "notes": "原始快照 data/raw/cotton-tshirt-2026-10-21/un-comtrade-H6.json；SHA-256 e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15。"
+      }
+    },
+    {
+      "alias": "units",
+      "path": "data/raw/cotton-tshirt-2026-10-21/un-comtrade-quantity-units.json",
+      "sha256": "420267929eac391e9dcd97d18252a2aee9bff2a86c3e2162d1ec57ef53811c24",
+      "source": {
+        "id": "source-cotton-units",
+        "name": "UN Comtrade 数量单位字典",
+        "publisher": "United Nations Statistics Division",
+        "url": "https://comtradeapi.un.org/files/v1/app/reference/QuantityUnits.json",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-21T03:15:00.051739+00:00",
+        "datasetVersion": "snapshot-2026-10-21",
+        "license": "官方公开资料；适用发布机构使用条款。",
+        "notes": "原始快照 data/raw/cotton-tshirt-2026-10-21/un-comtrade-quantity-units.json；SHA-256 420267929eac391e9dcd97d18252a2aee9bff2a86c3e2162d1ec57ef53811c24。"
+      }
+    },
+    {
+      "alias": "country",
+      "path": "data/raw/cotton-tshirt-2026-10-21/un-m49-overview.html",
+      "sha256": "b9048114f6e7f2abda83bf03d4263c9d7cd1bd7230e3d0461025ee7839a7a1fb",
+      "source": {
+        "id": "source-cotton-country",
+        "name": "UN M49 国家和地区代码",
+        "publisher": "United Nations Statistics Division",
+        "url": "https://unstats.un.org/unsd/methodology/m49/overview/",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-21T03:17:55.860727+00:00",
+        "datasetVersion": "snapshot-2026-10-21",
+        "license": "官方公开资料；适用发布机构使用条款。",
+        "notes": "原始快照 data/raw/cotton-tshirt-2026-10-21/un-m49-overview.html；SHA-256 b9048114f6e7f2abda83bf03d4263c9d7cd1bd7230e3d0461025ee7839a7a1fb。"
+      }
+    },
+    {
+      "alias": "yarn",
+      "path": "data/raw/cotton-tshirt-2026-10-21/cottonworks-yarn-spinning.html",
+      "sha256": "76c42d532ddc7eaa3cff7c14a9d11d730a80f373b4b83f6379108f9c5c3e2f02",
+      "source": {
+        "id": "source-cotton-yarn",
+        "name": "纺纱方法",
+        "publisher": "Cotton Incorporated",
+        "url": "https://cottonworks.com/learning-hub/yarn-manufacturing/yarn-spinning/",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-21T03:15:46.832064+00:00",
+        "datasetVersion": "snapshot-2026-10-21",
+        "license": "Cotton Incorporated 版权所有；仅发布自行整理的短述和出处。",
+        "notes": "原始快照 data/raw/cotton-tshirt-2026-10-21/cottonworks-yarn-spinning.html；SHA-256 76c42d532ddc7eaa3cff7c14a9d11d730a80f373b4b83f6379108f9c5c3e2f02。网页未统一注明发布日期；2026 为编目快照年份。"
+      }
+    },
+    {
+      "alias": "preparation",
+      "path": "data/raw/cotton-tshirt-2026-10-21/cottonworks-fiber-preparation.html",
+      "sha256": "c40a54757073f4209b34027c52b0c8421f04bd877f346a300d9341e39e43fb3b",
+      "source": {
+        "id": "source-cotton-preparation",
+        "name": "纺前纤维准备",
+        "publisher": "Cotton Incorporated",
+        "url": "https://cottonworks.com/learning-hub/yarn-manufacturing/fiber-preparation-for-spinning/",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-21T03:17:19.090005+00:00",
+        "datasetVersion": "snapshot-2026-10-21",
+        "license": "Cotton Incorporated 版权所有；仅发布自行整理的短述和出处。",
+        "notes": "原始快照 data/raw/cotton-tshirt-2026-10-21/cottonworks-fiber-preparation.html；SHA-256 c40a54757073f4209b34027c52b0c8421f04bd877f346a300d9341e39e43fb3b。网页未统一注明发布日期；2026 为编目快照年份。"
+      }
+    },
+    {
+      "alias": "dyeing",
+      "path": "data/raw/cotton-tshirt-2026-10-21/cottonworks-dyeing-basics.html",
+      "sha256": "a271a346f372f81ddf19191ad72652d355c0748b19865e9183e5481befc349ab",
+      "source": {
+        "id": "source-cotton-dyeing",
+        "name": "染色基础",
+        "publisher": "Cotton Incorporated",
+        "url": "https://cottonworks.com/learning-hub/dyeing/dyeing-basics/",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-21T03:15:49.284218+00:00",
+        "datasetVersion": "snapshot-2026-10-21",
+        "license": "Cotton Incorporated 版权所有；仅发布自行整理的短述和出处。",
+        "notes": "原始快照 data/raw/cotton-tshirt-2026-10-21/cottonworks-dyeing-basics.html；SHA-256 a271a346f372f81ddf19191ad72652d355c0748b19865e9183e5481befc349ab。网页未统一注明发布日期；2026 为编目快照年份。"
+      }
+    },
+    {
+      "alias": "finishing",
+      "path": "data/raw/cotton-tshirt-2026-10-21/cottonworks-mechanical-finishing.html",
+      "sha256": "057fd2b1dd1a6a9d2f722a3c0545cafeca1039c2f63f38de194cb98bb019233a",
+      "source": {
+        "id": "source-cotton-finishing",
+        "name": "机械整理",
+        "publisher": "Cotton Incorporated",
+        "url": "https://cottonworks.com/learning-hub/finishing/mechanical-finishing/",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-21T03:17:21.091886+00:00",
+        "datasetVersion": "snapshot-2026-10-21",
+        "license": "Cotton Incorporated 版权所有；仅发布自行整理的短述和出处。",
+        "notes": "原始快照 data/raw/cotton-tshirt-2026-10-21/cottonworks-mechanical-finishing.html；SHA-256 057fd2b1dd1a6a9d2f722a3c0545cafeca1039c2f63f38de194cb98bb019233a。网页未统一注明发布日期；2026 为编目快照年份。"
+      }
+    },
+    {
+      "alias": "garment",
+      "path": "data/raw/cotton-tshirt-2026-10-21/cottonworks-garment-construction.html",
+      "sha256": "f01c9163357da528bfc689263d373ac3d826413a230faf67b76941bca4e62f8e",
+      "source": {
+        "id": "source-cotton-garment",
+        "name": "服装构造与 T 恤裁剪缝制",
+        "publisher": "Cotton Incorporated",
+        "url": "https://cottonworks.com/learning-hub/garment-manufacturing/garment-construction/",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-21T03:15:51.234744+00:00",
+        "datasetVersion": "snapshot-2026-10-21",
+        "license": "Cotton Incorporated 版权所有；仅发布自行整理的短述和出处。",
+        "notes": "原始快照 data/raw/cotton-tshirt-2026-10-21/cottonworks-garment-construction.html；SHA-256 f01c9163357da528bfc689263d373ac3d826413a230faf67b76941bca4e62f8e。网页未统一注明发布日期；2026 为编目快照年份。"
+      }
+    },
+    {
+      "alias": "wdi-exports",
+      "path": "data/published/raw/refresh-2026-09-16/wdi-TX.VAL.MRCH.CD.WT.json",
+      "sha256": "83c7235271729cb4bafa72642a69b01e336d140acc931a2de05c3a62a49c3aba",
+      "source": {
+        "id": "source-cotton-wdi-exports",
+        "name": "World Development Indicators · 商品出口总额",
+        "publisher": "World Bank",
+        "url": "https://api.worldbank.org/v2/country/AUS;COD;CHL;CHN;DEU;IDN;JPN;KOR;USA/indicator/TX.VAL.MRCH.CD.WT?date=2024:2025&format=json&per_page=100",
+        "license": "CC BY 4.0；指标原始发布方及个别例外仍适用。",
+        "publishedAt": "2026-07-13",
+        "retrievedAt": "2026-09-16T04:09:21.423Z",
+        "datasetVersion": "WDI-2026-07-13",
+        "notes": "复用原通用宏观快照，仅提取中国和美国；不是棉 T 恤贸易。原始快照 data/published/raw/refresh-2026-09-16/wdi-TX.VAL.MRCH.CD.WT.json；SHA-256 83c7235271729cb4bafa72642a69b01e336d140acc931a2de05c3a62a49c3aba。"
+      }
+    },
+    {
+      "alias": "wdi-imports",
+      "path": "data/published/raw/refresh-2026-09-16/wdi-TM.VAL.MRCH.CD.WT.json",
+      "sha256": "21a113f0834ca555e10800f4376bb984eb7347d2096ac43e3cd4aa79695cf63d",
+      "source": {
+        "id": "source-cotton-wdi-imports",
+        "name": "World Development Indicators · 商品进口总额",
+        "publisher": "World Bank",
+        "url": "https://api.worldbank.org/v2/country/AUS;COD;CHL;CHN;DEU;IDN;JPN;KOR;USA/indicator/TM.VAL.MRCH.CD.WT?date=2024:2025&format=json&per_page=100",
+        "license": "CC BY 4.0；指标原始发布方及个别例外仍适用。",
+        "publishedAt": "2026-07-13",
+        "retrievedAt": "2026-09-16T04:09:21.927Z",
+        "datasetVersion": "WDI-2026-07-13",
+        "notes": "复用原通用宏观快照，仅提取中国和美国；不是棉 T 恤贸易。原始快照 data/published/raw/refresh-2026-09-16/wdi-TM.VAL.MRCH.CD.WT.json；SHA-256 21a113f0834ca555e10800f4376bb984eb7347d2096ac43e3cd4aa79695cf63d。"
+      }
+    },
+    {
+      "alias": "wdi-reserves",
+      "path": "data/published/raw/refresh-2026-09-16/wdi-FI.RES.TOTL.CD.json",
+      "sha256": "89c28b96e80f4c658312e7da0c0cde1a735b75aae51ffc6323c4fec6a32d2a2d",
+      "source": {
+        "id": "source-cotton-wdi-reserves",
+        "name": "World Development Indicators · 官方储备总额（含黄金）",
+        "publisher": "World Bank",
+        "url": "https://api.worldbank.org/v2/country/AUS;COD;CHL;CHN;DEU;IDN;JPN;KOR;USA/indicator/FI.RES.TOTL.CD?date=2024:2025&format=json&per_page=100",
+        "license": "CC BY 4.0；指标原始发布方及个别例外仍适用。",
+        "publishedAt": "2026-07-13",
+        "retrievedAt": "2026-09-16T04:09:22.371Z",
+        "datasetVersion": "WDI-2026-07-13",
+        "notes": "复用原通用宏观快照，仅提取中国和美国；不是棉 T 恤贸易。原始快照 data/published/raw/refresh-2026-09-16/wdi-FI.RES.TOTL.CD.json；SHA-256 89c28b96e80f4c658312e7da0c0cde1a735b75aae51ffc6323c4fec6a32d2a2d。"
+      }
+    }
+  ],
+  "tradeInputs": [
+    {
+      "alias": "comtrade",
+      "expectedCount": 4,
+      "reporterCode": 156,
+      "period": "2025",
+      "classificationCode": "H6",
+      "commodityCode": "610910",
+      "partners": [
+        0,
+        842
+      ],
+      "flows": [
+        "M",
+        "X"
+      ],
+      "previewLimit": 500
+    }
+  ],
+  "emptyTradeResponses": [
+    {
+      "path": "data/raw/cotton-tshirt-2026-10-21/comtrade-50-610910-2025.json",
+      "sha256": "d621c47cf1d6c742b1b1a7c897cc473519dd08c3851cea6d2103a872e7b4554e",
+      "meaning": "请求成功但未返回匹配记录；不得生成零值贸易。"
+    },
+    {
+      "path": "data/raw/cotton-tshirt-2026-10-21/comtrade-356-610910-2024.json",
+      "sha256": "eb5d8d456e8c52db04798e0739b57ecf163dae132b961a06df1a623ab23152ad",
+      "meaning": "请求成功但未返回匹配记录；不得生成零值贸易。"
+    }
+  ]
+}

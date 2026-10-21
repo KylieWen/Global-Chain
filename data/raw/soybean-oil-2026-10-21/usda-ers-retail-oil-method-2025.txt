@@ -1,0 +1,941 @@
+Price Spreads from Farm to Consumer - Documentation | Economic Research Service
+Skip to main content
+Skip to main content
+An official website of the United States government
+Here’s how you know
+Here’s how you know
+Official websites use .gov
+A
+.gov
+website belongs to an official government organization in the United States.
+Secure .gov websites use HTTPS
+A
+lock
+(
+Lock
+Locked padlock icon
+) or
+https://
+means you’ve safely connected to the .gov website. Share sensitive information only on official, secure websites.
+Economic Research Service
+U.S. DEPARTMENT OF AGRICULTURE
+Menu
+Topics
+Data
+Access the Data
+Access and analyze data sets, maps, charts and graphs.
+Browse All Data
+Data by Type
+Access the Data
+Charts
+Downloadable Data Files
+Queryable Data Applications
+Maps
+Data by Topic
+Explore the Data Repository
+Animal Products
+Crops
+Farm Bill
+Farm Economy
+Farm Practices & Management
+Food & Nutrition Assistance
+Food Choices & Health
+Food Markets & Prices
+Food Safety
+International Markets & U.S. Trade
+Natural Resources & Environment
+Rural Economy & Population
+Analysis
+Understand the Research
+Get insights and objective analysis from experts in the field.
+Browse All Analysis
+Research Reports
+Published Papers from ERS
+Outlook Reports
+Agricultural Outlooks and Projections
+Amber Waves
+The Economics of Food, Farming, Natural Resources, and Rural Amer…
+Charts of Note
+Fast facts on U.S. agriculture
+Newsroom
+Newsroom
+See what's new and what's trending from ERS.
+Visit the Newsroom
+Events
+Trending Topics
+Contact ERS Press Office
+Subject Specialists
+Amber Waves
+Calendar
+About
+Careers
+Contact Us
+Search
+Breadcrumb
+Home
+Data Products
+Price Spreads from Farm to Consumer
+Documentation
+Price Spreads from Farm to Consumer - Documentation
+Updated:
+5/20/2025
+Contact:
+Jeffrey Hyman
+or
+Hayden Stewart
+In this section
+Price Spreads from Farm to Consumer
+Documentation
+Highlights and Interactive Charts
+Overview
+Scope/Coverage of Data
+Data Sources for Annual Updates
+Methods
+How ERS Calculates Market Basket Statistics
+How ERS Calculates Farm Share for Individual Foods
+Data Changes
+Limitations
+Related Data
+Recommended Citation
+Overview
+Price Spreads from Farm to Consumer compares retail food prices with the farm value of any agricultural commodities in those foods. Comparisons are made for specific food items—such as whole milk, orange juice, and sugar—as well as for commodity groups. For commodity groups, individual foods are combined into market baskets which contain a collection of foods representing what a U.S. household may buy at retail over 1 year.
+Food price spreads—the difference between a product’s retail and farm value—represent value added to agricultural commodities by marketers. Fresh fruit and vegetables (for example) are often sorted, washed, and sometimes trimmed and bagged. Products, such as cheese, are manufactured using milk and other ingredients.   A related concept—the farm share of a retail price—is the ratio of a product’s farm value to its retail value.
+Calculating price spreads and the farm share of retail food prices requires: data on retail food prices, prices received by farmers, the value of any co-products, and conversion factors that specify the amounts of agricultural commodities used in production. For all-purpose white flour, for example, USDA, Economic Research Service (ERS) researchers assume that milling one pound of hard red winter wheat produces 0.73 pounds of this type of flour. The remaining wheat berry parts—including some germ, bran, and endosperm remnants—are a co-product and may be marketed separately from the flour. A co-product or byproduct is a secondary good derived from the manufacture of another good.
+Data for individual foods and market baskets are updated annually as the underlying data on retail prices, farm prices, and co-products values become available.
+Scope/Coverage of Data
+Price Spreads from Farm to Consumer uses U.S. annual, national-average prices to compare the value of foods at retail and on the farm. All data series extend 7 or more years, revealing both long-run trends and shorter-run fluctuations. Long-run trends in farm-to-consumer price spreads may reflect a variety of underlying economic conditions, such as advances in technology used to process and distribute food. However, commodity prices can also rise and fall each year with events—such as adverse weather—affecting farm prices and the farm share of retail food prices.
+Data Sources for Annual Updates
+Circana – A panel of retail stores across the United States provides Circana with a record of their weekly food purchase transactions. This panel includes supercenters, club warehouses, grocery stores, supermarkets, convenience stores, and drugstores, among others. Information provided to Circana includes the physical quantity and dollar value of sales.
+U.S. Department of Labor, Bureau of Labor Statistics (BLS) – BLS publishes the Consumer Price Index (CPI). Each month, BLS collects prices in 75 urban areas across the country from about 6,000 housing units and approximately 22,000 retail establishments (department stores, supermarkets, hospitals, filling stations, and other types of stores and service establishments). The monthly CPI for all items is a measure of the average change over time in prices paid by urban consumers for a market basket of consumer goods and services. Component index series track consumer price changes for fresh fruit, fresh vegetables, dairy products, and other types of goods and services. With the release of the CPI each month, the BLS also publishes average retail prices for select utility, automotive fuel, and food items.
+The Florida Department of Citrus (FDOC) – The FDOC publishes data on retail sales and average retail prices for orange juice products.
+USDA – For farm and co-product prices, ERS relies primarily on data published by ERS and other USDA agencies such as the National Agricultural Statistics Service (NASS) and the Agricultural Marketing Service (AMS).
+Disclaimer: The findings in this data product or stated on this page should not be attributed to Circana, BLS, or the FDOC.
+Price Spreads from Farm to Consumer data sources by type of food
+Type of food
+Retail price data
+Farm value data (primary product and co-products)
+Milk and dairy basket
+BLS CPI
+USDA-AMS Dairy, USDA-NASS Agricultural Prices
+Whole milk, Cheddar cheese, ice cream, and butter
+BLS Average price data
+USDA-AMS Dairy
+Milk and dairy basket
+BLS CPI
+USDA-AMS Dairy, USDA-NASS Agricultural Prices
+Fresh fruit basket
+BLS CPI
+USDA-ERS Fruit and Tree Nuts Yearbook Tables
+Fresh apples, grapes, grapefruit, oranges, peaches, and strawberries
+Circana
+USDA-ERS Fruit and Tree Nuts Yearbook Tables
+Fresh vegetables basket
+BLS CPI
+USDA-ERS Vegetables and Pulses Yearbook Tables
+Fresh broccoli, carrots, iceberg lettuce, potatoes, romaine lettuce, and tomatoes
+Circana
+USDA-ERS Vegetables and Pulses Yearbook Tables
+Orange juice, not from concentrate
+FDOC
+USDA-ERS Fruit and Tree Nuts Yearbook Tables
+Flour, white, all-purpose
+BLS Average price data
+USDA-NASS Agricultural Prices, USDA-ERS Feed Grains Database
+White pan bread
+BLS Average price data
+USDA-NASS Agricultural Prices, USDA-ERS Feed Grains data base, USDA-ERS Oil Crops Yearbook, USDA-ERS Sugar and Sweeteners Yearbook Tables
+Vegetable (soybean) oil
+Circana
+USDA-NASS Agricultural Prices, USDA-ERS Oil Crops Yearbook
+Sugar, white
+BLS average price data
+USDA-ERS Sugar and Sweeteners Yearbook Tables
+BLS-CPI= U.S. Department of Labor, Bureau of Labor Statistics Consumer Price Index; USDA, AMS=U.S. Department of Agriculture, Agricultural Marketing Service; USDA, NASS=U.S. Department of Agriculture, National Agricultural Statistics Service; USDA, ERS=U.S. Department of Agriculture, Economic Research Service; FDOC=Florida Department of Citrus.
+Source: USDA, Economic Research Service, Price Spreads from Farm to Consumer data product.
+Methods
+How ERS Calculates Market Basket Statistics
+Retail food baskets are constructed to represent what U.S. households buy for at-home consumption over a 1-year period. ERS then determines the farm products required to produce the contents of the retail food baskets. For example, the consumer basket for dairy products contains certain quantities of milk, cheese, and other foods. The corresponding agricultural basket contains enough farm milk to produce all of these foods. Conversion factors are used to calculate farm quantities as well as co-product amounts.
+A formal equation for the farm share of a retail basket at time t, FS
+t
+, is: FS
+t
+= Q
+f
+'P
+ft
+/ Q
+r
+'P
+rt
+where Q
+r
+is a vector of food quantities bought by households and P
+rt
+is a vector of unit retail prices for these same foods at time t. The arguments in the numerator include Q
+f
+which is also a vector of quantities. Q
+f
+includes the agricultural goods used to make the foods in Q
+r
+as well as any co-products. Agricultural inputs enter Q
+f
+as a positive number. Co-products enter as a negative number. P
+ft
+is a vector of unit prices for the agricultural goods and co-products in Q
+f
+.
+To facilitate the calculation of an annual data series, ERS fixes the contents of retail food baskets over relatively long periods of time. Estimates of farm share denote the proportion of the consumer's dollar earned by agriculture for a basket of foods representing what U.S. households bought at a specific period in time.
+In reporting annual estimates, ERS also assumes retail food baskets are similar to the foods
+BLS
+prices for calculating the CPI (U.S. city-average series). The value of a retail basket in year t can then be approximated as the product of its base year value, Q
+r
+'P
+r0
+, and an adjustment factor to account for retail price inflation. This adjustment factor is the ratio of the CPI for the commodity in question at time t, CPI
+t
+, to the same CPI in the base year of the data series, CPI
+0
+. ERS uses the following formula to approximate the farm share of a retail basket:
+FS
+t
+= Q
+f
+'P
+ft
+/ (Q
+r
+'P
+r0
+)(CPI
+t
+/ CPI
+0
+)
+BLS publishes separate CPIs for major food groups. To estimate the farm share of fresh vegetables, for example, ERS uses the CPI for fresh vegetables. This approximation makes annual calculations more convenient to implement as researchers do not need to collect prices for individual foods at retail every year. Only the CPI for the food group is required to update the value of the retail basket.
+Once published, market basket statistics may be revised because:
+Updated estimates of average prices farmers receive for their commodities are available (these updates may be available as much as a year or two after preliminary figures).
+Conversion factors are adjusted. For example, improved efficiency in food packaging and shipping may reduce waste and spoilage. If so, members of the food marketing system could buy a smaller quantity from farmers to provide the same quantity at retail.
+ERS periodically updates the contents of its food market baskets, as conversion factors and U.S. households’ purchase patterns can change over time. In 2021, ERS introduced new market basket data series for fresh fruit and fresh vegetables. These series are based on what types of food U.S. households purchased in 2018. Similarly, in 2025, ERS replaced its market basket data series for dairy products. The current retail market basket for dairy products is based on what types of food U.S. households purchased in 2022. More information about these updates is available in the
+Data Changes
+section below. Discontinued market basket data series for fresh fruit, fresh vegetables, and dairy products are also available on the
+Overview
+page among other “Archived Tables.”
+The following discussion focuses on ERS’ procedure for creating market baskets for
+dairy products
+,
+fresh fruit
+, and
+fresh vegetables
+.
+Dairy Products
+ERS calculates the farm share as well as the farm-to-retail price spread for a basket of dairy products representing what U.S. households purchased in 2022 for at-home consumption. ERS provides estimates for each year since 2016.
+Identifying a Retail and an Agricultural Basket
+Retail Food Basket
+To identify the retail dairy basket, ERS begins with the diary portion of the Consumer Expenditure Survey (CE). This survey is produced by the U.S. Department of Labor, Bureau of Labor Statistics (BLS), and BLS uses the data to calculate expenditure weights for the Consumer Price Index (CPI). On average, households participating in the 2022 CE diary spent about $532 for dairy products over the course of the year. This includes spending on fluid milk as well as manufactured dairy products like cheese and ice cream.
+ERS next uses OmniMarket Core Outlets data from
+Circana
+to divide the 2022 CE expenditures of $532.00 for dairy products across 11 foods: whole milk, reduced-fat milk, skim milk, processed cheese, cream cheese, cottage cheese, other natural cheeses, ice cream, butter, fluid cream, and yogurt. A panel of retail stores across the United States provides Circana with a record of weekly food purchase transactions, including data for specific types of dairy products. Information provided to Circana includes the physical quantity and dollar value of sales. In addition to sales shares, it is therefore possible to calculate a product’s average retail price as the ratio of the dollar value of sales across all stores to the physical quantity sold.
+Based on 2022 OmniMarket Core Outlets data, ERS allocated $210.67 of the $532.00 spent by CE diary households for dairy products to cheese (39.6 percent). This is because, as a single category, cheese represented 39.6 percent of the revenue stores garnered through the sale of all 11 dairy products. ERS then suballocated this money across four different representative cheese products. Processed cheese, for one, represented about 10.3 percent of the revenue OmniMarket Core Outlets stores garnered through the sale of cheese, so $21.67 (10.3 percent of $210.67) was suballocated to expenditures on processed cheese. Moreover, because processed cheese sold for about $4.43 per pound in 2022, it was inferred that a representative household bought 4.89 pounds ($21.67 / $4.43). Using the same procedure, it was also inferred that the same representative household bought 3.80 pounds of cream cheese, 4.85 pounds of cottage cheese, and 30.73 pounds of other natural cheese.
+Fluid milk products are the second largest category of foods in the retail dairy basket, after cheese products. ERS allocated $105.94 of the $532.00 to fluid milk products, as the products represented 19.9 percent of the revenue garnered by stores through the sale of all 11 products. This value was further divided among whole milk ($43.05), reduced-fat milk ($54.35), and skim milk ($8.53). Moreover, because skim milk sold for about $0.66 per pound in 2022, it was inferred that a representative household bought 13.01 pounds ($8.53 / $0.66). Using the same procedure, it was also inferred that the same representative household bought 64.56 pounds of whole milk and 85.42 pounds of reduced-fat milk. One gallon of milk weighs about 8.6 pounds.
+Finally, continuing the same procedures for the remaining four dairy products, ERS included 11.33 pounds of fluid cream, 44.22 pounds of ice cream, 6.63 pounds of butter, and 23.89 pounds of yogurt in the retail dairy basket.
+Conversion Factors
+Once the contents of the retail food basket are specified, ERS estimates the contents of a corresponding agricultural basket. How much raw farm milk would be needed to make the foods in the retail basket? To answer this question, several assumptions were made about the composition of farm milk as well as the characteristics of the retail products.
+It is assumed that marketers buy cow’s milk from dairy farmers to produce the contents of the retail basket. Cow’s milk is composed of water, milkfat (fat) solids, and nonfat (skim) solids. Skim solids include primarily lactose, minerals, and proteins (such as casein and whey). According to ERS Dairy Data, dairy farmers have been producing cow’s milk with more fat and skim solids in recent years. In 2000, U.S. farm milk averaged 3.68 percent fat and 8.72 percent skim solids. By the early 2020s, the fat percentage was nearly 4.2 and the skim solids percentage was about 9.
+Conversion factors specify the amount of fat and skim solids in each dairy food, which (in turn) makes it possible to calculate the amount of farm milk needed to make those products on both a milkfat and skim solids basis. The ERS Price Spreads from Farm to Consumer data product uses conversion factors from two publications:
+Weights, measures, and conversion factors for agricultural commodities and their products
+(Agricultural Handbook No. 697). U.S. Department of Agriculture, Economics Research Service in cooperation with the Agricultural Marketing Service, the Agricultural Research Service, and the National Agricultural Statistics Service, 1992.
+Conversion factors and weights and measures for agricultural commodities and their products
+(Statistical Bulletin No. 616). U.S. Department of Agriculture, Economics, Statistics, and Cooperatives Service, 1979.
+Below are the assumptions and conversion factors ERS utilizes to calculate the amount of cow’s milk purchased by marketers from farmers to produce the contents of the retail dairy food basket:
+Fluid milk is cow’s milk that has been processed for beverage use. Processors separate milk supplied by dairy farmers into a skim portion and a cream portion. Some cream may be added back to the skim portion to make fluid milk with the desired fat content. Whole milk is assumed to be, on average, 3.3 percent milkfat. It follows that one pound of whole milk includes the fat from 0.786 pounds of farm milk (0.033 / 0.042). Stores also sell a variety of reduced-fat milks, such as 1-percent and 2-percent. Reduced-fat milk in the retail basket is assumed to be 1.5 percent milk fat, on average, and include the fat from 0.357 pounds of farm milk (0.015 / 0.042). The basket’s skim milk is assumed to be 0.5 percent milkfat, on average, and include the fat from 0.119 pounds of farm milk (0.005 / 0.042). Skim solids account for 9 percent of all three types of fluid milk, on average, comparable to the amount of skim solids in farm milk.
+Regular yogurt is made by adding bacteria to heated low-fat milk. It may also be sweetened and flavored. Fat represents 1.66 percent of yogurt’s weight according to Statistical Bulletin No. 616. Making 1 pound of yogurt thus requires the fat from about 0.395 pounds of farm milk (0.0166 / 0.042). It also contains the  skim solids from about 0.22 pounds of farm milk.
+Cream removed from raw milk may be used to produce fluid cream. There are many varieties of fluid cream defined according to fat content. Heavy cream is at least 36 percent fat. Half-and-half is between 10.5 and 18 percent fat. Fluid cream in the retail basket is assumed to have an average fat content of 20 percent.
+Ice cream is made by combining fluid milk and cream in a mix that may also include ingredients such as sugar, egg yolks, and stabilizers. After homogenization and pasteurization, the mix is cooled and flavorings can be added. Air is then incorporated into the mix during freezing, which results in the volume of ice cream exceeding the volume of the mix (known as overrun). Some amount of overrun is necessary for ice cream to have a soft texture as opposed to the solid texture of ice. Federal regulations require that ice cream weigh at least 4.5 pounds per gallon and have a minimum fat content of 10 percent. Popular products (including premium ice creams) can have less overrun and a higher fat content, such as 12 or 16 percent. The ice cream in the retail food basket is assumed to be regular ice cream sold in 1-half gallon containers that weigh 2.25 pounds each. Fat and skim solids respectively represent 12 percent and 10 percent of the product’s weight. It follows that the fat from 6.43 pounds (2.25 x (0.12 / 0.042)) of milk is included in the product. This same container of ice cream also includes the skim solids from 2.5 pounds (2.25 x (0.1 / 0.09)) of milk.
+Butter is made by churning fluid cream. Federal regulations require that butter have a minimum fat content of 80 percent, although creameries allow for a margin of error. Butter in the retail basket is assumed to have an average fat content of 80.3 percent. The fat from 19.12 pounds of farm milk is therefore needed to make one pound of butter (0.803 / 0.042). Skim solids represent only 1 percent of the weight of butter. The skim solids from 0.11 pounds of farm milk are therefore needed to make one pound of butter (0.01 / 0.09).
+Nonfat dry milk is produced by removing water from skim milk. This product is rich in protein and other skim solids which constitute 96.2 percent of the product's weight. One pound of nonfat dry milk contains the skim solids from 10.69 pounds of raw milk as sold by dairy farmers (0.962 / 0.09). By contrast, one pound of nonfat dry milk contains only 0.008 pounds of fat or, equivalently, the amount of fat in 0.19 pounds of farm milk (0.008 / 0.042).
+Cheese is made by curdling fluid milk. Curdling separates the milk into solid curds and liquid whey. Most of the fat remains in the solid curds which are then used to make cheese. Natural cheeses are often classified by moisture content, which relates to their hardness. The moisture content of Monterey is 44 percent. This type of cheese contains less fat per pound than harder cheeses (such as Cheddar and Colby) but Monterey has more fat per pound than softer cheeses, such as Muenster and Mozzarella. Fat solids from milk account for 28 percent of Monterey’s total weight. Skim solids account for the other 28 percent. One pound of Monterey therefore contains the fat from 6.67 pounds of farm milk (0.28 / 0.042) and the skim solids from 3.11 pounds of farm milk (0.28 / 0.09).
+Far less moisture is removed from cream cheese, a soft cheese that is not ripened. Moisture represents 51 percent of the weight of the cream cheese in the retail basket. Fat and skim solids represent 37 percent and 12 percent, respectively. It follows that 1 pound of this cream cheese contains the fat from 8.81 pounds of farm milk (0.37 / 0.042) and the skim solids from 1.33 pounds of farm milk (0.12 / 0.09).
+Moisture may account for up to 82.5 percent of the weight of low fat cottage cheese. Fat represents 2 percent and skim solids represent 15.5 percent of the weight of the cottage cheese in the retail basket. It follows that the fat from 0.476 pounds (0.02 / 0.042) of farm milk and the skim solids from 1.722 pounds (0.155 / 0.09) of farm milk are used to produce 1 pound of low fat cottage cheese.
+Processed cheeses can be made by blending different natural cheeses. American cheese, for example, is a mixture of Cheddar, Colby, and/or similar natural cheeses. Cheesemakers may also add emulsifiers that help the final product to melt evenly when heated as well as anhydrous milkfat, cream, salt, flavorings, and other ingredients. Federal standards distinguish between processed cheese, processed cheese food, and processed cheese spread—according to the amounts of natural cheese, fat, and moisture the cheeses contain. Processed cheese food has less fat than processed cheese on a per pound basis, but more than processed cheese spread, is included in the retail basket. Fat solids from milk account for 23 percent of the product’s total weight. Skim solids account for another 33 percent of the product’s total weight. The moisture content of processed cheese food is 44 percent. One pound of this product contains that the fat from 5.476 pounds (0.23 / 0.042) of farm milk and the skim solids from 3.667 pounds (0.33 / 0.09) of farm milk.
+When fluid milk is curdled to make cheese, it separates into solid curds and liquid whey. Whey is low in fat, but high in lactose, protein, vitamins, and some minerals. Water is removed to make dry whey (which is added to animal feeds, nutritional supplements, and infant formulas, among other products). Fat and skim solids represent 1.2 percent and 94.3 percent of the weight of dry whey. Thus, 1 pound of dry whey includes fat from 0.286 pounds of farm milk (0.012 / 0.042) and the skim solids from 10.478 pounds (0.943 / 0.09) of farm milk.
+Combining the amount of milkfat in all products in the food basket yields a basket containing fat from about 666.7 pounds of farm milk. To produce the retail basket, manufacturers and processors are assumed to source slightly more milk than the 666.7 pounds needed to supply the fat contained in this basket. This combined amount was inflated by 2.5 percent, and it was assumed that they purchased 683.8 pounds (666.7 / 0.975). The additional 2.5 percent of milk accounts for the likelihood that some milk is wasted as dairy products are processed, packaged, and transported.
+The additional milk bought by processors and manufacturers is also needed to satisfy the small amount of milkfat contained in co-products.
+Farm Value
+Farm receipts are estimated as the product of farm prices and the quantity of milk bought by processors. The average price received by farmers for all milk is reported monthly in
+Agricultural Prices
+, a publication of USDA's National Agricultural Statistics Service (NASS). ERS calculates a simple average of NASS's 12 monthly prices. In 2022, this average was $25.3417 per 100 pounds of milk. Estimated farm receipts are $173.287 (683.8 x $0.253417).
+ERS's retail basket, however, includes skim solids from only about 407.3 pounds of milk. It follows that skim solids from 259.4 pounds of milk (666.7 - 407.3) would remain for making co-products. Not all of these solids are likely to be wasted; most are used for producing other foods even though these foods are not included in the retail food basket. It was assumed that skim solids from about 140.5 pounds of farm milk are recovered from cheese production and used to make 13.4 pounds of dry whey. It is also assumed that the skim solids from about 118.9 pounds of farm milk are used to make 11.1 pounds of nonfat dry milk.
+The total value added to the 683.8 pounds of milk bought from farmers is the sum of the amount added to the parts consumed in producing the retail basket and the amount added to the parts consumed in making co-products. To compare the retail price of the food basket with the farm value of only the milk parts consumed in making it, the farm value of any co-products needs to be subtracted from farm receipts.
+ERS uses wholesale prices for dry whey and nonfat dry milk to place an initial value on the co-products. Monthly data published by
+USDA's Agricultural Marketing Service (AMS) Dairy
+are used to calculate a simple average of the 12 months of prices for each co-product. In 2022, wholesale prices averaged $1.685 per pound for nonfat dry milk and $0.606 per pound for dry whey.
+Because wholesale prices include processing costs, these costs are subtracted from average wholesale prices to estimate the farm value of a pound of each co-product using data published by AMS. In 2022, per pound processing costs were $0.1678 for nonfat dry milk and $0.1991 for dry whey.
+The farm value of ERS's agricultural basket equals farm receipts less the farm value of co-products. For 2022, farm value is estimated to be: $150.955 or $173.287 total farm receipts less the value of dry whey co-product (= 13.4 pounds dry whey co-product x ($0.606 per pound wholesale cost  - $0.1991 per pound processing cost) and less the value of nonfat dry milk co-product (=11.1 pounds nonfat dry milk x ($1.685 per pound wholesale cost - $0.1678 per pound processing cost). Farm value can then be compared with the $532 spent for the retail basket. The spread between farm and retail prices is $532 - $150.955 = $381.045, and farm share is (150.955 / 532) = 28.34 percent.
+Dairy foods: Contents of retail baskets, agricultural baskets, and co-products
+Retail foods - product
+Retail foods - pounds
+Farm commodities - product
+Farm commodities - pounds
+Co-products - product
+Co-products - pounds
+Butter
+6.63
+Milk
+683.8
+Nonfat dry milk
+11.1
+Cottage cheese
+4.85
+Dry whey
+13.4
+Cream
+11.33
+Cream cheese
+3.80
+Ice cream
+44.23
+Reduced-fat milk
+85.42
+Monterey cheese
+30.73
+Processed cheese food
+4.89
+Skim milk
+13.01
+Whole milk
+64.56
+Yogurt
+23.89
+Note: Some numbers have been rounded.
+Source: USDA, Economic Research Service, the Price Spreads from Farm to Consumer data product.
+Calculating Annual Estimates
+Having specified the contents of the retail and agricultural baskets, ERS uses a formula to estimate the farm share of dairy food prices in years other than the base year of the data series, 2022. The following example shows implementation for 2023.
+Step 1:
+Estimation begins by plugging the BLS-calculated CPI for dairy and related products into the ERS formula previously specified. The CPI was 259.184 in 2022 and 269.528 in 2023. Since 2022 is the base year of the data series, CPI
+0
+= 259.184. For t = 2023, it further follows that 1.03991 = (269.528 / 259.184) which is an adjustment factor for retail price inflation.
+Step 2:
+The adjustment factor is next multiplied by the value of the retail basket in the base year (Q'
+r
+P
+r0
+). The result is the value of the denominator in the farm share equation: ($532 x 1.03991) = $553.23, which is the approximate value of the retail basket in 2023.
+Step 3:
+Farm prices and co-product values are next collected from NASS’s Agricultural Prices and AMS, respectively. For t = 2023, the prices in the numerator (P
+ft
+) need to be updated from prior yearly values. However, neither the quantities in Q
+f
+(683.3 pounds of farm milk, 11.1 pounds of nonfat dry milk, and 13.4 pounds of dry whey) nor the methods nor the methods for calculation change from those used to estimate farm value for 2022. For t = 2023, using the updated values of P
+ft
+, the updated farm value of the agricultural basket net co-products, Q
+f
+'P
+ft
+, is $125.59.
+Step 4:
+Farm share is computed by dividing farm value by the value of the retail basket. As noted in Step 3, in 2023, farm value was $125.59, which amounts to about 22.7 percent of the approximate value of $553.23 for the retail basket.
+Step 5:
+ERS also reports indices for retail cost, farm value, and the farm-to-retail price spread. Each is expressed as an index with a value of 100 in the base year (2022) of the data series. These indices show how the variable in question has changed over time.
+Retail Cost Index
+The retail cost index shows retail price trends over time. This is the ratio of the CPI in year t to the same CPI in the base year (2022), CPI
+t
+/ CPI
+0
+, multiplied by 100. For t = 2023, the retail cost index is (1.03991 x 100) = 103.991.
+Farm Value Index
+The farm value index shows farm value trends over time. This is the ratio of the farm value in year t to the farm value in 2022, Q
+f
+'P
+ft
+/ Q
+f
+'P
+f0
+, multiplied by 100. As already shown, farm value was $150.95 in 2022 and $125.59 in 2023. It follows that the 2023 farm value index was ($125.59 / $150.95) x 100 = 83.198.
+Farm-to-Retail Price Spread Index
+The farm-to-retail price spread index measures changes in the difference between the basket's retail and farm values. This is a ratio of the spread in a year to the spread in the base year of the data series, (Q
+r
+'P
+rt
+- Q
+f
+'P
+ft
+) / (Q
+r
+'P
+r0
+- Q
+f
+'P
+f0
+), multiplied by 100. In 2023, the spread between retail and farm values was ($553.23 - $125.59) = $427.64. It was ($532 - $150.95) = $381.05 in 2022. The value of the farm-to-retail spread index was ($427.64 / $381.05) x 100 = 112.228 in 2023.
+Interpretation of Farm Value and Supporting Indices
+The three reported indices show trends in each variable over time. For example, farm share decreased from 28.32 percent in 2022 to 22.7 percent in 2023. The three indices suggest a reason for this change. They show a decrease in payments to farmers as measured by the basket’s farm value  combined with an increase in retail prices.
+Fresh Fruit and Vegetables
+ERS calculates the farm share as well as the farm-to-retail cost spread for baskets of fresh fruit and fresh vegetables that are representative of U.S. households’ purchases for at-home consumption in 2018. Estimates are available for each year since 2000.
+Identifying Retail and Agricultural Baskets
+Retail Food Baskets
+To identify the contents of its retail fresh fruit and fresh vegetables baskets, ERS first uses the diary portion of the Consumer Expenditure Survey (CE). These U.S. Department of Labor, Bureau of Labor Statistics (BLS)-published data report how much money U.S. households spent on different types of foods. The data are available at a highly aggregated level. In 2018, households are reported to have spent $283.00 for fresh vegetables and $318.00 for fresh fruit, on average.
+ERS next uses OmniMarket Core Outlets data from
+Circana
+to identify products that account for a large share of stores’ fresh fruit and fresh vegetable sales. A panel of retail stores across the U.S. provides Circana with a record of their weekly food purchase transactions including data for specific types of fruits and vegetables, such as oranges, apples, and iceberg lettuce. Information provided to Circana includes the physical quantity and dollar value of sales. In addition to sales shares, it is therefore possible to calculate a product’s average retail price as the ratio of the dollar value of sales across all stores to the physical quantity sold.
+Based on 2018 OmniMarket Core Outlets, ERS divided the 2018 CE expenditures of $318.00 for fresh fruit across 13 specific types of fresh fruit. Products with the greatest sales shares for which farm-gate prices are also available and domestic production is substantial were selected for inclusion in the basket. Fresh oranges, for example, represented about 6.64 percent of the revenue OmniMarket Core Outlets stores garnered through the sale of all 13 products included in the basket, so about 6.64 percent of the $318.00 spent on fresh fruit in the CE ($21.10) was allocated to expenditures on fresh oranges ($318 x 0.0664). Moreover, because fresh oranges sold for about $1.27 per pound in 2018, it was inferred that a representative household bought 16.7 pounds ($21.10 / $1.27).
+A similar process was used to divide the 2018 CE expenditures of $283.00 for fresh vegetables across 16 products and thereby determine the contents of the fresh vegetables basket. For example, fresh tomatoes accounted for about 22.84 percent of what OmniMarket Core Outlets stores received through the sale of all 16 fresh vegetables included in the basket, so about 22.84 percent of the $283.00 spent on fresh vegetables by CE households ($64.63) was allocated to fresh tomatoes ($283 x 0.2284). Moreover, because the price of fresh tomatoes averaged about $2.13 per pound at retail that year, it was inferred that a representative household bought 30.3 pounds.
+Conversion Factors
+ERS calculations also rely on conversion factors from the ERS Food Availability (Per Capita) Data System (FADS). For each food in a retail basket, conversion factors inflate the retail quantity by the amount necessary to compensate for waste and shrinkage that occurs after commodities leave the farm and are prepared for sales at retail. For example, ERS assumes that 7 percent of lettuce shipped by farmers is lost. Only 93 percent reaches retail store shelves on a weight basis. Some lettuce may spoil and, perhaps, other lettuce may need trimming. Farmers must therefore supply 1.075 pounds of iceberg lettuce for every 1 pound supplied by marketers at retail (1 / 0.93). For grapes, some clusters may be trimmed to remove spoiled or damaged grapes. It is assumed that farmers supply 1.099 pounds of grapes for every 1 pound sold by retailers.
+Fresh fruit conversion factors
+Fruit
+Percen­tage loss
+Conver­sion factor
+Apples
+4
+1.042
+Blueberries
+8
+1.087
+Cantaloupe
+8
+1.087
+Cherries
+8
+1.087
+Grapefruit
+3
+1.031
+Grapes
+9
+1.099
+Honeydew melon
+8
+1.087
+Kiwifruit
+9
+1.099
+Oranges
+3
+1.031
+Peaches
+5
+1.053
+Pears
+5
+1.053
+Strawberries
+8
+1.087
+Watermelon
+10
+1.111
+Source: USDA, Economic Research Service (ERS), ERS Food Availability (Per Capita) Data System. Loss-adjusted Food Availability. Loss from primary to retail weight.
+Fresh vegetable conversion factors
+Vegetable
+Percen­tage loss
+Conver­sion factor
+Asparagus
+9
+1.099
+Bell peppers
+8
+1.087
+Broccoli
+8
+1.087
+Cabbage
+7
+1.075
+Carrots
+3
+1.031
+Cauliflower
+8
+1.087
+Celery
+7
+1.075
+Corn on the cob
+8
+1.087
+Cucumber
+8
+1.087
+Iceberg lettuce
+7
+1.075
+Agaricus mushrooms
+6
+1.064
+Onions
+6
+1.064
+Potatoes
+4
+1.042
+Romaine lettuce
+7
+1.075
+Sweet potatoes
+10
+1.111
+Tomatoes
+15
+1.176
+Source: USDA, Economic Research Service, ERS Food Availability (Per Capita) Data System. Loss-adjusted Food Availability. Loss from primary to retail weight.
+Once the contents of the fresh fruit and fresh vegetables retail food baskets have been specified and the necessary conversion factors collected, ERS uses the conversion factors to estimate the contents of the two agricultural baskets.
+Fresh vegetables: contents of retail and agricultural baskets (in pounds)
+Vegetable
+Retail quantity
+Farm quantity
+Asparagus
+4.74
+5.21
+Bell peppers
+15.65
+17.01
+Broccoli
+2.05
+2.23
+Cabbage
+8.65
+9.3
+Carrots
+8.24
+8.5
+Cauliflower
+4.56
+4.95
+Celery
+7.01
+7.54
+Corn on the cob
+2.25
+2.45
+Cucumber
+12.53
+13.62
+Iceberg lettuce
+10.43
+11.21
+Agaricus mushrooms
+3.13
+3.32
+Onions
+30.14
+32.07
+Potatoes
+68.51
+71.36
+Romaine lettuce
+3.16
+3.39
+Sweet potatoes
+9.28
+10.31
+Tomatoes
+30.28
+35.63
+Note: Some numbers have been rounded.
+Source: USDA, Economic Research Service, Price Spreads from Farm to Consumer data product.
+Fresh fruit: contents of retail and agricultural baskets (in pounds)
+Fruit
+Retail quantity
+Farm quantity
+Apples
+44.77
+46.63
+Blueberries
+6.92
+7.52
+Cantaloupe
+13.23
+14.38
+Cherries
+5.37
+5.84
+Grapefruit
+3.47
+3.57
+Grapes
+31.18
+34.27
+Honeydew melon
+2.1
+2.29
+Kiwifruit
+1.12
+1.23
+Oranges
+16.7
+17.22
+Peaches
+6.35
+6.68
+Pears
+5.10
+5.37
+Strawberries
+21.71
+23.59
+Watermelon
+52.59
+58.43
+Note: Some numbers have been rounded.
+Source: USDA, Economic Research Service, Price Spreads from Farm to Consumer data product.
+Calculating an Annual Price Series
+Having identified the contents of retail food and agricultural baskets, ERS estimates annual statistics by using information on consumer and farm prices as well as the following formula:
+FS
+t
+= Q
+f
+'P
+ft
+/ (Q
+r
+'P
+r0
+)(CPI
+t
+/ CPI
+0
+)
+When calculating statistics for fresh vegetables, for example, the value of the denominator in the formula is estimated by using the CPI for that commodity. In 2018, the CPI for fresh vegetables was 324.75. To estimate the retail price of the market basket in, say 2019, the retail value of the market basket in the base year ($283) is multiplied by the appropriate CPI for that year (337.1), divided by its 2018 value (324.75). That is, $283 x (337.1 / 324.75) = $293.76.
+ERS uses prices received by farmers for their commodities to update the value of the farm basket for each year of the data series. These price estimates are available in the
+ERS Fruit and Tree Nuts Yearbook Tables
+and the
+ERS Vegetables and Pulses Data Yearbook Tables
+data products. In 2019, the total value of all the contents of the fresh vegetables farm basket was $74.08, which amounts to about 25 percent of the estimated price of $293.76 for the retail basket.
+Finally, using the same procedures described above for the dairy basket, ERS updates and reports estimates of the Retail Cost Index, Farm Value Index, and Farm-to-Retail Price Spread Index, in addition to the farm share of the retail price for each year for both fresh fruit and fresh vegetables.
+How ERS Calculates Farm Share for Individual Foods
+ERS estimates the farm share of the retail price for selected foods. These calculations compare the retail price of a food with the farm value of the commodities used to manufacture it. Data on prices at retail and at the farm gate are needed to make these comparisons. ERS results are sensitive to the prices adopted for analysis. Because two different stores may sell the same food for different prices, the farm share of a consumer's dollar would not likely be the same at both stores.
+The formal equation used to calculate the farm share of different foods is: FS
+t
+= Q
+f
+'P
+ft
+/ P
+rt
+where FS
+t
+is the farm share at time t. The argument in the denominator of the formula is the retail price of the food at time t, P
+rt
+. The first argument in the numerator, Q
+f
+, is a vector of quantities that includes amounts of agricultural goods used to make the food as well as amounts used to make co-products. Agricultural inputs enter Q
+f
+as a positive number. Co-products enter as a negative number. P
+ft
+is a vector of unit prices for the agricultural goods and co-products in Q
+f
+.
+Once published, farm share statistics may be revised for a variety of reasons:
+Estimates of prices received by farmers for their commodities may be updated as much as a year or two after preliminary figures are initially released.
+Conversion factors may be adjusted. For example, improved efficiency in food packaging and shipping may reduce waste and spoilage. If so, food marketers could buy a smaller quantity from farmers to provide the same quantity at retail.
+ERS may also replace the data series over time as changes occur in the availability of retail and farm price data, conversion factors, and in the products U.S. households buy at retail stores. In 2025, for example, ERS replaced all data series for individual fresh fruit and fresh vegetables. The prior data series relied on BLS-reported monthly, national average prices. However, BLS had stopped reporting prices for several fresh products, including apples and broccoli. Twelve new series using national-average retail prices estimates (based on Circana OmniMarket Core Outlets data) were launched. More information about these changes is available in the
+Data Changes
+section below. Discontinued data series for dairy products, fresh fruit, fresh vegetables, and other products are also available on the
+Overview
+page among other “Archived Tables.”
+ERS's processes for estimating the farm share of a food are illustrated for selected
+dairy products
+,
+fresh fruits
+,
+fresh vegetables
+,
+processed fruit and vegetables
+such as orange juice, and products like flour and sugar that are processed from
+field crops
+.
+Dairy Products
+General
+ERS's calculations for whole milk, ice cream, Cheddar cheese, and butter rely on U.S.-city average retail price data from
+BLS
+. In 2018, the monthly price of a gallon of whole milk ranged from a low of $2.84 in July to a high of $2.96 in January. For this data series, a simple average of monthly average prices is calculated—for 2018, the average is $2.90.
+To estimate the farm value of whole milk, butter, and ice cream, ERS uses data generated by
+AMS
+from the Federal milk order program. This program sets minimum prices for fluid-grade milk. Not all milk is priced at the same level. Instead, there is a classified pricing system in which the minimum amount paid for milk is determined by how the milk is used. There are four classes: Class I is defined as milk for beverage products; Class II includes milk used to make fluid cream, yogurt, ice cream, and other perishable foods; Class III includes creamed and hard cheeses; and Class IV products are butter and dried milk.
+Because these estimates rely on data generated through the administration of the Federal milk order program, ERS's farm share estimates for whole milk, butter, and ice cream do not reflect conditions in all parts of the United States. The current Federal milk order program consists of 11 Federal orders. For example, parts of New England and the Mid-Atlantic States make up the Northeast Order. California's Federal Milk Marketing Order officially began operations in 2018. Some other places, however, are not covered by a Federal order.
+For all four dairy products considered in this data product—whole milk, ice cream, Cheddar cheese, and butter—ERS's objective is to estimate the contribution from dairy farmers' milk earnings to retail prices. Estimates of farm value and farm share do not include farm receipts for other types of ingredients included in dairy products, such as sugar or fruit contained in ice cream.
+ERS statistics for whole milk, ice cream, and Cheddar cheese also do not account for over-order payments. Dairy farmers and their cooperatives can bargain to sell milk at prices higher than the regulated minimums. For example, fluid milk processors and dairy product manufacturers may be willing to pay a premium to receive a certain quality and quantity of milk, at a specified time and location. Dairy farmers may or may not receive higher prices for their milk in these cases. However, to the extent that cooperatives and independent producers with market power can negotiate over-order payments that increase payments to dairy farmers, ERS's calculations based on minimum class prices would underestimate the farm value of dairy products.
+ERS calculates the farm share of the retail price of:
+1 gallon of whole milk
+1 pound of butter
+1 pound of Cheddar cheese
+1-half gallon of ice cream
+Milk, Whole Fluid
+Though marketed as "whole milk," farm milk generally has a small amount of cream removed during processing. A gallon of whole milk is assumed to contain 3.3 percent fat and weigh 8.6 pounds. ERS's process for calculating the farm share of this product is illustrated using data for 2018.
+Processors must pay at least the Class I price for farm milk used in making beverage products.
+Step 1:
+The retail price of a gallon of whole milk averaged $2.90 in 2018. Farm share is the ratio of average retail price to the amount received by farmers for milk components (skim and fat solids) consumed in production.
+Step 2:
+To estimate the farm value of whole milk, ERS first estimates the farm value of one component—Class I skim milk. To begin, ERS calculates a simple average of the monthly base skim milk price reported by AMS—$6.23 per hundredweight in 2018. Then, the required Class I differential is added to the average skim milk price. AMS adds this differential to the base skim milk price to generate the minimum amount of money processors must pay for Class I skim milk. Though the value of the differential varies geographically, a principal pricing point is reported by AMS for each of the 11 Federal orders. ERS calculates a weighted average of the reported figures. These weights are the amount of Class I milk sold in the order divided by the amount marketed in all 11 orders. In 2018, this weighted average was about $2.84 per hundred pounds of skim milk.
+Step 3:
+To estimate minimum farm value for the butterfat in whole milk, ERS uses the monthly advanced butterfat pricing factor reported by AMS. The Class I differential is added to the pricing factor. In 2018, this pricing factor averaged $2.52 per pound, and the Class I differential was $0.0284 per pound.
+Step 4:
+Combining the above values for the skim and fat solids in milk, ERS next calculates the farm value of 100 pounds of Class I milk that is 96.7 percent skim milk and 3.3 percent fat. If purchased at minimum regulated prices, the milk has a value of $17.19 or (6.23 + 2.84) x (0.967) + ($2.52 + 0.0284) x (3.3).
+A gallon of milk is assumed to weigh 8.6 pounds, but processors purchase slightly more farm milk for every gallon of milk marketed at retail. This extra amount accounts for waste and spoilage that can occur in assembling and processing milk. It is assumed that losses through waste and spoilage equal 2 percent of the value of what farmers sell to marketers. Thus, in 2018, marketers were assumed to pay farmers (($17.19 x 0.086) / 0.98) = $1.51 for each gallon of milk marketed at retail, or 52 percent of the retail price of $2.90.
+Butter
+Cream is the primary ingredient in butter. Butter manufacturers may buy cream with less than the full fat content of farm milk or purchase farm milk and skim off the cream. One pound of butter is assumed to include 0.803 pounds of fat and 0.01 pounds of skim solids. ERS's process for calculating the farm share of the retail price of butter is illustrated using data for 2023.
+Processors must pay at least the Class IV price for milk used to make butter.
+Step 1:
+The retail price of butter averaged $4.56 per pound in 2023. The farm share of a pound of butter is the ratio of this average retail price to the price farmers received for the milk components—skim and fat solids—used in making of butter.
+Step 2:
+To estimate the farm value of a pound of butter, ERS begins with the Class IV price of skim milk. In 2023, the regulated minimum Class IV skim milk price averaged $9.07 per hundredweight, or just over $0.09 per pound. How much of this milk must manufacturers purchase to acquire the 0.01 pounds of skim solids in a pound of butter? Since 1 pound of this type of milk contains about 0.09 pounds of skim solids, manufacturers must buy 0.11 pounds (=0.01 / 0.09).
+Step 3:
+Manufacturers also must buy 0.803 pounds of fat for every pound of butter they make. ERS uses the AMS data series to determine the farm value of 0.803 pounds of fat from milk. In 2023, the Class IV butterfat price averaged about $2.96 per pound.
+Step 4:
+Combining the above values for skim and fat solids in a pound of butter, ERS then calculates the farm value of cream, assuming that skim and fat solids were purchased at regulated minimum prices. This estimate is (0.803 x $2.96) + (0.11 x $0.0907) = $2.39.
+Step 5:
+ERS makes adjustments to account for waste and spoilage that may occur as butter is produced. These losses are assumed to equal 2 percent of what farmers sell. Thus, in 2023, to cover for waste and spoilage, manufacturers must buy cream with a farm value of $2.44 (=$2.39 / 0.98) for each pound of butter marketed at retail.
+Step 6:
+ERS estimates the farm share of the retail price of butter in 2023 to be 53 percent (=$2.44 / $4.56).
+Cheddar Cheese
+Fluid milk is curdled to make natural Cheddar cheese. ERS uses the Van Slyke formula to determine the amount of milk in a pound of this cheese. Assuming that the milk has an average fat content of 3.5 percent, the Van Slyke formula indicates that manufacturers must purchase 10.3 pounds of milk for every pound of Cheddar cheese made. Along with cheese, manufacturers also produce 0.5 pounds of the co-product dry whey. ERS’s procedure for calculating the farm share of a pound of Cheddar cheese is illustrated using data for 2024.
+Processors must pay at least the Class III price for milk used to make cheese.
+Step 1:
+The retail price of Cheddar cheese averaged $5.66 per pound in 2024. Farm share is the ratio of average retail price to the amount received by farmers for milk components (skim and fat solids) consumed in production.
+Step 2:
+ERS collects minimum monthly prices for milk manufactured into Class III products under the Federal milk order program. A simple mean of these monthly prices is calculated to estimate annual prices. In 2024, cheese manufacturers were required to pay, on average, at least $18.89 per hundredweight of Class III milk (or $0.1889 per pound).
+Step 3:
+Given that manufacturers must purchase 10.3 pounds of milk for every pound of Cheddar cheese they make, ERS estimates that gross farm receipts are about $1.95 per pound of Cheddar cheese produced ($0.1889 x 10.3).
+Step 4:
+Monthly dry whey prices published by USDA-AMS are then used to value co-products from cheese production. In 2024, AMS reported that monthly average prices for dry whey ranged from $0.4108 to $0.6353 per pound. These wholesale prices, however, reflect both the value of the milk components in whey, and the value added to these components through processing. ERS uses AMS's reported estimates of processing costs to isolate the value for only the milk components. In 2024, it cost $0.1991 to process 1 pound of whey, and the monthly average value of dry whey (net processing costs) was $0.2922 per pound.
+Step 5:
+Altogether, the net farm value of a pound of Cheddar cheese in 2024 was about $1.80, calculated as $1.95 - (0.5 x $0.2922), which equals 32 percent of the retail price of $5.66.
+Ice Cream, Regular
+Ice cream is made from a mix that includes fluid milk and cream. Ice cream plants may buy these inputs from fluid milk processors. ERS estimates farm share of the retail price for 1-half gallon of regular ice cream weighing 2.25 pounds. Fat solids account for 12 percent and skim solids account for 10 percent of the product's weight. Thus, regular ice cream contains 0.27 (=2.25 x 0.12) pounds of fat from milk and 0.225 (=2.25 x 0.1) pounds of skim solids. ERS's process for calculating the farm share of the retail price of regular ice cream is illustrated below using data from 2024.
+Marketers must pay at least the Class II price for milk used in ice cream.
+Step 1:
+The retail price of regular ice cream averaged $6.13 per pound in 2024. Farm share is the ratio of average retail price to the amount received by farmers for milk components (skim and fat solids) consumed in production.
+Step 2:
+ERS first estimates the farm value of skim milk used in producing ice cream. Since 1 pound of skim milk contains about 0.09 pounds of skim solids and ERS's ice cream product contains 0.225 pounds, marketers must buy 2.5 (=0.225 / 0.09) pounds of skim milk for each container of ice cream they make. To put a value on this milk, ERS calculates a simple average of the monthly Class II skim milk price reported by AMS—for 2024, the average is $10.17 per hundredweight, or $0.1017 per pound.
+Step 3:
+Marketers also must buy 0.27 pounds of fat from milk for every container of ice cream produced. To determine the farm value of this fat, ERS again uses the AMS data series. In 2024, the Class II butterfat price averaged about $3.30 per pound.
+Step 4:
+Combining the above values for the skim and fat solids in a container of ice cream, ERS then calculates the farm value of the cream under the assumption that skim and fat solids were purchased at regulated minimum prices. This estimate is $1.145, or ((0.27 x $3.30) + (2.5 x $0.1017)).
+Step 5:
+Adjustments are next made to account for waste and spoilage that tend to occur as ice cream is made. ERS assumes that these losses equal 2 percent of what marketers buy. Thus, in 2024, to cover for waste and spoilage, marketers must buy cream with a farm value of $1.17 (=$1.145 / 0.98) for each container of ice cream marketed at retail.
+Step 6:
+ERS estimates that the farm share of the retail price of ice cream in 2024 was 19 percent ($1.17 / $6.13).
+Field Crops
+General
+For the annual, national average retail price of vegetable (soybean) oil, ERS’s calculations rely on OmniMarket Core Outlets data from
+Circana
+. By contrast, ERS's calculations for flour, sugar, and bread rely on monthly, national average retail prices (U.S. city-average price data) published by
+BLS
+. Annual figures for these three products are estimated by taking a simple average of the reported monthly prices.
+For prices at the farm gate, publicly available data published by USDA agencies are used.
+Co-products account for a substantial share of overall farm receipts for flour, vegetable (soybean) oil, and sugar. For example, wheat is milled to produce flour, and its co-products—bran and wheat middlings—may be sold for use in food products or animal feed. Similarly, sugar extracted from sugar beets and sugarcane yields co-products such as molasses and livestock feed.
+Data on co-product prices are obtained mostly from USDA agencies. For sugar, data from the U.S. Department of Commerce, Bureau of the Census (Census Bureau) are used. ERS calculates the farm share of the retail price of one pound of:
+All-purpose white flour
+Vegetable (soybean) oil
+White (refined) sugar
+White pan bread
+All-purpose White Flour
+Wheat is milled to produce flour. Wheat kernels, also known as wheat berries, are seeds from which new wheat plants may grow. Within a kernel are endosperm and wheat germ. Roller milling involves crushing and gradually reducing wheat kernels to produce flour which consists primarily of endosperm. Co-products of flour milling include bran (the hard, outermost shell of the wheat kernel) and wheat middlings (bran, germ, and endosperm remnants). These co-products may be sold for use in food products or animal feed.
+Milling different classes of wheat yields different types of flour. Many products, including all-purpose white flour, may include several classes of wheat (depending on the region of the country where the flour is produced). However, all-purpose flour is primarily produced from hard red winter (HRW) wheat. For the purposes of computing the farm value and farm share of the retail price of all-purpose flour, we assume that it is made from 100 percent HRW wheat.
+Step 1:
+Monthly retail prices for all-purpose white flour, per pound, are obtained from BLS, published in conjunction with the BLS Consumer Price Index reporting program. In 2023, the monthly price of all-purpose white flour ranged from a low of $0.538 per pound in January to a high of $0.566 per pound in July. For this data series, a simple average of monthly average prices is calculated—for 2023, the average is $0.551.
+Step 2:
+What are the farm receipts for the amount of wheat used to make one pound of flour? Milling wheat yields approximately 73 percent flour and 27 percent co-products, so producing 1 pound of flour requires 1.37 pounds of wheat (=1 / 0.73). Monthly data on the farm price per bushel of HRW wheat are available from
+Agricultural Prices
+(published by NASS). In 2023, the monthly farm price of hard red winter wheat averaged $7.655 per bushel. Since one bushel weighs 60 pounds and 1.37 pounds of wheat are required, the reported price is divided by 43.8 (=60 / 1.37) to estimate farm receipts. In 2023, the gross farm value of a pound of all-purpose white flour averaged $0.175.
+Step 3:
+A mix of bran and middlings is produced in conjunction with the flour, and the value of these co-products must be subtracted from the gross farm value. Prices of these two co-products are very similar, and, indeed, often identical. Because Kansas City primarily mills HRW wheat, the price of middlings per ton for Kansas City is used to calculate the aggregate co-product value. This information is obtained from the
+Feed Grains Database
+, published by ERS, using a simple average of monthly prices. In 2023, the monthly price of middlings in Kansas City averaged $182.72 per ton. The price is divided by 2,000 to obtain the co-product price per pound—$0.091 per pound.
+Step 4:
+What amount of co-products is produced along with a pound of flour? Since the wheat-to-co-product yield is 27 percent, about 0.37 pounds of co-products can also be produced from 1.37 pounds of wheat that millers buy from farmers to produce a pound of flour (1.37 x 0.27 = 0.37). To estimate net farm value, the middlings price is multiplied by 0.37 and this product subtracted from the gross farm value. For 2023, net farm value is $0.175-(0.37 x $0.091) = $0.141.
+Step 5:
+The farm value share is determined by dividing the net farm value by the retail price. The farm value share for 2023 is $0.141 / $0.551 = 25.6 percent.
+Vegetable (Soybean) Oil
+Soybeans are a major oilseed and widely used to manufacture vegetable oil. Crude vegetable oil extracted from soybeans must be further refined for human consumption.
+ERS assumes an 8-percent loss from refining crude oil (
+Agricultural Handbook
+No. 697, table 34, pg. 44). Thus, in order to supply 1 pound of refined oil, manufacturers need about 1.087 pounds (=1 / 0.92) of crude oil. One gallon of refined oil is further assumed to weigh 7.7 pounds. ERS estimates the farm value of one gallon of vegetable oil based on farm receipts for the soybeans purchased from farmers to produce this amount of vegetable oil. This value is then adjusted for the value of co-products and, finally, compared with an estimate of national-average retail prices.
+Data from 2023 are used in the example for vegetable oil.
+Step 1:
+Using OmniMarket Core Outlets data from Circana, ERS estimates that U.S. consumers paid $12.77 per gallon of soybean oil at retail stores in 2023.
+Step 2:
+The farm-level price of soybeans is available in
+Agricultural Prices
+, which is published monthly by the National Agricultural Statistics Service (NASS). These figures are reported on a dollar-per-bushel basis. In August 2023, soybeans cost $14.10 per 60-pound bushel or, equivalently, $0.235 per pound (=$14.10 / 60).
+Step 3:
+Crushing soybeans produces three products—oil, meal, and hulls. The amount of oil extracted from a bushel of soybeans (oil yield) is obtained from table 9 of the ERS
+Oil Crops Yearbook
+—11.92 pounds in August 2023.
+Step 4:
+The next step is to determine the share of oil in a bushel of soybeans. To do so, ERS divides the figure in Step 3 by the total weight of a bushel of soybeans in pounds. Using August 2023, for example, divide 11.92 pounds by 60 to determine that 19.864 percent of a bushel of soybeans was allocated to soybean oil production.
+Step 5:
+The number of pounds of soybeans needed to produce 1.087 pounds of crude (1 pound of refined) soybean oil in August 2023 can now be estimated as 5.472 (calculated as 1.087 / 0.19864).
+Step 6:
+The number of pounds of soybeans needed to produce 1 gallon (7.7 pounds) of refined soybean oil in August 2023 can now be estimated as 42.134 (calculated as 5.472 x 7.7).
+Step 7:
+Gross farm value is calculated by multiplying the U.S. farm price of soybeans in pounds (obtained in Step 2) by the number of pounds of soybeans required to make one gallon of refined soybean oil (Step 6). For August 2023, multiply $0.235 per pound by 42.1344 pounds to obtain a gross farm value of $9.902.
+Step 8:
+The percentage of the value of a bushel of soybeans that is attributed to co-products (soybean meal and hulls) is next obtained from table 9 of the
+Oil Crops Yearbook
+. In August 2023, it is reported that meal and hulls accounted for 54.38 percent of the total value of a bushel of soybeans. When this share is multiplied by the gross farm value (Step 7), the result is $5.385 for the value of co-products in 42.134 pounds of soybeans.
+Step 9:
+Net farm value is calculated by subtracting the value of co-products from the gross farm value. In August 2023, ERS estimates the net farm value of one gallon of soybean oil to be $9.902 - $5.385 = $4.517 per pound.
+Step 10:
+After repeating steps 2 through 9 for each month of a year, ERS calculates a simple average of the 12 monthly farm value estimates. For 2023, that average is $4.092.
+Step 11:
+The farm value share is the net farm value of refined soybean oil divided by the average retail price. For 2023, ERS's estimate is 32.04 percent (=100 x ($4.092 / $12.77)).
+White (Refined) Sugar
+Because sugar sold in retail stores in the United States may have been extracted from sugar beets, sugarcane, or both, a weighted average of the farm values of refined sugar from both sources is used. Moreover, firms processing sugar beets or sugarcane may produce co-products such as molasses and livestock feed.
+Quantities of co-products obtained along with sugar are estimated using data published by the Census Bureau for 1977-2007. In the Census of Manufactures, the Census Bureau publishes the value of both the sugar and the co-products—molasses and livestock feed manufactured (Table 6a, "Products Statistics"). These data are used to estimate the share of industry shipments attributable to co-products. Before 1997, Standard Industrial Classification (SIC) codes were used for data from two industries—Raw Cane Sugar (SIC 2061) and Beet Sugar (SIC 2063). Since 1997, the North American Industry Classification System (NAICS) system is used, relying on data from two industries—Sugarcane Products (NAICS311311) and Beet Sugar (NAICS 311313).
+Regardless of the industry or classification system, the same procedures are used to develop co-product estimates. First, the total value of industry shipments is estimated as the value of sugar and co-product shipments, excluding only the value of shipments not specified by kind (NSK). Next, the value of only co-product shipments is summed. Finally, the sum of the co-product shipments is divided by the value of total industry shipments. Mathematically,
+CR = C / (T - NSK), where:
+CR = co-product ratio for a given industry
+C = total co-product value of shipments for a given industry
+T = Total value of shipments for a given industry
+NSK = Total value of shipments not specified by kind
+The share of the value of sugar (cane or beet) processing attributed to co-products appears to have changed only a little over 30 years. The share ranged from 4.84 percent to 7.48 percent for cane sugar processing and from 7.47 percent to 13.04 percent for beet sugar processing. In years where data were incompletely reported (specifically, 2002 for sugar beets 2007 for sugarcane), the co-product ratios used in sugar computations were determined by averaging the estimated co-product ratios for each Census from 1977 to 2007, for years and industries where data were completely reported. The average co-product ratios were 6 percent for sugarcane and 10 percent for sugar beet processing.
+Step 1:
+The retail price per pound of bagged sugar (all sizes) is obtained from the average retail price series published by BLS. These figures are produced in conjunction with the monthly Consumer Price Index (CPI) reporting program. Annual estimates are calculated by taking simple averages of the monthly data. In 2023, this figure came to $0.921 per pound.
+Step 2:
+The annual average price of U.S. sugarcane (per ton) is obtained from Table 13 ("Sugarcane for sugar: price per ton, by State, since 1972/73") of the
+Sugar and Sweeteners Yearbook (SASY)
+. In 2023, the annual average price received by farmers was $60.90 per ton (2,000 pounds) or, $0.0305 per pound.
+Step 3:
+In 2023, total production of sugarcane for making sugar was 32.113 million tons. The data are obtained from SASY Table 15 (“U.S. sugarcane: area, yield, production, sugar output, recovery rate, and sugar yield per acre, by crop year and fiscal year”).
+Step 4:
+Total production of raw cane sugar cane also comes from Table 15 of SASY. In 2023, this figure was 4.021 million tons.
+Step 5:
+The amount of raw cane sugar extracted per pound of sugarcane is estimated by dividing the figure in Step 4 by the figure in Step 3. In 2023, manufacturers extracted 4.021 / 32.113 = 0.1252 pounds of cane sugar (on average) from each pound of sugarcane processed.
+Step 6:
+USDA's Conversion Factors and Weights and Measures (Statistical Bulletin No. 616, March 1979) reports that refining 1.07 pounds of raw sugar produces one pound of refined sugar. This estimate is divided by the figure in Step 5 to further obtain an estimate of the quantity of sugarcane required to produce one pound of refined cane sugar. In 2023, food processors bought an estimated 8.546 (=1.07 / 0.1252) pounds of sugarcane for each pound of cane sugar they produced.
+Step 7:
+The gross farm value per pound of cane sugar is estimated by multiplying the figure in Step 6 by the farm price of a pound of sugarcane (Step 2). For 2023, this value is 8.5454 x $0.0305 = $0.260.
+Step 8:
+Using data published by the Census Bureau, co-products are estimated to account for 6 percent of the farm value of sugarcane. To estimate the net farm value of one pound of cane sugar, the gross farm value obtained in Step 7 is multiplied by 0.94 (=1 - 0.06). In 2023, the net farm value of one pound cane sugar was about $0.245.
+Step 9:
+The sequence of steps employed for sugarcane is now repeated for sugar beets. First, the U.S. sugar beet price received by farmers is obtained from SASY Table 12 (“Sugarbeet price per ton, by State and United States, since 1972/73"). In 2023, the annual average price received by farmers was $75.60 per ton (2,000 pounds) or, $0.0378 per pound.
+Step 10:
+Sugar beet production is reported in SASY Table 17 ("U.S. sugarbeet area, yield, and production, since 1980/81"). In 2023, sugar beet production totaled 35.884 million tons.
+Step 11:
+The quantity of sugar obtained from sugar beets on a raw value basis is also recorded in SASY Table 17, and was 5.145 million tons in 2023.
+Step 12:
+The procedure for calculating the yield for sugar beets is analogous to that used for sugar cane. Here, the figure obtained in Step 11 is divided by the figure reported for Step 10. In 2023, manufacturers extracted 5.145 / 35.884 = 0.1434 pounds of beet sugar from each pound of sugar beets processed.
+Step 13:
+Sugar yield on a refined basis is then calculated using the same conversion factor (1.07) used for sugarcane. Thus, divide 1.07 by the result obtained in Step 12. In 2023, food processors bought an estimated 1.07 / 0.1434 = 7.4627 pounds of sugar beets for each pound of beet sugar produced.
+Step 14:
+The gross farm value per pound of beet sugar is estimated by multiplying the figure in Step 13 by the farm price of a pound of sugar beets (Step 9). For 2023, this value is 7.4627 x $0.0378 = $0.2821.
+Step 15:
+Using data from the Census Bureau, co-products are estimated to account for 10 percent of the farm value of sugar beets. To estimate the net farm value of one pound of beet sugar, we multiply the gross farm value obtained in Step 14 by 0.90 (=1 - 0.10). In 2007, the net farm value of one pound beet sugar was about $0.254.
+Step 16:
+The final step in calculating the farm value of sugar is to take a weighted average of net farm values of refined cane and beet sugar. These weights are the percentages of U.S. sugar production derived from sugarcane and sugar beets, both of which are obtained from SASY Table 16 ("U.S. beet and cane sugar production (including Puerto Rico) by fiscal year and share of total"). In 2023, the weighted average, net farm value of a pound of refined sugar at a retail store is (0.444 x $0.245) + (0.556 x $0.254) = $0.25.
+Step 17:
+Finally, the farm value share is calculated by dividing the net farm value determined in Step 16 by the retail price of sugar reported in Step 1. For 2023, farm share was 0.25 / 0.921 = 0.271 or, 27.1 percent.
+White Pan Bread
+White pan bread is baked in long, narrow pans, and many manufacturers typically slice and package this type of bread in a plastic bag. While each manufacturer may use a different recipe (formula), ERS bases its calculations on a representative formula made available through the Department of Grain Science and Industry at Kansas State University. The farm-derived ingredients in 1 pound of white pan bread include 0.5964 pounds of flour, 0.0015 gallons of soybean oil, and 0.0508 pounds of corn syrup (dry weight). ERS assigns a zero farm value to the bread’s other ingredients that include water, yeast, salt, emulsifiers, and calcium propionate.
+Step 1:
+Retail stores commonly sell white pan bread in loaves ranging from 16 to 32 ounces. In conjunction with its reporting of the Consumer Price Index, BLS publishes monthly average prices at retail stores on per pound basis. Each month’s price is a broad average that is derived from prices for all brands and loaf sizes. For this data series, a simple average of the monthly average prices is calculated—for 2023, the average is $1.960 per pound.
+Step 2:
+The farm value of each ingredient is estimated. White, all-purpose flour is the primary farm-derived ingredient; the data and procedures used to calculate its farm value are detailed above (
+all-purpose white flour
+). In 2023, that value was $0.141 per pound. Since each pound of bread is assumed to contain 0.5964 pounds of flour, ERS estimates that the farm value of the flour in the retail product was $0.084 (calculated as 0.5964 x $0.141).
+Step 3:
+Soybean oil is another ingredient in white pan bread. Each pound of bread is assumed to contain 0.0015 gallons of soybean oil. The data and procedures used to calculate the farm value of this ingredient are detailed above (
+vegetable (soybean) oil
+). In 2023, the farm value of one gallon of soybean oil was $4.092. The farm value of the oil in one pound of white pan bread was likewise $0.006 (calculated as 0.0015 x $4.092).
+Step 4:
+Data and procedures used to calculate the farm value of corn syrup are detailed in Table 31b of ERS's
+Sugar and Sweeteners Yearbook
+. In 2023, the farm value of corn syrup was $0.0878 per dry pound. Thus, the farm value of the corn syrup in one pound of white pan bread was $0.004 (calculated as 0.0508 x $0.0878).
+Step 5:
+The farm value of all three farm-derived ingredients is next totaled. In 2023, the farm value of white pan bread was $0.084 + $0.006 + $0.004 = $0.094.
+Step 6:
+The farm share of the retail price is determined by dividing the farm value by the retail price. The farm value share for 2023 is $0.094 / $1.960  = 0.048, or about 4.8 percent.
+Fresh Fruit
+ERS estimates the farm share of six types of fresh fruit—apples, grapefruit, grapes, oranges, peaches, and strawberries. To illustrate the process behind the calculations, consider apples in 2023 when the retail price of apples averaged $1.82 per pound. Average retail prices for fresh apples are calculated using OmniMarket Core Outlets data from
+Circana
+. Prices received by growers for fresh apples in 2023 averaged $0.3460 per pound. Farm level prices for fresh apples are from the ERS
+Fruit and Tree Nuts Yearbook
+. Assuming that 4 percent of farm commodity volume is lost as farm apples make their way through the marketing chain, farmers must supply 1.04167 pounds (=1 / 0.96) of apples per pound sold by marketers. The farm share equation is: (1.04167 x 0.3460) / 1.82 = 0.1980, or about 19.8 percent.
+Although the values for conversion factors, retail prices, and farm prices vary for other types of fresh fruit, ERS follows the same process for calculating farm share.
+Fresh Vegetables
+ERS estimates the farm share of 6 types of fresh vegetables—broccoli, carrots, iceberg lettuce, potatoes, tomatoes, and romaine lettuce. For iceberg lettuce, the retail price averaged $1.35 per pound in 2024. Average retail prices for fresh iceberg lettuce are calculated using OmniMarket Core Outlets data from
+Circana
+. Prices received by growers in 2023 for fresh iceberg lettuce averaged $0.4002 per pound. Farm level prices for fresh apples are from the ERS
+Vegetables and Pulses Yearbook
+. Under the assumption that 7 percent of farm commodity volume is lost as the lettuce proceeds through the marketing chain, farmers must supply 1.075 pounds (=1 / 0.93) of lettuce per pound sold by marketers. The farm share equation is: (1.075 x 0.4002) / 1.35 = 0.3187, or about 31.9 percent.
+Although the values for conversion factors, retail prices, and farm prices vary for the other three types of fresh vegetables, the same process for calculating the farm share is followed.
+Processed Fruit and Vegetables
+Orange Juice
+Orange juice is extracted from a variety of fresh oranges such as Valencia and Navel. Most of the weight of juice ready for consumption is from water. The soluble solids in orange juice consist primarily of sugars, with some citric acid and minerals; these soluble solids are measured in degrees brix. Fresh squeezed juice (not from concentrate or NFC) averages about 11.8 degrees brix, meaning that the juice is 11.8 percent soluble solids.
+Fresh oranges are cleaned and graded at juice processing plants; then the juice is extracted. Co-products such as citrus pulp pellets (mostly cattle feed), D-limonene, and molasses can be made from the peel, pulp, and seeds that remain after producing orange juice. During the 2007/08 season when prices for citrus pulp pellets were low, industry executives stated that making co-products was merely the least expensive way to dispose of leftover orange parts. A study by the University of Florida estimated that the value of juice (including orange and grapefruit) produced in the State in 2007/08 was $3.45 billion and the value of co-products was $136 million. However, due to a lack of data available from year-to-year on the quantity and value of co-products, ERS was unable to incorporate co-product values into the calculations. Thus, in years when co-products values are substantial, a comparison of farm receipts for oranges with retail orange juice prices will overstate the farm share. This is because retail prices alone understate the final value of products made from the oranges.
+Step 1:
+The
+Florida Department of Citrus (FDOC)
+publishes average retail prices for orange juice products online. For example, during the 2022/23 season—from October 2022 through September 2023—NFC juice sold for $10.35 per gallon at retail.
+Step 2:
+The FDOC reports the quantity of orange juice that can be processed each season from fresh Florida oranges. The yield varies from season to season based on characteristics of the orange crop. In the 2022/23 season, one 90-pound box of fresh oranges yielded 4.746 gallons of juice at 11.8 degrees brix or, equivalently, marketers required 0.211 boxes for each gallon of fresh squeezed orange juice they produced (=1 / 4.746).
+Step 3:
+What do farmers receive for the oranges in one gallon of consumable orange juice? ERS publishes season-average prices received by Florida farmers per 90-pound box of oranges (equivalent-on-tree returns) in the
+Fruit and Tree Nuts Yearbook
+(table C22). Growers receive different prices for oranges marketed for fresh use versus oranges sold for processing. Farmers earned $9.20 per 90-pound box of processing oranges during the 2022/23 season. Farm receipts for the oranges in one gallon of consumable juice likewise totaled $1.94 that season (0.211 x $9.20).
+Step 5:
+The farm share of retail prices is determined by dividing a product's farm value by its retail price, with the ratio of the prices then stated in percentage terms. For the 2022/23 season, ERS estimated the farm share of NFC orange juice at 18.7 percent (based on $1.94 / $10.35).
+Data Changes
+ERS periodically archives and replaces data series. Such adjustments to the data product are necessary as changes occur over time in data availability, conversion factors, and in the products U.S. households buy at retail stores.
+Dairy Products
+In 2025, ERS replaced its market basket data series for dairy products, based on what U.S. households purchased at retail stores in 2003, with a new data series based on what the households bought in 2022. The new basket contains comparatively less fluid milk and more cheese than its predecessor. ERS also adjusted the conversion factors used for calculating the amount of milk marketers buy from farmers to produce the contents of the retail market basket. For the new agricultural basket that corresponds to the new retail market basket, ERS assumes that milk purchased from farmers is 4.2 percent milkfat. By contrast, when calculating the amount of milk marketers bought from farmers to produce the contents of the previous market basket, researchers had assumed milk purchased from farmers was 3.7 percent milkfat. The contents of the archived retail and agricultural market baskets are available on the
+Overview
+page with the archived data table.
+In 2025, ERS replaced its data series for butter. In 2018, BLS began to report national-average retail prices for stick butter. ERS adopted this new series for estimating the farm share of retail butter prices once a sufficiently long time series of data was available—making the new series consistent with statistics for whole milk, Cheddar cheese, and ice cream—which also rely on BLS average retail price data.
+In 2012 and 2013, ERS replaced its data series for whole milk, Cheddar cheese, ice cream, and butter. USDA, AMS ceased to report data on over-order payments. New data series for these four individual dairy products that do not account for over-order payments were launched.
+Fresh Fruit
+In 2025, ERS replaced all data series for individual fresh fruit with new series for apples, oranges, peaches, grapes, grapefruit, and strawberries. The six new series use national-average retail prices estimates, based on Circana OmniMarket Core Outlets data. The prior data series for individual fresh fruit relied on BLS-reported monthly, national average prices. However, BLS had stopped reporting prices for several key fresh fruit, including apples and grapes.
+In 2021, ERS replaced its market basket data series for fresh fruit, based on what U.S. households purchased between 1999 and 2003, with a new series based on what the households bought in 2018. The new basket information adds blueberries but contains comparatively less grapefruit than its predecessor. The same conversion factors were used to calculate the contents of both agricultural baskets. The contents of the archived retail and agricultural market baskets are available on the
+Overview
+page with the archived data table.
+Fresh Vegetables
+In 2025, ERS replaced all data series for individual fresh vegetables, with new series information for broccoli, carrots, iceberg lettuce, potatoes, tomatoes, romaine lettuce. The six new series use national-average retail prices estimates, based on OmniMarket Core Outlets. The prior data series for individual fresh vegetables relied on BLS-reported monthly, national average prices. However, BLS had stopped reporting prices for broccoli.
+In 2021, ERS replaced its market basket data series for fresh vegetables, based on what U.S. households purchased between 1999 and 2003, with a new series based on what the households bought in 2018. The new basket information contains comparatively less potatoes and less iceberg lettuce but more tomatoes than its predecessor. The same conversion factors were used to calculate the contents of both agricultural baskets. The contents of the archived retail and agricultural market baskets are available on the
+Overview
+page, with the archived data table.
+Field Crops
+In 2012, ERS replaced its data series for stick margarine with one for vegetable (soybean) oil.
+In 2025, ERS revised its data series for vegetable (soybean) oil to use annual, national-average prices based on Circana OmniMarket Core Outlets, instead of Circana-provided household scanner data.
+Processed Fruits and Vegetables
+In 2025, ERS discontinued reporting statistics for frozen concentrated orange juice.
+Limitations
+Price Spreads information from Farm to Consumer has some limitations:
+Prices used to calculate statistics are annual, national averages and do not represent the prices a consumer would pay or a farmer would receive in a given locality, at a certain time, or for a specific brand and package size of the food item.
+Conversion factors used to calculate statistics are broad assumptions about how products are made. The factors do not necessarily apply in all cases.
+Many of the farm and retail price data used to calculate statistics do not include accuracy measures. ERS is unable to provide confidence intervals for these statistics.
+Related Data
+Meat Price Spreads
+– ERS measures price spreads for meat, pork, poultry, broilers, turkeys, and eggs.
+Food Dollar Series
+– ERS measures annual expenditures by U.S. consumers on domestically produced food. This data product includes three primary series that describe different aspects of the food supply chain—the marketing bill, the industry group bill, and the primary factors bill. Marketing bill data, for example, show how many cents farm establishments receive for each dollar spent on food at home and each dollar spent on food away from home. Food-at-home dollars include purchases from outlets such as grocery stores, supermarkets, and wholesale clubs of food meant to be prepared at home. Food-away-from-home dollars cover food purchases at restaurants, including delivery and carryout, and other venues where the food is eaten on the premises.
+Recommended Citation
+U.S. Department of Agriculture, Economic Research Service.
+Price spreads from farm to consumer
+.
+We’d welcome your feedback!
+Would you be willing to answer a few quick questions about your experience?
+Yes, I’ll give feedback
+Return to top
+ERS Links
+Accessibility
+Careers
+Contact Us
+Help
+Information Quality
+Privacy Policy
+Site Map
+USDA Links
+FOIA
+Non-Discrimination Statement
+Plain Writing
+Report Fraud
+USDA.gov
+USA.gov
+White House.gov
+ERS E-newsletters
+Subscribe
+Economic Research Service

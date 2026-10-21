@@ -1,0 +1,14 @@
+{
+  "file": "un-comtrade-quantity-units.json",
+  "url": "https://comtradeapi.un.org/files/v1/app/reference/QuantityUnits.json",
+  "publisher": "United Nations Statistics Division",
+  "retrievedAt": "2026-10-21T03:15:00.051739+00:00",
+  "method": "official",
+  "status": "downloaded",
+  "httpStatus": 200,
+  "finalUrl": "https://comtradeapi.un.org/files/v1/app/reference/QuantityUnits.json",
+  "bytes": 4579,
+  "sha256": "420267929eac391e9dcd97d18252a2aee9bff2a86c3e2162d1ec57ef53811c24",
+  "contentType": "application/json",
+  "recordCount": 41
+}

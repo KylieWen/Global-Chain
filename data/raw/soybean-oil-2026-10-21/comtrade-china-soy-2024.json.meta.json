@@ -1,0 +1,14 @@
+{
+  "file": "comtrade-china-soy-2024.json",
+  "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0%2C76%2C842&cmdCode=150710%2C150790%2C120190%2C230400&flowCode=M%2CX&period=2024&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+  "publisher": "United Nations Statistics Division",
+  "retrievedAt": "2026-10-21T03:18:48.784571+00:00",
+  "method": "official",
+  "status": "downloaded",
+  "httpStatus": 200,
+  "finalUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0%2C76%2C842&cmdCode=150710%2C150790%2C120190%2C230400&flowCode=M%2CX&period=2024&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+  "bytes": 15534,
+  "sha256": "cd19d0517f15987ac53805afe1eea0783cc5bd8eb7c3fa4de6b55de94f146472",
+  "contentType": "application/json; charset=utf-8",
+  "recordCount": 17
+}

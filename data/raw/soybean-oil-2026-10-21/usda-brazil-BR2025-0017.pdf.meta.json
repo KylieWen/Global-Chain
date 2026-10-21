@@ -1,0 +1,13 @@
+{
+  "file": "usda-brazil-BR2025-0017.pdf",
+  "url": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Oilseeds+and+Products+Update_Brasilia_Brazil_BR2025-0017.pdf",
+  "publisher": "USDA Foreign Agricultural Service",
+  "retrievedAt": "2026-10-21T03:18:56.198828+00:00",
+  "method": "official",
+  "status": "downloaded",
+  "httpStatus": 200,
+  "finalUrl": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Oilseeds+and+Products+Update_Brasilia_Brazil_BR2025-0017.pdf",
+  "bytes": 918229,
+  "sha256": "91107110bccf1c120bc6d0c491fb51f97e351b3c4c7c2d6994e7935f893ee3ce",
+  "contentType": "application/pdf"
+}

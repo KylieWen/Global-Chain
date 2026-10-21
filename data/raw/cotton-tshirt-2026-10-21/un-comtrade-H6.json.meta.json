@@ -1,0 +1,14 @@
+{
+  "file": "un-comtrade-H6.json",
+  "url": "https://comtradeapi.un.org/files/v1/app/reference/H6.json",
+  "publisher": "United Nations Statistics Division",
+  "retrievedAt": "2026-10-21T03:14:56.016021+00:00",
+  "method": "official",
+  "status": "downloaded",
+  "httpStatus": 200,
+  "finalUrl": "https://comtradeapi.un.org/files/v1/app/reference/H6.json",
+  "bytes": 1750838,
+  "sha256": "e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15",
+  "contentType": "application/json",
+  "recordCount": 6940
+}

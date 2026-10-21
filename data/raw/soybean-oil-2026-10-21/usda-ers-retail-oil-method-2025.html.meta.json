@@ -1,0 +1,13 @@
+{
+  "file": "usda-ers-retail-oil-method-2025.html",
+  "url": "https://www.ers.usda.gov/data-products/price-spreads-from-farm-to-consumer/documentation",
+  "publisher": "USDA Economic Research Service",
+  "retrievedAt": "2026-10-21T03:19:01.066026+00:00",
+  "method": "official",
+  "status": "downloaded",
+  "httpStatus": 200,
+  "finalUrl": "https://www.ers.usda.gov/data-products/price-spreads-from-farm-to-consumer/documentation",
+  "bytes": 135312,
+  "sha256": "907833ec4d0b72d32f7e1e26218d05b935f11bf67646af991aeefb2477b7ac6e",
+  "contentType": "text/html; charset=utf-8"
+}

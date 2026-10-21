@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+<noscript><style>form.antibot > * { display: none !important; } form.antibot noscript { display: block !important; }</style>
+</noscript><meta name="description" content="Documentation provides the methodology behind ERS&#039;s estimates of farm-to-consumer price spreads, looking at how ERS calculates market basket statistics and the farm share for individual foods as well as conversion factors for calculating farm share statistics." />
+<link rel="canonical" href="http://www.ers.usda.gov/data-products/price-spreads-from-farm-to-consumer/documentation" />
+<meta name="Generator" content="Drupal 11 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="google-site-verification" content="gWMZ-j8KBKzSJytO2xaxEcmizd4UT6Ng04GlyACWD-c" />
+<link rel="icon" href="/themes/custom/uswds_ers/favicon.ico" type="image/vnd.microsoft.icon" />
+
+  <title>Price Spreads from Farm to Consumer - Documentation | Economic Research Service</title>
+  <link rel="stylesheet" media="all" href="/core/modules/system/css/components/align.module.css?tn04dr" />
+<link rel="stylesheet" media="all" href="/core/modules/system/css/components/container-inline.module.css?tn04dr" />
+<link rel="stylesheet" media="all" href="/core/modules/system/css/components/clearfix.module.css?tn04dr" />
+<link rel="stylesheet" media="all" href="/core/modules/system/css/components/hidden.module.css?tn04dr" />
+<link rel="stylesheet" media="all" href="/core/modules/system/css/components/js.module.css?tn04dr" />
+<link rel="stylesheet" media="all" href="/themes/custom/uswds_ers/package/dist/css/uswds.css?tn04dr" />
+<link rel="stylesheet" media="all" href="/themes/custom/uswds_ers/assets/stylesheets/custom.css?tn04dr" />
+
+  <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/3967","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"dataLayer":{"page":{"nid":"3967","chartId":"","pubId":"","title":"Price Spreads from Farm to Consumer - Documentation","date":"2025-05-20","type":"Basic Page","series":"","authors":["Jeffrey Hyman","Hayden Stewart"],"division":"FED","breadcrumbs":["Data Products","Price Spreads from Farm to Consumer","Documentation"],"pageName":"","siteSectionSecondLevel":"","siteSectionThirdLevel":"","siteSectionFourthLevel":""}},"csp":{"nonce":"X1xkx31K6KzMldeEAJU3GA"},"user":{"uid":0,"permissionsHash":"6098fea00c5b73e7308eddae5d9abb80b7227c6555765be781c5aa4f4d699378"}}</script>
+<script src="/core/assets/vendor/once/once.min.js?v=1.0.1"></script>
+<script src="/core/misc/drupalSettingsLoader.js?v=11.4.10"></script>
+<script src="/core/misc/drupal.js?v=11.4.10"></script>
+<script src="/core/misc/drupal.init.js?v=11.4.10"></script>
+<script src="/modules/custom/ers_blocks/js/AppMeasurement.js?v=2.26.0.3"></script>
+<script src="/modules/custom/ers_blocks/js/VisitorAPI.js?v=5.5.0.1"></script>
+<script src="/modules/custom/ers_blocks/js/adobeAnalyticsUsdaErs.js?v=1.0.2"></script>
+<script src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=USDA&amp;subagency=ERS" async id="_fed_an_ua_tag"></script>
+<script src="/modules/custom/ers_blocks/js/google_analytics_ers.js?v=1.0.1"></script>
+
+    <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MK4SCKB6');</script>
+  <!-- End Google Tag Manager -->
+  </head>
+<body>
+<a href="#main-content" class="usa-sr-only focusable">
+  Skip to main content
+</a>
+
+  <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+<!-- Skip link -->
+<a class="usa-skipnav" href="#main-content">Skip to main content</a>
+
+<!-- Official Website Banner -->
+<section class="usa-banner" aria-label="Official website of the United States government">
+	<div class="usa-accordion">
+		<header class="usa-banner__header">
+			<div class="usa-banner__inner">
+				<div class="grid-col-auto">
+					<img aria-hidden="true" class="usa-banner__header-flag" src="/themes/custom/uswds_ers/package/dist/img//us_flag_small.png" alt="" />
+				</div>
+				<div class="grid-col-fill tablet:grid-col-auto" aria-hidden="true">
+					<p class="usa-banner__header-text"> An official website of the United States government </p>
+					<p class="usa-banner__header-action">Here’s how you know</p>
+				</div>
+				<button type="button" class="usa-accordion__button usa-banner__button" aria-expanded="false" aria-controls="gov-banner-default-default">
+					<span class="usa-banner__button-text">Here’s how you know</span>
+				</button>
+			</div>
+		</header>
+		<div class="usa-banner__content usa-accordion__content" id="gov-banner-default-default">
+			<div class="grid-row grid-gap-lg">
+				<div class="usa-banner__guidance tablet:grid-col-6">
+					<img class="usa-banner__icon usa-media-block__img" src="/themes/custom/uswds_ers/package/dist/img//icon-dot-gov.svg" role="img" alt="" aria-hidden="true" />
+					<div class="usa-media-block__body">
+						<p>
+							<strong>Official websites use .gov</strong>
+							<br />A <strong>.gov</strong> website belongs to an official government organization in the United States.
+						</p>
+					</div>
+				</div>
+				<div class="usa-banner__guidance tablet:grid-col-6">
+					<img class="usa-banner__icon usa-media-block__img" src="/themes/custom/uswds_ers/package/dist/img//icon-https.svg" role="img" alt="" aria-hidden="true" />
+					<div class="usa-media-block__body">
+						<p>
+							<strong>Secure .gov websites use HTTPS</strong>
+							<br />A <strong>lock</strong> ( <span class="icon-lock">
+								<svg xmlns="http://www.w3.org/2000/svg" width="52" height="64" viewBox="0 0 52 64" class="usa-banner__lock-image" role="img" aria-labelledby="banner-lock-description-default" focusable="false">
+									<title id="banner-lock-title-default">Lock</title>
+									<desc id="banner-lock-description-default">Locked padlock icon</desc>
+									<path fill="#000000" fill-rule="evenodd" d="M26 0c10.493 0 19 8.507 19 19v9h3a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V32a4 4 0 0 1 4-4h3v-9C7 8.507 15.507 0 26 0zm0 8c-5.979 0-10.843 4.77-10.996 10.712L15 19v9h22v-9c0-6.075-4.925-11-11-11z" />
+								</svg>
+							</span>) or <strong>https://</strong> means you’ve safely connected to the .gov website. Share sensitive information only on official, secure websites.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Site alert -->
+	<section id="site-alert">
+		
+	</section>
+
+<!-- Overlay -->
+<div class="usa-overlay"></div>
+
+<!-- Header & Navigation -->	
+<header class="usa-header usa-header--extended">
+	<div class="usa-navbar">
+		<div class="usa-logo" id="logo">
+			<a href="/">
+				<div class="grid-row flex-align-center grid-gap-1 desktop:grid-gap-2">
+					<div class="grid-col-auto">
+						<img class="width-6 tablet:width-7 desktop:width-8" src="/themes/custom/uswds_ers/logo.svg" alt="U.S. Department of Agriculture logo">
+					</div>
+					<div class="grid-col-fill">
+						<em class="usa-logo__text margin-bottom-05 font-sans-sm tablet:font-sans-md desktop:font-sans-lg">Economic Research Service</em>
+						<span class="font-sans-3xs tablet:font-sans-2xs desktop:font-sans-xs display-block">U.S. DEPARTMENT OF AGRICULTURE</span>
+					</div>
+				</div>
+			</a>
+		</div>
+		<button type="button" class="usa-menu-btn">Menu</button>
+	</div>
+	<nav aria-label="Primary navigation" class="usa-nav">
+		<div class="usa-nav__inner">
+			<button type="button" class="usa-nav__close">
+				<img src="/themes/custom/uswds_ers/package/dist/img//usa-icons/close.svg" role="img" alt="">
+			</button>
+			<ul class="usa-nav__primary usa-accordion">
+									<li class="usa-nav__primary-item">
+						<a href="/topics" class="usa-nav__link simple-link">Topics</a>
+					</li>
+																					<li class="usa-nav__primary-item">
+						<button type="button" class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="extended-mega-nav-section-2">
+							<span>Data</span>
+						</button>
+						<div id="extended-mega-nav-section-2" class="usa-nav__submenu usa-megamenu" hidden="">
+							<div class="grid-row grid-gap-4">
+								<div class="usa-col">
+									  <div>
+    
+
+<div  id="block-navdatacolumn1" class="block block-block-content block-block-content6dbf8ad9-725a-4bf7-a060-c8d76690c5b7">
+	
+						<p class="hide-mobile hide-tablet margin-top-1 margin-bottom-0 font-sans-xl text-bold text-primary-dark">Access the Data</p>
+							<p class="hide-mobile hide-tablet line-height-sans-3">Access and analyze data sets, maps, charts and graphs.</p>
+							<a href="/data-products" class="usa-button margin-top-2 desktop:margin-top-0">Browse All Data</a>
+			</div>
+  </div>
+
+								</div>
+								<div class="usa-col">
+									  <div>
+    
+
+<ul  id="block-navdatacolumn2" class="usa-nav__submenu-list block block-block-content block-block-contenta6258f45-9115-46d5-8c89-26b57c9843bd">
+	
+						<li class="usa-nav__submenu-item desktop:border-bottom">
+				<p class="desktop:margin-bottom-1 text-bold font-sans-sm">Data by Type</p>
+				<p class="hide-mobile hide-tablet margin-top-0 font-sans-3xs line-height-sans-3">Access the Data</p>
+			</li>
+																																																																																						<li class="usa-nav__submenu-item">
+					<a href="/data-products?type=charts">Charts</a>
+				</li>
+												<li class="usa-nav__submenu-item">
+					<a href="/data-products?type=downloadable-data-files">Downloadable Data Files</a>
+				</li>
+												<li class="usa-nav__submenu-item">
+					<a href="/data-products?type=queryable-data-applications">Queryable Data Applications</a>
+				</li>
+												<li class="usa-nav__submenu-item">
+					<a href="/data-products?type=maps">Maps</a>
+				</li>
+																</ul>
+  </div>
+
+								</div>
+								<div class="usa-col">
+									  <div>
+    
+
+<ul  id="block-navdatacolumn3" class="usa-nav__submenu-list block block-block-content block-block-content1f045922-8309-408f-b4be-bac727e100ee">
+	
+						<li class="usa-nav__submenu-item desktop:border-bottom">
+				<p class="desktop:margin-bottom-1 text-bold font-sans-sm">Data by Topic</p>
+				<p class="hide-mobile hide-tablet margin-top-0 font-sans-3xs line-height-sans-3">Explore the Data Repository</p>
+			</li>
+																																																																																						<li class="usa-nav__submenu-item">
+					<a href="/data-products?topic=animal-products">Animal Products</a>
+				</li>
+												<li class="usa-nav__submenu-item">
+					<a href="/data-products?topic=crops">Crops</a>
+				</li>
+												<li class="usa-nav__submenu-item">
+					<a href="/data-products?topic=farm-bill">Farm Bill</a>
+				</li>
+												<li class="usa-nav__submenu-item">
+					<a href="/data-products?topic=farm-economy">Farm Economy</a>
+				</li>
+												<li class="usa-nav__submenu-item">
+					<a href="/data-products?topic=farm-practices-management">Farm Practices &amp; Management</a>
+				</li>
+												<li class="usa-nav__submenu-item">
+					<a href="/data-products?topic=food-nutrition-assistance">Food &amp; Nutrition Assistance</a>
+				</li>
+												<li class="usa-nav__submenu-item">
+					<a href="/data-products?topic=food-choices-health">Food Choices &amp; Health</a>
+				</li>
+												<li class="usa-nav__submenu-item">
+					<a href="/data-products?topic=food-markets-prices">Food Markets &amp; Prices</a>
+				</li>
+												<li class="usa-nav__submenu-item">
+					<a href="/data-products?topic=food-safety">Food Safety</a>
+				</li>
+												<li class="usa-nav__submenu-item">
+					<a href="/data-products?topic=international-markets-us-trade">International Markets &amp; U.S. Trade</a>
+				</li>
+												<li class="usa-nav__submenu-item">
+					<a href="/data-products?topic=natural-resources-environment">Natural Resources &amp; Environment</a>
+				</li>
+												<li class="usa-nav__submenu-item">
+					<a href="/data-products?topic=rural-economy-population">Rural Economy &amp; Population</a>
+				</li>
+																</ul>
+  </div>
+
+								</div>
+								<div class="usa-col">
+									
+								</div>
+							</div>
+						</div>
+					</li>
+																	<li class="usa-nav__primary-item">
+						<button type="button" class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="extended-mega-nav-section-3">
+							<span>Analysis</span>
+						</button>
+						<div id="extended-mega-nav-section-3" class="usa-nav__submenu usa-megamenu" hidden="">
+							<div class="grid-row grid-gap-4">
+								<div class="usa-col">
+									  <div>
+    
+
+<div  id="block-navanalysiscolumn1" class="block block-block-content block-block-content527ff1ec-28bc-4743-9a72-47e9278baf50">
+	
+						<p class="hide-mobile hide-tablet margin-top-1 margin-bottom-0 font-sans-xl text-bold text-primary-dark">Understand the Research</p>
+							<p class="hide-mobile hide-tablet line-height-sans-3">Get insights and objective analysis from experts in the field.</p>
+							<a href="/publications" class="usa-button margin-top-2 desktop:margin-top-0">Browse All Analysis</a>
+			</div>
+  </div>
+
+								</div>
+								<div class="usa-col">
+									  <div>
+    
+
+<ul  id="block-navanalysiscolumn2" class="usa-nav__submenu-list block block-block-content block-block-content7b2f9f6c-f2fe-4753-b31b-4745e75857fd">
+	
+																																																																																													<li class="usa-nav__submenu-item desktop:border-left-05 desktop:border-primary-dark">
+					<a href="/publications?series=research-reports" class="desktop:margin-bottom-1" >
+													<span class="display-block text-bold font-sans-sm">Research Reports</span>
+																			<span class="display-block hide-mobile hide-tablet font-sans-3xs">Published Papers from ERS</span>
+											</a>
+				</li>
+																				<li class="usa-nav__submenu-item desktop:border-left-05 desktop:border-primary-dark">
+					<a href="/publications?series=outlook-reports" class="desktop:margin-bottom-1" >
+													<span class="display-block text-bold font-sans-sm">Outlook Reports</span>
+																			<span class="display-block hide-mobile hide-tablet font-sans-3xs">Agricultural Outlooks and Projections</span>
+											</a>
+				</li>
+																</ul>
+  </div>
+
+								</div>
+								<div class="usa-col">
+									  <div>
+    
+
+<ul  id="block-navanalysiscolumn3" class="usa-nav__submenu-list block block-block-content block-block-content25ac9f29-ebd7-4817-a39f-1f0ec033f7e5">
+	
+																																																																																													<li class="usa-nav__submenu-item desktop:border-left-05 desktop:border-primary-dark">
+					<a href="/amber-waves" class="desktop:margin-bottom-1" >
+													<span class="display-block text-bold font-sans-sm">Amber Waves</span>
+																			<span class="display-block hide-mobile hide-tablet font-sans-3xs">The Economics of Food, Farming, Natural Resources, and Rural Amer…</span>
+											</a>
+				</li>
+																				<li class="usa-nav__submenu-item desktop:border-left-05 desktop:border-primary-dark">
+					<a href="/data-products/charts-of-note" class="desktop:margin-bottom-1" >
+													<span class="display-block text-bold font-sans-sm">Charts of Note</span>
+																			<span class="display-block hide-mobile hide-tablet font-sans-3xs">Fast facts on U.S. agriculture</span>
+											</a>
+				</li>
+																</ul>
+  </div>
+
+								</div>
+								<div class="usa-col">
+									
+								</div>
+							</div>
+						</div>
+					</li>
+																	<li class="usa-nav__primary-item">
+						<button type="button" class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="extended-mega-nav-section-4">
+							<span>Newsroom</span>
+						</button>
+						<div id="extended-mega-nav-section-4" class="usa-nav__submenu usa-megamenu" hidden="">
+							<div class="grid-row grid-gap-4">
+								<div class="usa-col">
+									  <div>
+    
+
+<div  id="block-navnewsroomcolumn1" class="block block-block-content block-block-contentde5cb6af-9c19-490e-8175-c54d1ed8cf62">
+	
+						<p class="hide-mobile hide-tablet margin-top-1 margin-bottom-0 font-sans-xl text-bold text-primary-dark">Newsroom</p>
+							<p class="hide-mobile hide-tablet line-height-sans-3">See what&#039;s new and what&#039;s trending from ERS.</p>
+							<a href="/newsroom" class="usa-button margin-top-2 desktop:margin-top-0">Visit the Newsroom</a>
+			</div>
+  </div>
+
+								</div>
+								<div class="usa-col">
+									  <div>
+    
+
+<ul  id="block-navnewsroomcolumn2" class="usa-nav__submenu-list block block-block-content block-block-contenta63a75ba-34d2-41c6-a3bf-b2bd78a408f3">
+	
+																																																																																													<li class="usa-nav__submenu-item desktop:border-left-05 desktop:border-primary-dark">
+					<a href="/newsroom/events" class="desktop:margin-bottom-1" >
+													<span class="display-block text-bold font-sans-sm">Events</span>
+																	</a>
+				</li>
+																				<li class="usa-nav__submenu-item desktop:border-left-05 desktop:border-primary-dark">
+					<a href="/newsroom/trending-topics" class="desktop:margin-bottom-1" >
+													<span class="display-block text-bold font-sans-sm">Trending Topics</span>
+																	</a>
+				</li>
+																				<li class="usa-nav__submenu-item desktop:border-left-05 desktop:border-primary-dark">
+					<a href="/newsroom/contact-ers-press-office" class="desktop:margin-bottom-1" >
+													<span class="display-block text-bold font-sans-sm">Contact ERS Press Office</span>
+																	</a>
+				</li>
+																</ul>
+  </div>
+
+								</div>
+								<div class="usa-col">
+									  <div>
+    
+
+<ul  id="block-navnewsroomcolumn3" class="usa-nav__submenu-list block block-block-content block-block-content13c6d10a-517b-44e4-8ddf-b1ad696370f2">
+	
+																																																																																													<li class="usa-nav__submenu-item desktop:border-left-05 desktop:border-primary-dark">
+					<a href="/subject-specialists" class="desktop:margin-bottom-1" >
+													<span class="display-block text-bold font-sans-sm">Subject Specialists</span>
+																	</a>
+				</li>
+																</ul>
+  </div>
+
+								</div>
+								<div class="usa-col">
+									
+								</div>
+							</div>
+						</div>
+					</li>
+													<li class="usa-nav__primary-item">
+						<a href="/amber-waves" class="usa-nav__link simple-link">Amber Waves</a>
+					</li>
+							</ul>
+			<div class="usa-nav__secondary">
+				  <div>
+    
+
+<ul  id="block-navsecondarylinks" class="usa-nav__secondary-links block block-block-content block-block-content3edf4787-d591-4248-a272-95444cfb5711">
+	
+																																																																																																																								<li class="usa-nav__secondary-item">
+						<a href="/calendar">Calendar</a>
+					</li>
+																<li class="usa-nav__secondary-item">
+						<a href="/about-ers">About</a>
+					</li>
+																<li class="usa-nav__secondary-item">
+						<a href="/about-ers/careers-at-ers">Careers</a>
+					</li>
+																<li class="usa-nav__secondary-item">
+						<a href="/contact-us">Contact Us</a>
+					</li>
+																								</ul>
+  </div>
+
+				<section aria-label="Search component">
+					<form class="usa-search usa-search--small " role="search" method="GET" action="https://search.ers.usda.gov/search">
+						<input name="affiliate" type="hidden" value="ers" aria-hidden="true">
+						<label class="usa-sr-only" for="search-field">Search</label>
+						<input class="usa-input" id="search-field" type="search" name="query">
+						<button class="usa-button" type="submit">
+							<img src="/themes/custom/uswds_ers/package/dist/img//usa-icons-bg/search--white.svg" class="usa-search__submit-icon" alt="Search">
+						</button>
+					</form>
+				</section>
+			</div>
+		</div>
+	</nav>
+</header>
+
+<!-- Main content -->
+<main id="main-content">
+
+	<!-- Highlighted -->
+						<div class="grid-container-desktop-lg">
+				<div data-drupal-messages-fallback class="hidden"></div>
+
+
+			</div>
+			
+	<!-- Help -->
+						<div class="grid-container-desktop-lg">
+				
+			</div>
+			
+	<!-- Breadcrumbs -->
+						<section id="breadcrumbs" class="grid-container-desktop-lg">
+				  <div>
+    <div id="block-uswds-ers-breadcrumbs" class="block block-system block-system-breadcrumb-block">
+  
+    
+          <nav class="usa-breadcrumb" role="navigation" aria-labelledby="system-breadcrumb">
+        <h2 id="system-breadcrumb" class="usa-sr-only">Breadcrumb</h2>
+        <ol class="usa-breadcrumb__list">
+                            <li class="usa-breadcrumb__list-item">
+                                            <a href="/" class="usa-breadcrumb__link"><span>Home</span></a>
+                                    </li>
+                            <li class="usa-breadcrumb__list-item">
+                                            <a href="/data-products" class="usa-breadcrumb__link"><span>Data Products</span></a>
+                                    </li>
+                            <li class="usa-breadcrumb__list-item">
+                                            <a href="/data-products/price-spreads-from-farm-to-consumer" class="usa-breadcrumb__link"><span>Price Spreads from Farm to Consumer</span></a>
+                                    </li>
+                            <li class="usa-breadcrumb__list-item">
+                                            <span>Documentation</span>
+                                    </li>
+                    </ol>
+    </nav>
+
+  </div>
+
+  </div>
+
+			</section>
+			
+	<!-- Hero full width -->
+			<div id="hero">
+			  <div>
+    
+
+<div  id="block-hero-default" class="padding-y-5 margin-bottom-4 bg-primary-darker text-white block block-ers-blocks block-hero-default">
+	
+			<div class="grid-container-desktop-lg">
+			<!-- h1 -->
+			<h1 class="desktop:font-heading-2xl section-heading-gold margin-top-0">Price Spreads from Farm to Consumer - Documentation</h1>
+
+			<!-- Page Info -->
+			<ul id="pageInfo" class="usa-list usa-list--unstyled padding-top-1" aria-label="More information">
+				<li class="tablet:display-inline margin-right-2"><strong>Updated:</strong> 5/20/2025</li>
+				<li class="tablet:display-inline"><strong>Contact:</strong>
+																																			<a class="text-white" href="/authors/ers-staff-directory/jeffrey-hyman">Jeffrey Hyman</a>																																													or <a class="text-white" href="/authors/ers-staff-directory/hayden-stewart">Hayden Stewart</a>																														</li>
+			</ul>
+		</div>
+	</div>
+  </div>
+
+		</div>
+	
+	<!-- Content full width -->
+	
+	<!-- Content grid container -->
+	
+	<!-- Sidebar and Content -->
+			<div class="grid-container-desktop-lg">
+			<div class="grid-row grid-gap-3">
+
+				<!-- Left Column -->
+									<div class="desktop:grid-col-3">
+																		<div class="usa-accordion top-1 margin-bottom-3">
+							<div class="usa-accordion__heading"><button type="button" class="usa-accordion__button" aria-expanded="true" aria-controls="sectionNavigation">In this section</button></div>
+							<div id="sectionNavigation" class="usa-accordion__content padding-x-1">
+								<nav class="margin-top-4" aria-label="Secondary navigation">
+									  
+
+  
+      <ul class="usa-sidenav">
+              
+                          
+                          
+        
+                          
+        <li class="usa-sidenav__item expanded dropdown active active-trail first last">
+          <a href="/data-products/price-spreads-from-farm-to-consumer" class="link usa-current" data-drupal-link-system-path="node/3779">Price Spreads from Farm to Consumer</a>
+                        
+      <ul class="usa-sidenav__sublist">
+              
+                          
+                          
+        
+                          
+        <li class="usa-sidenav__item active active-trail first">
+          <a href="/data-products/price-spreads-from-farm-to-consumer/documentation" class="link usa-current is-active" data-drupal-link-system-path="node/3967" aria-current="page">Documentation</a>
+                  </li>
+              
+                          
+                          
+        
+        
+        <li class="usa-sidenav__item last">
+          <a href="/data-products/price-spreads-from-farm-to-consumer/highlights-and-interactive-charts" class="link" data-drupal-link-system-path="node/3916">Highlights and Interactive Charts</a>
+                  </li>
+          </ul>
+  
+                  </li>
+          </ul>
+  
+
+
+
+
+								</nav>
+							</div>
+						</div>
+											</div>
+				
+				<!-- Right Column -->
+				<div class="desktop:grid-col-fill">
+					    <div id="block-uswds-ers-content" class="block block-system block-system-main-block">
+  
+    
+      <article data-history-node-id="3967">
+
+  
+    
+
+  
+  <div>
+    
+	<div class="usa-prose">
+		<ul>
+<li><a href="#overview" class="usa-link">Overview</a></li>
+<li><a href="#coverage" class="usa-link">Scope/Coverage of Data</a></li>
+<li><a href="#sources" class="usa-link">Data Sources for Annual Updates</a></li>
+<li><a href="#methods" class="usa-link">Methods</a>
+<ul>
+<li><a href="#basket" class="usa-link">How ERS Calculates Market Basket Statistics</a></li>
+<li><a href="#foods" class="usa-link">How ERS Calculates Farm Share for Individual Foods</a></li>
+</ul>
+</li>
+<li><a href="#changes" class="usa-link">Data Changes</a></li>
+<li><a href="#limitations" class="usa-link">Limitations</a></li>
+<li><a href="#related" class="usa-link">Related Data</a></li>
+<li><a href="#citation" class="usa-link">Recommended Citation</a></li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>Price Spreads from Farm to Consumer compares retail food prices with the farm value of any agricultural commodities in those foods. Comparisons are made for specific food items—such as whole milk, orange juice, and sugar—as well as for commodity groups. For commodity groups, individual foods are combined into market baskets which contain a collection of foods representing what a U.S. household may buy at retail over 1 year.</p>
+<p>Food price spreads—the difference between a product’s retail and farm value—represent value added to agricultural commodities by marketers. Fresh fruit and vegetables (for example) are often sorted, washed, and sometimes trimmed and bagged. Products, such as cheese, are manufactured using milk and other ingredients. &nbsp; A related concept—the farm share of a retail price—is the ratio of a product’s farm value to its retail value.</p>
+<p>Calculating price spreads and the farm share of retail food prices requires: data on retail food prices, prices received by farmers, the value of any co-products, and conversion factors that specify the amounts of agricultural commodities used in production. For all-purpose white flour, for example, USDA, Economic Research Service (ERS) researchers assume that milling one pound of hard red winter wheat produces 0.73 pounds of this type of flour. The remaining wheat berry parts—including some germ, bran, and endosperm remnants—are a co-product and may be marketed separately from the flour. A co-product or byproduct is a secondary good derived from the manufacture of another good.</p>
+<p>Data for individual foods and market baskets are updated annually as the underlying data on retail prices, farm prices, and co-products values become available.</p>
+<h2 id="coverage">Scope/Coverage of Data</h2>
+<p>Price Spreads from Farm to Consumer uses U.S. annual, national-average prices to compare the value of foods at retail and on the farm. All data series extend 7 or more years, revealing both long-run trends and shorter-run fluctuations. Long-run trends in farm-to-consumer price spreads may reflect a variety of underlying economic conditions, such as advances in technology used to process and distribute food. However, commodity prices can also rise and fall each year with events—such as adverse weather—affecting farm prices and the farm share of retail food prices.</p>
+<h2 id="sources">Data Sources for Annual Updates</h2>
+<p>Circana – A panel of retail stores across the United States provides Circana with a record of their weekly food purchase transactions. This panel includes supercenters, club warehouses, grocery stores, supermarkets, convenience stores, and drugstores, among others. Information provided to Circana includes the physical quantity and dollar value of sales.</p>
+<p>U.S. Department of Labor, Bureau of Labor Statistics (BLS) – BLS publishes the Consumer Price Index (CPI). Each month, BLS collects prices in 75 urban areas across the country from about 6,000 housing units and approximately 22,000 retail establishments (department stores, supermarkets, hospitals, filling stations, and other types of stores and service establishments). The monthly CPI for all items is a measure of the average change over time in prices paid by urban consumers for a market basket of consumer goods and services. Component index series track consumer price changes for fresh fruit, fresh vegetables, dairy products, and other types of goods and services. With the release of the CPI each month, the BLS also publishes average retail prices for select utility, automotive fuel, and food items.</p>
+<p>The Florida Department of Citrus (FDOC) – The FDOC publishes data on retail sales and average retail prices for orange juice products.</p>
+<p>USDA – For farm and co-product prices, ERS relies primarily on data published by ERS and other USDA agencies such as the National Agricultural Statistics Service (NASS) and the Agricultural Marketing Service (AMS).</p>
+<p>Disclaimer: The findings in this data product or stated on this page should not be attributed to Circana, BLS, or the FDOC.</p>
+<table class="usa-table usa-table--stacked-header">
+<caption>Price Spreads from Farm to Consumer data sources by type of food</caption>
+<thead>
+<tr>
+<th scope="col">Type of food</th>
+<th scope="col">Retail price data</th>
+<th scope="col">Farm value data (primary product and co-products)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td scope="row">Milk and dairy basket</td>
+<td>BLS CPI</td>
+<td>USDA-AMS Dairy, USDA-NASS Agricultural Prices</td>
+</tr>
+<tr>
+<td scope="row">Whole milk, Cheddar cheese, ice cream, and butter</td>
+<td>BLS Average price data</td>
+<td>USDA-AMS Dairy</td>
+</tr>
+<tr>
+<td scope="row">Milk and dairy basket</td>
+<td>BLS CPI</td>
+<td>USDA-AMS Dairy, USDA-NASS Agricultural Prices</td>
+</tr>
+<tr>
+<td scope="row">Fresh fruit basket</td>
+<td>BLS CPI</td>
+<td>USDA-ERS Fruit and Tree Nuts Yearbook Tables</td>
+</tr>
+<tr>
+<td scope="row">Fresh apples, grapes, grapefruit, oranges, peaches, and strawberries</td>
+<td>Circana</td>
+<td>USDA-ERS Fruit and Tree Nuts Yearbook Tables</td>
+</tr>
+<tr>
+<td scope="row">Fresh vegetables basket</td>
+<td>BLS CPI</td>
+<td>USDA-ERS Vegetables and Pulses Yearbook Tables</td>
+</tr>
+<tr>
+<td scope="row">Fresh broccoli, carrots, iceberg lettuce, potatoes, romaine lettuce, and tomatoes</td>
+<td>Circana</td>
+<td>USDA-ERS Vegetables and Pulses Yearbook Tables</td>
+</tr>
+<tr>
+<td scope="row">Orange juice, not from concentrate</td>
+<td>FDOC</td>
+<td>USDA-ERS Fruit and Tree Nuts Yearbook Tables</td>
+</tr>
+<tr>
+<td scope="row">Flour, white, all-purpose</td>
+<td>BLS Average price data</td>
+<td>USDA-NASS Agricultural Prices, USDA-ERS Feed Grains Database</td>
+</tr>
+<tr>
+<td scope="row">White pan bread</td>
+<td>BLS Average price data</td>
+<td>USDA-NASS Agricultural Prices, USDA-ERS Feed Grains data base, USDA-ERS Oil Crops Yearbook, USDA-ERS Sugar and Sweeteners Yearbook Tables</td>
+</tr>
+<tr>
+<td scope="row">Vegetable (soybean) oil</td>
+<td>Circana</td>
+<td>USDA-NASS Agricultural Prices, USDA-ERS Oil Crops Yearbook</td>
+</tr>
+<tr>
+<td scope="row">Sugar, white</td>
+<td>BLS average price data</td>
+<td>USDA-ERS Sugar and Sweeteners Yearbook Tables</td>
+</tr>
+<tr>
+<td colspan="3" data-label="Footnote">BLS-CPI= U.S. Department of Labor, Bureau of Labor Statistics Consumer Price Index; USDA, AMS=U.S. Department of Agriculture, Agricultural Marketing Service; USDA, NASS=U.S. Department of Agriculture, National Agricultural Statistics Service; USDA, ERS=U.S. Department of Agriculture, Economic Research Service; FDOC=Florida Department of Citrus.&nbsp;<br>Source: USDA, Economic Research Service, Price Spreads from Farm to Consumer data product.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="methods">Methods</h2>
+<h3 id="basket">How ERS Calculates Market Basket Statistics</h3>
+<p>Retail food baskets are constructed to represent what U.S. households buy for at-home consumption over a 1-year period. ERS then determines the farm products required to produce the contents of the retail food baskets. For example, the consumer basket for dairy products contains certain quantities of milk, cheese, and other foods. The corresponding agricultural basket contains enough farm milk to produce all of these foods. Conversion factors are used to calculate farm quantities as well as co-product amounts.</p>
+<p>A formal equation for the farm share of a retail basket at time t, FS<sub>t</sub>, is: FS<sub>t</sub> = Q<sub>f</sub>'P<sub>ft</sub> / Q<sub>r</sub>'P<sub>rt</sub> where Q<sub>r</sub> is a vector of food quantities bought by households and P<sub>rt</sub> is a vector of unit retail prices for these same foods at time t. The arguments in the numerator include Q<sub>f</sub> which is also a vector of quantities. Q<sub>f</sub> includes the agricultural goods used to make the foods in Q<sub>r</sub> as well as any co-products. Agricultural inputs enter Q<sub>f</sub> as a positive number. Co-products enter as a negative number. P<sub>ft</sub> is a vector of unit prices for the agricultural goods and co-products in Q<sub>f</sub>.</p>
+<p>To facilitate the calculation of an annual data series, ERS fixes the contents of retail food baskets over relatively long periods of time. Estimates of farm share denote the proportion of the consumer's dollar earned by agriculture for a basket of foods representing what U.S. households bought at a specific period in time.</p>
+<p>In reporting annual estimates, ERS also assumes retail food baskets are similar to the foods <a href="https://www.bls.gov/cpi/" target="_blank" class="usa-link usa-link--external" rel="noopener noreferrer">BLS</a> prices for calculating the CPI (U.S. city-average series). The value of a retail basket in year t can then be approximated as the product of its base year value, Q<sub>r</sub>'P<sub>r0</sub>, and an adjustment factor to account for retail price inflation. This adjustment factor is the ratio of the CPI for the commodity in question at time t, CPI<sub>t</sub>, to the same CPI in the base year of the data series, CPI<sub>0</sub>. ERS uses the following formula to approximate the farm share of a retail basket:</p>
+<p>FS<sub>t</sub> = Q<sub>f</sub>'P<sub>ft</sub> / (Q<sub>r</sub>'P<sub>r0</sub>)(CPI<sub>t</sub> / CPI<sub>0</sub>)</p>
+<p>BLS publishes separate CPIs for major food groups. To estimate the farm share of fresh vegetables, for example, ERS uses the CPI for fresh vegetables. This approximation makes annual calculations more convenient to implement as researchers do not need to collect prices for individual foods at retail every year. Only the CPI for the food group is required to update the value of the retail basket.</p>
+<p>Once published, market basket statistics may be revised because:</p>
+<ul>
+<li>Updated estimates of average prices farmers receive for their commodities are available (these updates may be available as much as a year or two after preliminary figures).</li>
+<li>Conversion factors are adjusted. For example, improved efficiency in food packaging and shipping may reduce waste and spoilage. If so, members of the food marketing system could buy a smaller quantity from farmers to provide the same quantity at retail.</li>
+</ul>
+<p>ERS periodically updates the contents of its food market baskets, as conversion factors and U.S. households’ purchase patterns can change over time. In 2021, ERS introduced new market basket data series for fresh fruit and fresh vegetables. These series are based on what types of food U.S. households purchased in 2018. Similarly, in 2025, ERS replaced its market basket data series for dairy products. The current retail market basket for dairy products is based on what types of food U.S. households purchased in 2022. More information about these updates is available in the <a href="#changes" class="usa-link">Data Changes</a> section below. Discontinued market basket data series for fresh fruit, fresh vegetables, and dairy products are also available on the <a href="/data-products/price-spreads-from-farm-to-consumer" data-entity-type="node" data-entity-uuid="9a54dc01-8481-48ac-9518-8dfa5ab933a8" data-entity-substitution="canonical" title="Price Spreads from Farm to Consumer" class="usa-link">Overview</a> page among other “Archived Tables.”</p>
+<p>The following discussion focuses on ERS’ procedure for creating market baskets for <a href="#dairy" class="usa-link">dairy products</a>, <a href="#fruit" class="usa-link">fresh fruit</a>, and <a href="#fruit" class="usa-link">fresh vegetables</a>.</p>
+<h4 id="dairy">&nbsp;</h4>
+<h4 id="dairy">Dairy Products</h4>
+<p>ERS calculates the farm share as well as the farm-to-retail price spread for a basket of dairy products representing what U.S. households purchased in 2022 for at-home consumption. ERS provides estimates for each year since 2016.</p>
+<h5>Identifying a Retail and an Agricultural Basket</h5>
+<h6>Retail Food Basket</h6>
+<p>To identify the retail dairy basket, ERS begins with the diary portion of the Consumer Expenditure Survey (CE). This survey is produced by the U.S. Department of Labor, Bureau of Labor Statistics (BLS), and BLS uses the data to calculate expenditure weights for the Consumer Price Index (CPI). On average, households participating in the 2022 CE diary spent about $532 for dairy products over the course of the year. This includes spending on fluid milk as well as manufactured dairy products like cheese and ice cream.</p>
+<p>ERS next uses OmniMarket Core Outlets data from <a href="/node/3258#iri" class="usa-link">Circana </a>to divide the 2022 CE expenditures of $532.00 for dairy products across 11 foods: whole milk, reduced-fat milk, skim milk, processed cheese, cream cheese, cottage cheese, other natural cheeses, ice cream, butter, fluid cream, and yogurt. A panel of retail stores across the United States provides Circana with a record of weekly food purchase transactions, including data for specific types of dairy products. Information provided to Circana includes the physical quantity and dollar value of sales. In addition to sales shares, it is therefore possible to calculate a product’s average retail price as the ratio of the dollar value of sales across all stores to the physical quantity sold.</p>
+<p>Based on 2022 OmniMarket Core Outlets data, ERS allocated $210.67 of the $532.00 spent by CE diary households for dairy products to cheese (39.6 percent). This is because, as a single category, cheese represented 39.6 percent of the revenue stores garnered through the sale of all 11 dairy products. ERS then suballocated this money across four different representative cheese products. Processed cheese, for one, represented about 10.3 percent of the revenue OmniMarket Core Outlets stores garnered through the sale of cheese, so $21.67 (10.3 percent of $210.67) was suballocated to expenditures on processed cheese. Moreover, because processed cheese sold for about $4.43 per pound in 2022, it was inferred that a representative household bought 4.89 pounds ($21.67 / $4.43). Using the same procedure, it was also inferred that the same representative household bought 3.80 pounds of cream cheese, 4.85 pounds of cottage cheese, and 30.73 pounds of other natural cheese.</p>
+<p>Fluid milk products are the second largest category of foods in the retail dairy basket, after cheese products. ERS allocated $105.94 of the $532.00 to fluid milk products, as the products represented 19.9 percent of the revenue garnered by stores through the sale of all 11 products. This value was further divided among whole milk ($43.05), reduced-fat milk ($54.35), and skim milk ($8.53). Moreover, because skim milk sold for about $0.66 per pound in 2022, it was inferred that a representative household bought 13.01 pounds ($8.53 / $0.66). Using the same procedure, it was also inferred that the same representative household bought 64.56 pounds of whole milk and 85.42 pounds of reduced-fat milk. One gallon of milk weighs about 8.6 pounds.</p>
+<p>Finally, continuing the same procedures for the remaining four dairy products, ERS included 11.33 pounds of fluid cream, 44.22 pounds of ice cream, 6.63 pounds of butter, and 23.89 pounds of yogurt in the retail dairy basket.</p>
+<h6>Conversion Factors</h6>
+<p>Once the contents of the retail food basket are specified, ERS estimates the contents of a corresponding agricultural basket. How much raw farm milk would be needed to make the foods in the retail basket? To answer this question, several assumptions were made about the composition of farm milk as well as the characteristics of the retail products.</p>
+<p>It is assumed that marketers buy cow’s milk from dairy farmers to produce the contents of the retail basket. Cow’s milk is composed of water, milkfat (fat) solids, and nonfat (skim) solids. Skim solids include primarily lactose, minerals, and proteins (such as casein and whey). According to ERS Dairy Data, dairy farmers have been producing cow’s milk with more fat and skim solids in recent years. In 2000, U.S. farm milk averaged 3.68 percent fat and 8.72 percent skim solids. By the early 2020s, the fat percentage was nearly 4.2 and the skim solids percentage was about 9.</p>
+<p>Conversion factors specify the amount of fat and skim solids in each dairy food, which (in turn) makes it possible to calculate the amount of farm milk needed to make those products on both a milkfat and skim solids basis. The ERS Price Spreads from Farm to Consumer data product uses conversion factors from two publications:</p>
+<p><em>Weights, measures, and conversion factors for agricultural commodities and their products</em> (Agricultural Handbook No. 697). U.S. Department of Agriculture, Economics Research Service in cooperation with the Agricultural Marketing Service, the Agricultural Research Service, and the National Agricultural Statistics Service, 1992.</p>
+<p><em>Conversion factors and weights and measures for agricultural commodities and their products</em> (Statistical Bulletin No. 616). U.S. Department of Agriculture, Economics, Statistics, and Cooperatives Service, 1979.</p>
+<p>Below are the assumptions and conversion factors ERS utilizes to calculate the amount of cow’s milk purchased by marketers from farmers to produce the contents of the retail dairy food basket:</p>
+<ul>
+<li>Fluid milk is cow’s milk that has been processed for beverage use. Processors separate milk supplied by dairy farmers into a skim portion and a cream portion. Some cream may be added back to the skim portion to make fluid milk with the desired fat content. Whole milk is assumed to be, on average, 3.3 percent milkfat. It follows that one pound of whole milk includes the fat from 0.786 pounds of farm milk (0.033 / 0.042). Stores also sell a variety of reduced-fat milks, such as 1-percent and 2-percent. Reduced-fat milk in the retail basket is assumed to be 1.5 percent milk fat, on average, and include the fat from 0.357 pounds of farm milk (0.015 / 0.042). The basket’s skim milk is assumed to be 0.5 percent milkfat, on average, and include the fat from 0.119 pounds of farm milk (0.005 / 0.042). Skim solids account for 9 percent of all three types of fluid milk, on average, comparable to the amount of skim solids in farm milk.</li>
+<li>Regular yogurt is made by adding bacteria to heated low-fat milk. It may also be sweetened and flavored. Fat represents 1.66 percent of yogurt’s weight according to Statistical Bulletin No. 616. Making 1 pound of yogurt thus requires the fat from about 0.395 pounds of farm milk (0.0166 / 0.042). It also contains the &nbsp;skim solids from about 0.22 pounds of farm milk.</li>
+<li>Cream removed from raw milk may be used to produce fluid cream. There are many varieties of fluid cream defined according to fat content. Heavy cream is at least 36 percent fat. Half-and-half is between 10.5 and 18 percent fat. Fluid cream in the retail basket is assumed to have an average fat content of 20 percent.</li>
+<li>Ice cream is made by combining fluid milk and cream in a mix that may also include ingredients such as sugar, egg yolks, and stabilizers. After homogenization and pasteurization, the mix is cooled and flavorings can be added. Air is then incorporated into the mix during freezing, which results in the volume of ice cream exceeding the volume of the mix (known as overrun). Some amount of overrun is necessary for ice cream to have a soft texture as opposed to the solid texture of ice. Federal regulations require that ice cream weigh at least 4.5 pounds per gallon and have a minimum fat content of 10 percent. Popular products (including premium ice creams) can have less overrun and a higher fat content, such as 12 or 16 percent. The ice cream in the retail food basket is assumed to be regular ice cream sold in 1-half gallon containers that weigh 2.25 pounds each. Fat and skim solids respectively represent 12 percent and 10 percent of the product’s weight. It follows that the fat from 6.43 pounds (2.25 x (0.12 / 0.042)) of milk is included in the product. This same container of ice cream also includes the skim solids from 2.5 pounds (2.25 x (0.1 / 0.09)) of milk.</li>
+<li>Butter is made by churning fluid cream. Federal regulations require that butter have a minimum fat content of 80 percent, although creameries allow for a margin of error. Butter in the retail basket is assumed to have an average fat content of 80.3 percent. The fat from 19.12 pounds of farm milk is therefore needed to make one pound of butter (0.803 / 0.042). Skim solids represent only 1 percent of the weight of butter. The skim solids from 0.11 pounds of farm milk are therefore needed to make one pound of butter (0.01 / 0.09).</li>
+<li>Nonfat dry milk is produced by removing water from skim milk. This product is rich in protein and other skim solids which constitute 96.2 percent of the product's weight. One pound of nonfat dry milk contains the skim solids from 10.69 pounds of raw milk as sold by dairy farmers (0.962 / 0.09). By contrast, one pound of nonfat dry milk contains only 0.008 pounds of fat or, equivalently, the amount of fat in 0.19 pounds of farm milk (0.008 / 0.042).</li>
+<li>Cheese is made by curdling fluid milk. Curdling separates the milk into solid curds and liquid whey. Most of the fat remains in the solid curds which are then used to make cheese. Natural cheeses are often classified by moisture content, which relates to their hardness. The moisture content of Monterey is 44 percent. This type of cheese contains less fat per pound than harder cheeses (such as Cheddar and Colby) but Monterey has more fat per pound than softer cheeses, such as Muenster and Mozzarella. Fat solids from milk account for 28 percent of Monterey’s total weight. Skim solids account for the other 28 percent. One pound of Monterey therefore contains the fat from 6.67 pounds of farm milk (0.28 / 0.042) and the skim solids from 3.11 pounds of farm milk (0.28 / 0.09).</li>
+<li>Far less moisture is removed from cream cheese, a soft cheese that is not ripened. Moisture represents 51 percent of the weight of the cream cheese in the retail basket. Fat and skim solids represent 37 percent and 12 percent, respectively. It follows that 1 pound of this cream cheese contains the fat from 8.81 pounds of farm milk (0.37 / 0.042) and the skim solids from 1.33 pounds of farm milk (0.12 / 0.09).</li>
+<li>Moisture may account for up to 82.5 percent of the weight of low fat cottage cheese. Fat represents 2 percent and skim solids represent 15.5 percent of the weight of the cottage cheese in the retail basket. It follows that the fat from 0.476 pounds (0.02 / 0.042) of farm milk and the skim solids from 1.722 pounds (0.155 / 0.09) of farm milk are used to produce 1 pound of low fat cottage cheese.</li>
+<li>Processed cheeses can be made by blending different natural cheeses. American cheese, for example, is a mixture of Cheddar, Colby, and/or similar natural cheeses. Cheesemakers may also add emulsifiers that help the final product to melt evenly when heated as well as anhydrous milkfat, cream, salt, flavorings, and other ingredients. Federal standards distinguish between processed cheese, processed cheese food, and processed cheese spread—according to the amounts of natural cheese, fat, and moisture the cheeses contain. Processed cheese food has less fat than processed cheese on a per pound basis, but more than processed cheese spread, is included in the retail basket. Fat solids from milk account for 23 percent of the product’s total weight. Skim solids account for another 33 percent of the product’s total weight. The moisture content of processed cheese food is 44 percent. One pound of this product contains that the fat from 5.476 pounds (0.23 / 0.042) of farm milk and the skim solids from 3.667 pounds (0.33 / 0.09) of farm milk.</li>
+<li>When fluid milk is curdled to make cheese, it separates into solid curds and liquid whey. Whey is low in fat, but high in lactose, protein, vitamins, and some minerals. Water is removed to make dry whey (which is added to animal feeds, nutritional supplements, and infant formulas, among other products). Fat and skim solids represent 1.2 percent and 94.3 percent of the weight of dry whey. Thus, 1 pound of dry whey includes fat from 0.286 pounds of farm milk (0.012 / 0.042) and the skim solids from 10.478 pounds (0.943 / 0.09) of farm milk.</li>
+</ul>
+<p>Combining the amount of milkfat in all products in the food basket yields a basket containing fat from about 666.7 pounds of farm milk. To produce the retail basket, manufacturers and processors are assumed to source slightly more milk than the 666.7 pounds needed to supply the fat contained in this basket. This combined amount was inflated by 2.5 percent, and it was assumed that they purchased 683.8 pounds (666.7 / 0.975). The additional 2.5 percent of milk accounts for the likelihood that some milk is wasted as dairy products are processed, packaged, and transported.<br>The additional milk bought by processors and manufacturers is also needed to satisfy the small amount of milkfat contained in co-products.</p>
+<h6>Farm Value</h6>
+<p>Farm receipts are estimated as the product of farm prices and the quantity of milk bought by processors. The average price received by farmers for all milk is reported monthly in <a href="https://nass.usda.gov/" target="_blank" class="usa-link usa-link--external" rel="noopener noreferrer"><em>Agricultural Prices</em></a>, a publication of USDA's National Agricultural Statistics Service (NASS). ERS calculates a simple average of NASS's 12 monthly prices. In 2022, this average was $25.3417 per 100 pounds of milk. Estimated farm receipts are $173.287 (683.8 x $0.253417).</p>
+<p>ERS's retail basket, however, includes skim solids from only about 407.3 pounds of milk. It follows that skim solids from 259.4 pounds of milk (666.7 - 407.3) would remain for making co-products. Not all of these solids are likely to be wasted; most are used for producing other foods even though these foods are not included in the retail food basket. It was assumed that skim solids from about 140.5 pounds of farm milk are recovered from cheese production and used to make 13.4 pounds of dry whey. It is also assumed that the skim solids from about 118.9 pounds of farm milk are used to make 11.1 pounds of nonfat dry milk.</p>
+<p>The total value added to the 683.8 pounds of milk bought from farmers is the sum of the amount added to the parts consumed in producing the retail basket and the amount added to the parts consumed in making co-products. To compare the retail price of the food basket with the farm value of only the milk parts consumed in making it, the farm value of any co-products needs to be subtracted from farm receipts.</p>
+<p>ERS uses wholesale prices for dry whey and nonfat dry milk to place an initial value on the co-products. Monthly data published by <a href="https://www.ams.usda.gov/market-news/dairy" target="_blank" class="usa-link usa-link--external" rel="noopener noreferrer">USDA's Agricultural Marketing Service (AMS) Dairy</a> are used to calculate a simple average of the 12 months of prices for each co-product. In 2022, wholesale prices averaged $1.685 per pound for nonfat dry milk and $0.606 per pound for dry whey.</p>
+<p>Because wholesale prices include processing costs, these costs are subtracted from average wholesale prices to estimate the farm value of a pound of each co-product using data published by AMS. In 2022, per pound processing costs were $0.1678 for nonfat dry milk and $0.1991 for dry whey.</p>
+<p>The farm value of ERS's agricultural basket equals farm receipts less the farm value of co-products. For 2022, farm value is estimated to be: $150.955 or $173.287 total farm receipts less the value of dry whey co-product (= 13.4 pounds dry whey co-product x ($0.606 per pound wholesale cost &nbsp;- $0.1991 per pound processing cost) and less the value of nonfat dry milk co-product (=11.1 pounds nonfat dry milk x ($1.685 per pound wholesale cost - $0.1678 per pound processing cost). Farm value can then be compared with the $532 spent for the retail basket. The spread between farm and retail prices is $532 - $150.955 = $381.045, and farm share is (150.955 / 532) = 28.34 percent.</p>
+<table class="usa-table usa-table--stacked-header">
+<caption>Dairy foods: Contents of retail baskets, agricultural baskets, and co-products</caption>
+<thead>
+<tr>
+<th class="text-center" scope="col">Retail foods - product</th>
+<th class="text-center" scope="col">Retail foods - pounds</th>
+<th class="text-center" scope="col">Farm commodities - product</th>
+<th class="text-center" scope="col">Farm commodities - pounds</th>
+<th class="text-center" scope="col">Co-products - product</th>
+<th class="text-center" scope="col">Co-products - pounds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td scope="row" data-label="Retail foods - product">Butter</td>
+<td data-label="Retail foods - pounds">6.63</td>
+<td data-label="Farm commodities - product">Milk</td>
+<td data-label="Farm commodities - pounds">683.8</td>
+<td data-label="Coproducts - product">Nonfat dry milk</td>
+<td data-label="Coproducts - pounds">11.1</td>
+</tr>
+<tr>
+<td scope="row" data-label="Retail foods - product">Cottage cheese</td>
+<td data-label="Retail foods - pounds">4.85</td>
+<td data-label="Farm commodities - product">&nbsp;</td>
+<td data-label="Farm commodities - pounds">&nbsp;</td>
+<td data-label="Coproducts - product">Dry whey</td>
+<td data-label="Coproducts - pounds">13.4</td>
+</tr>
+<tr>
+<td scope="row" data-label="Retail foods - product">Cream</td>
+<td data-label="Retail foods - pounds">11.33</td>
+<td data-label="Farm commodities - product">&nbsp;</td>
+<td data-label="Farm commodities - pounds">&nbsp;</td>
+<td data-label="Coproducts - product">&nbsp;</td>
+<td data-label="Coproducts - pounds">&nbsp;</td>
+</tr>
+<tr>
+<td scope="row" data-label="Retail foods - product">Cream cheese</td>
+<td data-label="Retail foods - pounds">3.80</td>
+<td data-label="Farm commodities - product">&nbsp;</td>
+<td data-label="Farm commodities - pounds">&nbsp;</td>
+<td data-label="Coproducts - product">&nbsp;</td>
+<td data-label="Coproducts - pounds">&nbsp;</td>
+</tr>
+<tr>
+<td scope="row" data-label="Retail foods - product">Ice cream</td>
+<td data-label="Retail foods - pounds">44.23</td>
+<td data-label="Farm commodities - product">&nbsp;</td>
+<td data-label="Farm commodities - pounds">&nbsp;</td>
+<td data-label="Coproducts - product">&nbsp;</td>
+<td data-label="Coproducts - pounds">&nbsp;</td>
+</tr>
+<tr>
+<td scope="row" data-label="Retail foods - product">Reduced-fat milk</td>
+<td data-label="Retail foods - pounds">85.42</td>
+<td data-label="Farm commodities - product">&nbsp;</td>
+<td data-label="Farm commodities - pounds">&nbsp;</td>
+<td data-label="Coproducts - product">&nbsp;</td>
+<td data-label="Coproducts - pounds">&nbsp;</td>
+</tr>
+<tr>
+<td scope="row" data-label="Retail foods - product">Monterey cheese</td>
+<td data-label="Retail foods - pounds">30.73</td>
+<td data-label="Farm commodities - product">&nbsp;</td>
+<td data-label="Farm commodities - pounds">&nbsp;</td>
+<td data-label="Coproducts - product">&nbsp;</td>
+<td data-label="Coproducts - pounds">&nbsp;</td>
+</tr>
+<tr>
+<td scope="row" data-label="Retail foods - product">Processed cheese food</td>
+<td data-label="Retail foods - pounds">4.89</td>
+<td data-label="Farm commodities - product">&nbsp;</td>
+<td data-label="Farm commodities - pounds">&nbsp;</td>
+<td data-label="Coproducts - product">&nbsp;</td>
+<td data-label="Coproducts - pounds">&nbsp;</td>
+</tr>
+<tr>
+<td data-label="Retail foods - product">Skim milk</td>
+<td data-label="Retail foods - pounds">13.01</td>
+<td data-label="Farm commodities - product">&nbsp;</td>
+<td data-label="Farm commodities - pounds">&nbsp;</td>
+<td data-label="Coproducts - product">&nbsp;</td>
+<td data-label="Coproducts - pounds">&nbsp;</td>
+</tr>
+<tr>
+<td scope="row" data-label="Retail foods - product">Whole milk</td>
+<td data-label="Retail foods - pounds">64.56</td>
+<td data-label="Farm commodities - product">&nbsp;</td>
+<td data-label="Farm commodities - pounds">&nbsp;</td>
+<td data-label="Coproducts - product">&nbsp;</td>
+<td data-label="Coproducts - pounds">&nbsp;</td>
+</tr>
+<tr>
+<td scope="row" data-label="Retail foods - product">Yogurt</td>
+<td data-label="Retail foods - pounds">23.89</td>
+<td data-label="Farm commodities - product">&nbsp;</td>
+<td data-label="Farm commodities - pounds">&nbsp;</td>
+<td data-label="Coproducts - product">&nbsp;</td>
+<td data-label="Coproducts - pounds">&nbsp;</td>
+</tr>
+<tr>
+<td colspan="6" data-label="Footnote">Note: Some numbers have been rounded.<br>Source: USDA, Economic Research Service, the Price Spreads from Farm to Consumer data product.</td>
+</tr>
+</tbody>
+</table>
+<h5>Calculating Annual Estimates</h5>
+<p>Having specified the contents of the retail and agricultural baskets, ERS uses a formula to estimate the farm share of dairy food prices in years other than the base year of the data series, 2022. The following example shows implementation for 2023.</p>
+<p>Step 1:</p>
+<p>Estimation begins by plugging the BLS-calculated CPI for dairy and related products into the ERS formula previously specified. The CPI was 259.184 in 2022 and 269.528 in 2023. Since 2022 is the base year of the data series, CPI<sub>0</sub> = 259.184. For t = 2023, it further follows that 1.03991 = (269.528 / 259.184) which is an adjustment factor for retail price inflation.</p>
+<p>Step 2:</p>
+<p>The adjustment factor is next multiplied by the value of the retail basket in the base year (Q'<sub>r</sub>P<sub>r0</sub> ). The result is the value of the denominator in the farm share equation: ($532 x 1.03991) = $553.23, which is the approximate value of the retail basket in 2023.</p>
+<p>Step 3:</p>
+<p>Farm prices and co-product values are next collected from NASS’s Agricultural Prices and AMS, respectively. For t = 2023, the prices in the numerator (P<sub>ft</sub>) need to be updated from prior yearly values. However, neither the quantities in Q<sub>f</sub> (683.3 pounds of farm milk, 11.1 pounds of nonfat dry milk, and 13.4 pounds of dry whey) nor the methods nor the methods for calculation change from those used to estimate farm value for 2022. For t = 2023, using the updated values of P<sub>ft</sub>, the updated farm value of the agricultural basket net co-products, Q<sub>f</sub>'P<sub>ft</sub>, is $125.59.</p>
+<p>Step 4:</p>
+<p>Farm share is computed by dividing farm value by the value of the retail basket. As noted in Step 3, in 2023, farm value was $125.59, which amounts to about 22.7 percent of the approximate value of $553.23 for the retail basket.</p>
+<p>Step 5:</p>
+<p>ERS also reports indices for retail cost, farm value, and the farm-to-retail price spread. Each is expressed as an index with a value of 100 in the base year (2022) of the data series. These indices show how the variable in question has changed over time.</p>
+<h5>Retail Cost Index</h5>
+<p>The retail cost index shows retail price trends over time. This is the ratio of the CPI in year t to the same CPI in the base year (2022), CPI<sub>t</sub> / CPI<sub>0</sub>, multiplied by 100. For t = 2023, the retail cost index is (1.03991 x 100) = 103.991.</p>
+<h5>Farm Value Index</h5>
+<p>The farm value index shows farm value trends over time. This is the ratio of the farm value in year t to the farm value in 2022, Q<sub>f</sub>'P<sub>ft</sub> / Q<sub>f</sub>'P<sub>f0</sub>, multiplied by 100. As already shown, farm value was $150.95 in 2022 and $125.59 in 2023. It follows that the 2023 farm value index was ($125.59 / $150.95) x 100 = 83.198.</p>
+<h5>Farm-to-Retail Price Spread Index</h5>
+<p>The farm-to-retail price spread index measures changes in the difference between the basket's retail and farm values. This is a ratio of the spread in a year to the spread in the base year of the data series, (Q<sub>r</sub>'P<sub>rt</sub> - Q<sub>f</sub>'P<sub>ft</sub>) / (Q<sub>r</sub>'P<sub>r0</sub> - Q<sub>f</sub>'P<sub>f0</sub>), multiplied by 100. In 2023, the spread between retail and farm values was ($553.23 - $125.59) = $427.64. It was ($532 - $150.95) = $381.05 in 2022. The value of the farm-to-retail spread index was ($427.64 / $381.05) x 100 = 112.228 in 2023.</p>
+<h5>Interpretation of Farm Value and Supporting Indices</h5>
+<p>The three reported indices show trends in each variable over time. For example, farm share decreased from 28.32 percent in 2022 to 22.7 percent in 2023. The three indices suggest a reason for this change. They show a decrease in payments to farmers as measured by the basket’s farm value &nbsp;combined with an increase in retail prices.</p>
+<h4 id="fruit">&nbsp;</h4>
+<h4 id="fruit">Fresh Fruit and Vegetables</h4>
+<p>ERS calculates the farm share as well as the farm-to-retail cost spread for baskets of fresh fruit and fresh vegetables that are representative of U.S. households’ purchases for at-home consumption in 2018. Estimates are available for each year since 2000.</p>
+<h5>Identifying Retail and Agricultural Baskets</h5>
+<h6>Retail Food Baskets</h6>
+<p>To identify the contents of its retail fresh fruit and fresh vegetables baskets, ERS first uses the diary portion of the Consumer Expenditure Survey (CE). These U.S. Department of Labor, Bureau of Labor Statistics (BLS)-published data report how much money U.S. households spent on different types of foods. The data are available at a highly aggregated level. In 2018, households are reported to have spent $283.00 for fresh vegetables and $318.00 for fresh fruit, on average.</p>
+<p>ERS next uses OmniMarket Core Outlets data from <a href="/node/3258#iri" class="usa-link">Circana</a> to identify products that account for a large share of stores’ fresh fruit and fresh vegetable sales. A panel of retail stores across the U.S. provides Circana with a record of their weekly food purchase transactions including data for specific types of fruits and vegetables, such as oranges, apples, and iceberg lettuce. Information provided to Circana includes the physical quantity and dollar value of sales. In addition to sales shares, it is therefore possible to calculate a product’s average retail price as the ratio of the dollar value of sales across all stores to the physical quantity sold.</p>
+<p>Based on 2018 OmniMarket Core Outlets, ERS divided the 2018 CE expenditures of $318.00 for fresh fruit across 13 specific types of fresh fruit. Products with the greatest sales shares for which farm-gate prices are also available and domestic production is substantial were selected for inclusion in the basket. Fresh oranges, for example, represented about 6.64 percent of the revenue OmniMarket Core Outlets stores garnered through the sale of all 13 products included in the basket, so about 6.64 percent of the $318.00 spent on fresh fruit in the CE ($21.10) was allocated to expenditures on fresh oranges ($318 x 0.0664). Moreover, because fresh oranges sold for about $1.27 per pound in 2018, it was inferred that a representative household bought 16.7 pounds ($21.10 / $1.27).</p>
+<p>A similar process was used to divide the 2018 CE expenditures of $283.00 for fresh vegetables across 16 products and thereby determine the contents of the fresh vegetables basket. For example, fresh tomatoes accounted for about 22.84 percent of what OmniMarket Core Outlets stores received through the sale of all 16 fresh vegetables included in the basket, so about 22.84 percent of the $283.00 spent on fresh vegetables by CE households ($64.63) was allocated to fresh tomatoes ($283 x 0.2284). Moreover, because the price of fresh tomatoes averaged about $2.13 per pound at retail that year, it was inferred that a representative household bought 30.3 pounds.</p>
+<h6>Conversion Factors</h6>
+<p>ERS calculations also rely on conversion factors from the ERS Food Availability (Per Capita) Data System (FADS). For each food in a retail basket, conversion factors inflate the retail quantity by the amount necessary to compensate for waste and shrinkage that occurs after commodities leave the farm and are prepared for sales at retail. For example, ERS assumes that 7 percent of lettuce shipped by farmers is lost. Only 93 percent reaches retail store shelves on a weight basis. Some lettuce may spoil and, perhaps, other lettuce may need trimming. Farmers must therefore supply 1.075 pounds of iceberg lettuce for every 1 pound supplied by marketers at retail (1 / 0.93). For grapes, some clusters may be trimmed to remove spoiled or damaged grapes. It is assumed that farmers supply 1.099 pounds of grapes for every 1 pound sold by retailers.</p>
+<table class="usa-table usa-table--stacked-header">
+<caption>Fresh fruit conversion factors</caption>
+<thead>
+<tr>
+<th scope="col">Fruit</th>
+<th scope="col">Percen­tage loss</th>
+<th scope="col">Conver­sion factor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td scope="row">Apples</td>
+<td>4</td>
+<td>1.042</td>
+</tr>
+<tr>
+<td scope="row">Blueberries</td>
+<td>8</td>
+<td>1.087</td>
+</tr>
+<tr>
+<td scope="row">Cantaloupe</td>
+<td>8</td>
+<td>1.087</td>
+</tr>
+<tr>
+<td scope="row">Cherries</td>
+<td>8</td>
+<td>1.087</td>
+</tr>
+<tr>
+<td scope="row">Grapefruit</td>
+<td>3</td>
+<td>1.031</td>
+</tr>
+<tr>
+<td scope="row">Grapes</td>
+<td>9</td>
+<td>1.099</td>
+</tr>
+<tr>
+<td scope="row">Honeydew melon</td>
+<td>8</td>
+<td>1.087</td>
+</tr>
+<tr>
+<td scope="row">Kiwifruit</td>
+<td>9</td>
+<td>1.099</td>
+</tr>
+<tr>
+<td scope="row">Oranges</td>
+<td>3</td>
+<td>1.031</td>
+</tr>
+<tr>
+<td scope="row">Peaches</td>
+<td>5</td>
+<td>1.053</td>
+</tr>
+<tr>
+<td scope="row">Pears</td>
+<td>5</td>
+<td>1.053</td>
+</tr>
+<tr>
+<td scope="row">Strawberries</td>
+<td>8</td>
+<td>1.087</td>
+</tr>
+<tr>
+<td scope="row">Watermelon</td>
+<td>10</td>
+<td>1.111</td>
+</tr>
+<tr>
+<td colspan="3" data-label="Footnote">Source: USDA, Economic Research Service (ERS), ERS Food Availability (Per Capita) Data System. Loss-adjusted Food Availability. Loss from primary to retail weight.</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<table class="usa-table usa-table--stacked-header">
+<caption>Fresh vegetable conversion factors</caption>
+<thead>
+<tr>
+<th scope="col">Vegetable</th>
+<th scope="col">Percen­tage loss</th>
+<th scope="col">Conver­sion factor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td scope="row">Asparagus</td>
+<td>9</td>
+<td>1.099</td>
+</tr>
+<tr>
+<td scope="row">Bell peppers</td>
+<td>8</td>
+<td>1.087</td>
+</tr>
+<tr>
+<td scope="row">Broccoli</td>
+<td>8</td>
+<td>1.087</td>
+</tr>
+<tr>
+<td scope="row">Cabbage</td>
+<td>7</td>
+<td>1.075</td>
+</tr>
+<tr>
+<td scope="row">Carrots</td>
+<td>3</td>
+<td>1.031</td>
+</tr>
+<tr>
+<td scope="row">Cauliflower</td>
+<td>8</td>
+<td>1.087</td>
+</tr>
+<tr>
+<td scope="row">Celery</td>
+<td>7</td>
+<td>1.075</td>
+</tr>
+<tr>
+<td scope="row">Corn on the cob</td>
+<td>8</td>
+<td>1.087</td>
+</tr>
+<tr>
+<td scope="row">Cucumber</td>
+<td>8</td>
+<td>1.087</td>
+</tr>
+<tr>
+<td scope="row">Iceberg lettuce</td>
+<td>7</td>
+<td>1.075</td>
+</tr>
+<tr>
+<td scope="row">Agaricus mushrooms</td>
+<td>6</td>
+<td>1.064</td>
+</tr>
+<tr>
+<td scope="row">Onions</td>
+<td>6</td>
+<td>1.064</td>
+</tr>
+<tr>
+<td scope="row">Potatoes</td>
+<td>4</td>
+<td>1.042</td>
+</tr>
+<tr>
+<td scope="row">Romaine lettuce</td>
+<td>7</td>
+<td>1.075</td>
+</tr>
+<tr>
+<td scope="row">Sweet potatoes</td>
+<td>10</td>
+<td>1.111</td>
+</tr>
+<tr>
+<td scope="row">Tomatoes</td>
+<td>15</td>
+<td>1.176</td>
+</tr>
+<tr>
+<td colspan="3" data-label="Footnote">Source: USDA, Economic Research Service, ERS Food Availability (Per Capita) Data System. Loss-adjusted Food Availability. Loss from primary to retail weight.</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;Once the contents of the fresh fruit and fresh vegetables retail food baskets have been specified and the necessary conversion factors collected, ERS uses the conversion factors to estimate the contents of the two agricultural baskets. &nbsp;</p>
+<p>&nbsp;</p>
+<table class="usa-table usa-table--stacked-header">
+<caption>Fresh vegetables: contents of retail and agricultural baskets (in pounds)</caption>
+<thead>
+<tr>
+<th scope="col">Vegetable</th>
+<th scope="col">Retail quantity</th>
+<th scope="col">Farm quantity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td scope="row">Asparagus</td>
+<td>4.74</td>
+<td>5.21</td>
+</tr>
+<tr>
+<td scope="row">Bell peppers</td>
+<td>15.65</td>
+<td>17.01</td>
+</tr>
+<tr>
+<td scope="row">Broccoli</td>
+<td>2.05</td>
+<td>2.23</td>
+</tr>
+<tr>
+<td scope="row">Cabbage</td>
+<td>8.65</td>
+<td>9.3</td>
+</tr>
+<tr>
+<td scope="row">Carrots</td>
+<td>8.24</td>
+<td>8.5</td>
+</tr>
+<tr>
+<td scope="row">Cauliflower</td>
+<td>4.56</td>
+<td>4.95</td>
+</tr>
+<tr>
+<td scope="row">Celery</td>
+<td>7.01</td>
+<td>7.54</td>
+</tr>
+<tr>
+<td scope="row">Corn on the cob</td>
+<td>2.25</td>
+<td>2.45</td>
+</tr>
+<tr>
+<td scope="row">Cucumber</td>
+<td>12.53</td>
+<td>13.62</td>
+</tr>
+<tr>
+<td scope="row">Iceberg lettuce</td>
+<td>10.43</td>
+<td>11.21</td>
+</tr>
+<tr>
+<td scope="row">Agaricus mushrooms</td>
+<td>3.13</td>
+<td>3.32</td>
+</tr>
+<tr>
+<td scope="row">Onions</td>
+<td>30.14</td>
+<td>32.07</td>
+</tr>
+<tr>
+<td scope="row">Potatoes</td>
+<td>68.51</td>
+<td>71.36</td>
+</tr>
+<tr>
+<td scope="row">Romaine lettuce</td>
+<td>3.16</td>
+<td>3.39</td>
+</tr>
+<tr>
+<td scope="row">Sweet potatoes</td>
+<td>9.28</td>
+<td>10.31</td>
+</tr>
+<tr>
+<td scope="row">Tomatoes</td>
+<td>30.28</td>
+<td>35.63</td>
+</tr>
+<tr>
+<td colspan="3" data-label="Footnote">Note: Some numbers have been rounded.&nbsp;<br>Source: USDA, Economic Research Service, Price Spreads from Farm to Consumer data product.</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<table class="usa-table usa-table--stacked-header">
+<caption>Fresh fruit: contents of retail and agricultural baskets (in pounds)</caption>
+<thead>
+<tr>
+<th scope="col">Fruit</th>
+<th scope="col">Retail quantity</th>
+<th scope="col">Farm quantity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td scope="row">Apples</td>
+<td>44.77</td>
+<td>46.63</td>
+</tr>
+<tr>
+<td scope="row">Blueberries</td>
+<td>6.92</td>
+<td>7.52</td>
+</tr>
+<tr>
+<td scope="row">Cantaloupe</td>
+<td>13.23</td>
+<td>14.38</td>
+</tr>
+<tr>
+<td scope="row">Cherries</td>
+<td>5.37</td>
+<td>5.84</td>
+</tr>
+<tr>
+<td scope="row">Grapefruit</td>
+<td>3.47</td>
+<td>3.57</td>
+</tr>
+<tr>
+<td scope="row">Grapes</td>
+<td>31.18</td>
+<td>34.27</td>
+</tr>
+<tr>
+<td scope="row">Honeydew melon</td>
+<td>2.1</td>
+<td>2.29</td>
+</tr>
+<tr>
+<td scope="row">Kiwifruit</td>
+<td>1.12</td>
+<td>1.23</td>
+</tr>
+<tr>
+<td scope="row">Oranges</td>
+<td>16.7</td>
+<td>17.22</td>
+</tr>
+<tr>
+<td scope="row">Peaches</td>
+<td>6.35</td>
+<td>6.68</td>
+</tr>
+<tr>
+<td scope="row">Pears</td>
+<td>5.10</td>
+<td>5.37</td>
+</tr>
+<tr>
+<td scope="row">Strawberries</td>
+<td>21.71</td>
+<td>23.59</td>
+</tr>
+<tr>
+<td scope="row">Watermelon</td>
+<td>52.59</td>
+<td>58.43</td>
+</tr>
+<tr>
+<td colspan="3" data-label="Footnote">Note: Some numbers have been rounded.&nbsp;<br>Source: USDA, Economic Research Service, Price Spreads from Farm to Consumer data product.</td>
+</tr>
+</tbody>
+</table>
+<h5>Calculating an Annual Price Series</h5>
+<p>Having identified the contents of retail food and agricultural baskets, ERS estimates annual statistics by using information on consumer and farm prices as well as the following formula:</p>
+<p>FS<sub>t</sub> = Q<sub>f</sub>'P<sub>ft</sub> / (Q<sub>r</sub>'P<sub>r0</sub>)(CPI<sub>t</sub> / CPI<sub>0</sub>)</p>
+<p>When calculating statistics for fresh vegetables, for example, the value of the denominator in the formula is estimated by using the CPI for that commodity. In 2018, the CPI for fresh vegetables was 324.75. To estimate the retail price of the market basket in, say 2019, the retail value of the market basket in the base year ($283) is multiplied by the appropriate CPI for that year (337.1), divided by its 2018 value (324.75). That is, $283 x (337.1 / 324.75) = $293.76.</p>
+<p>ERS uses prices received by farmers for their commodities to update the value of the farm basket for each year of the data series. These price estimates are available in the <a href="/data-products/fruit-and-tree-nuts-data/fruit-and-tree-nuts-yearbook-tables" data-entity-type="node" data-entity-uuid="f044edef-73b6-471a-8e8f-33db72d75e0b" data-entity-substitution="canonical" title="Fruit and Tree Nuts Data - Fruit and Tree Nuts Yearbook Tables" class="usa-link">ERS Fruit and Tree Nuts Yearbook Tables</a> and the <a href="/data-products/vegetables-and-pulses-data/vegetables-and-pulses-yearbook-tables" data-entity-type="node" data-entity-uuid="00776a32-70c5-4649-bed6-edb27256ab0e" data-entity-substitution="canonical" title="Vegetables and Pulses Data - Vegetables and Pulses Yearbook Tables" class="usa-link">ERS Vegetables and Pulses Data Yearbook Tables</a> data products. In 2019, the total value of all the contents of the fresh vegetables farm basket was $74.08, which amounts to about 25 percent of the estimated price of $293.76 for the retail basket.</p>
+<p>Finally, using the same procedures described above for the dairy basket, ERS updates and reports estimates of the Retail Cost Index, Farm Value Index, and Farm-to-Retail Price Spread Index, in addition to the farm share of the retail price for each year for both fresh fruit and fresh vegetables.</p>
+<h3 id="foods">How ERS Calculates Farm Share for Individual Foods</h3>
+<p>ERS estimates the farm share of the retail price for selected foods. These calculations compare the retail price of a food with the farm value of the commodities used to manufacture it. Data on prices at retail and at the farm gate are needed to make these comparisons. ERS results are sensitive to the prices adopted for analysis. Because two different stores may sell the same food for different prices, the farm share of a consumer's dollar would not likely be the same at both stores.</p>
+<p>The formal equation used to calculate the farm share of different foods is: FS<sub>t</sub> = Q<sub>f</sub>'P<sub>ft</sub> / P<sub>rt</sub> where FS<sub>t</sub> is the farm share at time t. The argument in the denominator of the formula is the retail price of the food at time t, P<sub>rt</sub>. The first argument in the numerator, Q<sub>f</sub>, is a vector of quantities that includes amounts of agricultural goods used to make the food as well as amounts used to make co-products. Agricultural inputs enter Q<sub>f</sub> as a positive number. Co-products enter as a negative number. P<sub>ft</sub> is a vector of unit prices for the agricultural goods and co-products in Q<sub>f</sub>.</p>
+<p>Once published, farm share statistics may be revised for a variety of reasons:</p>
+<ul>
+<li>Estimates of prices received by farmers for their commodities may be updated as much as a year or two after preliminary figures are initially released.</li>
+<li>Conversion factors may be adjusted. For example, improved efficiency in food packaging and shipping may reduce waste and spoilage. If so, food marketers could buy a smaller quantity from farmers to provide the same quantity at retail.</li>
+</ul>
+<p>ERS may also replace the data series over time as changes occur in the availability of retail and farm price data, conversion factors, and in the products U.S. households buy at retail stores. In 2025, for example, ERS replaced all data series for individual fresh fruit and fresh vegetables. The prior data series relied on BLS-reported monthly, national average prices. However, BLS had stopped reporting prices for several fresh products, including apples and broccoli. Twelve new series using national-average retail prices estimates (based on Circana OmniMarket Core Outlets data) were launched. More information about these changes is available in the <a href="#changes" class="usa-link">Data Changes</a> section below. Discontinued data series for dairy products, fresh fruit, fresh vegetables, and other products are also available on the <a href="/data-products/price-spreads-from-farm-to-consumer" data-entity-type="node" data-entity-uuid="9a54dc01-8481-48ac-9518-8dfa5ab933a8" data-entity-substitution="canonical" title="Price Spreads from Farm to Consumer" class="usa-link">Overview</a> page among other “Archived Tables.”</p>
+<p>ERS's processes for estimating the farm share of a food are illustrated for selected <a href="#farmdairy" class="usa-link">dairy products</a>, <a href="#farmfruits" class="usa-link">fresh fruits</a>, <a href="#farmvegetables" class="usa-link">fresh vegetables</a>, <a href="#processed" class="usa-link">processed fruit and vegetables</a> such as orange juice, and products like flour and sugar that are processed from <a href="#fieldcrops" class="usa-link">field crops</a>.</p>
+<h4 id="farmdairy">Dairy Products</h4>
+<h5>General</h5>
+<p>ERS's calculations for whole milk, ice cream, Cheddar cheese, and butter rely on U.S.-city average retail price data from <a href="https://www.bls.gov/cpi/data.htm" target="_blank" class="usa-link usa-link--external" rel="noopener noreferrer">BLS</a>. In 2018, the monthly price of a gallon of whole milk ranged from a low of $2.84 in July to a high of $2.96 in January. For this data series, a simple average of monthly average prices is calculated—for 2018, the average is $2.90.</p>
+<p>To estimate the farm value of whole milk, butter, and ice cream, ERS uses data generated by <a href="https://www.ams.usda.gov/market-news/dairy" target="_blank" class="usa-link usa-link--external" rel="noopener noreferrer">AMS</a> from the Federal milk order program. This program sets minimum prices for fluid-grade milk. Not all milk is priced at the same level. Instead, there is a classified pricing system in which the minimum amount paid for milk is determined by how the milk is used. There are four classes: Class I is defined as milk for beverage products; Class II includes milk used to make fluid cream, yogurt, ice cream, and other perishable foods; Class III includes creamed and hard cheeses; and Class IV products are butter and dried milk.</p>
+<p>Because these estimates rely on data generated through the administration of the Federal milk order program, ERS's farm share estimates for whole milk, butter, and ice cream do not reflect conditions in all parts of the United States. The current Federal milk order program consists of 11 Federal orders. For example, parts of New England and the Mid-Atlantic States make up the Northeast Order. California's Federal Milk Marketing Order officially began operations in 2018. Some other places, however, are not covered by a Federal order.</p>
+<p>For all four dairy products considered in this data product—whole milk, ice cream, Cheddar cheese, and butter—ERS's objective is to estimate the contribution from dairy farmers' milk earnings to retail prices. Estimates of farm value and farm share do not include farm receipts for other types of ingredients included in dairy products, such as sugar or fruit contained in ice cream.</p>
+<p>ERS statistics for whole milk, ice cream, and Cheddar cheese also do not account for over-order payments. Dairy farmers and their cooperatives can bargain to sell milk at prices higher than the regulated minimums. For example, fluid milk processors and dairy product manufacturers may be willing to pay a premium to receive a certain quality and quantity of milk, at a specified time and location. Dairy farmers may or may not receive higher prices for their milk in these cases. However, to the extent that cooperatives and independent producers with market power can negotiate over-order payments that increase payments to dairy farmers, ERS's calculations based on minimum class prices would underestimate the farm value of dairy products.</p>
+<p>ERS calculates the farm share of the retail price of:</p>
+<ul>
+<li><a href="#retailmilk" class="usa-link">1 gallon of whole milk</a></li>
+<li><a href="#retailbutter" class="usa-link">1 pound of butter</a></li>
+<li><a href="#retailcheddar" class="usa-link">1 pound of Cheddar cheese</a></li>
+<li><a href="#retailicecream" class="usa-link">1-half gallon of ice cream</a></li>
+</ul>
+<h5 id="retailmilk">Milk, Whole Fluid</h5>
+<p>Though marketed as "whole milk," farm milk generally has a small amount of cream removed during processing. A gallon of whole milk is assumed to contain 3.3 percent fat and weigh 8.6 pounds. ERS's process for calculating the farm share of this product is illustrated using data for 2018.</p>
+<p>Processors must pay at least the Class I price for farm milk used in making beverage products.</p>
+<p>Step 1:</p>
+<p>The retail price of a gallon of whole milk averaged $2.90 in 2018. Farm share is the ratio of average retail price to the amount received by farmers for milk components (skim and fat solids) consumed in production.</p>
+<p>Step 2:</p>
+<p>To estimate the farm value of whole milk, ERS first estimates the farm value of one component—Class I skim milk. To begin, ERS calculates a simple average of the monthly base skim milk price reported by AMS—$6.23 per hundredweight in 2018. Then, the required Class I differential is added to the average skim milk price. AMS adds this differential to the base skim milk price to generate the minimum amount of money processors must pay for Class I skim milk. Though the value of the differential varies geographically, a principal pricing point is reported by AMS for each of the 11 Federal orders. ERS calculates a weighted average of the reported figures. These weights are the amount of Class I milk sold in the order divided by the amount marketed in all 11 orders. In 2018, this weighted average was about $2.84 per hundred pounds of skim milk.</p>
+<p>Step 3:</p>
+<p>To estimate minimum farm value for the butterfat in whole milk, ERS uses the monthly advanced butterfat pricing factor reported by AMS. The Class I differential is added to the pricing factor. In 2018, this pricing factor averaged $2.52 per pound, and the Class I differential was $0.0284 per pound.</p>
+<p>Step 4:</p>
+<p>Combining the above values for the skim and fat solids in milk, ERS next calculates the farm value of 100 pounds of Class I milk that is 96.7 percent skim milk and 3.3 percent fat. If purchased at minimum regulated prices, the milk has a value of $17.19 or (6.23 + 2.84) x (0.967) + ($2.52 + 0.0284) x (3.3).</p>
+<p>A gallon of milk is assumed to weigh 8.6 pounds, but processors purchase slightly more farm milk for every gallon of milk marketed at retail. This extra amount accounts for waste and spoilage that can occur in assembling and processing milk. It is assumed that losses through waste and spoilage equal 2 percent of the value of what farmers sell to marketers. Thus, in 2018, marketers were assumed to pay farmers (($17.19 x 0.086) / 0.98) = $1.51 for each gallon of milk marketed at retail, or 52 percent of the retail price of $2.90.</p>
+<h5 id="retailbutter">Butter</h5>
+<p>Cream is the primary ingredient in butter. Butter manufacturers may buy cream with less than the full fat content of farm milk or purchase farm milk and skim off the cream. One pound of butter is assumed to include 0.803 pounds of fat and 0.01 pounds of skim solids. ERS's process for calculating the farm share of the retail price of butter is illustrated using data for 2023.</p>
+<p>Processors must pay at least the Class IV price for milk used to make butter.</p>
+<p>Step 1:</p>
+<p>The retail price of butter averaged $4.56 per pound in 2023. The farm share of a pound of butter is the ratio of this average retail price to the price farmers received for the milk components—skim and fat solids—used in making of butter.</p>
+<p>Step 2:</p>
+<p>To estimate the farm value of a pound of butter, ERS begins with the Class IV price of skim milk. In 2023, the regulated minimum Class IV skim milk price averaged $9.07 per hundredweight, or just over $0.09 per pound. How much of this milk must manufacturers purchase to acquire the 0.01 pounds of skim solids in a pound of butter? Since 1 pound of this type of milk contains about 0.09 pounds of skim solids, manufacturers must buy 0.11 pounds (=0.01 / 0.09).</p>
+<p>Step 3:</p>
+<p>Manufacturers also must buy 0.803 pounds of fat for every pound of butter they make. ERS uses the AMS data series to determine the farm value of 0.803 pounds of fat from milk. In 2023, the Class IV butterfat price averaged about $2.96 per pound.</p>
+<p>Step 4:</p>
+<p>Combining the above values for skim and fat solids in a pound of butter, ERS then calculates the farm value of cream, assuming that skim and fat solids were purchased at regulated minimum prices. This estimate is (0.803 x $2.96) + (0.11 x $0.0907) = $2.39.</p>
+<p>Step 5:</p>
+<p>ERS makes adjustments to account for waste and spoilage that may occur as butter is produced. These losses are assumed to equal 2 percent of what farmers sell. Thus, in 2023, to cover for waste and spoilage, manufacturers must buy cream with a farm value of $2.44 (=$2.39 / 0.98) for each pound of butter marketed at retail.</p>
+<p>Step 6:</p>
+<p>ERS estimates the farm share of the retail price of butter in 2023 to be 53 percent (=$2.44 / $4.56).</p>
+<h5 id="retailcheddar">Cheddar Cheese</h5>
+<p>Fluid milk is curdled to make natural Cheddar cheese. ERS uses the Van Slyke formula to determine the amount of milk in a pound of this cheese. Assuming that the milk has an average fat content of 3.5 percent, the Van Slyke formula indicates that manufacturers must purchase 10.3 pounds of milk for every pound of Cheddar cheese made. Along with cheese, manufacturers also produce 0.5 pounds of the co-product dry whey. ERS’s procedure for calculating the farm share of a pound of Cheddar cheese is illustrated using data for 2024.</p>
+<p>Processors must pay at least the Class III price for milk used to make cheese.</p>
+<p>Step 1:</p>
+<p>The retail price of Cheddar cheese averaged $5.66 per pound in 2024. Farm share is the ratio of average retail price to the amount received by farmers for milk components (skim and fat solids) consumed in production.</p>
+<p>Step 2:</p>
+<p>ERS collects minimum monthly prices for milk manufactured into Class III products under the Federal milk order program. A simple mean of these monthly prices is calculated to estimate annual prices. In 2024, cheese manufacturers were required to pay, on average, at least $18.89 per hundredweight of Class III milk (or $0.1889 per pound).</p>
+<p>Step 3:</p>
+<p>Given that manufacturers must purchase 10.3 pounds of milk for every pound of Cheddar cheese they make, ERS estimates that gross farm receipts are about $1.95 per pound of Cheddar cheese produced ($0.1889 x 10.3).</p>
+<p>Step 4:</p>
+<p>Monthly dry whey prices published by USDA-AMS are then used to value co-products from cheese production. In 2024, AMS reported that monthly average prices for dry whey ranged from $0.4108 to $0.6353 per pound. These wholesale prices, however, reflect both the value of the milk components in whey, and the value added to these components through processing. ERS uses AMS's reported estimates of processing costs to isolate the value for only the milk components. In 2024, it cost $0.1991 to process 1 pound of whey, and the monthly average value of dry whey (net processing costs) was $0.2922 per pound.</p>
+<p>Step 5:</p>
+<p>Altogether, the net farm value of a pound of Cheddar cheese in 2024 was about $1.80, calculated as $1.95 - (0.5 x $0.2922), which equals 32 percent of the retail price of $5.66.</p>
+<h5 id="retailicecream">Ice Cream, Regular</h5>
+<p>Ice cream is made from a mix that includes fluid milk and cream. Ice cream plants may buy these inputs from fluid milk processors. ERS estimates farm share of the retail price for 1-half gallon of regular ice cream weighing 2.25 pounds. Fat solids account for 12 percent and skim solids account for 10 percent of the product's weight. Thus, regular ice cream contains 0.27 (=2.25 x 0.12) pounds of fat from milk and 0.225 (=2.25 x 0.1) pounds of skim solids. ERS's process for calculating the farm share of the retail price of regular ice cream is illustrated below using data from 2024.</p>
+<p>Marketers must pay at least the Class II price for milk used in ice cream.</p>
+<p>Step 1:</p>
+<p>The retail price of regular ice cream averaged $6.13 per pound in 2024. Farm share is the ratio of average retail price to the amount received by farmers for milk components (skim and fat solids) consumed in production.</p>
+<p>Step 2:</p>
+<p>ERS first estimates the farm value of skim milk used in producing ice cream. Since 1 pound of skim milk contains about 0.09 pounds of skim solids and ERS's ice cream product contains 0.225 pounds, marketers must buy 2.5 (=0.225 / 0.09) pounds of skim milk for each container of ice cream they make. To put a value on this milk, ERS calculates a simple average of the monthly Class II skim milk price reported by AMS—for 2024, the average is $10.17 per hundredweight, or $0.1017 per pound.</p>
+<p>Step 3:</p>
+<p>Marketers also must buy 0.27 pounds of fat from milk for every container of ice cream produced. To determine the farm value of this fat, ERS again uses the AMS data series. In 2024, the Class II butterfat price averaged about $3.30 per pound.</p>
+<p>Step 4:</p>
+<p>Combining the above values for the skim and fat solids in a container of ice cream, ERS then calculates the farm value of the cream under the assumption that skim and fat solids were purchased at regulated minimum prices. This estimate is $1.145, or ((0.27 x $3.30) + (2.5 x $0.1017)).</p>
+<p>Step 5:</p>
+<p>Adjustments are next made to account for waste and spoilage that tend to occur as ice cream is made. ERS assumes that these losses equal 2 percent of what marketers buy. Thus, in 2024, to cover for waste and spoilage, marketers must buy cream with a farm value of $1.17 (=$1.145 / 0.98) for each container of ice cream marketed at retail.</p>
+<p>Step 6:</p>
+<p>ERS estimates that the farm share of the retail price of ice cream in 2024 was 19 percent ($1.17 / $6.13).</p>
+<h4 id="fieldcrops">Field Crops</h4>
+<h5>General</h5>
+<p>For the annual, national average retail price of vegetable (soybean) oil, ERS’s calculations rely on OmniMarket Core Outlets data from <a href="/node/3258#iri" class="usa-link">Circana</a>. By contrast, ERS's calculations for flour, sugar, and bread rely on monthly, national average retail prices (U.S. city-average price data) published by <a href="https://www.bls.gov/cpi/data.htm" target="_blank" class="usa-link usa-link--external" rel="noopener noreferrer">BLS</a>. Annual figures for these three products are estimated by taking a simple average of the reported monthly prices.</p>
+<p>For prices at the farm gate, publicly available data published by USDA agencies are used.</p>
+<p>Co-products account for a substantial share of overall farm receipts for flour, vegetable (soybean) oil, and sugar. For example, wheat is milled to produce flour, and its co-products—bran and wheat middlings—may be sold for use in food products or animal feed. Similarly, sugar extracted from sugar beets and sugarcane yields co-products such as molasses and livestock feed.</p>
+<p>Data on co-product prices are obtained mostly from USDA agencies. For sugar, data from the U.S. Department of Commerce, Bureau of the Census (Census Bureau) are used. ERS calculates the farm share of the retail price of one pound of:</p>
+<ul>
+<li><a href="#flour" class="usa-link">All-purpose white flour</a></li>
+<li><a href="#oil" class="usa-link">Vegetable (soybean) oil</a></li>
+<li><a href="#sugar" class="usa-link">White (refined) sugar</a></li>
+<li><a href="#bread" class="usa-link">White pan bread</a><br>&nbsp;</li>
+</ul>
+<h5 id="flour">All-purpose White Flour</h5>
+<p>Wheat is milled to produce flour. Wheat kernels, also known as wheat berries, are seeds from which new wheat plants may grow. Within a kernel are endosperm and wheat germ. Roller milling involves crushing and gradually reducing wheat kernels to produce flour which consists primarily of endosperm. Co-products of flour milling include bran (the hard, outermost shell of the wheat kernel) and wheat middlings (bran, germ, and endosperm remnants). These co-products may be sold for use in food products or animal feed.</p>
+<p>Milling different classes of wheat yields different types of flour. Many products, including all-purpose white flour, may include several classes of wheat (depending on the region of the country where the flour is produced). However, all-purpose flour is primarily produced from hard red winter (HRW) wheat. For the purposes of computing the farm value and farm share of the retail price of all-purpose flour, we assume that it is made from 100 percent HRW wheat.</p>
+<p>Step 1:</p>
+<p>Monthly retail prices for all-purpose white flour, per pound, are obtained from BLS, published in conjunction with the BLS Consumer Price Index reporting program. In 2023, the monthly price of all-purpose white flour ranged from a low of $0.538 per pound in January to a high of $0.566 per pound in July. For this data series, a simple average of monthly average prices is calculated—for 2023, the average is $0.551.</p>
+<p>Step 2:</p>
+<p>What are the farm receipts for the amount of wheat used to make one pound of flour? Milling wheat yields approximately 73 percent flour and 27 percent co-products, so producing 1 pound of flour requires 1.37 pounds of wheat (=1 / 0.73). Monthly data on the farm price per bushel of HRW wheat are available from<em> </em><a href="https://www.nass.usda.gov/" target="_blank" class="usa-link usa-link--external" rel="noopener noreferrer"><em>Agricultural Prices</em></a> (published by NASS). In 2023, the monthly farm price of hard red winter wheat averaged $7.655 per bushel. Since one bushel weighs 60 pounds and 1.37 pounds of wheat are required, the reported price is divided by 43.8 (=60 / 1.37) to estimate farm receipts. In 2023, the gross farm value of a pound of all-purpose white flour averaged $0.175.</p>
+<p>Step 3:</p>
+<p>A mix of bran and middlings is produced in conjunction with the flour, and the value of these co-products must be subtracted from the gross farm value. Prices of these two co-products are very similar, and, indeed, often identical. Because Kansas City primarily mills HRW wheat, the price of middlings per ton for Kansas City is used to calculate the aggregate co-product value. This information is obtained from the <a href="/data-products/feed-grains-database" data-entity-type="node" data-entity-uuid="690c5c54-0798-4057-b137-414fb8cb6e4d" data-entity-substitution="canonical" title="Feed Grains Database" class="usa-link">Feed Grains Database</a>, published by ERS, using a simple average of monthly prices. In 2023, the monthly price of middlings in Kansas City averaged $182.72 per ton. The price is divided by 2,000 to obtain the co-product price per pound—$0.091 per pound.</p>
+<p>Step 4:</p>
+<p>What amount of co-products is produced along with a pound of flour? Since the wheat-to-co-product yield is 27 percent, about 0.37 pounds of co-products can also be produced from 1.37 pounds of wheat that millers buy from farmers to produce a pound of flour (1.37 x 0.27 = 0.37). To estimate net farm value, the middlings price is multiplied by 0.37 and this product subtracted from the gross farm value. For 2023, net farm value is $0.175-(0.37 x $0.091) = $0.141.</p>
+<p>Step 5:</p>
+<p>The farm value share is determined by dividing the net farm value by the retail price. The farm value share for 2023 is $0.141 / $0.551 = 25.6 percent.</p>
+<h5 id="oil">Vegetable (Soybean) Oil</h5>
+<p>Soybeans are a major oilseed and widely used to manufacture vegetable oil. Crude vegetable oil extracted from soybeans must be further refined for human consumption.</p>
+<p>ERS assumes an 8-percent loss from refining crude oil (<em>Agricultural Handbook</em> No. 697, table 34, pg. 44). Thus, in order to supply 1 pound of refined oil, manufacturers need about 1.087 pounds (=1 / 0.92) of crude oil. One gallon of refined oil is further assumed to weigh 7.7 pounds. ERS estimates the farm value of one gallon of vegetable oil based on farm receipts for the soybeans purchased from farmers to produce this amount of vegetable oil. This value is then adjusted for the value of co-products and, finally, compared with an estimate of national-average retail prices.</p>
+<p>Data from 2023 are used in the example for vegetable oil.</p>
+<p>Step 1:</p>
+<p>Using OmniMarket Core Outlets data from Circana, ERS estimates that U.S. consumers paid $12.77 per gallon of soybean oil at retail stores in 2023.</p>
+<p>Step 2:</p>
+<p>The farm-level price of soybeans is available in <a href="https://www.nass.usda.gov/" target="_blank" class="usa-link usa-link--external" rel="noopener noreferrer"><em>Agricultural Prices</em></a>, which is published monthly by the National Agricultural Statistics Service (NASS). These figures are reported on a dollar-per-bushel basis. In August 2023, soybeans cost $14.10 per 60-pound bushel or, equivalently, $0.235 per pound (=$14.10 / 60).</p>
+<p>Step 3:</p>
+<p>Crushing soybeans produces three products—oil, meal, and hulls. The amount of oil extracted from a bushel of soybeans (oil yield) is obtained from table 9 of the ERS <a href="/data-products/oil-crops-yearbook" data-entity-type="node" data-entity-uuid="223e00d9-5c13-418d-9ee8-46714103b550" data-entity-substitution="canonical" title="Oil Crops Yearbook" class="usa-link">Oil Crops Yearbook</a>—11.92 pounds in August 2023.</p>
+<p>Step 4:</p>
+<p>The next step is to determine the share of oil in a bushel of soybeans. To do so, ERS divides the figure in Step 3 by the total weight of a bushel of soybeans in pounds. Using August 2023, for example, divide 11.92 pounds by 60 to determine that 19.864 percent of a bushel of soybeans was allocated to soybean oil production.</p>
+<p>Step 5:</p>
+<p>The number of pounds of soybeans needed to produce 1.087 pounds of crude (1 pound of refined) soybean oil in August 2023 can now be estimated as 5.472 (calculated as 1.087 / 0.19864).</p>
+<p>Step 6:</p>
+<p>The number of pounds of soybeans needed to produce 1 gallon (7.7 pounds) of refined soybean oil in August 2023 can now be estimated as 42.134 (calculated as 5.472 x 7.7).</p>
+<p>Step 7:</p>
+<p>Gross farm value is calculated by multiplying the U.S. farm price of soybeans in pounds (obtained in Step 2) by the number of pounds of soybeans required to make one gallon of refined soybean oil (Step 6). For August 2023, multiply $0.235 per pound by 42.1344 pounds to obtain a gross farm value of $9.902.</p>
+<p>Step 8:</p>
+<p>The percentage of the value of a bushel of soybeans that is attributed to co-products (soybean meal and hulls) is next obtained from table 9 of the <a href="/data-products/oil-crops-yearbook" data-entity-type="node" data-entity-uuid="223e00d9-5c13-418d-9ee8-46714103b550" data-entity-substitution="canonical" title="Oil Crops Yearbook" class="usa-link">Oil Crops Yearbook</a>. In August 2023, it is reported that meal and hulls accounted for 54.38 percent of the total value of a bushel of soybeans. When this share is multiplied by the gross farm value (Step 7), the result is $5.385 for the value of co-products in 42.134 pounds of soybeans.</p>
+<p>Step 9:</p>
+<p>Net farm value is calculated by subtracting the value of co-products from the gross farm value. In August 2023, ERS estimates the net farm value of one gallon of soybean oil to be $9.902 - $5.385 = $4.517 per pound.</p>
+<p>Step 10:</p>
+<p>After repeating steps 2 through 9 for each month of a year, ERS calculates a simple average of the 12 monthly farm value estimates. For 2023, that average is $4.092.</p>
+<p>Step 11:</p>
+<p>The farm value share is the net farm value of refined soybean oil divided by the average retail price. For 2023, ERS's estimate is 32.04 percent (=100 x ($4.092 / $12.77)).</p>
+<h5 id="sugar">White (Refined) Sugar</h5>
+<p>Because sugar sold in retail stores in the United States may have been extracted from sugar beets, sugarcane, or both, a weighted average of the farm values of refined sugar from both sources is used. Moreover, firms processing sugar beets or sugarcane may produce co-products such as molasses and livestock feed.</p>
+<p>Quantities of co-products obtained along with sugar are estimated using data published by the Census Bureau for 1977-2007. In the Census of Manufactures, the Census Bureau publishes the value of both the sugar and the co-products—molasses and livestock feed manufactured (Table 6a, "Products Statistics"). These data are used to estimate the share of industry shipments attributable to co-products. Before 1997, Standard Industrial Classification (SIC) codes were used for data from two industries—Raw Cane Sugar (SIC 2061) and Beet Sugar (SIC 2063). Since 1997, the North American Industry Classification System (NAICS) system is used, relying on data from two industries—Sugarcane Products (NAICS311311) and Beet Sugar (NAICS 311313).</p>
+<p>Regardless of the industry or classification system, the same procedures are used to develop co-product estimates. First, the total value of industry shipments is estimated as the value of sugar and co-product shipments, excluding only the value of shipments not specified by kind (NSK). Next, the value of only co-product shipments is summed. Finally, the sum of the co-product shipments is divided by the value of total industry shipments. Mathematically,</p>
+<p>CR = C / (T - NSK), where:</p>
+<p>CR = co-product ratio for a given industry</p>
+<p>C = total co-product value of shipments for a given industry</p>
+<p>T = Total value of shipments for a given industry</p>
+<p>NSK = Total value of shipments not specified by kind</p>
+<p>The share of the value of sugar (cane or beet) processing attributed to co-products appears to have changed only a little over 30 years. The share ranged from 4.84 percent to 7.48 percent for cane sugar processing and from 7.47 percent to 13.04 percent for beet sugar processing. In years where data were incompletely reported (specifically, 2002 for sugar beets 2007 for sugarcane), the co-product ratios used in sugar computations were determined by averaging the estimated co-product ratios for each Census from 1977 to 2007, for years and industries where data were completely reported. The average co-product ratios were 6 percent for sugarcane and 10 percent for sugar beet processing.</p>
+<p>Step 1:</p>
+<p>The retail price per pound of bagged sugar (all sizes) is obtained from the average retail price series published by BLS. These figures are produced in conjunction with the monthly Consumer Price Index (CPI) reporting program. Annual estimates are calculated by taking simple averages of the monthly data. In 2023, this figure came to $0.921 per pound.</p>
+<p>Step 2:</p>
+<p>The annual average price of U.S. sugarcane (per ton) is obtained from Table 13 ("Sugarcane for sugar: price per ton, by State, since 1972/73") of the <a href="/data-products/sugar-and-sweeteners-yearbook-tables" data-entity-type="node" data-entity-uuid="192aa7b7-bc1f-4022-b760-5eb946875770" data-entity-substitution="canonical" title="Sugar and Sweeteners Yearbook Tables" class="usa-link">Sugar and Sweeteners Yearbook (SASY)</a>. In 2023, the annual average price received by farmers was $60.90 per ton (2,000 pounds) or, $0.0305 per pound.</p>
+<p>Step 3:</p>
+<p>In 2023, total production of sugarcane for making sugar was 32.113 million tons. The data are obtained from SASY Table 15 (“U.S. sugarcane: area, yield, production, sugar output, recovery rate, and sugar yield per acre, by crop year and fiscal year”).</p>
+<p>Step 4:</p>
+<p>Total production of raw cane sugar cane also comes from Table 15 of SASY. In 2023, this figure was 4.021 million tons.</p>
+<p>Step 5:</p>
+<p>The amount of raw cane sugar extracted per pound of sugarcane is estimated by dividing the figure in Step 4 by the figure in Step 3. In 2023, manufacturers extracted 4.021 / 32.113 = 0.1252 pounds of cane sugar (on average) from each pound of sugarcane processed.</p>
+<p>Step 6:</p>
+<p>USDA's Conversion Factors and Weights and Measures (Statistical Bulletin No. 616, March 1979) reports that refining 1.07 pounds of raw sugar produces one pound of refined sugar. This estimate is divided by the figure in Step 5 to further obtain an estimate of the quantity of sugarcane required to produce one pound of refined cane sugar. In 2023, food processors bought an estimated 8.546 (=1.07 / 0.1252) pounds of sugarcane for each pound of cane sugar they produced.</p>
+<p>Step 7:</p>
+<p>The gross farm value per pound of cane sugar is estimated by multiplying the figure in Step 6 by the farm price of a pound of sugarcane (Step 2). For 2023, this value is 8.5454 x $0.0305 = $0.260.</p>
+<p>Step 8:</p>
+<p>Using data published by the Census Bureau, co-products are estimated to account for 6 percent of the farm value of sugarcane. To estimate the net farm value of one pound of cane sugar, the gross farm value obtained in Step 7 is multiplied by 0.94 (=1 - 0.06). In 2023, the net farm value of one pound cane sugar was about $0.245.</p>
+<p>Step 9:</p>
+<p>The sequence of steps employed for sugarcane is now repeated for sugar beets. First, the U.S. sugar beet price received by farmers is obtained from SASY Table 12 (“Sugarbeet price per ton, by State and United States, since 1972/73"). In 2023, the annual average price received by farmers was $75.60 per ton (2,000 pounds) or, $0.0378 per pound.</p>
+<p>Step 10:</p>
+<p>Sugar beet production is reported in SASY Table 17 ("U.S. sugarbeet area, yield, and production, since 1980/81"). In 2023, sugar beet production totaled 35.884 million tons.</p>
+<p>Step 11:</p>
+<p>The quantity of sugar obtained from sugar beets on a raw value basis is also recorded in SASY Table 17, and was 5.145 million tons in 2023.</p>
+<p>Step 12:</p>
+<p>The procedure for calculating the yield for sugar beets is analogous to that used for sugar cane. Here, the figure obtained in Step 11 is divided by the figure reported for Step 10. In 2023, manufacturers extracted 5.145 / 35.884 = 0.1434 pounds of beet sugar from each pound of sugar beets processed.</p>
+<p>Step 13:</p>
+<p>Sugar yield on a refined basis is then calculated using the same conversion factor (1.07) used for sugarcane. Thus, divide 1.07 by the result obtained in Step 12. In 2023, food processors bought an estimated 1.07 / 0.1434 = 7.4627 pounds of sugar beets for each pound of beet sugar produced.</p>
+<p>Step 14:</p>
+<p>The gross farm value per pound of beet sugar is estimated by multiplying the figure in Step 13 by the farm price of a pound of sugar beets (Step 9). For 2023, this value is 7.4627 x $0.0378 = $0.2821.</p>
+<p>Step 15:</p>
+<p>Using data from the Census Bureau, co-products are estimated to account for 10 percent of the farm value of sugar beets. To estimate the net farm value of one pound of beet sugar, we multiply the gross farm value obtained in Step 14 by 0.90 (=1 - 0.10). In 2007, the net farm value of one pound beet sugar was about $0.254.</p>
+<p>Step 16:</p>
+<p>The final step in calculating the farm value of sugar is to take a weighted average of net farm values of refined cane and beet sugar. These weights are the percentages of U.S. sugar production derived from sugarcane and sugar beets, both of which are obtained from SASY Table 16 ("U.S. beet and cane sugar production (including Puerto Rico) by fiscal year and share of total"). In 2023, the weighted average, net farm value of a pound of refined sugar at a retail store is (0.444 x $0.245) + (0.556 x $0.254) = $0.25.</p>
+<p>Step 17:</p>
+<p>Finally, the farm value share is calculated by dividing the net farm value determined in Step 16 by the retail price of sugar reported in Step 1. For 2023, farm share was 0.25 / 0.921 = 0.271 or, 27.1 percent.</p>
+<h5 id="bread">White Pan Bread</h5>
+<p>White pan bread is baked in long, narrow pans, and many manufacturers typically slice and package this type of bread in a plastic bag. While each manufacturer may use a different recipe (formula), ERS bases its calculations on a representative formula made available through the Department of Grain Science and Industry at Kansas State University. The farm-derived ingredients in 1 pound of white pan bread include 0.5964 pounds of flour, 0.0015 gallons of soybean oil, and 0.0508 pounds of corn syrup (dry weight). ERS assigns a zero farm value to the bread’s other ingredients that include water, yeast, salt, emulsifiers, and calcium propionate.</p>
+<p>Step 1:</p>
+<p>Retail stores commonly sell white pan bread in loaves ranging from 16 to 32 ounces. In conjunction with its reporting of the Consumer Price Index, BLS publishes monthly average prices at retail stores on per pound basis. Each month’s price is a broad average that is derived from prices for all brands and loaf sizes. For this data series, a simple average of the monthly average prices is calculated—for 2023, the average is $1.960 per pound.</p>
+<p>Step 2:</p>
+<p>The farm value of each ingredient is estimated. White, all-purpose flour is the primary farm-derived ingredient; the data and procedures used to calculate its farm value are detailed above (<a href="#flour" class="usa-link">all-purpose white flour</a>). In 2023, that value was $0.141 per pound. Since each pound of bread is assumed to contain 0.5964 pounds of flour, ERS estimates that the farm value of the flour in the retail product was $0.084 (calculated as 0.5964 x $0.141).</p>
+<p>Step 3:</p>
+<p>Soybean oil is another ingredient in white pan bread. Each pound of bread is assumed to contain 0.0015 gallons of soybean oil. The data and procedures used to calculate the farm value of this ingredient are detailed above (<a href="#oil" class="usa-link">vegetable (soybean) oil</a>). In 2023, the farm value of one gallon of soybean oil was $4.092. The farm value of the oil in one pound of white pan bread was likewise $0.006 (calculated as 0.0015 x $4.092).</p>
+<p>Step 4:</p>
+<p>Data and procedures used to calculate the farm value of corn syrup are detailed in Table 31b of ERS's <a href="/data-products/sugar-and-sweeteners-yearbook-tables" data-entity-type="node" data-entity-uuid="192aa7b7-bc1f-4022-b760-5eb946875770" data-entity-substitution="canonical" title="Sugar and Sweeteners Yearbook Tables" class="usa-link">Sugar and Sweeteners Yearbook</a>. In 2023, the farm value of corn syrup was $0.0878 per dry pound. Thus, the farm value of the corn syrup in one pound of white pan bread was $0.004 (calculated as 0.0508 x $0.0878).</p>
+<p>Step 5:</p>
+<p>The farm value of all three farm-derived ingredients is next totaled. In 2023, the farm value of white pan bread was $0.084 + $0.006 + $0.004 = $0.094.</p>
+<p>Step 6:</p>
+<p>The farm share of the retail price is determined by dividing the farm value by the retail price. The farm value share for 2023 is $0.094 / $1.960 &nbsp;= 0.048, or about 4.8 percent.</p>
+<h4 id="farmfruits">Fresh Fruit</h4>
+<p>ERS estimates the farm share of six types of fresh fruit—apples, grapefruit, grapes, oranges, peaches, and strawberries. To illustrate the process behind the calculations, consider apples in 2023 when the retail price of apples averaged $1.82 per pound. Average retail prices for fresh apples are calculated using OmniMarket Core Outlets data from <a href="/node/3258#iri" class="usa-link">Circana</a>. Prices received by growers for fresh apples in 2023 averaged $0.3460 per pound. Farm level prices for fresh apples are from the ERS <a href="/data-products/fruit-and-tree-nuts-data" data-entity-type="node" data-entity-uuid="ed4e45d0-cc2f-4335-b1e7-f1a7f26e2094" data-entity-substitution="canonical" title="Fruit and Tree Nuts Data" class="usa-link">Fruit and Tree Nuts Yearbook</a>. Assuming that 4 percent of farm commodity volume is lost as farm apples make their way through the marketing chain, farmers must supply 1.04167 pounds (=1 / 0.96) of apples per pound sold by marketers. The farm share equation is: (1.04167 x 0.3460) / 1.82 = 0.1980, or about 19.8 percent.</p>
+<p>Although the values for conversion factors, retail prices, and farm prices vary for other types of fresh fruit, ERS follows the same process for calculating farm share.</p>
+<h4 id="farmvegetables">Fresh Vegetables</h4>
+<p>ERS estimates the farm share of 6 types of fresh vegetables—broccoli, carrots, iceberg lettuce, potatoes, tomatoes, and romaine lettuce. For iceberg lettuce, the retail price averaged $1.35 per pound in 2024. Average retail prices for fresh iceberg lettuce are calculated using OmniMarket Core Outlets data from <a href="/node/3258#iri" class="usa-link">Circana</a>. Prices received by growers in 2023 for fresh iceberg lettuce averaged $0.4002 per pound. Farm level prices for fresh apples are from the ERS <a href="/data-products/vegetables-and-pulses-data" data-entity-type="node" data-entity-uuid="fecf82a8-fe3f-4e0f-bf86-b7df243aabae" data-entity-substitution="canonical" title="Vegetables and Pulses Data" class="usa-link">Vegetables and Pulses Yearbook</a>. Under the assumption that 7 percent of farm commodity volume is lost as the lettuce proceeds through the marketing chain, farmers must supply 1.075 pounds (=1 / 0.93) of lettuce per pound sold by marketers. The farm share equation is: (1.075 x 0.4002) / 1.35 = 0.3187, or about 31.9 percent.</p>
+<p>Although the values for conversion factors, retail prices, and farm prices vary for the other three types of fresh vegetables, the same process for calculating the farm share is followed.</p>
+<h4 id="processed">Processed Fruit and Vegetables</h4>
+<h5>Orange Juice</h5>
+<p>Orange juice is extracted from a variety of fresh oranges such as Valencia and Navel. Most of the weight of juice ready for consumption is from water. The soluble solids in orange juice consist primarily of sugars, with some citric acid and minerals; these soluble solids are measured in degrees brix. Fresh squeezed juice (not from concentrate or NFC) averages about 11.8 degrees brix, meaning that the juice is 11.8 percent soluble solids.</p>
+<p>Fresh oranges are cleaned and graded at juice processing plants; then the juice is extracted. Co-products such as citrus pulp pellets (mostly cattle feed), D-limonene, and molasses can be made from the peel, pulp, and seeds that remain after producing orange juice. During the 2007/08 season when prices for citrus pulp pellets were low, industry executives stated that making co-products was merely the least expensive way to dispose of leftover orange parts. A study by the University of Florida estimated that the value of juice (including orange and grapefruit) produced in the State in 2007/08 was $3.45 billion and the value of co-products was $136 million. However, due to a lack of data available from year-to-year on the quantity and value of co-products, ERS was unable to incorporate co-product values into the calculations. Thus, in years when co-products values are substantial, a comparison of farm receipts for oranges with retail orange juice prices will overstate the farm share. This is because retail prices alone understate the final value of products made from the oranges.</p>
+<p>Step 1:</p>
+<p>The <a href="https://www.floridacitrus.org/grower/" target="_blank" class="usa-link usa-link--external" rel="noopener noreferrer">Florida Department of Citrus (FDOC)</a> publishes average retail prices for orange juice products online. For example, during the 2022/23 season—from October 2022 through September 2023—NFC juice sold for $10.35 per gallon at retail.</p>
+<p>Step 2:</p>
+<p>The FDOC reports the quantity of orange juice that can be processed each season from fresh Florida oranges. The yield varies from season to season based on characteristics of the orange crop. In the 2022/23 season, one 90-pound box of fresh oranges yielded 4.746 gallons of juice at 11.8 degrees brix or, equivalently, marketers required 0.211 boxes for each gallon of fresh squeezed orange juice they produced (=1 / 4.746).</p>
+<p>Step 3:</p>
+<p>What do farmers receive for the oranges in one gallon of consumable orange juice? ERS publishes season-average prices received by Florida farmers per 90-pound box of oranges (equivalent-on-tree returns) in the <a href="/data-products/fruit-and-tree-nuts-data" data-entity-type="node" data-entity-uuid="ed4e45d0-cc2f-4335-b1e7-f1a7f26e2094" data-entity-substitution="canonical" title="Fruit and Tree Nuts Data" class="usa-link">Fruit and Tree Nuts Yearbook</a> (table C22). Growers receive different prices for oranges marketed for fresh use versus oranges sold for processing. Farmers earned $9.20 per 90-pound box of processing oranges during the 2022/23 season. Farm receipts for the oranges in one gallon of consumable juice likewise totaled $1.94 that season (0.211 x $9.20).</p>
+<p>Step 5:</p>
+<p>The farm share of retail prices is determined by dividing a product's farm value by its retail price, with the ratio of the prices then stated in percentage terms. For the 2022/23 season, ERS estimated the farm share of NFC orange juice at 18.7 percent (based on $1.94 / $10.35).</p>
+<h2 id="changes">Data Changes</h2>
+<p>ERS periodically archives and replaces data series. Such adjustments to the data product are necessary as changes occur over time in data availability, conversion factors, and in the products U.S. households buy at retail stores.</p>
+<h3>Dairy Products</h3>
+<ul>
+<li>In 2025, ERS replaced its market basket data series for dairy products, based on what U.S. households purchased at retail stores in 2003, with a new data series based on what the households bought in 2022. The new basket contains comparatively less fluid milk and more cheese than its predecessor. ERS also adjusted the conversion factors used for calculating the amount of milk marketers buy from farmers to produce the contents of the retail market basket. For the new agricultural basket that corresponds to the new retail market basket, ERS assumes that milk purchased from farmers is 4.2 percent milkfat. By contrast, when calculating the amount of milk marketers bought from farmers to produce the contents of the previous market basket, researchers had assumed milk purchased from farmers was 3.7 percent milkfat. The contents of the archived retail and agricultural market baskets are available on the <a href="/data-products/price-spreads-from-farm-to-consumer" data-entity-type="node" data-entity-uuid="9a54dc01-8481-48ac-9518-8dfa5ab933a8" data-entity-substitution="canonical" title="Price Spreads from Farm to Consumer" class="usa-link">Overview</a> page with the archived data table.</li>
+<li>In 2025, ERS replaced its data series for butter. In 2018, BLS began to report national-average retail prices for stick butter. ERS adopted this new series for estimating the farm share of retail butter prices once a sufficiently long time series of data was available—making the new series consistent with statistics for whole milk, Cheddar cheese, and ice cream—which also rely on BLS average retail price data.</li>
+<li>In 2012 and 2013, ERS replaced its data series for whole milk, Cheddar cheese, ice cream, and butter. USDA, AMS ceased to report data on over-order payments. New data series for these four individual dairy products that do not account for over-order payments were launched.</li>
+</ul>
+<h3>Fresh Fruit</h3>
+<ul>
+<li>In 2025, ERS replaced all data series for individual fresh fruit with new series for apples, oranges, peaches, grapes, grapefruit, and strawberries. The six new series use national-average retail prices estimates, based on Circana OmniMarket Core Outlets data. The prior data series for individual fresh fruit relied on BLS-reported monthly, national average prices. However, BLS had stopped reporting prices for several key fresh fruit, including apples and grapes.</li>
+<li>In 2021, ERS replaced its market basket data series for fresh fruit, based on what U.S. households purchased between 1999 and 2003, with a new series based on what the households bought in 2018. The new basket information adds blueberries but contains comparatively less grapefruit than its predecessor. The same conversion factors were used to calculate the contents of both agricultural baskets. The contents of the archived retail and agricultural market baskets are available on the <a href="/data-products/price-spreads-from-farm-to-consumer" data-entity-type="node" data-entity-uuid="9a54dc01-8481-48ac-9518-8dfa5ab933a8" data-entity-substitution="canonical" title="Price Spreads from Farm to Consumer" class="usa-link">Overview</a> page with the archived data table.</li>
+</ul>
+<h3>Fresh Vegetables</h3>
+<ul>
+<li>In 2025, ERS replaced all data series for individual fresh vegetables, with new series information for broccoli, carrots, iceberg lettuce, potatoes, tomatoes, romaine lettuce. The six new series use national-average retail prices estimates, based on OmniMarket Core Outlets. The prior data series for individual fresh vegetables relied on BLS-reported monthly, national average prices. However, BLS had stopped reporting prices for broccoli.</li>
+<li>In 2021, ERS replaced its market basket data series for fresh vegetables, based on what U.S. households purchased between 1999 and 2003, with a new series based on what the households bought in 2018. The new basket information contains comparatively less potatoes and less iceberg lettuce but more tomatoes than its predecessor. The same conversion factors were used to calculate the contents of both agricultural baskets. The contents of the archived retail and agricultural market baskets are available on the <a href="/data-products/price-spreads-from-farm-to-consumer" data-entity-type="node" data-entity-uuid="9a54dc01-8481-48ac-9518-8dfa5ab933a8" data-entity-substitution="canonical" title="Price Spreads from Farm to Consumer" class="usa-link">Overview</a> page, with the archived data table.</li>
+</ul>
+<h3>Field Crops</h3>
+<ul>
+<li>In 2012, ERS replaced its data series for stick margarine with one for vegetable (soybean) oil.</li>
+<li>In 2025, ERS revised its data series for vegetable (soybean) oil to use annual, national-average prices based on Circana OmniMarket Core Outlets, instead of Circana-provided household scanner data.</li>
+</ul>
+<h3>Processed Fruits and Vegetables</h3>
+<ul>
+<li>In 2025, ERS discontinued reporting statistics for frozen concentrated orange juice.</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<p>Price Spreads information from Farm to Consumer has some limitations:</p>
+<ul>
+<li>Prices used to calculate statistics are annual, national averages and do not represent the prices a consumer would pay or a farmer would receive in a given locality, at a certain time, or for a specific brand and package size of the food item.</li>
+<li>Conversion factors used to calculate statistics are broad assumptions about how products are made. The factors do not necessarily apply in all cases.</li>
+<li>Many of the farm and retail price data used to calculate statistics do not include accuracy measures. ERS is unable to provide confidence intervals for these statistics.</li>
+</ul>
+<h2 id="related">Related Data</h2>
+<p><a href="/data-products/meat-price-spreads" data-entity-type="node" data-entity-uuid="03cf3d47-3613-4b96-892b-b0b74fe1f01f" data-entity-substitution="canonical" title="Meat Price Spreads" class="usa-link">Meat Price Spreads</a> – ERS measures price spreads for meat, pork, poultry, broilers, turkeys, and eggs.</p>
+<p><a href="/data-products/food-dollar" data-entity-type="node" data-entity-uuid="f9c61fea-6455-4122-9a19-a455169d951e" data-entity-substitution="canonical" title="Food Dollar" class="usa-link">Food Dollar Series</a> – ERS measures annual expenditures by U.S. consumers on domestically produced food. This data product includes three primary series that describe different aspects of the food supply chain—the marketing bill, the industry group bill, and the primary factors bill. Marketing bill data, for example, show how many cents farm establishments receive for each dollar spent on food at home and each dollar spent on food away from home. Food-at-home dollars include purchases from outlets such as grocery stores, supermarkets, and wholesale clubs of food meant to be prepared at home. Food-away-from-home dollars cover food purchases at restaurants, including delivery and carryout, and other venues where the food is eaten on the premises.</p>
+<h2 id="citation">Recommended Citation</h2>
+<p>U.S. Department of Agriculture, Economic Research Service. <em>Price spreads from farm to consumer</em>.</p>
+	</div>
+
+  </div>
+
+</article>
+
+  </div>
+
+
+				</div>
+			</div>
+		</div>
+	
+	<!-- Chart Detail -->
+	
+	<!-- AW Article -->
+	
+	<!-- Content full width 2 -->
+			<div>
+			  <div>
+    
+    
+<div id="ers-csat-survey-invite"  id="block-ers-csat-survey-invite" class="display-none margin-top-5 block block-ers-csat-survey block-ers-csat-survey-invite">
+	
+			
+
+		<!-- Template: ers-csat-survey-invite-banner -->
+		<template id="ers-csat-survey-invite-banner">
+			<div class="padding-y-3 desktop:padding-y-8" style="background-position:center; background-size:cover; background-image: url('/media/4065/bg22.jpg');">
+				<div class="grid-container-desktop-lg">
+					<div class="grid-row grid-gap-3">
+						<div class="tablet:grid-col-5 margin-bottom-2">
+							<div class="bg-white shadow-5 height-full padding-3">
+																	<h2 class="font-heading-xl section-heading-gold margin-top-0">We’d welcome your feedback!</h2>
+																									<p class="usa-prose">Would you be willing to answer a few quick questions about your experience?</p>
+																									<p class="margin-bottom-0">
+										<a class="usa-button usa-button--accent-cool" href="/survey?destination=/data-products/price-spreads-from-farm-to-consumer/documentation">Yes, I’ll give feedback</a>
+									</p>
+															</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+
+	</div>
+  </div>
+
+		</div>
+	
+</main>
+
+<!-- Footer -->
+<footer class="usa-footer usa-footer--big">
+	<div class="grid-container usa-footer__return-to-top">
+		<a href="#">Return to top</a>
+	</div>
+	<div class="usa-footer__primary-section">
+		<div class="grid-container">
+			<div class="grid-row grid-gap">
+				<div class="tablet:grid-col-8">
+					<nav class="usa-footer__nav" aria-label="Footer navigation">
+						<div class="grid-row grid-gap-4">
+							<div class="mobile-lg:grid-col-6 desktop:grid-col-3">
+								  <div>
+    
+
+<div  id="block-erslinks" class="usa-footer__primary-content usa-footer__primary-content--collapsible block block-block-content block-block-contentf13f7333-6453-4473-81d8-3036e35013d4">
+	
+						
+			<h4 class="usa-footer__primary-link">ERS Links</h4>
+							<ul class="usa-list usa-list--unstyled">
+																																																																																																																																																						<li class="usa-footer__secondary-link">
+							<a href="/help/accessibility">Accessibility</a>
+						</li>
+																				<li class="usa-footer__secondary-link">
+							<a href="/about-ers/careers-at-ers">Careers</a>
+						</li>
+																				<li class="usa-footer__secondary-link">
+							<a href="/contact-us">Contact Us</a>
+						</li>
+																				<li class="usa-footer__secondary-link">
+							<a href="/help">Help</a>
+						</li>
+																				<li class="usa-footer__secondary-link">
+							<a href="/about-ers/policies-and-standards/information-quality">Information Quality</a>
+						</li>
+																				<li class="usa-footer__secondary-link">
+							<a href="/privacy">Privacy Policy</a>
+						</li>
+																				<li class="usa-footer__secondary-link">
+							<a href="/index/sitemap.xml">Site Map</a>
+						</li>
+																														</ul>
+			</div>
+  </div>
+
+							</div>
+							<div class="mobile-lg:grid-col-6 desktop:grid-col-3">
+								  <div>
+    
+
+<div  id="block-usdalinks" class="usa-footer__primary-content usa-footer__primary-content--collapsible block block-block-content block-block-content58ec706d-11bf-4052-9069-258798fc676b">
+	
+						
+			<h4 class="usa-footer__primary-link">USDA Links</h4>
+							<ul class="usa-list usa-list--unstyled">
+																																																																																																																																																						<li class="usa-footer__secondary-link">
+							<a href="/freedom-of-information-act">FOIA</a>
+						</li>
+																				<li class="usa-footer__secondary-link">
+							<a href="https://www.usda.gov/non-discrimination-statement" rel="noopener noreferrer" class="usa-link--external" target="_blank">Non-Discrimination Statement</a>
+						</li>
+																				<li class="usa-footer__secondary-link">
+							<a href="https://www.usda.gov/plain-writing" rel="noopener noreferrer" class="usa-link--external" target="_blank">Plain Writing</a>
+						</li>
+																				<li class="usa-footer__secondary-link">
+							<a href="https://usdaoig.oversight.gov/" rel="noopener noreferrer" class="usa-link--external" target="_blank">Report Fraud</a>
+						</li>
+																				<li class="usa-footer__secondary-link">
+							<a href="https://www.usda.gov/" rel="noopener noreferrer" class="usa-link--external" target="_blank">USDA.gov</a>
+						</li>
+																				<li class="usa-footer__secondary-link">
+							<a href="https://www.usa.gov/" rel="noopener noreferrer" class="usa-link--external" target="_blank">USA.gov</a>
+						</li>
+																				<li class="usa-footer__secondary-link">
+							<a href="https://www.whitehouse.gov/" rel="noopener noreferrer" class="usa-link--external" target="_blank">White House.gov</a>
+						</li>
+																														</ul>
+			</div>
+  </div>
+
+							</div>
+							<div class="mobile-lg:grid-col-6 desktop:grid-col-3">
+								
+							</div>
+							<div class="mobile-lg:grid-col-6 desktop:grid-col-3">
+								
+							</div>
+						</div>
+					</nav>
+				</div>
+				<div class="tablet:grid-col-4">
+					  <div>
+    
+
+<div  id="block-footersignup" class="usa-sign-up block block-block-content block-block-content39783e6f-aae9-40d1-9627-10ef8db98ed3">
+	
+						<h3 class="usa-sign-up__heading">ERS E-newsletters</h3>
+							<a href="https://visitor.r20.constantcontact.com/manage/optin?v=001CPZXBN9FC9oQmIu-TWkaLC06vEWBMy1Q" class="usa-button usa-link--external" rel="noopener noreferrer" target="_blank">Subscribe</a>
+			</div>
+  </div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="usa-footer__secondary-section">
+		<div class="grid-container">
+			<div class="grid-row grid-gap">
+				<div class="usa-footer__logo grid-row mobile-lg:grid-col-6 mobile-lg:grid-gap-2">
+					<div class="mobile-lg:grid-col-auto">
+						<img class="usa-footer__logo-img width-8" src="/themes/custom/uswds_ers/logo.svg" alt="U.S. Department of Agriculture logo" />
+					</div>
+					<div class="mobile-lg:grid-col-auto">
+						<p class="usa-footer__logo-heading">Economic Research Service</p>
+					</div>
+				</div>
+				<div class="usa-footer__contact-links mobile-lg:grid-col-6">
+					  <div>
+    
+
+<div  id="block-footersociallinks" class="usa-footer__social-links grid-row grid-gap-1 block block-block-content block-block-content203b4224-078b-4f64-b252-631eece03f7d">
+	
+																																																																																																																																																																																																																																																																																																																								<div class="grid-col-auto">
+						<a class="usa-social-link" href="https://x.com/USDA_ERS" target="_blank" rel="noopener noreferrer">
+							<img class="usa-social-link__icon" src="/themes/custom/uswds_ers/package/dist/img/usa-icons/x.svg" alt="x logo" />
+						</a>
+					</div>
+																												<div class="grid-col-auto">
+						<a class="usa-social-link" href="https://www.linkedin.com/company/usda-economic-research-service/" target="_blank" rel="noopener noreferrer">
+							<img class="usa-social-link__icon" src="/themes/custom/uswds_ers/package/dist/img/usa-icons/linkedin.svg" alt="LinkedIn logo" />
+						</a>
+					</div>
+																																																</div>
+  </div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<!-- Analytics -->
+  <div>
+    
+
+<div  id="block-uswds-ers-googleanalyticsdap" class="block block-ers-blocks block-google-analytics-dap">
+	
+			
+	</div><div id="block-uswds-ers-googleanalyticsers" class="block block-ers-blocks block-google-analytics-ers">
+  
+    
+      
+  </div>
+
+
+<div  id="block-uswds-ers-adobeanalytics" class="block block-ers-blocks block-adobe-analytics">
+	
+			
+	</div>
+
+<div  id="block-uswds-ers-googlesiteverification" class="block block-ers-blocks block-google-site-verification">
+	
+			
+	</div>
+  </div>
+
+  </div>
+
+
+<script src="/modules/custom/ers_csat_survey/js/ers_csat_survey_invite.js?v=1"></script>
+<script src="/themes/custom/uswds_ers/package/dist/js/uswds.min.js?v=3.12.0"></script>
+
+</body>
+</html>

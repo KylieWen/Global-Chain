@@ -1,0 +1,154 @@
+{
+  "schemaVersion": "soybean-oil-review.v1",
+  "batchId": "soybean-oil-2026-10-21",
+  "reviewedAt": "2026-10-21",
+  "datasetVersion": "globe-chain-soybean-oil-2026.1",
+  "sources": [
+    {
+      "key": "trade",
+      "path": "data/raw/soybean-oil-2026-10-21/comtrade-china-soy-2024.json",
+      "sha256": "cd19d0517f15987ac53805afe1eea0783cc5bd8eb7c3fa4de6b55de94f146472",
+      "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0%2C76%2C842&cmdCode=150710%2C150790%2C120190%2C230400&flowCode=M%2CX&period=2024&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+      "retrievedAt": "2026-10-21T03:18:48.784571+00:00",
+      "reviewedTerms": [],
+      "locator": "China reporter 156; partners world 0, Brazil 76 and US statistical area 842; HS2022 120190/150710/150790/230400; annual2024; M/X."
+    },
+    {
+      "key": "china",
+      "path": "data/raw/soybean-oil-2026-10-21/usda-china-CH2025-0055.pdf",
+      "sha256": "7384cd00001f66906a66a4aa0a91e0ee3d1cc0c643db285f733efb0c6e581154",
+      "url": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Oilseeds+and+Products+Annual_Beijing_China+-+People%27s+Republic+of_CH2025-0055.pdf",
+      "retrievedAt": "2026-10-21T03:18:51.644586+00:00",
+      "reviewedTerms": [
+        "2024",
+        "Imported soybeans comprise the vast majority",
+        "Oil, Soybean",
+        "18810"
+      ],
+      "locator": "PDF pp.7-9: domestic/imported soybeans and crushing; pp.21-24 food uses; p.33 Table21, 2023/24 USDA Official production18810 thousand metric tonnes. New Post estimates remain separate."
+    },
+    {
+      "key": "brazil",
+      "path": "data/raw/soybean-oil-2026-10-21/usda-brazil-BR2025-0017.pdf",
+      "sha256": "91107110bccf1c120bc6d0c491fb51f97e351b3c4c7c2d6994e7935f893ee3ce",
+      "url": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Oilseeds+and+Products+Update_Brasilia_Brazil_BR2025-0017.pdf",
+      "retrievedAt": "2026-10-21T03:18:56.198828+00:00",
+      "reviewedTerms": [
+        "Jan 2024",
+        "11341",
+        "154500",
+        "Soybean Oil"
+      ],
+      "locator": "PDF pp.15-17: Brazil soybean/crush/oil/meal PSD. Local2023/24 marketing year begins Jan2024; historical oil production11341 thousand tonnes, USDA Official column."
+    },
+    {
+      "key": "usa",
+      "path": "data/raw/soybean-oil-2026-10-21/usda-ers-soy-processing-2025.html",
+      "sha256": "32cc0f78f70ac6c108487df79d2f3bd823c8820d344c71d8cdf8a85af3887626",
+      "url": "https://www.ers.usda.gov/data-products/charts-of-note/112861",
+      "retrievedAt": "2026-10-21T03:18:58.784270+00:00",
+      "reviewedTerms": [
+        "7/1/2025",
+        "soybean meal and oil"
+      ],
+      "locator": "2025-07-01 Chart of Note: existing US soybean cultivation, export and crushing; forecast capacity or forecast crush percentages are not imported as observed values."
+    },
+    {
+      "key": "refining",
+      "path": "data/raw/soybean-oil-2026-10-21/usda-ers-retail-oil-method-2025.html",
+      "sha256": "907833ec4d0b72d32f7e1e26218d05b935f11bf67646af991aeefb2477b7ac6e",
+      "url": "https://www.ers.usda.gov/data-products/price-spreads-from-farm-to-consumer/documentation",
+      "retrievedAt": "2026-10-21T03:19:01.066026+00:00",
+      "reviewedTerms": [
+        "must be further refined for human consumption",
+        "three products",
+        "2023"
+      ],
+      "locator": "Vegetable (Soybean) Oil method example; crude oil requires refining for human consumption, oil/meal/hulls co-products, US2023 retail example. No retail price imported."
+    },
+    {
+      "key": "process",
+      "path": "data/raw/soybean-oil-2026-10-21/epa-vegetable-oil-process-1995.pdf",
+      "sha256": "43f5252e733f40a2dd059131369d724281f80c5e4ade21a45608786d9a48fdfd",
+      "url": "https://www.epa.gov/sites/production/files/2020-10/documents/b9s11-1.pdf",
+      "retrievedAt": "2026-10-21T03:19:03.140980+00:00",
+      "reviewedTerms": [
+        "November 1995",
+        "Oil Refining",
+        "deodorization",
+        "desolventizer-toaster"
+      ],
+      "locator": "Section2.2.1, printed pp.2-1 to2-9: soybean cleaning/preparation, solvent extraction/recovery, refining, meal desolventizing and cooling. Historical technical reference, not current regulations or a Chinese factory audit."
+    },
+    {
+      "key": "hs",
+      "path": "data/raw/soybean-oil-2026-10-21/un-comtrade-H6.json",
+      "sha256": "e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15",
+      "url": "https://comtradeapi.un.org/files/v1/app/reference/H6.json",
+      "retrievedAt": "2026-10-21T03:14:56.016021+00:00",
+      "reviewedTerms": [
+        "150710",
+        "150790",
+        "230400",
+        "120190"
+      ],
+      "locator": "Exact official H6 reference bytes reused from the earlier cotton research download; 150790 means other-than-crude, not exclusively bottled edible oil."
+    },
+    {
+      "key": "units",
+      "path": "data/raw/soybean-oil-2026-10-21/un-comtrade-quantity-units.json",
+      "sha256": "420267929eac391e9dcd97d18252a2aee9bff2a86c3e2162d1ec57ef53811c24",
+      "url": "https://comtradeapi.un.org/files/v1/app/reference/QuantityUnits.json",
+      "retrievedAt": "2026-10-21T03:15:00.051739+00:00",
+      "reviewedTerms": [
+        "qtyCode",
+        "kg"
+      ],
+      "locator": "qtyCode8 is kilograms; preserve quantity estimation flags. Comtrade US statistical code842 is mapped explicitly to the local US entity with M49 840."
+    }
+  ],
+  "tradeRecords": 4,
+  "materialRecords": 13,
+  "nodes": 13,
+  "flows": 13,
+  "processSteps": 9,
+  "macros": [
+    {
+      "id": "china-oil-production-my2023-24",
+      "entityId": "country-cn",
+      "indicator": "soybean_oil_production_kg",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-10-01",
+        "end": "2024-09-30",
+        "label": "2023/24年度（10月起）"
+      },
+      "quantity": 18810000000,
+      "sourceKey": "china",
+      "locator": "PDFp.33 Table21, 2023/24 USDA Official Production18810; 1000metrictons ×1000000 =kg; not NewPost17452.",
+      "status": "estimated"
+    },
+    {
+      "id": "brazil-oil-production-my2023-24",
+      "entityId": "country-br",
+      "indicator": "soybean_oil_production_kg",
+      "period": {
+        "granularity": "annual",
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "label": "2023/24年度（2024年1月起）"
+      },
+      "quantity": 11341000000,
+      "sourceKey": "brazil",
+      "locator": "PDFp.16 Chart2, local2023/24 beginsJan2024; USDA Official Production11341; 1000metrictons ×1000000 =kg.",
+      "status": "estimated"
+    }
+  ],
+  "limitations": [
+    "路线展示公开国家角色和代表性工艺连接；贸易观察独立保存，不追踪到具体农场、工厂、批次或同一瓶油。",
+    "HS150710与150790保留不同油品范围，均不能单凭分类确认全部属于食品用途；不把120190大豆进口量全部归为制油原料。",
+    "国家角色、海关自然年和USDA市场年度分别保留实际期间；产能、预测、市场年度估计与真实海关记录分开。",
+    "EPA1995为历史技术参考，用于解释一条化学精炼与浸出路线，不代表当前法规、唯一工艺或所有中国工厂。包装方案为通用策展说明。",
+    "无货量或配方比例的结构连接保留unknown，不按一吨大豆或一瓶油虚构出油率、利润或供应商关系。"
+  ]
+}

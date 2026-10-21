@@ -1,0 +1,125 @@
+{
+  "schemaVersion":"soybean-oil-content.v1",
+  "productId":"generic-soybean-oil",
+  "datasetVersion":"globe-chain-soybean-oil-2026.1",
+  "datasetVersionId":"dataset-soybean-oil-2026-1",
+  "contentVersion":"soybean-oil-route-2026.1",
+  "contentVersionId":"content-soybean-oil-2026-1",
+  "reviewedAt":"2026-10-21",
+  "batchId":"soybean-oil-2026-10-21",
+  "sources":[
+    {"key":"trade","file":"comtrade-china-soy-2024.json","name":"UN Comtrade 中国大豆、豆油与豆粕贸易2024","period":"2024","terms":[],"locator":"China reporter 156; partners world 0, Brazil 76 and US statistical area 842; HS2022 120190/150710/150790/230400; annual2024; M/X."},
+    {"key":"china","file":"usda-china-CH2025-0055.pdf","name":"USDA FAS 中国油籽与产品年度报告2025","period":"2025","terms":["2024","Imported soybeans comprise the vast majority","Oil, Soybean","18810"],"locator":"PDF pp.7-9: domestic/imported soybeans and crushing; pp.21-24 food uses; p.33 Table21, 2023/24 USDA Official production18810 thousand metric tonnes. New Post estimates remain separate."},
+    {"key":"brazil","file":"usda-brazil-BR2025-0017.pdf","name":"USDA FAS 巴西油籽与产品更新2025","period":"2025","terms":["Jan 2024","11341","154500","Soybean Oil"],"locator":"PDF pp.15-17: Brazil soybean/crush/oil/meal PSD. Local2023/24 marketing year begins Jan2024; historical oil production11341 thousand tonnes, USDA Official column."},
+    {"key":"usa","file":"usda-ers-soy-processing-2025.html","name":"USDA ERS 美国大豆压榨与产品用途2025","period":"2025","terms":["7/1/2025","soybean meal and oil"],"locator":"2025-07-01 Chart of Note: existing US soybean cultivation, export and crushing; forecast capacity or forecast crush percentages are not imported as observed values."},
+    {"key":"refining","file":"usda-ers-retail-oil-method-2025.html","name":"USDA ERS 植物油精炼和零售口径说明","period":"2025","terms":["must be further refined for human consumption","three products","2023"],"locator":"Vegetable (Soybean) Oil method example; crude oil requires refining for human consumption, oil/meal/hulls co-products, US2023 retail example. No retail price imported."},
+    {"key":"process","file":"epa-vegetable-oil-process-1995.pdf","name":"US EPA 植物油加工技术说明1995","period":"1995","terms":["November 1995","Oil Refining","deodorization","desolventizer-toaster"],"locator":"Section2.2.1, printed pp.2-1 to2-9: soybean cleaning/preparation, solvent extraction/recovery, refining, meal desolventizing and cooling. Historical technical reference, not current regulations or a Chinese factory audit."},
+    {"key":"hs","file":"un-comtrade-H6.json","name":"UN Comtrade HS2022分类字典","period":"2022","terms":["150710","150790","230400","120190"],"locator":"Exact official H6 reference bytes reused from the earlier cotton research download; 150790 means other-than-crude, not exclusively bottled edible oil."},
+    {"key":"units","file":"un-comtrade-quantity-units.json","name":"UN Comtrade数量单位字典","period":"2026-10","terms":["qtyCode","kg"],"locator":"qtyCode8 is kilograms; preserve quantity estimation flags. Comtrade US statistical code842 is mapped explicitly to the local US entity with M49 840."}
+  ],
+  "entities":[
+    ["country-cn","中国","CN","CHN","156"],
+    ["country-br","巴西","BR","BRA","076"],
+    ["country-us","美国","US","USA","840"]
+  ],
+  "items":[
+    ["generic-soybean-oil","大豆食用油","final_product",null,"食品","从一粒大豆认识压榨、精炼和灌装。毛油和非毛油分别保留贸易分类（含其他用途），不限定品牌、包装或制造路线。","refining"],
+    ["soybean","大豆","raw_material","generic-soybean-oil","农产品","种子内的油脂可提取为豆油，脱脂后留下富含蛋白质的豆粕。国产和进口大豆可进入不同食品或加工渠道。","china"],
+    ["crude-soybean-oil","毛豆油","material","generic-soybean-oil","食品","从豆片中提取并脱除溶剂后的初级油脂，仍需精炼才能进入食用油用途。","process"],
+    ["refined-soybean-oil","精炼豆油","component","generic-soybean-oil","食品","经脱胶、脱酸、脱色和脱臭等处理，去除影响使用和储存的杂质。","process"],
+    ["oil-packaging","容器与封口","component","generic-soybean-oil","其他消费品","容纳、密封和标识食用油，可采用适合食品接触的不同包装方案。","curation"],
+    ["soybean-meal","豆粕副产物","material","generic-soybean-oil","农产品","提取油脂后的豆片经过脱溶、干燥和粉碎形成豆粕，主要用于饲料蛋白。它与豆油是同一加工环节的不同产物。","process"],
+    ["soybean-flakes","预处理豆片","material","soybean","农产品","大豆经过清理、破碎、去皮、调质与压片，增加油脂提取的接触面积。","process"],
+    ["soybean-hulls","豆皮","material","soybean","农产品","预处理时分离的外皮，可进入副产物处理渠道。","process"],
+    ["hexane-solvent","浸出溶剂","material","crude-soybean-oil","化工品","浸出工艺用来溶解豆片中的油脂，之后通过蒸发、冷凝和脱溶回收；不是食用油配料。","process"],
+    ["oil-miscella","油脂溶剂混合液","material","crude-soybean-oil","化工品","浸出阶段得到的油脂与溶剂混合液，需要继续脱溶。","process"],
+    ["defatted-flakes","脱脂豆片","material","soybean-meal","农产品","浸出油脂后留下的豆片，经脱溶与后处理形成豆粕。","process"],
+    ["degummed-oil","脱胶油","material","refined-soybean-oil","食品","脱去部分磷脂等胶质的中间油品。脱胶毛油在海关中仍可属于150710。","process"],
+    ["neutralized-oil","脱酸油","material","refined-soybean-oil","食品","通过中和、分离与清洗等处理降低游离脂肪酸及皂脚残留。","process"],
+    ["bleached-oil","脱色油","material","refined-soybean-oil","食品","用吸附和过滤方式去除部分色素等成分，继续进入脱臭步骤。","process"],
+    ["refining-water","工艺水与蒸汽","material","refined-soybean-oil","工业品","用于洗涤、加热、脱溶与脱臭等环节，不代表各工序采用相同条件。","process"],
+    ["refining-alkali","精炼用碱","material","refined-soybean-oil","化工品","化学精炼路线中用于中和游离脂肪酸，反应产物随后分离。","process"],
+    ["bleaching-clay","脱色吸附材料","material","refined-soybean-oil","矿物能源","吸附油中的部分色素及杂质，过滤后与油品分离。","process"],
+    ["soy-lecithin","磷脂回收物","material","crude-soybean-oil","食品","脱胶时分离的磷脂可进一步回收处理，具体品质与用途另行研究。","process"],
+    ["soapstock","皂脚等分离物","material","refined-soybean-oil","化工品","中和精炼时与油分离的副产物，不并入精炼油产量。","process"],
+    ["oil-container","包装容器","material","oil-packaging","其他消费品","保护油品并便于储存和搬运的容器，材质与规格随产品而异。","curation"],
+    ["oil-closure-label","封口与标识","material","oil-packaging","其他消费品","用于密封并提供商品信息；本批不推定特定包装企业或材料来源。","curation"]
+  ],
+  "stages":[
+    ["cultivation","种植与收获","种植大豆并收获籽粒。"],
+    ["imports","原料集散","进口与国产原料进入加工环节。"],
+    ["crushing","压榨与浸出","预处理和提取油脂，同时产生豆粕分支。"],
+    ["refining","油脂精炼","处理胶质、酸度、色素及挥发性气味组分。"],
+    ["packaging","灌装与包装","将成品油装入容器并密封标识。"],
+    ["distribution","食品与其他市场","油品按品质和用途进入不同市场。"],
+    ["coproduct","副产物加工","脱脂豆片等形成可继续使用的副产物。"]
+  ],
+  "nodes":[
+    ["br-soybean","巴西 · 大豆种植","country-br","soybean","cultivation","brazil","2024",true,"巴西报告历史PSD表支持当地大豆种植与收获；不指定农场。"],
+    ["us-soybean","美国 · 大豆种植","country-us","soybean","cultivation","usa","2025",true,"USDA2025公开资料支持美国种植、出口和加工角色。"],
+    ["cn-soybean","中国 · 国产大豆","country-cn","soybean","cultivation","china","2024",true,"国产大豆主要有食品等用途，也有部分进入压榨渠道；此分支不表示全部国产豆用于制油。"],
+    ["cn-import","中国 · 进口大豆集散","country-cn","soybean","imports","trade","2024",true,"中国2024进口观察含巴西和美国统计区；记录用于国家进口角色，不追踪某批次。"],
+    ["cn-crush","中国 · 大豆预处理与提油","country-cn","crude-soybean-oil","crushing","china","2024",true,"2025报告说明中国既有压榨产业及2024年末产能背景；不将产能当产量。"],
+    ["cn-refine","中国 · 豆油精炼","country-cn","refined-soybean-oil","refining","process","2026-10",false,"工艺按EPA1995技术参考与USDA食用精炼说明整理；中国位置属于代表性供应结构。"],
+    ["cn-packaging","中国 · 容器与封口","country-cn","oil-packaging","packaging","curation","2026-10",false,"通用包装功能节点，不指定材质、工厂或供应商。"],
+    ["cn-pack","中国 · 食用油灌装","country-cn","generic-soybean-oil","packaging","curation","2026-10",false,"将精炼油和包装连接为常见零售成品的功能结构，不指认实际工厂。"],
+    ["cn-market","中国 · 食品用油","country-cn","generic-soybean-oil","distribution","china","2025",true,"USDA报告食用油章节支持豆油在中国食品领域的使用；不由海关额推导零售销量。"],
+    ["cn-meal","中国 · 豆粕副产物","country-cn","soybean-meal","coproduct","china","2024",true,"2023/24PSD表列出中国豆粕生产。工艺脱溶与饲料用途按技术参考另述。"],
+    ["br-crush","巴西 · 本地压榨","country-br","crude-soybean-oil","crushing","brazil","2024",true,"历史PSD表同时列出巴西压榨、豆油和豆粕产出。"],
+    ["us-crush","美国 · 本地压榨","country-us","crude-soybean-oil","crushing","usa","2025",true,"USDA2025资料说明美国既有压榨产业与豆油/豆粕产品，预测数字不当作实绩。"],
+    ["us-refine","美国 · 精炼与食品用途","country-us","refined-soybean-oil","refining","refining","2026-10",false,"依据USDA精炼与零售方法整理为代表分支，不指定美国工厂。"]
+  ],
+  "flows":[
+    ["br-import","br-soybean","cn-import","soybean","imports","巴西大豆进入中国原料分支"],
+    ["us-import","us-soybean","cn-import","soybean","imports","美国大豆进入中国原料分支"],
+    ["import-crush","cn-import","cn-crush","soybean","crushing","进口大豆进入提油加工"],
+    ["domestic-crush","cn-soybean","cn-crush","soybean","crushing","部分国产大豆进入提油加工"],
+    ["crush-refine","cn-crush","cn-refine","crude-soybean-oil","refining","毛油进入精炼"],
+    ["refine-pack","cn-refine","cn-pack","refined-soybean-oil","packaging","精炼油进入成品灌装"],
+    ["packaging-input","cn-packaging","cn-pack","oil-packaging","packaging","容器与封口用于灌装"],
+    ["pack-market","cn-pack","cn-market","generic-soybean-oil","distribution","成品进入食品用油渠道"],
+    ["meal-branch","cn-crush","cn-meal","soybean-meal","coproduct","脱脂豆片形成豆粕副产分支"],
+    ["br-local-crush","br-soybean","br-crush","soybean","crushing","巴西本地提油分支"],
+    ["br-crude-cn","br-crush","cn-refine","crude-soybean-oil","imports","进口毛油也可进入精炼分支"],
+    ["us-local-crush","us-soybean","us-crush","soybean","crushing","美国本地提油分支"],
+    ["us-local-refine","us-crush","us-refine","crude-soybean-oil","refining","美国本地油脂精炼分支"]
+  ],
+  "storySteps":[
+    ["origin","大豆从哪里来","巴西、美国与中国有不同种植和加工路径，原料也可跨境进入中国。",["br-soybean","us-soybean","cn-soybean","cn-import"],["br-import","us-import"]],
+    ["extraction","一粒豆分出油和粕","预处理后的豆片提取油脂；脱脂豆片继续脱溶、干燥，成为豆粕。",["cn-crush","cn-meal","br-crush","us-crush"],["import-crush","domestic-crush","meal-branch","br-local-crush","us-local-crush"]],
+    ["refining","从毛油到可食用油","通过脱胶、脱酸、脱色和脱臭等环节处理油品。毛油也可以作为跨境原料。",["cn-refine","us-refine"],["crush-refine","br-crude-cn","us-local-refine"]],
+    ["retail","装进一瓶日常用油","精炼油经过灌装、封口和标识，进入食品加工及日常用油渠道。",["cn-packaging","cn-pack","cn-market"],["refine-pack","packaging-input","pack-market"]]
+  ],
+  "classifications":[
+    ["1507","generic-soybean-oil","aggregate","大豆油及其分离品（含其他用途）"],
+    ["150710","crude-soybean-oil","exact","毛豆油及其分离品（可已脱胶）"],
+    ["150790","refined-soybean-oil","aggregate","非毛豆油及其分离品（含其他用途）"],
+    ["120190","soybean","aggregate","非种用大豆（不限定制油用途）"],
+    ["230400","soybean-meal","aggregate","豆油提取后的油渣及固体残余物"]
+  ],
+  "processChains":[
+    {"id":"soy-crushing","item":"crude-soybean-oil","title":"大豆提油与豆粕副产","sourceKey":"process","sourcePeriod":"1995","steps":[
+      ["cleaning","清理与预处理",["soybean"],["soybean-flakes","soybean-hulls"],"清除杂物，破碎、去皮、调质后压片。","清理、调质与压片设备"],
+      ["extraction","溶剂浸出",["soybean-flakes","hexane-solvent"],["oil-miscella","defatted-flakes"],"油脂进入溶剂混合液，豆片留下脱脂固体分支。","浸出设备"],
+      ["recovery","毛油脱溶与溶剂回收",["oil-miscella","refining-water"],["crude-soybean-oil","hexane-solvent"],"蒸发、汽提并冷凝回收溶剂，形成毛油。","蒸发、汽提与冷凝系统"],
+      ["meal","豆粕脱溶与后处理",["defatted-flakes","refining-water"],["soybean-meal"],"脱除残留溶剂，烘干、冷却并粉碎为豆粕。","脱溶烘烤、干燥与冷却设备"]]},
+    {"id":"soy-refining","item":"refined-soybean-oil","title":"毛豆油精炼","sourceKey":"process","sourcePeriod":"1995","steps":[
+      ["degumming","脱胶与磷脂分离",["crude-soybean-oil","refining-water"],["degummed-oil","soy-lecithin"],"去除部分胶质与磷脂，副产物可进一步回收。","混合与分离设备"],
+      ["neutralization","中和脱酸与洗涤",["degummed-oil","refining-alkali","refining-water"],["neutralized-oil","soapstock"],"化学精炼路线中，中和游离脂肪酸后分离并洗涤。","中和与离心分离设备"],
+      ["bleaching","吸附脱色与过滤",["neutralized-oil","bleaching-clay"],["bleached-oil"],"吸附部分色素与杂质，并过滤分离吸附材料。","脱色与过滤设备"],
+      ["deodorization","真空蒸汽脱臭",["bleached-oil","refining-water"],["refined-soybean-oil"],"在真空和加热条件下用蒸汽带走挥发性组分，油品随后过滤储存。","真空蒸汽脱臭系统"]]},
+    {"id":"soy-packaging","item":"generic-soybean-oil","title":"精炼油到包装成品","sourceKey":"curation","sourcePeriod":"2026-10","steps":[
+      ["filling","灌装、封口与标识",["refined-soybean-oil","oil-container","oil-closure-label"],["generic-soybean-oil"],"按选定包装方案装入精炼油、密封并标识，具体设备和标准按工厂与产品另核验。",null]]}
+  ],
+  "macros":[
+    {"id":"china-oil-production-my2023-24","entityId":"country-cn","indicator":"soybean_oil_production_kg","period":{"granularity":"annual","start":"2023-10-01","end":"2024-09-30","label":"2023/24年度（10月起）"},"quantity":18810000000,"sourceKey":"china","locator":"PDFp.33 Table21, 2023/24 USDA Official Production18810; 1000metrictons ×1000000 =kg; not NewPost17452.","status":"estimated"},
+    {"id":"brazil-oil-production-my2023-24","entityId":"country-br","indicator":"soybean_oil_production_kg","period":{"granularity":"annual","start":"2024-01-01","end":"2024-12-31","label":"2023/24年度（2024年1月起）"},"quantity":11341000000,"sourceKey":"brazil","locator":"PDFp.16 Chart2, local2023/24 beginsJan2024; USDA Official Production11341; 1000metrictons ×1000000 =kg.","status":"estimated"}
+  ],
+  "limitations":[
+    "路线展示公开国家角色和代表性工艺连接；贸易观察独立保存，不追踪到具体农场、工厂、批次或同一瓶油。",
+    "HS150710与150790保留不同油品范围，均不能单凭分类确认全部属于食品用途；不把120190大豆进口量全部归为制油原料。",
+    "国家角色、海关自然年和USDA市场年度分别保留实际期间；产能、预测、市场年度估计与真实海关记录分开。",
+    "EPA1995为历史技术参考，用于解释一条化学精炼与浸出路线，不代表当前法规、唯一工艺或所有中国工厂。包装方案为通用策展说明。",
+    "无货量或配方比例的结构连接保留unknown，不按一吨大豆或一瓶油虚构出油率、利润或供应商关系。"
+  ]
+}

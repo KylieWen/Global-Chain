@@ -1,0 +1,13 @@
+{
+  "file": "usda-china-CH2025-0055.pdf",
+  "url": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Oilseeds+and+Products+Annual_Beijing_China+-+People%27s+Republic+of_CH2025-0055.pdf",
+  "publisher": "USDA Foreign Agricultural Service",
+  "retrievedAt": "2026-10-21T03:18:51.644586+00:00",
+  "method": "official",
+  "status": "downloaded",
+  "httpStatus": 200,
+  "finalUrl": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Oilseeds+and+Products+Annual_Beijing_China+-+People%27s+Republic+of_CH2025-0055.pdf",
+  "bytes": 1434155,
+  "sha256": "7384cd00001f66906a66a4aa0a91e0ee3d1cc0c643db285f733efb0c6e581154",
+  "contentType": "application/pdf"
+}

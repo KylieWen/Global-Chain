@@ -1,3 +1,10 @@
 data/published/raw/refresh-2026-09-16/policy/china.pdf filter=lfs diff=lfs merge=lfs -text
 data/published/raw/phone-branches-2026-10-21/** -text
 data/research/cotton-tshirt-2026-10-21/** -text
+data/raw/cotton-tshirt-2026-10-21/** -text
+content/products/generic-cotton-tshirt-2026.json -text
+content/reviews/cotton-tshirt-2026-10-21.json -text
+data/published/releases/generic-cotton-tshirt/** -text
+data/raw/soybean-oil-2026-10-21/** -text
+content/products/soybean-oil-2026-10.json -text
+data/published/releases/generic-soybean-oil/** -text

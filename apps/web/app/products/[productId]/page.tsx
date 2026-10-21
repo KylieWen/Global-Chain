@@ -67,19 +67,21 @@ export default async function ProductOverviewPage({
           <div className="component-grid">
             {overview.directChildren.map((item) => {
               const coverage = coverageByItemId.get(item.id);
+              const processChain = coverage?.processChains[0];
               const hasInspectableStory = coverage?.hasInspectableStory ?? false;
-              return hasInspectableStory ? <Link className="component-card" href={supplyChainPath(productId, item.id, routeContext)} key={item.id}>
+              const target = hasInspectableStory ? supplyChainPath(productId, item.id, routeContext) : processChain ? manufacturingProcessPath(productId, processChain.id, routeContext) : null;
+              return target ? <Link className="component-card" href={target} key={item.id}>
                 <span className="card-kicker">{item.category}</span>
                 <h3>{item.name}</h3>
                 {item.description ? <p>{item.description}</p> : null}
-                <span className="muted">{coverage?.nodeCount ?? 0} 个生产环节</span>
+                <span className="muted">{hasInspectableStory ? `${coverage?.nodeCount} 个生产环节` : processChain ? `${processChain.stepCount} 道制造工序` : ""}</span>
                 <StatusBadge status={item.dataStatus} method={item.method} />
-                <span className="card-footer">探索生产路线 <span>→</span></span>
+                <span className="card-footer">{hasInspectableStory ? "探索生产路线" : "查看制造工序"} <span>→</span></span>
               </Link> : <article className="component-card component-card-disabled" key={item.id}>
                 <span className="card-kicker">{item.category}</span>
                 <h3>{item.name}</h3>
                 {item.description ? <p>{item.description}</p> : null}
-                <span className="muted">{coverage?.nodeCount ?? 0} 个生产环节</span>
+                <span className="muted">{hasInspectableStory ? `${coverage?.nodeCount} 个生产环节` : processChain ? `${processChain.stepCount} 道制造工序` : ""}</span>
                 <StatusBadge status={item.dataStatus} method={item.method} />
                 <span className="card-footer">尚无已发布供应链路线</span>
               </article>;

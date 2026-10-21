@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-soybean-oil",
+      "path": "fixture.json",
+      "datasetVersion": "globe-chain-soybean-oil-2026.1",
+      "fixtureSha256": "3ae8cbf93dc75ec312316f4a8d2da5fb3daa83dd7186b6cd29d40ef0277edd05"
+    }
+  ],
+  "datasetVersion": "globe-chain-soybean-oil-2026.1",
+  "generatedAt": "2026-10-21",
+  "fixtureSha256": "3ae8cbf93dc75ec312316f4a8d2da5fb3daa83dd7186b6cd29d40ef0277edd05",
+  "notes": [
+    "种植、进口、提油、精炼、包装与豆粕副产；中国2024自然年海关观察，国家角色与多期工艺参考分开。"
+  ],
+  "release": {
+    "productId": "generic-soybean-oil",
+    "datasetVersion": "globe-chain-soybean-oil-2026.1",
+    "releasePath": "releases/generic-soybean-oil/globe-chain-soybean-oil-2026.1",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "soybean-oil-2026-10-21",
+    "contentSource": "content/products/soybean-oil-2026-10.json",
+    "contentPathBase": "repository-root",
+    "contentSha256": "7056345fd598c409d7aab4c0d14ae7ccabaf4601f9b7cc8667524f0350b20865",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "0a15a16631cd65eab08d6621e4be9c98812d724cc300550194549db70da0c077"
+  }
+}

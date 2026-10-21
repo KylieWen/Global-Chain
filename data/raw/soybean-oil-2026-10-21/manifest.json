@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "soybean-oil-snapshots.v1",
+  "sources": [
+    {
+      "file": "comtrade-china-soy-2024.json",
+      "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0%2C76%2C842&cmdCode=150710%2C150790%2C120190%2C230400&flowCode=M%2CX&period=2024&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+      "publisher": "United Nations Statistics Division",
+      "retrievedAt": "2026-10-21T03:18:48.784571+00:00",
+      "method": "official",
+      "status": "downloaded",
+      "httpStatus": 200,
+      "finalUrl": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0%2C76%2C842&cmdCode=150710%2C150790%2C120190%2C230400&flowCode=M%2CX&period=2024&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+      "bytes": 15534,
+      "sha256": "cd19d0517f15987ac53805afe1eea0783cc5bd8eb7c3fa4de6b55de94f146472",
+      "contentType": "application/json; charset=utf-8",
+      "recordCount": 17
+    },
+    {
+      "file": "usda-china-CH2025-0055.pdf",
+      "url": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Oilseeds+and+Products+Annual_Beijing_China+-+People%27s+Republic+of_CH2025-0055.pdf",
+      "publisher": "USDA Foreign Agricultural Service",
+      "retrievedAt": "2026-10-21T03:18:51.644586+00:00",
+      "method": "official",
+      "status": "downloaded",
+      "httpStatus": 200,
+      "finalUrl": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Oilseeds+and+Products+Annual_Beijing_China+-+People%27s+Republic+of_CH2025-0055.pdf",
+      "bytes": 1434155,
+      "sha256": "7384cd00001f66906a66a4aa0a91e0ee3d1cc0c643db285f733efb0c6e581154",
+      "contentType": "application/pdf"
+    },
+    {
+      "file": "usda-brazil-BR2025-0017.pdf",
+      "url": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Oilseeds+and+Products+Update_Brasilia_Brazil_BR2025-0017.pdf",
+      "publisher": "USDA Foreign Agricultural Service",
+      "retrievedAt": "2026-10-21T03:18:56.198828+00:00",
+      "method": "official",
+      "status": "downloaded",
+      "httpStatus": 200,
+      "finalUrl": "https://apps.fas.usda.gov/newgainapi/api/Report/DownloadReportByFileName?fileName=Oilseeds+and+Products+Update_Brasilia_Brazil_BR2025-0017.pdf",
+      "bytes": 918229,
+      "sha256": "91107110bccf1c120bc6d0c491fb51f97e351b3c4c7c2d6994e7935f893ee3ce",
+      "contentType": "application/pdf"
+    },
+    {
+      "file": "usda-ers-soy-processing-2025.html",
+      "url": "https://www.ers.usda.gov/data-products/charts-of-note/112861",
+      "publisher": "USDA Economic Research Service",
+      "retrievedAt": "2026-10-21T03:18:58.784270+00:00",
+      "method": "official",
+      "status": "downloaded",
+      "httpStatus": 200,
+      "finalUrl": "https://www.ers.usda.gov/data-products/charts-of-note/112861",
+      "bytes": 37752,
+      "sha256": "32cc0f78f70ac6c108487df79d2f3bd823c8820d344c71d8cdf8a85af3887626",
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "file": "usda-ers-retail-oil-method-2025.html",
+      "url": "https://www.ers.usda.gov/data-products/price-spreads-from-farm-to-consumer/documentation",
+      "publisher": "USDA Economic Research Service",
+      "retrievedAt": "2026-10-21T03:19:01.066026+00:00",
+      "method": "official",
+      "status": "downloaded",
+      "httpStatus": 200,
+      "finalUrl": "https://www.ers.usda.gov/data-products/price-spreads-from-farm-to-consumer/documentation",
+      "bytes": 135312,
+      "sha256": "907833ec4d0b72d32f7e1e26218d05b935f11bf67646af991aeefb2477b7ac6e",
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "file": "epa-vegetable-oil-process-1995.pdf",
+      "url": "https://www.epa.gov/sites/production/files/2020-10/documents/b9s11-1.pdf",
+      "publisher": "U.S. Environmental Protection Agency",
+      "retrievedAt": "2026-10-21T03:19:03.140980+00:00",
+      "method": "official",
+      "status": "downloaded",
+      "httpStatus": 200,
+      "finalUrl": "https://www.epa.gov/sites/default/files/2020-10/documents/b9s11-1.pdf",
+      "bytes": 400345,
+      "sha256": "43f5252e733f40a2dd059131369d724281f80c5e4ade21a45608786d9a48fdfd",
+      "contentType": "application/pdf"
+    }
+  ]
+}

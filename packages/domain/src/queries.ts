@@ -1699,7 +1699,7 @@ export function getProductOverview(
       })
       .filter((value): value is ComponentClassificationView => value !== null);
     const processChains = fixture.manufacturingProcessChains
-      .filter((chain) => itemIds.has(chain.itemId))
+      .filter((chain) => itemIds.has(chain.itemId) || fixture.manufacturingProcessSteps.some((step) => step.processChainId === chain.id && [...step.inputItemIds, ...step.outputItemIds].some((id) => itemIds.has(id))))
       .map((chain): ManufacturingProcessChainSummaryView => {
         const steps = fixture.manufacturingProcessSteps.filter((step) => step.processChainId === chain.id);
         const requirements = fixture.processRequirements.filter((requirement) => steps.some((step) => step.id === requirement.processStepId));

@@ -1,0 +1,327 @@
+{
+  "schemaVersion": "cotton-tshirt-release-audit.v1",
+  "batchId": "cotton-tshirt-2026-10-21",
+  "reviewedAt": "2026-10-21",
+  "productId": "generic-cotton-tshirt",
+  "datasetVersion": "globe-chain-cotton-tshirt-2026.1",
+  "contentVersion": "cotton-tshirt-route-2026.1",
+  "inputs": {
+    "content": {
+      "path": "content/products/generic-cotton-tshirt-2026.json",
+      "sha256": "437a22deb482d547c7df5cc16ee9bdca43fec3692a09cc326526ab780315615b"
+    },
+    "review": {
+      "path": "content/reviews/cotton-tshirt-2026-10-21.json",
+      "sha256": "1694e663a22e84d05b98b4c50b9cf0604e6b428f60d156fa938c8c65d69e4e6d"
+    },
+    "snapshots": [
+      {
+        "alias": "cn",
+        "path": "data/research/cotton-tshirt-2026-10-21/raw/usda-china-CH2025-0087.pdf",
+        "sha256": "a1ba4366190f1e5e91f1e7f5da9ff1717da4e4ba0e961deeac815d8ef397e4d0"
+      },
+      {
+        "alias": "bd",
+        "path": "data/research/cotton-tshirt-2026-10-21/raw/usda-bangladesh-BG2026-0003.pdf",
+        "sha256": "95b1fe1b06c773ec83e38f31771079858a0094380653f81ab51da1cb5aa393b9"
+      },
+      {
+        "alias": "in",
+        "path": "data/research/cotton-tshirt-2026-10-21/raw/usda-india-IN2026-0020.pdf",
+        "sha256": "945a889c8d69e5d74170f7022ee5d2f2e788e2481af915aad1484b4f662e6332"
+      },
+      {
+        "alias": "ginning",
+        "path": "data/research/cotton-tshirt-2026-10-21/raw/cottonworks-growing-ginning.html",
+        "sha256": "63f177c8bbcbb3ea32fcc64114f45e2ec6dd29a2b6da86e76656d21fdaf58264"
+      },
+      {
+        "alias": "knit",
+        "path": "data/research/cotton-tshirt-2026-10-21/raw/cottonworks-knit-basics.html",
+        "sha256": "3b98e799544806674345f05e94281ba49d0cf7f56575a5692f5b95b1ddc6f372"
+      },
+      {
+        "alias": "comtrade",
+        "path": "data/research/cotton-tshirt-2026-10-21/raw/comtrade-156-610910-2025.json",
+        "sha256": "eab18ff3b591debc32afe5d5e32f43556f9c9e025f508982c10e8f65c2ab9508"
+      },
+      {
+        "alias": "hs",
+        "path": "data/raw/cotton-tshirt-2026-10-21/un-comtrade-H6.json",
+        "sha256": "e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15"
+      },
+      {
+        "alias": "units",
+        "path": "data/raw/cotton-tshirt-2026-10-21/un-comtrade-quantity-units.json",
+        "sha256": "420267929eac391e9dcd97d18252a2aee9bff2a86c3e2162d1ec57ef53811c24"
+      },
+      {
+        "alias": "country",
+        "path": "data/raw/cotton-tshirt-2026-10-21/un-m49-overview.html",
+        "sha256": "b9048114f6e7f2abda83bf03d4263c9d7cd1bd7230e3d0461025ee7839a7a1fb"
+      },
+      {
+        "alias": "yarn",
+        "path": "data/raw/cotton-tshirt-2026-10-21/cottonworks-yarn-spinning.html",
+        "sha256": "76c42d532ddc7eaa3cff7c14a9d11d730a80f373b4b83f6379108f9c5c3e2f02"
+      },
+      {
+        "alias": "preparation",
+        "path": "data/raw/cotton-tshirt-2026-10-21/cottonworks-fiber-preparation.html",
+        "sha256": "c40a54757073f4209b34027c52b0c8421f04bd877f346a300d9341e39e43fb3b"
+      },
+      {
+        "alias": "dyeing",
+        "path": "data/raw/cotton-tshirt-2026-10-21/cottonworks-dyeing-basics.html",
+        "sha256": "a271a346f372f81ddf19191ad72652d355c0748b19865e9183e5481befc349ab"
+      },
+      {
+        "alias": "finishing",
+        "path": "data/raw/cotton-tshirt-2026-10-21/cottonworks-mechanical-finishing.html",
+        "sha256": "057fd2b1dd1a6a9d2f722a3c0545cafeca1039c2f63f38de194cb98bb019233a"
+      },
+      {
+        "alias": "garment",
+        "path": "data/raw/cotton-tshirt-2026-10-21/cottonworks-garment-construction.html",
+        "sha256": "f01c9163357da528bfc689263d373ac3d826413a230faf67b76941bca4e62f8e"
+      },
+      {
+        "alias": "wdi-exports",
+        "path": "data/published/raw/refresh-2026-09-16/wdi-TX.VAL.MRCH.CD.WT.json",
+        "sha256": "83c7235271729cb4bafa72642a69b01e336d140acc931a2de05c3a62a49c3aba"
+      },
+      {
+        "alias": "wdi-imports",
+        "path": "data/published/raw/refresh-2026-09-16/wdi-TM.VAL.MRCH.CD.WT.json",
+        "sha256": "21a113f0834ca555e10800f4376bb984eb7347d2096ac43e3cd4aa79695cf63d"
+      },
+      {
+        "alias": "wdi-reserves",
+        "path": "data/published/raw/refresh-2026-09-16/wdi-FI.RES.TOTL.CD.json",
+        "sha256": "89c28b96e80f4c658312e7da0c0cde1a735b75aae51ffc6323c4fec6a32d2a2d"
+      }
+    ]
+  },
+  "transformations": [
+    "核对 H6=HS2022，610910 为聚合服装分类；保留 aggregate crosswalk。",
+    "通过官方数量字典将 qtyUnitCode=5 转为 items；netWgt 仅保存在审计和质量说明，不覆盖 qty。",
+    "逐条提取原始 primaryValue/qty 与质量标志；不相加世界总计和伙伴记录，不为无记录的国家造零。",
+    "按已审核内容建立三组代表分支、两种纺纱路线及明确输入输出；所有路线数值未知且为 null。",
+    "复用 WDI 通用原文中中国与美国 2024/2025 宏观背景，保留原来源版本，不读取任何手机贸易。"
+  ],
+  "classification": {
+    "classCode": "H6",
+    "className": "HS2022",
+    "selectedEntry": {
+      "id": "610910",
+      "text": "610910 - T-shirts, singlets and other vests; of cotton, knitted or crocheted",
+      "parent": "6109",
+      "isLeaf": "1",
+      "aggrlevel": 6,
+      "standardUnitAbbr": "u"
+    },
+    "mappingType": "aggregate"
+  },
+  "quantityUnit": {
+    "qtyCode": 5,
+    "qtyAbbr": "u",
+    "qtyDescription": "Number of items"
+  },
+  "tradeRows": [
+    {
+      "id": "cotton-trade-156-0-M-2025",
+      "rawSnapshot": "data/research/cotton-tshirt-2026-10-21/raw/comtrade-156-610910-2025.json",
+      "rawSha256": "eab18ff3b591debc32afe5d5e32f43556f9c9e025f508982c10e8f65c2ab9508",
+      "reporterCode": 156,
+      "partnerCode": 0,
+      "flowCode": "M",
+      "period": "2025",
+      "primaryValue": 679847477,
+      "qty": 47143053,
+      "unitCode": 5,
+      "normalizedUnit": "items",
+      "netWgt": 9205476.29,
+      "original": {
+        "classificationCode": "H6",
+        "isOriginalClassification": true,
+        "qtyUnitCode": 5,
+        "qtyUnitAbbr": null,
+        "netWgt": 9205476.29,
+        "isNetWgtEstimated": true,
+        "cifvalue": 679847477,
+        "fobvalue": null,
+        "partner2Code": 0,
+        "motCode": 0,
+        "customsCode": "C00"
+      },
+      "quality": {
+        "legacyEstimationFlag": 4,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": true,
+        "isReported": false,
+        "isAggregate": true,
+        "sourceDatasetCode": "H6",
+        "sourcePublicationDate": null,
+        "sourceRevision": null
+      }
+    },
+    {
+      "id": "cotton-trade-156-842-M-2025",
+      "rawSnapshot": "data/research/cotton-tshirt-2026-10-21/raw/comtrade-156-610910-2025.json",
+      "rawSha256": "eab18ff3b591debc32afe5d5e32f43556f9c9e025f508982c10e8f65c2ab9508",
+      "reporterCode": 156,
+      "partnerCode": 842,
+      "flowCode": "M",
+      "period": "2025",
+      "primaryValue": 3047679,
+      "qty": 79477,
+      "unitCode": 5,
+      "normalizedUnit": "items",
+      "netWgt": 25275,
+      "original": {
+        "classificationCode": "H6",
+        "isOriginalClassification": true,
+        "qtyUnitCode": 5,
+        "qtyUnitAbbr": null,
+        "netWgt": 25275,
+        "isNetWgtEstimated": false,
+        "cifvalue": 3047679,
+        "fobvalue": null,
+        "partner2Code": 0,
+        "motCode": 0,
+        "customsCode": "C00"
+      },
+      "quality": {
+        "legacyEstimationFlag": 0,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": false,
+        "isReported": true,
+        "isAggregate": false,
+        "sourceDatasetCode": "H6",
+        "sourcePublicationDate": null,
+        "sourceRevision": null
+      }
+    },
+    {
+      "id": "cotton-trade-156-0-X-2025",
+      "rawSnapshot": "data/research/cotton-tshirt-2026-10-21/raw/comtrade-156-610910-2025.json",
+      "rawSha256": "eab18ff3b591debc32afe5d5e32f43556f9c9e025f508982c10e8f65c2ab9508",
+      "reporterCode": 156,
+      "partnerCode": 0,
+      "flowCode": "X",
+      "period": "2025",
+      "primaryValue": 4873889075,
+      "qty": 1750155660,
+      "unitCode": 5,
+      "normalizedUnit": "items",
+      "netWgt": 322735043.893,
+      "original": {
+        "classificationCode": "H6",
+        "isOriginalClassification": true,
+        "qtyUnitCode": 5,
+        "qtyUnitAbbr": null,
+        "netWgt": 322735043.893,
+        "isNetWgtEstimated": true,
+        "cifvalue": null,
+        "fobvalue": 4873889075,
+        "partner2Code": 0,
+        "motCode": 0,
+        "customsCode": "C00"
+      },
+      "quality": {
+        "legacyEstimationFlag": 4,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": true,
+        "isReported": false,
+        "isAggregate": true,
+        "sourceDatasetCode": "H6",
+        "sourcePublicationDate": null,
+        "sourceRevision": null
+      }
+    },
+    {
+      "id": "cotton-trade-156-842-X-2025",
+      "rawSnapshot": "data/research/cotton-tshirt-2026-10-21/raw/comtrade-156-610910-2025.json",
+      "rawSha256": "eab18ff3b591debc32afe5d5e32f43556f9c9e025f508982c10e8f65c2ab9508",
+      "reporterCode": 156,
+      "partnerCode": 842,
+      "flowCode": "X",
+      "period": "2025",
+      "primaryValue": 1077418294,
+      "qty": 442113087,
+      "unitCode": 5,
+      "normalizedUnit": "items",
+      "netWgt": 72927469,
+      "original": {
+        "classificationCode": "H6",
+        "isOriginalClassification": true,
+        "qtyUnitCode": 5,
+        "qtyUnitAbbr": null,
+        "netWgt": 72927469,
+        "isNetWgtEstimated": false,
+        "cifvalue": null,
+        "fobvalue": 1077418294,
+        "partner2Code": 0,
+        "motCode": 0,
+        "customsCode": "C00"
+      },
+      "quality": {
+        "legacyEstimationFlag": 0,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": false,
+        "isReported": true,
+        "isAggregate": false,
+        "sourceDatasetCode": "H6",
+        "sourcePublicationDate": null,
+        "sourceRevision": null
+      }
+    }
+  ],
+  "emptyTradeResponses": [
+    {
+      "path": "data/raw/cotton-tshirt-2026-10-21/comtrade-50-610910-2025.json",
+      "sha256": "d621c47cf1d6c742b1b1a7c897cc473519dd08c3851cea6d2103a872e7b4554e",
+      "meaning": "请求成功但未返回匹配记录；不得生成零值贸易。"
+    },
+    {
+      "path": "data/raw/cotton-tshirt-2026-10-21/comtrade-356-610910-2024.json",
+      "sha256": "eb5d8d456e8c52db04798e0739b57ecf163dae132b961a06df1a623ab23152ad",
+      "meaning": "请求成功但未返回匹配记录；不得生成零值贸易。"
+    }
+  ],
+  "counts": {
+    "items": 17,
+    "countries": 5,
+    "storyNodes": 14,
+    "storyFlows": 12,
+    "representativeBranches": 3,
+    "directlySupportedMaterialRelations": 2,
+    "tradeObservations": 4,
+    "worldTotals": 2,
+    "bilateralStatistics": 2,
+    "macroIndicators": 12,
+    "manufacturingSteps": 12,
+    "manufacturingVariants": 2,
+    "equipmentCategories": 11,
+    "organizations": 0
+  },
+  "validation": {
+    "pinnedSourceHashes": "passed",
+    "sharedWdiBodyHashes": "passed",
+    "officialCountryMappings": "passed",
+    "classificationDictionary": "passed",
+    "quantityDictionary": "passed",
+    "tradeScopeAndUniqueDimensions": "passed",
+    "previewLimitNotReached": true,
+    "emptyResponsesCreateNoFacts": true,
+    "activeManifestChanged": false
+  },
+  "limitations": [
+    "HS 2022/610910 同时包含棉制 T 恤、汗衫和其他背心，作为聚合映射，不能拆成某款 T 恤销量。",
+    "2025 年成品贸易仅有中国报告的世界总计与美国伙伴记录；其他国家未返回记录，不等于贸易为零。世界总计不与双边记录相加。",
+    "国家角色和连续工序属于不同证据层；代表性连接没有批次、重量、成本、份额或企业供货关系数据。",
+    "USDA 报告的市场年、部分市场年和报告所述产业角色期间分开保存；没有把报告中的未来预测转为已发生事实。",
+    "工艺知识以 2026 年编目期间组织，网页未注明统一发布日；该期间不是工厂生产年份。纺纱、染色位置和衣片结构可有其他方案。",
+    "缝线的具体纤维、领口结构、标签及辅料用量未固定；副产棉籽和裁剪余料不计入成衣组成或数量。"
+  ]
+}

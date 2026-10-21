@@ -6,11 +6,23 @@
       "path": "releases/generic-smartphone/globe-chain-smartphone-2026.4/fixture.json",
       "datasetVersion": "globe-chain-smartphone-2026.4",
       "fixtureSha256": "7b2ef71d8bc7d70dc69a9063030d1be540af65e7d8acbac54958f2b71fb93394"
+    },
+    {
+      "productId": "generic-cotton-tshirt",
+      "path": "releases/generic-cotton-tshirt/globe-chain-cotton-tshirt-2026.1/fixture.json",
+      "datasetVersion": "globe-chain-cotton-tshirt-2026.1",
+      "fixtureSha256": "00f9236c410da5fe15dc7459233b7fcc386849cf42b9921dd34851f971109f13"
+    },
+    {
+      "productId": "generic-soybean-oil",
+      "path": "releases/generic-soybean-oil/globe-chain-soybean-oil-2026.1/fixture.json",
+      "datasetVersion": "globe-chain-soybean-oil-2026.1",
+      "fixtureSha256": "3ae8cbf93dc75ec312316f4a8d2da5fb3daa83dd7186b6cd29d40ef0277edd05"
     }
   ],
-  "datasetVersion": "globe-chain-smartphone-2026.4",
+  "datasetVersion": "globe-chain-soybean-oil-2026.1",
   "generatedAt": "2026-10-21",
-  "fixtureSha256": "7b2ef71d8bc7d70dc69a9063030d1be540af65e7d8acbac54958f2b71fb93394",
+  "fixtureSha256": "3ae8cbf93dc75ec312316f4a8d2da5fb3daa83dd7186b6cd29d40ef0277edd05",
   "routeContentVersion": "smartphone-route-2026.1",
   "routeContentSha256": "f44dc5485d9a03c4be0ea8927ff59ae372485e303ce509795db9033a27ffb5df",
   "contentSources": [
@@ -70,27 +82,26 @@
     "raw/refresh-2026-09-16/wdi-FI.RES.TOTL.CD.json"
   ],
   "notes": [
-    "加入2023年中国规模以上企业智能手机产量；保持原有贸易、材料、国家指标及代表性路线。"
+    "种植、进口、提油、精炼、包装与豆粕副产；中国2024自然年海关观察，国家角色与多期工艺参考分开。"
   ],
   "release": {
-    "productId": "generic-smartphone",
-    "datasetVersion": "globe-chain-smartphone-2026.4",
-    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2026.4",
+    "productId": "generic-soybean-oil",
+    "datasetVersion": "globe-chain-soybean-oil-2026.1",
+    "releasePath": "releases/generic-soybean-oil/globe-chain-soybean-oil-2026.1",
     "immutable": true
   },
   "refreshContentSource": "content/refresh-2026-09-16.json",
   "refreshContentPathBase": "repository-root",
   "refreshContentSha256": "4be2f302a28da81ff549e739b00617ec484a064e768cfd7915796fa71ee40520",
-  "activeDatasetVersion": "globe-chain-smartphone-2026.4",
+  "activeDatasetVersion": "globe-chain-soybean-oil-2026.1",
   "activeManifest": true,
   "evidenceReview": {
-    "batchId": "smartphone-production-2026-10-21",
-    "baseDatasetVersion": "globe-chain-smartphone-2026.3",
-    "contentSource": "content/indicators/smartphone-production-2026-10.json",
+    "batchId": "soybean-oil-2026-10-21",
+    "contentSource": "content/products/soybean-oil-2026-10.json",
     "contentPathBase": "repository-root",
-    "contentSha256": "6fa43ce6eb80a496eb03545fc8a14c3f048ac16741fedbb43f2d906f2d3089a0",
+    "contentSha256": "7056345fd598c409d7aab4c0d14ae7ccabaf4601f9b7cc8667524f0350b20865",
     "auditPath": "review-audit.json",
     "auditPathBase": "release-directory",
-    "auditSha256": "624eaf21cc5ff1e1bc71c13cbe1d2e1246c57e2cb0e7f554ae913bc738df045e"
+    "auditSha256": "0a15a16631cd65eab08d6621e4be9c98812d724cc300550194549db70da0c077"
   }
 }

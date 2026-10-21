@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ComponentCoverageView, ProductBreakdownNode } from "@globe-chain/domain";
-import { supplyChainPath } from "../lib/paths";
+import { manufacturingProcessPath, supplyChainPath } from "../lib/paths";
 import type { PageContext } from "../lib/context";
 
 export function ProductTree({
@@ -42,7 +42,9 @@ function TreeNode({
 }) {
   const hasChildren = node.children.length > 0 && (maxDepth === undefined || node.depth < maxDepth);
   const coverage = componentCoverage?.find((entry) => entry.item.id === node.item.id);
-  const canExplore = node.depth === 0 || coverage?.hasInspectableStory === true || explorableItemIds?.includes(node.item.id) === true;
+  const hasRoute = node.depth === 0 || coverage?.hasInspectableStory === true || explorableItemIds?.includes(node.item.id) === true;
+  const processChain = coverage?.processChains[0];
+  const canExplore = hasRoute || Boolean(processChain);
   return (
     <li>
       <div className={`tree-node ${node.depth === 0 ? "tree-root" : ""}`}>
@@ -52,8 +54,8 @@ function TreeNode({
           {node.item.description ? <small>{node.item.description}</small> : null}
           {coverage ? <small>{coverage.statusLabel} · {coverage.nodeCount} 个节点 · {coverage.flowCount} 条连接</small> : null}
         </div>
-        {canExplore ? <Link className="text-link" href={supplyChainPath(productId, node.depth === 0 ? undefined : node.item.id, context)}>
-          {node.depth === 0 ? "查看全部环节" : coverage?.status === "partial_route" ? "查看已整理环节" : "查看代表性路线"} →
+        {canExplore ? <Link className="text-link" href={hasRoute ? supplyChainPath(productId, node.depth === 0 ? undefined : node.item.id, context) : manufacturingProcessPath(productId, processChain!.id, context)}>
+          {!hasRoute ? "查看制造工序" : node.depth === 0 ? "查看全部环节" : "查看生产路线"} →
         </Link> : null}
       </div>
       {hasChildren ? (
