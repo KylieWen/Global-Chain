@@ -99,3 +99,9 @@
  .industry-mobile-picker button { flex-shrink:0; background:var(--navy); color:white; border:0; border-radius:.45rem; padding:.5rem .8rem; }
 }
 .industry-process-links { margin-top:1rem; }.industry-process-links .button { font-size:.8rem; padding:.6rem .85rem; }
+
+@media(max-width:680px) {
+ .industry-mobile-topic-form { display:grid; gap:.5rem; }
+ .industry-mobile-topic-form > div,.industry-mobile-search-form > div { display:flex; gap:.5rem; }
+ .industry-mobile-search-form > a { display:inline-block; margin-top:.55rem; font-size:.78rem; color:var(--teal); }
+}

@@ -43,7 +43,22 @@ export default async function IndustryPage({params,searchParams}: {params:Promis
     <Breadcrumbs items={[{label:"商品目录",href:"/products"},{label:view.product.name,href:productPath(productId,context)},{label:"产业上下游"}]}/>
     <div className="industry-heading"><div><p className="eyebrow">产业上下游 · {view.region.name}</p><h1>从一个环节，找到上下游</h1><p>查看材料、部件、制造设备和产品应用，进入企业官方产品、联系与销售入口。</p></div><div className="industry-counts"><span><strong>{view.topics.length}</strong>产业环节</span><span><strong>{view.network.organizations.length}</strong>家企业</span></div></div>
     <nav className="exploration-nav" aria-label="商品研究层级"><Link href={productPath(productId,context)}>商品总览</Link><Link href={supplyChainPath(productId,undefined,context)}>全球供应链</Link><span className="active">产业上下游</span><a href="#industry-directory">企业与官方入口</a><Link href={provenancePath(productId,context)}>来源与版本</Link></nav>
-    <form className="industry-mobile-picker" action={industryPath(productId) + "#industry-focus"}><label htmlFor="industry-topic-mobile">选择产业环节</label><div><select id="industry-topic-mobile" name="topic" key={view.selectedTopic.id} defaultValue={view.selectedTopic.id}>{view.topics.map(topic => <option key={topic.id} value={topic.id}>{kindLabels[topic.kind]} · {topic.label}</option>)}</select><button type="submit">查看</button></div><label className="sr-only" htmlFor="industry-search-mobile">搜索企业或环节</label><input id="industry-search-mobile" name="q" key={view.search} defaultValue={view.search} placeholder="搜索企业或环节…"/>{Object.entries(context).filter(([,value]) => value).map(([key,value]) => <input key={key} type="hidden" name={key} value={value}/>)}</form>
+    <div className="industry-mobile-picker">
+      <form className="industry-mobile-topic-form" action={industryPath(productId) + "#industry-focus"}>
+        <label htmlFor="industry-topic-mobile">选择产业环节</label>
+        <div><select id="industry-topic-mobile" name="topic" key={view.selectedTopic.id} defaultValue={view.selectedTopic.id}>
+          {[...new Set(view.topics.map(topic => topic.kind))].map(kind => <optgroup key={kind} label={kindLabels[kind]}>{view.topics.filter(topic => topic.kind === kind).map(topic => <option key={topic.id} value={topic.id}>{topic.label}</option>)}</optgroup>)}
+        </select><button type="submit">查看</button></div>
+        {Object.entries(context).filter(([,value]) => value).map(([key,value]) => <input key={key} type="hidden" name={key} value={value}/>)}
+      </form>
+      <form className="industry-mobile-search-form" action={industryPath(productId) + "#industry-directory"}>
+        <label className="sr-only" htmlFor="industry-search-mobile">搜索企业或环节</label>
+        <div><input id="industry-search-mobile" name="q" key={view.search} defaultValue={view.search} placeholder="搜索企业或环节…"/><button type="submit">搜索</button></div>
+        <input type="hidden" name="topic" value={view.selectedTopic.id}/>
+        {Object.entries(context).filter(([,value]) => value).map(([key,value]) => <input key={key} type="hidden" name={key} value={value}/>)}
+        {view.search && <Link href={industryPath(productId,view.selectedTopic.id,context)}>清除搜索</Link>}
+      </form>
+    </div>
     <div className="industry-workspace">
       <aside className="industry-topics" aria-label="选择产业环节"><form action={industryPath(productId) + "#industry-directory"} className="industry-search"><label htmlFor="industry-search">搜索环节或企业</label><input id="industry-search" name="q" key={view.search} defaultValue={view.search} placeholder="铜管、检漏、企业名称…"/><input type="hidden" name="topic" value={view.selectedTopic.id}/>{Object.entries(context).filter(([,value]) => value).map(([key,value]) => <input key={key} type="hidden" name={key} value={value}/>)}<button type="submit">搜索</button>{view.search && <Link href={industryPath(productId,view.selectedTopic.id,context)}>清除</Link>}</form>
       {groups.map(kind => <div className="industry-topic-group" key={kind}><h2>{kindLabels[kind]}</h2>{view.matchingTopics.filter(topic => topic.kind === kind).map(topic => <Link className={topic.id === view.selectedTopic.id ? "selected" : ""} aria-current={topic.id === view.selectedTopic.id ? "page" : undefined} key={topic.id} href={industryPath(productId,topic.id,context) + "#industry-focus"}><TopicMark kind={topic.kind}/><span>{topic.label}</span><span>›</span></Link>)}</div>)}{!view.matchingTopics.length && <p className="muted">换个名称试试，或清除搜索查看全部环节。</p>}</aside>
