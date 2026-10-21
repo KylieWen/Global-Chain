@@ -4,7 +4,7 @@ import { getQueryService } from "../../../lib/data";
 import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../components/site-shell";
 import { ProductTree } from "../../../components/product-tree";
 import { ProductArtwork } from "../../../components/product-artwork";
-import { manufacturingProcessPath, mapPath, materialObservationsPath, provenancePath, supplyChainPath, tradeGuidePath } from "../../../lib/paths";
+import { industryPath, manufacturingProcessPath, mapPath, materialObservationsPath, provenancePath, supplyChainPath, tradeGuidePath } from "../../../lib/paths";
 import { contextMismatch, readPageContext, type SearchParamsLike } from "../../../lib/context";
 import {
   StatusBadge,
@@ -27,6 +27,7 @@ export default async function ProductOverviewPage({
   const provenance = queries.getProvenance(productId);
   if (!overview || !breakdown || !provenance) notFound();
   const coverageByItemId = new Map(overview.componentCoverage.map((coverage) => [coverage.item.id, coverage]));
+  const industry = queries.getIndustryNetwork(productId);
   const hasGuides = queries.getTradeGuides(productId).length > 0;
   const hasMaterialTrade = queries.getMaterialTradeObservations(productId).length > 0;
   const completeStory = queries.getSupplyChainStory(productId);
@@ -44,12 +45,13 @@ export default async function ProductOverviewPage({
           eyebrow={overview.product.category}
           title={overview.product.name}
           description="从部件组成出发，沿供应链探索各国的生产与贸易联系。"
-          actions={<><Link className="button button-primary" href={supplyChainPath(productId, undefined, routeContext)}>查看供应链路线</Link><Link className="button button-secondary" href={mapPath({ ...routeContext, product: productId, layer: "supply-chain" })}>在地图上探索</Link>{hasGuides && <Link className="button button-secondary" href={tradeGuidePath({ product: productId, ...pageContext })}>查进出口要求</Link>}{hasMaterialTrade && <Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link>}</>}
+          actions={<>{industry && <Link className="button button-primary" href={industryPath(productId, undefined, routeContext)}>查找中国产业上下游</Link>}<Link className="button button-primary" href={supplyChainPath(productId, undefined, routeContext)}>查看供应链路线</Link><Link className="button button-secondary" href={mapPath({ ...routeContext, product: productId, layer: "supply-chain" })}>在地图上探索</Link>{hasGuides && <Link className="button button-secondary" href={tradeGuidePath({ product: productId, ...pageContext })}>查进出口要求</Link>}{hasMaterialTrade && <Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link>}</>}
         />
         <ProductArtwork productId={productId} variant="overview" />
         </div>
         <nav className="exploration-nav" aria-label="商品研究层级">
           <span className="active">商品总览</span>
+          {industry && <Link href={industryPath(productId, undefined, routeContext)}>产业上下游与企业</Link>}
                     <Link href={supplyChainPath(productId, undefined, routeContext)}>供应链路线</Link>
           {hasMaterialTrade && <Link href={materialObservationsPath(productId, pageContext)}>材料贸易</Link>}
           {hasGuides && <Link href={tradeGuidePath({ product: productId, ...pageContext })}>进出口指南</Link>}

@@ -11,13 +11,13 @@ const fact = {
 };
 const officialLink = z.object({
   label: NonEmptyStringSchema,
-  kind: z.enum(["product", "contact", "sales", "support"]),
+  kind: z.enum(["product", "contact", "procurement", "sales", "support"]),
   url: z.string().url().refine(url => /^https?:\/\//.test(url), "Only public HTTP links are supported")
 });
 export const IndustryTopicSchema = z.object({
   id: IdSchema, label: NonEmptyStringSchema,
-  kind: z.enum(["material", "component", "equipment", "product", "channel", "service"]),
-  description: NonEmptyStringSchema, ...fact
+  kind: z.enum(["material", "component", "process", "equipment", "product", "channel", "service"]),
+  description: NonEmptyStringSchema, itemIds: z.array(IdSchema).optional(), ...fact
 });
 export const IndustryRelationSchema = z.object({
   id: IdSchema, fromTopicId: IdSchema, toTopicId: IdSchema,

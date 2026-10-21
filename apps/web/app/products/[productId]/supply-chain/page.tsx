@@ -14,7 +14,7 @@ import {
 } from "../../../../components/data-display";
 import { FlowTable } from "../../../../components/flow-table";
 import { SupplyChainGraph } from "../../../../components/supply-chain-graph";
-import { ledgerPath, manufacturingProcessPath, mapPath, nodePath, productPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
+import { industryPath, ledgerPath, manufacturingProcessPath, mapPath, nodePath, productPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -36,6 +36,7 @@ export default async function SupplyChainPage({
   const label = firstParam(query.label);
   const queries = await getQueryService(pageContext.datasetVersion);
   const overview = queries.getProductOverview(productId);
+  const industry = queries.getIndustryNetwork(productId);
   if (!overview) notFound();
 
   let story;
@@ -80,6 +81,7 @@ export default async function SupplyChainPage({
           description="从材料、部件到整机，点击生产环节继续向上下游探索。"
           actions={(
             <>
+              {industry && <Link className="button button-primary" href={industryPath(productId, undefined, pageContext)}>查找中国产业上下游</Link>}
               <Link className="button button-primary" href={mapPath({ ...pageContext, product: productId, layer: "supply-chain", focus: focusItemId })}>在地图上查看这些环节</Link>
               <Link className="button button-secondary" href={provenancePath(productId, pageContext)}>来源与版本</Link>
             </>

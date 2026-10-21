@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "source-capture.v1",
+  "batchId": "china-hvac-participants-2026-10-22",
+  "entries": [
+    {
+      "id": "hvac22-huafeng-aluminium",
+      "url": "https://www.huafeng.com/product/8.html",
+      "retrievedAt": "2026-10-21T16:26:40.069672Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.huafeng.com/product/8.html",
+      "contentType": "text/html; charset=UTF-8",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-huafeng-aluminium.html",
+      "sha256": "a1e8b6af4fa0f1eb47fddca32a308a7c0bfaf2ff9d04d7cffe0647fb572ec5da",
+      "bytes": 68959,
+      "textFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-huafeng-aluminium.txt"
+    },
+    {
+      "id": "hvac22-lihua-brazing",
+      "url": "https://lihuachina.com/html/product_1540.html",
+      "retrievedAt": "2026-10-21T16:26:40.072670Z",
+      "httpStatus": 200,
+      "finalUrl": "https://lihuachina.com/html/product_1540.html",
+      "contentType": "text/html",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-lihua-brazing.html",
+      "sha256": "95cfae68da684a38c7eb2251fee98f63a133c60596564d65a895fb2ca825dd4c",
+      "bytes": 48262,
+      "textFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-lihua-brazing.txt"
+    },
+    {
+      "id": "hvac22-lihua-contact",
+      "url": "https://lihuachina.com/html/about_474.html",
+      "retrievedAt": "2026-10-21T16:26:40.073426Z",
+      "httpStatus": 200,
+      "finalUrl": "https://lihuachina.com/html/about_474.html",
+      "contentType": "text/html",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-lihua-contact.html",
+      "sha256": "75f6e071b8a0c7c060dffebf76702780106ee48b4b08171653f5cd911dd5a51a",
+      "bytes": 23927,
+      "textFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-lihua-contact.txt"
+    },
+    {
+      "id": "hvac22-jinchen-home",
+      "url": "https://www.newjinchen.com/",
+      "retrievedAt": "2026-10-21T16:26:40.074179Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.newjinchen.com/",
+      "contentType": "text/html;charset=utf-8",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-jinchen-home.html",
+      "sha256": "4ce4d20595ea618319167b01a83d0d7a38a2679f7269e6895fd3d1e5412e5e7c",
+      "bytes": 48728,
+      "textFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-jinchen-home.txt"
+    },
+    {
+      "id": "hvac22-jinchen-contact",
+      "url": "https://www.newjinchen.com/about_lxwm/lxwmfda.html",
+      "retrievedAt": "2026-10-21T16:26:40.074876Z",
+      "httpStatus": 319,
+      "error": "HTTP Error 319: ",
+      "rawFile": null,
+      "sha256": null
+    },
+    {
+      "id": "hvac22-jinchen-condenser",
+      "url": "https://www.newjinchen.com/product/741.html",
+      "retrievedAt": "2026-10-21T16:26:41.773306Z",
+      "httpStatus": 319,
+      "error": "HTTP Error 319: ",
+      "rawFile": null,
+      "sha256": null
+    },
+    {
+      "id": "hvac22-wayeal-vacuum",
+      "url": "https://www.wayeal.com.cn/Product/32.html",
+      "retrievedAt": "2026-10-21T16:26:42.030738Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.wayeal.com.cn/Product/32.html",
+      "contentType": "text/html; charset=UTF-8",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-wayeal-vacuum.html",
+      "sha256": "229ea70382973ad73671516a8fd65efef9a433c5b3bc4c5f4429c5ece99bafc5",
+      "bytes": 122965,
+      "textFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-wayeal-vacuum.txt"
+    },
+    {
+      "id": "hvac22-benrun-home",
+      "url": "https://www.hzbrzl.com/",
+      "retrievedAt": "2026-10-21T16:26:42.377544Z",
+      "httpStatus": null,
+      "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1018)>",
+      "rawFile": null,
+      "sha256": null
+    },
+    {
+      "id": "hvac22-jieyang-home",
+      "url": "https://www.hzjyang.com/",
+      "retrievedAt": "2026-10-21T16:26:42.417428Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.hzjyang.com/",
+      "contentType": "text/html; charset=utf-8",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-jieyang-home.html",
+      "sha256": "b0a07ec24ce4ecce5369fc5fd0ce21bc6c7a638f1884a11f3fc4d0be229d811b",
+      "bytes": 1388,
+      "textFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-jieyang-home.txt"
+    },
+    {
+      "id": "hvac22-gmcc-contact-check",
+      "url": "https://www.gmcc-welling.com/en/join-us",
+      "retrievedAt": "2026-10-21T16:26:42.770549Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.gmcc-welling.com/en/join-us",
+      "contentType": "text/html;charset=utf-8",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-gmcc-contact-check.html",
+      "sha256": "ebdff6ae5a59540ed69ddc92ae280fb516ae8b56dbb7fafd5e18185e464aef5e",
+      "bytes": 47332,
+      "textFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-gmcc-contact-check.txt"
+    }
+  ]
+}

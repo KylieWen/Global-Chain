@@ -18,3 +18,7 @@ data/published/releases/generic-electric-bicycle/** -text
 data/published/releases/generic-home-air-conditioner/** -text
 data/raw/china-hvac-participants-2026-10-21/** -text
 content/industry/china-hvac-reviewed-2026-10.json -text
+data/raw/china-hvac-participants-2026-10-22/** -text
+data/raw/china-hvac-core-2026-10-22/** -text
+content/industry/china-hvac-supplement-2026-10-22.json -text
+content/industry/china-hvac-core-supplement-2026-10-22.json -text

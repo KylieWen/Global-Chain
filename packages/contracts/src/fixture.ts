@@ -89,6 +89,9 @@ export const ProductFixtureSchema = z
     if (fixture.industryNetwork) {
       const network = fixture.industryNetwork;
       if (!fixture.entities.some(entity => entity.id === network.regionEntityId)) context.addIssue({code:"custom",path:["industryNetwork"],message:"Unknown industry region"});
+      for (const topic of network.topics) {
+        if (topic.itemIds?.some(id => !fixture.items.some(item => item.id === id))) context.addIssue({code:"custom",path:["industryNetwork","topics"],message:"Unknown industry product item"});
+      }
       for (const record of [network, ...network.topics, ...network.relations, ...network.organizations]) {
         if (record.datasetVersionId !== fixture.datasetVersion.id || record.sourceIds.some(id => !sourceIdSet.has(id))) context.addIssue({code:"custom",path:["industryNetwork"],message:"Invalid industry provenance"});
       }

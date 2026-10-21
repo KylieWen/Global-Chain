@@ -13,6 +13,10 @@ export function supplyChainPath(productId: string, focusItemId?: string, context
   return `/products/${segment(productId)}/supply-chain${contextQuery(query)}`;
 }
 
+export function industryPath(productId: string, topicId?: string, context?: PageContext): string {
+  return `/products/${segment(productId)}/industry${contextQuery({ ...context, ...(topicId ? { topic: topicId } : {}) })}`;
+}
+
 export function nodePath(productId: string, nodeId: string, context?: PageContext): string {
   return `/products/${segment(productId)}/nodes/${segment(nodeId)}${contextQuery(context)}`;
 }

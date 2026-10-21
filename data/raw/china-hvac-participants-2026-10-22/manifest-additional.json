@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "source-capture.v1",
+  "batchId": "china-hvac-participants-2026-10-22",
+  "entries": [
+    {
+      "id": "hvac22-wayeal-home-refrigeration",
+      "url": "https://www.wayeal.com.cn/Product_1/166.html",
+      "retrievedAt": "2026-10-21T16:28:22.074561Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.wayeal.com.cn/Product_1/166.html",
+      "contentType": "text/html; charset=UTF-8",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-wayeal-home-refrigeration.html",
+      "sha256": "562c40c40e5609b0a16098d55c38ce9dbf09ecac7190367733a0476f3b89c730",
+      "bytes": 109671,
+      "textFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-wayeal-home-refrigeration.txt"
+    },
+    {
+      "id": "hvac22-wayeal-contact",
+      "url": "https://www.wayeal.com.cn/Contact.html",
+      "retrievedAt": "2026-10-21T16:28:22.076156Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.wayeal.com.cn/Contact.html",
+      "contentType": "text/html; charset=UTF-8",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-wayeal-contact.html",
+      "sha256": "4142353aae1287dba990f670e6d82d09e5f6328f3dcc89b3a930f3ebc62f47c2",
+      "bytes": 69587,
+      "textFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-wayeal-contact.txt"
+    },
+    {
+      "id": "hvac22-wayeal-applications",
+      "url": "https://www.wayeal.com.cn/Solution_1/13.html",
+      "retrievedAt": "2026-10-21T16:28:22.077077Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.wayeal.com.cn/Solution_1/13.html",
+      "contentType": "text/html; charset=utf-8",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-wayeal-applications.html",
+      "sha256": "f5b57933b3a83fd894b467fb51415cb6208de38a39eb0845741e360006565140",
+      "bytes": 71897,
+      "textFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-wayeal-applications.txt"
+    },
+    {
+      "id": "hvac22-jieyang-body",
+      "url": "https://img.wanwang.xin/pubsf/10370/10370600/cdn-static-pages/pages/pc/32_zh-cn.html.Body.js?version=20260911113412",
+      "retrievedAt": "2026-10-21T16:28:22.077967Z",
+      "httpStatus": 200,
+      "finalUrl": "https://img.wanwang.xin/pubsf/10370/10370600/cdn-static-pages/pages/pc/32_zh-cn.html.Body.js?version=20260911113412",
+      "contentType": "application/javascript",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-jieyang-body.js",
+      "sha256": "e29640f6abbdda70f76599ee284e6dec334caca77cd9780e38adbd369773de02",
+      "bytes": 202398,
+      "textFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-jieyang-body.txt"
+    }
+  ]
+}

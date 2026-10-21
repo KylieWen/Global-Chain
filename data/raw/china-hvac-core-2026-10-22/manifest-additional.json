@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "source-capture.v1",
+  "batchId": "china-hvac-core-2026-10-22",
+  "entries": [
+    {
+      "id": "hvaccore22-dongyue-r32-windows",
+      "url": "https://www.dongyuechem.com/en/product/show-1566.html",
+      "retrievedAt": "2026-10-21T16:36:02.403936Z",
+      "client": "Windows curl default certificate validation",
+      "httpStatus": 200,
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-dongyue-r32-windows.html",
+      "bytes": 20143,
+      "sha256": "d85946ba202ccf6c7a756adeeb516e9da91477304c68364038cd836ae2e25519"
+    },
+    {
+      "id": "hvaccore22-dongyue-contact-windows",
+      "url": "https://www.dongyuechem.com/en/contact.html",
+      "retrievedAt": "2026-10-21T16:36:12.595536Z",
+      "client": "Windows curl default certificate validation",
+      "httpStatus": 200,
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-dongyue-contact-windows.html",
+      "bytes": 26007,
+      "sha256": "797e506cabe8b92b038be167cc0511c8ef4bda4a1910259c7dbb89e46916c5ed"
+    }
+  ]
+}

@@ -1,0 +1,1039 @@
+{
+  "schemaVersion": "china-hvac-research.v1",
+  "id": "china-hvac-supplement-2026-10-22",
+  "label": "中国空调材料、设备与应用追加研究",
+  "reviewedAt": "2026-10-22",
+  "period": {
+    "granularity": "snapshot",
+    "start": "2026-10-22",
+    "end": "2026-10-22",
+    "label": "2026-10-22官网产品与联系入口复核"
+  },
+  "datasetVersion": "china-hvac-research-2026.10.2",
+  "method": "manual_review_of_official_public_material",
+  "status": "validated",
+  "scope": "补充公开产品能力、制造设备、技术用途与官方联系入口。",
+  "limitations": [
+    "企业公开产品说明与技术用途不等于企业间实际供货。",
+    "华峰来源说明铝合金板带箔与空调热管理，未把其材料指定为某品牌或某型号翅片。",
+    "新金宸具体产品页与联系子页返回319，本批只使用已取得正文的主站和页脚机构销售入口。",
+    "捷阳主站正文来自HTML直接引用的Body.js，离线解码不执行；商品0.00为网站占位，不提取为价格。",
+    "杭州本润获取出现TLS连接中断，未降低证书验证或列入已核验企业。"
+  ],
+  "sources": [
+    {
+      "id": "hvac22-huafeng-aluminium",
+      "publisher": "华峰集团 / 上海华峰铝业股份有限公司",
+      "name": "铝热传输材料与国内销售入口",
+      "url": "https://www.huafeng.com/product/8.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:26:40.069672Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开的产品用途与机构入口。",
+      "locator": "铝合金板带箔材料；应用场景含民用/商用空调热管理；页面列上海与重庆机构信息和国内销售热线。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-huafeng-aluminium.html",
+      "sha256": "a1e8b6af4fa0f1eb47fddca32a308a7c0bfaf2ff9d04d7cffe0647fb572ec5da",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvac22-huafeng-aluminium"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-lihua-brazing",
+      "publisher": "广东力华感应设备有限公司",
+      "name": "空调配管高频自动钎焊机",
+      "url": "https://lihuachina.com/html/product_1540.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:26:40.072670Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开的产品用途与机构入口。",
+      "locator": "产品名称与制冷暖通行业分类；页面推荐分流管、分配器、三工位铜管与铜弯管钎焊设备。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-lihua-brazing.html",
+      "sha256": "95cfae68da684a38c7eb2251fee98f63a133c60596564d65a895fb2ca825dd4c",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvac22-lihua-brazing"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-lihua-contact",
+      "publisher": "广东力华感应设备有限公司",
+      "name": "联系方式",
+      "url": "https://lihuachina.com/html/about_474.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:26:40.073426Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开的产品用途与机构入口。",
+      "locator": "企业公开的机构地址、联系方式与咨询入口。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-lihua-contact.html",
+      "sha256": "75f6e071b8a0c7c060dffebf76702780106ee48b4b08171653f5cd911dd5a51a",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvac22-lihua-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-jinchen-home",
+      "publisher": "浙江新金宸机械有限公司",
+      "name": "微通道换热器产品与应用",
+      "url": "https://www.newjinchen.com/",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:26:40.074179Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开的产品用途与机构入口。",
+      "locator": "微通道冷凝器等产品；家用/商用空调、机房空调、热泵热水器、冷冻冷藏等应用；页脚sales邮箱。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-jinchen-home.html",
+      "sha256": "4ce4d20595ea618319167b01a83d0d7a38a2679f7269e6895fd3d1e5412e5e7c",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvac22-jinchen-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-wayeal-home-refrigeration",
+      "publisher": "安徽皖仪科技股份有限公司",
+      "name": "家用制冷行业真空箱检漏系统",
+      "url": "https://www.wayeal.com.cn/Product_1/166.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:28:22.074561Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开的产品用途与机构入口。",
+      "locator": "适用家用空调冷凝器/蒸发器、压缩机、热交换器、膨胀阀等泄漏检测。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-wayeal-home-refrigeration.html",
+      "sha256": "562c40c40e5609b0a16098d55c38ce9dbf09ecac7190367733a0476f3b89c730",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvac22-wayeal-home-refrigeration"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-wayeal-contact",
+      "publisher": "安徽皖仪科技股份有限公司",
+      "name": "联系我们",
+      "url": "https://www.wayeal.com.cn/Contact.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:28:22.076156Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开的产品用途与机构入口。",
+      "locator": "机构地址、统一服务专线、机构邮箱与采购需求表单入口；仅提供链接，不提交。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-wayeal-contact.html",
+      "sha256": "4142353aae1287dba990f670e6d82d09e5f6328f3dcc89b3a930f3ebc62f47c2",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvac22-wayeal-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-wayeal-applications",
+      "publisher": "安徽皖仪科技股份有限公司",
+      "name": "家电制冷行业应用",
+      "url": "https://www.wayeal.com.cn/Solution_1/13.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:28:22.077077Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开的产品用途与机构入口。",
+      "locator": "制冷行业—家用空调密封性检测解决方案：辅助抽空和人工喷氦检漏。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-wayeal-applications.html",
+      "sha256": "f5b57933b3a83fd894b467fb51415cb6208de38a39eb0845741e360006565140",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvac22-wayeal-applications"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-jieyang-home",
+      "publisher": "杭州捷阳电器有限公司",
+      "name": "翅片式冷凝器、蒸发器及应用",
+      "url": "https://www.hzjyang.com/",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:26:42.417428Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开的产品用途与机构入口。",
+      "locator": "官网HTML直接引用Body.js，正文说明翅片式冷凝器/蒸发器用于机柜空调、制冰机、冷水机、除湿机、冷干机等；页内联系与售后导航。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-jieyang-home.html",
+      "sha256": "b0a07ec24ce4ecce5369fc5fd0ce21bc6c7a638f1884a11f3fc4d0be229d811b",
+      "httpStatus": 200,
+      "linkedRawIds": [
+        "hvac22-jieyang-body"
+      ],
+      "sourceIds": [
+        "hvac22-jieyang-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-gmcc-contact-check",
+      "publisher": "GMCC / Midea Group",
+      "name": "GMCC Contact us入口复核",
+      "url": "https://www.gmcc-welling.com/en/join-us",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:26:42.770549Z",
+      "license": "官网未声明开放复用许可；仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开的产品用途与机构入口。",
+      "locator": "页面标题与正文均为Contact us / Contact Information，含China机构地址、机构邮箱；路径join-us在此站不是招聘页。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-22/hvac22-gmcc-contact-check.html",
+      "sha256": "ebdff6ae5a59540ed69ddc92ae280fb516ae8b56dbb7fafd5e18185e464aef5e",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvac22-gmcc-contact-check"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    }
+  ],
+  "topics": [
+    {
+      "id": "hvac22-aluminium-thermal-material",
+      "label": "铝合金板带箔热传输材料",
+      "kind": "material",
+      "description": "用于空调热管理等场景的铝合金板、带、箔材料，可从官方页面查看产品及国内销售入口。",
+      "sourceIds": [
+        "hvac22-huafeng-aluminium"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-brazing-equipment",
+      "label": "空调配管高频钎焊设备",
+      "kind": "equipment",
+      "description": "对空调配管、分流管、分配器及铜弯管进行感应加热钎焊的设备。",
+      "sourceIds": [
+        "hvac22-lihua-brazing"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-vacuum-leak-equipment",
+      "label": "家用制冷真空箱检漏设备",
+      "kind": "equipment",
+      "description": "用于空调冷凝器、蒸发器、压缩机和阀件等的密封性检测。",
+      "sourceIds": [
+        "hvac22-wayeal-home-refrigeration"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-finned-coil",
+      "label": "翅片式冷凝器与蒸发器",
+      "kind": "component",
+      "description": "连接多种制冷设备的换热部件，应用包括制冰、冷水、除湿及机柜空调。",
+      "sourceIds": [
+        "hvac22-jieyang-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-microchannel-exchanger",
+      "label": "微通道换热器",
+      "kind": "component",
+      "description": "包含微通道冷凝器等形式，服务家用、商用、机房空调与热泵等场景。",
+      "sourceIds": [
+        "hvac22-jinchen-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-commercial-ac",
+      "label": "商用空调系统",
+      "kind": "product",
+      "description": "微通道换热器和铝热传输材料的应用方向之一。",
+      "sourceIds": [
+        "hvac22-jinchen-home",
+        "hvac22-huafeng-aluminium"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-cabinet-ac",
+      "label": "机柜与机房空调",
+      "kind": "product",
+      "description": "面向机柜、电气或机房的温控设备，可采用翅片或微通道换热器。",
+      "sourceIds": [
+        "hvac22-jinchen-home",
+        "hvac22-jieyang-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-dehumidifier",
+      "label": "除湿机",
+      "kind": "product",
+      "description": "翅片式冷凝器和蒸发器的下游应用之一。",
+      "sourceIds": [
+        "hvac22-jieyang-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-refrigerated-dryer",
+      "label": "冷冻式干燥机",
+      "kind": "product",
+      "description": "翅片式换热器的下游应用之一，官网列冷干机换热器产品。",
+      "sourceIds": [
+        "hvac22-jieyang-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-heat-pump-water-heater",
+      "label": "热泵热水器",
+      "kind": "product",
+      "description": "微通道换热器的公开应用方向之一。",
+      "sourceIds": [
+        "hvac22-jinchen-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    }
+  ],
+  "relations": [
+    {
+      "fromTopicId": "tube-manufacturing",
+      "toTopicId": "copper-tube",
+      "kind": "used_in",
+      "description": "铜管制造环节产出内螺纹管、复绕盘管与空调直管。",
+      "sourceIds": [
+        "jintian-copper-tube"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-aluminium-thermal-material",
+      "toTopicId": "room-air-conditioner",
+      "kind": "used_in",
+      "description": "铝热传输材料用于民用空调热管理。",
+      "sourceIds": [
+        "hvac22-huafeng-aluminium"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-aluminium-thermal-material",
+      "toTopicId": "hvac22-commercial-ac",
+      "kind": "used_in",
+      "description": "铝热传输材料用于商用空调热管理。",
+      "sourceIds": [
+        "hvac22-huafeng-aluminium"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-brazing-equipment",
+      "toTopicId": "brazing",
+      "kind": "equipment_for",
+      "description": "高频感应设备用于空调配管和铜管组件钎焊。",
+      "sourceIds": [
+        "hvac22-lihua-brazing"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "copper-tube",
+      "toTopicId": "brazing",
+      "kind": "process_input",
+      "description": "铜管、铜弯管与配管组件进入高频钎焊加工。",
+      "sourceIds": [
+        "hvac22-lihua-brazing"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-vacuum-leak-equipment",
+      "toTopicId": "leak-testing",
+      "kind": "equipment_for",
+      "description": "真空箱设备用于制冷部件泄漏检测。",
+      "sourceIds": [
+        "hvac22-wayeal-home-refrigeration"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "leak-testing",
+      "toTopicId": "heat-exchanger",
+      "kind": "used_in",
+      "description": "对家用空调冷凝器、蒸发器和热交换器进行泄漏检测。",
+      "sourceIds": [
+        "hvac22-wayeal-home-refrigeration"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "leak-testing",
+      "toTopicId": "compressor",
+      "kind": "used_in",
+      "description": "真空箱产品适用压缩机的泄漏检测。",
+      "sourceIds": [
+        "hvac22-wayeal-home-refrigeration"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "leak-testing",
+      "toTopicId": "control-valve",
+      "kind": "used_in",
+      "description": "真空箱产品适用膨胀阀等阀件泄漏检测。",
+      "sourceIds": [
+        "hvac22-wayeal-home-refrigeration"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-finned-coil",
+      "toTopicId": "ice-machine",
+      "kind": "used_in",
+      "description": "翅片式冷凝器与蒸发器用于该类制冷设备。",
+      "sourceIds": [
+        "hvac22-jieyang-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-finned-coil",
+      "toTopicId": "water-chiller",
+      "kind": "used_in",
+      "description": "翅片式冷凝器与蒸发器用于该类制冷设备。",
+      "sourceIds": [
+        "hvac22-jieyang-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-finned-coil",
+      "toTopicId": "hvac22-cabinet-ac",
+      "kind": "used_in",
+      "description": "翅片式冷凝器与蒸发器用于该类制冷设备。",
+      "sourceIds": [
+        "hvac22-jieyang-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-finned-coil",
+      "toTopicId": "hvac22-dehumidifier",
+      "kind": "used_in",
+      "description": "翅片式冷凝器与蒸发器用于该类制冷设备。",
+      "sourceIds": [
+        "hvac22-jieyang-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-finned-coil",
+      "toTopicId": "hvac22-refrigerated-dryer",
+      "kind": "used_in",
+      "description": "翅片式冷凝器与蒸发器用于该类制冷设备。",
+      "sourceIds": [
+        "hvac22-jieyang-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-microchannel-exchanger",
+      "toTopicId": "room-air-conditioner",
+      "kind": "used_in",
+      "description": "微通道换热器用于该类空调或热管理系统。",
+      "sourceIds": [
+        "hvac22-jinchen-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-microchannel-exchanger",
+      "toTopicId": "hvac22-commercial-ac",
+      "kind": "used_in",
+      "description": "微通道换热器用于该类空调或热管理系统。",
+      "sourceIds": [
+        "hvac22-jinchen-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-microchannel-exchanger",
+      "toTopicId": "hvac22-cabinet-ac",
+      "kind": "used_in",
+      "description": "微通道换热器用于该类空调或热管理系统。",
+      "sourceIds": [
+        "hvac22-jinchen-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-microchannel-exchanger",
+      "toTopicId": "hvac22-heat-pump-water-heater",
+      "kind": "used_in",
+      "description": "微通道换热器用于该类空调或热管理系统。",
+      "sourceIds": [
+        "hvac22-jinchen-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-aluminium-thermal-material",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "打开企业官方产品、机构联系或销售入口。",
+      "sourceIds": [
+        "hvac22-huafeng-aluminium"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-brazing-equipment",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "打开企业官方产品、机构联系或销售入口。",
+      "sourceIds": [
+        "hvac22-lihua-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-vacuum-leak-equipment",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "打开企业官方产品、机构联系或销售入口。",
+      "sourceIds": [
+        "hvac22-wayeal-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-finned-coil",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "打开企业官方产品、机构联系或销售入口。",
+      "sourceIds": [
+        "hvac22-jieyang-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvac22-microchannel-exchanger",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "打开企业官方产品、机构联系或销售入口。",
+      "sourceIds": [
+        "hvac22-jinchen-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    }
+  ],
+  "organizations": [
+    {
+      "id": "hvac22-org-huafeng",
+      "name": "上海华峰铝业股份有限公司",
+      "topicIds": [
+        "hvac22-aluminium-thermal-material"
+      ],
+      "productUrl": "https://www.huafeng.com/product/8.html",
+      "contactUrl": "https://www.huafeng.com/product/8.html",
+      "description": "铝合金板带箔热传输材料，官网列民用与商用空调应用、国内销售及机构入口。",
+      "sourceIds": [
+        "hvac22-huafeng-aluminium"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-org-lihua",
+      "name": "广东力华感应设备有限公司",
+      "topicIds": [
+        "hvac22-brazing-equipment"
+      ],
+      "productUrl": "https://lihuachina.com/html/product_1540.html",
+      "contactUrl": "https://lihuachina.com/html/about_474.html",
+      "description": "空调配管、分流管、分配器及铜弯管等高频感应钎焊设备。",
+      "sourceIds": [
+        "hvac22-lihua-brazing",
+        "hvac22-lihua-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-org-wayeal",
+      "name": "安徽皖仪科技股份有限公司",
+      "topicIds": [
+        "hvac22-vacuum-leak-equipment"
+      ],
+      "productUrl": "https://www.wayeal.com.cn/Product_1/166.html",
+      "contactUrl": "https://www.wayeal.com.cn/Contact.html",
+      "description": "家用制冷真空箱检漏系统与家用空调密封性检测方案，覆盖换热器、压缩机和阀件。",
+      "sourceIds": [
+        "hvac22-wayeal-home-refrigeration",
+        "hvac22-wayeal-contact",
+        "hvac22-wayeal-applications"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-org-jieyang",
+      "name": "杭州捷阳电器有限公司",
+      "topicIds": [
+        "hvac22-finned-coil"
+      ],
+      "productUrl": "https://www.hzjyang.com/",
+      "contactUrl": "https://www.hzjyang.com/",
+      "description": "翅片式冷凝器、蒸发器，面向制冰机、冷水机、除湿机、冷干机和机柜空调等用途。",
+      "sourceIds": [
+        "hvac22-jieyang-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    },
+    {
+      "id": "hvac22-org-jinchen",
+      "name": "浙江新金宸机械有限公司",
+      "topicIds": [
+        "hvac22-microchannel-exchanger"
+      ],
+      "productUrl": "https://www.newjinchen.com/",
+      "contactUrl": "https://www.newjinchen.com/",
+      "description": "微通道换热器及相关部件，面向家用、商用、机房空调与热泵热水器。官网页脚提供销售入口。",
+      "sourceIds": [
+        "hvac22-jinchen-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22官网产品与联系入口复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.2",
+      "status": "validated"
+    }
+  ],
+  "verificationNotes": [
+    {
+      "organizationId": "org-gmcc",
+      "sourceId": "hvac22-gmcc-contact-check",
+      "result": "旧join-us URL正文确为Contact us机构联系页，保留原入口。"
+    }
+  ]
+}

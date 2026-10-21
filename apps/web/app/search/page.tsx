@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getQueryService } from "../../lib/data";
 import { Breadcrumbs, PageIntro, SiteShell } from "../../components/site-shell";
-import { ledgerPath, productPath } from "../../lib/paths";
+import { industryPath, ledgerPath, productPath } from "../../lib/paths";
 
 export const dynamic = "force-dynamic";
 
@@ -15,17 +15,23 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const queries = await getQueryService();
   const products = normalized ? queries.listProducts().filter(({ item }) => `${item.name} ${item.description ?? ""} ${item.category}`.toLocaleLowerCase("zh-CN").includes(normalized)) : [];
   const countries = normalized ? queries.listCountries().filter(({ entity, roles }) => `${entity.name} ${entity.iso2 ?? ""} ${entity.iso3 ?? ""} ${roles.join(" ")}`.toLocaleLowerCase("zh-CN").includes(normalized)) : [];
+  const industryResults = normalized ? queries.listProducts().flatMap(({productId,item}) => {
+    const view = queries.getIndustryNetwork(productId,{search:normalized});
+    return view && (view.matchingTopics.length || view.directory.length) ? [{productId,product:item,view}] : [];
+  }) : [];
   const defaultProductId = queries.listProducts()[0]?.productId;
   return <SiteShell><div className="content-column narrow-column">
     <Breadcrumbs items={[{ label: "搜索" }]} />
-    <PageIntro eyebrow="Global search" title={query ? `搜索“${query}”` : "搜索商品或国家"} description="输入商品名称、国家名称、ISO 代码或供应链角色，快速进入相关页面。" />
+    <PageIntro eyebrow="Global search" title={query ? `搜索“${query}”` : "搜索商品、国家或产业环节"} description="输入商品、国家、材料、设备或企业名称，进入相关资料与官方入口。" />
+    {industryResults.length > 0 && <section className="section-block"><div className="section-heading"><div><p className="eyebrow">产业环节与企业</p><h2>上下游与官方入口</h2></div></div>{industryResults.map(({productId,product,view}) => <div key={productId}><h3>{product.name} · {view.region.name}</h3><div className="country-role-list">{view.matchingTopics.map(topic => <Link className="role-chip" key={topic.id} href={industryPath(productId,topic.id)}>{topic.label} →</Link>)}</div><div className="component-grid">{view.directory.map(organization => <article className="component-card" key={organization.id}><h3>{organization.name}</h3><p>{organization.description}</p><Link className="card-footer" href={industryPath(productId,organization.entryTopicId)}>查看上下游与官方入口 →</Link></article>)}</div></div>)}</section>}
     {!query ? <div className="empty-state large-empty"><h2>请输入关键词</h2><p>例如：智能手机、中国、锂、组装或消费市场。</p></div> : <>
-      <section className="section-block"><div className="section-heading"><div><p className="eyebrow">Products</p><h2>商品</h2></div><span className="section-caption">{products.length} 个结果</span></div>{products.length ? <div className="product-grid">{products.map(({ productId, item }) => <Link className="product-card" href={productPath(productId)} key={productId}><span className="card-kicker">{item.category}</span><h3>{item.name}</h3><p>{item.description ?? "暂无说明"}</p><span className="card-footer">进入商品探索 →</span></Link>)}</div> : <div className="empty-state">没有匹配的商品。</div>}</section>
-      <section className="section-block"><div className="section-heading"><div><p className="eyebrow">Countries</p><h2>国家</h2></div><span className="section-caption">{countries.length} 个结果</span></div>{countries.length ? <div className="country-grid search-country-grid">{countries.map(({ entity, roles, productIds, ledgerProductIds }) => {
+      {products.length > 0 && <section className="section-block"><div className="section-heading"><div><p className="eyebrow">Products</p><h2>商品</h2></div><span className="section-caption">{products.length} 个结果</span></div>{products.length ? <div className="product-grid">{products.map(({ productId, item }) => <Link className="product-card" href={productPath(productId)} key={productId}><span className="card-kicker">{item.category}</span><h3>{item.name}</h3>{item.description && <p>{item.description}</p>}<span className="card-footer">进入商品探索 →</span></Link>)}</div> : <div className="empty-state">没有匹配的商品。</div>}</section>}
+      {countries.length > 0 && <section className="section-block"><div className="section-heading"><div><p className="eyebrow">Countries</p><h2>国家</h2></div><span className="section-caption">{countries.length} 个结果</span></div>{countries.length ? <div className="country-grid search-country-grid">{countries.map(({ entity, roles, productIds, ledgerProductIds }) => {
         const ledgerProductId = ledgerProductIds[0];
         const productId = ledgerProductId ?? productIds[0] ?? defaultProductId;
         return <article className="country-card" key={entity.id}><span className="iso-chip">{entity.iso3 ?? entity.name}</span><h3>{entity.name}</h3><div className="country-role-list">{roles.slice(0, 3).map((role) => <span className="role-chip" key={role}>{role}</span>)}</div>{productId ? <Link className="card-footer" href={ledgerProductId ? ledgerPath(productId, entity.id) : productPath(productId)}>{ledgerProductId ? "进入国家账本" : "探索相关商品"} →</Link> : null}</article>;
-      })}</div> : <div className="empty-state">没有匹配的国家。</div>}</section>
+      })}</div> : <div className="empty-state">没有匹配的国家。</div>}</section>}
+      {!products.length && !countries.length && !industryResults.length && <div className="empty-state"><h2>换个关键词试试</h2><p>可以搜索商品名称、国家、材料、设备或企业名称。</p><Link href="/products">从商品目录开始 →</Link></div>}
     </>}
   </div></SiteShell>;
 }

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "source-capture.v1",
+  "batchId": "china-hvac-core-2026-10-22",
+  "entries": [
+    {
+      "id": "hvaccore22-kingfa-contact",
+      "url": "https://www.kingfa.com.cn/index.php/portal/list/index/id/53.html",
+      "retrievedAt": "2026-10-21T16:36:44.502030Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.kingfa.com.cn/index.php/portal/list/index/id/53.html",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-kingfa-contact.html",
+      "bytes": 40967,
+      "sha256": "1204a60d6e2750a65ead9a4131808d7f7fd86a75185854cba48bc7e35a57f9fa"
+    },
+    {
+      "id": "hvaccore22-welling-contact",
+      "url": "https://www.wellingmotor.com/cn/join-us",
+      "retrievedAt": "2026-10-21T16:36:44.503058Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.wellingmotor.com/cn/join-us",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-welling-contact.html",
+      "bytes": 52296,
+      "sha256": "e721dbeaa1376f627a24014f6ea082e0644abf9f2812d09b4e651d264f0ae339"
+    }
+  ]
+}

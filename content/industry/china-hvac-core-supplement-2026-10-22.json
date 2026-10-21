@@ -1,0 +1,844 @@
+{
+  "schemaVersion": "china-hvac-research.v1",
+  "id": "china-hvac-core-supplement-2026-10-22",
+  "label": "中国空调电机、电控、制冷剂与壳体材料",
+  "reviewedAt": "2026-10-22",
+  "period": {
+    "granularity": "snapshot",
+    "start": "2026-10-22",
+    "end": "2026-10-22",
+    "label": "2026-10-22空调核心部件与材料官方能力复核"
+  },
+  "datasetVersion": "china-hvac-core-research-2026.10.1",
+  "method": "manual_review_of_official_public_material",
+  "status": "validated",
+  "scope": "空调核心部件及材料的公开能力、技术用途与官方信息入口。",
+  "limitations": [
+    "只建立主题的技术用途关系；不把厂商产品能力当作某品牌或某工厂的客户供货记录。",
+    "PBT页面只支持其壳体应用，不证明整机全部外壳均用该材料。",
+    "威灵分类页主体产品数据动态加载，本批只使用HTML已有的家用/商用空调电机目录，不采集动态规格。",
+    "R32产品能力来自东岳官网，空调用途来自大金中国技术目录；两者不构成企业供货关系。",
+    "东岳Python获取的证书链错误保留原记录，Windows curl采用系统默认TLS校验成功；没有关闭校验、使用不安全参数或绕过访问限制。"
+  ],
+  "sources": [
+    {
+      "id": "hvaccore22-wolong-motors",
+      "publisher": "卧龙电气驱动集团股份有限公司",
+      "name": "空调电机产品分类",
+      "url": "https://www.wolong.com.cn/products-solutions/motors-drives/daily-motors/air-conditioning-motors",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:35:01.814060Z",
+      "license": "官网未声明开放复用许可，仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开产品能力、用途与机构入口。",
+      "locator": "列BLDC S51/S70/S90/S110与AC单相异步交流电机；AC系列用于空调室内、室外和窗机风机。",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-wolong-motors.html",
+      "sha256": "f9a5c08c47b69caed215068c5caf646920f5aabd62e293c95858bd383020baf4",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaccore22-wolong-motors"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-wolong-contact",
+      "publisher": "卧龙电气驱动集团股份有限公司",
+      "name": "官方联系与在线留言入口",
+      "url": "https://www.wolong.com.cn/contact-us/online-message",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:35:01.815387Z",
+      "license": "官网未声明开放复用许可，仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开产品能力、用途与机构入口。",
+      "locator": "销售电话、机构邮箱、联系入口及用户自行填写的留言表单。",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-wolong-contact.html",
+      "sha256": "b8fba60ed055ff5af32cf8373df826b776b40164b073141a11be60cb4008cd6c",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaccore22-wolong-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-welling-motors",
+      "publisher": "广东威灵电机制造有限公司",
+      "name": "家用空调电机分类入口",
+      "url": "https://www.wellingmotor.com/cn/product/product-detail?categoryId=100074",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:35:06.282721Z",
+      "license": "官网未声明开放复用许可，仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开产品能力、用途与机构入口。",
+      "locator": "原始HTML页脚产品导航明确列家用空调电机、商用空调电机、空调新风机；未提取动态规格或下载占位。",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-welling-motors.html",
+      "sha256": "b0b49c9201f480b236b92ea2fcfb688c03d8c5399fc2df0c2916949a1dc42789",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaccore22-welling-motors"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-welling-contact",
+      "publisher": "广东威灵电机制造有限公司",
+      "name": "威灵联系我们",
+      "url": "https://www.wellingmotor.com/cn/join-us",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:36:44.503058Z",
+      "license": "官网未声明开放复用许可，仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开产品能力、用途与机构入口。",
+      "locator": "HTML公开机构联系入口；沿用官方公开机构邮箱；不抄录个人联系方式。",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-welling-contact.html",
+      "sha256": "e721dbeaa1376f627a24014f6ea082e0644abf9f2812d09b4e651d264f0ae339",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaccore22-welling-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-topband-hvac",
+      "publisher": "深圳拓邦股份有限公司",
+      "name": "暖通燃热解决方案",
+      "url": "https://www.topband.com/cn/solution/hvac/",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:35:01.816011Z",
+      "license": "官网未声明开放复用许可，仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开产品能力、用途与机构入口。",
+      "locator": "为暖通空调、热泵与各类压缩机变频化提供驱动和控制方案；覆盖家用与商用空调。",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-topband-hvac.html",
+      "sha256": "2196792737ec36bef6a5b37eb4541020294fc0bfee28cd9e0e2133dc425ff84f",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaccore22-topband-hvac"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-topband-contact",
+      "publisher": "深圳拓邦股份有限公司",
+      "name": "拓邦联系我们",
+      "url": "https://www.topband.com/cn/contact-us/",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:35:01.816678Z",
+      "license": "官网未声明开放复用许可，仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开产品能力、用途与机构入口。",
+      "locator": "机构地址、电话、机构邮箱，含供应商自荐官方导航；未提交任何表单。",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-topband-contact.html",
+      "sha256": "6f8c18ffeb75e11f34dda194a6456d03221a1b0cd019600fc2c122f712182197",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaccore22-topband-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-kingfa-housing",
+      "publisher": "金发科技股份有限公司",
+      "name": "空调壳体PBT材料",
+      "url": "https://www.kingfa.com.cn/index.php/goods/details/index/id/95/cid/92.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:35:05.634665Z",
+      "license": "官网未声明开放复用许可，仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开产品能力、用途与机构入口。",
+      "locator": "面包屑为家电行业/空调/壳体；表格列PBT与PBT-G30/G20。未推断特定机型外壳或品牌。",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-kingfa-housing.html",
+      "sha256": "524fcde479364de42865f29cd701ec28f5f52770d1d5955c0ef2f4225d75b51a",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaccore22-kingfa-housing"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-kingfa-contact",
+      "publisher": "金发科技股份有限公司",
+      "name": "联系金发",
+      "url": "https://www.kingfa.com.cn/index.php/portal/list/index/id/53.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:36:44.502030Z",
+      "license": "官网未声明开放复用许可，仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开产品能力、用途与机构入口。",
+      "locator": "官方机构联络与销售导航。",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-kingfa-contact.html",
+      "sha256": "1204a60d6e2750a65ead9a4131808d7f7fd86a75185854cba48bc7e35a57f9fa",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaccore22-kingfa-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-dongyue-r32-windows",
+      "publisher": "山东东岳制冷剂有限公司 / 东岳氟硅科技集团有限公司",
+      "name": "R32产品与国内销售",
+      "url": "https://www.dongyuechem.com/en/product/show-1566.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:36:02.403936Z",
+      "license": "官网未声明开放复用许可，仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开产品能力、用途与机构入口。",
+      "locator": "官网R32产品页、山东东岳制冷剂机构名称、Domestic Sales Office和销售机构邮箱。",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-dongyue-r32-windows.html",
+      "sha256": "d85946ba202ccf6c7a756adeeb516e9da91477304c68364038cd836ae2e25519",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaccore22-dongyue-r32-windows"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-dongyue-contact-windows",
+      "publisher": "东岳氟硅科技集团有限公司",
+      "name": "东岳官方联系入口",
+      "url": "https://www.dongyuechem.com/en/contact.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:36:12.595536Z",
+      "license": "官网未声明开放复用许可，仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开产品能力、用途与机构入口。",
+      "locator": "集团联系页面与产品机构导航。",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-dongyue-contact-windows.html",
+      "sha256": "797e506cabe8b92b038be167cc0511c8ef4bda4a1910259c7dbb89e46916c5ed",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaccore22-dongyue-contact-windows"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-daikin-refrigerants",
+      "publisher": "大金氟化工（中国）有限公司",
+      "name": "制冷剂产品与用途技术参考",
+      "url": "https://www.daikinchem.com.cn/index/product/index.html?id=12",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T16:35:03.899216Z",
+      "license": "官网未声明开放复用许可，仅发布有限人工摘要和官方入口，原件用于复核。",
+      "scope": "官网公开产品能力、用途与机构入口。",
+      "locator": "牌号用途表将HFC-32列为空调用途；仅作为R32类别用途依据，不建立其与东岳的企业关系。",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-daikin-refrigerants.html",
+      "sha256": "53a8c4f77f870ee420a6050ec9c085725d96a347a0d8c31d8ecbfd28f2b34563",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "sourceIds": [
+        "hvaccore22-daikin-refrigerants"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    }
+  ],
+  "topics": [
+    {
+      "id": "hvaccore22-aircon-motor",
+      "label": "空调风机电机",
+      "kind": "component",
+      "description": "驱动室内、室外及窗机送风的电机，可选择交流或无刷直流等产品系列。",
+      "sourceIds": [
+        "hvaccore22-wolong-motors",
+        "hvaccore22-welling-motors"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-aircon-fan",
+      "label": "空调送风风机",
+      "kind": "component",
+      "description": "室内、室外与窗机送风部件，电机为其提供驱动。",
+      "sourceIds": [
+        "hvaccore22-wolong-motors"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-ac-controller",
+      "label": "空调智能控制器",
+      "kind": "component",
+      "description": "面向家用、商用空调的驱动与控制方案，可查看官方方案与机构联系入口。",
+      "sourceIds": [
+        "hvaccore22-topband-hvac"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-compressor-drive",
+      "label": "压缩机变频驱动控制",
+      "kind": "component",
+      "description": "针对压缩机变频化的驱动和控制方案。",
+      "sourceIds": [
+        "hvaccore22-topband-hvac"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-r32",
+      "label": "R32制冷剂",
+      "kind": "material",
+      "description": "空调用制冷工质类别，官方产品页可查看产品与国内销售机构入口。",
+      "sourceIds": [
+        "hvaccore22-dongyue-r32-windows",
+        "hvaccore22-daikin-refrigerants"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-pbt",
+      "label": "PBT改性塑料",
+      "kind": "material",
+      "description": "金发空调壳体应用页面列出的PBT材料，可查看牌号与技术资料。",
+      "sourceIds": [
+        "hvaccore22-kingfa-housing"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-housing",
+      "label": "空调壳体材料应用",
+      "kind": "component",
+      "description": "PBT在空调壳体部件中的材料应用方向。",
+      "sourceIds": [
+        "hvaccore22-kingfa-housing"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    }
+  ],
+  "relations": [
+    {
+      "fromTopicId": "hvaccore22-aircon-motor",
+      "toTopicId": "hvaccore22-aircon-fan",
+      "kind": "used_in",
+      "description": "空调电机驱动室内、室外或窗机风机。",
+      "sourceIds": [
+        "hvaccore22-wolong-motors"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaccore22-aircon-fan",
+      "toTopicId": "room-air-conditioner",
+      "kind": "used_in",
+      "description": "室内、室外及窗机风机承担空调送风。",
+      "sourceIds": [
+        "hvaccore22-wolong-motors"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaccore22-ac-controller",
+      "toTopicId": "room-air-conditioner",
+      "kind": "used_in",
+      "description": "控制方案覆盖家用空调。",
+      "sourceIds": [
+        "hvaccore22-topband-hvac"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaccore22-ac-controller",
+      "toTopicId": "hvac22-commercial-ac",
+      "kind": "used_in",
+      "description": "控制方案覆盖商用空调。",
+      "sourceIds": [
+        "hvaccore22-topband-hvac"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaccore22-compressor-drive",
+      "toTopicId": "compressor",
+      "kind": "used_in",
+      "description": "驱动控制方案服务压缩机变频化。",
+      "sourceIds": [
+        "hvaccore22-topband-hvac"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaccore22-r32",
+      "toTopicId": "room-air-conditioner",
+      "kind": "process_input",
+      "description": "HFC-32是空调使用的制冷剂类别之一。",
+      "sourceIds": [
+        "hvaccore22-daikin-refrigerants"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaccore22-pbt",
+      "toTopicId": "hvaccore22-housing",
+      "kind": "process_input",
+      "description": "PBT材料用于空调壳体部件。",
+      "sourceIds": [
+        "hvaccore22-kingfa-housing"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaccore22-housing",
+      "toTopicId": "room-air-conditioner",
+      "kind": "used_in",
+      "description": "壳体部件属于官网空调材料应用目录。",
+      "sourceIds": [
+        "hvaccore22-kingfa-housing"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaccore22-aircon-motor",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "打开对应企业的官方产品或机构联系入口。",
+      "sourceIds": [
+        "hvaccore22-wolong-contact",
+        "hvaccore22-welling-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaccore22-ac-controller",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "打开对应企业的官方产品或机构联系入口。",
+      "sourceIds": [
+        "hvaccore22-topband-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaccore22-compressor-drive",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "打开对应企业的官方产品或机构联系入口。",
+      "sourceIds": [
+        "hvaccore22-topband-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaccore22-r32",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "打开对应企业的官方产品或机构联系入口。",
+      "sourceIds": [
+        "hvaccore22-dongyue-r32-windows",
+        "hvaccore22-dongyue-contact-windows"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "hvaccore22-pbt",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "打开对应企业的官方产品或机构联系入口。",
+      "sourceIds": [
+        "hvaccore22-kingfa-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    }
+  ],
+  "organizations": [
+    {
+      "id": "hvaccore22-org-wolong",
+      "name": "卧龙电气驱动集团股份有限公司",
+      "topicIds": [
+        "hvaccore22-aircon-motor"
+      ],
+      "productUrl": "https://www.wolong.com.cn/products-solutions/motors-drives/daily-motors/air-conditioning-motors",
+      "contactUrl": "https://www.wolong.com.cn/contact-us/online-message",
+      "description": "提供BLDC与交流空调电机系列，适用室内、室外及窗机风机等送风设备。",
+      "sourceIds": [
+        "hvaccore22-wolong-motors",
+        "hvaccore22-wolong-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-org-welling",
+      "name": "广东威灵电机制造有限公司",
+      "topicIds": [
+        "hvaccore22-aircon-motor"
+      ],
+      "productUrl": "https://www.wellingmotor.com/cn/product/product-detail?categoryId=100074",
+      "contactUrl": "https://www.wellingmotor.com/cn/join-us",
+      "description": "官方产品目录列家用与商用空调电机，并提供机构联系入口。",
+      "sourceIds": [
+        "hvaccore22-welling-motors",
+        "hvaccore22-welling-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-org-topband",
+      "name": "深圳拓邦股份有限公司",
+      "topicIds": [
+        "hvaccore22-ac-controller",
+        "hvaccore22-compressor-drive"
+      ],
+      "productUrl": "https://www.topband.com/cn/solution/hvac/",
+      "contactUrl": "https://www.topband.com/cn/contact-us/",
+      "description": "提供家用及商用空调、热泵和压缩机变频化的驱动与控制方案。",
+      "sourceIds": [
+        "hvaccore22-topband-hvac",
+        "hvaccore22-topband-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-org-dongyue",
+      "name": "山东东岳制冷剂有限公司",
+      "topicIds": [
+        "hvaccore22-r32"
+      ],
+      "productUrl": "https://www.dongyuechem.com/en/product/show-1566.html",
+      "contactUrl": "https://www.dongyuechem.com/en/contact.html",
+      "description": "官方目录列R32产品与国内销售机构入口。",
+      "sourceIds": [
+        "hvaccore22-dongyue-r32-windows",
+        "hvaccore22-dongyue-contact-windows"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "hvaccore22-org-kingfa",
+      "name": "金发科技股份有限公司",
+      "topicIds": [
+        "hvaccore22-pbt"
+      ],
+      "productUrl": "https://www.kingfa.com.cn/index.php/goods/details/index/id/95/cid/92.html",
+      "contactUrl": "https://www.kingfa.com.cn/index.php/portal/list/index/id/53.html",
+      "description": "空调壳体应用目录提供PBT改性材料及牌号，配有官方机构联络入口。",
+      "sourceIds": [
+        "hvaccore22-kingfa-housing",
+        "hvaccore22-kingfa-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22空调核心部件与材料官方能力复核"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-core-research-2026.10.1",
+      "status": "validated"
+    }
+  ]
+}

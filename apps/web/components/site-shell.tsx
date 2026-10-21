@@ -31,8 +31,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
             </details>
           </nav>
           <form className="global-search" action="/search" role="search">
-            <label className="sr-only" htmlFor="global-search-input">搜索商品或国家</label>
-            <input id="global-search-input" name="q" placeholder="搜索商品 / 国家" />
+            <label className="sr-only" htmlFor="global-search-input">搜索商品、国家或企业</label>
+            <input id="global-search-input" name="q" placeholder="搜索商品 / 国家 / 企业" />
             <button type="submit">搜索</button>
           </form>
           {preview ? <span className="mode-pill mode-preview">开发预览</span> : null}

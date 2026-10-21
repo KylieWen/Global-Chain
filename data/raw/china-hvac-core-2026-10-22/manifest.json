@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "source-capture.v1",
+  "batchId": "china-hvac-core-2026-10-22",
+  "entries": [
+    {
+      "id": "hvaccore22-wolong-motors",
+      "url": "https://www.wolong.com.cn/products-solutions/motors-drives/daily-motors/air-conditioning-motors",
+      "retrievedAt": "2026-10-21T16:35:01.814060Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.wolong.com.cn/products-solutions/motors-drives/daily-motors/air-conditioning-motors",
+      "contentType": "text/html; charset=utf-8",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-wolong-motors.html",
+      "sha256": "f9a5c08c47b69caed215068c5caf646920f5aabd62e293c95858bd383020baf4",
+      "bytes": 90438,
+      "textFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-wolong-motors.txt"
+    },
+    {
+      "id": "hvaccore22-wolong-contact",
+      "url": "https://www.wolong.com.cn/contact-us/online-message",
+      "retrievedAt": "2026-10-21T16:35:01.815387Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.wolong.com.cn/contact-us/online-message",
+      "contentType": "text/html; charset=utf-8",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-wolong-contact.html",
+      "sha256": "b8fba60ed055ff5af32cf8373df826b776b40164b073141a11be60cb4008cd6c",
+      "bytes": 94576,
+      "textFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-wolong-contact.txt"
+    },
+    {
+      "id": "hvaccore22-topband-hvac",
+      "url": "https://www.topband.com/cn/solution/hvac/",
+      "retrievedAt": "2026-10-21T16:35:01.816011Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.topband.com/cn/solution/hvac/",
+      "contentType": "text/html",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-topband-hvac.html",
+      "sha256": "2196792737ec36bef6a5b37eb4541020294fc0bfee28cd9e0e2133dc425ff84f",
+      "bytes": 960526,
+      "textFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-topband-hvac.txt"
+    },
+    {
+      "id": "hvaccore22-topband-contact",
+      "url": "https://www.topband.com/cn/contact-us/",
+      "retrievedAt": "2026-10-21T16:35:01.816678Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.topband.com/cn/contact-us/",
+      "contentType": "text/html",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-topband-contact.html",
+      "sha256": "6f8c18ffeb75e11f34dda194a6456d03221a1b0cd019600fc2c122f712182197",
+      "bytes": 987938,
+      "textFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-topband-contact.txt"
+    },
+    {
+      "id": "hvaccore22-dongyue-r32",
+      "url": "https://www.dongyuechem.com/en/product/show-1566.html",
+      "retrievedAt": "2026-10-21T16:35:01.817194Z",
+      "httpStatus": null,
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1018)>",
+      "rawFile": null,
+      "sha256": null
+    },
+    {
+      "id": "hvaccore22-dongyue-contact",
+      "url": "https://www.dongyuechem.com/en/contact.html",
+      "retrievedAt": "2026-10-21T16:35:03.076438Z",
+      "httpStatus": null,
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1018)>",
+      "rawFile": null,
+      "sha256": null
+    },
+    {
+      "id": "hvaccore22-daikin-refrigerants",
+      "url": "https://www.daikinchem.com.cn/index/product/index.html?id=12",
+      "retrievedAt": "2026-10-21T16:35:03.899216Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.daikinchem.com.cn/index/product/index.html?id=12",
+      "contentType": "text/html; charset=utf-8",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-daikin-refrigerants.html",
+      "sha256": "53a8c4f77f870ee420a6050ec9c085725d96a347a0d8c31d8ecbfd28f2b34563",
+      "bytes": 159356,
+      "textFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-daikin-refrigerants.txt"
+    },
+    {
+      "id": "hvaccore22-kingfa-housing",
+      "url": "https://www.kingfa.com.cn/index.php/goods/details/index/id/95/cid/92.html",
+      "retrievedAt": "2026-10-21T16:35:05.634665Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.kingfa.com.cn/index.php/goods/details/index/id/95/cid/92.html",
+      "contentType": "text/html; charset=utf-8",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-kingfa-housing.html",
+      "sha256": "524fcde479364de42865f29cd701ec28f5f52770d1d5955c0ef2f4225d75b51a",
+      "bytes": 32344,
+      "textFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-kingfa-housing.txt"
+    },
+    {
+      "id": "hvaccore22-welling-motors",
+      "url": "https://www.wellingmotor.com/cn/product/product-detail?categoryId=100074",
+      "retrievedAt": "2026-10-21T16:35:06.282721Z",
+      "httpStatus": 200,
+      "finalUrl": "https://www.wellingmotor.com/cn/product/product-detail?categoryId=100074",
+      "contentType": "text/html;charset=utf-8",
+      "rawFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-welling-motors.html",
+      "sha256": "b0b49c9201f480b236b92ea2fcfb688c03d8c5399fc2df0c2916949a1dc42789",
+      "bytes": 54971,
+      "textFile": "data/raw/china-hvac-core-2026-10-22/hvaccore22-welling-motors.txt"
+    }
+  ]
+}

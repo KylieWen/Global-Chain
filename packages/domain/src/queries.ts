@@ -1,3 +1,4 @@
+import { getIndustryNetwork, type IndustryNetworkOptions, type IndustryNetworkView } from "./industry";
 import type {
   ClassificationCode,
   ClassificationCrosswalk,
@@ -596,6 +597,7 @@ export interface ProductResearchExportView {
     | "manufacturing_process"
     | "provenance"
     | "evidence_gaps"
+    | "industry_network"
   )[];
   readonly recordCounts: {
     readonly entities: number;
@@ -620,6 +622,9 @@ export interface ProductResearchExportView {
     readonly equipmentCategories: number;
     readonly organizations: number;
     readonly organizationCapabilities: number;
+    readonly industryTopics?: number;
+    readonly industryRelations?: number;
+    readonly industryParticipants?: number;
   };
   readonly interpretationRules: readonly {
     readonly code: string;
@@ -638,6 +643,7 @@ export interface ResolvedEvidenceGapView {
 }
 
 export interface ProductQueryService {
+  getIndustryNetwork(productId: string, options?: IndustryNetworkOptions): IndustryNetworkView | null;
   listProducts(): readonly ProductCatalogView[];
   listCountries(): readonly CountryCatalogView[];
   listCategories(): readonly CategoryCatalogView[];
@@ -2188,7 +2194,8 @@ export function getProductResearchExport(
       "material_trade",
       "manufacturing_process",
       "provenance",
-      "evidence_gaps"
+      "evidence_gaps",
+      ...(fixture.industryNetwork ? ["industry_network" as const] : [])
     ] as const),
     recordCounts: Object.freeze({
       entities: fixture.entities.length,
@@ -2213,6 +2220,7 @@ export function getProductResearchExport(
       ,equipmentCategories: fixture.equipmentCategories.length
       ,organizations: fixture.organizations.length
       ,organizationCapabilities: fixture.organizationCapabilities.length
+      ,...(fixture.industryNetwork ? {industryTopics:fixture.industryNetwork.topics.length,industryRelations:fixture.industryNetwork.relations.length,industryParticipants:fixture.industryNetwork.organizations.length} : {})
     }),
     interpretationRules: freezeArray([
       Object.freeze({
@@ -2248,6 +2256,7 @@ export function createProductQueryService(
   repository: FixtureRepository
 ): ProductQueryService {
   return Object.freeze({
+    getIndustryNetwork: (productId: string, options?: IndustryNetworkOptions) => getIndustryNetwork(repository, productId, options),
     listProducts: () => listProducts(repository),
     listCountries: () => listCountries(repository),
     listCategories: () => listCategories(repository),
