@@ -6,6 +6,7 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { loadFixtureRepositoryFromManifest, parseProductFixture } from "@globe-chain/db";
 import { ProductFixtureSchema } from "@globe-chain/contracts";
+import { createProductQueryService } from "@globe-chain/domain";
 import baseline from "../data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/fixture.json";
 
 const hash = (value: string | Buffer) => createHash("sha256").update(value).digest("hex");
@@ -31,9 +32,17 @@ describe("2026.3 smartphone component completion", () => {
     const directory = await mkdtemp(resolve(tmpdir(), "globe-chain-phone-branches-"));
     try {
       for (const [name, bytes] of Object.entries(first.files)) await writeFile(resolve(directory, name), bytes as string);
-      const loaded = (await loadFixtureRepositoryFromManifest(resolve(directory, "manifest.json"))).getProductFixture("generic-smartphone")!;
+      const repository = await loadFixtureRepositoryFromManifest(resolve(directory, "manifest.json"));
+      const loaded = repository.getProductFixture("generic-smartphone")!;
       expect(loaded.datasetVersion.version).toBe(first.config.datasetVersion);
       expect(hash(await readFile(resolve(directory, "fixture.json")))).toBe(first.manifest.fixtureSha256);
+      const queries = createProductQueryService(repository);
+      const story = queries.getSupplyChainStory("generic-smartphone")!;
+      expect(story.nodes).toHaveLength(45);
+      expect(story.flows).toHaveLength(46);
+      expect(story.nodes.some((record) => record.node.period.label === "2026-09")).toBe(true);
+      expect(story.nodes.some((record) => record.node.period.label === "2025")).toBe(true);
+      expect(queries.getProductResearchExport("generic-smartphone")!.recordCounts.manufacturingProcessSteps).toBe(32);
     } finally { await rm(directory, { recursive: true, force: true }); }
     expect(first.audit.sourceAudit).toHaveLength(17);
     expect(first.audit.addedFlows).toBe(33);
@@ -105,12 +114,27 @@ describe("2026.3 smartphone component completion", () => {
     }
     expect(fixture.items.find((item: { id: string }) => item.id === "generic-smartphone").name).toBe("智能手机");
     for (const id of topComponents) expect(fixture.items.find((item: { id: string }) => item.id === id).description).not.toMatch(/示意|待验证|未验证|待补/);
-    expect(fixture.storyGraph.nodes.some((node: { label: string }) => /代表性|国家角色|待补/.test(node.label))).toBe(false);
+    expect(fixture.storyGraph.nodes.some((node: { label: string }) => /代表性|角色|待补/.test(node.label))).toBe(false);
+    const curation = fixture.evidence.find((record: { id: string }) => record.id === "evidence-phone-branches-curation-2026");
+    expect(new Set(curation.scope.itemIds)).toEqual(new Set(fixture.items.map((item: { id: string }) => item.id)));
     for (const activity of config.activityUpdates) expect(fixture.productionActivities.find((record: { id: string }) => record.id === activity.id).notes.length).toBeLessThan(30);
   });
 
   it("preserves immutable 2026.2 bytes", async () => {
     const { config } = await buildPhoneBranches();
     expect(hash(await readFile(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/fixture.json")))).toBe(config.baseFixtureSha256);
+  });
+
+  it("loads the immutable 2026.3 release and reproduces every published byte", async () => {
+    const result = await buildPhoneBranches();
+    const directory = resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.3");
+    for (const [name, bytes] of Object.entries(result.files)) expect(await readFile(resolve(directory, name), "utf8")).toBe(bytes);
+    const repository = await loadFixtureRepositoryFromManifest(resolve(directory, "manifest.json"));
+    const fixture = repository.getProductFixture("generic-smartphone")!;
+    expect(fixture.datasetVersion.version).toBe("globe-chain-smartphone-2026.3");
+    expect(fixture.storyGraph.nodes).toHaveLength(45);
+    expect(fixture.storyGraph.flows).toHaveLength(46);
+    expect(fixture.manufacturingProcessSteps).toHaveLength(32);
+    expect(result.manifest.fixtureSha256).toBe("96bed4ba8328ffc98d6046cdd53dea15e856cde8606e4c385f1918d5fc1f5ee2");
   });
 });

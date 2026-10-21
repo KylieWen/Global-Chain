@@ -7,17 +7,19 @@ import { loadFixtureRepositoryFromManifest } from "@globe-chain/db";
 const publishedRoot = resolve("data/published");
 
 describe("phase 15 published release lifecycle", () => {
-  it("uses an active manifest that points at an immutable release directory", async () => {
+  it("uses an active manifest with independently verified immutable entries", async () => {
     const active = JSON.parse(await readFile(resolve(publishedRoot, "active-manifest.json"), "utf8"));
-    const fixturePath = resolve(publishedRoot, active.fixtures[0].path);
-    const fixtureText = await readFile(fixturePath, "utf8");
-    const fixture = JSON.parse(fixtureText);
-
     expect(active.activeManifest).toBe(true);
     expect(active.activeDatasetVersion).toBeTruthy();
-    expect(active.fixtures[0].path).toContain("releases/generic-smartphone/");
-    expect(fixture.datasetVersion.version).toBe(active.activeDatasetVersion);
-    expect(active.fixtureSha256).toBe(createHash("sha256").update(fixtureText).digest("hex"));
+    expect(active.fixtures.length).toBeGreaterThan(0);
+    for (const entry of active.fixtures) {
+      const fixtureText = await readFile(resolve(publishedRoot, entry.path), "utf8");
+      const fixture = JSON.parse(fixtureText);
+      expect(entry.path).toContain(`releases/${entry.productId}/`);
+      expect(fixture.productId).toBe(entry.productId);
+      expect(fixture.datasetVersion.version).toBe(entry.datasetVersion);
+      expect(entry.fixtureSha256).toBe(createHash("sha256").update(fixtureText).digest("hex"));
+    }
   });
 
   it("keeps a previous published release loadable for audit and rollback", async () => {

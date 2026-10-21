@@ -5,7 +5,7 @@ import { createProductQueryService } from "@globe-chain/domain";
 
 describe("phase 18 smartphone component data coverage", () => {
   it("returns a generic component coverage matrix from the domain layer", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const overview = createProductQueryService(repository).getProductOverview("generic-smartphone");
     const coverage = new Map(overview?.componentCoverage.map((entry) => [entry.item.id, entry]));
 
@@ -19,7 +19,7 @@ describe("phase 18 smartphone component data coverage", () => {
   });
 
   it("does not turn catalog-only components into unsupported route claims", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const overview = createProductQueryService(repository).getProductOverview("generic-smartphone");
     const evidencePending = overview?.componentCoverage.filter((entry) => ["camera", "pcb-connector", "enclosure-structure", "sensor-audio"].includes(entry.item.id)) ?? [];
     expect(evidencePending).toHaveLength(4);
@@ -27,7 +27,7 @@ describe("phase 18 smartphone component data coverage", () => {
   });
 
   it("summarizes role evidence separately from bilateral and representative flows", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const queries = createProductQueryService(repository);
     const fullStory = queries.getSupplyChainStory("generic-smartphone");
     const processorStory = queries.getSupplyChainStory("generic-smartphone", { focusItemId: "processor-memory" });

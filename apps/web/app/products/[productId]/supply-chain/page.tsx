@@ -59,6 +59,8 @@ export default async function SupplyChainPage({
       ?? story.nodes.find((node) => node.item?.id === focusItemId)?.item?.name
       ?? focusItemId
     : "全部代表性路径";
+  const stepsWithConnections = story.steps.filter((step) => step.flows.length > 0);
+  const readingSteps = stepsWithConnections.length > 0 ? stepsWithConnections : story.steps;
   const focusedProcessChains = focusItemId
     ? overview.componentCoverage.find((coverage) => coverage.item.id === focusItemId)?.processChains ?? []
     : [];
@@ -133,7 +135,7 @@ export default async function SupplyChainPage({
         </details>
 
         {focusedProcessChains.length > 0 && <section className="process-depth-callout" aria-label="工艺与设备深度入口">
-          <div><p className="eyebrow">Go deeper</p><h2>继续深入到具体工序与设备</h2><p>国家角色视图之下，还可以逐道查看制造工序、设备类别和公开资料支持的设备厂商。</p></div>
+          <div><p className="eyebrow">Go deeper</p><h2>继续深入制造工序</h2><p>从投入材料到成品装配，逐道了解这个部件如何制造。</p></div>
           <div className="process-depth-callout-actions">{focusedProcessChains.map((chain) => <Link className="button button-primary" href={manufacturingProcessPath(productId, chain.id, pageContext)} key={chain.id}>{chain.title} →</Link>)}</div>
         </section>}
 
@@ -146,13 +148,13 @@ export default async function SupplyChainPage({
             <span className="section-caption">按生产顺序查看投入、产出与相关国家</span>
           </div>
           <div className="step-stack">
-            {story.steps.map((view) => {
+            {readingSteps.map((view, index) => {
               const { step } = view;
               return (
-                <details className="step-card step-card-collapsible" id={`route-step-${step.id}`} key={step.id} open={step.order === 0}>
+                <details className="step-card step-card-collapsible" id={`route-step-${step.id}`} key={step.id} open={index === 0}>
                   <summary className="step-summary">
-                    <span className="step-marker">{String(step.order + 1).padStart(2, "0")}</span>
-                    <span className="step-summary-copy"><strong>{step.title}</strong><small>{step.description}</small><em>第 {step.order + 1} 步 / 共 {story.steps.length} 步</em></span>
+                    <span className="step-marker">{String(index + 1).padStart(2, "0")}</span>
+                    <span className="step-summary-copy"><strong>{step.title}</strong><small>{step.description}</small><em>第 {index + 1} 步 / 共 {readingSteps.length} 步</em></span>
                   </summary>
                   <div className="step-body">
                     <div className="step-heading">
@@ -181,8 +183,8 @@ export default async function SupplyChainPage({
                       <ResolvedEvidenceList evidence={view.evidence} compact />
                     </details>
                     <nav className="step-sequence-nav" aria-label={`${step.title}步骤导航`}>
-                      {story.steps[step.order - 1] ? <a className="button button-secondary" href={`#route-step-${story.steps[step.order - 1].step.id}`}>← 上一步</a> : <span />}
-                      {story.steps[step.order + 1] ? <a className="button button-primary" href={`#route-step-${story.steps[step.order + 1].step.id}`}>下一步 →</a> : <Link className="button button-primary" href={provenancePath(productId, pageContext)}>查看来源 →</Link>}
+                      {readingSteps[index - 1] ? <a className="button button-secondary" href={`#route-step-${readingSteps[index - 1].step.id}`}>← 上一步</a> : <span />}
+                      {readingSteps[index + 1] ? <a className="button button-primary" href={`#route-step-${readingSteps[index + 1].step.id}`}>下一步 →</a> : <Link className="button button-primary" href={provenancePath(productId, pageContext)}>查看来源 →</Link>}
                     </nav>
                   </div>
                 </details>
@@ -209,7 +211,7 @@ export default async function SupplyChainPage({
                 <p>{node.item?.name ?? "未知货物"} · {node.processStage?.label ?? "未知环节"}</p>
                 <div className="node-card-evidence">
                   <EvidenceLevelBadge level={node.evidenceLevel} />
-                  <StatusBadge status={node.node.dataStatus} method={node.node.method} />
+                  {node.node.dataStatus !== "unknown" && <StatusBadge status={node.node.dataStatus} method={node.node.method} />}
                 </div>
                 <div className="node-card-meta">
                   <MetadataItem label="期间" value={<PeriodLabel period={node.period} />} />

@@ -5,7 +5,7 @@ import { createProductQueryService } from "@globe-chain/domain";
 
 describe("phase 20 semiconductor classification boundaries", () => {
   it("publishes reusable processor and memory classification candidates without end-use claims", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const overview = createProductQueryService(repository).getProductOverview("generic-smartphone");
     const processor = overview?.componentCoverage.find(({ item }) => item.id === "processor-memory");
     expect(processor?.classificationMappings.some(({ classification }) => classification.code === "854231")).toBe(true);

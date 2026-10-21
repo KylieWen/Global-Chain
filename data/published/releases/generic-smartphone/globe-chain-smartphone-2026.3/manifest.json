@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-smartphone",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-smartphone-2026.3",
+  "generatedAt": "2026-10-21",
+  "fixtureSha256": "96bed4ba8328ffc98d6046cdd53dea15e856cde8606e4c385f1918d5fc1f5ee2",
+  "routeContentVersion": "smartphone-route-2026.1",
+  "routeContentSha256": "f44dc5485d9a03c4be0ea8927ff59ae372485e303ce509795db9033a27ffb5df",
+  "contentSources": [
+    "../../content/routes/generic-smartphone-2023.json",
+    "../../content/routes/generic-smartphone-processor-memory-2023.json",
+    "../../content/evidence/industry-roles-2023.json",
+    "../../content/evidence/semiconductor-roles-2023.json",
+    "../../content/evidence-gaps/generic-smartphone-processor-memory-2023.json",
+    "../../content/evidence-gaps/generic-smartphone-2023.json",
+    "../../content/evidence-gaps/generic-smartphone-components-2023.json",
+    "../../content/processes/generic-smartphone-semiconductor-packaging-2023.json",
+    "../../content/trade-guides/generic-smartphone-2023.json"
+  ],
+  "sourceSnapshots": [
+    "raw/world-bank-wdi-2023.json",
+    "raw/un-comtrade-hs2022-851713-2023.json",
+    "raw/un-comtrade-hs2022-851713-bilateral-2023.json",
+    "raw/un-comtrade-hs2022-materials-2023.json",
+    "raw/un-comtrade-hs2022-material-role-pairs-2023.json",
+    "raw/un-comtrade-hs2022-material-intermediate-2023.json",
+    "raw/refresh-2026-09-16/comtrade-152-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-152-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-152-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-152-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-156-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-156-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-156-276-2024.json",
+    "raw/refresh-2026-09-16/comtrade-156-276-2025.json",
+    "raw/refresh-2026-09-16/comtrade-156-410-2024.json",
+    "raw/refresh-2026-09-16/comtrade-156-410-2025.json",
+    "raw/refresh-2026-09-16/comtrade-156-842-2024.json",
+    "raw/refresh-2026-09-16/comtrade-156-842-2025.json",
+    "raw/refresh-2026-09-16/comtrade-180-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-180-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-276-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-276-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-276-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-276-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-36-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-36-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-36-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-36-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-360-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-360-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-360-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-360-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-392-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-392-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-410-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-410-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-842-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-842-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-842-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-842-156-2025.json",
+    "raw/refresh-2026-09-16/wdi-TX.VAL.MRCH.CD.WT.json",
+    "raw/refresh-2026-09-16/wdi-TM.VAL.MRCH.CD.WT.json",
+    "raw/refresh-2026-09-16/wdi-FI.RES.TOTL.CD.json"
+  ],
+  "notes": [
+    "补齐处理器、相机、电路板、结构件、声学、电池与屏幕的工艺输入输出，新增印度/越南组装及台湾晶圆制造分支。统计与代表性结构分开；具体记录保留来源年份。"
+  ],
+  "release": {
+    "productId": "generic-smartphone",
+    "datasetVersion": "globe-chain-smartphone-2026.3",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2026.3",
+    "immutable": true
+  },
+  "refreshContentSource": "content/refresh-2026-09-16.json",
+  "refreshContentPathBase": "repository-root",
+  "refreshContentSha256": "4be2f302a28da81ff549e739b00617ec484a064e768cfd7915796fa71ee40520",
+  "evidenceReview": {
+    "batchId": "smartphone-branches-2026-10-21",
+    "baseDatasetVersion": "globe-chain-smartphone-2026.2",
+    "contentSource": "content/routes/smartphone-branches-2026-10.json",
+    "contentPathBase": "repository-root",
+    "contentSha256": "f44dc5485d9a03c4be0ea8927ff59ae372485e303ce509795db9033a27ffb5df",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "f249b10fb93a8d28f412f378f0b2eabc5c01c0e1f773dd66e58bfbd6d7fe520c"
+  }
+}

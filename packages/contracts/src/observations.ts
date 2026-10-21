@@ -363,8 +363,7 @@ export const MacroIndicatorObservationSchema = z
     }
     if (
       (observation.dataStatus === "unknown" || observation.dataStatus === "withheld") &&
-      observation.value !== null &&
-      observation.value !== undefined
+      observation.value !== null && observation.value !== undefined
     ) {
       context.addIssue({
         code: "custom",
@@ -372,14 +371,19 @@ export const MacroIndicatorObservationSchema = z
         message: `${observation.dataStatus} macro values must be null`
       });
     }
+    if ((observation.dataStatus === "unknown" || observation.dataStatus === "withheld") &&
+      observation.quantity !== null && observation.quantity !== undefined) {
+      context.addIssue({ code: "custom", path: ["quantity"], message: `${observation.dataStatus} macro quantities must be null` });
+    }
     if (
       observation.dataStatus === "observed" &&
-      (observation.value === null || observation.value === undefined)
+      (observation.value === null || observation.value === undefined) &&
+      (observation.quantity === null || observation.quantity === undefined)
     ) {
       context.addIssue({
         code: "custom",
         path: ["value"],
-        message: "Observed macro values must provide a numeric value"
+        message: "Observed macro indicators must provide a monetary value or physical quantity"
       });
     }
     validateMeasuredValue(observation, context);

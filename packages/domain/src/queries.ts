@@ -548,6 +548,12 @@ export interface ResolvedMacroIndicatorView {
   readonly observation: ReadonlyMacroIndicatorObservation;
   readonly definition: IndicatorDefinitionView;
   readonly source: ReadonlySource | null;
+  readonly measurement: {
+    readonly kind: "monetary" | "quantity";
+    readonly value: number | null;
+    readonly currency: string | null;
+    readonly unit: string | null;
+  };
 }
 
 export interface CountryLedgerOptions extends PeriodFilter {
@@ -1090,7 +1096,18 @@ function resolveMacroIndicator(
   return Object.freeze({
     observation,
     definition: definitionForIndicator(fixture, observation),
-    source: sourceForId(fixture, observation.sourceId)
+    source: sourceForId(fixture, observation.sourceId),
+    measurement: Object.freeze((observation.value !== null && observation.value !== undefined) || observation.quantity === null || observation.quantity === undefined ? {
+      kind: "monetary" as const,
+      value: observation.value ?? null,
+      currency: observation.currency ?? null,
+      unit: observation.unit ?? null
+    } : {
+      kind: "quantity" as const,
+      value: observation.quantity ?? null,
+      currency: null,
+      unit: observation.unit ?? null
+    })
   });
 }
 
@@ -2131,7 +2148,7 @@ export function getManufacturingProcessChain(
     evidence,
     datasetVersion: fixture.datasetVersion,
     contentVersion: contentVersionForId(fixture, chain.contentVersionId),
-    warnings: mergeWarnings(fixture.warnings, chain.limitations, ["厂商能力记录不等于具体客户供货关系；当前链没有发布任何订单、设备安装地点或指定手机芯片证据。"])
+    warnings: mergeWarnings(fixture.warnings, chain.limitations, ["厂商能力资料与具体客户供货记录分别整理，可在来源详情中查看适用范围。"])
   });
 }
 

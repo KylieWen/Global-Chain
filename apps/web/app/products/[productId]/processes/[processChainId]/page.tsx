@@ -53,11 +53,11 @@ export default async function ManufacturingProcessPage({
 
       <div className="stat-grid">
         <StatCard label="关键工序" value={view.steps.length} detail="按顺序查看阶段摘要" />
-        <StatCard label="设备类别" value={equipmentCount} detail="按工序关联" />
-        <StatCard label="厂商能力记录" value={capabilityCount} detail={`${view.organizations.length} 家企业`} />
+        {equipmentCount > 0 && <StatCard label="设备类别" value={equipmentCount} detail="按工序关联" />}
+        {capabilityCount > 0 && <StatCard label="厂商能力记录" value={capabilityCount} detail={`${view.organizations.length} 家企业`} />}
       </div>
 
-      <section className="section-block" aria-labelledby="process-variants-title">
+      {view.routeVariants.length > 0 && <section className="section-block" aria-labelledby="process-variants-title">
         <div className="section-heading"><div><p className="eyebrow">Route variants</p><h2 id="process-variants-title">先了解可选路线，再阅读工序</h2></div><span className="section-caption">不同路线共享部分工序，也可能替换或跳过某些步骤</span></div>
         <div className="process-variant-grid">
           {view.routeVariants.map((variant) => <article className="process-variant-card" key={variant.id}>
@@ -67,25 +67,25 @@ export default async function ManufacturingProcessPage({
             <details><summary>路线资料说明</summary><p>{variant.limitations.join("；")}</p></details>
           </article>)}
         </div>
-      </section>
+      </section>}
 
       <section className="section-block" aria-labelledby="process-flow-title">
         <div className="section-heading"><div><p className="eyebrow">Process sequence</p><h2 id="process-flow-title">按顺序查看每道工序</h2></div><span className="section-caption">先看摘要；点击某一步，再查看输入、输出、设备、厂商和证据</span></div>
         <ol className="manufacturing-step-list">
-          {view.steps.map((stepView) => {
+          {view.steps.map((stepView, index) => {
             const { step } = stepView;
             const equipmentRequirements = stepView.requirements.filter(({ requirement }) => requirement.requirementType === "equipment");
             const manufacturerCount = stepView.requirements.reduce((total, requirement) => total + requirement.capabilities.length, 0);
             const summaryItems = [
               stepView.inputItems.length > 0 ? `输入：${stepView.inputItems.map((item) => item.name).join("、")}` : null,
               stepView.outputItems.length > 0 ? `输出：${stepView.outputItems.map((item) => item.name).join("、")}` : null,
-              `${equipmentRequirements.length} 类设备`,
+              equipmentRequirements.length > 0 ? `${equipmentRequirements.length} 类设备` : null,
               manufacturerCount ? `${manufacturerCount} 条厂商资料` : null
             ].filter(Boolean);
             return <li className="manufacturing-step" key={step.id}>
               <details className="manufacturing-step-card">
                 <summary className="manufacturing-step-summary">
-                  <span className="manufacturing-step-index">{String(step.order + 1).padStart(2, "0")}</span>
+                  <span className="manufacturing-step-index">{String(index + 1).padStart(2, "0")}</span>
                   <span className="manufacturing-step-summary-copy">
                     <span className="card-kicker">{step.phase}</span>
                     <strong>{step.name}</strong>
@@ -105,19 +105,19 @@ export default async function ManufacturingProcessPage({
                       <span className="metadata-label">输出</span>
                       {stepView.outputItems.length > 0 ? <ul className="process-item-list">{stepView.outputItems.map((item) => <li key={item.id}>{item.name}</li>)}</ul> : <UnknownValue label="未指定" />}
                     </div>
-                    <div className="process-detail-panel">
+                    {stepView.routeVariants.length > 0 && <div className="process-detail-panel">
                       <span className="metadata-label">适用路线</span>
                       <div className="process-route-tags">{stepView.routeVariants.length > 0 ? stepView.routeVariants.map((variant) => <span key={variant.id}>{variant.name}</span>) : <UnknownValue label="未指定" />}</div>
-                    </div>
+                    </div>}
                     <div className="process-detail-panel">
-                      <span className="metadata-label">期间与状态</span>
+                      <span className="metadata-label">资料年份</span>
                       <PeriodLabel period={step.period} />
                       <StatusBadge status={step.dataStatus} method={step.method} />
                     </div>
                   </div>
 
                   <div className="process-requirement-list">
-                    {stepView.requirements.map((requirementView) => {
+                    {stepView.requirements.filter(({requirement}) => requirement.requirementType !== "material").map((requirementView) => {
                       const { requirement } = requirementView;
                       const capabilityCountForRequirement = requirementView.capabilities.length;
                       return <article className="equipment-requirement" key={requirement.id}>

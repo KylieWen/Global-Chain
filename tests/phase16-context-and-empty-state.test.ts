@@ -21,7 +21,7 @@ describe("phase 16 research context and route availability", () => {
   });
 
   it("distinguishes published component routes from empty states", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const queries = createProductQueryService(repository);
     const overview = queries.getProductOverview("generic-smartphone")!;
     const availability = new Map(overview.directChildren.map((item) => {
@@ -34,7 +34,7 @@ describe("phase 16 research context and route availability", () => {
   });
 
   it("keeps representative routes and sample fixtures unchanged", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const story = createProductQueryService(repository).getSupplyChainStory("generic-smartphone");
     expect(story?.flows.every(({ flow }) => flow.evidenceLevel === "representative" && flow.quantity === null)).toBe(true);
     const sample = await loadFixtureRepositoryFromManifest(resolve("data/samples/manifest.json"), { allowedStatuses: ["draft", "published"] });

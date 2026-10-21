@@ -8,7 +8,7 @@ import {
 } from "@globe-chain/db";
 import { createProductQueryService } from "@globe-chain/domain";
 
-const publishedManifestPath = resolve("data/published/manifest.json");
+const publishedManifestPath = resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json");
 
 async function loadPublishedQueries() {
   const repository = await loadFixtureRepositoryFromManifest(publishedManifestPath, {

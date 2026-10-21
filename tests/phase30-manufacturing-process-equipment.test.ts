@@ -7,7 +7,7 @@ import { createProductQueryService } from "@globe-chain/domain";
 
 describe("phase 30 manufacturing process, equipment and manufacturer capabilities", () => {
   it("publishes a reusable process chain with equipment requirements", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const queries = createProductQueryService(repository);
     const view = queries.getManufacturingProcessChain("generic-smartphone", "process-chain-semiconductor-packaging");
 
@@ -21,7 +21,7 @@ describe("phase 30 manufacturing process, equipment and manufacturer capabilitie
   });
 
   it("keeps manufacturer capability separate from customer supply relationships", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const view = createProductQueryService(repository).getManufacturingProcessChain("generic-smartphone", "process-chain-semiconductor-packaging");
     const capabilities = view?.steps.flatMap(({ requirements }) => requirements.flatMap((requirement) => requirement.capabilities)) ?? [];
 
@@ -33,7 +33,7 @@ describe("phase 30 manufacturing process, equipment and manufacturer capabilitie
   });
 
   it("retains an explicit evidence gap when no manufacturer has been verified", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const view = createProductQueryService(repository).getManufacturingProcessChain("generic-smartphone", "process-chain-semiconductor-packaging");
     const plating = view?.steps.find(({ step }) => step.id === "process-plating-marking");
 
@@ -42,9 +42,9 @@ describe("phase 30 manufacturing process, equipment and manufacturer capabilitie
   });
 
   it("keeps mock fixtures untouched and validates the new published fixture", () => {
-    const activeManifest = JSON.parse(readFileSync(resolve("data/published/manifest.json"), "utf8"));
-    const fixturePath = resolve("data/published", activeManifest.fixtures[0].path);
-    expect(ProductFixtureSchema.parse(JSON.parse(readFileSync(fixturePath, "utf8"))).datasetVersion.version).toBe(activeManifest.fixtures[0].datasetVersion ?? activeManifest.activeDatasetVersion);
+    const activeManifest = JSON.parse(readFileSync(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"), "utf8"));
+    const fixturePath = resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2", activeManifest.fixtures[0].path);
+    expect(ProductFixtureSchema.parse(JSON.parse(readFileSync(fixturePath, "utf8"))).datasetVersion.version).toBe("globe-chain-smartphone-2026.2");
     expect(readFileSync(resolve("data/samples/smartphone/fixture.json"), "utf8")).not.toContain("process-chain-semiconductor-packaging");
   });
 });

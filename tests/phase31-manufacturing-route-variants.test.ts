@@ -5,7 +5,7 @@ import { createProductQueryService } from "@globe-chain/domain";
 
 describe("phase 31 manufacturing route variants and coverage gaps", () => {
   it("separates wire-bond and flip-chip route variants", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const view = createProductQueryService(repository).getManufacturingProcessChain("generic-smartphone", "process-chain-semiconductor-packaging");
 
     expect(view?.routeVariants.map(({ id }) => id)).toEqual(["route-variant-wire-bond", "route-variant-flip-chip"]);
@@ -15,7 +15,7 @@ describe("phase 31 manufacturing route variants and coverage gaps", () => {
   });
 
   it("keeps every process equipped while exposing manufacturer evidence gaps", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const view = createProductQueryService(repository).getManufacturingProcessChain("generic-smartphone", "process-chain-semiconductor-packaging");
     const equipmentRequirements = view?.steps.flatMap(({ requirements }) => requirements) ?? [];
 
@@ -28,7 +28,7 @@ describe("phase 31 manufacturing route variants and coverage gaps", () => {
   });
 
   it("records the chain boundary without inventing intermediate material lineage", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const view = createProductQueryService(repository).getManufacturingProcessChain("generic-smartphone", "process-chain-semiconductor-packaging");
 
     expect(view?.steps[0]?.step.inputItemIds).toEqual(["semiconductor-wafer"]);
@@ -37,7 +37,7 @@ describe("phase 31 manufacturing route variants and coverage gaps", () => {
   });
 
   it("resolves process inputs and outputs for presentation without page-side ID lookups", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const view = createProductQueryService(repository).getManufacturingProcessChain("generic-smartphone", "process-chain-semiconductor-packaging");
 
     expect(view?.steps[0]?.inputItems.map(({ id }) => id)).toEqual(["semiconductor-wafer"]);

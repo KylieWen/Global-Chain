@@ -13,7 +13,7 @@ import {
   createProductQueryService
 } from "@globe-chain/domain";
 
-const publishedManifestPath = resolve("data/published/manifest.json");
+const publishedManifestPath = resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json");
 const previewManifestPath = resolve("data/samples/manifest.json");
 const routeContentVersionId = "content-smartphone-route-2023-3";
 

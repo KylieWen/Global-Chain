@@ -5,7 +5,7 @@ import { createProductQueryService } from "@globe-chain/domain";
 
 describe("phase 29 bilateral trade network", () => {
   it("returns only concrete partner observations", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const network = createProductQueryService(repository).getTradeNetwork("generic-smartphone");
     expect(network?.observations.length).toBe(8);
     expect(network?.observations.every(({ observation }) => observation.partnerScope === "entity" && observation.partnerEntityId)).toBe(true);

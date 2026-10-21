@@ -5,7 +5,7 @@ import { createProductQueryService } from "@globe-chain/domain";
 
 describe("phase 12 intermediate material classifications", () => {
   it("publishes foil and electrode candidates with explicit mapping limits", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const fixture = repository.getProductFixture("generic-smartphone");
     const codes = new Set(fixture?.classificationCodes.map((code) => code.code));
     expect(["741011", "741012", "760711", "760719", "382499", "380110", "380190"].every((code) => codes.has(code))).toBe(true);
@@ -15,7 +15,7 @@ describe("phase 12 intermediate material classifications", () => {
   });
 
   it("does not promote intermediate observations to smartphone route claims", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const queries = createProductQueryService(repository);
     const intermediate = queries.getMaterialTradeObservations("generic-smartphone", { materialItemId: "cathode-material" });
     expect(intermediate.length).toBeGreaterThan(0);

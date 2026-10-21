@@ -59,16 +59,11 @@ export default async function CountryLedgerPage({
   });
   const firstRelatedNode = ledger.relatedNodes[0];
   const tradeClassification = ledger.tradeClassifications[0];
-  const macroByIndicator = new Map(ledger.resolvedMacroIndicators.map((view) => [view.observation.indicator, view]));
-  const summaryMetric = (indicator: string) => macroByIndicator.get(indicator);
-  const exportsMetric = summaryMetric("merchandise_exports_current_usd");
-  const importsMetric = summaryMetric("merchandise_imports_current_usd");
-  const balanceMetric = summaryMetric("merchandise_trade_balance_current_usd");
-  const reservesMetric = summaryMetric("official_reserves_including_gold_current_usd");
+  const snapshotMetrics = ledger.resolvedMacroIndicators.filter((view) => view.measurement.value !== null).slice(0, 8);
 
   return (
     <SiteShell>
-      <div className="content-column wide-column">
+      <div className="content-column wide-column ledger-page">
         <Breadcrumbs items={[
           { label: "商品目录", href: "/products" },
           { label: overview.product.name, href: productPath(productId, pageContext) },
@@ -90,6 +85,11 @@ export default async function CountryLedgerPage({
           <Link href={ledger.relatedNodes[0] ? nodePath(productId, ledger.relatedNodes[0].node.id, pageContext) : supplyChainPath(productId, undefined, pageContext)}>④ 相关节点</Link>
         </nav>
 
+        {snapshotMetrics.length > 0 && <section className="ledger-snapshot" aria-labelledby="ledger-snapshot-title">
+          <div className="section-heading"><div><p className="eyebrow">At a glance</p><h2 id="ledger-snapshot-title">关键数据</h2></div><span className="section-caption">{snapshotMetrics.length} 项指标</span></div>
+          <div className="stat-grid ledger-snapshot-grid">{snapshotMetrics.map(({observation, definition, measurement, source}) => <StatCard key={observation.id} label={definition.shortLabel ?? definition.label} value={<ValueDisplay compact value={measurement.value} status={observation.dataStatus} currency={measurement.currency} unit={measurement.kind === "quantity" ? definition.displayUnit ?? measurement.unit : measurement.unit} />} detail={`${observation.period.label} · ${source?.publisher ?? source?.name ?? ""}`} />)}</div>
+        </section>}
+
         <details className="reading-details"><summary>国家与版本信息</summary>
         <div className="stat-grid">
           <StatCard label="国家/地区代码" value={ledger.entity.iso3 ?? ledger.entity.name} detail={`ISO2 ${ledger.entity.iso2 ?? "未知"} · UN M49 ${ledger.entity.m49 ?? "未知"}`} />
@@ -102,34 +102,23 @@ export default async function CountryLedgerPage({
 
         <details className="reading-details"><summary>统计口径与资料说明</summary><WarningList warnings={ledger.warnings} /></details>
 
-        <section className="ledger-snapshot" aria-labelledby="ledger-snapshot-title">
-          <div className="section-heading"><div><p className="eyebrow">先看结论</p><h2 id="ledger-snapshot-title">{ledger.entity.name} 的贸易快照</h2></div><span className="section-caption">{ledger.period.label} · 美元现价</span></div>
-          <div className="stat-grid ledger-snapshot-grid">
-            <StatCard label="商品出口总额" value={exportsMetric ? <ValueDisplay compact value={exportsMetric.observation.value} status={exportsMetric.observation.dataStatus} currency={exportsMetric.observation.currency} unit={exportsMetric.observation.unit} /> : <UnknownValue label="未提供" />} detail={`${exportsMetric?.observation.period.label ?? "无期间"} · 海关商品贸易统计`} />
-            <StatCard label="商品进口总额" value={importsMetric ? <ValueDisplay compact value={importsMetric.observation.value} status={importsMetric.observation.dataStatus} currency={importsMetric.observation.currency} unit={importsMetric.observation.unit} /> : <UnknownValue label="未提供" />} detail={`${importsMetric?.observation.period.label ?? "无期间"} · 海关商品贸易统计`} />
-            <StatCard label="商品贸易差额" value={balanceMetric ? <ValueDisplay compact value={balanceMetric.observation.value} status={balanceMetric.observation.dataStatus} currency={balanceMetric.observation.currency} unit={balanceMetric.observation.unit} /> : <UnknownValue label="未提供" />} detail={`${balanceMetric?.observation.period.label ?? "无期间"} · 同年出口 − 进口`} />
-            <StatCard label="官方储备（含黄金）" value={reservesMetric ? <ValueDisplay compact value={reservesMetric.observation.value} status={reservesMetric.observation.dataStatus} currency={reservesMetric.observation.currency} unit={reservesMetric.observation.unit} /> : <UnknownValue label="未提供" />} detail={`${reservesMetric?.observation.period.label ?? "无期间"} · World Bank FI.RES.TOTL.CD`} />
-          </div>
-          <p className="ledger-reading-note">展开下方栏目，查看各项指标和商品贸易明细。</p>
-        </section>
-
-        <details className="section-block detail-collapsible" aria-labelledby="macro-title">
+        {ledger.resolvedMacroIndicators.length > 0 && <details className="section-block detail-collapsible" aria-labelledby="macro-title">
           <summary className="section-heading detail-summary"><div><p className="eyebrow">Macro ledger</p><h2 id="macro-title">国家宏观贸易账本</h2></div><span className="section-caption">{ledger.resolvedMacroIndicators.length} 项摘要指标 · 统计详情可展开</span></summary>
           {ledger.resolvedMacroIndicators.length === 0 ? <div className="empty-state">当前期间没有已发布的宏观指标。</div> : (
             <div className="metric-list interpreted-metrics">
-              {ledger.resolvedMacroIndicators.map(({ observation, definition, source }) => (
+              {ledger.resolvedMacroIndicators.map(({ observation, definition, source, measurement }) => (
                 <article className="metric-row interpreted-metric" key={observation.id}>
                   <div className="metric-main">
                     <span className="card-kicker">{definition.category ?? "宏观指标"}</span>
                     <h3>{definition.label}</h3>
                     {definition.description ? <p>{definition.description}</p> : null}
-                    <strong className="metric-value"><ValueDisplay value={observation.value} status={observation.dataStatus} currency={observation.currency} unit={observation.unit} /></strong>
+                    <strong className="metric-value"><ValueDisplay value={measurement.value} status={observation.dataStatus} currency={measurement.currency} unit={measurement.kind === "quantity" ? definition.displayUnit ?? measurement.unit : measurement.unit} /></strong>
                   </div>
                   <div className="fact-metadata-grid">
                     <MetadataItem label="年份/期间" value={<PeriodLabel period={observation.period} />} />
-                    <MetadataItem label="来源指标代码" value={definition.sourceIndicatorCode ?? <UnknownValue label="未提供" />} />
+                    {definition.sourceIndicatorCode && <MetadataItem label="来源指标代码" value={definition.sourceIndicatorCode} />}
                     <MetadataItem label="统计概念" value={statisticalConceptLabel(observation.statisticalConcept ?? definition.statisticalConcept)} />
-                    <MetadataItem label="币种" value={observation.currency ?? <UnknownValue label="未提供" />} />
+                    {observation.currency && <MetadataItem label="币种" value={observation.currency} />}
                     <MetadataItem label="单位" value={observation.unit ?? <UnknownValue label="未提供" />} />
                     <MetadataItem label="来源" value={source?.name ?? <UnknownValue label="未提供" />} />
                     <MetadataItem label="method" value={observation.method} />
@@ -145,9 +134,9 @@ export default async function CountryLedgerPage({
               ))}
             </div>
           )}
-        </details>
+        </details>}
 
-        <details className="section-block detail-collapsible" aria-labelledby="trade-title">
+        <details className="section-block detail-collapsible" aria-labelledby="trade-title" open={snapshotMetrics.length === 0 && ledger.resolvedTradeObservations.length > 0}>
           <summary className="section-heading detail-summary"><div><p className="eyebrow">Product trade observations</p><h2 id="trade-title">
                 {ledger.product.name} {tradeClassification ? `${tradeClassification.system} ${tradeClassification.version} / ${tradeClassification.code}` : "分类未提供"} 进出口观察
               </h2></div><span className="section-caption">{ledger.resolvedTradeObservations.length} 条观察</span></summary>
@@ -191,7 +180,7 @@ export default async function CountryLedgerPage({
                       <MetadataItem label="伙伴" value={partner} />
                       <MetadataItem label="期间" value={<PeriodLabel period={observation.period} />} />
                       <MetadataItem label="统计概念" value={statisticalConceptLabel(observation.statisticalConcept)} />
-                      <MetadataItem label="币种" value={observation.currency ?? <UnknownValue label="未提供" />} />
+                      {observation.currency && <MetadataItem label="币种" value={observation.currency} />}
                       <MetadataItem label="单位" value={observation.unit ?? <UnknownValue label="未提供" />} />
                       <MetadataItem label="来源" value={view.source?.name ?? <UnknownValue label="未提供" />} />
                       <MetadataItem label="method" value={observation.method} />
@@ -218,7 +207,7 @@ export default async function CountryLedgerPage({
             <div className="node-grid compact-grid">
               {ledger.relatedNodes.map((node) => (
                 <Link className="node-card" href={nodePath(productId, node.node.id, pageContext)} key={node.node.id}>
-                  <span className="node-type">{node.node.nodeType}</span>
+                  <span className="node-type">{node.processStage?.label}</span>
                   <h3>{node.node.label}</h3>
                   <p>{node.item?.name ?? "未知货物"} · {node.processStage?.label ?? "未知环节"}</p>
                   <span className="card-footer">打开节点详情 <span>→</span></span>

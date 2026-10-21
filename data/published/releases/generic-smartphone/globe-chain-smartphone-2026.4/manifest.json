@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-smartphone",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-smartphone-2026.4",
+  "generatedAt": "2026-10-21",
+  "fixtureSha256": "7b2ef71d8bc7d70dc69a9063030d1be540af65e7d8acbac54958f2b71fb93394",
+  "routeContentVersion": "smartphone-route-2026.1",
+  "routeContentSha256": "f44dc5485d9a03c4be0ea8927ff59ae372485e303ce509795db9033a27ffb5df",
+  "contentSources": [
+    "../../content/routes/generic-smartphone-2023.json",
+    "../../content/routes/generic-smartphone-processor-memory-2023.json",
+    "../../content/evidence/industry-roles-2023.json",
+    "../../content/evidence/semiconductor-roles-2023.json",
+    "../../content/evidence-gaps/generic-smartphone-processor-memory-2023.json",
+    "../../content/evidence-gaps/generic-smartphone-2023.json",
+    "../../content/evidence-gaps/generic-smartphone-components-2023.json",
+    "../../content/processes/generic-smartphone-semiconductor-packaging-2023.json",
+    "../../content/trade-guides/generic-smartphone-2023.json"
+  ],
+  "sourceSnapshots": [
+    "raw/world-bank-wdi-2023.json",
+    "raw/un-comtrade-hs2022-851713-2023.json",
+    "raw/un-comtrade-hs2022-851713-bilateral-2023.json",
+    "raw/un-comtrade-hs2022-materials-2023.json",
+    "raw/un-comtrade-hs2022-material-role-pairs-2023.json",
+    "raw/un-comtrade-hs2022-material-intermediate-2023.json",
+    "raw/refresh-2026-09-16/comtrade-152-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-152-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-152-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-152-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-156-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-156-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-156-276-2024.json",
+    "raw/refresh-2026-09-16/comtrade-156-276-2025.json",
+    "raw/refresh-2026-09-16/comtrade-156-410-2024.json",
+    "raw/refresh-2026-09-16/comtrade-156-410-2025.json",
+    "raw/refresh-2026-09-16/comtrade-156-842-2024.json",
+    "raw/refresh-2026-09-16/comtrade-156-842-2025.json",
+    "raw/refresh-2026-09-16/comtrade-180-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-180-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-276-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-276-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-276-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-276-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-36-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-36-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-36-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-36-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-360-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-360-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-360-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-360-156-2025.json",
+    "raw/refresh-2026-09-16/comtrade-392-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-392-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-410-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-410-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-842-0-2024.json",
+    "raw/refresh-2026-09-16/comtrade-842-0-2025.json",
+    "raw/refresh-2026-09-16/comtrade-842-156-2024.json",
+    "raw/refresh-2026-09-16/comtrade-842-156-2025.json",
+    "raw/refresh-2026-09-16/wdi-TX.VAL.MRCH.CD.WT.json",
+    "raw/refresh-2026-09-16/wdi-TM.VAL.MRCH.CD.WT.json",
+    "raw/refresh-2026-09-16/wdi-FI.RES.TOTL.CD.json"
+  ],
+  "notes": [
+    "加入2023年中国规模以上企业智能手机产量；保持原有贸易、材料、国家指标及代表性路线。"
+  ],
+  "release": {
+    "productId": "generic-smartphone",
+    "datasetVersion": "globe-chain-smartphone-2026.4",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2026.4",
+    "immutable": true
+  },
+  "refreshContentSource": "content/refresh-2026-09-16.json",
+  "refreshContentPathBase": "repository-root",
+  "refreshContentSha256": "4be2f302a28da81ff549e739b00617ec484a064e768cfd7915796fa71ee40520",
+  "evidenceReview": {
+    "batchId": "smartphone-production-2026-10-21",
+    "baseDatasetVersion": "globe-chain-smartphone-2026.3",
+    "contentSource": "content/indicators/smartphone-production-2026-10.json",
+    "contentPathBase": "repository-root",
+    "contentSha256": "6fa43ce6eb80a496eb03545fc8a14c3f048ac16741fedbb43f2d906f2d3089a0",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "624eaf21cc5ff1e1bc71c13cbe1d2e1246c57e2cb0e7f554ae913bc738df045e"
+  }
+}

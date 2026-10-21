@@ -7,7 +7,7 @@ import publishedFixture from "../data/published/releases/generic-smartphone/glob
 import sampleFixture from "../data/samples/smartphone/fixture.json";
 
 async function loadQueries() {
-  const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+  const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
   return createProductQueryService(repository);
 }
 

@@ -12,7 +12,7 @@ const targetGapIds = [
 ] as const;
 
 const loadContext = async () => {
-  const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+  const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
   return {
     fixture: repository.getProductFixture(productId),
     queries: createProductQueryService(repository)

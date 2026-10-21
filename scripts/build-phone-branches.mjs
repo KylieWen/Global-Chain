@@ -81,6 +81,7 @@ export async function buildPhoneBranches(repositoryRoot = root) {
   }
   for (const entity of config.entities) f.entities.push({ id: entity.id, kind: "country", name: entity.name, iso2: entity.iso2, iso3: entity.iso3, m49: entity.m49, parentId: null, sourceIds: [sourceByKey.get(entity.sourceKey).id, "source-un-m49"], dataStatus: "observed", method: "curated", datasetVersionId: config.datasetVersionId, validPeriod: period(entity.period) });
   for (const [id, name, itemType, parentItemId, category, description, key] of config.items) f.items.push({ id, slug: id, name, itemType, parentItemId, category, description, sourceIds: [sourceByKey.get(key).id], dataStatus: "observed", method: "curated", datasetVersionId: config.datasetVersionId, validPeriod: period(sourceByKey.get(key).source.period) });
+  f.evidence.find((record) => record.id === curationId).scope.itemIds = f.items.map((item) => item.id);
   for (const [id, changes] of Object.entries(config.descriptions)) Object.assign(f.items.find((item) => item.id === id), changes);
   for (const node of config.nodes) {
     const item = f.items.find((candidate) => candidate.id === node.item);
@@ -101,6 +102,11 @@ export async function buildPhoneBranches(repositoryRoot = root) {
     if (node && ["activity-cn-cathode", "activity-cn-anode", "activity-kr-cell", "activity-cn-assembly", "activity-us-distribution", "activity-de-consumption", "activity-jp-components"].includes(activity.id)) Object.assign(node, { period: period(activity.period), processStageId: activity.stage, sourceIds: sources, evidenceIds: ids, evidenceLevel: "role_supported", dataStatus: "observed", notes: activity.notes, ...common });
   }
   for (const node of f.storyGraph.nodes) node.label = node.label.replace(/（代表性）|（待补[^）]*）/g, "").replace(/国家角色|产业角色/g, "制造");
+  for (const [id, label] of Object.entries(config.nodeLabels ?? {})) {
+    const node = f.storyGraph.nodes.find((record) => record.id === id);
+    if (!node) throw new Error(`Unknown node label target: ${id}`);
+    node.label = label;
+  }
   f.storyGraph.nodes.find((node) => node.id === "node-us-export").label = "美国 · 手机零售市场";
   f.storyGraph.nodes.find((node) => node.id === "node-de-consumption").label = "德国 · 手机零售市场";
   for (const [id, [title, description]] of Object.entries(config.stepUpdates)) { const step = f.storyGraph.steps.find((candidate) => candidate.id === id); Object.assign(step, { title, description, contentVersionId: config.contentVersionId }); }

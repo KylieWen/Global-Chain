@@ -9,7 +9,7 @@ import baseline from "../data/published/releases/generic-smartphone/globe-chain-
 import snapshot from "../data/published/raw/un-comtrade-hs2022-851713-bilateral-2023.json";
 import review from "../content/reviews/smartphone-bilateral-gaps-2026-10-21.json";
 
-const candidateManifest = resolve("data/candidates/smartphone-bilateral-gaps-2026-10-21/manifest.json");
+const candidateManifest = resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json");
 const immutableManifest = resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json");
 const hash = (value: string | Buffer) => createHash("sha256").update(value).digest("hex");
 function remapDataset(value: unknown): unknown {
@@ -29,7 +29,7 @@ describe("2026.2 smartphone bilateral gap review", () => {
     expect(fixture.datasetVersion.status).toBe("published");
     expect(fixture.evidenceGaps.filter((gap) => gap.status === "closed")).toHaveLength(10);
     expect(fixture.evidenceGaps.filter((gap) => gap.status === "open")).toHaveLength(6);
-    expect(hash(await readFile(resolve("data/candidates/smartphone-bilateral-gaps-2026-10-21/fixture.json")))).toBe(first.manifest.fixtureSha256);
+    expect(hash(await readFile(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/fixture.json")))).toBe(first.manifest.fixtureSha256);
   });
 
   it("keeps all current statistics and every route record unchanged except dataset references", async () => {

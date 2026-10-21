@@ -5,7 +5,7 @@ import { createProductQueryService } from "@globe-chain/domain";
 
 describe("phase 11 material role-pair coverage", () => {
   it("publishes selected country-role pairs without upgrading the route", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const queries = createProductQueryService(repository);
     const observations = queries.getMaterialTradeObservations("generic-smartphone", { partnerScope: "entity" });
     const pairs = new Set(observations.filter(({ observation }) => observation.observationId.startsWith("material-role-")).map(({ observation }) => `${observation.reporterEntityId}:${observation.partnerEntityId}:${observation.materialItemId}`));
@@ -18,7 +18,7 @@ describe("phase 11 material role-pair coverage", () => {
   });
 
   it("records missing directional rows as absence, not zero", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const queries = createProductQueryService(repository);
     const cobalt = queries.getMaterialTradeObservations("generic-smartphone", { materialItemId: "cobalt", reporterEntityId: "country-cd", partnerScope: "entity" });
     expect(cobalt.length).toBe(1);
@@ -27,7 +27,7 @@ describe("phase 11 material role-pair coverage", () => {
   });
 
   it("links partial gaps to the new bilateral evidence records", async () => {
-    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json"));
+    const repository = await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json"));
     const queries = createProductQueryService(repository);
     const provenance = queries.getProvenance("generic-smartphone");
     const ids = new Set(provenance?.evidence.map(({ id }) => id));

@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { loadFixtureRepositoryFromManifest } from "@globe-chain/db";
 import { createProductQueryService } from "@globe-chain/domain";
 
-const loadQueries = async () => createProductQueryService(await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json")));
+const loadQueries = async () => createProductQueryService(await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json")));
 
 describe("phase 10 material observation browser queries", () => {
   it("filters without coupling observations to the smartphone route", async () => {

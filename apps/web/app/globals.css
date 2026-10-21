@@ -1149,3 +1149,9 @@ p { line-height: 1.7; }
 
 .trade-values strong { color: var(--navy); font-size: 1.25rem; font-variant-numeric: tabular-nums; }
 .trade-values strong span { color: inherit; font-size: inherit; }
+
+.ledger-page .page-intro { margin-bottom: 1.1rem; }
+.ledger-page .page-intro h1 { font-size: clamp(1.8rem, 2.9vw, 2.5rem); }
+.ledger-page .ledger-snapshot { margin-top: 1.5rem; }
+.ledger-page .ledger-snapshot .section-heading h2 { font-size: 1.5rem; }
+.ledger-page .ledger-snapshot-grid .stat-card { min-width: 0; }

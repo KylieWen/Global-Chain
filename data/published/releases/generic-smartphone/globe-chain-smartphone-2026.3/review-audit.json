@@ -1,0 +1,300 @@
+{
+  "schemaVersion": "phone-branch-audit.v1",
+  "batchId": "smartphone-branches-2026-10-21",
+  "reviewedAt": "2026-10-21",
+  "baseDatasetVersion": "globe-chain-smartphone-2026.2",
+  "baseFixtureSha256": "616302fd02aa233cfc7de7e62f9f6669d709fc2e7c0ebcfbdc9d4d32835f74d0",
+  "datasetVersion": "globe-chain-smartphone-2026.3",
+  "sourceAudit": [
+    {
+      "key": "sem-audit-2023",
+      "sourceId": "source-phone-20261021-sem-audit-2023",
+      "snapshotPath": "data/published/raw/phone-branches-2026-10-21/sem-audit-2023.json",
+      "rawHash": "ba6c81b96ce9e53028c9df4d891ea2181d6485523ef0cd3925d94713dd520b4d",
+      "period": "2023",
+      "reviewedTerms": [
+        "Camera",
+        "manufacturing",
+        "Vietnam"
+      ],
+      "locator": "Consolidated subsidiaries, printed pp. 11-12; camera manufacturing in China and Vietnam. Kunshan PCB business discontinued in 2019 and is not used.",
+      "extraction": "saved original file and hashed text extract"
+    },
+    {
+      "key": "sem-camera-core",
+      "sourceId": "source-phone-20261021-sem-camera-core",
+      "snapshotPath": "data/published/raw/phone-branches-2026-10-21/sem-camera-core.json",
+      "rawHash": "9927cdbfee705979fe3599346a3f543d773e9763278b228a0935f6ec621a81de",
+      "period": "2026-10",
+      "reviewedTerms": [
+        "Actuator",
+        "Lens",
+        "PCB",
+        "assembly"
+      ],
+      "locator": "Main Core Technology: Actuator, Lens, PCB, Module PKG; current page verified in 2026-10.",
+      "extraction": "saved original file and hashed text extract"
+    },
+    {
+      "key": "avary-annual-2023",
+      "sourceId": "source-phone-20261021-avary-annual-2023",
+      "snapshotPath": "data/published/raw/phone-branches-2026-10-21/avary-annual-2023.json",
+      "rawHash": "ca9bbd783a8ab9a6828bf93668079ad45b67e5c2fc09f82d8d3d752886976571",
+      "period": "2023",
+      "reviewedTerms": [
+        "智能手机",
+        "铜箔基板",
+        "深圳",
+        "秦皇岛"
+      ],
+      "locator": "主要业务、产品用途、制造园区及主要原材料；只采用PCB能力和制造地点，不采用行业预测或市场份额。",
+      "extraction": "saved original file and hashed text extract"
+    },
+    {
+      "key": "eurocircuits-pcb-process",
+      "sourceId": "source-phone-20261021-eurocircuits-pcb-process",
+      "snapshotPath": "data/published/raw/phone-branches-2026-10-21/eurocircuits-pcb-process.json",
+      "rawHash": "2a10e06fc88a5b514966839ccea38ca6f64b5ea13975558c4b2da97c9ba0d128",
+      "period": "2026-10",
+      "reviewedTerms": [
+        "epoxy",
+        "glass",
+        "Drilling",
+        "soldermask",
+        "Electrical test"
+      ],
+      "locator": "Print/etch inner layers, lay-up and bond, drilling, plating, soldermask, electrical test; generic process, not a Chinese factory record.",
+      "extraction": "saved original file and hashed text extract"
+    },
+    {
+      "key": "aac-annual-2023",
+      "sourceId": "source-phone-20261021-aac-annual-2023",
+      "snapshotPath": "data/published/raw/phone-branches-2026-10-21/aac-annual-2023.json",
+      "rawHash": "9ad3d570f5f392e8777c178f1f26dd6e69eae38e8342d2b291d5197c049e784f",
+      "period": "2023",
+      "reviewedTerms": [
+        "Manufacturing",
+        "Changzhou",
+        "MEMS",
+        "metal casing",
+        "smartphone"
+      ],
+      "locator": "Global Presence manufacturing map and Performance and Development of Business Segments: acoustics, MEMS microphones, haptics and precision mechanics.",
+      "extraction": "saved original file and hashed text extract"
+    },
+    {
+      "key": "aac-precision",
+      "sourceId": "source-phone-20261021-aac-precision",
+      "snapshotPath": "data/published/raw/phone-branches-2026-10-21/aac-precision.json",
+      "rawHash": "9871215629f4fd8561285cc331469b0dbbb08b7d24c9c08aff0673e9a0b717d5",
+      "period": "2026-10",
+      "reviewedTerms": [
+        "aluminum",
+        "CNC",
+        "stamping",
+        "forging"
+      ],
+      "locator": "Mechanics section: aluminium phone casings, CNC, stamping/forging and NMT; current page, not a 2023 process claim.",
+      "extraction": "saved original file and hashed text extract"
+    },
+    {
+      "key": "sony-nagasaki-2023",
+      "sourceId": "source-phone-20261021-sony-nagasaki-2023",
+      "snapshotPath": "data/published/raw/phone-branches-2026-10-21/sony-nagasaki-2023.json",
+      "rawHash": "fbcb91487fdff94d8403ed6c47a5c5c3923a7f2d71787458d604a6685199fc1b",
+      "period": "2023",
+      "reviewedTerms": [
+        "2023",
+        "長崎",
+        "CMOS"
+      ],
+      "locator": "2023-12-22 announcement; final expansion cleanroom operated from 2023-10; CMOS image sensor production.",
+      "extraction": "saved original file and hashed text extract"
+    },
+    {
+      "key": "china-smartphone-2023",
+      "sourceId": "source-phone-20261021-china-smartphone-2023",
+      "snapshotPath": "data/published/raw/phone-branches-2026-10-21/china-smartphone-2023.json",
+      "rawHash": "d195086ce6e75588f838d1dae7120778edfb144cf5eaa0a8a52209279937842a",
+      "period": "2023",
+      "reviewedTerms": [
+        "2023",
+        "智能手机产量11.4亿台"
+      ],
+      "locator": "2024-01-31 publication, major products section; above-designated-size electronics manufacturing output, 2023.",
+      "extraction": "saved original file and hashed text extract"
+    },
+    {
+      "key": "sdi-production-network",
+      "sourceId": "source-phone-20261021-sdi-production-network",
+      "snapshotPath": "data/published/raw/phone-branches-2026-10-21/sdi-production-network.json",
+      "rawHash": "019c78e8c394fcb0a033a89944df6b3416985a599a25bc9bf722c3cf00556dab",
+      "period": "2026-10",
+      "reviewedTerms": [
+        "Small-Sized Battery",
+        "Cheonan",
+        "Plant"
+      ],
+      "locator": "Domestic production network: Cheonan small-sized battery plant. Supports general small-cell production, not a specific phone pouch cell.",
+      "extraction": "saved original file and hashed text extract"
+    },
+    {
+      "key": "btr-anode",
+      "sourceId": "source-phone-20261021-btr-anode",
+      "snapshotPath": "data/published/raw/phone-branches-2026-10-21/btr-anode.json",
+      "rawHash": "544c9767f53d6f33af5a784d209396d3862e3cda36d2e860b9b7a1e6d6c0498b",
+      "period": "2026-10",
+      "reviewedTerms": [
+        "石墨",
+        "3C",
+        "深圳制造中心",
+        "负极材料"
+      ],
+      "locator": "天然石墨、人造石墨、3C数码应用、国内制造基地及提纯/改性工序；2026-10网页核验。",
+      "extraction": "saved original file and hashed text extract"
+    },
+    {
+      "key": "easpring-annual-2023",
+      "sourceId": "source-phone-20261021-easpring-annual-2023",
+      "snapshotPath": "data/published/raw/phone-branches-2026-10-21/easpring-annual-2023.json",
+      "rawHash": "a3d0a2e657c3c686cd258653631bee665b4d15151fd05a910632f4d9a143d3c6",
+      "period": "2023",
+      "reviewedTerms": [
+        "钴酸锂",
+        "智能手机",
+        "生产",
+        "常州"
+      ],
+      "locator": "主要产品、国内制造子公司及小型锂电材料；不把材料总产量等同于手机用量。",
+      "extraction": "saved original file and hashed text extract"
+    },
+    {
+      "key": "desay-annual-2023",
+      "sourceId": "source-phone-20261021-desay-annual-2023",
+      "snapshotPath": "data/published/raw/phone-branches-2026-10-21/desay-annual-2023.json",
+      "rawHash": "0c87682e61ad359057d1f93b30a165a97e42d73839cf28f572b5f77ee9269387",
+      "period": "2023",
+      "reviewedTerms": [
+        "PACK",
+        "锂电芯",
+        "电源管理系统",
+        "智能手机",
+        "惠州"
+      ],
+      "locator": "释义页BMS/PACK组成、主要业务及制造子公司；PACK由电芯、电源管理系统、结构件和辅料组成。",
+      "extraction": "saved original file and hashed text extract"
+    },
+    {
+      "key": "apple-market-2023",
+      "sourceId": "source-phone-20261021-apple-market-2023",
+      "snapshotPath": "data/published/raw/phone-branches-2026-10-21/apple-market-2023.json",
+      "rawHash": "0fbf1b95b2367af69746f8e4c917dc5493df385ab220fa42b90512c1564c3f53",
+      "period": "2023",
+      "reviewedTerms": [
+        "Germany",
+        "U.S.",
+        "September 22"
+      ],
+      "locator": "Pricing and Availability; brand-specific retail example used only to establish smartphone retail availability in the named markets.",
+      "extraction": "saved original file and hashed text extract"
+    },
+    {
+      "key": "vietnam-assembly-2024",
+      "sourceId": "source-phone-20261021-vietnam-assembly-2024",
+      "snapshotPath": "data/published/raw/phone-branches-2026-10-21/vietnam-assembly-2024.json",
+      "rawHash": "9703ac3280166e4bdec0c72289839bdb136fa214e211c85e308058a67abd344c",
+      "period": "2024",
+      "reviewedTerms": [
+        "17/04/2024",
+        "SEVT",
+        "Galaxy",
+        "điện thoại thông minh"
+      ],
+      "locator": "2024-04-17 official manufacturing announcement. Cumulative milestone is not used as annual smartphone output.",
+      "extraction": "saved original file and hashed text extract"
+    },
+    {
+      "key": "india-manufacturing-2023",
+      "sourceId": "source-phone-20261021-india-manufacturing-2023",
+      "snapshotPath": "data/published/raw/phone-branches-2026-10-21/india-manufacturing-2023.json",
+      "rawHash": "ab1f8c9e399673672ea114acd382a1a60d02fc2a2ced4230cd3955e517b45dca",
+      "period": "2023",
+      "reviewedTerms": [
+        "Noida",
+        "Samsung",
+        "manufacturing"
+      ],
+      "locator": "2023-04 policy brief, mobile-handset manufacturing ecosystem and Noida factory. Capacity is not treated as realised output.",
+      "extraction": "saved original file and hashed text extract"
+    },
+    {
+      "key": "display-module-existing",
+      "sourceId": "source-catalog-20260916-display",
+      "snapshotPath": "data/published/raw/refresh-2026-09-16/catalog/display.json",
+      "rawHash": "5ccbbd866e463e5c4986415f73e5d5a4ccbefbfde4cee23ae2d97b0cab42d65f",
+      "period": "2026-09",
+      "reviewedTerms": [
+        "OLED module",
+        "China, Vietnam and India"
+      ],
+      "locator": "Saved 2026-09-16 official page: panel, driver IC, FPCB, polarizer and cover-window assembly; module manufacturing in China, Vietnam and India.",
+      "extraction": "saved original file and hashed text extract"
+    },
+    {
+      "key": "tsmc-web-extract-2025",
+      "sourceId": "source-phone-20261021-tsmc-web-extract-2025",
+      "snapshotPath": "data/published/raw/phone-branches-2026-10-21/tsmc-web-extract-2025.json",
+      "rawHash": "bfeba97c5bd4dc079fae01603289a093f020f441b41fdcbe0e7d6ec83c616e3a",
+      "period": "2025",
+      "reviewedTerms": [
+        "Taiwan",
+        "2025",
+        "封装"
+      ],
+      "locator": "About TSMC and manufacturing footprint; selected official-page extraction with direct-fetch HTTP 403 noted, not a full-file snapshot.",
+      "extraction": "Official page read using web retrieval; direct local-file request returned HTTP 403. This is a selected reviewed extraction, not the original full page."
+    }
+  ],
+  "addedNodes": 18,
+  "updatedNodes": 8,
+  "addedFlows": 33,
+  "activityUpdates": [
+    "activity-cn-cathode",
+    "activity-cn-anode",
+    "activity-kr-cell",
+    "activity-jp-components",
+    "activity-cn-assembly",
+    "activity-us-distribution",
+    "activity-de-consumption"
+  ],
+  "remainingUnknownActivities": [
+    "activity-kr-module"
+  ],
+  "processChainsAdded": 4,
+  "processStepsAdded": 14,
+  "addedIndicators": [],
+  "reviewedUnpublishedIndicators": [
+    {
+      "indicator": "smartphone_production_units",
+      "entityId": "country-cn",
+      "period": {
+        "granularity": "annual",
+        "start": "2023-01-01",
+        "end": "2023-12-31",
+        "label": "2023"
+      },
+      "quantity": 1140000000,
+      "unit": "items",
+      "dataStatus": "observed",
+      "method": "official",
+      "sourceId": "source-phone-20261021-china-smartphone-2023",
+      "datasetVersion": "globe-chain-smartphone-2026.3",
+      "notes": "2023年规模以上企业智能手机产量11.4亿台，来源单列智能手机；现有macro契约仅支持货币value，数量型指标待通用模型扩展后进入fixture，不伪造currency。"
+    }
+  ],
+  "limitations": [
+    "国家角色、工艺结构与具体企业供货是不同事实；新增连接按代表性结构保存，不作为观察到的双边运输。",
+    "节点按来源适用期记录2023、2024、2025或资料核验月；多期内容不构成同年完整物料谱系。",
+    "未知货量、份额、厂商客户关系不填默认数值；印度产能与越南累计里程碑不作为年度产量。"
+  ]
+}

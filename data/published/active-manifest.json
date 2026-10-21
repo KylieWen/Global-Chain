@@ -3,16 +3,16 @@
   "fixtures": [
     {
       "productId": "generic-smartphone",
-      "path": "releases/generic-smartphone/globe-chain-smartphone-2026.2/fixture.json",
-      "datasetVersion": "globe-chain-smartphone-2026.2",
-      "fixtureSha256": "616302fd02aa233cfc7de7e62f9f6669d709fc2e7c0ebcfbdc9d4d32835f74d0"
+      "path": "releases/generic-smartphone/globe-chain-smartphone-2026.4/fixture.json",
+      "datasetVersion": "globe-chain-smartphone-2026.4",
+      "fixtureSha256": "7b2ef71d8bc7d70dc69a9063030d1be540af65e7d8acbac54958f2b71fb93394"
     }
   ],
-  "datasetVersion": "globe-chain-smartphone-2026.2",
+  "datasetVersion": "globe-chain-smartphone-2026.4",
   "generatedAt": "2026-10-21",
-  "fixtureSha256": "616302fd02aa233cfc7de7e62f9f6669d709fc2e7c0ebcfbdc9d4d32835f74d0",
-  "routeContentVersion": "smartphone-route-2023.3",
-  "routeContentSha256": "2d696c8171adb6c56f41bddb7a5ddebdb8f06804a167271f4c0d5e39c7627bad",
+  "fixtureSha256": "7b2ef71d8bc7d70dc69a9063030d1be540af65e7d8acbac54958f2b71fb93394",
+  "routeContentVersion": "smartphone-route-2026.1",
+  "routeContentSha256": "f44dc5485d9a03c4be0ea8927ff59ae372485e303ce509795db9033a27ffb5df",
   "contentSources": [
     "../../content/routes/generic-smartphone-2023.json",
     "../../content/routes/generic-smartphone-processor-memory-2023.json",
@@ -70,27 +70,27 @@
     "raw/refresh-2026-09-16/wdi-FI.RES.TOTL.CD.json"
   ],
   "notes": [
-    "2026-09-16 抓取官方数据；统计按系列取最新可用年度，历史路线与未重新核验的事实保留原期间；详见 docs/data-refresh。 2026-10-21 复核本地 2023 双边快照，仅关闭两条成品手机贸易观察及镜像说明缺口；路线边和当前统计原样保留。"
+    "加入2023年中国规模以上企业智能手机产量；保持原有贸易、材料、国家指标及代表性路线。"
   ],
   "release": {
     "productId": "generic-smartphone",
-    "datasetVersion": "globe-chain-smartphone-2026.2",
-    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2026.2",
+    "datasetVersion": "globe-chain-smartphone-2026.4",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2026.4",
     "immutable": true
   },
   "refreshContentSource": "content/refresh-2026-09-16.json",
   "refreshContentPathBase": "repository-root",
   "refreshContentSha256": "4be2f302a28da81ff549e739b00617ec484a064e768cfd7915796fa71ee40520",
-  "activeDatasetVersion": "globe-chain-smartphone-2026.2",
+  "activeDatasetVersion": "globe-chain-smartphone-2026.4",
   "activeManifest": true,
   "evidenceReview": {
-    "batchId": "smartphone-bilateral-gaps-2026-10-21",
-    "baseDatasetVersion": "globe-chain-smartphone-2026.1",
-    "contentSource": "content/reviews/smartphone-bilateral-gaps-2026-10-21.json",
+    "batchId": "smartphone-production-2026-10-21",
+    "baseDatasetVersion": "globe-chain-smartphone-2026.3",
+    "contentSource": "content/indicators/smartphone-production-2026-10.json",
     "contentPathBase": "repository-root",
-    "contentSha256": "5a459b9a2a4de628c13c07121f65dff56afc4c7fbab378f3a179bb9c757ce6a5",
+    "contentSha256": "6fa43ce6eb80a496eb03545fc8a14c3f048ac16741fedbb43f2d906f2d3089a0",
     "auditPath": "review-audit.json",
     "auditPathBase": "release-directory",
-    "auditSha256": "f7189cb4644d12457899ba8238850ec160d4afea29eb5ac555d6039f4f5e920e"
+    "auditSha256": "624eaf21cc5ff1e1bc71c13cbe1d2e1246c57e2cb0e7f554ae913bc738df045e"
   }
 }

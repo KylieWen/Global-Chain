@@ -9,7 +9,7 @@ import { mapPath } from "../apps/web/lib/paths";
 describe("map exploration with separate evidence layers", () => {
   let queries: ProductQueryService;
   beforeAll(async () => {
-    queries = createProductQueryService(await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json")));
+    queries = createProductQueryService(await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-smartphone/globe-chain-smartphone-2026.2/manifest.json")));
   });
 
   it("keeps curated routes separate from statistical observations and preserves unknown quantities", () => {

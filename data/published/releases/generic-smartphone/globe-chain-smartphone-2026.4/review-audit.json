@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "reviewed-indicators-audit.v1",
+  "batchId": "smartphone-production-2026-10-21",
+  "reviewedAt": "2026-10-21",
+  "baseDatasetVersion": "globe-chain-smartphone-2026.3",
+  "baseFixtureSha256": "96bed4ba8328ffc98d6046cdd53dea15e856cde8606e4c385f1918d5fc1f5ee2",
+  "baseAuditSha256": "f249b10fb93a8d28f412f378f0b2eabc5c01c0e1f773dd66e58bfbd6d7fe520c",
+  "datasetVersion": "globe-chain-smartphone-2026.4",
+  "promoted": [
+    {
+      "descriptor": {
+        "indicator": "smartphone_production_units",
+        "entityId": "country-cn",
+        "periodLabel": "2023",
+        "id": "macro-chn-smartphone-production-2023",
+        "definitionId": "indicator-smartphone-production-units",
+        "label": "智能手机产量",
+        "description": "2023年中国规模以上电子信息制造业的智能手机产量。",
+        "category": "生产",
+        "displayOrder": 5,
+        "displayUnit": "台",
+        "valueMeaning": "规模以上企业的智能手机生产台数，保留工信部原始统计口径。",
+        "formula": "11.4 × 100000000 台",
+        "notes": "工信部2023年度规模以上企业统计，福建省工信厅2024-01-31转载；来源明确分列智能手机11.4亿台，按原精度换算。"
+      },
+      "reviewedRecord": {
+        "indicator": "smartphone_production_units",
+        "entityId": "country-cn",
+        "period": {
+          "granularity": "annual",
+          "start": "2023-01-01",
+          "end": "2023-12-31",
+          "label": "2023"
+        },
+        "quantity": 1140000000,
+        "unit": "items",
+        "dataStatus": "observed",
+        "method": "official",
+        "sourceId": "source-phone-20261021-china-smartphone-2023",
+        "datasetVersion": "globe-chain-smartphone-2026.3",
+        "notes": "2023年规模以上企业智能手机产量11.4亿台，来源单列智能手机；现有macro契约仅支持货币value，数量型指标待通用模型扩展后进入fixture，不伪造currency。"
+      }
+    }
+  ],
+  "transformation": "Use the reviewed physical quantity and original period/unit/source. Currency and monetary value remain null; all prior facts and route content are preserved."
+}
