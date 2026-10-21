@@ -1,0 +1,5340 @@
+{
+  "schemaVersion": "product-fixture.v1",
+  "productId": "generic-home-air-conditioner",
+  "datasetVersion": {
+    "id": "dataset-home-air-conditioner-2026-1",
+    "name": "家用房间空调：部件、制造与相关成品贸易",
+    "version": "globe-chain-home-air-conditioner-2026.1",
+    "publishedAt": "2026-10-21",
+    "sourceIds": [
+      "source-home-ac-doe",
+      "source-home-ac-iea",
+      "source-home-ac-trade",
+      "source-home-ac-hs",
+      "source-home-ac-units",
+      "source-home-ac-countries",
+      "source-home-ac-curation"
+    ],
+    "coverage": null,
+    "status": "published",
+    "notes": "独立可发布格式候选，未激活。1997技术参考、2017统计背景与2024双边贸易分别保留原始期间。"
+  },
+  "contentVersions": [
+    {
+      "id": "content-home-air-conditioner-2026-1",
+      "version": "home-air-conditioner-content-2026.1",
+      "status": "published",
+      "publishedAt": "2026-10-21",
+      "notes": "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。 工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。 中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。 无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。 结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。 本商品未发布税率、许可或进出口手续；未收录不代表零税或无需许可。"
+    }
+  ],
+  "sources": [
+    {
+      "id": "source-home-ac-doe",
+      "publisher": "U.S. DOE / Lawrence Berkeley National Laboratory",
+      "name": "Room Air Conditioners, Volume 2: Detailed Analysis of Efficiency Levels",
+      "url": "https://www1.eere.energy.gov/buildings/appliance_standards/pdfs/tsdracv2.pdf",
+      "publishedAt": "1997-09",
+      "retrievedAt": "2026-10-21T08:16:15.4342209Z",
+      "datasetVersion": "DOE-RAC-1997",
+      "license": "官方公开技术参考；遵循发布机构使用条件，仅整理事实、不转发全文。",
+      "notes": "PDF pp.1–2封面September 1997；pp.24–26（正文1-1至1-3），Figure 1.1。 原件 data/raw/home-ac-research/doe-room-ac-manufacturing.pdf；SHA-256 a91075627a70179ee09e8f789315b4530449579d9a7c73636c9e72258b2ac0aa。"
+    },
+    {
+      "id": "source-home-ac-iea",
+      "publisher": "International Energy Agency",
+      "name": "The Future of Cooling in China",
+      "url": "https://iea.blob.core.windows.net/assets/9212903b-e310-48d4-96fa-3eaf7ddf56d9/The_Future_of_Cooling_in_China.pdf",
+      "publishedAt": "2019-06-16",
+      "retrievedAt": "2026-10-21T08:17:07.1485539Z",
+      "datasetVersion": "IEA-2019-cooling-China",
+      "license": "IEA 2019. All rights reserved（原始PDF页眉）；仅有限事实摘要并保留链接。",
+      "notes": "PDF pp.3、7（正文2、6），2017统计背景及中国房间空调生产角色；不发布当代份额。 原件 data/raw/home-ac-research/iea-future-cooling-china.pdf；SHA-256 bec5fb3064f618146323e5d56ed3a2d88f18ae353073ca132134f1c2dd753117。"
+    },
+    {
+      "id": "source-home-ac-trade",
+      "publisher": "United Nations Statistics Division",
+      "name": "UN Comtrade 中国报告的2024年HS2022空调贸易",
+      "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0%2C842%2C276&cmdCode=841510%2C841582&flowCode=X%2CM&period=2024&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+      "publishedAt": "2024",
+      "retrievedAt": "2026-10-21T08:16:17.7440413Z",
+      "datasetVersion": "Comtrade-H6-2024-snapshot-2026-10-21",
+      "license": "UN Comtrade公开数据；适用联合国数据使用条款并保留出处。",
+      "notes": "data；reporterCode=156，flowCode=X，partnerCode=276/842，cmdCode=841510/841582。 原件 data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json；SHA-256 52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046。"
+    },
+    {
+      "id": "source-home-ac-hs",
+      "publisher": "United Nations Statistics Division",
+      "name": "UN Comtrade HS2022/H6分类参考字典",
+      "url": "https://comtradeapi.un.org/files/v1/app/reference/H6.json",
+      "publishedAt": "2022",
+      "retrievedAt": "2026-10-21T08:16:23.2206933Z",
+      "datasetVersion": "HS2022-H6",
+      "license": "联合国公开分类参考资料；保留官方品名和出处。",
+      "notes": "results[id=841510/841582]；classCode=H6，className=HS2022。 原件 data/raw/home-ac-research/un-hs2022-h6.json；SHA-256 e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15。"
+    },
+    {
+      "id": "source-home-ac-units",
+      "publisher": "United Nations Statistics Division",
+      "name": "UN Comtrade QuantityUnits参考字典",
+      "url": "https://comtradeapi.un.org/files/v1/app/reference/QuantityUnits.json",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T08:18:06Z",
+      "datasetVersion": "QuantityUnits-snapshot-2026-10-21",
+      "license": "联合国公开参考资料；保留字典代码和出处。",
+      "notes": "results[qtyCode=5]：u，Number of items。 原件 data/raw/home-ac-research/un-quantity-units.json；SHA-256 420267929eac391e9dcd97d18252a2aee9bff2a86c3e2162d1ec57ef53811c24。"
+    },
+    {
+      "id": "source-home-ac-countries",
+      "publisher": "United Nations Statistics Division",
+      "name": "UN M49国家标准表（复用既有原件）",
+      "url": "https://unstats.un.org/unsd/methodology/m49/overview/",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T03:17:55.860727+00:00",
+      "datasetVersion": "UN-M49-snapshot-2026-10-21",
+      "license": "联合国公开国家标准参考表；保留出处。",
+      "notes": "复用既有原始快照，只提取三国地理维度。美国地理M49=840，不覆盖Comtrade伙伴统计码842。"
+    },
+    {
+      "id": "source-home-ac-curation",
+      "name": "家用房间空调结构与研究索引整理",
+      "publisher": "GlobeChain",
+      "url": null,
+      "publishedAt": "2026-10-21",
+      "retrievedAt": "2026-10-21",
+      "datasetVersion": "home-air-conditioner-content-2026.1",
+      "license": "项目原创整理；各原始来源条款分别适用。",
+      "notes": "content/products/home-air-conditioner-2026-10.json; SHA-256=64fb5e66b659a4323a3be221130b09a98e6aa9a46778e27da950096e05aef7c3。历史技术、历史国家角色与2024贸易分开；研究索引不证明同批物流。"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence-home-ac-curation",
+      "sourceId": "source-home-ac-curation",
+      "supportType": "curation_method",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "generic-home-air-conditioner",
+          "ac-compressor",
+          "ac-heat-exchanger",
+          "ac-fan-motor",
+          "ac-controller",
+          "ac-valves",
+          "ac-refrigerant",
+          "ac-housing",
+          "ac-packaging",
+          "ac-copper-tube",
+          "ac-aluminium-sheet",
+          "ac-return-bends",
+          "ac-sheet-metal",
+          "ac-plastic-grille",
+          "ac-aluminium-fins",
+          "ac-threaded-exchanger",
+          "ac-brazed-exchanger",
+          "ac-subassembly",
+          "ac-uncharged-unit",
+          "ac-charged-unit",
+          "ac-related-hs841510",
+          "ac-related-hs841582"
+        ],
+        "processStageIds": [],
+        "processStepIds": [],
+        "equipmentCategoryIds": [],
+        "organizationIds": [],
+        "classificationCodes": [],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "2024-12-31",
+          "label": "1997技术参考 / 2017生产背景 / 2024贸易"
+        },
+        "scopeDescription": "按原始来源组织部件、技术支线、国家历史背景和相关成品贸易；跨期资料只作索引，不对应同一批物料。",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "supportsManufacturerCapability": false,
+        "supportsCommercialRelationship": false,
+        "supportsPolicyGuidance": false,
+        "limitations": [
+          "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+          "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+          "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+          "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+          "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。",
+          "本商品未发布税率、许可或进出口手续；未收录不代表零税或无需许可。"
+        ]
+      },
+      "locator": "content/products/home-air-conditioner-2026-10.json; SHA-256=64fb5e66b659a4323a3be221130b09a98e6aa9a46778e27da950096e05aef7c3; representativeStatement; methodology; limitations",
+      "excerpt": null,
+      "notes": "按原始来源组织部件、技术支线、国家历史背景和相关成品贸易；跨期资料只作索引，不对应同一批物料。"
+    },
+    {
+      "id": "evidence-home-ac-process",
+      "sourceId": "source-home-ac-doe",
+      "supportType": "process_context",
+      "scope": {
+        "entityIds": [],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "generic-home-air-conditioner",
+          "ac-compressor",
+          "ac-heat-exchanger",
+          "ac-fan-motor",
+          "ac-controller",
+          "ac-valves",
+          "ac-refrigerant",
+          "ac-housing",
+          "ac-packaging",
+          "ac-copper-tube",
+          "ac-aluminium-sheet",
+          "ac-return-bends",
+          "ac-sheet-metal",
+          "ac-plastic-grille",
+          "ac-aluminium-fins",
+          "ac-threaded-exchanger",
+          "ac-brazed-exchanger",
+          "ac-subassembly",
+          "ac-uncharged-unit",
+          "ac-charged-unit"
+        ],
+        "processStageIds": [
+          "ac-materials",
+          "ac-cabinet",
+          "ac-exchanger",
+          "ac-subassembly",
+          "ac-assembly",
+          "ac-charge-test-pack"
+        ],
+        "processStepIds": [
+          "home-ac-step-cabinet",
+          "home-ac-step-fins",
+          "home-ac-step-thread",
+          "home-ac-step-braze",
+          "home-ac-step-exchanger-leak",
+          "home-ac-step-subassembly",
+          "home-ac-step-assembly",
+          "home-ac-step-charge",
+          "home-ac-step-test-pack"
+        ],
+        "equipmentCategoryIds": [
+          "home-ac-equipment-sheet-forming",
+          "home-ac-equipment-plastic-molding",
+          "home-ac-equipment-fin-press",
+          "home-ac-equipment-tube-preparation",
+          "home-ac-equipment-tube-expander",
+          "home-ac-equipment-brazing",
+          "home-ac-equipment-exchanger-leak",
+          "home-ac-equipment-subassembly",
+          "home-ac-equipment-assembly",
+          "home-ac-equipment-charge",
+          "home-ac-equipment-unit-leak",
+          "home-ac-equipment-pack"
+        ],
+        "organizationIds": [],
+        "classificationCodes": [],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "scopeDescription": "1997年历史技术参考，正文1-1列部件，1-2述制造，图1.1列供给部件与子装配。按功能整理设备类别，不指认当代国家、工厂或品牌；塑料成型方式未细分。",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": true,
+        "supportsManufacturerCapability": false,
+        "supportsCommercialRelationship": false,
+        "supportsPolicyGuidance": false,
+        "limitations": [
+          "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+          "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+          "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+          "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+          "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。",
+          "本商品未发布税率、许可或进出口手续；未收录不代表零税或无需许可。"
+        ]
+      },
+      "locator": "data/raw/home-ac-research/doe-room-ac-manufacturing.pdf; SHA-256=a91075627a70179ee09e8f789315b4530449579d9a7c73636c9e72258b2ac0aa; PDF pp.1–2封面September 1997；pp.24–26（正文1-1至1-3），Figure 1.1。",
+      "excerpt": null,
+      "notes": "1997年历史技术参考，正文1-1列部件，1-2述制造，图1.1列供给部件与子装配。按功能整理设备类别，不指认当代国家、工厂或品牌；塑料成型方式未细分。"
+    },
+    {
+      "id": "evidence-home-ac-china-role",
+      "sourceId": "source-home-ac-iea",
+      "supportType": "country_role",
+      "scope": {
+        "entityIds": [
+          "country-cn"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "generic-home-air-conditioner"
+        ],
+        "processStageIds": [
+          "ac-production-context"
+        ],
+        "processStepIds": [],
+        "equipmentCategoryIds": [],
+        "organizationIds": [],
+        "classificationCodes": [],
+        "direction": null,
+        "period": {
+          "granularity": "annual",
+          "start": "2017-01-01",
+          "end": "2017-12-31",
+          "label": "2017统计背景 · IEA2019报告"
+        },
+        "scopeDescription": "IEA2019报告的2017统计背景支持中国房间空调生产角色；报告中约70%的文字不在本批转成可比较年度份额，亦不用于证明2024出口来源工厂。",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "supportsManufacturerCapability": false,
+        "supportsCommercialRelationship": false,
+        "supportsPolicyGuidance": false,
+        "limitations": [
+          "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+          "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+          "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+          "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+          "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。",
+          "本商品未发布税率、许可或进出口手续；未收录不代表零税或无需许可。"
+        ]
+      },
+      "locator": "data/raw/home-ac-research/iea-future-cooling-china.pdf; SHA-256=bec5fb3064f618146323e5d56ed3a2d88f18ae353073ca132134f1c2dd753117; PDF pp.3、7（正文2、6），2017统计背景及中国房间空调生产角色；不发布当代份额。",
+      "excerpt": null,
+      "notes": "IEA2019报告的2017统计背景支持中国房间空调生产角色；报告中约70%的文字不在本批转成可比较年度份额，亦不用于证明2024出口来源工厂。"
+    },
+    {
+      "id": "evidence-home-ac-bilateral-841510-276-X-2024",
+      "sourceId": "source-home-ac-trade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [
+          "country-cn",
+          "country-de"
+        ],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-de",
+        "itemIds": [
+          "ac-related-hs841510"
+        ],
+        "processStageIds": [
+          "ac-related-trade"
+        ],
+        "processStepIds": [],
+        "equipmentCategoryIds": [],
+        "organizationIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "841510",
+            "mappingType": "exact",
+            "description": "841510 - Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or 'split-system'"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "scopeDescription": "中国报告的2024年直接双边出口；只支持该HS完整分类范围，不升级为某一款家用空调的精确供货。美国842保留为来源伙伴码，地理M49仍为840。",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "supportsManufacturerCapability": false,
+        "supportsCommercialRelationship": false,
+        "supportsPolicyGuidance": false,
+        "limitations": [
+          "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+          "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+          "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+          "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+          "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。",
+          "本商品未发布税率、许可或进出口手续；未收录不代表零税或无需许可。"
+        ]
+      },
+      "locator": "data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json; SHA-256=52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046; data[reporterCode=156,partnerCode=276,cmdCode=841510,flowCode=X,period=2024]",
+      "excerpt": null,
+      "notes": "中国报告的2024年直接双边出口；只支持该HS完整分类范围，不升级为某一款家用空调的精确供货。美国842保留为来源伙伴码，地理M49仍为840。"
+    },
+    {
+      "id": "evidence-home-ac-market-841510-276-X-2024",
+      "sourceId": "source-home-ac-trade",
+      "supportType": "trade_observation",
+      "scope": {
+        "entityIds": [
+          "country-cn",
+          "country-de"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "ac-related-hs841510"
+        ],
+        "processStageIds": [
+          "ac-related-trade"
+        ],
+        "processStepIds": [],
+        "equipmentCategoryIds": [],
+        "organizationIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "841510",
+            "mappingType": "exact",
+            "description": "841510 - Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or 'split-system'"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "scopeDescription": "具体伙伴贸易记录支持该宽口径成品的出口方与贸易目的地角色，不推断最终消费、品牌或厂商。",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "supportsManufacturerCapability": false,
+        "supportsCommercialRelationship": false,
+        "supportsPolicyGuidance": false,
+        "limitations": [
+          "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+          "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+          "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+          "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+          "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。",
+          "本商品未发布税率、许可或进出口手续；未收录不代表零税或无需许可。"
+        ]
+      },
+      "locator": "data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json; SHA-256=52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046; data[841510-276-X-2024]",
+      "excerpt": null,
+      "notes": "具体伙伴贸易记录支持该宽口径成品的出口方与贸易目的地角色，不推断最终消费、品牌或厂商。"
+    },
+    {
+      "id": "evidence-home-ac-bilateral-841510-842-X-2024",
+      "sourceId": "source-home-ac-trade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [
+          "country-cn",
+          "country-us"
+        ],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-us",
+        "itemIds": [
+          "ac-related-hs841510"
+        ],
+        "processStageIds": [
+          "ac-related-trade"
+        ],
+        "processStepIds": [],
+        "equipmentCategoryIds": [],
+        "organizationIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "841510",
+            "mappingType": "exact",
+            "description": "841510 - Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or 'split-system'"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "scopeDescription": "中国报告的2024年直接双边出口；只支持该HS完整分类范围，不升级为某一款家用空调的精确供货。美国842保留为来源伙伴码，地理M49仍为840。",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "supportsManufacturerCapability": false,
+        "supportsCommercialRelationship": false,
+        "supportsPolicyGuidance": false,
+        "limitations": [
+          "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+          "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+          "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+          "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+          "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。",
+          "本商品未发布税率、许可或进出口手续；未收录不代表零税或无需许可。"
+        ]
+      },
+      "locator": "data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json; SHA-256=52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046; data[reporterCode=156,partnerCode=842,cmdCode=841510,flowCode=X,period=2024]",
+      "excerpt": null,
+      "notes": "中国报告的2024年直接双边出口；只支持该HS完整分类范围，不升级为某一款家用空调的精确供货。美国842保留为来源伙伴码，地理M49仍为840。"
+    },
+    {
+      "id": "evidence-home-ac-market-841510-842-X-2024",
+      "sourceId": "source-home-ac-trade",
+      "supportType": "trade_observation",
+      "scope": {
+        "entityIds": [
+          "country-cn",
+          "country-us"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "ac-related-hs841510"
+        ],
+        "processStageIds": [
+          "ac-related-trade"
+        ],
+        "processStepIds": [],
+        "equipmentCategoryIds": [],
+        "organizationIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "841510",
+            "mappingType": "exact",
+            "description": "841510 - Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or 'split-system'"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "scopeDescription": "具体伙伴贸易记录支持该宽口径成品的出口方与贸易目的地角色，不推断最终消费、品牌或厂商。",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "supportsManufacturerCapability": false,
+        "supportsCommercialRelationship": false,
+        "supportsPolicyGuidance": false,
+        "limitations": [
+          "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+          "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+          "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+          "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+          "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。",
+          "本商品未发布税率、许可或进出口手续；未收录不代表零税或无需许可。"
+        ]
+      },
+      "locator": "data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json; SHA-256=52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046; data[841510-842-X-2024]",
+      "excerpt": null,
+      "notes": "具体伙伴贸易记录支持该宽口径成品的出口方与贸易目的地角色，不推断最终消费、品牌或厂商。"
+    },
+    {
+      "id": "evidence-home-ac-bilateral-841582-276-X-2024",
+      "sourceId": "source-home-ac-trade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [
+          "country-cn",
+          "country-de"
+        ],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-de",
+        "itemIds": [
+          "ac-related-hs841582"
+        ],
+        "processStageIds": [
+          "ac-related-trade"
+        ],
+        "processStepIds": [],
+        "equipmentCategoryIds": [],
+        "organizationIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "841582",
+            "mappingType": "exact",
+            "description": "841582 - Air conditioning machines; containing a motor driven fan, other than window or wall types, incorporating a refrigerating unit"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "scopeDescription": "中国报告的2024年直接双边出口；只支持该HS完整分类范围，不升级为某一款家用空调的精确供货。美国842保留为来源伙伴码，地理M49仍为840。",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "supportsManufacturerCapability": false,
+        "supportsCommercialRelationship": false,
+        "supportsPolicyGuidance": false,
+        "limitations": [
+          "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+          "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+          "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+          "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+          "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。",
+          "本商品未发布税率、许可或进出口手续；未收录不代表零税或无需许可。"
+        ]
+      },
+      "locator": "data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json; SHA-256=52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046; data[reporterCode=156,partnerCode=276,cmdCode=841582,flowCode=X,period=2024]",
+      "excerpt": null,
+      "notes": "中国报告的2024年直接双边出口；只支持该HS完整分类范围，不升级为某一款家用空调的精确供货。美国842保留为来源伙伴码，地理M49仍为840。"
+    },
+    {
+      "id": "evidence-home-ac-market-841582-276-X-2024",
+      "sourceId": "source-home-ac-trade",
+      "supportType": "trade_observation",
+      "scope": {
+        "entityIds": [
+          "country-cn",
+          "country-de"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "ac-related-hs841582"
+        ],
+        "processStageIds": [
+          "ac-related-trade"
+        ],
+        "processStepIds": [],
+        "equipmentCategoryIds": [],
+        "organizationIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "841582",
+            "mappingType": "exact",
+            "description": "841582 - Air conditioning machines; containing a motor driven fan, other than window or wall types, incorporating a refrigerating unit"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "scopeDescription": "具体伙伴贸易记录支持该宽口径成品的出口方与贸易目的地角色，不推断最终消费、品牌或厂商。",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "supportsManufacturerCapability": false,
+        "supportsCommercialRelationship": false,
+        "supportsPolicyGuidance": false,
+        "limitations": [
+          "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+          "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+          "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+          "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+          "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。",
+          "本商品未发布税率、许可或进出口手续；未收录不代表零税或无需许可。"
+        ]
+      },
+      "locator": "data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json; SHA-256=52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046; data[841582-276-X-2024]",
+      "excerpt": null,
+      "notes": "具体伙伴贸易记录支持该宽口径成品的出口方与贸易目的地角色，不推断最终消费、品牌或厂商。"
+    },
+    {
+      "id": "evidence-home-ac-bilateral-841582-842-X-2024",
+      "sourceId": "source-home-ac-trade",
+      "supportType": "bilateral_flow",
+      "scope": {
+        "entityIds": [
+          "country-cn",
+          "country-us"
+        ],
+        "fromEntityId": "country-cn",
+        "toEntityId": "country-us",
+        "itemIds": [
+          "ac-related-hs841582"
+        ],
+        "processStageIds": [
+          "ac-related-trade"
+        ],
+        "processStepIds": [],
+        "equipmentCategoryIds": [],
+        "organizationIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "841582",
+            "mappingType": "exact",
+            "description": "841582 - Air conditioning machines; containing a motor driven fan, other than window or wall types, incorporating a refrigerating unit"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "scopeDescription": "中国报告的2024年直接双边出口；只支持该HS完整分类范围，不升级为某一款家用空调的精确供货。美国842保留为来源伙伴码，地理M49仍为840。",
+        "supportsCountryRole": false,
+        "supportsBilateralFlow": true,
+        "supportsProcessContext": false,
+        "supportsManufacturerCapability": false,
+        "supportsCommercialRelationship": false,
+        "supportsPolicyGuidance": false,
+        "limitations": [
+          "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+          "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+          "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+          "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+          "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。",
+          "本商品未发布税率、许可或进出口手续；未收录不代表零税或无需许可。"
+        ]
+      },
+      "locator": "data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json; SHA-256=52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046; data[reporterCode=156,partnerCode=842,cmdCode=841582,flowCode=X,period=2024]",
+      "excerpt": null,
+      "notes": "中国报告的2024年直接双边出口；只支持该HS完整分类范围，不升级为某一款家用空调的精确供货。美国842保留为来源伙伴码，地理M49仍为840。"
+    },
+    {
+      "id": "evidence-home-ac-market-841582-842-X-2024",
+      "sourceId": "source-home-ac-trade",
+      "supportType": "trade_observation",
+      "scope": {
+        "entityIds": [
+          "country-cn",
+          "country-us"
+        ],
+        "fromEntityId": null,
+        "toEntityId": null,
+        "itemIds": [
+          "ac-related-hs841582"
+        ],
+        "processStageIds": [
+          "ac-related-trade"
+        ],
+        "processStepIds": [],
+        "equipmentCategoryIds": [],
+        "organizationIds": [],
+        "classificationCodes": [
+          {
+            "system": "HS",
+            "version": "2022",
+            "code": "841582",
+            "mappingType": "exact",
+            "description": "841582 - Air conditioning machines; containing a motor driven fan, other than window or wall types, incorporating a refrigerating unit"
+          }
+        ],
+        "direction": "export",
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "scopeDescription": "具体伙伴贸易记录支持该宽口径成品的出口方与贸易目的地角色，不推断最终消费、品牌或厂商。",
+        "supportsCountryRole": true,
+        "supportsBilateralFlow": false,
+        "supportsProcessContext": false,
+        "supportsManufacturerCapability": false,
+        "supportsCommercialRelationship": false,
+        "supportsPolicyGuidance": false,
+        "limitations": [
+          "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+          "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+          "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+          "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+          "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。",
+          "本商品未发布税率、许可或进出口手续；未收录不代表零税或无需许可。"
+        ]
+      },
+      "locator": "data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json; SHA-256=52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046; data[841582-842-X-2024]",
+      "excerpt": null,
+      "notes": "具体伙伴贸易记录支持该宽口径成品的出口方与贸易目的地角色，不推断最终消费、品牌或厂商。"
+    }
+  ],
+  "evidenceGaps": [
+    {
+      "gapId": "home-ac-gap-batch-lineage",
+      "flowId": "home-ac-context-history",
+      "nodeId": null,
+      "currentClaim": "制造结构、历史生产角色与相关成品出口之间提供研究索引。",
+      "currentEvidenceLevel": "representative",
+      "missingEvidence": "可连接材料、工厂、品牌和出口货物批次的公开证据；以及当代工艺适用性资料。",
+      "acceptableEvidenceTypes": [
+        "bilateral_flow",
+        "commercial_relationship",
+        "process_context"
+      ],
+      "candidateSources": [
+        {
+          "name": "获授权的工厂和批次公开记录",
+          "publisher": "相关生产及贸易主体",
+          "url": null,
+          "license": "公开披露或合法授权",
+          "notes": "国家贸易总额与行业生产角色不能代替批次记录。"
+        }
+      ],
+      "classificationCandidates": [],
+      "status": "not_publicly_observable",
+      "nonInferences": [
+        "不把1997工艺当作2026中国现况。",
+        "不把国家生产角色、HS出口或设备功能类目视作厂商供货证据。"
+      ],
+      "evidenceIds": [
+        "evidence-home-ac-curation"
+      ],
+      "period": {
+        "granularity": "monthly",
+        "start": "2026-10-01",
+        "end": "2026-10-31",
+        "label": "2026-10 · 内容整理"
+      },
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1"
+    }
+  ],
+  "entities": [
+    {
+      "id": "country-cn",
+      "name": "中国",
+      "iso2": "CN",
+      "iso3": "CHN",
+      "m49": "156",
+      "kind": "country",
+      "parentId": null,
+      "sourceIds": [
+        "source-home-ac-countries"
+      ],
+      "method": "official",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "monthly",
+        "start": "2026-10-01",
+        "end": "2026-10-31",
+        "label": "2026-10 · 内容整理"
+      }
+    },
+    {
+      "id": "country-de",
+      "name": "德国",
+      "iso2": "DE",
+      "iso3": "DEU",
+      "m49": "276",
+      "kind": "country",
+      "parentId": null,
+      "sourceIds": [
+        "source-home-ac-countries"
+      ],
+      "method": "official",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "monthly",
+        "start": "2026-10-01",
+        "end": "2026-10-31",
+        "label": "2026-10 · 内容整理"
+      }
+    },
+    {
+      "id": "country-us",
+      "name": "美国",
+      "iso2": "US",
+      "iso3": "USA",
+      "m49": "840",
+      "kind": "country",
+      "parentId": null,
+      "sourceIds": [
+        "source-home-ac-countries"
+      ],
+      "method": "official",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "monthly",
+        "start": "2026-10-01",
+        "end": "2026-10-31",
+        "label": "2026-10 · 内容整理"
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "generic-home-air-conditioner",
+      "slug": "generic-home-air-conditioner",
+      "name": "家用房间空调",
+      "itemType": "final_product",
+      "parentItemId": null,
+      "category": "机械设备",
+      "description": "为房间降温的家用设备，由压缩机、换热器、风机、电控和机壳协同工作。沿铜管铝翅片、部件装配、制冷剂充注与成品出口分支，了解空调如何形成并连接市场。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "monthly",
+        "start": "2026-10-01",
+        "end": "2026-10-31",
+        "label": "2026-10 · 内容整理"
+      }
+    },
+    {
+      "id": "ac-compressor",
+      "slug": "ac-compressor",
+      "name": "压缩机",
+      "itemType": "component",
+      "parentItemId": "generic-home-air-conditioner",
+      "category": "机械设备",
+      "description": "压缩制冷剂，提高压力并驱动制冷回路。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-heat-exchanger",
+      "slug": "ac-heat-exchanger",
+      "name": "换热器",
+      "itemType": "component",
+      "parentItemId": "generic-home-air-conditioner",
+      "category": "机械设备",
+      "description": "让铜管中的制冷剂与铝翅片周围的空气交换热量。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-fan-motor",
+      "slug": "ac-fan-motor",
+      "name": "风机与电机",
+      "itemType": "component",
+      "parentItemId": "generic-home-air-conditioner",
+      "category": "机械设备",
+      "description": "驱动空气经过换热器，将冷却后的空气送回房间。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-controller",
+      "slug": "ac-controller",
+      "name": "控制器",
+      "itemType": "component",
+      "parentItemId": "generic-home-air-conditioner",
+      "category": "机械设备",
+      "description": "控制空调的启停与工作状态。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-valves",
+      "slug": "ac-valves",
+      "name": "阀件",
+      "itemType": "component",
+      "parentItemId": "generic-home-air-conditioner",
+      "category": "机械设备",
+      "description": "制冷回路中的阀类部件，与压缩机、风机和控制器共同进入子装配。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-refrigerant",
+      "slug": "ac-refrigerant",
+      "name": "制冷剂",
+      "itemType": "material",
+      "parentItemId": "generic-home-air-conditioner",
+      "category": "机械设备",
+      "description": "充入制冷回路，在蒸发和冷凝过程中吸收或放出热量。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-housing",
+      "slug": "ac-housing",
+      "name": "机壳与格栅",
+      "itemType": "component",
+      "parentItemId": "generic-home-air-conditioner",
+      "category": "机械设备",
+      "description": "容纳内部部件，由钣金结构和塑料格栅等组成。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-packaging",
+      "slug": "ac-packaging",
+      "name": "包装材料",
+      "itemType": "material",
+      "parentItemId": "generic-home-air-conditioner",
+      "category": "机械设备",
+      "description": "用于整机检漏后的包装和标识，为运输准备。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-copper-tube",
+      "slug": "ac-copper-tube",
+      "name": "铜管",
+      "itemType": "material",
+      "parentItemId": "ac-heat-exchanger",
+      "category": "机械设备",
+      "description": "形成换热器管路，让制冷剂在换热部件中循环。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-aluminium-sheet",
+      "slug": "ac-aluminium-sheet",
+      "name": "铝片/卷材",
+      "itemType": "material",
+      "parentItemId": "ac-heat-exchanger",
+      "category": "机械设备",
+      "description": "冲压、穿孔后叠成翅片，配合铜管进行换热。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-return-bends",
+      "slug": "ac-return-bends",
+      "name": "回弯管",
+      "itemType": "component",
+      "parentItemId": "ac-heat-exchanger",
+      "category": "机械设备",
+      "description": "钎焊在铜管末端，将管路连接成换热器回路。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-sheet-metal",
+      "slug": "ac-sheet-metal",
+      "name": "钣金板材",
+      "itemType": "material",
+      "parentItemId": "ac-housing",
+      "category": "机械设备",
+      "description": "裁切、折弯和冲压后形成机壳的钣金结构。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-plastic-grille",
+      "slug": "ac-plastic-grille",
+      "name": "塑料前格栅件",
+      "itemType": "component",
+      "parentItemId": "ac-housing",
+      "category": "机械设备",
+      "description": "构成机壳前侧的塑料件，可外购或在厂内成型。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-aluminium-fins",
+      "slug": "ac-aluminium-fins",
+      "name": "冲孔叠片的铝翅片",
+      "itemType": "component",
+      "parentItemId": null,
+      "category": "机械设备",
+      "description": "完成翅片图形和管孔的叠层，供铜管穿入。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-threaded-exchanger",
+      "slug": "ac-threaded-exchanger",
+      "name": "穿管换热器半成品",
+      "itemType": "component",
+      "parentItemId": null,
+      "category": "机械设备",
+      "description": "铜管穿过翅片叠层，接着机械扩管并连接回弯管。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-brazed-exchanger",
+      "slug": "ac-brazed-exchanger",
+      "name": "扩管钎焊后的换热器",
+      "itemType": "component",
+      "parentItemId": null,
+      "category": "机械设备",
+      "description": "完成扩管和回弯连接的换热器，接着进行检漏。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-subassembly",
+      "slug": "ac-subassembly",
+      "name": "功能部件子总成",
+      "itemType": "component",
+      "parentItemId": null,
+      "category": "机械设备",
+      "description": "压缩机、风机、阀件和控制器先组合，再进入整机总装。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-uncharged-unit",
+      "slug": "ac-uncharged-unit",
+      "name": "未充注的空调整机",
+      "itemType": "component",
+      "parentItemId": null,
+      "category": "机械设备",
+      "description": "机壳、换热器与功能部件已装配，接着充注制冷剂。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-charged-unit",
+      "slug": "ac-charged-unit",
+      "name": "充注后的空调整机",
+      "itemType": "component",
+      "parentItemId": null,
+      "category": "机械设备",
+      "description": "完成制冷剂充注的整机，接着检漏、包装与标识。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      }
+    },
+    {
+      "id": "ac-related-hs841510",
+      "slug": "ac-related-hs841510",
+      "name": "HS841510相关空调成品",
+      "itemType": "component",
+      "parentItemId": null,
+      "category": "机械设备",
+      "description": "固定于窗、墙、天花或地面的自成式或分体式空调设备。",
+      "sourceIds": [
+        "source-home-ac-hs"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "label": "2024"
+      }
+    },
+    {
+      "id": "ac-related-hs841582",
+      "slug": "ac-related-hs841582",
+      "name": "HS841582相关空调成品",
+      "itemType": "component",
+      "parentItemId": null,
+      "category": "机械设备",
+      "description": "其他带制冷机组的空调机。",
+      "sourceIds": [
+        "source-home-ac-hs"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "label": "2024"
+      }
+    }
+  ],
+  "processStages": [
+    {
+      "id": "ac-materials",
+      "code": "ac-materials",
+      "label": "材料与部件",
+      "order": 1,
+      "description": "材料与部件；期间与适用范围见逐条来源。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1"
+    },
+    {
+      "id": "ac-cabinet",
+      "code": "ac-cabinet",
+      "label": "机壳制作",
+      "order": 2,
+      "description": "机壳制作；期间与适用范围见逐条来源。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1"
+    },
+    {
+      "id": "ac-exchanger",
+      "code": "ac-exchanger",
+      "label": "换热器制造与检漏",
+      "order": 3,
+      "description": "换热器制造与检漏；期间与适用范围见逐条来源。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1"
+    },
+    {
+      "id": "ac-subassembly",
+      "code": "ac-subassembly",
+      "label": "部件子装配",
+      "order": 4,
+      "description": "部件子装配；期间与适用范围见逐条来源。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1"
+    },
+    {
+      "id": "ac-assembly",
+      "code": "ac-assembly",
+      "label": "整机总装",
+      "order": 5,
+      "description": "整机总装；期间与适用范围见逐条来源。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1"
+    },
+    {
+      "id": "ac-charge-test-pack",
+      "code": "ac-charge-test-pack",
+      "label": "充注、检漏与包装",
+      "order": 6,
+      "description": "充注、检漏与包装；期间与适用范围见逐条来源。",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1"
+    },
+    {
+      "id": "ac-production-context",
+      "code": "ac-production-context",
+      "label": "中国历史生产背景",
+      "order": 7,
+      "description": "中国历史生产背景；期间与适用范围见逐条来源。",
+      "sourceIds": [
+        "source-home-ac-iea"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1"
+    },
+    {
+      "id": "ac-related-trade",
+      "code": "ac-related-trade",
+      "label": "相关成品出口",
+      "order": 8,
+      "description": "相关成品出口；期间与适用范围见逐条来源。",
+      "sourceIds": [
+        "source-home-ac-trade"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1"
+    }
+  ],
+  "productionActivities": [
+    {
+      "id": "home-ac-production-context-cn",
+      "locationEntityId": "country-cn",
+      "processStageId": "ac-production-context",
+      "inputItemIds": [],
+      "outputItemIds": [
+        "generic-home-air-conditioner"
+      ],
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-iea"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2017-01-01",
+        "end": "2017-12-31",
+        "label": "2017统计背景 · IEA2019报告"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-china-role"
+      ],
+      "evidenceLevel": "role_supported",
+      "notes": "仅为中国历史生产角色；没有工厂、部件投入或产量记录。"
+    }
+  ],
+  "classificationCodes": [
+    {
+      "id": "home-ac-hs2022-841510",
+      "system": "HS",
+      "version": "2022",
+      "code": "841510",
+      "level": 6,
+      "label": "841510 - Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or 'split-system'",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "label": "2024"
+      },
+      "sourceIds": [
+        "source-home-ac-hs"
+      ],
+      "method": "official",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1"
+    },
+    {
+      "id": "home-ac-hs2022-841582",
+      "system": "HS",
+      "version": "2022",
+      "code": "841582",
+      "level": 6,
+      "label": "841582 - Air conditioning machines; containing a motor driven fan, other than window or wall types, incorporating a refrigerating unit",
+      "validPeriod": {
+        "granularity": "annual",
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "label": "2024"
+      },
+      "sourceIds": [
+        "source-home-ac-hs"
+      ],
+      "method": "official",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1"
+    }
+  ],
+  "classificationCrosswalks": [
+    {
+      "id": "home-ac-crosswalk-product-841510",
+      "itemId": "generic-home-air-conditioner",
+      "classificationCodeId": "home-ac-hs2022-841510",
+      "mappingType": "aggregate",
+      "confidence": null,
+      "notes": "家用房间空调内容的相关成品统计入口；官方分类范围更宽。",
+      "limitation": "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+      "period": {
+        "granularity": "annual",
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "label": "2024"
+      },
+      "sourceIds": [
+        "source-home-ac-hs",
+        "source-home-ac-curation"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1"
+    },
+    {
+      "id": "home-ac-crosswalk-category-841510",
+      "itemId": "ac-related-hs841510",
+      "classificationCodeId": "home-ac-hs2022-841510",
+      "mappingType": "exact",
+      "confidence": null,
+      "notes": "841510 - Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or 'split-system'",
+      "limitation": "仅此显式HS范围条目与分类精确对应；不把精确映射传播到家用空调商品。",
+      "period": {
+        "granularity": "annual",
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "label": "2024"
+      },
+      "sourceIds": [
+        "source-home-ac-hs"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1"
+    },
+    {
+      "id": "home-ac-crosswalk-product-841582",
+      "itemId": "generic-home-air-conditioner",
+      "classificationCodeId": "home-ac-hs2022-841582",
+      "mappingType": "aggregate",
+      "confidence": null,
+      "notes": "家用房间空调内容的相关成品统计入口；官方分类范围更宽。",
+      "limitation": "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+      "period": {
+        "granularity": "annual",
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "label": "2024"
+      },
+      "sourceIds": [
+        "source-home-ac-hs",
+        "source-home-ac-curation"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1"
+    },
+    {
+      "id": "home-ac-crosswalk-category-841582",
+      "itemId": "ac-related-hs841582",
+      "classificationCodeId": "home-ac-hs2022-841582",
+      "mappingType": "exact",
+      "confidence": null,
+      "notes": "841582 - Air conditioning machines; containing a motor driven fan, other than window or wall types, incorporating a refrigerating unit",
+      "limitation": "仅此显式HS范围条目与分类精确对应；不把精确映射传播到家用空调商品。",
+      "period": {
+        "granularity": "annual",
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "label": "2024"
+      },
+      "sourceIds": [
+        "source-home-ac-hs"
+      ],
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1"
+    }
+  ],
+  "storyGraph": {
+    "productId": "generic-home-air-conditioner",
+    "period": {
+      "granularity": "annual",
+      "start": "1997-01-01",
+      "end": "2024-12-31",
+      "label": "1997技术参考 / 2017生产背景 / 2024贸易"
+    },
+    "method": "curated",
+    "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+    "contentVersionId": "content-home-air-conditioner-2026-1",
+    "representativeStatement": "以房间空调的部件和制造结构为主线，另列中国生产背景与相关成品出口；这些分支不对应同一台设备、工厂或批次。",
+    "methodology": [
+      "1997年DOE历史技术资料支持部件、制造输入输出及功能设备；技术节点不附会到当代中国工厂。",
+      "IEA的2017统计背景仅作中国历史生产角色，具体生产份额不在本批发布。",
+      "2024年海关记录独立展示中国至美国、德国的两类相关成品贸易；分类范围不等于单款家用机型。",
+      "结构连接不设置物流金额、数量或份额；直接双边线保留具体HS范围。"
+    ],
+    "limitations": [
+      "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+      "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+      "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+      "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+      "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。",
+      "本商品未发布税率、许可或进出口手续；未收录不代表零税或无需许可。"
+    ],
+    "nodes": [
+      {
+        "id": "home-ac-node-generic-home-air-conditioner",
+        "nodeType": "process",
+        "label": "家用房间空调",
+        "entityId": null,
+        "itemId": "generic-home-air-conditioner",
+        "itemType": "final_product",
+        "processStageId": "ac-charge-test-pack",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-compressor",
+        "nodeType": "item",
+        "label": "压缩机",
+        "entityId": null,
+        "itemId": "ac-compressor",
+        "itemType": "component",
+        "processStageId": "ac-materials",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-heat-exchanger",
+        "nodeType": "process",
+        "label": "换热器",
+        "entityId": null,
+        "itemId": "ac-heat-exchanger",
+        "itemType": "component",
+        "processStageId": "ac-exchanger",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-fan-motor",
+        "nodeType": "item",
+        "label": "风机与电机",
+        "entityId": null,
+        "itemId": "ac-fan-motor",
+        "itemType": "component",
+        "processStageId": "ac-materials",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-controller",
+        "nodeType": "item",
+        "label": "控制器",
+        "entityId": null,
+        "itemId": "ac-controller",
+        "itemType": "component",
+        "processStageId": "ac-materials",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-valves",
+        "nodeType": "item",
+        "label": "阀件",
+        "entityId": null,
+        "itemId": "ac-valves",
+        "itemType": "component",
+        "processStageId": "ac-materials",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-refrigerant",
+        "nodeType": "item",
+        "label": "制冷剂",
+        "entityId": null,
+        "itemId": "ac-refrigerant",
+        "itemType": "material",
+        "processStageId": "ac-materials",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-housing",
+        "nodeType": "process",
+        "label": "机壳与格栅",
+        "entityId": null,
+        "itemId": "ac-housing",
+        "itemType": "component",
+        "processStageId": "ac-cabinet",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-packaging",
+        "nodeType": "item",
+        "label": "包装材料",
+        "entityId": null,
+        "itemId": "ac-packaging",
+        "itemType": "material",
+        "processStageId": "ac-materials",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-copper-tube",
+        "nodeType": "item",
+        "label": "铜管",
+        "entityId": null,
+        "itemId": "ac-copper-tube",
+        "itemType": "material",
+        "processStageId": "ac-materials",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-aluminium-sheet",
+        "nodeType": "item",
+        "label": "铝片/卷材",
+        "entityId": null,
+        "itemId": "ac-aluminium-sheet",
+        "itemType": "material",
+        "processStageId": "ac-materials",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-return-bends",
+        "nodeType": "item",
+        "label": "回弯管",
+        "entityId": null,
+        "itemId": "ac-return-bends",
+        "itemType": "component",
+        "processStageId": "ac-materials",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-sheet-metal",
+        "nodeType": "item",
+        "label": "钣金板材",
+        "entityId": null,
+        "itemId": "ac-sheet-metal",
+        "itemType": "material",
+        "processStageId": "ac-materials",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-plastic-grille",
+        "nodeType": "item",
+        "label": "塑料前格栅件",
+        "entityId": null,
+        "itemId": "ac-plastic-grille",
+        "itemType": "component",
+        "processStageId": "ac-materials",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-aluminium-fins",
+        "nodeType": "process",
+        "label": "冲孔叠片的铝翅片",
+        "entityId": null,
+        "itemId": "ac-aluminium-fins",
+        "itemType": "component",
+        "processStageId": "ac-exchanger",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-threaded-exchanger",
+        "nodeType": "process",
+        "label": "穿管换热器半成品",
+        "entityId": null,
+        "itemId": "ac-threaded-exchanger",
+        "itemType": "component",
+        "processStageId": "ac-exchanger",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-brazed-exchanger",
+        "nodeType": "process",
+        "label": "扩管钎焊后的换热器",
+        "entityId": null,
+        "itemId": "ac-brazed-exchanger",
+        "itemType": "component",
+        "processStageId": "ac-exchanger",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-subassembly",
+        "nodeType": "process",
+        "label": "功能部件子总成",
+        "entityId": null,
+        "itemId": "ac-subassembly",
+        "itemType": "component",
+        "processStageId": "ac-subassembly",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-uncharged-unit",
+        "nodeType": "process",
+        "label": "未充注的空调整机",
+        "entityId": null,
+        "itemId": "ac-uncharged-unit",
+        "itemType": "component",
+        "processStageId": "ac-assembly",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-node-ac-charged-unit",
+        "nodeType": "process",
+        "label": "充注后的空调整机",
+        "entityId": null,
+        "itemId": "ac-charged-unit",
+        "itemType": "component",
+        "processStageId": "ac-charge-test-pack",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "notes": "1997年历史工艺中的功能投入或产出；不指定国家、工厂、单机用量或物流。"
+      },
+      {
+        "id": "home-ac-cn-role",
+        "nodeType": "entity",
+        "label": "中国 · 历史生产背景",
+        "entityId": "country-cn",
+        "itemId": "generic-home-air-conditioner",
+        "itemType": "final_product",
+        "processStageId": "ac-production-context",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-iea"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "2017-01-01",
+          "end": "2017-12-31",
+          "label": "2017统计背景 · IEA2019报告"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-china-role"
+        ],
+        "evidenceLevel": "role_supported",
+        "notes": "2017统计背景（IEA2019报告）；不是当前产量或份额。"
+      },
+      {
+        "id": "home-ac-export-841510",
+        "nodeType": "market",
+        "label": "中国 · HS841510相关成品出口",
+        "entityId": "country-cn",
+        "itemId": "ac-related-hs841510",
+        "itemType": "component",
+        "processStageId": "ac-related-trade",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-trade"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-market-841510-276-X-2024"
+        ],
+        "evidenceLevel": "role_supported",
+        "notes": "2024年相关成品贸易；不等于某款家用机型产量或销量。"
+      },
+      {
+        "id": "home-ac-market-841510-276",
+        "nodeType": "market",
+        "label": "德国 · HS841510贸易目的地",
+        "entityId": "country-de",
+        "itemId": "ac-related-hs841510",
+        "itemType": "component",
+        "processStageId": "ac-related-trade",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-trade"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-market-841510-276-X-2024"
+        ],
+        "evidenceLevel": "role_supported",
+        "notes": "中国报告的具体伙伴目的地；不推断零售或最终使用。"
+      },
+      {
+        "id": "home-ac-market-841510-842",
+        "nodeType": "market",
+        "label": "美国 · HS841510贸易目的地",
+        "entityId": "country-us",
+        "itemId": "ac-related-hs841510",
+        "itemType": "component",
+        "processStageId": "ac-related-trade",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-trade"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-market-841510-842-X-2024"
+        ],
+        "evidenceLevel": "role_supported",
+        "notes": "中国报告的具体伙伴目的地；不推断零售或最终使用。"
+      },
+      {
+        "id": "home-ac-export-841582",
+        "nodeType": "market",
+        "label": "中国 · HS841582相关成品出口",
+        "entityId": "country-cn",
+        "itemId": "ac-related-hs841582",
+        "itemType": "component",
+        "processStageId": "ac-related-trade",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-trade"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-market-841582-276-X-2024"
+        ],
+        "evidenceLevel": "role_supported",
+        "notes": "2024年相关成品贸易；不等于某款家用机型产量或销量。"
+      },
+      {
+        "id": "home-ac-market-841582-276",
+        "nodeType": "market",
+        "label": "德国 · HS841582贸易目的地",
+        "entityId": "country-de",
+        "itemId": "ac-related-hs841582",
+        "itemType": "component",
+        "processStageId": "ac-related-trade",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-trade"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-market-841582-276-X-2024"
+        ],
+        "evidenceLevel": "role_supported",
+        "notes": "中国报告的具体伙伴目的地；不推断零售或最终使用。"
+      },
+      {
+        "id": "home-ac-market-841582-842",
+        "nodeType": "market",
+        "label": "美国 · HS841582贸易目的地",
+        "entityId": "country-us",
+        "itemId": "ac-related-hs841582",
+        "itemType": "component",
+        "processStageId": "ac-related-trade",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-trade"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "dataStatus": "observed",
+        "evidenceIds": [
+          "evidence-home-ac-market-841582-842-X-2024"
+        ],
+        "evidenceLevel": "role_supported",
+        "notes": "中国报告的具体伙伴目的地；不推断零售或最终使用。"
+      }
+    ],
+    "flows": [
+      {
+        "id": "home-ac-flow-cabinet-1",
+        "fromEntityId": "home-ac-node-ac-sheet-metal",
+        "toEntityId": "home-ac-node-ac-housing",
+        "itemId": "ac-sheet-metal",
+        "processStageId": "ac-cabinet",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-cabinet-2",
+        "fromEntityId": "home-ac-node-ac-plastic-grille",
+        "toEntityId": "home-ac-node-ac-housing",
+        "itemId": "ac-plastic-grille",
+        "processStageId": "ac-cabinet",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-fins-1",
+        "fromEntityId": "home-ac-node-ac-aluminium-sheet",
+        "toEntityId": "home-ac-node-ac-aluminium-fins",
+        "itemId": "ac-aluminium-sheet",
+        "processStageId": "ac-exchanger",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-thread-1",
+        "fromEntityId": "home-ac-node-ac-copper-tube",
+        "toEntityId": "home-ac-node-ac-threaded-exchanger",
+        "itemId": "ac-copper-tube",
+        "processStageId": "ac-exchanger",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-thread-2",
+        "fromEntityId": "home-ac-node-ac-aluminium-fins",
+        "toEntityId": "home-ac-node-ac-threaded-exchanger",
+        "itemId": "ac-aluminium-fins",
+        "processStageId": "ac-exchanger",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-braze-1",
+        "fromEntityId": "home-ac-node-ac-threaded-exchanger",
+        "toEntityId": "home-ac-node-ac-brazed-exchanger",
+        "itemId": "ac-threaded-exchanger",
+        "processStageId": "ac-exchanger",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-braze-2",
+        "fromEntityId": "home-ac-node-ac-return-bends",
+        "toEntityId": "home-ac-node-ac-brazed-exchanger",
+        "itemId": "ac-return-bends",
+        "processStageId": "ac-exchanger",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-exchanger-leak-1",
+        "fromEntityId": "home-ac-node-ac-brazed-exchanger",
+        "toEntityId": "home-ac-node-ac-heat-exchanger",
+        "itemId": "ac-brazed-exchanger",
+        "processStageId": "ac-exchanger",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-subassembly-1",
+        "fromEntityId": "home-ac-node-ac-compressor",
+        "toEntityId": "home-ac-node-ac-subassembly",
+        "itemId": "ac-compressor",
+        "processStageId": "ac-subassembly",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-subassembly-2",
+        "fromEntityId": "home-ac-node-ac-fan-motor",
+        "toEntityId": "home-ac-node-ac-subassembly",
+        "itemId": "ac-fan-motor",
+        "processStageId": "ac-subassembly",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-subassembly-3",
+        "fromEntityId": "home-ac-node-ac-valves",
+        "toEntityId": "home-ac-node-ac-subassembly",
+        "itemId": "ac-valves",
+        "processStageId": "ac-subassembly",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-subassembly-4",
+        "fromEntityId": "home-ac-node-ac-controller",
+        "toEntityId": "home-ac-node-ac-subassembly",
+        "itemId": "ac-controller",
+        "processStageId": "ac-subassembly",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-assembly-1",
+        "fromEntityId": "home-ac-node-ac-housing",
+        "toEntityId": "home-ac-node-ac-uncharged-unit",
+        "itemId": "ac-housing",
+        "processStageId": "ac-assembly",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-assembly-2",
+        "fromEntityId": "home-ac-node-ac-heat-exchanger",
+        "toEntityId": "home-ac-node-ac-uncharged-unit",
+        "itemId": "ac-heat-exchanger",
+        "processStageId": "ac-assembly",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-assembly-3",
+        "fromEntityId": "home-ac-node-ac-subassembly",
+        "toEntityId": "home-ac-node-ac-uncharged-unit",
+        "itemId": "ac-subassembly",
+        "processStageId": "ac-assembly",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-charge-1",
+        "fromEntityId": "home-ac-node-ac-uncharged-unit",
+        "toEntityId": "home-ac-node-ac-charged-unit",
+        "itemId": "ac-uncharged-unit",
+        "processStageId": "ac-charge-test-pack",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-charge-2",
+        "fromEntityId": "home-ac-node-ac-refrigerant",
+        "toEntityId": "home-ac-node-ac-charged-unit",
+        "itemId": "ac-refrigerant",
+        "processStageId": "ac-charge-test-pack",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-test-pack-1",
+        "fromEntityId": "home-ac-node-ac-charged-unit",
+        "toEntityId": "home-ac-node-generic-home-air-conditioner",
+        "itemId": "ac-charged-unit",
+        "processStageId": "ac-charge-test-pack",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-flow-test-pack-2",
+        "fromEntityId": "home-ac-node-ac-packaging",
+        "toEntityId": "home-ac-node-generic-home-air-conditioner",
+        "itemId": "ac-packaging",
+        "processStageId": "ac-charge-test-pack",
+        "relationType": "input",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation",
+          "source-home-ac-doe"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "1997-12-31",
+          "label": "1997 · 历史技术参考"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "有来源的制造结构关系；数值未知，不表示观测物流或固定用量。"
+      },
+      {
+        "id": "home-ac-context-history",
+        "fromEntityId": "home-ac-node-generic-home-air-conditioner",
+        "toEntityId": "home-ac-cn-role",
+        "itemId": "generic-home-air-conditioner",
+        "processStageId": "ac-production-context",
+        "relationType": "dependency",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "2024-12-31",
+          "label": "1997技术参考 / 2017生产背景 / 2024贸易"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "跨期研究索引：历史技术与中国生产背景并列；不主张1997年工艺在中国工厂应用或同一台设备的谱系。"
+      },
+      {
+        "id": "home-ac-context-841510",
+        "fromEntityId": "home-ac-node-generic-home-air-conditioner",
+        "toEntityId": "home-ac-export-841510",
+        "itemId": "ac-related-hs841510",
+        "processStageId": "ac-related-trade",
+        "relationType": "dependency",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "2024-12-31",
+          "label": "1997技术参考 / 2017生产背景 / 2024贸易"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "跨期分类索引：历史制造结构与2024相关成品贸易分别有来源；不证明同一工厂或批次，不转移份额或货量。"
+      },
+      {
+        "id": "home-ac-bilateral-841510-276-X-2024",
+        "fromEntityId": "home-ac-export-841510",
+        "toEntityId": "home-ac-market-841510-276",
+        "itemId": "ac-related-hs841510",
+        "processStageId": "ac-related-trade",
+        "relationType": "trade",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-trade"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-bilateral-841510-276-X-2024"
+        ],
+        "evidenceLevel": "bilateral_supported",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "直接统计支持的HS841510双边方向；具体FOB金额、件数和净重见独立海关观察home-ac-trade-841510-276-X-2024。路线数值不代替统计账本。"
+      },
+      {
+        "id": "home-ac-bilateral-841510-842-X-2024",
+        "fromEntityId": "home-ac-export-841510",
+        "toEntityId": "home-ac-market-841510-842",
+        "itemId": "ac-related-hs841510",
+        "processStageId": "ac-related-trade",
+        "relationType": "trade",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-trade"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-bilateral-841510-842-X-2024"
+        ],
+        "evidenceLevel": "bilateral_supported",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "直接统计支持的HS841510双边方向；具体FOB金额、件数和净重见独立海关观察home-ac-trade-841510-842-X-2024。路线数值不代替统计账本。"
+      },
+      {
+        "id": "home-ac-context-841582",
+        "fromEntityId": "home-ac-node-generic-home-air-conditioner",
+        "toEntityId": "home-ac-export-841582",
+        "itemId": "ac-related-hs841582",
+        "processStageId": "ac-related-trade",
+        "relationType": "dependency",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-curation"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "1997-01-01",
+          "end": "2024-12-31",
+          "label": "1997技术参考 / 2017生产背景 / 2024贸易"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-curation"
+        ],
+        "evidenceLevel": "representative",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "跨期分类索引：历史制造结构与2024相关成品贸易分别有来源；不证明同一工厂或批次，不转移份额或货量。"
+      },
+      {
+        "id": "home-ac-bilateral-841582-276-X-2024",
+        "fromEntityId": "home-ac-export-841582",
+        "toEntityId": "home-ac-market-841582-276",
+        "itemId": "ac-related-hs841582",
+        "processStageId": "ac-related-trade",
+        "relationType": "trade",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-trade"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-bilateral-841582-276-X-2024"
+        ],
+        "evidenceLevel": "bilateral_supported",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "直接统计支持的HS841582双边方向；具体FOB金额、件数和净重见独立海关观察home-ac-trade-841582-276-X-2024。路线数值不代替统计账本。"
+      },
+      {
+        "id": "home-ac-bilateral-841582-842-X-2024",
+        "fromEntityId": "home-ac-export-841582",
+        "toEntityId": "home-ac-market-841582-842",
+        "itemId": "ac-related-hs841582",
+        "processStageId": "ac-related-trade",
+        "relationType": "trade",
+        "flowKind": "representative_supply",
+        "method": "curated",
+        "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+        "contentVersionId": "content-home-air-conditioner-2026-1",
+        "sourceIds": [
+          "source-home-ac-trade"
+        ],
+        "period": {
+          "granularity": "annual",
+          "start": "2024-01-01",
+          "end": "2024-12-31",
+          "label": "2024"
+        },
+        "dataStatus": "unknown",
+        "evidenceIds": [
+          "evidence-home-ac-bilateral-841582-842-X-2024"
+        ],
+        "evidenceLevel": "bilateral_supported",
+        "value": null,
+        "quantity": null,
+        "currency": null,
+        "unit": null,
+        "valueDataStatus": "unknown",
+        "quantityDataStatus": "unknown",
+        "confidence": null,
+        "notes": "直接统计支持的HS841582双边方向；具体FOB金额、件数和净重见独立海关观察home-ac-trade-841582-842-X-2024。路线数值不代替统计账本。"
+      }
+    ],
+    "steps": [
+      {
+        "id": "home-ac-branch-housing",
+        "order": 1,
+        "title": "机壳支线",
+        "description": "钣金和塑料格栅形成外壳，随后进入整机总装。",
+        "nodeIds": [
+          "home-ac-node-ac-sheet-metal",
+          "home-ac-node-ac-plastic-grille",
+          "home-ac-node-ac-housing"
+        ],
+        "flowIds": [
+          "home-ac-flow-cabinet-1",
+          "home-ac-flow-cabinet-2"
+        ],
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "method": "curated",
+        "contentStatus": "published",
+        "contentVersionId": "content-home-air-conditioner-2026-1"
+      },
+      {
+        "id": "home-ac-branch-exchanger",
+        "order": 2,
+        "title": "铜管与铝翅片支线",
+        "description": "铝翅片冲压叠片、铜管穿片、扩管钎焊后检漏；用量和材料产国未知。",
+        "nodeIds": [
+          "home-ac-node-ac-aluminium-sheet",
+          "home-ac-node-ac-aluminium-fins",
+          "home-ac-node-ac-copper-tube",
+          "home-ac-node-ac-threaded-exchanger",
+          "home-ac-node-ac-return-bends",
+          "home-ac-node-ac-brazed-exchanger",
+          "home-ac-node-ac-heat-exchanger"
+        ],
+        "flowIds": [
+          "home-ac-flow-fins-1",
+          "home-ac-flow-thread-1",
+          "home-ac-flow-thread-2",
+          "home-ac-flow-braze-1",
+          "home-ac-flow-braze-2",
+          "home-ac-flow-exchanger-leak-1"
+        ],
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "method": "curated",
+        "contentStatus": "published",
+        "contentVersionId": "content-home-air-conditioner-2026-1"
+      },
+      {
+        "id": "home-ac-branch-components",
+        "order": 3,
+        "title": "功能部件支线",
+        "description": "压缩机、风机、电控与阀件进入子装配；无厂商客户关系。",
+        "nodeIds": [
+          "home-ac-node-ac-compressor",
+          "home-ac-node-ac-fan-motor",
+          "home-ac-node-ac-valves",
+          "home-ac-node-ac-controller",
+          "home-ac-node-ac-subassembly"
+        ],
+        "flowIds": [
+          "home-ac-flow-subassembly-1",
+          "home-ac-flow-subassembly-2",
+          "home-ac-flow-subassembly-3",
+          "home-ac-flow-subassembly-4"
+        ],
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "method": "curated",
+        "contentStatus": "published",
+        "contentVersionId": "content-home-air-conditioner-2026-1"
+      },
+      {
+        "id": "home-ac-branch-assembly",
+        "order": 4,
+        "title": "总装、充注与包装",
+        "description": "三条投入支线汇合，充注后整机检漏、包装和标识。",
+        "nodeIds": [
+          "home-ac-node-ac-housing",
+          "home-ac-node-ac-heat-exchanger",
+          "home-ac-node-ac-subassembly",
+          "home-ac-node-ac-uncharged-unit",
+          "home-ac-node-ac-refrigerant",
+          "home-ac-node-ac-charged-unit",
+          "home-ac-node-ac-packaging",
+          "home-ac-node-generic-home-air-conditioner"
+        ],
+        "flowIds": [
+          "home-ac-flow-assembly-1",
+          "home-ac-flow-assembly-2",
+          "home-ac-flow-assembly-3",
+          "home-ac-flow-charge-1",
+          "home-ac-flow-charge-2",
+          "home-ac-flow-test-pack-1",
+          "home-ac-flow-test-pack-2"
+        ],
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-process"
+        ],
+        "method": "curated",
+        "contentStatus": "published",
+        "contentVersionId": "content-home-air-conditioner-2026-1"
+      },
+      {
+        "id": "home-ac-branch-markets",
+        "order": 5,
+        "title": "生产背景与两个出口市场",
+        "description": "中国历史生产背景与2024年两类相关成品出口分开阅读；德国、美国为中国报告的伙伴目的地。",
+        "nodeIds": [
+          "home-ac-node-generic-home-air-conditioner",
+          "home-ac-cn-role",
+          "home-ac-export-841510",
+          "home-ac-market-841510-276",
+          "home-ac-market-841510-842",
+          "home-ac-export-841582",
+          "home-ac-market-841582-276",
+          "home-ac-market-841582-842"
+        ],
+        "flowIds": [
+          "home-ac-context-history",
+          "home-ac-context-841510",
+          "home-ac-bilateral-841510-276-X-2024",
+          "home-ac-bilateral-841510-842-X-2024",
+          "home-ac-context-841582",
+          "home-ac-bilateral-841582-276-X-2024",
+          "home-ac-bilateral-841582-842-X-2024"
+        ],
+        "evidenceIds": [
+          "evidence-home-ac-curation",
+          "evidence-home-ac-china-role",
+          "evidence-home-ac-bilateral-841510-276-X-2024",
+          "evidence-home-ac-market-841510-276-X-2024",
+          "evidence-home-ac-bilateral-841510-842-X-2024",
+          "evidence-home-ac-market-841510-842-X-2024",
+          "evidence-home-ac-bilateral-841582-276-X-2024",
+          "evidence-home-ac-market-841582-276-X-2024",
+          "evidence-home-ac-bilateral-841582-842-X-2024",
+          "evidence-home-ac-market-841582-842-X-2024"
+        ],
+        "method": "curated",
+        "contentStatus": "published",
+        "contentVersionId": "content-home-air-conditioner-2026-1"
+      }
+    ],
+    "warnings": []
+  },
+  "tradeObservations": [
+    {
+      "id": "home-ac-trade-841510-276-X-2024",
+      "reporterEntityId": "country-cn",
+      "reporterCode": 156,
+      "partnerEntityId": "country-de",
+      "partnerCode": 276,
+      "partner2Code": 0,
+      "flowCode": "X",
+      "partnerScope": "entity",
+      "direction": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "841510",
+      "itemId": "generic-home-air-conditioner",
+      "period": {
+        "granularity": "annual",
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "label": "2024"
+      },
+      "value": 17426885,
+      "quantity": 89446,
+      "currency": "USD",
+      "unit": "items",
+      "statisticalConcept": "customs",
+      "sourceId": "source-home-ac-trade",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "method": "official",
+      "dataStatus": "observed",
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 0,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": false,
+        "isReported": true,
+        "isAggregate": false,
+        "sourceDatasetCode": "H6",
+        "sourcePublicationDate": null,
+        "sourceRevision": null
+      },
+      "qualityNote": "相关成品宽口径HS841510，不是某款家用空调销量。出口FOB现价USD；数量码5由官方字典确认为items；净重kg另存，不能替换件数。无世界总计混入。raw=data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json; SHA-256=52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046; original={\"classificationCode\":\"H6\",\"isOriginalClassification\":true,\"qtyUnitCode\":5,\"qtyUnitAbbr\":null,\"altQtyUnitCode\":5,\"altQty\":89446,\"isAltQtyEstimated\":false,\"netWgt\":2753704,\"isNetWgtEstimated\":false,\"grossWgt\":0,\"isGrossWgtEstimated\":false,\"cifvalue\":null,\"fobvalue\":17426885,\"partner2Code\":0,\"motCode\":0,\"customsCode\":\"C00\"}"
+    },
+    {
+      "id": "home-ac-trade-841510-842-X-2024",
+      "reporterEntityId": "country-cn",
+      "reporterCode": 156,
+      "partnerEntityId": "country-us",
+      "partnerCode": 842,
+      "partner2Code": 0,
+      "flowCode": "X",
+      "partnerScope": "entity",
+      "direction": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "841510",
+      "itemId": "generic-home-air-conditioner",
+      "period": {
+        "granularity": "annual",
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "label": "2024"
+      },
+      "value": 626939504,
+      "quantity": 4319532,
+      "currency": "USD",
+      "unit": "items",
+      "statisticalConcept": "customs",
+      "sourceId": "source-home-ac-trade",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "method": "official",
+      "dataStatus": "observed",
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 0,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": false,
+        "isReported": true,
+        "isAggregate": false,
+        "sourceDatasetCode": "H6",
+        "sourcePublicationDate": null,
+        "sourceRevision": null
+      },
+      "qualityNote": "相关成品宽口径HS841510，不是某款家用空调销量。出口FOB现价USD；数量码5由官方字典确认为items；净重kg另存，不能替换件数。无世界总计混入。raw=data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json; SHA-256=52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046; original={\"classificationCode\":\"H6\",\"isOriginalClassification\":true,\"qtyUnitCode\":5,\"qtyUnitAbbr\":null,\"altQtyUnitCode\":5,\"altQty\":4319532,\"isAltQtyEstimated\":false,\"netWgt\":123416132,\"isNetWgtEstimated\":false,\"grossWgt\":0,\"isGrossWgtEstimated\":false,\"cifvalue\":null,\"fobvalue\":626939504,\"partner2Code\":0,\"motCode\":0,\"customsCode\":\"C00\"}"
+    },
+    {
+      "id": "home-ac-trade-841582-276-X-2024",
+      "reporterEntityId": "country-cn",
+      "reporterCode": 156,
+      "partnerEntityId": "country-de",
+      "partnerCode": 276,
+      "partner2Code": 0,
+      "flowCode": "X",
+      "partnerScope": "entity",
+      "direction": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "841582",
+      "itemId": "generic-home-air-conditioner",
+      "period": {
+        "granularity": "annual",
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "label": "2024"
+      },
+      "value": 26652062,
+      "quantity": 170565,
+      "currency": "USD",
+      "unit": "items",
+      "statisticalConcept": "customs",
+      "sourceId": "source-home-ac-trade",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "method": "official",
+      "dataStatus": "observed",
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 0,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": false,
+        "isReported": true,
+        "isAggregate": false,
+        "sourceDatasetCode": "H6",
+        "sourcePublicationDate": null,
+        "sourceRevision": null
+      },
+      "qualityNote": "相关成品宽口径HS841582，不是某款家用空调销量。出口FOB现价USD；数量码5由官方字典确认为items；净重kg另存，不能替换件数。无世界总计混入。raw=data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json; SHA-256=52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046; original={\"classificationCode\":\"H6\",\"isOriginalClassification\":true,\"qtyUnitCode\":5,\"qtyUnitAbbr\":null,\"altQtyUnitCode\":5,\"altQty\":170565,\"isAltQtyEstimated\":false,\"netWgt\":4564264,\"isNetWgtEstimated\":false,\"grossWgt\":0,\"isGrossWgtEstimated\":false,\"cifvalue\":null,\"fobvalue\":26652062,\"partner2Code\":0,\"motCode\":0,\"customsCode\":\"C00\"}"
+    },
+    {
+      "id": "home-ac-trade-841582-842-X-2024",
+      "reporterEntityId": "country-cn",
+      "reporterCode": 156,
+      "partnerEntityId": "country-us",
+      "partnerCode": 842,
+      "partner2Code": 0,
+      "flowCode": "X",
+      "partnerScope": "entity",
+      "direction": "export",
+      "classificationSystem": "HS",
+      "classificationVersion": "2022",
+      "classificationCode": "841582",
+      "itemId": "generic-home-air-conditioner",
+      "period": {
+        "granularity": "annual",
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "label": "2024"
+      },
+      "value": 272353521,
+      "quantity": 1823122,
+      "currency": "USD",
+      "unit": "items",
+      "statisticalConcept": "customs",
+      "sourceId": "source-home-ac-trade",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "method": "official",
+      "dataStatus": "observed",
+      "valueDataStatus": "observed",
+      "quantityDataStatus": "observed",
+      "quality": {
+        "legacyEstimationFlag": 0,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": false,
+        "isReported": true,
+        "isAggregate": false,
+        "sourceDatasetCode": "H6",
+        "sourcePublicationDate": null,
+        "sourceRevision": null
+      },
+      "qualityNote": "相关成品宽口径HS841582，不是某款家用空调销量。出口FOB现价USD；数量码5由官方字典确认为items；净重kg另存，不能替换件数。无世界总计混入。raw=data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json; SHA-256=52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046; original={\"classificationCode\":\"H6\",\"isOriginalClassification\":true,\"qtyUnitCode\":5,\"qtyUnitAbbr\":null,\"altQtyUnitCode\":5,\"altQty\":1823122,\"isAltQtyEstimated\":false,\"netWgt\":52047232,\"isNetWgtEstimated\":false,\"grossWgt\":0,\"isGrossWgtEstimated\":false,\"cifvalue\":null,\"fobvalue\":272353521,\"partner2Code\":0,\"motCode\":0,\"customsCode\":\"C00\"}"
+    }
+  ],
+  "materialTradeObservations": [],
+  "macroIndicators": [],
+  "indicatorDefinitions": [],
+  "manufacturingProcessChains": [
+    {
+      "id": "home-ac-room-manufacturing-chain",
+      "itemId": "generic-home-air-conditioner",
+      "title": "房间空调的制造与装配",
+      "description": "机壳、换热器与功能部件三条投入支线汇入总装，再经过充注、检漏和包装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    }
+  ],
+  "manufacturingRouteVariants": [],
+  "manufacturingProcessSteps": [
+    {
+      "id": "home-ac-step-cabinet",
+      "processChainId": "home-ac-room-manufacturing-chain",
+      "order": 1,
+      "name": "机壳制作",
+      "phase": "机壳支线",
+      "inputItemIds": [
+        "ac-sheet-metal",
+        "ac-plastic-grille"
+      ],
+      "outputItemIds": [
+        "ac-housing"
+      ],
+      "description": "钣金裁切、折弯和冲压成形，与塑料前格栅形成机壳；塑料件可外购或厂内成型。",
+      "routeVariantIds": [],
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-step-fins",
+      "processChainId": "home-ac-room-manufacturing-chain",
+      "order": 2,
+      "name": "铝翅片冲压穿孔与叠片",
+      "phase": "换热器支线",
+      "inputItemIds": [
+        "ac-aluminium-sheet"
+      ],
+      "outputItemIds": [
+        "ac-aluminium-fins"
+      ],
+      "description": "从铝卷材裁片，冲出翅片图形和管孔，并通过模具叠片。",
+      "routeVariantIds": [],
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-step-thread",
+      "processChainId": "home-ac-room-manufacturing-chain",
+      "order": 3,
+      "name": "铜管裁切与穿片",
+      "phase": "换热器支线",
+      "inputItemIds": [
+        "ac-copper-tube",
+        "ac-aluminium-fins"
+      ],
+      "outputItemIds": [
+        "ac-threaded-exchanger"
+      ],
+      "description": "裁切铜管并穿入铝翅片叠层，形成换热器半成品。",
+      "routeVariantIds": [],
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-step-braze",
+      "processChainId": "home-ac-room-manufacturing-chain",
+      "order": 4,
+      "name": "扩管与回弯管钎焊",
+      "phase": "换热器支线",
+      "inputItemIds": [
+        "ac-threaded-exchanger",
+        "ac-return-bends"
+      ],
+      "outputItemIds": [
+        "ac-brazed-exchanger"
+      ],
+      "description": "机械扩胀铜管，使其与翅片接触，再把回弯管钎焊在管端。",
+      "routeVariantIds": [],
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-step-exchanger-leak",
+      "processChainId": "home-ac-room-manufacturing-chain",
+      "order": 5,
+      "name": "换热器检漏",
+      "phase": "换热器支线",
+      "inputItemIds": [
+        "ac-brazed-exchanger"
+      ],
+      "outputItemIds": [
+        "ac-heat-exchanger"
+      ],
+      "description": "完成的换热器先检漏，再进入装配线。",
+      "routeVariantIds": [],
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-step-subassembly",
+      "processChainId": "home-ac-room-manufacturing-chain",
+      "order": 6,
+      "name": "功能部件子装配",
+      "phase": "部件支线",
+      "inputItemIds": [
+        "ac-compressor",
+        "ac-fan-motor",
+        "ac-valves",
+        "ac-controller"
+      ],
+      "outputItemIds": [
+        "ac-subassembly"
+      ],
+      "description": "将压缩机、风机、阀件与控制器组合为子总成。",
+      "routeVariantIds": [],
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-step-assembly",
+      "processChainId": "home-ac-room-manufacturing-chain",
+      "order": 7,
+      "name": "整机总装",
+      "phase": "整机形成",
+      "inputItemIds": [
+        "ac-housing",
+        "ac-heat-exchanger",
+        "ac-subassembly"
+      ],
+      "outputItemIds": [
+        "ac-uncharged-unit"
+      ],
+      "description": "将机壳、检漏后的换热器及功能子总成装配为整机。",
+      "routeVariantIds": [],
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-step-charge",
+      "processChainId": "home-ac-room-manufacturing-chain",
+      "order": 8,
+      "name": "制冷剂充注",
+      "phase": "整机形成",
+      "inputItemIds": [
+        "ac-uncharged-unit",
+        "ac-refrigerant"
+      ],
+      "outputItemIds": [
+        "ac-charged-unit"
+      ],
+      "description": "向总装整机充注制冷剂。",
+      "routeVariantIds": [],
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-step-test-pack",
+      "processChainId": "home-ac-room-manufacturing-chain",
+      "order": 9,
+      "name": "整机检漏、包装与标识",
+      "phase": "整机形成",
+      "inputItemIds": [
+        "ac-charged-unit",
+        "ac-packaging"
+      ],
+      "outputItemIds": [
+        "generic-home-air-conditioner"
+      ],
+      "description": "整机再次检漏后，进行包装、标识并备运。",
+      "routeVariantIds": [],
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    }
+  ],
+  "equipmentCategories": [
+    {
+      "id": "home-ac-equipment-sheet-forming",
+      "name": "钣金裁切/折弯/冲压设备",
+      "description": "完成对应制造步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed"
+    },
+    {
+      "id": "home-ac-equipment-plastic-molding",
+      "name": "塑料成型工装（方式未细分）",
+      "description": "完成对应制造步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed"
+    },
+    {
+      "id": "home-ac-equipment-fin-press",
+      "name": "翅片冲压穿孔与叠片模具",
+      "description": "完成对应制造步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed"
+    },
+    {
+      "id": "home-ac-equipment-tube-preparation",
+      "name": "切管与穿管工装",
+      "description": "完成对应制造步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed"
+    },
+    {
+      "id": "home-ac-equipment-tube-expander",
+      "name": "机械扩管设备",
+      "description": "完成对应制造步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed"
+    },
+    {
+      "id": "home-ac-equipment-brazing",
+      "name": "回弯管钎焊设备",
+      "description": "完成对应制造步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed"
+    },
+    {
+      "id": "home-ac-equipment-exchanger-leak",
+      "name": "换热器气密检漏设备",
+      "description": "完成对应制造步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed"
+    },
+    {
+      "id": "home-ac-equipment-subassembly",
+      "name": "功能部件子装配工装",
+      "description": "完成对应制造步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed"
+    },
+    {
+      "id": "home-ac-equipment-assembly",
+      "name": "整机总装工位",
+      "description": "完成对应制造步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed"
+    },
+    {
+      "id": "home-ac-equipment-charge",
+      "name": "制冷剂充注设备",
+      "description": "完成对应制造步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed"
+    },
+    {
+      "id": "home-ac-equipment-unit-leak",
+      "name": "整机检漏设备",
+      "description": "完成对应制造步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed"
+    },
+    {
+      "id": "home-ac-equipment-pack",
+      "name": "包装与标识工位",
+      "description": "完成对应制造步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed"
+    }
+  ],
+  "processRequirements": [
+    {
+      "id": "home-ac-requirement-cabinet-input-1",
+      "processStepId": "home-ac-step-cabinet",
+      "requirementType": "material",
+      "itemId": "ac-sheet-metal",
+      "equipmentCategoryId": null,
+      "name": "钣金板材",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-cabinet-input-2",
+      "processStepId": "home-ac-step-cabinet",
+      "requirementType": "material",
+      "itemId": "ac-plastic-grille",
+      "equipmentCategoryId": null,
+      "name": "塑料前格栅件",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-cabinet-equipment-sheet-forming",
+      "processStepId": "home-ac-step-cabinet",
+      "requirementType": "equipment",
+      "itemId": null,
+      "equipmentCategoryId": "home-ac-equipment-sheet-forming",
+      "name": "钣金裁切/折弯/冲压设备",
+      "necessity": "core",
+      "description": "完成该步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-cabinet-equipment-plastic-molding",
+      "processStepId": "home-ac-step-cabinet",
+      "requirementType": "equipment",
+      "itemId": null,
+      "equipmentCategoryId": "home-ac-equipment-plastic-molding",
+      "name": "塑料成型工装（方式未细分）",
+      "necessity": "optional",
+      "description": "塑料件可外购或厂内成型，采用厂内路线时使用成型工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-fins-input-1",
+      "processStepId": "home-ac-step-fins",
+      "requirementType": "material",
+      "itemId": "ac-aluminium-sheet",
+      "equipmentCategoryId": null,
+      "name": "铝片/卷材",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-fins-equipment-fin-press",
+      "processStepId": "home-ac-step-fins",
+      "requirementType": "equipment",
+      "itemId": null,
+      "equipmentCategoryId": "home-ac-equipment-fin-press",
+      "name": "翅片冲压穿孔与叠片模具",
+      "necessity": "core",
+      "description": "完成该步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-thread-input-1",
+      "processStepId": "home-ac-step-thread",
+      "requirementType": "material",
+      "itemId": "ac-copper-tube",
+      "equipmentCategoryId": null,
+      "name": "铜管",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-thread-input-2",
+      "processStepId": "home-ac-step-thread",
+      "requirementType": "material",
+      "itemId": "ac-aluminium-fins",
+      "equipmentCategoryId": null,
+      "name": "冲孔叠片的铝翅片",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-thread-equipment-tube-preparation",
+      "processStepId": "home-ac-step-thread",
+      "requirementType": "equipment",
+      "itemId": null,
+      "equipmentCategoryId": "home-ac-equipment-tube-preparation",
+      "name": "切管与穿管工装",
+      "necessity": "core",
+      "description": "完成该步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-braze-input-1",
+      "processStepId": "home-ac-step-braze",
+      "requirementType": "material",
+      "itemId": "ac-threaded-exchanger",
+      "equipmentCategoryId": null,
+      "name": "穿管换热器半成品",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-braze-input-2",
+      "processStepId": "home-ac-step-braze",
+      "requirementType": "material",
+      "itemId": "ac-return-bends",
+      "equipmentCategoryId": null,
+      "name": "回弯管",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-braze-equipment-tube-expander",
+      "processStepId": "home-ac-step-braze",
+      "requirementType": "equipment",
+      "itemId": null,
+      "equipmentCategoryId": "home-ac-equipment-tube-expander",
+      "name": "机械扩管设备",
+      "necessity": "core",
+      "description": "完成该步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-braze-equipment-brazing",
+      "processStepId": "home-ac-step-braze",
+      "requirementType": "equipment",
+      "itemId": null,
+      "equipmentCategoryId": "home-ac-equipment-brazing",
+      "name": "回弯管钎焊设备",
+      "necessity": "core",
+      "description": "完成该步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-exchanger-leak-input-1",
+      "processStepId": "home-ac-step-exchanger-leak",
+      "requirementType": "material",
+      "itemId": "ac-brazed-exchanger",
+      "equipmentCategoryId": null,
+      "name": "扩管钎焊后的换热器",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-exchanger-leak-equipment-exchanger-leak",
+      "processStepId": "home-ac-step-exchanger-leak",
+      "requirementType": "equipment",
+      "itemId": null,
+      "equipmentCategoryId": "home-ac-equipment-exchanger-leak",
+      "name": "换热器气密检漏设备",
+      "necessity": "core",
+      "description": "完成该步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-subassembly-input-1",
+      "processStepId": "home-ac-step-subassembly",
+      "requirementType": "material",
+      "itemId": "ac-compressor",
+      "equipmentCategoryId": null,
+      "name": "压缩机",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-subassembly-input-2",
+      "processStepId": "home-ac-step-subassembly",
+      "requirementType": "material",
+      "itemId": "ac-fan-motor",
+      "equipmentCategoryId": null,
+      "name": "风机与电机",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-subassembly-input-3",
+      "processStepId": "home-ac-step-subassembly",
+      "requirementType": "material",
+      "itemId": "ac-valves",
+      "equipmentCategoryId": null,
+      "name": "阀件",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-subassembly-input-4",
+      "processStepId": "home-ac-step-subassembly",
+      "requirementType": "material",
+      "itemId": "ac-controller",
+      "equipmentCategoryId": null,
+      "name": "控制器",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-subassembly-equipment-subassembly",
+      "processStepId": "home-ac-step-subassembly",
+      "requirementType": "equipment",
+      "itemId": null,
+      "equipmentCategoryId": "home-ac-equipment-subassembly",
+      "name": "功能部件子装配工装",
+      "necessity": "core",
+      "description": "完成该步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-assembly-input-1",
+      "processStepId": "home-ac-step-assembly",
+      "requirementType": "material",
+      "itemId": "ac-housing",
+      "equipmentCategoryId": null,
+      "name": "机壳与格栅",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-assembly-input-2",
+      "processStepId": "home-ac-step-assembly",
+      "requirementType": "material",
+      "itemId": "ac-heat-exchanger",
+      "equipmentCategoryId": null,
+      "name": "换热器",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-assembly-input-3",
+      "processStepId": "home-ac-step-assembly",
+      "requirementType": "material",
+      "itemId": "ac-subassembly",
+      "equipmentCategoryId": null,
+      "name": "功能部件子总成",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-assembly-equipment-assembly",
+      "processStepId": "home-ac-step-assembly",
+      "requirementType": "equipment",
+      "itemId": null,
+      "equipmentCategoryId": "home-ac-equipment-assembly",
+      "name": "整机总装工位",
+      "necessity": "core",
+      "description": "完成该步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-charge-input-1",
+      "processStepId": "home-ac-step-charge",
+      "requirementType": "material",
+      "itemId": "ac-uncharged-unit",
+      "equipmentCategoryId": null,
+      "name": "未充注的空调整机",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-charge-input-2",
+      "processStepId": "home-ac-step-charge",
+      "requirementType": "material",
+      "itemId": "ac-refrigerant",
+      "equipmentCategoryId": null,
+      "name": "制冷剂",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-charge-equipment-charge",
+      "processStepId": "home-ac-step-charge",
+      "requirementType": "equipment",
+      "itemId": null,
+      "equipmentCategoryId": "home-ac-equipment-charge",
+      "name": "制冷剂充注设备",
+      "necessity": "core",
+      "description": "完成该步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-test-pack-input-1",
+      "processStepId": "home-ac-step-test-pack",
+      "requirementType": "material",
+      "itemId": "ac-charged-unit",
+      "equipmentCategoryId": null,
+      "name": "充注后的空调整机",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-test-pack-input-2",
+      "processStepId": "home-ac-step-test-pack",
+      "requirementType": "material",
+      "itemId": "ac-packaging",
+      "equipmentCategoryId": null,
+      "name": "包装材料",
+      "necessity": "core",
+      "description": "用于该工序的材料或部件投入。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-test-pack-equipment-unit-leak",
+      "processStepId": "home-ac-step-test-pack",
+      "requirementType": "equipment",
+      "itemId": null,
+      "equipmentCategoryId": "home-ac-equipment-unit-leak",
+      "name": "整机检漏设备",
+      "necessity": "core",
+      "description": "完成该步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    },
+    {
+      "id": "home-ac-requirement-test-pack-equipment-pack",
+      "processStepId": "home-ac-step-test-pack",
+      "requirementType": "equipment",
+      "itemId": null,
+      "equipmentCategoryId": "home-ac-equipment-pack",
+      "name": "包装与标识工位",
+      "necessity": "core",
+      "description": "完成该步骤的功能设备或工装。",
+      "method": "curated",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+      "contentVersionId": "content-home-air-conditioner-2026-1",
+      "sourceIds": [
+        "source-home-ac-curation",
+        "source-home-ac-doe"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 · 历史技术参考"
+      },
+      "dataStatus": "observed",
+      "evidenceIds": [
+        "evidence-home-ac-curation",
+        "evidence-home-ac-process"
+      ],
+      "limitations": [
+        "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+        "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+        "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+        "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。"
+      ]
+    }
+  ],
+  "organizations": [],
+  "facilities": [],
+  "organizationCapabilities": [],
+  "tradeGuides": [],
+  "tariffMeasures": [],
+  "tradeRequirements": [],
+  "tradeProcedures": [],
+  "tradeProcedureSteps": [],
+  "tradeDocumentRequirements": [],
+  "policyDocuments": [],
+  "missingDataNotes": [
+    "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+    "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+    "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+    "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+    "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。",
+    "本商品未发布税率、许可或进出口手续；未收录不代表零税或无需许可。"
+  ],
+  "warnings": []
+}

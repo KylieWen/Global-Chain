@@ -93,6 +93,7 @@ export interface ProductCatalogView {
 export interface CountryCatalogView {
   readonly entity: ReadonlyGeoEntity;
   readonly productIds: readonly string[];
+  readonly ledgerProductIds: readonly string[];
   readonly relatedNodeCount: number;
   readonly hasTradeLedger: boolean;
   readonly datasetVersion: ReadonlyDatasetVersion;
@@ -1537,8 +1538,9 @@ export function listProducts(repository: FixtureRepository): readonly ProductCat
         warnings: mergeWarnings(fixture.warnings, fixture.storyGraph.warnings)
       });
     })
-    .filter((product): product is ProductCatalogView => product !== null)
-    .sort((left, right) => left.item.name.localeCompare(right.item.name));
+    // Keep the published manifest's order so product editors can put the
+    // clearest, most useful entry point first across catalog and onboarding.
+    .filter((product): product is ProductCatalogView => product !== null);
 
   return freezeArray(products);
 }
@@ -1555,11 +1557,18 @@ export function listCountries(repository: FixtureRepository): readonly CountryCa
         return item && stage ? `${item} · ${stage}` : item ?? stage ?? node.label;
       });
       const current = byEntity.get(entity.id);
+      const hasProductLedger = fixture.tradeObservations.some((observation) => observation.reporterEntityId === entity.id)
+        || fixture.macroIndicators.some((observation) => observation.entityId === entity.id);
+      const ledgerProductIds = freezeArray([
+        ...(current?.ledgerProductIds ?? []),
+        ...(hasProductLedger ? [fixture.productId] : [])
+      ]);
       byEntity.set(entity.id, {
         entity,
         productIds: freezeArray([...(current?.productIds ?? []), fixture.productId]),
+        ledgerProductIds,
         relatedNodeCount: (current?.relatedNodeCount ?? 0) + relatedNodeCount,
-        hasTradeLedger: (current?.hasTradeLedger ?? false) || fixture.tradeObservations.some((observation) => observation.reporterEntityId === entity.id) || fixture.macroIndicators.some((observation) => observation.entityId === entity.id),
+        hasTradeLedger: ledgerProductIds.length > 0,
         datasetVersion: fixture.datasetVersion,
         roles: freezeArray([...new Set([...(current?.roles ?? []), ...roles])])
       });
@@ -1618,7 +1627,10 @@ export function getTradeMapView(repository: FixtureRepository, productId: string
     system, version, code, mappingType,
     label: fixture.classificationCodes.find(candidate => candidate.system === system && candidate.version === version && candidate.code === code)?.label ?? null
   });
-  const productRecords: TradeMapObservationView[] = fixture.tradeObservations.map(observation => Object.freeze({
+  const productRecords: TradeMapObservationView[] = fixture.tradeObservations.map(observation => {
+    const code = fixture.classificationCodes.find(candidate => candidate.system === observation.classificationSystem && candidate.version === observation.classificationVersion && candidate.code === observation.classificationCode);
+    const mapping = fixture.classificationCrosswalks.find(candidate => candidate.itemId === observation.itemId && candidate.classificationCodeId === code?.id && candidate.period.start <= observation.period.end && candidate.period.end >= observation.period.start);
+    return Object.freeze({
     recordKind: "product_trade" as const, id: observation.id,
     item: fixture.items.find(item => item.id === observation.itemId) ?? null,
     reporter: fixture.entities.find(entity => entity.id === observation.reporterEntityId) ?? null,
@@ -1626,10 +1638,11 @@ export function getTradeMapView(repository: FixtureRepository, productId: string
     partnerScope: tradePartnerScope(observation), direction: observation.direction, period: observation.period,
     value: observation.value ?? null, currency: observation.currency ?? null, valueDataStatus: tradeValueDataStatus(observation),
     quantity: observation.quantity ?? null, unit: observation.unit ?? null, quantityDataStatus: tradeQuantityDataStatus(observation),
-    classification: classification(observation.classificationSystem, observation.classificationVersion, observation.classificationCode, null),
+    classification: classification(observation.classificationSystem, observation.classificationVersion, observation.classificationCode, mapping?.mappingType ?? null),
     method: observation.method, source: sourceForId(fixture, observation.sourceId),
-    datasetVersion: datasetVersionForId(fixture, observation.datasetVersionId), limitation: null
-  }));
+    datasetVersion: datasetVersionForId(fixture, observation.datasetVersionId), limitation: mapping?.limitation ?? null
+    });
+  });
   const materialRecords: TradeMapObservationView[] = fixture.materialTradeObservations.map(observation => Object.freeze({
     recordKind: "material_trade" as const, id: observation.observationId,
     item: fixture.items.find(item => item.id === observation.materialItemId) ?? null,

@@ -1,0 +1,13 @@
+{
+  "file": "comtrade-china-871160-2024.json",
+  "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0%2C840%2C276%2C702&cmdCode=871160&flowCode=X&period=2024&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+  "publisher": "United Nations Statistics Division",
+  "retrievedAt": "2026-10-21T08:18:08.1211361Z",
+  "method": "official",
+  "status": "downloaded",
+  "httpStatus": 200,
+  "bytes": 2790,
+  "sha256": "be4c2d204271b7e3f0c34fe0f01c86cdbfe1186677cde103848819a2e4b2ddc9",
+  "contentType": "application/json; charset=utf-8",
+  "recordCount": 3
+}

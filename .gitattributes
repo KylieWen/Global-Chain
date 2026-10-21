@@ -8,3 +8,11 @@ data/published/releases/generic-cotton-tshirt/** -text
 data/raw/soybean-oil-2026-10-21/** -text
 content/products/soybean-oil-2026-10.json -text
 data/published/releases/generic-soybean-oil/** -text
+data/raw/ebike-research/** -text
+data/raw/home-ac-research/** -text
+content/products/electric-bicycle-2026-10.json -text
+content/reviews/electric-bicycle-2026-10-21.json -text
+content/products/home-air-conditioner-2026-10.json -text
+content/reviews/home-air-conditioner-2026-10-21.json -text
+data/published/releases/generic-electric-bicycle/** -text
+data/published/releases/generic-home-air-conditioner/** -text

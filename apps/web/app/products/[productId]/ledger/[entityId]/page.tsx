@@ -13,7 +13,7 @@ import {
   ValueDisplay,
   WarningList
 } from "../../../../../components/data-display";
-import { ledgerPath, nodePath, productPath, supplyChainPath } from "../../../../../lib/paths";
+import { ledgerPath, mapPath, nodePath, productPath, supplyChainPath } from "../../../../../lib/paths";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -74,7 +74,7 @@ export default async function CountryLedgerPage({
         <PageIntro
           eyebrow="Country trade ledger"
           title={`${ledger.entity.name} · 国家账本`}
-          description="查看商品进出口、贸易差额和官方储备，继续探索具体商品与贸易伙伴。"
+          description="查看已收录的产业与贸易数据，继续探索商品、生产环节与贸易伙伴。"
           actions={<Link className="button button-secondary" href={firstRelatedNode ? nodePath(productId, firstRelatedNode.node.id, pageContext) : supplyChainPath(productId, undefined, pageContext)}>查看供应链</Link>}
         />
 
@@ -95,7 +95,7 @@ export default async function CountryLedgerPage({
           <StatCard label="国家/地区代码" value={ledger.entity.iso3 ?? ledger.entity.name} detail={`ISO2 ${ledger.entity.iso2 ?? "未知"} · UN M49 ${ledger.entity.m49 ?? "未知"}`} />
           <StatCard label="统计期间" value={<PeriodLabel period={ledger.period} />} detail={`${ledger.period.start} 至 ${ledger.period.end}`} />
           <StatCard label="数据集版本" value={ledger.datasetVersion.version} detail={ledger.datasetVersion.status} />
-          <StatCard label={`${ledger.product.name}贸易观察`} value={ledger.tradeObservations.length} detail={ledger.tradeAvailability === "available" ? "已发布观察" : "未知，不是零"} />
+          {ledger.tradeObservations.length > 0 && <StatCard label={`${ledger.product.name}贸易观察`} value={ledger.tradeObservations.length} detail="已发布观察" />}
         </div>
 
         </details>
@@ -103,8 +103,7 @@ export default async function CountryLedgerPage({
         <details className="reading-details"><summary>统计口径与资料说明</summary><WarningList warnings={ledger.warnings} /></details>
 
         {ledger.resolvedMacroIndicators.length > 0 && <details className="section-block detail-collapsible" aria-labelledby="macro-title">
-          <summary className="section-heading detail-summary"><div><p className="eyebrow">Macro ledger</p><h2 id="macro-title">国家宏观贸易账本</h2></div><span className="section-caption">{ledger.resolvedMacroIndicators.length} 项摘要指标 · 统计详情可展开</span></summary>
-          {ledger.resolvedMacroIndicators.length === 0 ? <div className="empty-state">当前期间没有已发布的宏观指标。</div> : (
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">Country indicators</p><h2 id="macro-title">国家与产业指标</h2></div><span className="section-caption">{ledger.resolvedMacroIndicators.length} 项指标 · 展开查看详情</span></summary>
             <div className="metric-list interpreted-metrics">
               {ledger.resolvedMacroIndicators.map(({ observation, definition, source, measurement }) => (
                 <article className="metric-row interpreted-metric" key={observation.id}>
@@ -133,20 +132,12 @@ export default async function CountryLedgerPage({
                 </article>
               ))}
             </div>
-          )}
         </details>}
 
-        <details className="section-block detail-collapsible" aria-labelledby="trade-title" open={snapshotMetrics.length === 0 && ledger.resolvedTradeObservations.length > 0}>
+        {ledger.resolvedTradeObservations.length > 0 && <details className="section-block detail-collapsible" aria-labelledby="trade-title" open={snapshotMetrics.length === 0}>
           <summary className="section-heading detail-summary"><div><p className="eyebrow">Product trade observations</p><h2 id="trade-title">
                 {ledger.product.name} {tradeClassification ? `${tradeClassification.system} ${tradeClassification.version} / ${tradeClassification.code}` : "分类未提供"} 进出口观察
               </h2></div><span className="section-caption">{ledger.resolvedTradeObservations.length} 条观察</span></summary>
-          {ledger.resolvedTradeObservations.length === 0 ? (
-            <div className="empty-state missing-observation">
-              <strong>当前期间没有已发布的{ledger.product.name}贸易观察。</strong>
-              <p>{ledger.tradeAvailabilityNote}</p>
-              <p>本数据切片不会为没有返回记录的国家生成数值为 0 的行。</p>
-            </div>
-          ) : (
             <div className="trade-observation-list">
               {ledger.resolvedTradeObservations.map((view) => {
                 const observation = view.observation;
@@ -156,7 +147,7 @@ export default async function CountryLedgerPage({
 
                   </span>
                 ) : view.partner ? (
-                        <Link className="text-link" href={ledgerPath(productId, view.partner.id, pageContext)}>{view.partner.name}</Link>
+                        <Link className="text-link" href={mapPath({ ...pageContext, product: productId, country: view.partner.id, layer: "trade" })}>{view.partner.name}</Link>
                 ) : <UnknownValue label="伙伴未提供" />;
                 return (
                   <article className="trade-observation-card" key={observation.id}>
@@ -194,16 +185,14 @@ export default async function CountryLedgerPage({
                 );
               })}
             </div>
-          )}
           <div className="legend-block"><h3>状态含义</h3><StatusLegend /></div>
-        </details>
+        </details>}
 
-        <section className="section-block" aria-labelledby="related-title">
+        {ledger.relatedNodes.length > 0 && <section className="section-block" aria-labelledby="related-title">
           <div className="section-heading">
             <div><p className="eyebrow">Cross-module context</p><h2 id="related-title">关联供应链节点</h2></div>
             <Link className="text-link" href={supplyChainPath(productId, undefined, pageContext)}>查看完整路径 →</Link>
           </div>
-          {ledger.relatedNodes.length === 0 ? <div className="empty-state">当前国家没有关联的代表性节点。</div> : (
             <div className="node-grid compact-grid">
               {ledger.relatedNodes.map((node) => (
                 <Link className="node-card" href={nodePath(productId, node.node.id, pageContext)} key={node.node.id}>
@@ -214,8 +203,8 @@ export default async function CountryLedgerPage({
                 </Link>
               ))}
             </div>
-          )}
-        </section>
+        </section>}
+        {ledger.resolvedMacroIndicators.length === 0 && ledger.resolvedTradeObservations.length === 0 && ledger.relatedNodes.length === 0 && <div className="empty-state"><p>当前选择没有匹配的记录。</p><Link className="text-link" href={ledgerPath(productId, entityId)}>查看这个国家的全部时期 →</Link></div>}
 
         <section className="hierarchy-next-step"><strong>统计详情</strong><span>打开原始资料，了解数据的年份、统计方法与版本。</span><Link className="button button-primary" href={`/products/${productId}/provenance`}>查看来源与版本 →</Link></section>
       </div>

@@ -1,0 +1,494 @@
+{
+  "schemaVersion": "home-air-conditioner-content.v1",
+  "productId": "generic-home-air-conditioner",
+  "productName": "家用房间空调",
+  "datasetVersionId": "dataset-home-air-conditioner-2026-1",
+  "datasetVersion": "globe-chain-home-air-conditioner-2026.1",
+  "contentVersionId": "content-home-air-conditioner-2026-1",
+  "contentVersion": "home-air-conditioner-content-2026.1",
+  "batchId": "home-air-conditioner-2026-10-21",
+  "reviewedAt": "2026-10-21",
+  "description": "为房间降温的家用设备，由压缩机、换热器、风机、电控和机壳协同工作。沿铜管铝翅片、部件装配、制冷剂充注与成品出口分支，了解空调如何形成并连接市场。",
+  "representativeStatement": "以房间空调的部件和制造结构为主线，另列中国生产背景与相关成品出口；这些分支不对应同一台设备、工厂或批次。",
+  "methodology": [
+    "1997年DOE历史技术资料支持部件、制造输入输出及功能设备；技术节点不附会到当代中国工厂。",
+    "IEA的2017统计背景仅作中国历史生产角色，具体生产份额不在本批发布。",
+    "2024年海关记录独立展示中国至美国、德国的两类相关成品贸易；分类范围不等于单款家用机型。",
+    "结构连接不设置物流金额、数量或份额；直接双边线保留具体HS范围。"
+  ],
+  "limitations": [
+    "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+    "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+    "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+    "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+    "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。",
+    "本商品未发布税率、许可或进出口手续；未收录不代表零税或无需许可。"
+  ],
+  "periods": {
+    "technical": {
+      "granularity": "annual",
+      "start": "1997-01-01",
+      "end": "1997-12-31",
+      "label": "1997 · 历史技术参考"
+    },
+    "chinaRole": {
+      "granularity": "annual",
+      "start": "2017-01-01",
+      "end": "2017-12-31",
+      "label": "2017统计背景 · IEA2019报告"
+    },
+    "trade": {
+      "granularity": "annual",
+      "start": "2024-01-01",
+      "end": "2024-12-31",
+      "label": "2024"
+    },
+    "curation": {
+      "granularity": "monthly",
+      "start": "2026-10-01",
+      "end": "2026-10-31",
+      "label": "2026-10 · 内容整理"
+    },
+    "story": {
+      "granularity": "annual",
+      "start": "1997-01-01",
+      "end": "2024-12-31",
+      "label": "1997技术参考 / 2017生产背景 / 2024贸易"
+    }
+  },
+  "countries": [
+    {
+      "id": "country-cn",
+      "name": "中国",
+      "iso2": "CN",
+      "iso3": "CHN",
+      "m49": "156",
+      "sourceName": "China"
+    },
+    {
+      "id": "country-de",
+      "name": "德国",
+      "iso2": "DE",
+      "iso3": "DEU",
+      "m49": "276",
+      "sourceName": "Germany"
+    },
+    {
+      "id": "country-us",
+      "name": "美国",
+      "iso2": "US",
+      "iso3": "USA",
+      "m49": "840",
+      "sourceName": "United States of America"
+    }
+  ],
+  "items": [
+    [
+      "ac-compressor",
+      "压缩机",
+      "component",
+      "generic-home-air-conditioner",
+      "压缩制冷剂，提高压力并驱动制冷回路。",
+      "doe"
+    ],
+    [
+      "ac-heat-exchanger",
+      "换热器",
+      "component",
+      "generic-home-air-conditioner",
+      "让铜管中的制冷剂与铝翅片周围的空气交换热量。",
+      "doe"
+    ],
+    [
+      "ac-fan-motor",
+      "风机与电机",
+      "component",
+      "generic-home-air-conditioner",
+      "驱动空气经过换热器，将冷却后的空气送回房间。",
+      "doe"
+    ],
+    [
+      "ac-controller",
+      "控制器",
+      "component",
+      "generic-home-air-conditioner",
+      "控制空调的启停与工作状态。",
+      "doe"
+    ],
+    [
+      "ac-valves",
+      "阀件",
+      "component",
+      "generic-home-air-conditioner",
+      "制冷回路中的阀类部件，与压缩机、风机和控制器共同进入子装配。",
+      "doe"
+    ],
+    [
+      "ac-refrigerant",
+      "制冷剂",
+      "material",
+      "generic-home-air-conditioner",
+      "充入制冷回路，在蒸发和冷凝过程中吸收或放出热量。",
+      "doe"
+    ],
+    [
+      "ac-housing",
+      "机壳与格栅",
+      "component",
+      "generic-home-air-conditioner",
+      "容纳内部部件，由钣金结构和塑料格栅等组成。",
+      "doe"
+    ],
+    [
+      "ac-packaging",
+      "包装材料",
+      "material",
+      "generic-home-air-conditioner",
+      "用于整机检漏后的包装和标识，为运输准备。",
+      "doe"
+    ],
+    [
+      "ac-copper-tube",
+      "铜管",
+      "material",
+      "ac-heat-exchanger",
+      "形成换热器管路，让制冷剂在换热部件中循环。",
+      "doe"
+    ],
+    [
+      "ac-aluminium-sheet",
+      "铝片/卷材",
+      "material",
+      "ac-heat-exchanger",
+      "冲压、穿孔后叠成翅片，配合铜管进行换热。",
+      "doe"
+    ],
+    [
+      "ac-return-bends",
+      "回弯管",
+      "component",
+      "ac-heat-exchanger",
+      "钎焊在铜管末端，将管路连接成换热器回路。",
+      "doe"
+    ],
+    [
+      "ac-sheet-metal",
+      "钣金板材",
+      "material",
+      "ac-housing",
+      "裁切、折弯和冲压后形成机壳的钣金结构。",
+      "doe"
+    ],
+    [
+      "ac-plastic-grille",
+      "塑料前格栅件",
+      "component",
+      "ac-housing",
+      "构成机壳前侧的塑料件，可外购或在厂内成型。",
+      "doe"
+    ],
+    [
+      "ac-aluminium-fins",
+      "冲孔叠片的铝翅片",
+      "component",
+      null,
+      "完成翅片图形和管孔的叠层，供铜管穿入。",
+      "doe"
+    ],
+    [
+      "ac-threaded-exchanger",
+      "穿管换热器半成品",
+      "component",
+      null,
+      "铜管穿过翅片叠层，接着机械扩管并连接回弯管。",
+      "doe"
+    ],
+    [
+      "ac-brazed-exchanger",
+      "扩管钎焊后的换热器",
+      "component",
+      null,
+      "完成扩管和回弯连接的换热器，接着进行检漏。",
+      "doe"
+    ],
+    [
+      "ac-subassembly",
+      "功能部件子总成",
+      "component",
+      null,
+      "压缩机、风机、阀件和控制器先组合，再进入整机总装。",
+      "doe"
+    ],
+    [
+      "ac-uncharged-unit",
+      "未充注的空调整机",
+      "component",
+      null,
+      "机壳、换热器与功能部件已装配，接着充注制冷剂。",
+      "doe"
+    ],
+    [
+      "ac-charged-unit",
+      "充注后的空调整机",
+      "component",
+      null,
+      "完成制冷剂充注的整机，接着检漏、包装与标识。",
+      "doe"
+    ],
+    [
+      "ac-related-hs841510",
+      "HS841510相关空调成品",
+      "component",
+      null,
+      "固定于窗、墙、天花或地面的自成式或分体式空调设备。",
+      "hs"
+    ],
+    [
+      "ac-related-hs841582",
+      "HS841582相关空调成品",
+      "component",
+      null,
+      "其他带制冷机组的空调机。",
+      "hs"
+    ]
+  ],
+  "stages": [
+    [
+      "ac-materials",
+      "材料与部件"
+    ],
+    [
+      "ac-cabinet",
+      "机壳制作"
+    ],
+    [
+      "ac-exchanger",
+      "换热器制造与检漏"
+    ],
+    [
+      "ac-subassembly",
+      "部件子装配"
+    ],
+    [
+      "ac-assembly",
+      "整机总装"
+    ],
+    [
+      "ac-charge-test-pack",
+      "充注、检漏与包装"
+    ],
+    [
+      "ac-production-context",
+      "中国历史生产背景"
+    ],
+    [
+      "ac-related-trade",
+      "相关成品出口"
+    ]
+  ],
+  "process": {
+    "id": "home-ac-room-manufacturing-chain",
+    "title": "房间空调的制造与装配",
+    "description": "机壳、换热器与功能部件三条投入支线汇入总装，再经过充注、检漏和包装。",
+    "equipment": [
+      [
+        "sheet-forming",
+        "钣金裁切/折弯/冲压设备"
+      ],
+      [
+        "plastic-molding",
+        "塑料成型工装（方式未细分）"
+      ],
+      [
+        "fin-press",
+        "翅片冲压穿孔与叠片模具"
+      ],
+      [
+        "tube-preparation",
+        "切管与穿管工装"
+      ],
+      [
+        "tube-expander",
+        "机械扩管设备"
+      ],
+      [
+        "brazing",
+        "回弯管钎焊设备"
+      ],
+      [
+        "exchanger-leak",
+        "换热器气密检漏设备"
+      ],
+      [
+        "subassembly",
+        "功能部件子装配工装"
+      ],
+      [
+        "assembly",
+        "整机总装工位"
+      ],
+      [
+        "charge",
+        "制冷剂充注设备"
+      ],
+      [
+        "unit-leak",
+        "整机检漏设备"
+      ],
+      [
+        "pack",
+        "包装与标识工位"
+      ]
+    ],
+    "steps": [
+      [
+        "cabinet",
+        "机壳制作",
+        "机壳支线",
+        [
+          "ac-sheet-metal",
+          "ac-plastic-grille"
+        ],
+        [
+          "ac-housing"
+        ],
+        "钣金裁切、折弯和冲压成形，与塑料前格栅形成机壳；塑料件可外购或厂内成型。",
+        [
+          "sheet-forming",
+          "plastic-molding"
+        ]
+      ],
+      [
+        "fins",
+        "铝翅片冲压穿孔与叠片",
+        "换热器支线",
+        [
+          "ac-aluminium-sheet"
+        ],
+        [
+          "ac-aluminium-fins"
+        ],
+        "从铝卷材裁片，冲出翅片图形和管孔，并通过模具叠片。",
+        [
+          "fin-press"
+        ]
+      ],
+      [
+        "thread",
+        "铜管裁切与穿片",
+        "换热器支线",
+        [
+          "ac-copper-tube",
+          "ac-aluminium-fins"
+        ],
+        [
+          "ac-threaded-exchanger"
+        ],
+        "裁切铜管并穿入铝翅片叠层，形成换热器半成品。",
+        [
+          "tube-preparation"
+        ]
+      ],
+      [
+        "braze",
+        "扩管与回弯管钎焊",
+        "换热器支线",
+        [
+          "ac-threaded-exchanger",
+          "ac-return-bends"
+        ],
+        [
+          "ac-brazed-exchanger"
+        ],
+        "机械扩胀铜管，使其与翅片接触，再把回弯管钎焊在管端。",
+        [
+          "tube-expander",
+          "brazing"
+        ]
+      ],
+      [
+        "exchanger-leak",
+        "换热器检漏",
+        "换热器支线",
+        [
+          "ac-brazed-exchanger"
+        ],
+        [
+          "ac-heat-exchanger"
+        ],
+        "完成的换热器先检漏，再进入装配线。",
+        [
+          "exchanger-leak"
+        ]
+      ],
+      [
+        "subassembly",
+        "功能部件子装配",
+        "部件支线",
+        [
+          "ac-compressor",
+          "ac-fan-motor",
+          "ac-valves",
+          "ac-controller"
+        ],
+        [
+          "ac-subassembly"
+        ],
+        "将压缩机、风机、阀件与控制器组合为子总成。",
+        [
+          "subassembly"
+        ]
+      ],
+      [
+        "assembly",
+        "整机总装",
+        "整机形成",
+        [
+          "ac-housing",
+          "ac-heat-exchanger",
+          "ac-subassembly"
+        ],
+        [
+          "ac-uncharged-unit"
+        ],
+        "将机壳、检漏后的换热器及功能子总成装配为整机。",
+        [
+          "assembly"
+        ]
+      ],
+      [
+        "charge",
+        "制冷剂充注",
+        "整机形成",
+        [
+          "ac-uncharged-unit",
+          "ac-refrigerant"
+        ],
+        [
+          "ac-charged-unit"
+        ],
+        "向总装整机充注制冷剂。",
+        [
+          "charge"
+        ]
+      ],
+      [
+        "test-pack",
+        "整机检漏、包装与标识",
+        "整机形成",
+        [
+          "ac-charged-unit",
+          "ac-packaging"
+        ],
+        [
+          "generic-home-air-conditioner"
+        ],
+        "整机再次检漏后，进行包装、标识并备运。",
+        [
+          "unit-leak",
+          "pack"
+        ]
+      ]
+    ]
+  }
+}

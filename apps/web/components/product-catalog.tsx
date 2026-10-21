@@ -11,23 +11,16 @@ export function ProductCatalogPage({ products }: { products: readonly ProductCat
     <SiteShell>
       <div className="content-column">
         <PageIntro
-          eyebrow="商品背景 / Product catalog"
-          title="从一件熟悉的商品开始"
-          description="拆开它的组成，沿着生产环节，看看哪些国家参与其中。"
-          actions={
-            products[0] ? (
-              <Link className="button button-primary" href={productPath(products[0].productId)}>
-                开始探索
-              </Link>
-            ) : undefined
-          }
+          eyebrow="从身边开始"
+          title="从商品拆解开始"
+          description="看看它由什么组成、在哪里生产，又如何进入贸易。"
         />
 
         <section className="section-block" aria-labelledby="catalog-heading">
           <div className="section-heading">
             <div>
               <p className="eyebrow">Explore products</p>
-              <h2 id="catalog-heading">选择一个商品</h2>
+              <h2 id="catalog-heading">商品目录</h2>
             </div>
             <span className="section-caption">{products.length} 个商品</span>
           </div>

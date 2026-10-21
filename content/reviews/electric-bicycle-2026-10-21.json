@@ -1,0 +1,231 @@
+{
+  "schemaVersion": "electric-bicycle-source-review.v1",
+  "batchId": "electric-bicycle-2026-10-21",
+  "reviewedAt": "2026-10-21",
+  "rawManifest": {
+    "path": "data/raw/ebike-research/manifest.json",
+    "sha256": "4c874f51ce35e9937289db4fefe0cc60184745431d3ca32906f943f998e391d8"
+  },
+  "sourceSnapshots": [
+    {
+      "alias": "trade",
+      "path": "data/raw/ebike-research/comtrade-china-871160-2024.json",
+      "sha256": "be4c2d204271b7e3f0c34fe0f01c86cdbfe1186677cde103848819a2e4b2ddc9",
+      "period": "2024",
+      "locator": "China reporter 156; annual 2024; HS2022 871160; export; world 0, Germany 276, Singapore 702.",
+      "reviewedTerms": [
+        "871160",
+        "935578",
+        "32649"
+      ],
+      "source": {
+        "id": "source-ebike-trade",
+        "name": "UN Comtrade 中国 HS871160 出口（2024）",
+        "publisher": "United Nations Statistics Division",
+        "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0%2C840%2C276%2C702&cmdCode=871160&flowCode=X&period=2024&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "license": "官方公开资料；发布机构使用条款适用；仅摘编事实与有限摘要。",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-21T08:18:08.1211361Z",
+        "datasetVersion": "trade-2024",
+        "notes": "China reporter 156; annual 2024; HS2022 871160; export; world 0, Germany 276, Singapore 702. 原件 SHA-256=be4c2d204271b7e3f0c34fe0f01c86cdbfe1186677cde103848819a2e4b2ddc9。"
+      }
+    },
+    {
+      "alias": "battery",
+      "path": "data/raw/ebike-research/miit-battery-standard-system.html",
+      "sha256": "3d9853d66f20f50c7df23cc223ded3a6222c052a3f729814747fff2682aebf21",
+      "period": "2014",
+      "locator": "图1及概述：原材料、锂离子电芯及电池组、部件及附件和电动自行车应用四个环节。",
+      "reviewedTerms": [
+        "原材料",
+        "锂离子电芯及电池组",
+        "部件及附件",
+        "电动自行车应用"
+      ],
+      "source": {
+        "id": "source-ebike-battery",
+        "name": "工信部：电动自行车用锂离子电池综合标准化技术体系",
+        "publisher": "Ministry of Industry and Information Technology of the People's Republic of China",
+        "url": "https://www.miit.gov.cn/jgsj/kjs/jscx/bzgf/art/2020/art_7c69273060e74381b2c09bfc613f83cb.html",
+        "license": "官方公开资料；发布机构使用条款适用；仅摘编事实与有限摘要。",
+        "publishedAt": "2014-02-07",
+        "retrievedAt": "2026-10-21T08:18:08.1211361Z",
+        "datasetVersion": "battery-2014",
+        "notes": "图1及概述：原材料、锂离子电芯及电池组、部件及附件和电动自行车应用四个环节。 原件 SHA-256=3d9853d66f20f50c7df23cc223ded3a6222c052a3f729814747fff2682aebf21。"
+      }
+    },
+    {
+      "alias": "parts",
+      "path": "data/raw/ebike-research/ningxia-parts-inventory.html",
+      "sha256": "e3cfe83cd2c9294e77a5745d7d215393eecee5c98f57997353b3143f39f84e9c",
+      "period": "2023",
+      "locator": "整车生产包括主要配件生产、整车组装、测试、检验；列出车架、控制器、车轮、电机、蓄电池、充电器、减振器、仪表系统。",
+      "reviewedTerms": [
+        "车架",
+        "控制器",
+        "车轮",
+        "电机",
+        "蓄电池",
+        "充电器",
+        "仪表系统"
+      ],
+      "source": {
+        "id": "source-ebike-parts",
+        "name": "宁夏工信厅：电动自行车整车及相关配件生产企业摸排通知",
+        "publisher": "Ningxia Department of Industry and Information Technology",
+        "url": "https://gxt.nx.gov.cn/zwgk/fdzdgknr/glfw/gsgg/202309/t20230908_4257183.html",
+        "license": "官方公开资料；发布机构使用条款适用；仅摘编事实与有限摘要。",
+        "publishedAt": "2023-09-08",
+        "retrievedAt": "2026-10-21T08:18:08.1211361Z",
+        "datasetVersion": "parts-2023",
+        "notes": "整车生产包括主要配件生产、整车组装、测试、检验；列出车架、控制器、车轮、电机、蓄电池、充电器、减振器、仪表系统。 原件 SHA-256=e3cfe83cd2c9294e77a5745d7d215393eecee5c98f57997353b3143f39f84e9c。"
+      }
+    },
+    {
+      "alias": "assembly",
+      "path": "data/raw/ebike-research/dazu-ebike-assembly-eia.pdf",
+      "sha256": "32fa8656e4ba33e6dfef093465b82af6edb000fc5404fa2024797263a2840d05",
+      "period": "2022",
+      "locator": "PDF pages 28–29, 34–35 (printed 21–22, 27–28); 2.3.5 and 2.5.1; planned assembly project, bought-in finished components; battery mounts exclude cells, test batteries removed, bought-in batteries and chargers packed with vehicle.",
+      "reviewedTerms": [
+        "%PDF-"
+      ],
+      "source": {
+        "id": "source-ebike-assembly",
+        "name": "重庆大足区电动车整车组装环境审批附件",
+        "publisher": "Chongqing Dazu District Ecology and Environment Bureau",
+        "url": "https://www.dazu.gov.cn/zwgk_175/fdzdgknr/xzxk/xzxkbljg/qsthjj_68881/202202/P020220213357879049596.pdf",
+        "license": "官方公开资料；发布机构使用条款适用；仅摘编事实与有限摘要。",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-21T08:18:08.1211361Z",
+        "datasetVersion": "assembly-2022",
+        "notes": "PDF pages 28–29, 34–35 (printed 21–22, 27–28); 2.3.5 and 2.5.1; planned assembly project, bought-in finished components; battery mounts exclude cells, test batteries removed, bought-in batteries and chargers packed with vehicle. 原件 SHA-256=32fa8656e4ba33e6dfef093465b82af6edb000fc5404fa2024797263a2840d05。"
+      }
+    },
+    {
+      "alias": "standard",
+      "path": "data/raw/ebike-research/miit-gb17761-2024-faq.html",
+      "sha256": "20b28e5f69b7baf5d6dfa85afbe0cf0fe063c4dc24fbdb3a8d3e11617807a26a",
+      "period": "2025",
+      "locator": "2025-09-01 实施；电气部件、导线和与电池直接接触的非金属材料等安全要求。",
+      "reviewedTerms": [
+        "GB 17761",
+        "25km/h",
+        "电池"
+      ],
+      "source": {
+        "id": "source-ebike-standard",
+        "name": "工信部 GB 17761—2024 技术内容问答",
+        "publisher": "Ministry of Industry and Information Technology of the People's Republic of China",
+        "url": "https://www.miit.gov.cn/zwgk/zcjd/art/2025/art_52062523e41040f596a1651abc52c5b0.html",
+        "license": "官方公开资料；发布机构使用条款适用；仅摘编事实与有限摘要。",
+        "publishedAt": "2025-01-13",
+        "retrievedAt": "2026-10-21T08:18:08.1211361Z",
+        "datasetVersion": "standard-2025",
+        "notes": "2025-09-01 实施；电气部件、导线和与电池直接接触的非金属材料等安全要求。 原件 SHA-256=20b28e5f69b7baf5d6dfa85afbe0cf0fe063c4dc24fbdb3a8d3e11617807a26a。"
+      }
+    },
+    {
+      "alias": "recycling",
+      "path": "data/raw/ebike-research/miit-recycling-guidance.html",
+      "sha256": "44cdebf34a316ac84a0e0b39f954f55ad2eac21502563ef29c44c4da18e82485",
+      "period": "2025",
+      "locator": "2025-01-23 解读第二至五部分：规范交售、回收网络、安全贮存、转运和综合利用；没有实际回收量或物料去向。",
+      "reviewedTerms": [
+        "回收利用",
+        "电动自行车",
+        "锂电池"
+      ],
+      "source": {
+        "id": "source-ebike-recycling",
+        "name": "工信部：电动自行车锂离子电池回收利用体系建设指南解读",
+        "publisher": "Ministry of Industry and Information Technology of the People's Republic of China",
+        "url": "https://wap.miit.gov.cn/jgsj/jns/zhlyh/art/2025/art_0135707927c84f56885830ad5f00ad19.html",
+        "license": "官方公开资料；发布机构使用条款适用；仅摘编事实与有限摘要。",
+        "publishedAt": "2025-01-23",
+        "retrievedAt": "2026-10-21T08:18:08.1211361Z",
+        "datasetVersion": "recycling-2025",
+        "notes": "2025-01-23 解读第二至五部分：规范交售、回收网络、安全贮存、转运和综合利用；没有实际回收量或物料去向。 原件 SHA-256=44cdebf34a316ac84a0e0b39f954f55ad2eac21502563ef29c44c4da18e82485。"
+      }
+    },
+    {
+      "alias": "hs",
+      "path": "data/raw/ebike-research/un-comtrade-H6.json",
+      "sha256": "e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15",
+      "period": "2022",
+      "locator": "871160 为装有电动机驱动的摩托车及脚踏车（含助力车），并非只涵盖中国国内新国标电动自行车。",
+      "reviewedTerms": [
+        "871160"
+      ],
+      "source": {
+        "id": "source-ebike-hs",
+        "name": "UN Comtrade HS2022 分类字典",
+        "publisher": "United Nations Statistics Division",
+        "url": "https://comtradeapi.un.org/files/v1/app/reference/H6.json",
+        "license": "官方公开资料；发布机构使用条款适用；仅摘编事实与有限摘要。",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-21T08:18:08.1211361Z",
+        "datasetVersion": "hs-2022",
+        "notes": "871160 为装有电动机驱动的摩托车及脚踏车（含助力车），并非只涵盖中国国内新国标电动自行车。 原件 SHA-256=e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15。"
+      }
+    },
+    {
+      "alias": "units",
+      "path": "data/raw/ebike-research/un-comtrade-quantity-units.json",
+      "sha256": "420267929eac391e9dcd97d18252a2aee9bff2a86c3e2162d1ec57ef53811c24",
+      "period": "2026-10",
+      "locator": "qtyCode 5 = Number of items。",
+      "reviewedTerms": [
+        "Number of items"
+      ],
+      "source": {
+        "id": "source-ebike-units",
+        "name": "UN Comtrade 数量单位字典",
+        "publisher": "United Nations Statistics Division",
+        "url": "https://comtradeapi.un.org/files/v1/app/reference/QuantityUnits.json",
+        "license": "官方公开资料；发布机构使用条款适用；仅摘编事实与有限摘要。",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-21T08:18:08.1211361Z",
+        "datasetVersion": "units-2026-10",
+        "notes": "qtyCode 5 = Number of items。 原件 SHA-256=420267929eac391e9dcd97d18252a2aee9bff2a86c3e2162d1ec57ef53811c24。"
+      }
+    },
+    {
+      "alias": "country",
+      "path": "data/raw/cotton-tshirt-2026-10-21/un-m49-overview.html",
+      "sha256": "b9048114f6e7f2abda83bf03d4263c9d7cd1bd7230e3d0461025ee7839a7a1fb",
+      "source": {
+        "id": "source-ebike-country",
+        "name": "UN M49 国家和地区代码",
+        "publisher": "United Nations Statistics Division",
+        "url": "https://unstats.un.org/unsd/methodology/m49/overview/",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-21T03:17:55.860727+00:00",
+        "datasetVersion": "snapshot-2026-10-21",
+        "license": "官方公开资料；适用发布机构使用条款。",
+        "notes": "原始快照 data/raw/cotton-tshirt-2026-10-21/un-m49-overview.html；SHA-256 b9048114f6e7f2abda83bf03d4263c9d7cd1bd7230e3d0461025ee7839a7a1fb。"
+      },
+      "period": "2026-10",
+      "locator": "UN M49 overview country table; China 156/CN/CHN; Germany 276/DE/DEU; Singapore 702/SG/SGP.",
+      "reviewedTerms": [
+        "China",
+        "Germany",
+        "Singapore"
+      ]
+    }
+  ],
+  "reviewDecisions": [
+    "Only 3 fixed 2024 HS2022/871160 export records; preserve world totals and bilateral observations separately.",
+    "HS871160 is an aggregate related category; export route connections remain representative, curated and unmeasured. Exact reported values stay exclusively in tradeObservations, separate from product supply-chain structure.",
+    "Ningxia inventory notice is a definition and survey request, not proof of operating factories.",
+    "PDF pages 28–29 and 34–35 reviewed: assembly of purchased finished components; installed battery mount excludes cells; test battery removed; battery and charger separately packed.",
+    "Battery manufacturing and downstream recycling technology are incomplete; only representative functional layers shown.",
+    "Product and input descriptions explain function and use; scope restrictions remain in limitations and evidence metadata."
+  ],
+  "validation": {
+    "requiresContractAndLoaderTests": true,
+    "requiresRawLineTests": true,
+    "requiresGraphReachability": true,
+    "activeManifestChanged": false
+  }
+}

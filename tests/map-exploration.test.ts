@@ -31,6 +31,17 @@ describe("map exploration with separate evidence layers", () => {
     expect(missing.years).toEqual(["2025", "2024"]);
   });
 
+  it("keeps the finished product's broader classification mapping visible on the trade map", async () => {
+    const cotton = createProductQueryService(await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-cotton-tshirt/globe-chain-cotton-tshirt-2026.1/manifest.json")));
+    const records = cotton.getTradeMapView("generic-cotton-tshirt")!.observations;
+    expect(records).toHaveLength(4);
+    for (const record of records) {
+      expect(record.classification.code).toBe("610910");
+      expect(record.classification.mappingType).toBe("aggregate");
+      expect(record.limitation).toBeTruthy();
+    }
+  });
+
   it("retains a component's upstream inputs and all published downstream branches without unrelated component inputs", () => {
     const battery = createMapView(queries, { product: "generic-smartphone", layer: "supply-chain", focus: "battery" })!;
     const ids = battery.lines.map(line => line.id);

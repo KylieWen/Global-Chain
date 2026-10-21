@@ -1,0 +1,162 @@
+{
+  "schemaVersion": "home-air-conditioner-source-review.v1",
+  "reviewedAt": "2026-10-21",
+  "rawManifest": {
+    "path": "data/raw/home-ac-research/manifest.json",
+    "sha256": "560bff15499034f21d8d2961b8a914f51cb23396a42299fe78f2ebbfffd3277a"
+  },
+  "sourceSnapshots": [
+    {
+      "alias": "doe",
+      "path": "data/raw/home-ac-research/doe-room-ac-manufacturing.pdf",
+      "sha256": "a91075627a70179ee09e8f789315b4530449579d9a7c73636c9e72258b2ac0aa",
+      "bytes": 1493313,
+      "httpStatus": 200,
+      "locator": "PDF pp.1–2封面September 1997；pp.24–26（正文1-1至1-3），Figure 1.1。",
+      "source": {
+        "id": "source-home-ac-doe",
+        "publisher": "U.S. DOE / Lawrence Berkeley National Laboratory",
+        "name": "Room Air Conditioners, Volume 2: Detailed Analysis of Efficiency Levels",
+        "url": "https://www1.eere.energy.gov/buildings/appliance_standards/pdfs/tsdracv2.pdf",
+        "publishedAt": "1997-09",
+        "retrievedAt": "2026-10-21T08:16:15.4342209Z",
+        "datasetVersion": "DOE-RAC-1997",
+        "license": "官方公开技术参考；遵循发布机构使用条件，仅整理事实、不转发全文。",
+        "notes": "PDF pp.1–2封面September 1997；pp.24–26（正文1-1至1-3），Figure 1.1。 原件 data/raw/home-ac-research/doe-room-ac-manufacturing.pdf；SHA-256 a91075627a70179ee09e8f789315b4530449579d9a7c73636c9e72258b2ac0aa。"
+      }
+    },
+    {
+      "alias": "iea",
+      "path": "data/raw/home-ac-research/iea-future-cooling-china.pdf",
+      "sha256": "bec5fb3064f618146323e5d56ed3a2d88f18ae353073ca132134f1c2dd753117",
+      "bytes": 2815200,
+      "httpStatus": 200,
+      "locator": "PDF pp.3、7（正文2、6），2017统计背景及中国房间空调生产角色；不发布当代份额。",
+      "source": {
+        "id": "source-home-ac-iea",
+        "publisher": "International Energy Agency",
+        "name": "The Future of Cooling in China",
+        "url": "https://iea.blob.core.windows.net/assets/9212903b-e310-48d4-96fa-3eaf7ddf56d9/The_Future_of_Cooling_in_China.pdf",
+        "publishedAt": "2019-06-16",
+        "retrievedAt": "2026-10-21T08:17:07.1485539Z",
+        "datasetVersion": "IEA-2019-cooling-China",
+        "license": "IEA 2019. All rights reserved（原始PDF页眉）；仅有限事实摘要并保留链接。",
+        "notes": "PDF pp.3、7（正文2、6），2017统计背景及中国房间空调生产角色；不发布当代份额。 原件 data/raw/home-ac-research/iea-future-cooling-china.pdf；SHA-256 bec5fb3064f618146323e5d56ed3a2d88f18ae353073ca132134f1c2dd753117。"
+      }
+    },
+    {
+      "alias": "trade",
+      "path": "data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json",
+      "sha256": "52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046",
+      "bytes": 10921,
+      "httpStatus": 200,
+      "locator": "data；reporterCode=156，flowCode=X，partnerCode=276/842，cmdCode=841510/841582。",
+      "source": {
+        "id": "source-home-ac-trade",
+        "publisher": "United Nations Statistics Division",
+        "name": "UN Comtrade 中国报告的2024年HS2022空调贸易",
+        "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0%2C842%2C276&cmdCode=841510%2C841582&flowCode=X%2CM&period=2024&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+        "publishedAt": "2024",
+        "retrievedAt": "2026-10-21T08:16:17.7440413Z",
+        "datasetVersion": "Comtrade-H6-2024-snapshot-2026-10-21",
+        "license": "UN Comtrade公开数据；适用联合国数据使用条款并保留出处。",
+        "notes": "data；reporterCode=156，flowCode=X，partnerCode=276/842，cmdCode=841510/841582。 原件 data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json；SHA-256 52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046。"
+      }
+    },
+    {
+      "alias": "hs",
+      "path": "data/raw/home-ac-research/un-hs2022-h6.json",
+      "sha256": "e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15",
+      "bytes": 1750838,
+      "httpStatus": 200,
+      "locator": "results[id=841510/841582]；classCode=H6，className=HS2022。",
+      "source": {
+        "id": "source-home-ac-hs",
+        "publisher": "United Nations Statistics Division",
+        "name": "UN Comtrade HS2022/H6分类参考字典",
+        "url": "https://comtradeapi.un.org/files/v1/app/reference/H6.json",
+        "publishedAt": "2022",
+        "retrievedAt": "2026-10-21T08:16:23.2206933Z",
+        "datasetVersion": "HS2022-H6",
+        "license": "联合国公开分类参考资料；保留官方品名和出处。",
+        "notes": "results[id=841510/841582]；classCode=H6，className=HS2022。 原件 data/raw/home-ac-research/un-hs2022-h6.json；SHA-256 e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15。"
+      }
+    },
+    {
+      "alias": "units",
+      "path": "data/raw/home-ac-research/un-quantity-units.json",
+      "sha256": "420267929eac391e9dcd97d18252a2aee9bff2a86c3e2162d1ec57ef53811c24",
+      "bytes": 4579,
+      "httpStatus": 200,
+      "locator": "results[qtyCode=5]：u，Number of items。",
+      "source": {
+        "id": "source-home-ac-units",
+        "publisher": "United Nations Statistics Division",
+        "name": "UN Comtrade QuantityUnits参考字典",
+        "url": "https://comtradeapi.un.org/files/v1/app/reference/QuantityUnits.json",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-21T08:18:06Z",
+        "datasetVersion": "QuantityUnits-snapshot-2026-10-21",
+        "license": "联合国公开参考资料；保留字典代码和出处。",
+        "notes": "results[qtyCode=5]：u，Number of items。 原件 data/raw/home-ac-research/un-quantity-units.json；SHA-256 420267929eac391e9dcd97d18252a2aee9bff2a86c3e2162d1ec57ef53811c24。"
+      }
+    },
+    {
+      "alias": "countries",
+      "path": "data/raw/cotton-tshirt-2026-10-21/un-m49-overview.html",
+      "sha256": "b9048114f6e7f2abda83bf03d4263c9d7cd1bd7230e3d0461025ee7839a7a1fb",
+      "bytes": 1721575,
+      "httpStatus": 200,
+      "locator": "UN M49 overview：China/156/CN/CHN，Germany/276/DE/DEU，United States of America/840/US/USA。",
+      "source": {
+        "id": "source-home-ac-countries",
+        "publisher": "United Nations Statistics Division",
+        "name": "UN M49国家标准表（复用既有原件）",
+        "url": "https://unstats.un.org/unsd/methodology/m49/overview/",
+        "publishedAt": null,
+        "retrievedAt": "2026-10-21T03:17:55.860727+00:00",
+        "datasetVersion": "UN-M49-snapshot-2026-10-21",
+        "license": "联合国公开国家标准参考表；保留出处。",
+        "notes": "复用既有原始快照，只提取三国地理维度。美国地理M49=840，不覆盖Comtrade伙伴统计码842。"
+      }
+    }
+  ],
+  "tradeSelection": {
+    "expectedRawCount": 12,
+    "previewLimit": 500,
+    "reporterCode": 156,
+    "period": "2024",
+    "classificationCode": "H6",
+    "commodityCodes": [
+      "841510",
+      "841582"
+    ],
+    "partners": [
+      276,
+      842
+    ],
+    "flowCode": "X",
+    "isReported": true,
+    "isAggregate": false,
+    "expectedSelectedCount": 4
+  },
+  "publicationCorrections": [
+    {
+      "source": "doe",
+      "researchDraftPeriod": "1996",
+      "verifiedPeriod": "1997",
+      "reason": "原件PDF第1和第2页均明确写SEPTEMBER 1997，以原件覆盖研究稿的误标。"
+    },
+    {
+      "source": "iea",
+      "researchDraftLicense": "CC BY 4.0",
+      "verifiedLicense": "原件页眉IEA. All rights reserved；仅有限事实摘要。",
+      "reason": "本候选不依研究稿中的许可推断开放再分发。"
+    }
+  ],
+  "exclusions": [
+    "IEA网页403、国家字典404仅为失败请求，不作为来源。",
+    "不导入4条世界总计和4条进口观察；保留排除行的维度与理由。",
+    "无单机用量、当前生产份额、原料跨国物流、具体厂商或客户供货关系。"
+  ]
+}

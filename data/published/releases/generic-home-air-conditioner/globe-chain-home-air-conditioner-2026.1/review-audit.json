@@ -1,0 +1,403 @@
+{
+  "schemaVersion": "home-air-conditioner-release-audit.v1",
+  "batchId": "home-air-conditioner-2026-10-21",
+  "reviewedAt": "2026-10-21",
+  "productId": "generic-home-air-conditioner",
+  "datasetVersion": "globe-chain-home-air-conditioner-2026.1",
+  "inputs": {
+    "content": {
+      "path": "content/products/home-air-conditioner-2026-10.json",
+      "sha256": "64fb5e66b659a4323a3be221130b09a98e6aa9a46778e27da950096e05aef7c3"
+    },
+    "review": {
+      "path": "content/reviews/home-air-conditioner-2026-10-21.json",
+      "sha256": "0f1a74e961bfba6be19766e5a216f3bdea7209747726e69890a9b573a98579b5"
+    },
+    "rawManifest": {
+      "path": "data/raw/home-ac-research/manifest.json",
+      "sha256": "560bff15499034f21d8d2961b8a914f51cb23396a42299fe78f2ebbfffd3277a"
+    },
+    "snapshots": [
+      {
+        "alias": "doe",
+        "path": "data/raw/home-ac-research/doe-room-ac-manufacturing.pdf",
+        "sha256": "a91075627a70179ee09e8f789315b4530449579d9a7c73636c9e72258b2ac0aa",
+        "bytes": 1493313,
+        "locator": "PDF pp.1–2封面September 1997；pp.24–26（正文1-1至1-3），Figure 1.1。"
+      },
+      {
+        "alias": "iea",
+        "path": "data/raw/home-ac-research/iea-future-cooling-china.pdf",
+        "sha256": "bec5fb3064f618146323e5d56ed3a2d88f18ae353073ca132134f1c2dd753117",
+        "bytes": 2815200,
+        "locator": "PDF pp.3、7（正文2、6），2017统计背景及中国房间空调生产角色；不发布当代份额。"
+      },
+      {
+        "alias": "trade",
+        "path": "data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json",
+        "sha256": "52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046",
+        "bytes": 10921,
+        "locator": "data；reporterCode=156，flowCode=X，partnerCode=276/842，cmdCode=841510/841582。"
+      },
+      {
+        "alias": "hs",
+        "path": "data/raw/home-ac-research/un-hs2022-h6.json",
+        "sha256": "e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15",
+        "bytes": 1750838,
+        "locator": "results[id=841510/841582]；classCode=H6，className=HS2022。"
+      },
+      {
+        "alias": "units",
+        "path": "data/raw/home-ac-research/un-quantity-units.json",
+        "sha256": "420267929eac391e9dcd97d18252a2aee9bff2a86c3e2162d1ec57ef53811c24",
+        "bytes": 4579,
+        "locator": "results[qtyCode=5]：u，Number of items。"
+      },
+      {
+        "alias": "countries",
+        "path": "data/raw/cotton-tshirt-2026-10-21/un-m49-overview.html",
+        "sha256": "b9048114f6e7f2abda83bf03d4263c9d7cd1bd7230e3d0461025ee7839a7a1fb",
+        "bytes": 1721575,
+        "locator": "UN M49 overview：China/156/CN/CHN，Germany/276/DE/DEU，United States of America/840/US/USA。"
+      }
+    ]
+  },
+  "transformations": [
+    "离线核对原始manifest与六个已保存输入SHA-256、字节数和成功状态。",
+    "以封面原件纠正DOE年份为1997；IEA历史国家背景不发布当前份额。",
+    "从HS2022提取841510/841582；商品aggregate映射与显式分类条目exact映射分开。",
+    "从12条原始记录中严格筛选4条2024中国报告双边出口；排除世界总计与进口，不求和填补。",
+    "FOB为USD，qtyUnitCode=5经官方字典转items；净重kg和原始质量标记分别保留。",
+    "从DOE的部件、制造文字和图1.1整理九步、三个投入支线及功能设备；所有技术节点无国家归属。",
+    "结构和跨期研究索引均无数值，不创建单机用量、厂商或贸易指南事实。"
+  ],
+  "publicationCorrections": [
+    {
+      "source": "doe",
+      "researchDraftPeriod": "1996",
+      "verifiedPeriod": "1997",
+      "reason": "原件PDF第1和第2页均明确写SEPTEMBER 1997，以原件覆盖研究稿的误标。"
+    },
+    {
+      "source": "iea",
+      "researchDraftLicense": "CC BY 4.0",
+      "verifiedLicense": "原件页眉IEA. All rights reserved；仅有限事实摘要。",
+      "reason": "本候选不依研究稿中的许可推断开放再分发。"
+    }
+  ],
+  "classification": {
+    "classCode": "H6",
+    "className": "HS2022",
+    "selectedEntries": [
+      {
+        "id": "841510",
+        "text": "841510 - Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or 'split-system'",
+        "parent": "8415",
+        "isLeaf": "1",
+        "aggrlevel": 6,
+        "standardUnitAbbr": "u"
+      },
+      {
+        "id": "841582",
+        "text": "841582 - Air conditioning machines; containing a motor driven fan, other than window or wall types, incorporating a refrigerating unit",
+        "parent": "8415",
+        "isLeaf": "1",
+        "aggrlevel": 6,
+        "standardUnitAbbr": "u"
+      }
+    ]
+  },
+  "quantityUnit": {
+    "qtyCode": 5,
+    "qtyAbbr": "u",
+    "qtyDescription": "Number of items"
+  },
+  "tradeRows": [
+    {
+      "id": "home-ac-trade-841510-276-X-2024",
+      "key": "841510-276-X-2024",
+      "rawSnapshot": "data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json",
+      "rawSha256": "52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046",
+      "reporterCode": 156,
+      "partnerCode": 276,
+      "commodityCode": "841510",
+      "flowCode": "X",
+      "period": "2024",
+      "primaryValue": 17426885,
+      "fobvalue": 17426885,
+      "qty": 89446,
+      "netWgt": 2753704,
+      "qtyUnitCode": 5,
+      "normalizedUnit": "items",
+      "original": {
+        "classificationCode": "H6",
+        "isOriginalClassification": true,
+        "qtyUnitCode": 5,
+        "qtyUnitAbbr": null,
+        "altQtyUnitCode": 5,
+        "altQty": 89446,
+        "isAltQtyEstimated": false,
+        "netWgt": 2753704,
+        "isNetWgtEstimated": false,
+        "grossWgt": 0,
+        "isGrossWgtEstimated": false,
+        "cifvalue": null,
+        "fobvalue": 17426885,
+        "partner2Code": 0,
+        "motCode": 0,
+        "customsCode": "C00"
+      },
+      "quality": {
+        "legacyEstimationFlag": 0,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": false,
+        "isReported": true,
+        "isAggregate": false,
+        "sourceDatasetCode": "H6",
+        "sourcePublicationDate": null,
+        "sourceRevision": null
+      }
+    },
+    {
+      "id": "home-ac-trade-841510-842-X-2024",
+      "key": "841510-842-X-2024",
+      "rawSnapshot": "data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json",
+      "rawSha256": "52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046",
+      "reporterCode": 156,
+      "partnerCode": 842,
+      "commodityCode": "841510",
+      "flowCode": "X",
+      "period": "2024",
+      "primaryValue": 626939504,
+      "fobvalue": 626939504,
+      "qty": 4319532,
+      "netWgt": 123416132,
+      "qtyUnitCode": 5,
+      "normalizedUnit": "items",
+      "original": {
+        "classificationCode": "H6",
+        "isOriginalClassification": true,
+        "qtyUnitCode": 5,
+        "qtyUnitAbbr": null,
+        "altQtyUnitCode": 5,
+        "altQty": 4319532,
+        "isAltQtyEstimated": false,
+        "netWgt": 123416132,
+        "isNetWgtEstimated": false,
+        "grossWgt": 0,
+        "isGrossWgtEstimated": false,
+        "cifvalue": null,
+        "fobvalue": 626939504,
+        "partner2Code": 0,
+        "motCode": 0,
+        "customsCode": "C00"
+      },
+      "quality": {
+        "legacyEstimationFlag": 0,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": false,
+        "isReported": true,
+        "isAggregate": false,
+        "sourceDatasetCode": "H6",
+        "sourcePublicationDate": null,
+        "sourceRevision": null
+      }
+    },
+    {
+      "id": "home-ac-trade-841582-276-X-2024",
+      "key": "841582-276-X-2024",
+      "rawSnapshot": "data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json",
+      "rawSha256": "52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046",
+      "reporterCode": 156,
+      "partnerCode": 276,
+      "commodityCode": "841582",
+      "flowCode": "X",
+      "period": "2024",
+      "primaryValue": 26652062,
+      "fobvalue": 26652062,
+      "qty": 170565,
+      "netWgt": 4564264,
+      "qtyUnitCode": 5,
+      "normalizedUnit": "items",
+      "original": {
+        "classificationCode": "H6",
+        "isOriginalClassification": true,
+        "qtyUnitCode": 5,
+        "qtyUnitAbbr": null,
+        "altQtyUnitCode": 5,
+        "altQty": 170565,
+        "isAltQtyEstimated": false,
+        "netWgt": 4564264,
+        "isNetWgtEstimated": false,
+        "grossWgt": 0,
+        "isGrossWgtEstimated": false,
+        "cifvalue": null,
+        "fobvalue": 26652062,
+        "partner2Code": 0,
+        "motCode": 0,
+        "customsCode": "C00"
+      },
+      "quality": {
+        "legacyEstimationFlag": 0,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": false,
+        "isReported": true,
+        "isAggregate": false,
+        "sourceDatasetCode": "H6",
+        "sourcePublicationDate": null,
+        "sourceRevision": null
+      }
+    },
+    {
+      "id": "home-ac-trade-841582-842-X-2024",
+      "key": "841582-842-X-2024",
+      "rawSnapshot": "data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json",
+      "rawSha256": "52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046",
+      "reporterCode": 156,
+      "partnerCode": 842,
+      "commodityCode": "841582",
+      "flowCode": "X",
+      "period": "2024",
+      "primaryValue": 272353521,
+      "fobvalue": 272353521,
+      "qty": 1823122,
+      "netWgt": 52047232,
+      "qtyUnitCode": 5,
+      "normalizedUnit": "items",
+      "original": {
+        "classificationCode": "H6",
+        "isOriginalClassification": true,
+        "qtyUnitCode": 5,
+        "qtyUnitAbbr": null,
+        "altQtyUnitCode": 5,
+        "altQty": 1823122,
+        "isAltQtyEstimated": false,
+        "netWgt": 52047232,
+        "isNetWgtEstimated": false,
+        "grossWgt": 0,
+        "isGrossWgtEstimated": false,
+        "cifvalue": null,
+        "fobvalue": 272353521,
+        "partner2Code": 0,
+        "motCode": 0,
+        "customsCode": "C00"
+      },
+      "quality": {
+        "legacyEstimationFlag": 0,
+        "isQtyEstimated": false,
+        "isNetWgtEstimated": false,
+        "isReported": true,
+        "isAggregate": false,
+        "sourceDatasetCode": "H6",
+        "sourcePublicationDate": null,
+        "sourceRevision": null
+      }
+    }
+  ],
+  "excludedTradeRows": [
+    {
+      "key": "841510-0-M-2024",
+      "classificationCode": "841510",
+      "partnerCode": 0,
+      "flowCode": "M",
+      "isReported": false,
+      "isAggregate": true,
+      "reason": "world_total excluded; do not add to bilateral observations"
+    },
+    {
+      "key": "841510-276-M-2024",
+      "classificationCode": "841510",
+      "partnerCode": 276,
+      "flowCode": "M",
+      "isReported": true,
+      "isAggregate": false,
+      "reason": "import outside reviewed export-only scope"
+    },
+    {
+      "key": "841510-842-M-2024",
+      "classificationCode": "841510",
+      "partnerCode": 842,
+      "flowCode": "M",
+      "isReported": true,
+      "isAggregate": false,
+      "reason": "import outside reviewed export-only scope"
+    },
+    {
+      "key": "841582-0-M-2024",
+      "classificationCode": "841582",
+      "partnerCode": 0,
+      "flowCode": "M",
+      "isReported": false,
+      "isAggregate": true,
+      "reason": "world_total excluded; do not add to bilateral observations"
+    },
+    {
+      "key": "841582-276-M-2024",
+      "classificationCode": "841582",
+      "partnerCode": 276,
+      "flowCode": "M",
+      "isReported": true,
+      "isAggregate": false,
+      "reason": "import outside reviewed export-only scope"
+    },
+    {
+      "key": "841582-842-M-2024",
+      "classificationCode": "841582",
+      "partnerCode": 842,
+      "flowCode": "M",
+      "isReported": true,
+      "isAggregate": false,
+      "reason": "import outside reviewed export-only scope"
+    },
+    {
+      "key": "841510-0-X-2024",
+      "classificationCode": "841510",
+      "partnerCode": 0,
+      "flowCode": "X",
+      "isReported": false,
+      "isAggregate": true,
+      "reason": "world_total excluded; do not add to bilateral observations"
+    },
+    {
+      "key": "841582-0-X-2024",
+      "classificationCode": "841582",
+      "partnerCode": 0,
+      "flowCode": "X",
+      "isReported": false,
+      "isAggregate": true,
+      "reason": "world_total excluded; do not add to bilateral observations"
+    }
+  ],
+  "counts": {
+    "items": 22,
+    "countries": 3,
+    "storyNodes": 27,
+    "storyFlows": 26,
+    "branches": 5,
+    "tradeObservations": 4,
+    "worldTotals": 0,
+    "bilateralStatistics": 4,
+    "manufacturingSteps": 9,
+    "equipmentCategories": 12,
+    "organizations": 0
+  },
+  "validation": {
+    "pinnedSourceHashes": "passed",
+    "rawManifest": "passed",
+    "officialCountryMappings": "passed",
+    "sourceNativeUSPartnerCode": 842,
+    "geographicUSM49": "840",
+    "classificationAndQuantityDictionaries": "passed",
+    "rawScopeAndUniqueDimensions": "passed",
+    "previewLimitNotReached": true,
+    "activeManifestChanged": false
+  },
+  "limitations": [
+    "HS841510涵盖固定于窗、墙、天花或地面的自成式或分体式设备；HS841582涵盖其他带制冷机组的空调机。均为相关成品宽口径，不是家用分体机精确销量。",
+    "工艺来自1997年DOE历史技术参考，侧重一体式房间空调；不代表2026年中国工厂、所有分体机或所有HVAC路线。",
+    "中国生产角色保留2017统计背景（IEA2019报告）；不发布当前份额，也不把该角色当作双边供货证据。",
+    "无原料产国、单机材料重量、制冷剂种类、工厂产能、成本、利润或厂商客户关系证据。",
+    "结构、国家背景和贸易之间是研究索引；没有同一批物料连续贯穿的证据。",
+    "本商品未发布税率、许可或进出口手续；未收录不代表零税或无需许可。"
+  ]
+}

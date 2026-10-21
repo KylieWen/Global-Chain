@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "ebike-research-snapshots.v1",
+  "retrievedAt": "2026-10-21T08:18:08.1211361Z",
+  "sources": [
+    {
+      "file": "comtrade-china-871160-2024.json",
+      "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0%2C840%2C276%2C702&cmdCode=871160&flowCode=X&period=2024&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+      "publisher": "United Nations Statistics Division",
+      "method": "official",
+      "status": "downloaded",
+      "httpStatus": 200,
+      "bytes": 2790,
+      "sha256": "be4c2d204271b7e3f0c34fe0f01c86cdbfe1186677cde103848819a2e4b2ddc9",
+      "contentType": "application/json; charset=utf-8",
+      "recordCount": 3
+    },
+    {
+      "file": "dazu-ebike-assembly-eia.pdf",
+      "url": "https://www.dazu.gov.cn/zwgk_175/fdzdgknr/xzxk/xzxkbljg/qsthjj_68881/202202/P020220213357879049596.pdf",
+      "publisher": "Chongqing Dazu District Ecology and Environment Bureau",
+      "method": "official",
+      "status": "downloaded",
+      "httpStatus": 200,
+      "bytes": 2858043,
+      "sha256": "32fa8656e4ba33e6dfef093465b82af6edb000fc5404fa2024797263a2840d05",
+      "contentType": "application/pdf"
+    },
+    {
+      "file": "miit-battery-standard-system.html",
+      "url": "https://www.miit.gov.cn/jgsj/kjs/jscx/bzgf/art/2020/art_7c69273060e74381b2c09bfc613f83cb.html",
+      "publisher": "Ministry of Industry and Information Technology of the People's Republic of China",
+      "method": "official",
+      "status": "downloaded",
+      "httpStatus": 200,
+      "bytes": 519208,
+      "sha256": "3d9853d66f20f50c7df23cc223ded3a6222c052a3f729814747fff2682aebf21",
+      "contentType": "text/html"
+    },
+    {
+      "file": "miit-gb17761-2024-faq.html",
+      "url": "https://www.miit.gov.cn/zwgk/zcjd/art/2025/art_52062523e41040f596a1651abc52c5b0.html",
+      "publisher": "Ministry of Industry and Information Technology of the People's Republic of China",
+      "method": "official",
+      "status": "downloaded",
+      "httpStatus": 200,
+      "bytes": 24199,
+      "sha256": "20b28e5f69b7baf5d6dfa85afbe0cf0fe063c4dc24fbdb3a8d3e11617807a26a",
+      "contentType": "text/html"
+    },
+    {
+      "file": "miit-recycling-guidance.html",
+      "url": "https://wap.miit.gov.cn/jgsj/jns/zhlyh/art/2025/art_0135707927c84f56885830ad5f00ad19.html",
+      "publisher": "Ministry of Industry and Information Technology of the People's Republic of China",
+      "method": "official",
+      "status": "downloaded",
+      "httpStatus": 200,
+      "bytes": 14215,
+      "sha256": "44cdebf34a316ac84a0e0b39f954f55ad2eac21502563ef29c44c4da18e82485",
+      "contentType": "text/html"
+    },
+    {
+      "file": "mofcom-hs-871160.html",
+      "url": "https://chinawto.mofcom.gov.cn/article/jsbl/zszc/202407/20240703524595.shtml",
+      "publisher": "Ministry of Commerce of the People's Republic of China",
+      "method": "official",
+      "status": "downloaded",
+      "httpStatus": 200,
+      "bytes": 67267,
+      "sha256": "077a244c6f077dac93559c41e14603f04c6785935889301ba81c4ae141b26840",
+      "contentType": "text/html"
+    },
+    {
+      "file": "ningxia-parts-inventory.html",
+      "url": "https://gxt.nx.gov.cn/zwgk/fdzdgknr/glfw/gsgg/202309/t20230908_4257183.html",
+      "publisher": "Ningxia Department of Industry and Information Technology",
+      "method": "official",
+      "status": "downloaded",
+      "httpStatus": 200,
+      "bytes": 51643,
+      "sha256": "e3cfe83cd2c9294e77a5745d7d215393eecee5c98f57997353b3143f39f84e9c",
+      "contentType": "text/html"
+    },
+    {
+      "file": "un-comtrade-H6.json",
+      "url": "https://comtradeapi.un.org/files/v1/app/reference/H6.json",
+      "publisher": "United Nations Statistics Division",
+      "method": "official",
+      "status": "downloaded",
+      "httpStatus": 200,
+      "bytes": 1750838,
+      "sha256": "e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15",
+      "contentType": "application/json"
+    },
+    {
+      "file": "un-comtrade-quantity-units.json",
+      "url": "https://comtradeapi.un.org/files/v1/app/reference/QuantityUnits.json",
+      "publisher": "United Nations Statistics Division",
+      "method": "official",
+      "status": "downloaded",
+      "httpStatus": 200,
+      "bytes": 4579,
+      "sha256": "420267929eac391e9dcd97d18252a2aee9bff2a86c3e2162d1ec57ef53811c24",
+      "contentType": "application/json"
+    }
+  ]
+}

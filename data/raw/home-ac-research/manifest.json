@@ -1,0 +1,74 @@
+[
+  {
+    "file": "iea-future-cooling-china.html",
+    "url": "https://www.iea.org/reports/the-future-of-cooling-in-china",
+    "retrievedAt": "2026-10-21T08:16:09.4994634Z",
+    "httpStatus": 403,
+    "contentType": "",
+    "bytes": 0,
+    "sha256": ""
+  },
+  {
+    "file": "doe-room-ac-manufacturing.pdf",
+    "url": "https://www1.eere.energy.gov/buildings/appliance_standards/pdfs/tsdracv2.pdf",
+    "retrievedAt": "2026-10-21T08:16:15.4342209Z",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "bytes": 1493313,
+    "sha256": "a91075627a70179ee09e8f789315b4530449579d9a7c73636c9e72258b2ac0aa"
+  },
+  {
+    "file": "un-comtrade-china-hs8415-2024.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&partnerCode=0%2C842%2C276&cmdCode=841510%2C841582&flowCode=X%2CM&period=2024&motCode=0&partner2Code=0&customsCode=C00&maxRecords=500",
+    "retrievedAt": "2026-10-21T08:16:17.7440413Z",
+    "httpStatus": 200,
+    "contentType": "application/json; charset=utf-8",
+    "bytes": 10921,
+    "sha256": "52c9eb19e2908421fd2432bc25d82df7bd695ec3892f9fdcd7d619655fbc4046"
+  },
+  {
+    "file": "un-hs2022-h6.json",
+    "url": "https://comtradeapi.un.org/files/v1/app/reference/H6.json",
+    "retrievedAt": "2026-10-21T08:16:23.2206933Z",
+    "httpStatus": 200,
+    "contentType": "application/json",
+    "bytes": 1750838,
+    "sha256": "e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15"
+  },
+  {
+    "file": "un-m49-countries.json",
+    "url": "https://comtradeapi.un.org/files/v1/app/reference/Country.json",
+    "retrievedAt": "2026-10-21T08:16:24.9442199Z",
+    "httpStatus": 404,
+    "contentType": "",
+    "bytes": 0,
+    "sha256": ""
+  },
+  {
+    "file": "iea-future-cooling-china.pdf",
+    "url": "https://iea.blob.core.windows.net/assets/9212903b-e310-48d4-96fa-3eaf7ddf56d9/The_Future_of_Cooling_in_China.pdf",
+    "retrievedAt": "2026-10-21T08:17:07.1485539Z",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "bytes": 2815200,
+    "sha256": "bec5fb3064f618146323e5d56ed3a2d88f18ae353073ca132134f1c2dd753117"
+  },
+  {
+    "file": "oecd-iea-future-cooling-china.pdf",
+    "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2019/06/the-future-of-cooling-in-china_f5b8da76/fd5f242d-en.pdf",
+    "retrievedAt": "2026-10-21T08:17:11.2222775Z",
+    "httpStatus": 200,
+    "contentType": "application/pdf",
+    "bytes": 2918348,
+    "sha256": "e44a750bedd0099e5b7ab40d403c0f39c80cb50e7743f60e7585d154928c88c2"
+  },
+  {
+    "file": "un-quantity-units.json",
+    "url": "https://comtradeapi.un.org/files/v1/app/reference/QuantityUnits.json",
+    "retrievedAt": "2026-10-21T08:18:06Z",
+    "httpStatus": 200,
+    "contentType": "application/json",
+    "bytes": 4579,
+    "sha256": "420267929eac391e9dcd97d18252a2aee9bff2a86c3e2162d1ec57ef53811c24"
+  }
+]

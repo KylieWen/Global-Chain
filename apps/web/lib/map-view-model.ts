@@ -21,6 +21,8 @@ export type MapRecord = {
   partnerScope: "entity" | "world_total" | "unspecified" | "not_applicable";
   fromCountryId: string | null;
   toCountryId: string | null;
+  fromLabel?: string | null;
+  toLabel?: string | null;
   fromM49: string | null;
   toM49: string | null;
   itemId: string | null;
@@ -145,6 +147,7 @@ export function createMapView(queries: ProductQueryService, filters: MapFilters 
   const routeRecords: MapRecord[] = story?.flows.map(view => ({
     id: view.flow.id, observationId: view.flow.id, kind: "supply-chain", recordKind: "supply_chain", partnerScope: "entity",
     fromCountryId: view.from.entity?.id ?? null, toCountryId: view.to.entity?.id ?? null,
+    fromLabel: view.from.node?.node.label ?? null, toLabel: view.to.node?.node.label ?? null,
     fromM49: view.from.entity?.m49 ?? null, toM49: view.to.entity?.m49 ?? null,
     itemId: view.item?.id ?? null, itemName: view.item?.name ?? "未关联商品", stageLabel: view.processStage?.label ?? null,
     reporterName: null, reporterId: null, reporterM49: null, direction: null, periodLabel: view.flow.period.label,

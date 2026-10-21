@@ -1,0 +1,370 @@
+{
+  "schemaVersion": "electric-bicycle-review.v1",
+  "batchId": "electric-bicycle-2026-10-21",
+  "reviewedAt": "2026-10-21",
+  "datasetVersion": "globe-chain-electric-bicycle-2026.1",
+  "inputs": {
+    "content": {
+      "path": "content/products/electric-bicycle-2026-10.json",
+      "sha256": "885b752c92e9aee4740dc8fa3439bc4e1de18b6bca44e1eb95c8ce121a801b16"
+    },
+    "sourceReview": {
+      "path": "content/reviews/electric-bicycle-2026-10-21.json",
+      "sha256": "1d570969003a2e7b8a7e7abfd479c7c729cf83f48276fdd90778bbc47ba61201"
+    },
+    "rawManifest": {
+      "path": "data/raw/ebike-research/manifest.json",
+      "sha256": "4c874f51ce35e9937289db4fefe0cc60184745431d3ca32906f943f998e391d8"
+    },
+    "snapshots": [
+      {
+        "alias": "trade",
+        "path": "data/raw/ebike-research/comtrade-china-871160-2024.json",
+        "sha256": "be4c2d204271b7e3f0c34fe0f01c86cdbfe1186677cde103848819a2e4b2ddc9",
+        "reviewedTerms": [
+          "871160",
+          "935578",
+          "32649"
+        ],
+        "locator": "China reporter 156; annual 2024; HS2022 871160; export; world 0, Germany 276, Singapore 702."
+      },
+      {
+        "alias": "battery",
+        "path": "data/raw/ebike-research/miit-battery-standard-system.html",
+        "sha256": "3d9853d66f20f50c7df23cc223ded3a6222c052a3f729814747fff2682aebf21",
+        "reviewedTerms": [
+          "原材料",
+          "锂离子电芯及电池组",
+          "部件及附件",
+          "电动自行车应用"
+        ],
+        "locator": "图1及概述：原材料、锂离子电芯及电池组、部件及附件和电动自行车应用四个环节。"
+      },
+      {
+        "alias": "parts",
+        "path": "data/raw/ebike-research/ningxia-parts-inventory.html",
+        "sha256": "e3cfe83cd2c9294e77a5745d7d215393eecee5c98f57997353b3143f39f84e9c",
+        "reviewedTerms": [
+          "车架",
+          "控制器",
+          "车轮",
+          "电机",
+          "蓄电池",
+          "充电器",
+          "仪表系统"
+        ],
+        "locator": "整车生产包括主要配件生产、整车组装、测试、检验；列出车架、控制器、车轮、电机、蓄电池、充电器、减振器、仪表系统。"
+      },
+      {
+        "alias": "assembly",
+        "path": "data/raw/ebike-research/dazu-ebike-assembly-eia.pdf",
+        "sha256": "32fa8656e4ba33e6dfef093465b82af6edb000fc5404fa2024797263a2840d05",
+        "reviewedTerms": [
+          "%PDF-"
+        ],
+        "locator": "PDF pages 28–29, 34–35 (printed 21–22, 27–28); 2.3.5 and 2.5.1; planned assembly project, bought-in finished components; battery mounts exclude cells, test batteries removed, bought-in batteries and chargers packed with vehicle."
+      },
+      {
+        "alias": "standard",
+        "path": "data/raw/ebike-research/miit-gb17761-2024-faq.html",
+        "sha256": "20b28e5f69b7baf5d6dfa85afbe0cf0fe063c4dc24fbdb3a8d3e11617807a26a",
+        "reviewedTerms": [
+          "GB 17761",
+          "25km/h",
+          "电池"
+        ],
+        "locator": "2025-09-01 实施；电气部件、导线和与电池直接接触的非金属材料等安全要求。"
+      },
+      {
+        "alias": "recycling",
+        "path": "data/raw/ebike-research/miit-recycling-guidance.html",
+        "sha256": "44cdebf34a316ac84a0e0b39f954f55ad2eac21502563ef29c44c4da18e82485",
+        "reviewedTerms": [
+          "回收利用",
+          "电动自行车",
+          "锂电池"
+        ],
+        "locator": "2025-01-23 解读第二至五部分：规范交售、回收网络、安全贮存、转运和综合利用；没有实际回收量或物料去向。"
+      },
+      {
+        "alias": "hs",
+        "path": "data/raw/ebike-research/un-comtrade-H6.json",
+        "sha256": "e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15",
+        "reviewedTerms": [
+          "871160"
+        ],
+        "locator": "871160 为装有电动机驱动的摩托车及脚踏车（含助力车），并非只涵盖中国国内新国标电动自行车。"
+      },
+      {
+        "alias": "units",
+        "path": "data/raw/ebike-research/un-comtrade-quantity-units.json",
+        "sha256": "420267929eac391e9dcd97d18252a2aee9bff2a86c3e2162d1ec57ef53811c24",
+        "reviewedTerms": [
+          "Number of items"
+        ],
+        "locator": "qtyCode 5 = Number of items。"
+      },
+      {
+        "alias": "country",
+        "path": "data/raw/cotton-tshirt-2026-10-21/un-m49-overview.html",
+        "sha256": "b9048114f6e7f2abda83bf03d4263c9d7cd1bd7230e3d0461025ee7839a7a1fb",
+        "reviewedTerms": [
+          "China",
+          "Germany",
+          "Singapore"
+        ],
+        "locator": "UN M49 overview country table; China 156/CN/CHN; Germany 276/DE/DEU; Singapore 702/SG/SGP."
+      }
+    ],
+    "allResearchOriginals": [
+      {
+        "path": "data/raw/ebike-research/comtrade-china-871160-2024.json",
+        "sha256": "be4c2d204271b7e3f0c34fe0f01c86cdbfe1186677cde103848819a2e4b2ddc9"
+      },
+      {
+        "path": "data/raw/ebike-research/dazu-ebike-assembly-eia.pdf",
+        "sha256": "32fa8656e4ba33e6dfef093465b82af6edb000fc5404fa2024797263a2840d05"
+      },
+      {
+        "path": "data/raw/ebike-research/miit-battery-standard-system.html",
+        "sha256": "3d9853d66f20f50c7df23cc223ded3a6222c052a3f729814747fff2682aebf21"
+      },
+      {
+        "path": "data/raw/ebike-research/miit-gb17761-2024-faq.html",
+        "sha256": "20b28e5f69b7baf5d6dfa85afbe0cf0fe063c4dc24fbdb3a8d3e11617807a26a"
+      },
+      {
+        "path": "data/raw/ebike-research/miit-recycling-guidance.html",
+        "sha256": "44cdebf34a316ac84a0e0b39f954f55ad2eac21502563ef29c44c4da18e82485"
+      },
+      {
+        "path": "data/raw/ebike-research/mofcom-hs-871160.html",
+        "sha256": "077a244c6f077dac93559c41e14603f04c6785935889301ba81c4ae141b26840"
+      },
+      {
+        "path": "data/raw/ebike-research/ningxia-parts-inventory.html",
+        "sha256": "e3cfe83cd2c9294e77a5745d7d215393eecee5c98f57997353b3143f39f84e9c"
+      },
+      {
+        "path": "data/raw/ebike-research/un-comtrade-H6.json",
+        "sha256": "e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15"
+      },
+      {
+        "path": "data/raw/ebike-research/un-comtrade-quantity-units.json",
+        "sha256": "420267929eac391e9dcd97d18252a2aee9bff2a86c3e2162d1ec57ef53811c24"
+      }
+    ]
+  },
+  "classification": {
+    "classCode": "H6",
+    "className": "HS2022",
+    "original": {
+      "id": "871160",
+      "text": "871160 - Motorcycles (including mopeds) and cycles; fitted with auxiliary motor, with electric motor for propulsion, with or without side-cars; side-cars",
+      "parent": "8711",
+      "isLeaf": "1",
+      "aggrlevel": 6,
+      "standardUnitAbbr": "u"
+    },
+    "mappingType": "aggregate"
+  },
+  "quantityUnit": {
+    "qtyCode": 5,
+    "qtyAbbr": "u",
+    "qtyDescription": "Number of items"
+  },
+  "rawRecords": [
+    {
+      "observationId": "ebike-trade-X-0-2024",
+      "sourcePath": "data/raw/ebike-research/comtrade-china-871160-2024.json",
+      "dataIndex": 0,
+      "rawRowSha256": "cbe20ce9a9472ff63c644f4d29022402bae495d53b787dda8971b2748dbf88a3",
+      "original": {
+        "typeCode": "C",
+        "freqCode": "A",
+        "refPeriodId": 20240101,
+        "refYear": 2024,
+        "refMonth": 52,
+        "period": "2024",
+        "reporterCode": 156,
+        "reporterISO": null,
+        "reporterDesc": null,
+        "flowCode": "X",
+        "flowDesc": null,
+        "partnerCode": 0,
+        "partnerISO": null,
+        "partnerDesc": null,
+        "partner2Code": 0,
+        "partner2ISO": null,
+        "partner2Desc": null,
+        "classificationCode": "H6",
+        "classificationSearchCode": "HS",
+        "isOriginalClassification": true,
+        "cmdCode": "871160",
+        "cmdDesc": null,
+        "aggrLevel": null,
+        "isLeaf": null,
+        "customsCode": "C00",
+        "customsDesc": null,
+        "mosCode": "0",
+        "motCode": 0,
+        "motDesc": null,
+        "qtyUnitCode": 5,
+        "qtyUnitAbbr": null,
+        "qty": 22113408,
+        "isQtyEstimated": false,
+        "altQtyUnitCode": 5,
+        "altQtyUnitAbbr": null,
+        "altQty": 22113408,
+        "isAltQtyEstimated": false,
+        "netWgt": 791375153,
+        "isNetWgtEstimated": false,
+        "grossWgt": 0,
+        "isGrossWgtEstimated": false,
+        "cifvalue": null,
+        "fobvalue": 5817244571,
+        "primaryValue": 5817244571,
+        "legacyEstimationFlag": 0,
+        "isReported": false,
+        "isAggregate": true
+      }
+    },
+    {
+      "observationId": "ebike-trade-X-276-2024",
+      "sourcePath": "data/raw/ebike-research/comtrade-china-871160-2024.json",
+      "dataIndex": 1,
+      "rawRowSha256": "144131df46d5c2982a155f81d534f2303500012bb5e91310a1d0c34bb66f09e1",
+      "original": {
+        "typeCode": "C",
+        "freqCode": "A",
+        "refPeriodId": 20240101,
+        "refYear": 2024,
+        "refMonth": 52,
+        "period": "2024",
+        "reporterCode": 156,
+        "reporterISO": null,
+        "reporterDesc": null,
+        "flowCode": "X",
+        "flowDesc": null,
+        "partnerCode": 276,
+        "partnerISO": null,
+        "partnerDesc": null,
+        "partner2Code": 0,
+        "partner2ISO": null,
+        "partner2Desc": null,
+        "classificationCode": "H6",
+        "classificationSearchCode": "HS",
+        "isOriginalClassification": true,
+        "cmdCode": "871160",
+        "cmdDesc": null,
+        "aggrLevel": null,
+        "isLeaf": null,
+        "customsCode": "C00",
+        "customsDesc": null,
+        "mosCode": "0",
+        "motCode": 0,
+        "motDesc": null,
+        "qtyUnitCode": 5,
+        "qtyUnitAbbr": null,
+        "qty": 935578,
+        "isQtyEstimated": false,
+        "altQtyUnitCode": 5,
+        "altQtyUnitAbbr": null,
+        "altQty": 935578,
+        "isAltQtyEstimated": false,
+        "netWgt": 19985360,
+        "isNetWgtEstimated": false,
+        "grossWgt": 0,
+        "isGrossWgtEstimated": false,
+        "cifvalue": null,
+        "fobvalue": 244744677,
+        "primaryValue": 244744677,
+        "legacyEstimationFlag": 0,
+        "isReported": true,
+        "isAggregate": false
+      }
+    },
+    {
+      "observationId": "ebike-trade-X-702-2024",
+      "sourcePath": "data/raw/ebike-research/comtrade-china-871160-2024.json",
+      "dataIndex": 2,
+      "rawRowSha256": "a01ef42f79d7e97fbd1cf90e1e3689b8d4df82101becc3bb8251a7a1e7ca4803",
+      "original": {
+        "typeCode": "C",
+        "freqCode": "A",
+        "refPeriodId": 20240101,
+        "refYear": 2024,
+        "refMonth": 52,
+        "period": "2024",
+        "reporterCode": 156,
+        "reporterISO": null,
+        "reporterDesc": null,
+        "flowCode": "X",
+        "flowDesc": null,
+        "partnerCode": 702,
+        "partnerISO": null,
+        "partnerDesc": null,
+        "partner2Code": 0,
+        "partner2ISO": null,
+        "partner2Desc": null,
+        "classificationCode": "H6",
+        "classificationSearchCode": "HS",
+        "isOriginalClassification": true,
+        "cmdCode": "871160",
+        "cmdDesc": null,
+        "aggrLevel": null,
+        "isLeaf": null,
+        "customsCode": "C00",
+        "customsDesc": null,
+        "mosCode": "0",
+        "motCode": 0,
+        "motDesc": null,
+        "qtyUnitCode": 5,
+        "qtyUnitAbbr": null,
+        "qty": 32649,
+        "isQtyEstimated": false,
+        "altQtyUnitCode": 5,
+        "altQtyUnitAbbr": null,
+        "altQty": 32649,
+        "isAltQtyEstimated": false,
+        "netWgt": 1561923,
+        "isNetWgtEstimated": false,
+        "grossWgt": 0,
+        "isGrossWgtEstimated": false,
+        "cifvalue": null,
+        "fobvalue": 19270071,
+        "primaryValue": 19270071,
+        "legacyEstimationFlag": 0,
+        "isReported": true,
+        "isAggregate": false
+      }
+    }
+  ],
+  "counts": {
+    "items": 15,
+    "nodes": 10,
+    "flows": 9,
+    "processSteps": 10,
+    "equipment": 8,
+    "trade": 3,
+    "worldTotals": 1,
+    "bilateralTrade": 2
+  },
+  "validation": {
+    "offline": true,
+    "activeManifestChanged": false,
+    "sourceHashesVerified": true,
+    "absentUSRecordIsZero": false,
+    "processFileScope": "planned project, not observed operations",
+    "publication": "candidate only; no active-manifest mutation"
+  },
+  "limitations": [
+    "HS2022 871160 同时覆盖装有电动机驱动的摩托车和脚踏车，不能将所有贸易金额或件数解释为中国新国标电动自行车或某款车型。",
+    "部件、总装和回收来源支持产业环节或国家角色，不证明企业之间或中国国内地点之间的具体供货关系。",
+    "本批没有电芯化学体系、单车容量、材料配比、全国年产量或回收量的同口径原始统计，保持不填。",
+    "世界总计是报告国汇总，和德国、新加坡伙伴记录不相加；没有返回的美国记录不是零。",
+    "2014年电池标准体系仅作历史结构依据；2022年大足审批文件为拟建项目工艺描述，不证明已投产或当前产能。",
+    "大足文件总装的电池套装仅含卡位及连接件，功能测试电池取出；外购成品电池和充电器另行打包。",
+    "电芯制造、回收拆解/放电/冶炼及其设备未经此批原件核验，不作为已验证工艺发布。"
+  ]
+}

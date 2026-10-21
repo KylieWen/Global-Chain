@@ -88,6 +88,10 @@ describe("fixture loader and domain queries", () => {
     );
     expect(queries.getProductOverview("missing-product")).toBeNull();
     expect(queries.listProducts()).toHaveLength(2);
+    expect(queries.listProducts().map(({ productId }) => productId)).toEqual([
+      "generic-smartphone",
+      "coffee"
+    ]);
   });
 
   it("focuses the supply-chain story on a generic item subtree", async () => {

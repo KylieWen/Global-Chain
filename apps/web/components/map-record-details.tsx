@@ -14,8 +14,8 @@ export function mapValue(value: number | null, status: string, unit: string | nu
 
 export function mapRecordTitle(record: MapRecord, countries: readonly MapCountry[]) {
   if (record.partnerScope === "world_total") return `${record.reporterName} · 世界${record.direction === "export" ? "出口" : "进口"}`;
-  const countryName = (id: string | null) => countries.find(country => country.id === id)?.name ?? "未定位地区";
-  return `${countryName(record.fromCountryId)} → ${countryName(record.toCountryId)}`;
+  const endpointName = (id: string | null, label?: string | null) => countries.find(country => country.id === id)?.name ?? label ?? "供应链环节";
+  return `${endpointName(record.fromCountryId, record.fromLabel)} → ${endpointName(record.toCountryId, record.toLabel)}`;
 }
 
 export function mapEvidenceLabel(code: string | null) {
