@@ -6,7 +6,7 @@
 
 ## 最新用户请求与执行批次：商品配图及中国空调参与者
 
-- 用户新优先级已更新PRODUCT-DIRECTION：统一商品配图；把已有空调深化为中国境内面向供应链参与者的详细原料/部件/关键设备/应用/B2B和toC销售导航及官方对接入口。**下次优先此任务，不再先扩别的商品或回到旧手机清单。** 异步问题仅询问是否进一步做站内询价/撮合；默认信息与官方入口导航已获授权，无需等该回答才能做。
+- 用户新优先级已更新PRODUCT-DIRECTION：统一商品配图；把已有空调深化为中国境内面向供应链参与者的详细原料/部件/关键设备/应用/B2B和toC销售导航及官方对接入口。**下次优先此任务，不再先扩别的商品或回到旧手机清单。** 用户已明确回复“一键对接”为信息对接：一键打开官方产品、联系或采购入口，由用户自行沟通。该范围已确认，不再等待回答或重复询问；不增加站内询价、撮合或交易服务。
 - 已完成五张同系列本地SVG，content/product-presentation.json驱动通用ProductArtwork，接入商品目录、首页和商品总览。实际截图发现裁切后修复grid轨道；最终完整展示五张图。截图output/qa/2026-10-21-artwork/catalog-desktop.jpg，豆油总览390×844文档clientWidth/scrollWidth均375。
 - 已加入可选IndustryNetworkSchema，含topic、技术邻接、企业公开能力与安全HTTP官方入口，所有事实携period/unit/source/version/method/status，并校验引用。旧fixture未增加默认字段，不改immutable release。**尚无产业网络查询、页面或空调2026.2；不能宣称一键对接功能已完成。** 新schema两项针对测试通过；既有完整37文件205通过、1跳过，最终插画尺寸修复后build（含lint/type）通过。
 - 首批研究已保存content/industry/china-hvac-reviewed-2026-10.json：金田、美芝、精达、雪人、格力5家；13来源、19主题、20关系；data/raw/china-hvac-participants-2026-10-21含15成功原文/直接正文资源、两个manifest、获取时间/哈希、acquire.py/build-reviewed.py。docs/research/china-hvac-participants-2026-10-21.md为接续说明。研究status=validated不等于发布；失败403/证书错误企业未列入已核验公司。
