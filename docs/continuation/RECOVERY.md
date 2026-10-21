@@ -4,7 +4,17 @@
 
 最新产品要求见 `PRODUCT-DIRECTION-2026-10-21.md`：逐页视觉清理防御性文案并实质补数；允许有来源的历史值/有依据估值；商品目标至少5个完整探索案例。用户最新决定：线上搭载、服务器选购与部署准备暂缓，等额度恢复后按既有每5小时接续机制继续多轮优化产品，优先用额度完成网站。本轮已恢复实质开发，下面的最新执行批次覆盖历史段落的当前状态。
 
-## 最新执行批次（2026-10-21，16:12接续）
+## 最新用户请求与执行批次：商品配图及中国空调参与者
+
+- 用户新优先级已更新PRODUCT-DIRECTION：统一商品配图；把已有空调深化为中国境内面向供应链参与者的详细原料/部件/关键设备/应用/B2B和toC销售导航及官方对接入口。**下次优先此任务，不再先扩别的商品或回到旧手机清单。** 异步问题仅询问是否进一步做站内询价/撮合；默认信息与官方入口导航已获授权，无需等该回答才能做。
+- 已完成五张同系列本地SVG，content/product-presentation.json驱动通用ProductArtwork，接入商品目录、首页和商品总览。实际截图发现裁切后修复grid轨道；最终完整展示五张图。截图output/qa/2026-10-21-artwork/catalog-desktop.jpg，豆油总览390×844文档clientWidth/scrollWidth均375。
+- 已加入可选IndustryNetworkSchema，含topic、技术邻接、企业公开能力与安全HTTP官方入口，所有事实携period/unit/source/version/method/status，并校验引用。旧fixture未增加默认字段，不改immutable release。**尚无产业网络查询、页面或空调2026.2；不能宣称一键对接功能已完成。** 新schema两项针对测试通过；既有完整37文件205通过、1跳过，最终插画尺寸修复后build（含lint/type）通过。
+- 首批研究已保存content/industry/china-hvac-reviewed-2026-10.json：金田、美芝、精达、雪人、格力5家；13来源、19主题、20关系；data/raw/china-hvac-participants-2026-10-21含15成功原文/直接正文资源、两个manifest、获取时间/哈希、acquire.py/build-reviewed.py。docs/research/china-hvac-participants-2026-10-21.md为接续说明。研究status=validated不等于发布；失败403/证书错误企业未列入已核验公司。
+- 下一步具体实现：离线builder把研究JSON转IndustryNetworkSchema（research的snapshot期间要规范化为PeriodSchema支持形式并保留原日期；DOE1997不能统一改2026），合并真实source，空调新2026.2发布；通用query返回所选环节上下游、可供应该环节的公开企业和官方产品/联系/销售链接；增加productId通用industry入口。以铜管→换热器→空调/制冰应用和翅片冲压/胀管设备验证完整任务，不把技术兼容画成商业供货。
+- 配图产品预览session44297，http://127.0.0.1:3000，仅本机。active仍五商品，空调.1未修改。Git上一检查点faddcff，本批以最新git log为准。
+- 额度实读5小时剩11%、周37%，已触保护线；停止新开发，所有子任务已收束，本批保存恢复入口与Git。保留用户视频/录音和旧物料输出。
+
+## 历史执行批次（2026-10-21，16:12接续）
 
 - **当前五个正式商品同时active**：手机2026.4、棉T恤2026.1、大豆油2026.1、电动自行车2026.1、家用房间空调2026.1。两个新release已由离线构建器创建、顺序激活，manifest verify通过；任何旧release都未修改。至少五商品目标已达到，后续优先加深现有内容。
 - 电动自行车：15项、10个一级组件入口、10节点/9代表连接、3工艺链/10步骤/8设备类别，3条中国2024 HS871160原始贸易（1世界、2德/新双边）。所有一级组件可进入工艺；修正测试电池取出、成品电池另行包装的原件边界。路线不复制统计数值。fixture SHA256 c5dbace1c2420f6a137afed745dc6859911dc7df907e6e40a2ef990cf1a92f21。

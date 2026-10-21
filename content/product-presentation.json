@@ -1,0 +1,22 @@
+{
+  "generic-smartphone": {
+    "image": "/images/products/smartphone.svg",
+    "alt": "青绿色机身、蓝紫色屏幕的无品牌智能手机插画"
+  },
+  "generic-cotton-tshirt": {
+    "image": "/images/products/cotton-tshirt.svg",
+    "alt": "带圆领、短袖和缝线细节的青绿色棉质 T 恤插画"
+  },
+  "generic-soybean-oil": {
+    "image": "/images/products/soybean-oil.svg",
+    "alt": "青绿色瓶盖、装有金黄色食用油的透明瓶及大豆插画"
+  },
+  "generic-electric-bicycle": {
+    "image": "/images/products/electric-bicycle.svg",
+    "alt": "带车架电池、脚踏和后轮电机的青绿色电动自行车插画"
+  },
+  "generic-home-air-conditioner": {
+    "image": "/images/products/home-air-conditioner.svg",
+    "alt": "暖白色壁挂室内机与带风扇室外机的家用分体空调插画"
+  }
+}

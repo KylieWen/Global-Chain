@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getQueryService } from "../../../lib/data";
 import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../components/site-shell";
 import { ProductTree } from "../../../components/product-tree";
+import { ProductArtwork } from "../../../components/product-artwork";
 import { manufacturingProcessPath, mapPath, materialObservationsPath, provenancePath, supplyChainPath, tradeGuidePath } from "../../../lib/paths";
 import { contextMismatch, readPageContext, type SearchParamsLike } from "../../../lib/context";
 import {
@@ -38,16 +39,15 @@ export default async function ProductOverviewPage({
       <div className="content-column">
         <Breadcrumbs items={[{ label: "商品目录", href: "/products" }, { label: overview.product.name }]} />
         <ContextBanner period={overview.period.label} datasetVersion={overview.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
+        <div className="product-overview-intro">
         <PageIntro
           eyebrow={overview.product.category}
           title={overview.product.name}
           description="从部件组成出发，沿供应链探索各国的生产与贸易联系。"
           actions={<><Link className="button button-primary" href={supplyChainPath(productId, undefined, routeContext)}>查看供应链路线</Link><Link className="button button-secondary" href={mapPath({ ...routeContext, product: productId, layer: "supply-chain" })}>在地图上探索</Link>{hasGuides && <Link className="button button-secondary" href={tradeGuidePath({ product: productId, ...pageContext })}>查进出口要求</Link>}{hasMaterialTrade && <Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link>}</>}
         />
-
-
-
-
+        <ProductArtwork productId={productId} variant="overview" />
+        </div>
         <nav className="exploration-nav" aria-label="商品研究层级">
           <span className="active">商品总览</span>
                     <Link href={supplyChainPath(productId, undefined, routeContext)}>供应链路线</Link>

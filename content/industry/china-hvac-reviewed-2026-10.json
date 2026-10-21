@@ -1,0 +1,1255 @@
+{
+  "schemaVersion": "china-hvac-research.v1",
+  "id": "china-hvac-participants",
+  "label": "中国空调与制冷产业参与者研究首批",
+  "reviewedAt": "2026-10-21",
+  "period": {
+    "granularity": "snapshot",
+    "start": "2026-10-21",
+    "end": "2026-10-21",
+    "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+  },
+  "datasetVersion": "china-hvac-research-2026.10.1",
+  "method": "manual_review_of_official_public_material_and_historical_process_reference",
+  "status": "validated",
+  "scope": "官方公开产品能力、技术邻接与销售入口导航；不是企业间已证实的供货网络。",
+  "limitations": [
+    "首批5家企业；铜铝材料、阀件、钎焊及检漏设备供应商覆盖仍不完整。",
+    "未审核实际客户、合同、工厂BOM、产能、份额、报价、库存、价格、成本或利润。",
+    "DOE技术来源为1997年历史资料，必须逐条保留期间；不能冒充2026年中国工厂现状。",
+    "蒸发式冷凝器不是所有设备中的蒸发器或家用空调室外换热器的同义词；本批不将其盘管用料硬连到铜铝路线。",
+    "企业自述只证明官网公开能力声明；不代表第三方认证或产品表现背书。"
+  ],
+  "sources": [
+    {
+      "id": "jintian-copper-tube",
+      "publisher": "宁波金田铜管有限公司 / 金田铜业",
+      "name": "金田铜管官方产品与制造设备说明",
+      "url": "https://www.jtcopper.com/branch/tong-guan",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T11:06:31.433068Z",
+      "license": "官网未声明开放复用许可；保留原文供审计，仅发布有限人工摘要和官方入口。",
+      "scope": "企业自述的公开产品/联系入口，不验证产品表现、市场地位或供货客户。",
+      "locator": "主营产品：内螺纹铜管、水平复绕盘管、空调直管；先进设备：水平连铸炉、三辊行星轧机、盘拉机、内螺纹成型机。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-21/jintian-copper-tube.html",
+      "sha256": "46b8e8a6f86e6e4bb33162d866992f2347387515868d47f848cea79f83b25003",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "jintian-contact",
+      "publisher": "金田铜业",
+      "name": "联系金田",
+      "url": "https://www.jtcopper.com/contact",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T11:07:40.045238Z",
+      "license": "官网未声明开放复用许可；保留原文供审计，仅发布有限人工摘要和官方入口。",
+      "scope": "企业自述的公开产品/联系入口，不验证产品表现、市场地位或供货客户。",
+      "locator": "联系金田官方页面；仅保存公开机构入口，不抄录个人联系人。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-21/jintian-contact.html",
+      "sha256": "78dd17ecb062a3eb0b1e96d81c3e784ae58e3fbfed20374abced605186250872",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "gmcc-home",
+      "publisher": "GMCC / Midea Group",
+      "name": "GMCC官方产品能力说明",
+      "url": "https://www.gmcc-welling.com/",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T11:06:31.432496Z",
+      "license": "官网未声明开放复用许可；保留原文供审计，仅发布有限人工摘要和官方入口。",
+      "scope": "企业自述的公开产品/联系入口，不验证产品表现、市场地位或供货客户。",
+      "locator": "GMCC简介及Products目录：rotary/reciprocating/scroll compressors、electronic expansion valves；空调、制冷和热泵用途。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-21/gmcc-home.html",
+      "sha256": "3d402c84b14e19a676d7534edc49152107a1a8231eab1dfe72ccb1907e1e9fa1",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "gmcc-contact",
+      "publisher": "GMCC / Midea Group",
+      "name": "GMCC Contact us",
+      "url": "https://www.gmcc-welling.com/en/join-us",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T11:07:40.043601Z",
+      "license": "官网未声明开放复用许可；保留原文供审计，仅发布有限人工摘要和官方入口。",
+      "scope": "企业自述的公开产品/联系入口，不验证产品表现、市场地位或供货客户。",
+      "locator": "Contact Information China；页脚企业归属。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-21/gmcc-contact.html",
+      "sha256": "005d52993eda2bdb6c8e3e18e5c2a77cbd1029c9b0242d9aa7ce8d3d5e351be3",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "jingda-fin-press",
+      "publisher": "JDM Jingda Machine (Ningbo) Co., Ltd.",
+      "name": "GC Fin press line",
+      "url": "https://www.nbjingda.com/productinfo/652949.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T11:06:31.434453Z",
+      "license": "官网未声明开放复用许可；保留原文供审计，仅发布有限人工摘要和官方入口。",
+      "scope": "企业自述的公开产品/联系入口，不验证产品表现、市场地位或供货客户。",
+      "locator": "官方HTML引用的Body.js，Short Description及APPLICATION：空调冷凝器/蒸发器用翅片、铜铝翅片换热器。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-21/jingda-fin-press.html",
+      "sha256": "fec3ebe560c407d9d97fcd101657c8eaf318a638ccf826eb72701216946450b8",
+      "httpStatus": 200,
+      "linkedRawIds": [
+        "jingda-fin-press-body"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "jingda-expander",
+      "publisher": "JDM Jingda Machine (Ningbo) Co., Ltd.",
+      "name": "Four-station Vertical Expander",
+      "url": "https://www.nbjingda.com/productinfo/652887.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T11:06:31.451303Z",
+      "license": "官网未声明开放复用许可；保留原文供审计，仅发布有限人工摘要和官方入口。",
+      "scope": "企业自述的公开产品/联系入口，不验证产品表现、市场地位或供货客户。",
+      "locator": "官方HTML引用的Body.js，Short Description：换热盘管进料、扩管、翻边、出料。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-21/jingda-expander.html",
+      "sha256": "7035fd4bd8670ab5118bf0321722bb1b695e119f9ad35cc37c4af751e0dfc1bb",
+      "httpStatus": 200,
+      "linkedRawIds": [
+        "jingda-expander-body"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "jingda-home",
+      "publisher": "JDM Jingda Machine (Ningbo) Co., Ltd.",
+      "name": "JDM官方设备与咨询入口",
+      "url": "https://www.nbjingda.com/",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T11:06:31.488762Z",
+      "license": "官网未声明开放复用许可；保留原文供审计，仅发布有限人工摘要和官方入口。",
+      "scope": "企业自述的公开产品/联系入口，不验证产品表现、市场地位或供货客户。",
+      "locator": "官方HTML引用的Body.js：HVAC HEAT EXCHANGE EQUIPMENT、TUBE PROCESSING EQUIPMENT、CONTACT US。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-21/jingda-home.html",
+      "sha256": "2744fe4ad4de871eaa72055e464233e7657614157f115c2ac78d2d228d3b0f58",
+      "httpStatus": 200,
+      "linkedRawIds": [
+        "jingda-home-body"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "snowman-ice",
+      "publisher": "Fujian Snowman Group Co., Ltd.",
+      "name": "Snowkey Ice machines",
+      "url": "https://www.snowman.cn/en/product/icemachine.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T11:06:32.198576Z",
+      "license": "官网未声明开放复用许可；保留原文供审计，仅发布有限人工摘要和官方入口。",
+      "scope": "企业自述的公开产品/联系入口，不验证产品表现、市场地位或供货客户。",
+      "locator": "产品目录：Flake/Tube/Plate/DX Block Ice Machine、Water Chiller；Ice Plant & Ice Systems。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-21/snowman-ice.html",
+      "sha256": "91e33fd1ce102ec65cb5bd190c1b52e01011f36f197e30bff0933fb994796c8b",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "snowman-evaporative",
+      "publisher": "Fujian Snowman Group Co., Ltd.",
+      "name": "Evaporative Condenser",
+      "url": "https://www.snowman.cn/en/product/evaporative_condenser.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T11:07:40.044197Z",
+      "license": "官网未声明开放复用许可；保留原文供审计，仅发布有限人工摘要和官方入口。",
+      "scope": "企业自述的公开产品/联系入口，不验证产品表现、市场地位或供货客户。",
+      "locator": "产品面包屑：Products > Heat Exchangers > Evaporative Condenser；仅支持公开提供的产品类别，不支持材料规格或具体客户。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-21/snowman-evaporative.html",
+      "sha256": "9d9cd257807b843e112af5385ccbe3fe5c70f94af8f4a3fbf470d218905f5c69",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "snowman-contact",
+      "publisher": "Fujian Snowman Group Co., Ltd.",
+      "name": "Contact Us",
+      "url": "https://www.snowman.cn/en/about/contact_us.html",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T11:07:40.044659Z",
+      "license": "官网未声明开放复用许可；保留原文供审计，仅发布有限人工摘要和官方入口。",
+      "scope": "企业自述的公开产品/联系入口，不验证产品表现、市场地位或供货客户。",
+      "locator": "Contact & Support官方机构入口，页面另列Sales network及售后服务。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-21/snowman-contact.html",
+      "sha256": "a64b6bc547c1392335c1e482a0747058b387c3374914cd0df3867e5af19c0f47",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "gree-home",
+      "publisher": "珠海格力电器股份有限公司",
+      "name": "格力官方业务与渠道导航",
+      "url": "https://www.gree.com/",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T11:06:32.273664Z",
+      "license": "官网未声明开放复用许可；保留原文供审计，仅发布有限人工摘要和官方入口。",
+      "scope": "企业自述的公开产品/联系入口，不验证产品表现、市场地位或供货客户。",
+      "locator": "消费领域：家用空调、暖通设备等；格力董明珠店导航；服务中心。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-21/gree-home.html",
+      "sha256": "3228016151682e74e6917190c077da457c44c063aa0c54b5660c9a1e3b2aa0bb",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "gree-store",
+      "publisher": "珠海格力电器股份有限公司",
+      "name": "格力董明珠店官方商城",
+      "url": "https://mall.gree.com/?spreadId=10",
+      "publishedAt": null,
+      "retrievedAt": "2026-10-21T11:06:32.432741Z",
+      "license": "官网未声明开放复用许可；保留原文供审计，仅发布有限人工摘要和官方入口。",
+      "scope": "企业自述的公开产品/联系入口，不验证产品表现、市场地位或供货客户。",
+      "locator": "HTML标题及格力主站导航互证；商品由脚本加载，本批不提取价格、库存或参数。",
+      "rawFile": "data/raw/china-hvac-participants-2026-10-21/gree-store.html",
+      "sha256": "62c432df65ed68decb68c2ecc7e839f6dbff9a31792eba310e1e7422e6ead8dc",
+      "httpStatus": 200,
+      "linkedRawIds": [],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "doe-1997-manufacturing",
+      "publisher": "U.S. Department of Energy",
+      "name": "Room Air Conditioner Rulemaking, Volume 2",
+      "url": "https://www1.eere.energy.gov/buildings/appliance_standards/pdfs/tsdracv2.pdf",
+      "publishedAt": "1997",
+      "retrievedAt": "2026-10-21T08:16:15.4342209Z",
+      "license": "美国政府公开技术资料；原始文件沿用既有研究归档。",
+      "scope": "历史房间空调制造技术参考，不证明2026中国任一工厂采用该流程。",
+      "locator": "制造成本/制造流程说明及process flow：copper tube、aluminum fins、tube expansion、return-bend brazing、leak testing；详见既有home-air-conditioner研究稿。",
+      "rawFile": "data/raw/home-ac-research/doe-room-ac-manufacturing.pdf",
+      "sha256": "a91075627a70179ee09e8f789315b4530449579d9a7c73636c9e72258b2ac0aa",
+      "httpStatus": 200,
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 DOE历史技术参考"
+      },
+      "unit": "not_applicable",
+      "method": "manual_curation_of_historical_technical_process",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    }
+  ],
+  "topics": [
+    {
+      "id": "copper-material",
+      "label": "铜与铜合金材料",
+      "kind": "material",
+      "description": "作为铜管上游材料类别索引；本批未核验矿山、冶炼厂或任何铜管厂的直接原料供应商。",
+      "sourceIds": [
+        "jintian-copper-tube"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "copper-tube",
+      "label": "空调与制冷用铜管",
+      "kind": "intermediate",
+      "description": "内螺纹管、复绕盘管与空调直管可用于换热器和管路连接；规格与用途以官方产品说明为准。",
+      "sourceIds": [
+        "jintian-copper-tube"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "aluminium-fin",
+      "label": "铝翅片与铝卷材",
+      "kind": "material",
+      "description": "历史房间空调制造参考中的换热器材料；当代中国铝材企业待核验。",
+      "sourceIds": [
+        "doe-1997-manufacturing"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 DOE历史技术参考"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "heat-exchanger",
+      "label": "铜管铝翅片换热器",
+      "kind": "component",
+      "description": "铜管和铝翅片构成的代表性换热器路线；不泛化为所有蒸发冷设备的材料配方。",
+      "sourceIds": [
+        "doe-1997-manufacturing",
+        "jingda-fin-press"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "tube-manufacturing",
+      "label": "铜管制造与成型",
+      "kind": "process",
+      "description": "金田官网展示连铸、铣面、轧制、拉伸、内螺纹成型等设备名称；不据此推断设备供应商或每一种产品的完整工艺。",
+      "sourceIds": [
+        "jintian-copper-tube"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "fin-forming",
+      "label": "换热器翅片冲压",
+      "kind": "process",
+      "description": "将卷材加工成换热器翅片的设备应用。",
+      "sourceIds": [
+        "jingda-fin-press"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "coil-expansion",
+      "label": "换热盘管扩管与翻边",
+      "kind": "process",
+      "description": "换热盘管扩管工序及进出料、翻边的设备应用。",
+      "sourceIds": [
+        "jingda-expander"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "brazing",
+      "label": "回弯管钎焊",
+      "kind": "process",
+      "description": "DOE历史工艺中的回弯管连接步骤；当代设备厂商待核验。",
+      "sourceIds": [
+        "doe-1997-manufacturing"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 DOE历史技术参考"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "leak-testing",
+      "label": "换热器与整机检漏",
+      "kind": "process",
+      "description": "DOE历史工艺中的泄漏检查；不据此宣称中国企业提供某一种氦检漏设备。",
+      "sourceIds": [
+        "doe-1997-manufacturing"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 DOE历史技术参考"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "fin-press-equipment",
+      "label": "翅片冲压生产线",
+      "kind": "equipment",
+      "description": "精达GC官方产品页说明其用于铜铝翅片换热器翅片生产。",
+      "sourceIds": [
+        "jingda-fin-press"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "expander-equipment",
+      "label": "多工位胀管设备",
+      "kind": "equipment",
+      "description": "精达四工位立式胀管机官方产品页，属于HVAC换热盘管设备。",
+      "sourceIds": [
+        "jingda-expander"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "compressor",
+      "label": "空调与制冷压缩机",
+      "kind": "component",
+      "description": "美芝官网公开列出往复、转子和涡旋压缩机及空调、制冷、热泵应用。",
+      "sourceIds": [
+        "gmcc-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "control-valve",
+      "label": "电子膨胀阀",
+      "kind": "component",
+      "description": "美芝官方简介列明其研发生产销售电子膨胀阀；未列入三花等未完成原文归档的企业。",
+      "sourceIds": [
+        "gmcc-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "evaporative-condenser",
+      "label": "蒸发式冷凝器",
+      "kind": "equipment",
+      "description": "雪人官网将其列为Heat Exchangers产品类别；本批不推断其盘管材料和客户。",
+      "sourceIds": [
+        "snowman-evaporative"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "ice-machine",
+      "label": "制冰机与制冰系统",
+      "kind": "product",
+      "description": "雪人官网列明片冰、管冰、板冰、直蒸块冰等类别及制冰系统。",
+      "sourceIds": [
+        "snowman-ice"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "water-chiller",
+      "label": "冷水机组",
+      "kind": "product",
+      "description": "雪人Ice machines目录包含Water Chiller产品；本批不推断其与其他企业的部件配套关系。",
+      "sourceIds": [
+        "snowman-ice"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "room-air-conditioner",
+      "label": "家用房间空调",
+      "kind": "product",
+      "description": "格力官方消费业务含家用空调；与铜管、压缩机的连线为技术用途索引，非指定品牌的BOM。",
+      "sourceIds": [
+        "gree-home",
+        "doe-1997-manufacturing"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "b2b-official-contact",
+      "label": "企业产品与业务咨询入口",
+      "kind": "channel",
+      "description": "面向工业产品研究的官方产品和机构联系页面；未发送询问，未取得报价。",
+      "sourceIds": [
+        "jintian-contact",
+        "gmcc-contact",
+        "jingda-home",
+        "snowman-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "consumer-official-store",
+      "label": "品牌官方零售入口",
+      "kind": "channel",
+      "description": "格力官方商城，仅供用户一键访问；不保存动态价格、库存，不代为下单。",
+      "sourceIds": [
+        "gree-home",
+        "gree-store"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_topic_index",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    }
+  ],
+  "relations": [
+    {
+      "fromTopicId": "copper-material",
+      "toTopicId": "tube-manufacturing",
+      "kind": "process_input",
+      "description": "铜材料→铜管制造为材料类别索引；官网铜管制造设备支持加工能力，不证明任何上游供货企业。",
+      "sourceIds": [
+        "jintian-copper-tube"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "copper-tube",
+      "toTopicId": "heat-exchanger",
+      "kind": "process_input",
+      "description": "金田明确说明内螺纹管、复绕盘管和空调直管用于空调制冷换热器；不指向某一家客户。",
+      "sourceIds": [
+        "jintian-copper-tube"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "aluminium-fin",
+      "toTopicId": "heat-exchanger",
+      "kind": "process_input",
+      "description": "DOE历史铜管铝翅片结构的技术投入关系。",
+      "sourceIds": [
+        "doe-1997-manufacturing"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 DOE历史技术参考"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "fin-press-equipment",
+      "toTopicId": "fin-forming",
+      "kind": "equipment_for",
+      "description": "GC产品页说明翅片冲压生产用途。",
+      "sourceIds": [
+        "jingda-fin-press"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "fin-forming",
+      "toTopicId": "heat-exchanger",
+      "kind": "used_in",
+      "description": "精达将GC设备应用明确为铜铝翅片换热器的翅片生产。",
+      "sourceIds": [
+        "jingda-fin-press"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "expander-equipment",
+      "toTopicId": "coil-expansion",
+      "kind": "equipment_for",
+      "description": "四工位胀管机用于换热盘管扩管、翻边。",
+      "sourceIds": [
+        "jingda-expander"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "coil-expansion",
+      "toTopicId": "heat-exchanger",
+      "kind": "used_in",
+      "description": "扩管应用来自精达官方产品说明，不表示精达向本批其他企业供货。",
+      "sourceIds": [
+        "jingda-expander"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "brazing",
+      "toTopicId": "heat-exchanger",
+      "kind": "used_in",
+      "description": "DOE历史回弯管钎焊步骤用于该换热器制造路线。",
+      "sourceIds": [
+        "doe-1997-manufacturing"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 DOE历史技术参考"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "leak-testing",
+      "toTopicId": "heat-exchanger",
+      "kind": "used_in",
+      "description": "DOE历史换热器制造路线的检漏步骤。",
+      "sourceIds": [
+        "doe-1997-manufacturing"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 DOE历史技术参考"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "heat-exchanger",
+      "toTopicId": "room-air-conditioner",
+      "kind": "used_in",
+      "description": "DOE历史房间空调部件关系；不证明任何具体格力型号采用该结构。",
+      "sourceIds": [
+        "doe-1997-manufacturing"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "1997-01-01",
+        "end": "1997-12-31",
+        "label": "1997 DOE历史技术参考"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "compressor",
+      "toTopicId": "room-air-conditioner",
+      "kind": "used_in",
+      "description": "美芝明确公开空调用压缩机类别；该连线不是美芝→格力的供货证明。",
+      "sourceIds": [
+        "gmcc-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "copper-tube",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "官网提供产品查询与企业联系入口；不是报价、代理授权或交易保证。",
+      "sourceIds": [
+        "jintian-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "compressor",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "官网提供产品查询与企业联系入口；不是报价、代理授权或交易保证。",
+      "sourceIds": [
+        "gmcc-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "control-valve",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "官网提供产品查询与企业联系入口；不是报价、代理授权或交易保证。",
+      "sourceIds": [
+        "gmcc-home",
+        "gmcc-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "fin-press-equipment",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "官网提供产品查询与企业联系入口；不是报价、代理授权或交易保证。",
+      "sourceIds": [
+        "jingda-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "expander-equipment",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "官网提供产品查询与企业联系入口；不是报价、代理授权或交易保证。",
+      "sourceIds": [
+        "jingda-home"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "evaporative-condenser",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "官网提供产品查询与企业联系入口；不是报价、代理授权或交易保证。",
+      "sourceIds": [
+        "snowman-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "ice-machine",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "官网提供产品查询与企业联系入口；不是报价、代理授权或交易保证。",
+      "sourceIds": [
+        "snowman-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "water-chiller",
+      "toTopicId": "b2b-official-contact",
+      "kind": "sold_through",
+      "description": "官网提供产品查询与企业联系入口；不是报价、代理授权或交易保证。",
+      "sourceIds": [
+        "snowman-contact"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "fromTopicId": "room-air-conditioner",
+      "toTopicId": "consumer-official-store",
+      "kind": "sold_through",
+      "description": "格力官方主站列出品牌商城入口；不推广任何未核验的第三方店铺。",
+      "sourceIds": [
+        "gree-home",
+        "gree-store"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_technical_adjacency_not_customer_supply",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    }
+  ],
+  "organizations": [
+    {
+      "id": "org-jintian",
+      "name": "宁波金田铜管有限公司",
+      "topicIds": [
+        "copper-tube",
+        "tube-manufacturing"
+      ],
+      "productUrl": "https://www.jtcopper.com/branch/tong-guan",
+      "contactUrl": "https://www.jtcopper.com/contact",
+      "sourceIds": [
+        "jintian-copper-tube",
+        "jintian-contact"
+      ],
+      "description": "官网公开提供内螺纹铜管、复绕盘管、空调直管等，并展示制造设备。设备展示不是设备对外销售能力，也不构成任何客户关系审核。",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "org-gmcc",
+      "name": "美芝 GMCC",
+      "topicIds": [
+        "compressor",
+        "control-valve"
+      ],
+      "productUrl": "https://www.gmcc-welling.com/en/product",
+      "contactUrl": "https://www.gmcc-welling.com/en/join-us",
+      "sourceIds": [
+        "gmcc-home",
+        "gmcc-contact"
+      ],
+      "description": "官网公开列明研发、生产和销售压缩机与电子膨胀阀，并列家用/商用空调压缩机产品入口。",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "org-jingda",
+      "name": "宁波精达 / JDM Jingda Machine (Ningbo) Co., Ltd.",
+      "topicIds": [
+        "fin-press-equipment",
+        "expander-equipment"
+      ],
+      "productUrl": "https://www.nbjingda.com/productinfo/652949.html",
+      "contactUrl": "https://www.nbjingda.com/",
+      "sourceIds": [
+        "jingda-fin-press",
+        "jingda-expander",
+        "jingda-home"
+      ],
+      "description": "提供翅片冲压线、立式胀管机等换热器制造设备；主站有CONTACT US咨询入口。正文保存在官方HTML直接引用的CDN脚本中。",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "org-snowman",
+      "name": "福建雪人集团 / Fujian Snowman Group Co., Ltd.",
+      "topicIds": [
+        "evaporative-condenser",
+        "ice-machine",
+        "water-chiller"
+      ],
+      "productUrl": "https://www.snowman.cn/en/product/icemachine.html",
+      "contactUrl": "https://www.snowman.cn/en/about/contact_us.html",
+      "sourceIds": [
+        "snowman-ice",
+        "snowman-evaporative",
+        "snowman-contact"
+      ],
+      "description": "官方目录提供蒸发式冷凝器、多个制冰机类别和冷水机。产品类别之间不自动意味着同一客户、同一机组或同一材料路线。",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    },
+    {
+      "id": "org-gree",
+      "name": "珠海格力电器股份有限公司",
+      "topicIds": [
+        "room-air-conditioner",
+        "consumer-official-store"
+      ],
+      "productUrl": "https://www.gree.com/",
+      "contactUrl": null,
+      "sourceIds": [
+        "gree-home",
+        "gree-store"
+      ],
+      "description": "官方消费业务覆盖家用空调，主站列品牌商城及服务导航。未核验单款机型用料，不推断与本批其他企业的供货关系。",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-21",
+        "end": "2026-10-21",
+        "label": "2026-10-21官网公开产品能力快照；不是产销统计年度"
+      },
+      "unit": "not_applicable",
+      "method": "manual_review_of_official_public_material",
+      "datasetVersion": "china-hvac-research-2026.10.1",
+      "status": "validated"
+    }
+  ],
+  "continuationCandidates": [
+    {
+      "name": "海亮 / 格朗吉斯 / 三花",
+      "status": "unknown",
+      "reason": "已发现官方入口，但直接获取遇403；未绕过，未纳入已核验组织。"
+    },
+    {
+      "name": "华峰铝业 / 华北铝业 / 盾安机电",
+      "status": "unknown",
+      "reason": "官方页面连接中断或TLS证书错误；本批未降低证书校验。"
+    },
+    {
+      "name": "新锐钎焊 / 皖仪检漏",
+      "status": "unknown",
+      "reason": "官方页直接获取403；能力需继续核验，暂仅使用DOE历史工艺节点。"
+    }
+  ]
+}

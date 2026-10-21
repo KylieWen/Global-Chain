@@ -3,6 +3,7 @@ import type { ProductCatalogView } from "@globe-chain/domain";
 import { PageIntro, SiteShell } from "./site-shell";
 import { PublicationBadge, WarningList } from "./data-display";
 import { productPath } from "../lib/paths";
+import { ProductArtwork } from "./product-artwork";
 
 
 export function ProductCatalogPage({ products }: { products: readonly ProductCatalogView[] }) {
@@ -33,8 +34,8 @@ export function ProductCatalogPage({ products }: { products: readonly ProductCat
             <div className="product-grid">
               {products.map((product) => (
                 <Link className="product-card" href={productPath(product.productId)} key={product.productId}>
-                  <div className="product-card-top">
-                    <span className="product-glyph" aria-hidden="true">{product.item.name.slice(0, 1)}</span>
+                  <div className="product-card-top product-card-visual">
+                    <ProductArtwork productId={product.productId} decorative />
                     <PublicationBadge status={product.datasetVersion.status} />
                   </div>
                   <p className="card-kicker">{product.item.category}</p>

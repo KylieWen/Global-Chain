@@ -6,3 +6,4 @@ export * from "./primitives";
 export * from "./provenance";
 export * from "./story";
 export * from "./trade-guidance";
+export * from "./industry";

@@ -1,0 +1,145 @@
+[
+  {
+    "id": "gmcc-home",
+    "url": "https://www.gmcc-welling.com/",
+    "retrievedAt": "2026-10-21T11:06:31.432496Z",
+    "httpStatus": 200,
+    "contentType": "text/html;charset=utf-8",
+    "file": "gmcc-home.html",
+    "bytes": 65170,
+    "sha256": "3d402c84b14e19a676d7534edc49152107a1a8231eab1dfe72ccb1907e1e9fa1",
+    "finalUrl": "https://www.gmcc-welling.com:443/en"
+  },
+  {
+    "id": "jintian-copper-tube",
+    "url": "https://www.jtcopper.com/branch/tong-guan",
+    "retrievedAt": "2026-10-21T11:06:31.433068Z",
+    "httpStatus": 200,
+    "contentType": "text/html; charset=UTF-8",
+    "file": "jintian-copper-tube.html",
+    "bytes": 60055,
+    "sha256": "46b8e8a6f86e6e4bb33162d866992f2347387515868d47f848cea79f83b25003",
+    "finalUrl": "https://www.jtcopper.com/branch/tong-guan"
+  },
+  {
+    "id": "huafeng-aluminium",
+    "url": "https://www.huafeng.com/product/8.html",
+    "retrievedAt": "2026-10-21T11:06:31.433444Z",
+    "httpStatus": null,
+    "contentType": null,
+    "file": null,
+    "bytes": 0,
+    "sha256": null,
+    "error": "Remote end closed connection without response"
+  },
+  {
+    "id": "huabei-ac-foil",
+    "url": "https://www.chinanca.com/cpsj/ktlb/",
+    "retrievedAt": "2026-10-21T11:06:31.434058Z",
+    "httpStatus": null,
+    "contentType": null,
+    "file": null,
+    "bytes": 0,
+    "sha256": null,
+    "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1018)>"
+  },
+  {
+    "id": "jingda-fin-press",
+    "url": "https://www.nbjingda.com/productinfo/652949.html",
+    "retrievedAt": "2026-10-21T11:06:31.434453Z",
+    "httpStatus": 200,
+    "contentType": "text/html; charset=utf-8",
+    "file": "jingda-fin-press.html",
+    "bytes": 687,
+    "sha256": "fec3ebe560c407d9d97fcd101657c8eaf318a638ccf826eb72701216946450b8",
+    "finalUrl": "https://www.nbjingda.com/productinfo/652949.html"
+  },
+  {
+    "id": "jingda-expander",
+    "url": "https://www.nbjingda.com/productinfo/652887.html",
+    "retrievedAt": "2026-10-21T11:06:31.451303Z",
+    "httpStatus": 200,
+    "contentType": "text/html; charset=utf-8",
+    "file": "jingda-expander.html",
+    "bytes": 700,
+    "sha256": "7035fd4bd8670ab5118bf0321722bb1b695e119f9ad35cc37c4af751e0dfc1bb",
+    "finalUrl": "https://www.nbjingda.com/productinfo/652887.html"
+  },
+  {
+    "id": "jingda-home",
+    "url": "https://www.nbjingda.com/",
+    "retrievedAt": "2026-10-21T11:06:31.488762Z",
+    "httpStatus": 200,
+    "contentType": "text/html; charset=utf-8",
+    "file": "jingda-home.html",
+    "bytes": 636,
+    "sha256": "2744fe4ad4de871eaa72055e464233e7657614157f115c2ac78d2d228d3b0f58",
+    "finalUrl": "https://www.nbjingda.com/"
+  },
+  {
+    "id": "xinrui-brazing",
+    "url": "https://www.xinruigroup.com/h-col-152.html",
+    "retrievedAt": "2026-10-21T11:06:31.539068Z",
+    "httpStatus": 403,
+    "contentType": null,
+    "file": null,
+    "bytes": 0,
+    "sha256": null,
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "wayeal-home",
+    "url": "https://www.wayeal.com.cn/",
+    "retrievedAt": "2026-10-21T11:06:32.005434Z",
+    "httpStatus": 403,
+    "contentType": null,
+    "file": null,
+    "bytes": 0,
+    "sha256": null,
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "dunan-chiller",
+    "url": "https://www.dunanac.com/product_list.aspx",
+    "retrievedAt": "2026-10-21T11:06:32.105683Z",
+    "httpStatus": null,
+    "contentType": null,
+    "file": null,
+    "bytes": 0,
+    "sha256": null,
+    "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1018)>"
+  },
+  {
+    "id": "snowman-ice",
+    "url": "https://www.snowman.cn/en/product/icemachine.html",
+    "retrievedAt": "2026-10-21T11:06:32.198576Z",
+    "httpStatus": 200,
+    "contentType": "text/html;charset=UTF-8",
+    "file": "snowman-ice.html",
+    "bytes": 112490,
+    "sha256": "91e33fd1ce102ec65cb5bd190c1b52e01011f36f197e30bff0933fb994796c8b",
+    "finalUrl": "https://www.snowman.cn/en/product/icemachine.html"
+  },
+  {
+    "id": "gree-home",
+    "url": "https://www.gree.com/",
+    "retrievedAt": "2026-10-21T11:06:32.273664Z",
+    "httpStatus": 200,
+    "contentType": "text/html; charset=utf-8",
+    "file": "gree-home.html",
+    "bytes": 164451,
+    "sha256": "3228016151682e74e6917190c077da457c44c063aa0c54b5660c9a1e3b2aa0bb",
+    "finalUrl": "https://www.gree.com/"
+  },
+  {
+    "id": "gree-store",
+    "url": "https://mall.gree.com/?spreadId=10",
+    "retrievedAt": "2026-10-21T11:06:32.432741Z",
+    "httpStatus": 200,
+    "contentType": "text/html",
+    "file": "gree-store.html",
+    "bytes": 2777,
+    "sha256": "62c432df65ed68decb68c2ecc7e839f6dbff9a31792eba310e1e7422e6ead8dc",
+    "finalUrl": "https://mall.gree.com/?spreadId=10"
+  }
+]

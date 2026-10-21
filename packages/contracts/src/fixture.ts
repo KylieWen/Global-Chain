@@ -22,6 +22,7 @@ import {
 } from "./provenance";
 import { IdSchema, NonEmptyStringSchema } from "./primitives";
 import { StoryGraphSchema } from "./story";
+import { IndustryNetworkSchema } from "./industry";
 import {
   EquipmentCategorySchema,
   FacilitySchema,
@@ -71,6 +72,7 @@ export const ProductFixtureSchema = z
     equipmentCategories: z.array(EquipmentCategorySchema).default([]),
     processRequirements: z.array(ProcessRequirementSchema).default([]),
     organizationCapabilities: z.array(OrganizationCapabilitySchema).default([]),
+    industryNetwork: IndustryNetworkSchema.optional(),
     tradeGuides: z.array(TradeGuideSchema).default([]),
     tariffMeasures: z.array(TariffMeasureSchema).default([]),
     tradeRequirements: z.array(TradeRequirementSchema).default([]),
@@ -84,6 +86,13 @@ export const ProductFixtureSchema = z
   })
   .superRefine((fixture, context) => {
     const sourceIdSet = new Set(fixture.sources.map((source) => source.id));
+    if (fixture.industryNetwork) {
+      const network = fixture.industryNetwork;
+      if (!fixture.entities.some(entity => entity.id === network.regionEntityId)) context.addIssue({code:"custom",path:["industryNetwork"],message:"Unknown industry region"});
+      for (const record of [network, ...network.topics, ...network.relations, ...network.organizations]) {
+        if (record.datasetVersionId !== fixture.datasetVersion.id || record.sourceIds.some(id => !sourceIdSet.has(id))) context.addIssue({code:"custom",path:["industryNetwork"],message:"Invalid industry provenance"});
+      }
+    }
     const evidenceById = new Map(fixture.evidence.map((record) => [record.id, record]));
     const storyFlowIds = new Set(fixture.storyGraph.flows.map((flow) => flow.id));
     const entityIds = new Set(fixture.entities.map((entity) => entity.id));

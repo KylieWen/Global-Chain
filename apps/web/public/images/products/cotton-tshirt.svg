@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" fill="none">
+  <defs><linearGradient id="fabric" x1="165" y1="77" x2="321" y2="266" gradientUnits="userSpaceOnUse"><stop stop-color="#c7e1d5"/><stop offset="1" stop-color="#9ac5bc"/></linearGradient></defs>
+  <ellipse cx="246" cy="279" rx="122" ry="15" fill="#648a87" opacity=".13"/>
+  <circle cx="248" cy="151" r="122" fill="#e8f2ed" opacity=".7"/>
+  <g stroke="#557f7d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m204 61-51 19-48 53 36 32 29-23-3 124q84 18 168 0l-3-124 28 23 37-32-48-53-51-19q-23 19-47 19t-47-19Z" fill="#a8afd0"/>
+    <path d="m193 55-51 19-48 53 36 32 29-23-3 124q84 18 168 0l-3-124 28 23 37-32-48-53-51-19q-23 19-47 19t-47-19Z" fill="url(#fabric)"/>
+    <path d="M193 55q14 42 47 42t47-42q-23 19-47 19t-47-19Z" fill="#fffdf3"/>
+    <path d="M202 63q14 25 38 25t38-25M145 78l16 52m174-52-16 52M103 124l29 25m216 0 29-25" stroke-width="2"/>
+    <path d="M160 248q80 16 160 0" stroke-width="2"/>
+    <path d="m178 140-5 83m131-83 5 83M185 94l-10 15" stroke="#f1f8ee" stroke-width="5" opacity=".8"/>
+    <path d="m166 137 12 17m134-17-11 17m-100 89 6-37m67 37-6-37" stroke="#78a89f" stroke-width="2" opacity=".6"/>
+  </g>
+</svg>

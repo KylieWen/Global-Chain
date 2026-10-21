@@ -1,0 +1,79 @@
+[
+  {
+    "id": "gmcc-contact",
+    "url": "https://www.gmcc-welling.com/en/join-us",
+    "retrievedAt": "2026-10-21T11:07:40.043601Z",
+    "httpStatus": 200,
+    "contentType": "text/html;charset=utf-8",
+    "file": "gmcc-contact.html",
+    "bytes": 47066,
+    "sha256": "005d52993eda2bdb6c8e3e18e5c2a77cbd1029c9b0242d9aa7ce8d3d5e351be3",
+    "finalUrl": "https://www.gmcc-welling.com/en/join-us"
+  },
+  {
+    "id": "snowman-evaporative",
+    "url": "https://www.snowman.cn/en/product/evaporative_condenser.html",
+    "retrievedAt": "2026-10-21T11:07:40.044197Z",
+    "httpStatus": 200,
+    "contentType": "text/html;charset=UTF-8",
+    "file": "snowman-evaporative.html",
+    "bytes": 41700,
+    "sha256": "9d9cd257807b843e112af5385ccbe3fe5c70f94af8f4a3fbf470d218905f5c69",
+    "finalUrl": "https://www.snowman.cn/en/product/evaporative_condenser.html"
+  },
+  {
+    "id": "snowman-contact",
+    "url": "https://www.snowman.cn/en/about/contact_us.html",
+    "retrievedAt": "2026-10-21T11:07:40.044659Z",
+    "httpStatus": 200,
+    "contentType": "text/html;charset=UTF-8",
+    "file": "snowman-contact.html",
+    "bytes": 47168,
+    "sha256": "a64b6bc547c1392335c1e482a0747058b387c3374914cd0df3867e5af19c0f47",
+    "finalUrl": "https://www.snowman.cn/en/about/contact_us.html"
+  },
+  {
+    "id": "jintian-contact",
+    "url": "https://www.jtcopper.com/contact",
+    "retrievedAt": "2026-10-21T11:07:40.045238Z",
+    "httpStatus": 200,
+    "contentType": "text/html; charset=UTF-8",
+    "file": "jintian-contact.html",
+    "bytes": 76535,
+    "sha256": "78dd17ecb062a3eb0b1e96d81c3e784ae58e3fbfed20374abced605186250872",
+    "finalUrl": "https://www.jtcopper.com/contact"
+  },
+  {
+    "id": "jingda-fin-press-body",
+    "url": "https://img.website.xin/pubsf/18028/18028233/cdn-static-pages/productinfo/pc/652949_en-us.html.Body.js?version=20260629160640",
+    "retrievedAt": "2026-10-21T11:07:40.045550Z",
+    "httpStatus": 200,
+    "contentType": "application/javascript",
+    "file": "jingda-fin-press-body.js",
+    "bytes": 263687,
+    "sha256": "c09f52a9b25a08e4dd863d0a32b8eb082567d38a6eaf08fea47b139a2a153aa0",
+    "finalUrl": "https://img.website.xin/pubsf/18028/18028233/cdn-static-pages/productinfo/pc/652949_en-us.html.Body.js?version=20260629160640"
+  },
+  {
+    "id": "jingda-expander-body",
+    "url": "https://img.website.xin/pubsf/18028/18028233/cdn-static-pages/productinfo/pc/652887_en-us.html.Body.js?version=20260629160640",
+    "retrievedAt": "2026-10-21T11:07:40.177797Z",
+    "httpStatus": 200,
+    "contentType": "application/javascript",
+    "file": "jingda-expander-body.js",
+    "bytes": 222172,
+    "sha256": "a6f17bf30a0325008ae5dc9082013cddc88de158bc39d3ef36e8b72f495c9c31",
+    "finalUrl": "https://img.website.xin/pubsf/18028/18028233/cdn-static-pages/productinfo/pc/652887_en-us.html.Body.js?version=20260629160640"
+  },
+  {
+    "id": "jingda-home-body",
+    "url": "https://img.website.xin/pubsf/18028/18028233/cdn-static-pages/pages/pc/30536_en-us.html.Body.js?version=20260629160640",
+    "retrievedAt": "2026-10-21T11:07:40.184823Z",
+    "httpStatus": 200,
+    "contentType": "application/javascript",
+    "file": "jingda-home-body.js",
+    "bytes": 202454,
+    "sha256": "46700dfa5368567bff8e5bbe05f9ced07919283c9091e4048b7eef7fa976dc21",
+    "finalUrl": "https://img.website.xin/pubsf/18028/18028233/cdn-static-pages/pages/pc/30536_en-us.html.Body.js?version=20260629160640"
+  }
+]
