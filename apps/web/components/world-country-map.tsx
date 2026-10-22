@@ -8,6 +8,7 @@ import { feature } from "topojson-client";
 import type { GeometryCollection, Topology } from "topojson-specification";
 import worldAtlas from "world-atlas/countries-110m.json";
 import { ledgerPath, mapPath, nodePath, supplyChainPath, type MapFilters } from "../lib/paths";
+import { useMapWheel } from "./use-map-wheel";
 import type { MapCountry, MapViewModel } from "../lib/map-view-model";
 import { clampMapTransform, zoomMap, type MapTransform } from "../lib/map-geometry";
 import { layoutMapLabels, tradeAmountBands, tradeAmountWidth } from "../lib/map-presentation";
@@ -21,9 +22,9 @@ const projection = geoEqualEarth().fitExtent([[25, 25], [975, 515]], { type: "Sp
 const pathGenerator = geoPath(projection);
 const coordinate = (value: number) => Number(value.toFixed(3));
 
-type Props = { view: MapViewModel; filters: MapFilters & { product: string }; products: readonly { id: string; name: string }[] };
+type Props = { view: MapViewModel; filters: MapFilters & { product: string }; products: readonly { id: string; name: string }[]; regionalLinks?: readonly {entityId:string;label:string;href:string}[] };
 
-export function WorldCountryMap({ view, filters, products }: Props) {
+export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: Props) {
   const { countries, records, lines, nodes, items, years, scope, scopeCounts, selectedItemName, relatedMaterials, datasetVersion, hasFocusTradeCoverage } = view;
   const router = useRouter();
   const [transform, setTransform] = useState<MapTransform>({ x: 0, y: 0, scale: 1 });
@@ -33,6 +34,7 @@ export function WorldCountryMap({ view, filters, products }: Props) {
   const [uncoveredCountry, setUncoveredCountry] = useState<string | null>(null);
   const [renderedWidth, setRenderedWidth] = useState(mapWidth);
   const svgRef = useRef<SVGSVGElement>(null);
+  useMapWheel(svgRef,setTransform,mapWidth,mapHeight);
   useEffect(() => {
     const svg = svgRef.current;
     if (!svg) return;
@@ -138,7 +140,7 @@ export function WorldCountryMap({ view, filters, products }: Props) {
       <div className="atlas-below-map"><div className="map-legend">{isTrade && !isWorld ? <><span><i className="legend-trade-export" />出口报告</span><span><i className="legend-trade-import" />进口报告</span></> : null}<span><i className="legend-country-covered" />{isTrade ? "有统计" : "参与供应链"}</span><span><i className="legend-country-limited" />仅有账本</span></div><Link className="text-link" href={supplyChainPath(filters.product, filters.focus, context)}>展开供应链 →</Link></div>
       {isTrade && !isWorld && lines.length > 0 && <details className="atlas-amount-key"><summary>{tradeCurrency ? `线宽按记录金额分档 · ${tradeCurrency}` : "含不同币种 · 线宽不比较金额"}</summary>{tradeCurrency && <div>{tradeAmountBands.map(band => <span key={band.minimum}><i style={{borderTopWidth:band.width}} />{band.label} {tradeCurrency}</span>)}</div>}<p>箭头表示货物流向；每条记录保留原年度、报告方和商品分类，不合并加总。未收录金额使用细线，具体金额与状态见记录。</p></details>}
       {uncoveredCountry && <p className="atlas-filter-notice" role="status">{uncoveredCountry} · {productName}的资料尚未收录，可切换商品继续探索。<button type="button" onClick={() => setUncoveredCountry(null)}>关闭</button></p>}
-      {activeCountry && <div className="atlas-country-context"><strong>{activeCountry.name}</strong>{activeCountry.roles.length > 0 && <span>{activeCountry.roles.slice(0, 2).join(" / ")}</span>}{activeCountry.hasTradeLedger && <Link href={ledgerPath(filters.product, activeCountry.id, context)}>国家账本 →</Link>}{filters.country && <button type="button" onClick={() => navigate({ country: undefined })}>清除国家</button>}</div>}
+      {activeCountry && <div className="atlas-country-context"><strong>{activeCountry.name}</strong>{activeCountry.roles.length > 0 && <span>{activeCountry.roles.slice(0, 2).join(" / ")}</span>}{regionalLinks.filter(link=>link.entityId===activeCountry.id).map(link=><Link key={link.href} className="button button-primary" href={link.href}>{link.label} →</Link>)}{activeCountry.hasTradeLedger && <Link href={ledgerPath(filters.product, activeCountry.id, context)}>国家账本 →</Link>}{filters.country && <button type="button" onClick={() => navigate({ country: undefined })}>清除国家</button>}</div>}
       {activeNodes.length > 0 && <details className="atlas-country-nodes"><summary>{activeCountry?.name}的生产环节 · {activeNodes.length}</summary><div>{activeNodes.map(node => <Link key={node.id} href={nodePath(filters.product, node.id, { ...context, period: node.periodLabel })}><strong>{node.itemName} · {node.stageLabel}</strong><span>{node.periodLabel}</span></Link>)}</div></details>}
     </div><aside className="atlas-records" aria-label={isTrade ? "贸易记录" : "路线连接记录"}>
       <div className="atlas-records-heading"><h2>{isTrade && relatedMaterials.length ? `${selectedItemName}相关材料` : selectedItemName} <small>{records.length}</small></h2>

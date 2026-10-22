@@ -1,3 +1,4 @@
+import { ProductNavigation } from "../../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../lib/data";
@@ -24,12 +25,19 @@ export default async function MaterialObservationsPage({ params, searchParams }:
   const mismatches = contextMismatch(pageContext, { period: periodLabel, datasetVersion: overview.datasetVersion.version });
   const href = (next: Search) => materialObservationsPath(productId, { ...pageContext, ...next });
   const allHref = materialObservationsPath(productId, { datasetVersion: pageContext.datasetVersion });
+  const filterGroups: {label:string;key:keyof Search;options:{value:string;label:string}[]}[] = [
+    {label:"材料",key:"material",options:[{value:"",label:"全部材料"},...materials.map(([value,label])=>({value,label}))]},
+    {label:"统计范围",key:"partnerScope",options:[{value:"",label:"全部范围"},{value:"world_total",label:"世界总计"},{value:"entity",label:"具体伙伴"}]},
+    {label:"贸易方向",key:"flow",options:[{value:"",label:"进出口"},{value:"import",label:"进口"},{value:"export",label:"出口"}]},
+    {label:"分类口径",key:"mapping",options:[{value:"",label:"全部口径"},{value:"exact",label:"精确分类"},{value:"aggregate",label:"聚合分类"},{value:"approximate",label:"近似分类"}]}
+  ];
 
   return <SiteShell><div className="content-column wide-column">
     <Breadcrumbs items={[{ label: "商品目录", href: "/products" }, { label: overview.product.name, href: productPath(productId, pageContext) }, { label: "材料贸易观察" }]} />
     <ContextBanner period={periodLabel} datasetVersion={overview.datasetVersion.version} mismatches={mismatches} />
     <PageIntro eyebrow="Materials & trade" title={`${overview.product.name} · 材料贸易`} description="看看这些材料从哪里来、流向哪里，以及各国的进出口规模。" actions={<Link className="button button-secondary" href={provenancePath(productId, pageContext)}>查看资料来源</Link>} />
-    <section className="section-block filter-strip"><div><p className="eyebrow">Filters</p><h2>筛选观察</h2></div><div className="filter-links"><Link href={href({})}>全部</Link>{materials.map(([id, label]) => <Link key={id} href={href({ ...filters, material: id })}>{label}</Link>)}<Link href={href({ ...filters, partnerScope: "world_total" })}>世界总计</Link><Link href={href({ ...filters, partnerScope: "entity" })}>具体伙伴</Link><Link href={href({ ...filters, flow: "import" })}>进口</Link><Link href={href({ ...filters, flow: "export" })}>出口</Link><Link href={href({ ...filters, mapping: "exact" })}>精确分类</Link><Link href={href({ ...filters, mapping: "aggregate" })}>聚合分类</Link></div></section>
+    <ProductNavigation productId={productId} context={pageContext} active="materials" hasIndustry={Boolean(queries.getIndustryNetwork(productId))} hasMaterials={true}/>
+    <section className="section-block filter-strip" aria-label="材料贸易筛选"><div className="material-filter-groups">{filterGroups.map(group=><div className="material-filter-group" key={group.key}><strong>{group.label}</strong>{group.options.map(option=><Link key={option.value} aria-current={(filters[group.key]??"")===option.value?"page":undefined} href={href({...filters,[group.key]:option.value||undefined})}>{option.label}</Link>)}</div>)}<Link className="text-link" href={allHref}>重置全部筛选 →</Link></div></section>
     <section className="section-block"><div className="section-heading"><div><p className="eyebrow">Trade records</p><h2>材料进出口</h2></div><span className="section-caption">{materials.length} 类材料 · {observations.length} 条记录</span></div><div className="trade-observation-list">
       {observations.map(({ observation, reporter, partner, item }) => <article className="trade-observation-card" key={observation.observationId}>
         <div className="trade-observation-heading"><div><span className="card-kicker">HS {observation.classificationCode} · <PeriodLabel period={observation.period} /></span><h3>{item?.name ?? observation.materialItemId}</h3><p>{observation.partnerScope === "world_total" ? `${reporter?.name} · 对全球${observation.flow === "import" ? "进口" : "出口"}` : observation.flow === "import" ? `${partner?.name} → ${reporter?.name}` : `${reporter?.name} → ${partner?.name}`}</p></div><StatusBadge status={observation.valueDataStatus} method={observation.method} /></div>

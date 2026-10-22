@@ -9,7 +9,7 @@ export default async function HelpPage() {
   const featured = queries.listProducts()[0];
   const overview = featured ? queries.getProductOverview(featured.productId) : null;
   return <SiteShell><div className="content-column narrow-column">
-    <Breadcrumbs items={[{ label: "阅读指南" }]} />
+    <Breadcrumbs items={[{ label: "使用指南" }]} />
     <PageIntro eyebrow="How to explore" title="带着好奇，从一件商品开始" description={`探索商品组成、生产分工和国际贸易。${overview ? `当前统计覆盖 ${overview.statisticsPeriodLabel} 年。` : ""}`} actions={<Link className="button button-primary" href="/products">开始探索</Link>} />
     <div className="help-list">
       <section className="help-card"><span className="card-kicker">01 · 商品</span><h2>拆开看看，里面有什么</h2><p>从商品选择一个部件，沿材料、加工和组装环节向上游或下游探索；点击节点可以查看它的生产过程。</p></section>

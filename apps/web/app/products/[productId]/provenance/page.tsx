@@ -1,3 +1,4 @@
+import { ProductNavigation } from "../../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../lib/data";
@@ -58,9 +59,10 @@ export default async function ProductProvenancePage({
 
         <WarningList warnings={provenance.warnings} />
 
+        <ProductNavigation productId={productId} context={pageContext} active="sources" hasIndustry={Boolean(queries.getIndustryNetwork(productId))} hasMaterials={materialObservations.length>0}/>
         <section className="section-block" aria-labelledby="release-selector-title">
-          <div className="section-heading"><div><p className="eyebrow">Published releases</p><h2 id="release-selector-title">选择研究版本</h2></div><span className="section-caption">历史版本只读，不会覆盖 active release</span></div>
-          <p className="muted">选择版本后，商品、供应链、账本、材料观察和证据页面都会读取对应的不可变 fixture。版本参数不再只是提示，而是实际查询选择。</p>
+          <div className="section-heading"><div><p className="eyebrow">研究版本</p><h2 id="release-selector-title">选择研究版本</h2></div><span className="section-caption">历史版本只读，不会覆盖当前发布版本</span></div>
+          <p className="muted">选择版本后，商品、供应链、账本、材料观察和证据页面都会读取对应的只读历史数据快照。版本参数不再只是提示，而是实际查询选择。</p>
           <div className="filter-links">
             {releaseVersions.map((version) => {
               const href = productPath(productId, { period: overview.period.label, datasetVersion: version });
@@ -93,7 +95,7 @@ export default async function ProductProvenancePage({
         </section>
 
         <section className="section-block method-strip" aria-labelledby="policy-title">
-          <div><p className="eyebrow">Reading policy</p><h2 id="policy-title">本项目如何避免误读</h2></div>
+          <div><p className="eyebrow">阅读方法</p><h2 id="policy-title">本项目如何避免误读</h2></div>
           <ul className="policy-list">
             <li><strong>代表性连接 ≠ 已观测双边流：</strong>国家角色资料和阶段背景不会自动成为国家间直接运输证据。</li>
             <li><strong>贸易金额 ≠ 企业利润：</strong>官方统计和成本/利润模型分开，当前不做利润推断。</li>

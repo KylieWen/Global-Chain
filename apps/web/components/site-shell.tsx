@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { isPreviewData } from "../lib/runtime";
+import { SiteNavigation } from "./site-navigation";
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const preview = isPreviewData();
@@ -16,21 +17,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               <small>全球商品供应链与贸易可视化</small>
             </span>
           </Link>
-          <nav className="site-nav" aria-label="主导航">
-            <Link className="site-nav-primary" href="/products">商品与供应链</Link>
-            <Link href="/map">世界地图</Link>
-            <Link href="/industry">产业上下游</Link>
-            <Link href="/countries">国家账本</Link>
-            <Link href="/trade-guide">进出口指南</Link>
-            <Link href="/help">使用指南</Link>
-            <details className="site-nav-more">
-              <summary>更多</summary>
-              <div className="site-nav-more-menu">
-                <Link href="/demo">3 分钟演示</Link>
-                <Link href="/versions">数据版本</Link>
-              </div>
-            </details>
-          </nav>
+          <SiteNavigation />
           <form className="global-search" action="/search" role="search">
             <label className="sr-only" htmlFor="global-search-input">搜索商品、国家或企业</label>
             <input id="global-search-input" name="q" placeholder="搜索商品 / 国家 / 企业" />

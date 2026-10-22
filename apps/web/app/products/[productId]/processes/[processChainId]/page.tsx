@@ -1,3 +1,4 @@
+import { ProductNavigation } from "../../../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../../lib/data";
@@ -54,6 +55,7 @@ export default async function ManufacturingProcessPage({
         actions={<>{industry && <Link className="button button-primary" href={industryPath(productId,undefined,pageContext)}>查企业与产业上下游</Link>}<Link className="button button-secondary" href={view.componentItem ? supplyChainPath(productId, view.componentItem.id, pageContext) : productPath(productId, pageContext)}>返回组件路线</Link><Link className="button button-secondary" href={provenancePath(productId, pageContext)}>来源与版本</Link></>}
       />
 
+      <ProductNavigation productId={productId} context={pageContext} active="route" hasIndustry={Boolean(industry)} hasMaterials={queries.getMaterialTradeObservations(productId).length>0}/>
       <div className="stat-grid">
         <StatCard label="关键工序" value={view.steps.length} detail="按顺序查看阶段摘要" />
         {equipmentCount > 0 && <StatCard label="设备类别" value={equipmentCount} detail="按工序关联" />}
@@ -95,7 +97,7 @@ export default async function ManufacturingProcessPage({
                     <span>{step.description}</span>
                     <span className="manufacturing-step-summary-facts">{summaryItems.map((item) => <span key={item}>{item}</span>)}</span>
                   </span>
-                  <span className="manufacturing-step-summary-status"><StatusBadge status={step.dataStatus} method={step.method} /><span className="manufacturing-step-expand">查看详情</span></span>
+                  <span className="manufacturing-step-summary-status"><StatusBadge status={step.dataStatus} method={step.method} /></span>
                 </summary>
 
                 <div className="manufacturing-step-detail">

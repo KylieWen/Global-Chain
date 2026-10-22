@@ -72,3 +72,7 @@ export type MapFilters = PageContext & {
 export function mapPath(filters?: MapFilters): string {
   return `/map${contextQuery(filters)}`;
 }
+
+export function chinaMapPath(filters?: PageContext & {product?: string; province?: string; stage?: string; node?: string}): string {
+  return `/map/china${contextQuery(filters)}`;
+}

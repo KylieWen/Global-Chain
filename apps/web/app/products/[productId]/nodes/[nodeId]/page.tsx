@@ -1,3 +1,4 @@
+import { ProductNavigation } from "../../../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../../lib/data";
@@ -58,12 +59,7 @@ export default async function SupplyChainNodePage({
           )}
         />
 
-        <nav className="exploration-nav" aria-label="节点研究层级">
-          <Link href={productPath(productId, pageContext)}>① 商品总览</Link>
-          <Link href={supplyChainPath(productId, node.node.item?.id, routeContext)}>② 所属路线</Link>
-          <span className="active">③ 节点详情</span>
-          <Link href={evidenceGapsPath(productId, pageContext)}>④ 证据与缺口</Link>
-        </nav>
+        <ProductNavigation productId={productId} context={routeContext} active="route" hasIndustry={Boolean(queries.getIndustryNetwork(productId))} hasMaterials={queries.getMaterialTradeObservations(productId).length>0}/>
 
         {node.warnings.length > 0 && <details className="detail-collapsible compact-detail">
           <summary className="detail-summary"><strong>节点阅读提示</strong><span>{node.warnings.length} 条</span></summary>

@@ -1,3 +1,4 @@
+import { ProductNavigation } from "../../../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../../lib/data";
@@ -78,12 +79,7 @@ export default async function CountryLedgerPage({
           actions={<Link className="button button-secondary" href={firstRelatedNode ? nodePath(productId, firstRelatedNode.node.id, pageContext) : supplyChainPath(productId, undefined, pageContext)}>查看供应链</Link>}
         />
 
-        <nav className="exploration-nav" aria-label="国家研究层级">
-          <Link href={productPath(productId, pageContext)}>① 商品总览</Link>
-          <Link href={supplyChainPath(productId, undefined, pageContext)}>② 供应链路线</Link>
-          <span className="active">③ 国家账本</span>
-          <Link href={ledger.relatedNodes[0] ? nodePath(productId, ledger.relatedNodes[0].node.id, pageContext) : supplyChainPath(productId, undefined, pageContext)}>④ 相关节点</Link>
-        </nav>
+        <ProductNavigation productId={productId} context={pageContext} active="ledger" hasIndustry={Boolean(queries.getIndustryNetwork(productId))} hasMaterials={queries.getMaterialTradeObservations(productId).length>0} entityId={entityId}/>
 
         {snapshotMetrics.length > 0 && <section className="ledger-snapshot" aria-labelledby="ledger-snapshot-title">
           <div className="section-heading"><div><p className="eyebrow">At a glance</p><h2 id="ledger-snapshot-title">关键数据</h2></div><span className="section-caption">{snapshotMetrics.length} 项指标</span></div>

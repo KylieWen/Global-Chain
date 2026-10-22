@@ -7,3 +7,4 @@ export * from "./provenance";
 export * from "./story";
 export * from "./trade-guidance";
 export * from "./industry";
+export * from "./regional-atlas";

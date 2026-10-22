@@ -1,3 +1,4 @@
+import { ProductNavigation } from "../../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../lib/data";
@@ -31,13 +32,16 @@ export default async function SupplyChainPage({
 }) {
   const { productId } = await params;
   const query = await searchParams;
-  const focusItemId = firstParam(query.focus);
+  const requestedFocusItemId = firstParam(query.focus);
   const pageContext = readPageContext(query);
   const label = firstParam(query.label);
   const queries = await getQueryService(pageContext.datasetVersion);
   const overview = queries.getProductOverview(productId);
   const industry = queries.getIndustryNetwork(productId);
   if (!overview) notFound();
+  const fullGraph = firstParam(query.view) === "all";
+  const suggestedFocus = overview.componentCoverage.find(coverage => coverage.item.id !== productId && coverage.hasInspectableStory && coverage.nodeCount >= 2)?.item.id;
+  const focusItemId = requestedFocusItemId ?? (fullGraph ? undefined : suggestedFocus);
 
   let story;
   try {
@@ -88,6 +92,7 @@ export default async function SupplyChainPage({
           )}
         />
 
+        <ProductNavigation productId={productId} context={pageContext} active="route" hasIndustry={Boolean(industry)} hasMaterials={queries.getMaterialTradeObservations(productId).length>0}/>
         <section className="filter-strip" aria-label="路径筛选">
           <div>
             <span className="filter-label">聚焦商品</span>
@@ -109,6 +114,7 @@ export default async function SupplyChainPage({
         </section>
 
         <SupplyChainGraph story={story} productId={productId} context={pageContext} />
+        {!requestedFocusItemId && suggestedFocus && <p className="route-focus-choice">{fullGraph ? "当前展示全部代表性路径。" : "先从一个部件分支开始阅读，可随时展开完整路线。"}<Link className="text-link" href={fullGraph ? supplyChainPath(productId,suggestedFocus,pageContext) : supplyChainPath(productId,undefined,{...pageContext,...{view:"all"}})}> {fullGraph ? "聚焦一个部件 →" : "展开全部分支 →"}</Link></p>}
 
         {story.warnings.length > 0 && <details className="detail-collapsible compact-detail">
           <summary className="detail-summary"><strong>阅读提示与限制</strong><span>{story.warnings.length} 条</span></summary>

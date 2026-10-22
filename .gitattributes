@@ -24,3 +24,8 @@ content/industry/china-hvac-supplement-2026-10-22.json -text
 content/industry/china-hvac-core-supplement-2026-10-22.json -text
 data/raw/china-hvac-equipment-2026-10-22/** -text
 content/industry/china-hvac-equipment-supplement-2026-10-22.json -text
+
+# Preserve the audited source bytes, including upstream HTML whitespace.
+data/raw/china-atlas-2026-10-22/** -text -whitespace
+content/geography/** -text
+apps/web/lib/geo/china-provinces.json -text

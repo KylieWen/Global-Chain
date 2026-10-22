@@ -1,0 +1,403 @@
+{
+  "datasetVersion": "china-supply-geography-2026.10.1",
+  "sources": [
+    {
+      "id": "sz-terminals",
+      "name": "深圳智能终端产业集群行动计划",
+      "publisher": "深圳市发展和改革委员会",
+      "url": "https://fgw.sz.gov.cn/gkmlpt/content/10/10289/mpost_10289350.html",
+      "year": 2022,
+      "scope": "深圳的智能终端研发、部件与整机产业角色；不是2026年产量。"
+    },
+    {
+      "id": "zz-assembly",
+      "name": "富士康新事业总部及研发中心项目开工",
+      "publisher": "郑州市人民政府",
+      "url": "https://www.zhengzhou.gov.cn/news1/9104847.jhtml",
+      "year": 2025,
+      "scope": "郑州智能终端生产基地角色；不证明深圳向郑州供货。"
+    },
+    {
+      "id": "xj-cotton",
+      "name": "新疆纺织服装产业发展新闻发布会",
+      "publisher": "新疆维吾尔自治区人民政府",
+      "url": "https://www.xinjiang.gov.cn/xinjiang/xwfb/202509/c2e0f1113cde479296fd4a8d7663016a.shtml",
+      "year": 2025,
+      "scope": "棉花与纺织产业、阿克苏等产业集聚区；不是特定T恤的产地证明。"
+    },
+    {
+      "id": "sx-textiles",
+      "name": "绍兴纺织产业高质量发展现场会",
+      "publisher": "绍兴市柯桥区会展部门",
+      "url": "https://wz.kq.gov.cn/art/2024/6/7/art_1613601_58944865.html",
+      "year": 2024,
+      "scope": "柯桥纺织、印染与服装产业角色，覆盖纺织品大类。"
+    },
+    {
+      "id": "gz-apparel",
+      "name": "番禺时尚产业发展行动方案",
+      "publisher": "广州市番禺区人民政府",
+      "url": "https://www.panyu.gov.cn/gzpykgsx/gkmlpt/content/9/9604/post_9604237.html",
+      "year": 2024,
+      "scope": "番禺纺织服装集群；不是某件棉质T恤的工厂路线。"
+    },
+    {
+      "id": "heihe-soy",
+      "name": "稳粮稳豆强举措",
+      "publisher": "黑河市人民政府",
+      "url": "https://www.heihe.gov.cn/hhs/c100749/202502/c11_321021.shtml",
+      "year": 2025,
+      "scope": "黑河大豆种植角色；不推断全部原料都用于榨油。"
+    },
+    {
+      "id": "harbin-oil",
+      "name": "九三食品公司概况",
+      "publisher": "九三食品股份有限公司",
+      "url": "https://www.93food.com/index.php?lanmu=14&p=touzi",
+      "year": 2026,
+      "scope": "哈尔滨大豆精深加工与食用油能力的官网快照，不验证实际采购来源。"
+    },
+    {
+      "id": "tj-ebike",
+      "name": "电动自行车产业链上下游交流活动",
+      "publisher": "天津市工业和信息化局",
+      "url": "https://www.tj.gov.cn/sy/zwdt/bmdt/202608/t20260804_7346875.html",
+      "year": 2026,
+      "scope": "天津整车、零部件与制造配套；参加同场活动不等于已建立供货关系。"
+    },
+    {
+      "id": "wx-ebike",
+      "name": "锡山电动车产业发展推进会",
+      "publisher": "无锡市锡山区人民政府",
+      "url": "https://www.jsxishan.gov.cn/doc/2026/03/24/4749606.shtml",
+      "year": 2026,
+      "scope": "锡山电动车产业集群角色，包含电动两轮车大类。"
+    },
+    {
+      "id": "jt-tube",
+      "name": "金田铜管产品与企业资料",
+      "publisher": "宁波金田铜管有限公司",
+      "url": "https://www.jtcopper.com/branch/tong-guan",
+      "year": 2026,
+      "scope": "铜管能力与宁波机构位置；不代表向某空调企业实际供货。"
+    },
+    {
+      "id": "gmcc-compressor",
+      "name": "GMCC联系信息",
+      "publisher": "GMCC / Welling",
+      "url": "https://www.gmcc-welling.com/cn/About-us/join-us",
+      "year": 2026,
+      "scope": "佛山顺德公开机构地址，压缩机能力沿用当前产业网络中的独立来源。"
+    },
+    {
+      "id": "gree-assembly",
+      "name": "格力公司概况",
+      "publisher": "珠海格力电器股份有限公司",
+      "url": "https://global.gree.com/channels/113.html",
+      "year": 2026,
+      "scope": "珠海公开机构位置，空调能力沿用当前产业网络的独立来源。"
+    },
+    {
+      "id": "tn-profile",
+      "name": "天能公司简介",
+      "publisher": "天能控股集团",
+      "url": "https://www.tianneng.com/about-us/company-overview/profile",
+      "year": 2026,
+      "scope": "电动助力车电池能力及长兴的企业机构位置；不代表具体整车客户。"
+    },
+    {
+      "id": "tn-contact",
+      "name": "天能联系地址",
+      "publisher": "天能控股集团",
+      "url": "https://www.tianneng.com/about-us/contact-us",
+      "year": 2026,
+      "scope": "长兴公开机构位置；城市参考点并非工厂坐标。"
+    }
+  ],
+  "places": [
+    {
+      "id": "shenzhen",
+      "name": "深圳",
+      "provinceCode": "440000",
+      "cityCode": 440300
+    },
+    {
+      "id": "zhengzhou",
+      "name": "郑州",
+      "provinceCode": "410000",
+      "cityCode": 410100
+    },
+    {
+      "id": "aksu",
+      "name": "阿克苏",
+      "provinceCode": "650000",
+      "cityCode": 652900
+    },
+    {
+      "id": "shaoxing",
+      "name": "绍兴·柯桥",
+      "provinceCode": "330000",
+      "cityCode": 330600
+    },
+    {
+      "id": "guangzhou",
+      "name": "广州·番禺",
+      "provinceCode": "440000",
+      "cityCode": 440100
+    },
+    {
+      "id": "heihe",
+      "name": "黑河",
+      "provinceCode": "230000",
+      "cityCode": 231100
+    },
+    {
+      "id": "harbin",
+      "name": "哈尔滨",
+      "provinceCode": "230000",
+      "cityCode": 230100
+    },
+    {
+      "id": "tianjin",
+      "name": "天津",
+      "provinceCode": "120000",
+      "cityCode": 120000
+    },
+    {
+      "id": "wuxi",
+      "name": "无锡·锡山",
+      "provinceCode": "320000",
+      "cityCode": 320200
+    },
+    {
+      "id": "huzhou",
+      "name": "湖州·长兴",
+      "provinceCode": "330000",
+      "cityCode": 330500
+    },
+    {
+      "id": "ningbo",
+      "name": "宁波",
+      "provinceCode": "330000",
+      "cityCode": 330200
+    },
+    {
+      "id": "foshan",
+      "name": "佛山·顺德",
+      "provinceCode": "440000",
+      "cityCode": 440600
+    },
+    {
+      "id": "zhuhai",
+      "name": "珠海",
+      "provinceCode": "440000",
+      "cityCode": 440400
+    }
+  ],
+  "nodes": [
+    {
+      "id": "phone-sz",
+      "productId": "generic-smartphone",
+      "placeId": "shenzhen",
+      "stage": "component",
+      "label": "终端研发与部件配套",
+      "description": "深圳具备智能终端研发、关键部件和整机配套产业。这里展示区域产业能力。",
+      "sourceIds": [
+        "sz-terminals"
+      ]
+    },
+    {
+      "id": "phone-zz",
+      "productId": "generic-smartphone",
+      "placeId": "zhengzhou",
+      "stage": "manufacturing",
+      "label": "智能终端生产与组装",
+      "description": "郑州的富士康智能终端生产基地是国内整机生产的代表性区域之一。",
+      "sourceIds": [
+        "zz-assembly"
+      ]
+    },
+    {
+      "id": "cotton-aksu",
+      "productId": "generic-cotton-tshirt",
+      "placeId": "aksu",
+      "stage": "material",
+      "label": "棉纺原料与纺纱",
+      "description": "阿克苏是新疆棉纺产业集聚区之一，连接棉花资源与纺纱加工。",
+      "sourceIds": [
+        "xj-cotton"
+      ]
+    },
+    {
+      "id": "cotton-sx",
+      "productId": "generic-cotton-tshirt",
+      "placeId": "shaoxing",
+      "stage": "component",
+      "label": "纺织面料与染整",
+      "description": "柯桥拥有织造、印染和面料流通等产业环节，资料覆盖纺织品大类。",
+      "sourceIds": [
+        "sx-textiles"
+      ]
+    },
+    {
+      "id": "cotton-gz",
+      "productId": "generic-cotton-tshirt",
+      "placeId": "guangzhou",
+      "stage": "manufacturing",
+      "label": "服装加工与产业配套",
+      "description": "广州番禺的纺织服装集群可用于理解成衣制造环节，不对应特定品牌T恤。",
+      "sourceIds": [
+        "gz-apparel"
+      ]
+    },
+    {
+      "id": "soy-heihe",
+      "productId": "generic-soybean-oil",
+      "placeId": "heihe",
+      "stage": "material",
+      "label": "大豆种植",
+      "description": "黑河的大豆种植构成国产大豆原料的一条研究起点。国产豆与进口豆路径分别理解。",
+      "sourceIds": [
+        "heihe-soy"
+      ]
+    },
+    {
+      "id": "soy-harbin",
+      "productId": "generic-soybean-oil",
+      "placeId": "harbin",
+      "stage": "manufacturing",
+      "label": "大豆加工与食用油",
+      "description": "九三食品公开资料展示哈尔滨的大豆深加工和成品油能力；这里不认定其具体采购地。",
+      "sourceIds": [
+        "harbin-oil"
+      ]
+    },
+    {
+      "id": "ebike-hz",
+      "productId": "generic-electric-bicycle",
+      "placeId": "huzhou",
+      "stage": "component",
+      "label": "电动助力车电池",
+      "description": "长兴的天能公开电动助力车电池业务。点位为湖州城市参考位置。",
+      "sourceIds": [
+        "tn-profile",
+        "tn-contact"
+      ]
+    },
+    {
+      "id": "ebike-tj",
+      "productId": "generic-electric-bicycle",
+      "placeId": "tianjin",
+      "stage": "manufacturing",
+      "label": "整车与零部件配套",
+      "description": "天津的电动自行车产业包括整车生产、零部件和检测配套。",
+      "sourceIds": [
+        "tj-ebike"
+      ]
+    },
+    {
+      "id": "ebike-wx",
+      "productId": "generic-electric-bicycle",
+      "placeId": "wuxi",
+      "stage": "manufacturing",
+      "label": "电动两轮车制造",
+      "description": "锡山具有电动两轮车产业集群，涵盖电动自行车及相关大类。",
+      "sourceIds": [
+        "wx-ebike"
+      ]
+    },
+    {
+      "id": "ac-nb",
+      "productId": "generic-home-air-conditioner",
+      "placeId": "ningbo",
+      "stage": "material",
+      "label": "铜管与换热材料",
+      "description": "宁波金田铜管的公开能力可作为空调铜管材料研究入口。",
+      "organizationIds": [
+        "org-jintian"
+      ],
+      "topicIds": [
+        "copper-tube"
+      ],
+      "sourceIds": [
+        "jt-tube"
+      ]
+    },
+    {
+      "id": "ac-fs",
+      "productId": "generic-home-air-conditioner",
+      "placeId": "foshan",
+      "stage": "component",
+      "label": "压缩机与机电部件",
+      "description": "美芝的公开联系机构位于佛山顺德，压缩机能力可继续在产业上下游查看。",
+      "organizationIds": [
+        "org-gmcc"
+      ],
+      "topicIds": [
+        "compressor"
+      ],
+      "sourceIds": [
+        "gmcc-compressor"
+      ]
+    },
+    {
+      "id": "ac-zh",
+      "productId": "generic-home-air-conditioner",
+      "placeId": "zhuhai",
+      "stage": "manufacturing",
+      "label": "家用空调与整机能力",
+      "description": "珠海格力的公开空调业务与官方入口，可继续查看整机及售后环节。",
+      "organizationIds": [
+        "org-gree"
+      ],
+      "topicIds": [
+        "room-air-conditioner"
+      ],
+      "sourceIds": [
+        "gree-assembly"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "phone-sz",
+      "to": "phone-zz",
+      "label": "部件配套 → 整机生产"
+    },
+    {
+      "from": "cotton-aksu",
+      "to": "cotton-sx",
+      "label": "棉纺原料 → 面料加工"
+    },
+    {
+      "from": "cotton-sx",
+      "to": "cotton-gz",
+      "label": "面料 → 成衣加工"
+    },
+    {
+      "from": "soy-heihe",
+      "to": "soy-harbin",
+      "label": "国产大豆 → 食用油加工"
+    },
+    {
+      "from": "ebike-hz",
+      "to": "ebike-tj",
+      "label": "动力电池 → 整车环节"
+    },
+    {
+      "from": "ebike-hz",
+      "to": "ebike-wx",
+      "label": "动力电池 → 整车环节"
+    },
+    {
+      "from": "ac-nb",
+      "to": "ac-zh",
+      "label": "换热材料 → 空调整机"
+    },
+    {
+      "from": "ac-fs",
+      "to": "ac-zh",
+      "label": "压缩机 → 空调整机"
+    }
+  ]
+}

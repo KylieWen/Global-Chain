@@ -1,3 +1,4 @@
+import { ProductNavigation } from "../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../lib/data";
@@ -49,14 +50,7 @@ export default async function ProductOverviewPage({
         />
         <ProductArtwork productId={productId} variant="overview" />
         </div>
-        <nav className="exploration-nav" aria-label="商品研究层级">
-          <span className="active">商品总览</span>
-          {industry && <Link href={industryPath(productId, undefined, routeContext)}>产业上下游与企业</Link>}
-                    <Link href={supplyChainPath(productId, undefined, routeContext)}>供应链路线</Link>
-          {hasMaterialTrade && <Link href={materialObservationsPath(productId, pageContext)}>材料贸易</Link>}
-          {hasGuides && <Link href={tradeGuidePath({ product: productId, ...pageContext })}>进出口指南</Link>}
-          <Link href={provenancePath(productId, pageContext)}>来源与版本</Link>
-        </nav>
+        <ProductNavigation productId={productId} context={routeContext} active="overview" hasIndustry={Boolean(industry)} hasMaterials={hasMaterialTrade}/>
 
         <section className="section-block" aria-labelledby="children-title">
           <div className="section-heading">

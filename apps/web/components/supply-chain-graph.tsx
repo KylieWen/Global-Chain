@@ -30,9 +30,8 @@ export function SupplyChainGraph({ story, productId, context }: { story: SupplyC
   });
   const positions = new Map<string, { x: number; y: number }>();
   grouped.forEach((nodes, column) => nodes.forEach((node, row) => positions.set(node.node.id, { x: 18 + column * columnWidth, y: 28 + row * rowHeight })));
-  const entityNode = new Map<string, string>();
-  visibleNodes.forEach((node) => { if (node.entity?.id && !entityNode.has(node.entity.id)) entityNode.set(node.entity.id, node.node.id); });
-  const endpointNode = (endpoint: typeof story.flows[number]["from"]) => endpoint.node?.node.id ?? (endpoint.entity?.id ? entityNode.get(endpoint.entity.id) : undefined);
+  // An entity-only endpoint cannot justify a link to an arbitrary factory/process node.
+  const endpointNode = (endpoint: typeof story.flows[number]["from"]) => endpoint.node?.node.id;
   const visibleFlows = story.flows.filter((flow) => {
     const from = endpointNode(flow.from); const to = endpointNode(flow.to);
     return Boolean(from && to && visibleIds.has(from) && visibleIds.has(to));
@@ -67,7 +66,7 @@ export function SupplyChainGraph({ story, productId, context }: { story: SupplyC
           if (!a || !b) return null;
           const selected = selectedFlowId === flow.flow.id;
           return <g key={flow.flow.id} className={selected ? "graph-edge-group selected" : "graph-edge-group"} onClick={() => { setSelectedFlowId(flow.flow.id); setSelectedNodeId(null); }} role="button" tabIndex={0} aria-label={`查看连接 ${flow.item?.name ?? "未知货物"}`} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") setSelectedFlowId(flow.flow.id); }}>
-            <line className={`graph-edge graph-edge-${flow.evidenceLevel.code}`} x1={a.x + 176} y1={a.y + 38} x2={b.x} y2={b.y + 38} markerEnd="url(#route-arrow)" /><line className="graph-edge-hit-area" x1={a.x + 176} y1={a.y + 38} x2={b.x} y2={b.y + 38} />
+            <path className={`graph-edge graph-edge-${flow.evidenceLevel.code}`} fill="none" d={`M${a.x+176},${a.y+38} C${a.x+196},${a.y+38} ${b.x-20},${b.y+38} ${b.x},${b.y+38}`} markerEnd="url(#route-arrow)" /><path className="graph-edge-hit-area" fill="none" d={`M${a.x+176},${a.y+38} C${a.x+196},${a.y+38} ${b.x-20},${b.y+38} ${b.x},${b.y+38}`} />
           </g>;
         })}
         {stageOrders.map((order, column) => <text key={order} className="graph-stage-label" x={18 + column * columnWidth} y={17}>{story.nodes.find(({ processStage }) => processStage?.order === order)?.processStage?.label ?? `阶段 ${order + 1}`}</text>)}

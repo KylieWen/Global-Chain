@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { readableQuantity } from "../lib/display-units";
 import type {
   DatasetVersion,
   EvidenceSupportType,
@@ -269,6 +270,7 @@ export function ValueDisplay({
     (part, index, parts): part is string => Boolean(part) && parts.indexOf(part) === index
   ).join(" · ");
   const isObservedZero = status === "observed" && value === 0;
+  const readable = compact && !currency ? readableQuantity(value,unit) : {value,unit};
   return (
     <span
       className={[
@@ -277,7 +279,7 @@ export function ValueDisplay({
       ].filter(Boolean).join(" ") || undefined}
       title={compact ? `${value.toLocaleString("zh-CN")} ${currency ?? unit ?? ""}` : isObservedZero ? "来源明确观测为零；这不是缺失数据" : undefined}
     >
-      {compact ? new Intl.NumberFormat("zh-CN", { notation: "compact", maximumFractionDigits: 2 }).format(value) : value.toLocaleString("zh-CN")}{compact ? ` ${currency ?? unit ?? ""}` : suffix ? ` ${suffix}` : ""}
+      {compact ? new Intl.NumberFormat("zh-CN", { notation: readable.unit !== unit ? "standard" : "compact", maximumFractionDigits: 2 }).format(readable.value) : value.toLocaleString("zh-CN")}{compact ? ` ${currency ?? readable.unit ?? ""}` : suffix ? ` ${suffix}` : ""}
       {status === "estimated" ? " · 估算" : ""}
     </span>
   );
