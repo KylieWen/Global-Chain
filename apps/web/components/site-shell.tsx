@@ -19,6 +19,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <nav className="site-nav" aria-label="主导航">
             <Link className="site-nav-primary" href="/products">商品与供应链</Link>
             <Link href="/map">世界地图</Link>
+            <Link href="/industry">产业上下游</Link>
             <Link href="/countries">国家账本</Link>
             <Link href="/trade-guide">进出口指南</Link>
             <Link href="/help">使用指南</Link>

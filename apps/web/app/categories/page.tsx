@@ -11,8 +11,8 @@ export default async function CategoriesPage() {
   const products = queries.listProducts();
   return <SiteShell><div className="content-column wide-column">
     <Breadcrumbs items={[{ label: "当前分类" }]} />
-    <PageIntro eyebrow="Browse by stage" title="当前分类" description="这里展示当前已发布商品涉及的产业链环节。现在平台先深度拆解智能手机，其他商品门类会在有可靠数据后逐步加入。" actions={<Link className="button button-secondary" href="/countries">进入国家账本</Link>} />
-    <section className="category-grid">{categories.map((category) => <article className="category-card" key={category.category}><span className="card-kicker">GlobeChain category</span><h2>{category.category}</h2><p>{category.itemCount} 个商品/部件记录 · {category.publishedItemCount} 个已发布观察对象</p><div className="category-products">{category.productIds.map((productId) => { const product = products.find(({ productId: id }) => id === productId); return <Link className="filter-chip" href={productPath(productId)} key={productId}>{product?.item.name ?? productId}</Link>; })}</div></article>)}</section>
-    <section className="hierarchy-next-step"><strong>分类体系说明</strong><span>门类、商品、部件和材料是 GlobeChain 的浏览层；HS/SITC 等统计编码在商品详情和来源层展示，不把宽泛编码直接解释为手机用途。</span><Link className="button button-primary" href="/products">查看商品目录 →</Link></section>
+    <PageIntro eyebrow="按商品门类浏览" title="当前分类" description={`从${products.length}个已收录商品出发，按门类查找成品、部件与材料，继续探索它们的供应链。`} actions={<Link className="button button-secondary" href="/countries">进入国家账本</Link>} />
+    <section className="category-grid">{categories.map((category) => <article className="category-card" key={category.category}><span className="card-kicker">商品门类</span><h2>{category.category}</h2><p>{category.itemCount} 项商品、部件与材料</p><div className="category-products">{category.productIds.map((productId) => { const product = products.find(({ productId: id }) => id === productId); return <Link className="filter-chip" href={productPath(productId)} key={productId}>{product?.item.name ?? productId}</Link>; })}</div></article>)}</section>
+    <section className="hierarchy-next-step"><strong>分类与统计</strong><span>商品门类帮助浏览；海关商品分类及其适用范围可在商品详情和来源资料中查看。</span><Link className="button button-primary" href="/products">查看商品目录 →</Link></section>
   </div></SiteShell>;
 }
