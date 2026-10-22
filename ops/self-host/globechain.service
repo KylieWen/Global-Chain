@@ -1,0 +1,25 @@
+[Unit]
+Description=GlobeChain web
+After=network.target
+
+[Service]
+Type=simple
+User=globechain
+Group=globechain
+WorkingDirectory=/opt/globechain/current/apps/web
+Environment=NODE_ENV=production
+Environment=GLOBECHAIN_DATA_MODE=published
+Environment=NEXT_TELEMETRY_DISABLED=1
+# Set Node's absolute path after inspecting the host; the template assumes /usr/local/bin/node.
+ExecStart=/usr/local/bin/node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3000
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target
