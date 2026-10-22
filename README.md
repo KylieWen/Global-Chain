@@ -133,9 +133,9 @@ pipelines/data/raw
 
 ## 生产部署与环境配置
 
-应用使用 RSC 和服务端 node:fs 读取 fixture，不能静态导出。当前提供整仓自托管方案，CI 没有部署 job，也没有已发布的线上 Demo。
+应用使用 RSC 和服务端 node:fs 读取 fixture，不能静态导出。2026-10-23 已将应用版本 b7f2f42 部署到 Contabo：[世界地图](http://62.171.148.193/map)、[中国供应链](http://62.171.148.193/map/china)。当前使用公网 IP/HTTP，尚未配置域名和 HTTPS。运行状态、更新与回滚见 [自托管维护说明](ops/self-host/README.md) 和 [部署验收](docs/reviews/2026-10-23-contabo-deployment.md)；CI 仍没有自动部署 job。
 
-1. 将完整仓库放到 Node.js >=20.9、pnpm 11.19.0 的主机；保留 apps、packages、content、data/published（含历史 releases 和 active-manifest）及锁文件。不要只复制 .next。
+1. 用 node scripts/package-self-host.mjs 生成公开源码白名单部署包，传到受支持的 Node.js LTS、pnpm 11.19.0 主机，核对 SHA 后解压；保留 apps、packages、content、data/published（含历史 releases 和 active-manifest）及锁文件。不要只复制 .next，也不要上传下载原件、私人物料或凭据。本次主机使用 Node v24.22.1。
 2. 从仓库根目录执行 pnpm install --frozen-lockfile 和上述全部质量命令；构建完成后执行 pnpm run start。
 3. 访问 /api/health 和 /map 验证，再由主机进程管理器保持服务运行；公网访问由主机反向代理配置 HTTPS。仓库不含自动部署配置。
 4. 正式运行无需 API Key 或数据库凭据。默认 published；可设置 GLOBECHAIN_DATA_MODE=published。GLOBECHAIN_DATA_MANIFEST 如需覆盖请使用主机上的绝对路径。GLOBECHAIN_ALLOW_DRAFT 只用于显式本地预览，不用于正式演示。

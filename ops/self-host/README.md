@@ -1,8 +1,36 @@
-# Contabo/Linux self-host preparation
+# Contabo/Linux self-host operations
 
-This directory contains templates, not an executed deployment. Public IP, host state,
-SSH access, installed software and existing services must be inspected first.
-No account credentials belong here.
+The first deployment was completed on 2026-10-23 (Asia/Singapore):
+[public world map](http://62.171.148.193/map), using application commit
+`b7f2f4201dcd23cfa2694e99c24f50062099b8ff`. This is IP-based HTTP; no domain
+or HTTPS is configured. No account credentials belong here.
+
+The templates support future installations; inspect each host before applying them.
+The actual host uses Ubuntu 24.04, Node v24.22.1 and the pinned pnpm 11.19.0.
+Its release is `/opt/globechain/releases/b7f2f4201dcd`, selected by
+`/opt/globechain/current`. The unprivileged `globechain` systemd service runs Next.js
+on `127.0.0.1:3000`; nginx serves public port 80. Both services are enabled.
+The separate nginx site is `/etc/nginx/sites-available/globechain`; the package's
+default site and existing SSH access were preserved. This deployment does not add
+accounts, contributor submissions, enterprise applications or a database.
+
+See [deployment evidence and limits](../../docs/reviews/2026-10-23-contabo-deployment.md).
+From the repository root, `node scripts/verify-self-host.mjs` checks the public site
+using installed Chrome. Set `REVIEW_BASE_URL` to check another host.
+
+## Maintenance on the host
+
+Use `systemctl status globechain nginx` and `journalctl -u globechain -n 100 --no-pager`
+to inspect service health. `systemctl restart globechain` restarts the app after an
+intentional release switch. Run `nginx -t` before `systemctl reload nginx`.
+The Node executable is `/usr/local/bin/node`, linked to `/opt/node-v24.22.1-linux-x64`;
+pnpm is linked from `/opt/globechain/tooling/bin/pnpm`.
+
+For an update, build a new release, verify it temporarily on loopback port 3001,
+then switch `current` and restart the app. Keep the prior release. To roll back,
+point `current` back to that verified directory and restart; recheck health and the
+public map. This initial installation has no older production release to roll back
+to. Release activation is manual; CI does not deploy automatically.
 
 ## Source artifact
 
@@ -32,7 +60,8 @@ Any other mismatch aborts packaging. The output manifest records this byte resto
    Do not reinstall the server or stop unrelated services.
 2. Confirm the host SSH fingerprint against trusted provider/console information where
    available. Never bypass host-key mismatch warnings. If password entry or first-login
-   password change is needed, the user performs that interaction locally.
+   password change is needed, use the authentication method currently authorized by
+   the user. Never store credentials in scripts, artifacts, logs or Git.
 3. Reuse a compatible supported Node LTS, or install from an official source after
    verifying release checksums. Obtain the package manager version declared by the
    artifact. Install ordinary host dependencies only as required; no database is needed.
