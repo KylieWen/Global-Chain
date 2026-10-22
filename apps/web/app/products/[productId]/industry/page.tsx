@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { IndustryConnectionView, IndustryParticipantView, IndustryTopicView } from "@globe-chain/domain";
 import { getQueryService } from "../../../../lib/data";
-import { firstParam, readPageContext, type PageContext, type SearchParamsLike } from "../../../../lib/context";
+import { contextMismatch, firstParam, readPageContext, type PageContext, type SearchParamsLike } from "../../../../lib/context";
 import { industryPath, manufacturingProcessPath, productPath, supplyChainPath, provenancePath } from "../../../../lib/paths";
 import { Breadcrumbs, ContextBanner, SiteShell } from "../../../../components/site-shell";
 
@@ -33,14 +33,17 @@ function ParticipantCard({organization,productId,context}: {organization:Industr
 export default async function IndustryPage({params,searchParams}: {params:Promise<{productId:string}>;searchParams:Promise<SearchParamsLike>}) {
   const {productId} = await params;
   const search = await searchParams;
-  const context = readPageContext(search);
-  const queries = await getQueryService(context.datasetVersion);
+  const requestedContext = readPageContext(search);
+  const queries = await getQueryService(requestedContext.datasetVersion);
   const view = queries.getIndustryNetwork(productId,{topicId:firstParam(search.topic),search:firstParam(search.q)});
   if (!view) notFound();
+  const mismatches = contextMismatch({datasetVersion:requestedContext.datasetVersion},{period:view.network.period.label,datasetVersion:view.datasetVersion.version});
+  const context = {...requestedContext,...(mismatches.length ? {datasetVersion:view.datasetVersion.version} : {})};
   const groups = [...new Set(view.matchingTopics.map(topic => topic.kind))];
   const companyMap = new Map([...view.participants,...view.adjacentParticipants].map(company => [company.id,company]));
   return <SiteShell><div className="content-column wide-column industry-page">
     <Breadcrumbs items={[{label:"商品目录",href:"/products"},{label:view.product.name,href:productPath(productId,context)},{label:"产业上下游"}]}/>
+    {mismatches.length > 0 && <ContextBanner period={view.network.period.label} datasetVersion={view.datasetVersion.version} mismatches={mismatches}/>}
     <div className="industry-heading"><div><p className="eyebrow">产业上下游 · {view.region.name}</p><h1>从一个环节，找到上下游</h1><p>查看材料、部件、制造设备和产品应用，进入企业官方产品、联系与销售入口。</p></div><div className="industry-counts"><span><strong>{view.topics.length}</strong>产业环节</span><span><strong>{view.network.organizations.length}</strong>家企业</span></div></div>
     <nav className="exploration-nav" aria-label="商品研究层级"><Link href={productPath(productId,context)}>商品总览</Link><Link href={supplyChainPath(productId,undefined,context)}>全球供应链</Link><span className="active">产业上下游</span><a href="#industry-directory">企业与官方入口</a><Link href={provenancePath(productId,context)}>来源与版本</Link></nav>
     <div className="industry-mobile-picker">

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../../lib/data";
-import { readPageContext, type SearchParamsLike } from "../../../../../lib/context";
+import { contextMismatch, readPageContext, type SearchParamsLike } from "../../../../../lib/context";
 import { industryPath, productPath, provenancePath, supplyChainPath } from "../../../../../lib/paths";
 import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../../../components/site-shell";
 import {
@@ -32,10 +32,12 @@ export default async function ManufacturingProcessPage({
   searchParams: Promise<SearchParamsLike>;
 }) {
   const { productId, processChainId } = await params;
-  const pageContext = readPageContext(await searchParams);
-  const queries = await getQueryService(pageContext.datasetVersion);
+  const requestedContext = readPageContext(await searchParams);
+  const queries = await getQueryService(requestedContext.datasetVersion);
   const view = queries.getManufacturingProcessChain(productId, processChainId);
   if (!view) notFound();
+  const mismatches = contextMismatch({datasetVersion:requestedContext.datasetVersion},{period:view.chain.period.label,datasetVersion:view.datasetVersion.version});
+  const pageContext = {...requestedContext,...(mismatches.length ? {datasetVersion:view.datasetVersion.version} : {})};
 
   const industry = queries.getIndustryNetwork(productId);
   const equipmentCount = new Set(view.steps.flatMap((step) => step.requirements.flatMap((requirement) => requirement.equipmentCategory ? [requirement.equipmentCategory.id] : []))).size;
@@ -44,7 +46,7 @@ export default async function ManufacturingProcessPage({
   return <SiteShell>
     <div className="content-column wide-column manufacturing-page">
       <Breadcrumbs items={[{ label: "商品目录", href: "/products" }, { label: view.product.name, href: productPath(productId, pageContext) }, { label: view.chain.title }]} />
-      <ContextBanner period={view.chain.period.label} datasetVersion={view.datasetVersion.version} contentVersion={view.contentVersion?.version} mismatches={[]} />
+      <ContextBanner period={view.chain.period.label} datasetVersion={view.datasetVersion.version} contentVersion={view.contentVersion?.version} mismatches={mismatches} />
       <PageIntro
         eyebrow="Manufacturing process depth"
         title={view.chain.title}
