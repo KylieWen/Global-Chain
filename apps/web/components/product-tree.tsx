@@ -1,3 +1,5 @@
+
+import { itemLabel } from "../lib/item-label";
 import Link from "next/link";
 import type { ComponentCoverageView, ProductBreakdownNode } from "@globe-chain/domain";
 import { manufacturingProcessPath, supplyChainPath } from "../lib/paths";
@@ -50,7 +52,7 @@ function TreeNode({
       <div className={`tree-node ${node.depth === 0 ? "tree-root" : ""}`}>
         <div>
           <span className="tree-kicker">{node.item.category}</span>
-          <strong>{node.item.name}</strong>
+          <strong>{itemLabel(node.item)}</strong>
           {node.item.description ? <small>{node.item.description}</small> : null}
           {coverage ? <small>{coverage.statusLabel} · {coverage.nodeCount} 个节点 · {coverage.flowCount} 条连接</small> : null}
         </div>

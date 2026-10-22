@@ -1,17 +1,53 @@
 "use client";
-import { useEffect, type RefObject, type Dispatch, type SetStateAction } from "react";
-import { clampMapTransform, type MapTransform } from "../lib/map-geometry";
+import { useEffect, useRef, type RefObject, type Dispatch, type SetStateAction } from "react";
+import { pinchMap, type MapTransform } from "../lib/map-geometry";
 
-/** Leave ordinary wheel scrolling alone; Ctrl+wheel also covers trackpad pinch. */
-export function useMapWheel(ref:RefObject<SVGSVGElement|null>,setTransform:Dispatch<SetStateAction<MapTransform>>,width=1000,height=540) {
-  useEffect(()=>{
-    const svg=ref.current;if(!svg)return;
-    const wheel=(event:WheelEvent)=>{
-      if(!event.ctrlKey&&!event.metaKey)return;
-      event.preventDefault();const bounds=svg.getBoundingClientRect();
-      const x=(event.clientX-bounds.left)*width/bounds.width; const y=(event.clientY-bounds.top)*height/bounds.height;
-      setTransform(current=>{const scale=Math.max(1,Math.min(4,current.scale*Math.exp(-event.deltaY*.004)));return clampMapTransform({scale,x:x-(x-current.x)*scale/current.scale,y:y-(y-current.y)*scale/current.scale},width,height);});
+/** One finger scrolls the page; two fingers manipulate the map without browser zoom. */
+export function useMapWheel(ref: RefObject<SVGSVGElement | null>, setTransform: Dispatch<SetStateAction<MapTransform>>, width: number, height: number, transform: MapTransform, suppressClick: RefObject<boolean>) {
+  const latest = useRef(transform);
+  latest.current = transform;
+  useEffect(() => {
+    const svg = ref.current;
+    if (!svg) return;
+    const point = (x: number, y: number) => {
+      const matrix = svg.getScreenCTM();
+      return matrix ? new DOMPoint(x, y).matrixTransform(matrix.inverse()) : { x, y };
     };
-    svg.addEventListener('wheel',wheel,{passive:false});return()=>svg.removeEventListener('wheel',wheel);
-  },[ref,setTransform,width,height]);
+    let pinch: { distance: number; center: { x: number; y: number }; transform: MapTransform } | null = null;
+    const touchPair = (touches: TouchList) => {
+      const a = touches[0]; const b = touches[1];
+      return { distance: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), center: point((a.clientX + b.clientX) / 2, (a.clientY + b.clientY) / 2) };
+    };
+    const start = (event: TouchEvent) => {
+      if (event.touches.length !== 2) { if (event.touches.length === 1) suppressClick.current = false; return; }
+      event.preventDefault();
+      suppressClick.current = true;
+      pinch = { ...touchPair(event.touches), transform: latest.current };
+    };
+    const move = (event: TouchEvent) => {
+      if (!pinch || event.touches.length !== 2) return;
+      event.preventDefault();
+      const pair = touchPair(event.touches);
+      setTransform(pinchMap(pinch.transform, pinch.center, pair.center, pair.distance / Math.max(1, pinch.distance), width, height));
+    };
+    const end = (event: TouchEvent) => { if (event.touches.length < 2) pinch = null; };
+    const wheel = (event: WheelEvent) => {
+      if (!event.ctrlKey && !event.metaKey) return;
+      event.preventDefault();
+      const anchor = point(event.clientX, event.clientY);
+      setTransform(current => pinchMap(current, anchor, anchor, Math.exp(-event.deltaY * .004), width, height));
+    };
+    svg.addEventListener("wheel", wheel, { passive: false });
+    svg.addEventListener("touchstart", start, { passive: false });
+    svg.addEventListener("touchmove", move, { passive: false });
+    svg.addEventListener("touchend", end);
+    svg.addEventListener("touchcancel", end);
+    return () => {
+      svg.removeEventListener("wheel", wheel);
+      svg.removeEventListener("touchstart", start);
+      svg.removeEventListener("touchmove", move);
+      svg.removeEventListener("touchend", end);
+      svg.removeEventListener("touchcancel", end);
+    };
+  }, [ref, setTransform, width, height, suppressClick]);
 }

@@ -1,3 +1,4 @@
+import { itemLabel } from "../../../../lib/item-label";
 import { ProductNavigation } from "../../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -33,12 +34,12 @@ export default async function MaterialObservationsPage({ params, searchParams }:
   ];
 
   return <SiteShell><div className="content-column wide-column">
-    <Breadcrumbs items={[{ label: "商品目录", href: "/products" }, { label: overview.product.name, href: productPath(productId, pageContext) }, { label: "材料贸易观察" }]} />
+    <Breadcrumbs items={[{ label: "商品目录", href: "/products" }, { label: itemLabel(overview.product), href: productPath(productId, pageContext) }, { label: "材料贸易观察" }]} />
     <ContextBanner period={periodLabel} datasetVersion={overview.datasetVersion.version} mismatches={mismatches} />
-    <PageIntro eyebrow="Materials & trade" title={`${overview.product.name} · 材料贸易`} description="看看这些材料从哪里来、流向哪里，以及各国的进出口规模。" actions={<Link className="button button-secondary" href={provenancePath(productId, pageContext)}>查看资料来源</Link>} />
+    <PageIntro eyebrow="材料贸易" title={`${itemLabel(overview.product)} · 材料贸易`} description="看看这些材料从哪里来、流向哪里，以及各国的进出口规模。" actions={<Link className="button button-secondary" href={provenancePath(productId, pageContext)}>查看资料来源</Link>} />
     <ProductNavigation productId={productId} context={pageContext} active="materials" hasIndustry={Boolean(queries.getIndustryNetwork(productId))} hasMaterials={true}/>
     <section className="section-block filter-strip" aria-label="材料贸易筛选"><div className="material-filter-groups">{filterGroups.map(group=><div className="material-filter-group" key={group.key}><strong>{group.label}</strong>{group.options.map(option=><Link key={option.value} aria-current={(filters[group.key]??"")===option.value?"page":undefined} href={href({...filters,[group.key]:option.value||undefined})}>{option.label}</Link>)}</div>)}<Link className="text-link" href={allHref}>重置全部筛选 →</Link></div></section>
-    <section className="section-block"><div className="section-heading"><div><p className="eyebrow">Trade records</p><h2>材料进出口</h2></div><span className="section-caption">{materials.length} 类材料 · {observations.length} 条记录</span></div><div className="trade-observation-list">
+    <section className="section-block"><div className="section-heading"><div><p className="eyebrow">贸易记录</p><h2>材料进出口</h2></div><span className="section-caption">{materials.length} 类材料 · {observations.length} 条记录</span></div><div className="trade-observation-list">
       {observations.map(({ observation, reporter, partner, item }) => <article className="trade-observation-card" key={observation.observationId}>
         <div className="trade-observation-heading"><div><span className="card-kicker">HS {observation.classificationCode} · <PeriodLabel period={observation.period} /></span><h3>{item?.name ?? observation.materialItemId}</h3><p>{observation.partnerScope === "world_total" ? `${reporter?.name} · 对全球${observation.flow === "import" ? "进口" : "出口"}` : observation.flow === "import" ? `${partner?.name} → ${reporter?.name}` : `${reporter?.name} → ${partner?.name}`}</p></div><StatusBadge status={observation.valueDataStatus} method={observation.method} /></div>
         <div className="trade-values"><div><small>金额</small><strong><ValueDisplay compact value={observation.value} status={observation.valueDataStatus} currency={observation.currency} /></strong></div>{observation.quantity !== null && <div><small>数量</small><strong><ValueDisplay compact value={observation.quantity} status={observation.quantityDataStatus} unit={observation.unit} /></strong></div>}</div>

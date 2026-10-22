@@ -1,3 +1,4 @@
+import { itemLabel } from "../../../../lib/item-label";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../lib/data";
@@ -32,13 +33,13 @@ export default async function ProductEvidenceGapsPage({
       <div className="content-column wide-column">
         <Breadcrumbs items={[
           { label: "商品目录", href: "/products" },
-          { label: overview.product.name, href: productPath(productId, pageContext) },
+          { label: itemLabel(overview.product), href: productPath(productId, pageContext) },
           { label: "证据缺口登记册" }
         ]} />
         <ContextBanner period={overview.period.label} datasetVersion={provenance.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
         <PageIntro
           eyebrow="证据完整度"
-          title={`${overview.product.name} · 证据缺口登记册`}
+          title={`${itemLabel(overview.product)} · 证据缺口登记册`}
           description="这里列出当前仍需核验的节点和连接。先看摘要，再按需展开来源、证据范围和审计细节；未收录的数据不会被补成零。"
           actions={(
             <>

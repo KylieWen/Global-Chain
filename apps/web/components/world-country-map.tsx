@@ -31,10 +31,9 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   const [hoveredCountryId, setHoveredCountryId] = useState<string | null>(null);
   const [hoveredRecordId, setHoveredRecordId] = useState<string | null>(null);
   const [selectedRecordId, setSelectedRecordId] = useState<string | null>(null);
-  const [uncoveredCountry, setUncoveredCountry] = useState<string | null>(null);
+  const [uncoveredCountry, setUncoveredCountry] = useState<{name:string;featureKey:string} | null>(null);
   const [renderedWidth, setRenderedWidth] = useState(mapWidth);
   const svgRef = useRef<SVGSVGElement>(null);
-  useMapWheel(svgRef,setTransform,mapWidth,mapHeight);
   useEffect(() => {
     const svg = svgRef.current;
     if (!svg) return;
@@ -44,6 +43,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   }, []);
   const drag = useRef<{ x: number; y: number; originX: number; originY: number; moved: boolean } | null>(null);
   const suppressClick = useRef(false);
+  useMapWheel(svgRef, setTransform, mapWidth, mapHeight, transform, suppressClick);
   const byM49 = useMemo(() => new Map(countries.filter(country => country.m49).map(country => [country.m49!, country])), [countries]);
   const byId = useMemo(() => new Map(countries.map(country => [country.id, country])), [countries]);
   const centers = useMemo(() => new Map(features.map(item => [String(item.id).padStart(3, "0"), projection(geoCentroid(item))])), []);
@@ -61,10 +61,10 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   const hasLayerRecords = (country: MapCountry) => isTrade ? country.hasTradeRecords : country.hasRouteNodes;
   const coverageLabel = (country: MapCountry) => hasLayerRecords(country) ? (isTrade ? "有统计" : "参与供应链") : country.hasTradeLedger ? "仅有账本" : "尚未收录";
   const navigate = (patch: Partial<MapFilters>) => { setUncoveredCountry(null); router.push(mapPath({ ...filters, ...patch }), { scroll: false }); };
-  const chooseCountry = (country: MapCountry | undefined, name: string) => {
+  const chooseCountry = (country: MapCountry | undefined, name: string, featureKey: string) => {
     if (suppressClick.current) return;
     if (country) navigate({ country: country.id });
-    else setUncoveredCountry(name);
+    else { setSelectedRecordId(null); setUncoveredCountry({name,featureKey}); }
   };
   const chooseRecord = (id: string) => { if (!suppressClick.current) setSelectedRecordId(id); };
   const clearFilters = () => navigate({ country: undefined, year: undefined, direction: undefined });
@@ -83,6 +83,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   const selectedIndex = selectedRecord ? records.indexOf(selectedRecord) : -1;
   const selectAdjacentRecord = (offset: number) => { const next = records[selectedIndex + offset]; if (next) setSelectedRecordId(next.id); };
   const onPointerDown = (event: PointerEvent<SVGSVGElement>) => {
+    if (event.pointerType === "touch") return;
     suppressClick.current = false;
     if (transform.scale === 1 || event.button !== 0) return;
     drag.current = { x: event.clientX, y: event.clientY, originX: transform.x, originY: transform.y, moved: false };
@@ -96,7 +97,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
     const ratio = screen ? 1 / screen.a : 1;
     if (start.moved) setTransform(current => clampMapTransform({ ...current, x: start.originX + dx * ratio, y: start.originY + dy * ratio }));
   };
-  const stopDrag = () => { suppressClick.current = drag.current?.moved ?? false; drag.current = null; };
+  const stopDrag = () => { if (drag.current) suppressClick.current = drag.current.moved; drag.current = null; };
 
   return <section className="country-map-workspace atlas-workspace" aria-label="可交互世界国家地图">
     <div className="atlas-compact-filters">
@@ -108,7 +109,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
       <div className="map-zoom-controls" aria-label="地图缩放"><button type="button" onClick={() => setTransform(current => zoomMap(current, 1.25))} aria-label="放大地图" disabled={transform.scale >= 4}>＋</button><button type="button" onClick={() => setTransform(current => zoomMap(current, 0.8))} aria-label="缩小地图" disabled={transform.scale <= 1}>－</button><button type="button" onClick={() => setTransform({ x: 0, y: 0, scale: 1 })}>复位</button></div>
     </div>
     <div className="atlas-layout"><div className="atlas-canvas">
-      <div className="map-viewport"><svg ref={svgRef} className="world-country-map" viewBox={`0 0 ${mapWidth} ${mapHeight}`} role="group" aria-labelledby="world-country-map-title" aria-describedby="world-country-map-description" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={stopDrag} onPointerCancel={stopDrag}>
+      <div className="map-viewport"><svg ref={svgRef} className="world-country-map" data-zoomed={transform.scale > 1} viewBox={`0 0 ${mapWidth} ${mapHeight}`} role="group" aria-labelledby="world-country-map-title" aria-describedby="world-country-map-description" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={stopDrag} onPointerCancel={stopDrag}>
         <title id="world-country-map-title">{isTrade ? isWorld ? "国家世界贸易总计地图" : "官方双边贸易统计地图" : "代表性供应链地图"}</title>
         <desc id="world-country-map-description">选择国家查看相关记录。连线与列表均可通过鼠标或键盘打开详情。</desc>
         <defs>{[{id:"atlas-selected-arrow",fill:"#aee9db"},{id:"atlas-export-arrow",fill:"#8be4c4"},{id:"atlas-import-arrow",fill:"#d7b880"}].map(marker => <marker key={marker.id} id={marker.id} viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth={9 / transform.scale} markerHeight={9 / transform.scale} orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill={marker.fill} /></marker>)}</defs>
@@ -116,10 +117,13 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
         <g transform={`translate(${transform.x} ${transform.y}) scale(${transform.scale})`}>
           <path className="atlas-graticule" d={pathGenerator(geoGraticule10()) ?? undefined} />
           {features.map((item, index) => {
-            const country = byM49.get(String(item.id).padStart(3, "0"));
+            const code = String(item.id).padStart(3, "0");
+            const featureKey = `${item.id ?? "unassigned"}:${index}`;
+            const country = byM49.get(code);
+            const isSelected = uncoveredCountry ? uncoveredCountry.featureKey === featureKey : Boolean(country && country.id === filters.country);
             const recordActive = activeRecord?.partnerScope === "world_total" && activeRecord.reporterId === country?.id;
             const name = country?.name ?? (item.properties as {name?:string} | null)?.name ?? "该国家或地区";
-            return <path key={item.id ?? index} d={pathGenerator(item as GeoPermissibleObjects) ?? undefined} className={`map-country-shape${country ? " has-data" : ""}${country && !hasLayerRecords(country) ? " atlas-country-limited" : ""}${country && country.id === filters.country ? " selected" : ""}${country?.id === hoveredCountryId ? " hovered" : ""}${recordActive ? " atlas-record-country" : ""}`} role="button" aria-label={`${name} · ${country ? coverageLabel(country) : "当前商品未收录"}`} aria-pressed={Boolean(country && country.id === filters.country)} tabIndex={country ? 0 : -1} onMouseEnter={() => country && setHoveredCountryId(country.id)} onMouseLeave={() => setHoveredCountryId(null)} onFocus={() => country && setHoveredCountryId(country.id)} onBlur={() => setHoveredCountryId(null)} onClick={() => chooseCountry(country, name)} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); suppressClick.current = false; chooseCountry(country, name); } }}><title>{`${name} · ${country ? coverageLabel(country) : "当前商品未收录"}`}</title></path>;
+            return <path key={item.id ?? index} d={pathGenerator(item as GeoPermissibleObjects) ?? undefined} className={`map-country-shape${country ? " has-data" : ""}${country && !hasLayerRecords(country) ? " atlas-country-limited" : ""}${isSelected ? " selected" : ""}${country && country.id === hoveredCountryId ? " hovered" : ""}${recordActive ? " atlas-record-country" : ""}`} role="button" aria-label={`${name} · ${country ? coverageLabel(country) : "当前商品未收录"}`} aria-pressed={isSelected} tabIndex={0} onMouseEnter={() => country && setHoveredCountryId(country.id)} onMouseLeave={() => setHoveredCountryId(null)} onFocus={() => country && setHoveredCountryId(country.id)} onBlur={() => setHoveredCountryId(null)} onClick={() => chooseCountry(country, name, featureKey)} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); suppressClick.current = false; chooseCountry(country, name, featureKey); } }}><title>{`${name} · ${country ? coverageLabel(country) : "当前商品未收录"}`}</title></path>;
           })}
           {!isWorld && <g className="map-trade-layer" aria-label={isTrade ? "双边贸易观察" : "代表性路线连接"}>{lines.map((line, index) => {
             const from = centers.get(line.fromM49); const to = centers.get(line.toM49);
@@ -136,17 +140,17 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
           {[...endpoints].map(code => { const point = centers.get(code); const country = byM49.get(code); if (!point || !country) return null; return <g className="atlas-endpoint" key={code} transform={`translate(${coordinate(point[0])},${coordinate(point[1])})`}><circle r={5 / transform.scale} /></g>; })}
         </g>
         <g className="atlas-country-labels" aria-hidden="true">{labels.map(label => <text key={label.id} x={label.x + 3} y={label.y + labelFontSize + 2} style={{fontSize:labelFontSize}}>{label.name}</text>)}</g>
-      </svg><div className="atlas-map-caption"><span>{isTrade ? isWorld ? "世界总计 · 圆点表示报告国" : "双边贸易 · 连线表示统计联系" : "代表性路线 · 连接原料、生产与市场"}</span><span>放大后可拖动</span></div></div>
+      </svg><div className="atlas-map-caption"><span>{isTrade ? isWorld ? "世界总计 · 圆点表示报告国" : "双边贸易 · 连线表示统计联系" : "代表性路线 · 连接原料、生产与市场"}</span><span>双指缩放与移动 · 放大后鼠标拖动</span></div></div>
       <div className="atlas-below-map"><div className="map-legend">{isTrade && !isWorld ? <><span><i className="legend-trade-export" />出口报告</span><span><i className="legend-trade-import" />进口报告</span></> : null}<span><i className="legend-country-covered" />{isTrade ? "有统计" : "参与供应链"}</span><span><i className="legend-country-limited" />仅有账本</span></div><Link className="text-link" href={supplyChainPath(filters.product, filters.focus, context)}>展开供应链 →</Link></div>
       {isTrade && !isWorld && lines.length > 0 && <details className="atlas-amount-key"><summary>{tradeCurrency ? `线宽按记录金额分档 · ${tradeCurrency}` : "含不同币种 · 线宽不比较金额"}</summary>{tradeCurrency && <div>{tradeAmountBands.map(band => <span key={band.minimum}><i style={{borderTopWidth:band.width}} />{band.label} {tradeCurrency}</span>)}</div>}<p>箭头表示货物流向；每条记录保留原年度、报告方和商品分类，不合并加总。未收录金额使用细线，具体金额与状态见记录。</p></details>}
-      {uncoveredCountry && <p className="atlas-filter-notice" role="status">{uncoveredCountry} · {productName}的资料尚未收录，可切换商品继续探索。<button type="button" onClick={() => setUncoveredCountry(null)}>关闭</button></p>}
-      {activeCountry && <div className="atlas-country-context"><strong>{activeCountry.name}</strong>{activeCountry.roles.length > 0 && <span>{activeCountry.roles.slice(0, 2).join(" / ")}</span>}{regionalLinks.filter(link=>link.entityId===activeCountry.id).map(link=><Link key={link.href} className="button button-primary" href={link.href}>{link.label} →</Link>)}{activeCountry.hasTradeLedger && <Link href={ledgerPath(filters.product, activeCountry.id, context)}>国家账本 →</Link>}{filters.country && <button type="button" onClick={() => navigate({ country: undefined })}>清除国家</button>}</div>}
-      {activeNodes.length > 0 && <details className="atlas-country-nodes"><summary>{activeCountry?.name}的生产环节 · {activeNodes.length}</summary><div>{activeNodes.map(node => <Link key={node.id} href={nodePath(filters.product, node.id, { ...context, period: node.periodLabel })}><strong>{node.itemName} · {node.stageLabel}</strong><span>{node.periodLabel}</span></Link>)}</div></details>}
+
+      {!uncoveredCountry && activeCountry && <div className="atlas-country-context"><strong>{activeCountry.name}</strong>{activeCountry.roles.length > 0 && <span>{activeCountry.roles.slice(0, 2).join(" / ")}</span>}{regionalLinks.filter(link=>link.entityId===activeCountry.id).map(link=><Link key={link.href} className="button button-primary" href={link.href}>{link.label} →</Link>)}{activeCountry.hasTradeLedger && <Link href={ledgerPath(filters.product, activeCountry.id, context)}>国家账本 →</Link>}{filters.country && <button type="button" onClick={() => navigate({ country: undefined })}>清除国家</button>}</div>}
+      {!uncoveredCountry && activeNodes.length > 0 && <details className="atlas-country-nodes"><summary>{activeCountry?.name}的生产环节 · {activeNodes.length}</summary><div>{activeNodes.map(node => <Link key={node.id} href={nodePath(filters.product, node.id, { ...context, period: node.periodLabel })}><strong>{node.itemName} · {node.stageLabel}</strong><span>{node.periodLabel}</span></Link>)}</div></details>}
     </div><aside className="atlas-records" aria-label={isTrade ? "贸易记录" : "路线连接记录"}>
       <div className="atlas-records-heading"><h2>{isTrade && relatedMaterials.length ? `${selectedItemName}相关材料` : selectedItemName} <small>{records.length}</small></h2>
         {isTrade ? <div className="atlas-scope-switch" aria-label="统计范围"><button type="button" aria-pressed={!isWorld} onClick={() => navigate({ scope: "bilateral" })}>双边 <small>{scopeCounts.bilateral}</small></button><button type="button" aria-pressed={isWorld} onClick={() => navigate({ scope: "world" })}>世界总计 <small>{scopeCounts.world}</small></button></div> : <p>{filters.focus ? "上下游分支" : "原料、部件与市场"} · {filters.year ?? years.join(" / ")}</p>}
       </div>
-      {selectedRecord ? <><div className="atlas-detail-navigation"><button type="button" onClick={() => setSelectedRecordId(null)}>← 返回记录</button><span>{selectedIndex + 1} / {records.length}</span><button type="button" aria-label="上一条记录" disabled={selectedIndex <= 0} onClick={() => selectAdjacentRecord(-1)}>←</button><button type="button" aria-label="下一条记录" disabled={selectedIndex >= records.length - 1} onClick={() => selectAdjacentRecord(1)}>→</button></div><MapRecordDetails record={selectedRecord} countries={countries} productId={filters.product} context={context} /></> : <>
+      {uncoveredCountry ? <div className="atlas-empty" role="status"><strong>{uncoveredCountry.name}</strong><p>当前商品在此地区的资料尚未收录。</p><button type="button" onClick={() => setUncoveredCountry(null)}>返回已有记录</button></div> : selectedRecord ? <><div className="atlas-detail-navigation"><button type="button" onClick={() => setSelectedRecordId(null)}>← 返回记录</button><span>{selectedIndex + 1} / {records.length}</span><button type="button" aria-label="上一条记录" disabled={selectedIndex <= 0} onClick={() => selectAdjacentRecord(-1)}>←</button><button type="button" aria-label="下一条记录" disabled={selectedIndex >= records.length - 1} onClick={() => selectAdjacentRecord(1)}>→</button></div><MapRecordDetails record={selectedRecord} countries={countries} productId={filters.product} context={context} /></> : <>
         {isTrade && relatedMaterials.length > 0 && <div className="atlas-related-items">{relatedMaterials.map(item => <button type="button" key={item.id} onClick={() => navigate({ focus: item.id, year: undefined, country: undefined, scope: undefined })}>{item.name}</button>)}</div>}
         <div className="atlas-record-list">{records.map(record => <button type="button" key={record.id} className={`atlas-record atlas-record-${record.direction ?? "route"}`} aria-label={`${mapRecordTitle(record, countries)}，${record.itemName}，${record.periodLabel}`} onClick={() => { suppressClick.current = false; chooseRecord(record.id); }} onMouseEnter={() => setHoveredRecordId(record.id)} onMouseLeave={() => setHoveredRecordId(null)} onFocus={() => setHoveredRecordId(record.id)} onBlur={() => setHoveredRecordId(null)}><span className="atlas-record-route">{mapRecordTitle(record, countries)}</span><span className="atlas-record-item">{record.itemName}{record.stageLabel ? ` · ${record.stageLabel}` : ""}{record.classificationCode ? ` · HS ${record.classificationCode}` : ""}{mapMappingLabel(record.classificationMappingType) ? ` · ${mapMappingLabel(record.classificationMappingType)}` : ""}</span>{isTrade ? <strong>{mapValue(record.value, record.valueDataStatus, record.currency, true)}</strong> : null}<small>{record.periodLabel}{isTrade && record.partnerScope === "entity" ? ` · ${record.reporterName}${record.direction === "export" ? "出口" : "进口"}报告` : !isTrade && record.evidenceCode !== "representative" ? ` · ${mapEvidenceLabel(record.evidenceCode)}` : ""}</small></button>)}
           {records.length === 0 && <div className="atlas-empty"><strong>{isTrade && !hasFocusTradeCoverage ? `${selectedItemName}暂无贸易统计` : "当前筛选没有记录"}</strong><p>{!isTrade && nodes.length ? "可点击高亮国家查看已有供应链环节。" : isTrade && !hasFocusTradeCoverage ? "可查看整件商品，或选择已收录统计的材料。" : `${selectedCountry?.name ?? selectedItemName}${filters.year ? ` · ${filters.year}` : ""}的${isTrade ? isWorld ? "世界总计" : "双边统计" : "路线"}尚未收录。`}</p>

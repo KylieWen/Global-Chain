@@ -1,3 +1,4 @@
+import { itemLabel } from "../../../../../lib/item-label";
 import { ProductNavigation } from "../../../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -46,10 +47,10 @@ export default async function ManufacturingProcessPage({
 
   return <SiteShell>
     <div className="content-column wide-column manufacturing-page">
-      <Breadcrumbs items={[{ label: "商品目录", href: "/products" }, { label: view.product.name, href: productPath(productId, pageContext) }, { label: view.chain.title }]} />
+      <Breadcrumbs items={[{ label: "商品目录", href: "/products" }, { label: itemLabel(view.product), href: productPath(productId, pageContext) }, { label: view.chain.title }]} />
       <ContextBanner period={view.chain.period.label} datasetVersion={view.datasetVersion.version} contentVersion={view.contentVersion?.version} mismatches={mismatches} />
       <PageIntro
-        eyebrow="Manufacturing process depth"
+        eyebrow="制造工艺"
         title={view.chain.title}
         description={view.chain.description}
         actions={<>{industry && <Link className="button button-primary" href={industryPath(productId,undefined,pageContext)}>查企业与产业上下游</Link>}<Link className="button button-secondary" href={view.componentItem ? supplyChainPath(productId, view.componentItem.id, pageContext) : productPath(productId, pageContext)}>返回组件路线</Link><Link className="button button-secondary" href={provenancePath(productId, pageContext)}>来源与版本</Link></>}
@@ -63,7 +64,7 @@ export default async function ManufacturingProcessPage({
       </div>
 
       {view.routeVariants.length > 0 && <section className="section-block" aria-labelledby="process-variants-title">
-        <div className="section-heading"><div><p className="eyebrow">Route variants</p><h2 id="process-variants-title">先了解可选路线，再阅读工序</h2></div><span className="section-caption">不同路线共享部分工序，也可能替换或跳过某些步骤</span></div>
+        <div className="section-heading"><div><p className="eyebrow">可选工艺路线</p><h2 id="process-variants-title">先了解可选路线，再阅读工序</h2></div><span className="section-caption">不同路线共享部分工序，也可能替换或跳过某些步骤</span></div>
         <div className="process-variant-grid">
           {view.routeVariants.map((variant) => <article className="process-variant-card" key={variant.id}>
             <div><span className="card-kicker">{variant.stepIds.length} 道关联工序</span><h3>{variant.name}</h3></div>
@@ -75,7 +76,7 @@ export default async function ManufacturingProcessPage({
       </section>}
 
       <section className="section-block" aria-labelledby="process-flow-title">
-        <div className="section-heading"><div><p className="eyebrow">Process sequence</p><h2 id="process-flow-title">按顺序查看每道工序</h2></div><span className="section-caption">先看摘要；点击某一步，再查看输入、输出、设备、厂商和证据</span></div>
+        <div className="section-heading"><div><p className="eyebrow">工序顺序</p><h2 id="process-flow-title">按顺序查看每道工序</h2></div><span className="section-caption">先看摘要；点击某一步，再查看输入、输出、设备、厂商和证据</span></div>
         <ol className="manufacturing-step-list">
           {view.steps.map((stepView, index) => {
             const { step } = stepView;

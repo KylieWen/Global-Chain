@@ -1,3 +1,4 @@
+import { itemLabel } from "../../../../../lib/item-label";
 import { ProductNavigation } from "../../../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -42,13 +43,13 @@ export default async function SupplyChainNodePage({
       <div className="content-column wide-column">
         <Breadcrumbs items={[
           { label: "商品目录", href: "/products" },
-          { label: overview.product.name, href: productPath(productId, pageContext) },
+          { label: itemLabel(overview.product), href: productPath(productId, pageContext) },
           { label: "供应链路径", href: supplyChainPath(productId, undefined, routeContext) },
           { label: node.node.node.label }
         ]} />
         <ContextBanner period={node.node.period.label} datasetVersion={node.datasetVersion.version} contentVersion={node.node.contentVersion?.version} mismatches={contextMismatches} />
         <PageIntro
-          eyebrow="Supply-chain node"
+          eyebrow="供应链环节"
           title={node.node.node.label}
           description="查看这个环节用到什么、产出什么，以及它连接的上下游。"
           actions={(
@@ -68,7 +69,7 @@ export default async function SupplyChainNodePage({
         <section className="node-identity-panel">
           <div className="node-identity-main">
             <span className="node-type">{node.node.processStage?.label}</span>
-            <h2>{node.node.item?.name ?? <UnknownValue label="未知货物" />}</h2>
+            <h2>{node.node.item ? itemLabel(node.node.item) : <UnknownValue label="未知货物" />}</h2>
             <p>{node.node.processStage?.label ?? <UnknownValue label="未知环节" />}</p>
             {node.node.node.notes ? <details className="reading-details"><summary>环节资料说明</summary><p>{node.node.node.notes}</p></details> : null}
             <EvidenceLevelBadge level={node.node.evidenceLevel} />
@@ -86,19 +87,19 @@ export default async function SupplyChainNodePage({
         </section>
 
         {node.incomingFlows.length > 0 && <details className="section-block detail-collapsible" aria-labelledby="incoming-title" open>
-          <summary className="section-heading detail-summary"><div><p className="eyebrow">Inbound relations</p><h2 id="incoming-title">上游从哪里来</h2></div><span className="section-caption">{node.incomingFlows.length} 条连接 · 点击展开</span></summary>
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">上游连接</p><h2 id="incoming-title">上游从哪里来</h2></div><span className="section-caption">{node.incomingFlows.length} 条连接 · 点击展开</span></summary>
           <FlowTable flows={node.incomingFlows} productId={productId} context={pageContext} />
         </details>
 
         }
         {node.outgoingFlows.length > 0 && <details className="section-block detail-collapsible" aria-labelledby="outgoing-title" open>
-          <summary className="section-heading detail-summary"><div><p className="eyebrow">Outbound relations</p><h2 id="outgoing-title">下游到哪里去</h2></div><span className="section-caption">{node.outgoingFlows.length} 条连接 · 点击展开</span></summary>
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">下游连接</p><h2 id="outgoing-title">下游到哪里去</h2></div><span className="section-caption">{node.outgoingFlows.length} 条连接 · 点击展开</span></summary>
           <FlowTable flows={node.outgoingFlows} productId={productId} context={pageContext} />
         </details>
 
         }
         {node.productionActivities.length > 0 && <details className="section-block detail-collapsible" aria-labelledby="activities-title" open>
-          <summary className="section-heading detail-summary"><div><p className="eyebrow">Production activities</p><h2 id="activities-title">生产活动</h2></div><span className="section-caption">{node.productionActivities.length} 项</span></summary>
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">生产活动</p><h2 id="activities-title">生产活动</h2></div><span className="section-caption">{node.productionActivities.length} 项</span></summary>
           {node.productionActivities.length === 0 ? <div className="empty-state">当前节点没有单独记录的生产活动。</div> : (
             <div className="activity-list">
               {node.productionActivities.map((view) => {
@@ -136,7 +137,7 @@ export default async function SupplyChainNodePage({
         {node.evidence.length > 0 && <details className="section-block detail-collapsible"><summary className="detail-summary"><strong>资料来源</strong><span>{node.evidence.length} 条记录</span></summary><ResolvedEvidenceList evidence={node.evidence} compact /></details>}
 
         {node.evidenceGaps.length > 0 && <details className="section-block detail-collapsible" aria-labelledby="node-gaps-title">
-          <summary className="section-heading detail-summary"><div><p className="eyebrow">Research notes</p><h2 id="node-gaps-title">相关研究记录</h2></div><span className="section-caption">{node.evidenceGaps.length} 条</span></summary>
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">研究记录</p><h2 id="node-gaps-title">相关研究记录</h2></div><span className="section-caption">{node.evidenceGaps.length} 条</span></summary>
           <EvidenceGapRegistry gaps={node.evidenceGaps} />
         </details>}
 

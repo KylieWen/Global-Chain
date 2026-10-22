@@ -1,3 +1,5 @@
+
+import { itemLabel } from "../lib/item-label";
 import Link from "next/link";
 import type { ResolvedSupplyFlowView, SupplyChainNodeView } from "@globe-chain/domain";
 import { EvidenceLevelBadge, PeriodLabel, ResolvedEvidenceList, ValueDisplay } from "./data-display";
@@ -11,7 +13,7 @@ export function FlowTable({ flows, productId, context }: { flows: readonly Resol
     <thead><tr><th>从 / 到</th><th>货物与环节</th>{hasQuantities && <th>数量</th>}<th>期间</th><th>资料</th></tr></thead>
     <tbody>{flows.map(view => <tr key={view.flow.id}>
       <td><div className="flow-endpoints"><EndpointLink endpoint={view.from} productId={productId} context={context} /><span aria-hidden="true">→</span><EndpointLink endpoint={view.to} productId={productId} context={context} /></div></td>
-      <td><div className="flow-primary"><strong>{view.item?.name}</strong>{view.processStage && <span>{view.processStage.label}</span>}<EvidenceLevelBadge level={view.evidenceLevel} /></div></td>
+      <td><div className="flow-primary"><strong>{itemLabel(view.item)}</strong>{view.processStage && <span>{view.processStage.label}</span>}<EvidenceLevelBadge level={view.evidenceLevel} /></div></td>
       {hasQuantities && <td><ValueDisplay value={view.flow.quantity} status={view.quantityDataStatus} unit={view.flow.unit} unknownLabel="—" /></td>}
       <td><PeriodLabel period={view.flow.period} /></td>
       <td><details className="evidence-details"><summary>{view.sources.length} 个来源</summary>

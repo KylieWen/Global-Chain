@@ -1,3 +1,4 @@
+import { itemLabel } from "../../lib/item-label";
 import Link from "next/link";
 import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../components/site-shell";
 import { TradeGuideDirectory, TradeGuideResults } from "../../components/trade-guide";
@@ -49,20 +50,20 @@ export default async function TradeGuidePage({
         <Breadcrumbs items={[{ label: "进出口指南" }]} />
         {product && period ? <ContextBanner period={period.label} datasetVersion={product.datasetVersion.version} /> : null}
         <PageIntro
-          eyebrow="Trade guide · 查询工作台"
+          eyebrow="进出口查询"
           title="进出口指南"
           description="选择商品、国家和方向，查看基础税费、手续与文件清单。"
           actions={<Link className="button button-secondary" href="/products">查看商品背景</Link>}
         />
 
         <section className="trade-guide-workbench" aria-label="贸易指南查询条件">
-          <div className="trade-guide-workbench-heading"><div><p className="eyebrow">Start with a task</p><h2>你要查哪一组进出口要求？</h2></div><span>当前已发布：{allGuides.length} 组指南</span></div>
+          <div className="trade-guide-workbench-heading"><div><p className="eyebrow">查询条件</p><h2>你要查哪一组进出口要求？</h2></div><span>当前已发布：{allGuides.length} 组指南</span></div>
           {allGuides.length ? <div className="trade-guide-presets" aria-label="快捷查询任务">
             <span className="trade-guide-presets-label">快捷任务</span>
             {allGuides.slice(0, 4).map((view) => <Link className="trade-guide-preset" href={`/trade-guide?product=${encodeURIComponent(selectedProductId)}&jurisdiction=${encodeURIComponent(view.guide.scope.jurisdictionEntityId)}&direction=${view.guide.scope.direction}`} key={view.guide.id}>{view.directionLabel} · {view.jurisdiction?.name ?? "未指定国家/地区"} <span>→</span></Link>)}
           </div> : null}
           <form className="trade-guide-form" method="get">
-            <label><span>商品</span><select name="product" defaultValue={selectedProductId}>{products.map((entry) => <option value={entry.productId} key={entry.productId}>{entry.item.name}</option>)}</select></label>
+            <label><span>商品</span><select name="product" defaultValue={selectedProductId}>{products.map((entry) => <option value={entry.productId} key={entry.productId}>{itemLabel(entry.item)}</option>)}</select></label>
             <label><span>{jurisdictionFieldLabel}</span><select name="jurisdiction" defaultValue={jurisdiction ?? ""}><option value="">全部已有指南的国家</option>{guideCountries.map(({ entity }) => <option value={entity.id} key={entity.id}>{entity.name}</option>)}</select></label>
             <label><span>方向</span><select name="direction" defaultValue={direction ?? ""}><option value="">进口 + 出口</option><option value="import">进口</option><option value="export">出口</option></select></label>
             <button className="button button-primary" type="submit">开始查询 →</button>
@@ -72,7 +73,7 @@ export default async function TradeGuidePage({
         </section>
 
 
-        <div className="trade-guide-results-heading"><div><p className="eyebrow">Published guidance · 已发布资料</p><h2>{hasFilters ? "筛选结果" : "选择一组示范指南"}</h2></div><span>{guides.length} 组结果</span></div>
+        <div className="trade-guide-results-heading"><div><p className="eyebrow">指南资料</p><h2>{hasFilters ? "筛选结果" : "选择一组示范指南"}</h2></div><span>{guides.length} 组结果</span></div>
         {hasFilters ? <TradeGuideResults views={guides} productId={selectedProductId} /> : <TradeGuideDirectory views={guides} productId={selectedProductId} />}
 
 

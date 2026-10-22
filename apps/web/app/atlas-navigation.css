@@ -47,7 +47,7 @@
 .regional-map-panel { min-width:0; background:radial-gradient(ellipse at 55% 30%,#254653,#102938); color:#c7dde3; }
 .regional-map-top { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:1rem 1.25rem .1rem; font-size:.7rem; letter-spacing:.12em; }
 .regional-map-top .map-zoom-controls button { border-color:#49646e; color:#e8f2f3; background:#274653; }
-.china-supply-map { display:block; width:100%; touch-action:pan-y pinch-zoom; user-select:none; }
+.china-supply-map { display:block; width:100%; touch-action:pan-y; user-select:none; }
 .china-province { fill:#244554; stroke:#56717c; stroke-width:.7; cursor:pointer; transition:fill .16s; }
 .china-province.covered { fill:#37695f; stroke:#6c9d8d; }
 .china-province:hover,.china-province.selected { fill:#568e7d; stroke:#b7d8b0; stroke-width:1.5; }

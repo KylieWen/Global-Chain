@@ -811,7 +811,7 @@ export function RouteMethodology({
     <section className="route-methodology" aria-labelledby="route-methodology-title">
       <div className="route-methodology-heading">
         <div>
-          <p className="eyebrow">Route interpretation</p>
+          <p className="eyebrow">路线解读</p>
           <h3 id="route-methodology-title">路线性质与整理方法</h3>
         </div>
         <div className="route-methodology-meta">

@@ -1,0 +1,23 @@
+.button { transition:background-color 140ms, border-color 140ms, box-shadow 140ms; }
+.button:hover, .button:focus-visible { box-shadow:0 3px 10px #183e5324; }
+.action-hint { position:relative; display:inline-flex; align-items:center; gap:.4rem; max-width:100%; }
+.hint-toggle { flex:none; width:1.6rem; height:1.6rem; border:1px solid #b8cbc9; border-radius:50%; background:#f4f9f8; color:#416b65; cursor:pointer; font:inherit; font-size:.8rem; }
+.hint-toggle:hover, .hint-toggle[aria-expanded="true"] { background:#dcefe8; border-color:#568b7b; }
+.action-hint-content { position:absolute; z-index:30; left:0; top:calc(100% + .45rem); width:20rem; max-width:min(75vw,20rem); padding:.85rem 1rem; border:1px solid #486c71; border-radius:.65rem; background:#183b46; color:#f1f8f5; box-shadow:0 8px 25px #142c4a24; font-size:.82rem; line-height:1.7; font-weight:400; }
+.action-hint-content::before { content:""; position:absolute; inset:-.5rem 0 auto; height:.5rem; }
+.graph-stage-band rect { fill:#f4f8fa; stroke:#e0e9ee; stroke-width:1; }
+.graph-edge { stroke-linejoin:round; }
+.graph-edge-group, .graph-node { transition:opacity 140ms; }
+.graph-edge-group.muted { opacity:.14; }
+.graph-node.muted { opacity:.4; }
+.step-card-collapsible { scroll-margin-top:7rem; }
+.graph-node:focus-visible { outline:none; }
+.graph-node:focus-visible rect { stroke:#326eaf; stroke-width:3; }
+.graph-edge-group:focus-visible { outline:none; }
+.graph-edge-group:focus-visible .graph-edge { stroke:#326eaf; stroke-width:3; }
+@media(prefers-reduced-motion:reduce) { .button,.graph-edge-group,.graph-node { transition:none; } }
+@media(max-width:640px) {
+  .step-card-collapsible { scroll-margin-top:11rem; }
+  .step-summary { grid-template-columns:2.2rem minmax(0,1fr) auto; gap:.5rem; padding:.8rem; }
+  .step-card-collapsible > .step-body { padding:0 .8rem .8rem; }
+}

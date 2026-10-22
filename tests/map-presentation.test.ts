@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { layoutMapLabels, tradeAmountWidth } from "../apps/web/lib/map-presentation";
+import { pinchMap } from "../apps/web/lib/map-geometry";
+
+it("anchors two-finger zoom, supports midpoint pan and clamps world/China bounds", () => {
+  expect(pinchMap({ x: 0, y: 0, scale: 1 }, { x: 500, y: 270 }, { x: 520, y: 290 }, 2)).toEqual({ x: -480, y: -250, scale: 2 });
+  expect(pinchMap({ x: -480, y: -250, scale: 2 }, { x: 500, y: 270 }, { x: 550, y: 300 }, 1)).toEqual({ x: -430, y: -220, scale: 2 });
+  expect(pinchMap({ x: 0, y: 0, scale: 1 }, { x: 450, y: 260 }, { x: 450, y: 260 }, 10, 900, 520)).toEqual({ x: -1350, y: -780, scale: 4 });
+});
 
 describe("map amount encoding", () => {
   it("distinguishes observed zero from missing, withheld and invalid amounts", () => {

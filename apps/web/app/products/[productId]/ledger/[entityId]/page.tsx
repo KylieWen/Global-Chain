@@ -1,3 +1,4 @@
+import { itemLabel } from "../../../../../lib/item-label";
 import { ProductNavigation } from "../../../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -67,13 +68,13 @@ export default async function CountryLedgerPage({
       <div className="content-column wide-column ledger-page">
         <Breadcrumbs items={[
           { label: "商品目录", href: "/products" },
-          { label: overview.product.name, href: productPath(productId, pageContext) },
+          { label: itemLabel(overview.product), href: productPath(productId, pageContext) },
           { label: "国家贸易账本" },
           { label: ledger.entity.name }
         ]} />
         <ContextBanner period={ledger.period.label} datasetVersion={ledger.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={contextMismatches} />
         <PageIntro
-          eyebrow="Country trade ledger"
+          eyebrow="国家贸易账本"
           title={`${ledger.entity.name} · 国家账本`}
           description="查看已收录的产业与贸易数据，继续探索商品、生产环节与贸易伙伴。"
           actions={<Link className="button button-secondary" href={firstRelatedNode ? nodePath(productId, firstRelatedNode.node.id, pageContext) : supplyChainPath(productId, undefined, pageContext)}>查看供应链</Link>}
@@ -82,7 +83,7 @@ export default async function CountryLedgerPage({
         <ProductNavigation productId={productId} context={pageContext} active="ledger" hasIndustry={Boolean(queries.getIndustryNetwork(productId))} hasMaterials={queries.getMaterialTradeObservations(productId).length>0} entityId={entityId}/>
 
         {snapshotMetrics.length > 0 && <section className="ledger-snapshot" aria-labelledby="ledger-snapshot-title">
-          <div className="section-heading"><div><p className="eyebrow">At a glance</p><h2 id="ledger-snapshot-title">关键数据</h2></div><span className="section-caption">{snapshotMetrics.length} 项指标</span></div>
+          <div className="section-heading"><div><p className="eyebrow">关键数据</p><h2 id="ledger-snapshot-title">关键数据</h2></div><span className="section-caption">{snapshotMetrics.length} 项指标</span></div>
           <div className="stat-grid ledger-snapshot-grid">{snapshotMetrics.map(({observation, definition, measurement, source}) => <StatCard key={observation.id} label={definition.shortLabel ?? definition.label} value={<ValueDisplay compact value={measurement.value} status={observation.dataStatus} currency={measurement.currency} unit={measurement.kind === "quantity" ? definition.displayUnit ?? measurement.unit : measurement.unit} />} detail={`${observation.period.label} · ${source?.publisher ?? source?.name ?? ""}`} />)}</div>
         </section>}
 
@@ -91,7 +92,7 @@ export default async function CountryLedgerPage({
           <StatCard label="国家/地区代码" value={ledger.entity.iso3 ?? ledger.entity.name} detail={`ISO2 ${ledger.entity.iso2 ?? "未知"} · UN M49 ${ledger.entity.m49 ?? "未知"}`} />
           <StatCard label="统计期间" value={<PeriodLabel period={ledger.period} />} detail={`${ledger.period.start} 至 ${ledger.period.end}`} />
           <StatCard label="数据集版本" value={ledger.datasetVersion.version} detail={ledger.datasetVersion.status} />
-          {ledger.tradeObservations.length > 0 && <StatCard label={`${ledger.product.name}贸易观察`} value={ledger.tradeObservations.length} detail="已发布观察" />}
+          {ledger.tradeObservations.length > 0 && <StatCard label={`${itemLabel(ledger.product)}贸易观察`} value={ledger.tradeObservations.length} detail="已发布观察" />}
         </div>
 
         </details>
@@ -99,7 +100,7 @@ export default async function CountryLedgerPage({
         <details className="reading-details"><summary>统计口径与资料说明</summary><WarningList warnings={ledger.warnings} /></details>
 
         {ledger.resolvedMacroIndicators.length > 0 && <details className="section-block detail-collapsible" aria-labelledby="macro-title">
-          <summary className="section-heading detail-summary"><div><p className="eyebrow">Country indicators</p><h2 id="macro-title">国家与产业指标</h2></div><span className="section-caption">{ledger.resolvedMacroIndicators.length} 项指标 · 展开查看详情</span></summary>
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">国家与产业指标</p><h2 id="macro-title">国家与产业指标</h2></div><span className="section-caption">{ledger.resolvedMacroIndicators.length} 项指标 · 展开查看详情</span></summary>
             <div className="metric-list interpreted-metrics">
               {ledger.resolvedMacroIndicators.map(({ observation, definition, source, measurement }) => (
                 <article className="metric-row interpreted-metric" key={observation.id}>
@@ -131,8 +132,8 @@ export default async function CountryLedgerPage({
         </details>}
 
         {ledger.resolvedTradeObservations.length > 0 && <details className="section-block detail-collapsible" aria-labelledby="trade-title" open={snapshotMetrics.length === 0}>
-          <summary className="section-heading detail-summary"><div><p className="eyebrow">Product trade observations</p><h2 id="trade-title">
-                {ledger.product.name} {tradeClassification ? `${tradeClassification.system} ${tradeClassification.version} / ${tradeClassification.code}` : "分类未提供"} 进出口观察
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">商品贸易记录</p><h2 id="trade-title">
+                {itemLabel(ledger.product)} {tradeClassification ? `${tradeClassification.system} ${tradeClassification.version} / ${tradeClassification.code}` : "分类未提供"} 进出口观察
               </h2></div><span className="section-caption">{ledger.resolvedTradeObservations.length} 条观察</span></summary>
             <div className="trade-observation-list">
               {ledger.resolvedTradeObservations.map((view) => {
@@ -186,7 +187,7 @@ export default async function CountryLedgerPage({
 
         {ledger.relatedNodes.length > 0 && <section className="section-block" aria-labelledby="related-title">
           <div className="section-heading">
-            <div><p className="eyebrow">Cross-module context</p><h2 id="related-title">关联供应链节点</h2></div>
+            <div><p className="eyebrow">关联阅读</p><h2 id="related-title">关联供应链节点</h2></div>
             <Link className="text-link" href={supplyChainPath(productId, undefined, pageContext)}>查看完整路径 →</Link>
           </div>
             <div className="node-grid compact-grid">
@@ -194,7 +195,7 @@ export default async function CountryLedgerPage({
                 <Link className="node-card" href={nodePath(productId, node.node.id, pageContext)} key={node.node.id}>
                   <span className="node-type">{node.processStage?.label}</span>
                   <h3>{node.node.label}</h3>
-                  <p>{node.item?.name ?? "未知货物"} · {node.processStage?.label ?? "未知环节"}</p>
+                  <p>{itemLabel(node.item) ?? "未知货物"} · {node.processStage?.label ?? "未知环节"}</p>
                   <span className="card-footer">打开节点详情 <span>→</span></span>
                 </Link>
               ))}

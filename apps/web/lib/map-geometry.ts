@@ -1,5 +1,11 @@
 export type MapTransform = { x: number; y: number; scale: number };
 
+/** Keep the initial map point beneath the moving midpoint of a two-finger gesture. */
+export function pinchMap(initial: MapTransform, start: { x: number; y: number }, current: { x: number; y: number }, factor: number, width = 1000, height = 540): MapTransform {
+  const scale = Math.max(1, Math.min(4, initial.scale * factor));
+  return clampMapTransform({ scale, x: current.x - (start.x - initial.x) * scale / initial.scale, y: current.y - (start.y - initial.y) * scale / initial.scale }, width, height);
+}
+
 export function clampMapTransform(transform: MapTransform, width = 1000, height = 540): MapTransform {
   const scale = Math.max(1, Math.min(4, transform.scale));
   if (scale === 1) return { x: 0, y: 0, scale: 1 };

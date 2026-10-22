@@ -54,9 +54,9 @@ export function ChinaSupplyMap({atlas,productId,productName,products,organizatio
   };
   const chooseNode=(id:string)=>{if(dragged.current)return;setSelected(id);setHovered('');sync(province,stage,id);};
   const changeFilter=(nextProvince:string,nextStage:string)=>{setProvince(nextProvince);setStage(nextStage);setSelected('');setHovered('');sync(nextProvince,nextStage,'');};
-  const onDown=(event:PointerEvent<SVGSVGElement>)=>{dragged.current=false;if(transform.scale<=1||event.pointerType==='touch')return;drag.current={x:event.clientX,y:event.clientY,tx:transform.x,ty:transform.y,moved:false};event.currentTarget.setPointerCapture(event.pointerId);};
-  const onMove=(event:PointerEvent<SVGSVGElement>)=>{const start=drag.current;if(!start)return;const dx=event.clientX-start.x;const dy=event.clientY-start.y;start.moved=Math.abs(dx)+Math.abs(dy)>5;dragged.current=start.moved;const ratio=width/(svg.current?.getBoundingClientRect().width??width);setTransform(clampMapTransform({scale:transform.scale,x:start.tx+dx*ratio,y:start.ty+dy*ratio},width,height));};
-  useMapWheel(svg,setTransform,width,height);
+  const onDown=(event:PointerEvent<SVGSVGElement>)=>{if(event.pointerType==='touch'||event.button!==0)return;dragged.current=false;if(transform.scale<=1)return;drag.current={x:event.clientX,y:event.clientY,tx:transform.x,ty:transform.y,moved:false};};
+  const onMove=(event:PointerEvent<SVGSVGElement>)=>{const start=drag.current;if(!start)return;const dx=event.clientX-start.x;const dy=event.clientY-start.y;if(Math.abs(dx)+Math.abs(dy)>5)start.moved=true;dragged.current=start.moved;if(!start.moved)return;event.currentTarget.setPointerCapture(event.pointerId);const matrix=svg.current?.getScreenCTM();const ratio=matrix?1/matrix.a:1;setTransform(clampMapTransform({scale:transform.scale,x:start.tx+dx*ratio,y:start.ty+dy*ratio},width,height));};
+  useMapWheel(svg,setTransform,width,height,transform,dragged);
   const labelFontSize=Math.max(14,Math.min(31,12*width/renderedWidth));
   const labels=layoutMapLabels([...view.allNodes].sort((a,b)=>Number(b.id===active?.id)-Number(a.id===active?.id)).filter(node=>!province||visibleIds.has(node.id)||adjacentIds.has(node.id)).map(node=>{const place=placeById.get(node.placeId)!;const point=projection(place.coordinates)!;return{id:node.id,name:place.name,x:point[0]*transform.scale+transform.x,y:point[1]*transform.scale+transform.y};}),labelFontSize,width,height);
   const sourceFor=(ids:string[])=>atlas.sources.filter(source=>ids.includes(source.id));
@@ -80,7 +80,7 @@ export function ChinaSupplyMap({atlas,productId,productName,products,organizatio
         </g>
         <g className="regional-city-labels" aria-hidden="true">{labels.map(label=><text key={label.id} x={label.x+3} y={label.y+labelFontSize+2} style={{fontSize:labelFontSize}}>{label.name}</text>)}</g>
       </svg>
-      <div className="regional-map-bottom"><span>{activePlace?`${activePlace.name} · ${active?.label}`:'点击省份或城市节点，展开当地产业环节'}</span><small>Ctrl + 滚轮缩放 · 放大后拖动</small></div>
+      <div className="regional-map-bottom"><span>{activePlace?`${activePlace.name} · ${active?.label}`:'点击省份或城市节点，展开当地产业环节'}</span><small>双指缩放与移动 · Ctrl + 滚轮缩放</small></div>
       <div className="regional-legend">{Object.entries(regionalStageLabels).map(([key,label])=><span key={key}><i style={{background:stageColors[key as keyof typeof stageColors]}}/>{label}</span>)}<span className="regional-line-key">虚线：代表性环节联系</span></div>
     </div><aside className="regional-details" aria-label="中国产业环节详情">
       {selectedNode?<><button className="regional-back" onClick={()=>{setSelected('');sync(province,stage,'');}}>← 返回区域列表</button><p className="eyebrow">{placeById.get(selectedNode.placeId)?.name} · {regionalStageLabels[selectedNode.stage]}</p><h2>{selectedNode.label}</h2><p>{selectedNode.description}</p><span className="regional-period">{selectedNode.period.label}</span>

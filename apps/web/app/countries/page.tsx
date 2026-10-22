@@ -12,7 +12,7 @@ export default async function CountriesPage() {
   const product = products[0];
   return <SiteShell><div className="content-column wide-column">
     <Breadcrumbs items={[{ label: "国家账本" }]} />
-    <PageIntro eyebrow="Country explorer" title="从国家，看见世界分工" description="查看各国的商品生产环节、进出口与贸易伙伴。" actions={product ? <Link className="button button-secondary" href={productPath(product.productId)}>从商品开始</Link> : null} />
+    <PageIntro eyebrow="国家探索" title="从国家，看见世界分工" description="查看各国的商品生产环节、进出口与贸易伙伴。" actions={product ? <Link className="button button-secondary" href={productPath(product.productId)}>从商品开始</Link> : null} />
     <section className="section-block"><div className="section-heading"><h2>选择国家</h2><span className="section-caption">{countries.length} 个国家与地区 · {products.length} 个商品</span></div>
       <div className="country-grid">{countries.map(({ entity, productIds, ledgerProductIds, relatedNodeCount, hasTradeLedger, roles }) => {
         const targetProduct = ledgerProductIds[0] ?? productIds[0] ?? product?.productId;

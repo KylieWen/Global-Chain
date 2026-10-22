@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { TradeGuideView } from "@globe-chain/domain";
 import { MetadataItem, StatusBadge, UnknownValue } from "./data-display";
 import { tradeGuidePath } from "../lib/paths";
+import { HintLink } from "./hint-link";
+import { itemLabel } from "../lib/item-label";
 
 export function TradeGuideSummaryCard({ view, productId }: { view: TradeGuideView; productId: string }) {
   const { guide, jurisdiction, item } = view;
@@ -11,19 +13,16 @@ export function TradeGuideSummaryCard({ view, productId }: { view: TradeGuideVie
         <div>
           <p className="card-kicker">{view.directionLabel} · {view.coverageLabel}</p>
           <h2>{guide.title}</h2>
-          <p className="trade-guide-jurisdiction">{jurisdiction?.name ?? "未指定国家/地区"} · {item?.name ?? "未指定商品"}</p>
+          <p className="trade-guide-jurisdiction">{jurisdiction?.name ?? "未指定国家/地区"} · {itemLabel(item)}</p>
         </div>
         <StatusBadge status={guide.dataStatus} method={guide.method} />
       </div>
-      <p className="trade-guide-summary">{guide.summary}</p>
       <div className="trade-guide-summary-meta">
         <span>{view.jurisdictionRoleLabel}</span>
         <span>{view.originScopeLabel}</span>
         <span>最近复核：{view.lastReviewedLabel}</span>
       </div>
-      <Link className="button button-secondary trade-guide-summary-action" href={tradeGuidePath({ product: productId, jurisdiction: guide.scope.jurisdictionEntityId, direction: guide.scope.direction })}>
-        查看这组指南 →
-      </Link>
+      <HintLink className="button button-secondary trade-guide-summary-action" href={tradeGuidePath({ product: productId, jurisdiction: guide.scope.jurisdictionEntityId, direction: guide.scope.direction })} label="查看这组指南 →" explanation={guide.summary} />
     </article>
   );
 }
@@ -41,7 +40,7 @@ export function TradeGuideCard({ view }: { view: TradeGuideView }) {
         <div>
           <p className="card-kicker">{view.directionLabel} · {view.coverageLabel}</p>
           <h2>{guide.title}</h2>
-          <p className="trade-guide-jurisdiction">{jurisdiction?.name ?? "未指定国家/地区"} · {item?.name ?? "未指定商品"}</p>
+          <p className="trade-guide-jurisdiction">{jurisdiction?.name ?? "未指定国家/地区"} · {itemLabel(item)}</p>
         </div>
         <StatusBadge status={guide.dataStatus} method={guide.method} />
       </div>

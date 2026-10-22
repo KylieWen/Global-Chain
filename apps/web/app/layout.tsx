@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./atlas-navigation.css";
+import "./interaction.css";
 
 export const metadata: Metadata = {
   title: "GlobeChain",

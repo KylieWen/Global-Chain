@@ -1,3 +1,4 @@
+import { itemLabel } from "../../../../lib/item-label";
 import { ProductNavigation } from "../../../../components/product-navigation";
 import "./industry.css";
 import Link from "next/link";
@@ -43,7 +44,7 @@ export default async function IndustryPage({params,searchParams}: {params:Promis
   const groups = [...new Set(view.matchingTopics.map(topic => topic.kind))];
   const companyMap = new Map([...view.participants,...view.adjacentParticipants].map(company => [company.id,company]));
   return <SiteShell><div className="content-column wide-column industry-page">
-    <Breadcrumbs items={[{label:"商品目录",href:"/products"},{label:view.product.name,href:productPath(productId,context)},{label:"产业上下游"}]}/>
+    <Breadcrumbs items={[{label:"商品目录",href:"/products"},{label:itemLabel(view.product),href:productPath(productId,context)},{label:"产业上下游"}]}/>
     {mismatches.length > 0 && <ContextBanner period={view.network.period.label} datasetVersion={view.datasetVersion.version} mismatches={mismatches}/>}
     <div className="industry-heading"><div><p className="eyebrow">产业上下游 · {view.region.name}</p><h1>从一个环节，找到上下游</h1><p>查看材料、部件、制造设备和产品应用，进入企业官方产品、联系与销售入口。</p></div><div className="industry-counts"><span><strong>{view.topics.length}</strong>产业环节</span><span><strong>{view.network.organizations.length}</strong>家企业</span></div></div>
     <ProductNavigation productId={productId} context={context} active="industry" hasIndustry={true} hasMaterials={queries.getMaterialTradeObservations(productId).length>0}/>

@@ -1,3 +1,4 @@
+import { itemLabel } from "../../../lib/item-label";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../lib/data";
@@ -22,6 +23,6 @@ export default async function ChinaMapPage({searchParams}:{searchParams:Promise<
     <Breadcrumbs items={[{label:'世界地图',href:mapPath({...context,product:productId})},{label:'中国供应链'}]}/>
     <header className="regional-heading"><div><p className="eyebrow">把全球分工，放大到身边</p><h1>中国供应链</h1><p>从省市走进原料、部件与制造，看见一件商品在中国的产业联系。</p></div><Link className="text-link" href={mapPath({...context,product:productId,country:atlas.regionEntityId})}>← 返回世界地图</Link></header>
     <ProductNavigation productId={productId} context={context} active="china" hasIndustry={Boolean(industry)} hasMaterials={queries.getMaterialTradeObservations(productId).length>0}/>
-    <ChinaSupplyMap key={productId} atlas={atlas} productId={productId} productName={overview.product.name} products={products.map(product=>({id:product.productId,name:product.item.name}))} organizations={organizations} context={context} initialProvince={firstParam(params.province)} initialStage={firstParam(params.stage)} initialNode={firstParam(params.node)}/>
+    <ChinaSupplyMap key={productId} atlas={atlas} productId={productId} productName={itemLabel(overview.product)} products={products.map(product=>({id:product.productId,name:itemLabel(product.item)}))} organizations={organizations} context={context} initialProvince={firstParam(params.province)} initialStage={firstParam(params.stage)} initialNode={firstParam(params.node)}/>
   </div></SiteShell>;
 }

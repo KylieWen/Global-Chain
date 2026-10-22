@@ -1,3 +1,4 @@
+import { itemLabel } from "../../lib/item-label";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteShell } from "../../components/site-shell";
@@ -43,7 +44,7 @@ export default async function MapPage({ searchParams }: { searchParams: Promise<
     </nav><Link className="text-link atlas-directory-link" href={chinaMapPath({...pageContext,product:productId})}>走进中国供应链 →</Link></header>
     {productId && <ProductNavigation productId={productId} context={pageContext} active="world" hasIndustry={Boolean(queries.getIndustryNetwork(productId))} hasMaterials={queries.getMaterialTradeObservations(productId).length>0}/>}
     {unavailableCountry && <p className="atlas-filter-notice" role="status">所选国家未收录在当前商品中，已显示全部国家。<Link href={mapPath(filters)}>清除链接中的国家筛选 →</Link></p>}
-    {view ? <WorldCountryMap key={`${productId}-${filters.layer}-${filters.focus ?? ""}`} view={view} filters={filters} products={products.map(product => ({ id: product.productId, name: product.item.name }))} regionalLinks={regionalNavigation.map(region=>({entityId:region.entityId,label:region.label,href:region.path+contextQuery(regionalContext)}))} /> : <p>暂无已发布商品。</p>}
+    {view ? <WorldCountryMap key={`${productId}-${filters.layer}-${filters.focus ?? ""}`} view={view} filters={filters} products={products.map(product => ({ id: product.productId, name: itemLabel(product.item) }))} regionalLinks={regionalNavigation.map(region=>({entityId:region.entityId,label:region.label,href:region.path+contextQuery(regionalContext)}))} /> : <p>暂无已发布商品。</p>}
     <details className="atlas-reading-notes"><summary>地图与数据说明</summary><p>代表性供应链连接已有的国家生产角色，包含多个分支。官方贸易按商品分类、报告方与实际年度分别呈现；材料分类可能为汇总或近似范围，具体标记见记录。世界总计只标报告国，不绘制成双边连线。连线不表示实际运输轨迹。</p><p>国家轮廓：Natural Earth · Equal Earth 投影。{view && <Link href={provenancePath(filters.product, { datasetVersion: view.datasetVersion })}>来源与版本 →</Link>}</p></details>
   </div></SiteShell>;
 }

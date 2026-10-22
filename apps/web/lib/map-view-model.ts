@@ -1,3 +1,4 @@
+import { itemLabel } from "./item-label";
 import type { ProductBreakdownNode, ProductQueryService, ResolvedEvidenceView, SupplyChainStoryView } from "@globe-chain/domain";
 import type { MapFilters } from "./paths";
 
@@ -59,7 +60,7 @@ export type MapItemOption = { id: string; name: string; depth: number; directTra
 export type MapNode = { id: string; countryId: string; label: string; itemName: string; stageLabel: string; periodLabel: string; evidenceLabel: string };
 
 export function mapItemOptions(node: ProductBreakdownNode): { id: string; name: string; depth: number }[] {
-  return [{ id: node.item.id, name: node.item.name, depth: node.depth }, ...node.children.flatMap(mapItemOptions)];
+  return [{ id: node.item.id, name: itemLabel(node.item), depth: node.depth }, ...node.children.flatMap(mapItemOptions)];
 }
 
 function findItem(node: ProductBreakdownNode, id: string): ProductBreakdownNode | null {
@@ -132,7 +133,7 @@ export function createMapView(queries: ProductQueryService, filters: MapFilters 
     return {
       id: `${record.recordKind}:${record.id}`, observationId: record.id, kind: "trade", recordKind: record.recordKind, partnerScope: record.partnerScope,
       fromCountryId: from?.id ?? null, toCountryId: to?.id ?? null, fromM49: from?.m49 ?? null, toM49: to?.m49 ?? null,
-      itemId: record.item?.id ?? null, itemName: record.item?.name ?? "未关联商品", stageLabel: null,
+      itemId: record.item?.id ?? null, itemName: itemLabel(record.item), stageLabel: null,
       reporterName: record.reporter?.name ?? null, reporterId: record.reporter?.id ?? null, reporterM49: record.reporter?.m49 ?? null,
       direction: record.direction, periodLabel: record.period.label,
       value: record.value, currency: record.currency, valueDataStatus: record.valueDataStatus,
@@ -149,7 +150,7 @@ export function createMapView(queries: ProductQueryService, filters: MapFilters 
     fromCountryId: view.from.entity?.id ?? null, toCountryId: view.to.entity?.id ?? null,
     fromLabel: view.from.node?.node.label ?? null, toLabel: view.to.node?.node.label ?? null,
     fromM49: view.from.entity?.m49 ?? null, toM49: view.to.entity?.m49 ?? null,
-    itemId: view.item?.id ?? null, itemName: view.item?.name ?? "未关联商品", stageLabel: view.processStage?.label ?? null,
+    itemId: view.item?.id ?? null, itemName: itemLabel(view.item), stageLabel: view.processStage?.label ?? null,
     reporterName: null, reporterId: null, reporterM49: null, direction: null, periodLabel: view.flow.period.label,
     value: view.flow.value ?? null, currency: view.flow.currency ?? null, valueDataStatus: view.valueDataStatus,
     quantity: view.flow.quantity ?? null, unit: view.flow.unit ?? null, quantityDataStatus: view.quantityDataStatus,
@@ -159,7 +160,7 @@ export function createMapView(queries: ProductQueryService, filters: MapFilters 
     fromNodeId: view.from.node?.node.id ?? null, toNodeId: view.to.node?.node.id ?? null
   })) ?? [];
   const nodes: MapNode[] = story?.nodes.flatMap(view => view.entity ? [{
-    id: view.node.id, countryId: view.entity.id, label: view.node.label, itemName: view.item?.name ?? "未关联商品",
+    id: view.node.id, countryId: view.entity.id, label: view.node.label, itemName: itemLabel(view.item),
     stageLabel: view.processStage?.label ?? "生产环节", periodLabel: view.period.label, evidenceLabel: view.evidenceLevel.label
   }] : []) ?? [];
   const concernsCountry = (record: MapRecord) => !filters.country || record.reporterId === filters.country || record.fromCountryId === filters.country || record.toCountryId === filters.country;
@@ -175,10 +176,10 @@ export function createMapView(queries: ProductQueryService, filters: MapFilters 
     };
   });
   const records = (layer === "trade" ? activeTradeRecords : routeRecords).filter(concernsCountry);
-  const relatedMaterials = baseTrade.relatedItems.filter(item => item.id !== baseTrade.selectedItem.id).map(item => ({ id: item.id, name: item.name }));
+  const relatedMaterials = baseTrade.relatedItems.filter(item => item.id !== baseTrade.selectedItem.id).map(item => ({ id: item.id, name: itemLabel(item) }));
   return {
     countries, records, lines: records.filter(isMapLine), nodes: layer === "supply-chain" ? nodes : [], years, items, layer, scope,
-    datasetVersion: overview.datasetVersion.version, selectedItemName: baseTrade.selectedItem.name, relatedMaterials,
+    datasetVersion: overview.datasetVersion.version, selectedItemName: itemLabel(baseTrade.selectedItem), relatedMaterials,
     hasFocusTradeCoverage: baseTrade.observations.length > 0,
     scopeCounts: { bilateral: tradeRecords.filter(record => record.partnerScope === "entity" && concernsCountry(record)).length, world: tradeRecords.filter(record => record.partnerScope === "world_total" && concernsCountry(record)).length }
   };

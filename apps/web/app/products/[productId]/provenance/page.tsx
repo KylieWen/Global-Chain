@@ -1,3 +1,4 @@
+import { itemLabel } from "../../../../lib/item-label";
 import { ProductNavigation } from "../../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -30,12 +31,12 @@ export default async function ProductProvenancePage({
       <div className="content-column">
         <Breadcrumbs items={[
           { label: "商品目录", href: "/products" },
-          { label: overview.product.name, href: productPath(productId, pageContext) },
+          { label: itemLabel(overview.product), href: productPath(productId, pageContext) },
           { label: "来源与版本" }
         ]} />
         <ContextBanner period={overview.period.label} datasetVersion={provenance.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
         <PageIntro
-          eyebrow="Provenance & version"
+          eyebrow="来源与版本"
           title="来源、口径与版本"
           description="这页同时说明统计数据与代表性供应链内容的来源、方法、期间、数据版本和内容版本。"
           actions={(
@@ -72,7 +73,7 @@ export default async function ProductProvenancePage({
         </section>
 
         <section className="section-block method-strip" aria-labelledby="research-export-title">
-          <div><p className="eyebrow">Versioned research export</p><h2 id="research-export-title">可复核研究快照</h2></div>
+          <div><p className="eyebrow">研究快照</p><h2 id="research-export-title">可复核研究快照</h2></div>
           <p>JSON 导出包含商品维度、供应链、国家贸易观察、材料贸易观察、来源、逐条证据和证据缺口，并同时保留数据集版本与内容版本。它是当前 published 输入的确定性只读快照，不会补齐未知值或生成新结论。</p>
           <a className="text-link" href={researchExportPath(productId)}>下载 {provenance.datasetVersion.version} 研究快照 →</a>
         </section>
@@ -80,7 +81,7 @@ export default async function ProductProvenancePage({
         <ProvenancePanel provenance={provenance} />
 
         <section className="section-block" aria-labelledby="material-observations-title">
-          <div className="section-heading"><div><p className="eyebrow">Material customs observations</p><h2 id="material-observations-title">材料双边贸易观察</h2></div><span className="muted">{materialObservations.length} 条 · 各条期间与分类如下</span></div>
+          <div className="section-heading"><div><p className="eyebrow">材料贸易记录</p><h2 id="material-observations-title">材料双边贸易观察</h2></div><span className="muted">{materialObservations.length} 条 · 各条期间与分类如下</span></div>
           <p className="muted">这些观察只证明统计方与伙伴发生了对应 HS 分类商品贸易，不证明材料进入手机、电池、指定工厂或连续物料谱系。</p>
           <div className="trade-observation-list">
             {materialObservations.map(({ observation, reporter, partner, item }) => (

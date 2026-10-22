@@ -1,3 +1,5 @@
+import { itemLabel } from "../../../../lib/item-label";
+import { RouteStepLink } from "../../../../components/route-step-link";
 import { ProductNavigation } from "../../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -75,13 +77,13 @@ export default async function SupplyChainPage({
       <div className="content-column wide-column route-page">
         <Breadcrumbs items={[
           { label: "商品目录", href: "/products" },
-          { label: overview.product.name, href: productPath(productId, pageContext) },
+          { label: itemLabel(overview.product), href: productPath(productId, pageContext) },
           { label: "供应链路径" }
         ]} />
         <ContextBanner period={story.period.label} datasetVersion={story.datasetVersion.version} contentVersion={story.route.contentVersion?.version} mismatches={contextMismatches} />
         <PageIntro
-          eyebrow="Representative supply chain"
-          title={`${overview.product.name} · ${focusName}`}
+          eyebrow="生产路线"
+          title={`${itemLabel(overview.product)} · ${focusName}`}
           description="从材料、部件到整机，点击生产环节继续向上下游探索。"
           actions={(
             <>
@@ -105,9 +107,9 @@ export default async function SupplyChainPage({
                   key={coverage.item.id}
                   title={coverage.statusDescription}
                 >
-                  {coverage.item.name}
+                  {itemLabel(coverage.item)}
                 </Link>
-              ) : <span className="filter-chip muted" aria-disabled="true" key={coverage.item.id}>{coverage.item.name} · 仅类别说明</span>)}
+              ) : <span className="filter-chip muted" aria-disabled="true" key={coverage.item.id}>{itemLabel(coverage.item)} · 仅类别说明</span>)}
             </div>
           </div>
           <span className="filter-note">{story.nodes.length} 个环节 · {story.flows.length} 条连接</span>
@@ -125,7 +127,7 @@ export default async function SupplyChainPage({
 
         <details className="reading-details"><summary>路线资料概览</summary><section className="interpretation-summary" aria-labelledby="interpretation-summary-title">
           <div className="interpretation-summary-heading">
-            <p className="eyebrow">Evidence at a glance</p>
+            <p className="eyebrow">路线资料</p>
             <h2 id="interpretation-summary-title">{story.interpretationSummary.title}</h2>
             <p>{story.interpretationSummary.description}</p>
           </div>
@@ -143,14 +145,14 @@ export default async function SupplyChainPage({
         </details>
 
         {focusedProcessChains.length > 0 && <section className="process-depth-callout" aria-label="工艺与设备深度入口">
-          <div><p className="eyebrow">Go deeper</p><h2>继续深入制造工序</h2><p>从投入材料到成品装配，逐道了解这个部件如何制造。</p></div>
+          <div><p className="eyebrow">继续深入</p><h2>继续深入制造工序</h2><p>从投入材料到成品装配，逐道了解这个部件如何制造。</p></div>
           <div className="process-depth-callout-actions">{focusedProcessChains.map((chain) => <Link className="button button-primary" href={manufacturingProcessPath(productId, chain.id, pageContext)} key={chain.id}>{chain.title} →</Link>)}</div>
         </section>}
 
         <section className="section-block" aria-labelledby="route-steps-title">
           <div className="section-heading">
             <div>
-              <p className="eyebrow">Route steps</p>
+              <p className="eyebrow">生产环节</p>
               <h2 id="route-steps-title">按环节阅读</h2>
             </div>
             <span className="section-caption">按生产顺序查看投入、产出与相关国家</span>
@@ -191,8 +193,8 @@ export default async function SupplyChainPage({
                       <ResolvedEvidenceList evidence={view.evidence} compact />
                     </details>
                     <nav className="step-sequence-nav" aria-label={`${step.title}步骤导航`}>
-                      {readingSteps[index - 1] ? <a className="button button-secondary" href={`#route-step-${readingSteps[index - 1].step.id}`}>← 上一步</a> : <span />}
-                      {readingSteps[index + 1] ? <a className="button button-primary" href={`#route-step-${readingSteps[index + 1].step.id}`}>下一步 →</a> : <Link className="button button-primary" href={provenancePath(productId, pageContext)}>查看来源 →</Link>}
+                      {readingSteps[index - 1] ? <RouteStepLink className="button button-secondary" targetId={`route-step-${readingSteps[index - 1].step.id}`}>← 上一步</RouteStepLink> : <span />}
+                      {readingSteps[index + 1] ? <RouteStepLink className="button button-primary" targetId={`route-step-${readingSteps[index + 1].step.id}`}>下一步 →</RouteStepLink> : <Link className="button button-primary" href={provenancePath(productId, pageContext)}>查看来源 →</Link>}
                     </nav>
                   </div>
                 </details>
@@ -204,7 +206,7 @@ export default async function SupplyChainPage({
         <section className="section-block" aria-labelledby="route-nodes-title">
           <div className="section-heading">
             <div>
-              <p className="eyebrow">Route nodes</p>
+              <p className="eyebrow">路线节点</p>
               <h2 id="route-nodes-title">路径节点</h2>
             </div>
           </div>
@@ -216,7 +218,7 @@ export default async function SupplyChainPage({
                   {node.entity ? <span className="iso-chip">{node.entity.iso3 ?? node.entity.id}</span> : null}
                 </div>
                 <h3>{node.node.label}</h3>
-                <p>{node.item?.name ?? "未知货物"} · {node.processStage?.label ?? "未知环节"}</p>
+                <p>{itemLabel(node.item) ?? "未知货物"} · {node.processStage?.label ?? "未知环节"}</p>
                 <div className="node-card-evidence">
                   <EvidenceLevelBadge level={node.evidenceLevel} />
                   {node.node.dataStatus !== "unknown" && <StatusBadge status={node.node.dataStatus} method={node.node.method} />}

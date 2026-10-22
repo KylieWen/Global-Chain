@@ -1,3 +1,4 @@
+import { itemLabel } from "../../../lib/item-label";
 import { ProductNavigation } from "../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -39,12 +40,12 @@ export default async function ProductOverviewPage({
   return (
     <SiteShell>
       <div className="content-column">
-        <Breadcrumbs items={[{ label: "商品目录", href: "/products" }, { label: overview.product.name }]} />
+        <Breadcrumbs items={[{ label: "商品目录", href: "/products" }, { label: itemLabel(overview.product) }]} />
         <ContextBanner period={overview.period.label} datasetVersion={overview.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
         <div className="product-overview-intro">
         <PageIntro
           eyebrow={overview.product.category}
-          title={overview.product.name}
+          title={itemLabel(overview.product)}
           description="从部件组成出发，沿供应链探索各国的生产与贸易联系。"
           actions={<>{industry && <Link className="button button-primary" href={industryPath(productId, undefined, routeContext)}>查找中国产业上下游</Link>}<Link className="button button-primary" href={supplyChainPath(productId, undefined, routeContext)}>查看供应链路线</Link><Link className="button button-secondary" href={mapPath({ ...routeContext, product: productId, layer: "supply-chain" })}>在地图上探索</Link>{hasGuides && <Link className="button button-secondary" href={tradeGuidePath({ product: productId, ...pageContext })}>查进出口要求</Link>}{hasMaterialTrade && <Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link>}</>}
         />
@@ -55,7 +56,7 @@ export default async function ProductOverviewPage({
         <section className="section-block" aria-labelledby="children-title">
           <div className="section-heading">
             <div>
-              <p className="eyebrow">First-level components</p>
+              <p className="eyebrow">商品组成</p>
               <h2 id="children-title">商品由哪些部分组成？</h2>
             </div>
             <span className="section-caption">先看组件，再进入对应的供应链路线</span>
@@ -86,13 +87,13 @@ export default async function ProductOverviewPage({
         </section>
 
         <details className="section-block detail-collapsible">
-          <summary className="section-heading detail-summary"><div><p className="eyebrow">Product breakdown</p><h2>展开完整拆解树</h2></div><span className="section-caption">从整件商品查看组成关系</span></summary>
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">完整拆解</p><h2>展开完整拆解树</h2></div><span className="section-caption">从整件商品查看组成关系</span></summary>
           <ProductTree root={breakdown} productId={productId} componentCoverage={overview.componentCoverage} explorableItemIds={explorableItemIds} context={routeContext} />
         </details>
 
         {processChains.length > 0 && <section className="section-block" aria-labelledby="process-depth-title">
           <div className="section-heading">
-            <div><p className="eyebrow">Process and equipment depth</p><h2 id="process-depth-title">深入制造过程</h2></div>
+            <div><p className="eyebrow">工艺与设备</p><h2 id="process-depth-title">深入制造过程</h2></div>
             <span className="section-caption">逐步查看制造过程</span>
           </div>
           <div className="process-chain-entry-grid">
@@ -108,13 +109,13 @@ export default async function ProductOverviewPage({
 
         <details className="section-block coverage-details" aria-labelledby="coverage-title">
           <summary className="section-heading coverage-summary">
-            <div><p className="eyebrow">Data layer coverage</p><h2 id="coverage-title">组件数据覆盖矩阵</h2></div>
+            <div><p className="eyebrow">资料覆盖</p><h2 id="coverage-title">组件数据覆盖矩阵</h2></div>
             <span className="section-caption">点击展开查看详细覆盖状态</span>
           </summary>
           <div className="coverage-list">
             {overview.componentCoverage.map((coverage) => (
               <article className="coverage-row" key={coverage.item.id}>
-                <div><strong>{coverage.item.name}</strong><span className="muted">{coverage.item.category}</span></div>
+                <div><strong>{itemLabel(coverage.item)}</strong><span className="muted">{coverage.item.category}</span></div>
                 <span className={`coverage-status coverage-status-${coverage.status}`}>{coverage.statusLabel}</span>
                 <span className="muted">节点 {coverage.nodeCount} · 连接 {coverage.flowCount} · 缺口 {coverage.evidenceGapCount}</span>
                 <span className="muted">{coverage.statusDescription}</span>
@@ -129,10 +130,10 @@ export default async function ProductOverviewPage({
         </details>
 
         <details className="section-block detail-collapsible method-details" aria-label="页面方法说明">
-          <summary className="section-heading detail-summary"><div><p className="eyebrow">Data notes</p><h2>数据说明</h2></div><span className="section-caption">了解数据如何整理</span></summary>
+          <summary className="section-heading detail-summary"><div><p className="eyebrow">资料说明</p><h2>数据说明</h2></div><span className="section-caption">了解数据如何整理</span></summary>
           <div className="method-strip">
           <div>
-            <p className="eyebrow">Method boundary</p>
+            <p className="eyebrow">阅读范围</p>
             <h2>如何阅读这张链路</h2>
           </div>
           <WarningList warnings={overview.warnings} />
