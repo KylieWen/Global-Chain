@@ -183,6 +183,7 @@ p { line-height: 1.7; }
 .provenance-meta { display: flex; flex-wrap: wrap; gap: 0.55rem 1.3rem; margin: 1rem 0 1.2rem; color: var(--ink-soft); font-size: 0.78rem; }
 .provenance-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; padding-top: 1.1rem; border-top: 1px solid var(--line); }
 .provenance-grid h3 { font-size: 0.86rem; }
+.provenance-grid .plain-list > li { min-width: 0; overflow-wrap: anywhere; }
 .provenance-subsection, .provenance-status-section { margin-top: 1.5rem; padding-top: 1.1rem; border-top: 1px solid var(--line); }
 .provenance-subsection h3, .provenance-status-section h3 { font-size: 0.86rem; }
 .plain-list { display: grid; gap: 0.65rem; margin: 0; padding: 0; list-style: none; }
@@ -205,7 +206,8 @@ p { line-height: 1.7; }
 .route-methodology-grid > div { padding: 0.85rem; border-radius: 0.65rem; background: #fff; }
 .route-methodology-grid strong { font-size: 0.78rem; }
 .route-methodology-grid ul { margin: 0.55rem 0 0; padding-left: 1.1rem; color: var(--ink-soft); font-size: 0.76rem; line-height: 1.6; }
-.evidence-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.6rem; }
+.evidence-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 0.6rem; }
+.evidence-heading > strong { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
 .evidence-support { display: inline-flex; flex: none; width: fit-content; padding: 0.2rem 0.42rem; border-radius: 999px; color: var(--ink-soft); background: #e9edf3; font-size: 0.62rem; font-weight: 800; }
 .support-country_role { color: #08736d; background: var(--teal-soft); }
 .support-bilateral_flow, .support-trade_observation { color: #2459ac; background: var(--blue-soft); }
@@ -498,6 +500,7 @@ p { line-height: 1.7; }
 
 .interpreted-metrics { gap: 1rem; }
 .interpreted-metric { grid-template-columns: minmax(15rem, 0.8fr) minmax(22rem, 1.4fr); align-items: flex-start; }
+.interpreted-metric .interpretation-notes { min-width: 0; overflow-wrap: anywhere; }
 .metric-main p { margin-bottom: 0.75rem; color: var(--ink-soft); font-size: 0.78rem; }
 .metric-value { display: block; color: var(--navy); font-size: 1.15rem; }
 .fact-metadata-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.55rem; }

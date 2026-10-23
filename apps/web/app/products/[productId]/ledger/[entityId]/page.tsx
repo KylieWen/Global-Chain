@@ -6,8 +6,11 @@ import { getQueryService } from "../../../../../lib/data";
 import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../../../components/site-shell";
 import { contextMismatch, readPageContext } from "../../../../../lib/context";
 import {
+  dataMethodLabel,
+  factStatusLabel,
   MetadataItem,
   PeriodLabel,
+  publicationStatusLabel,
   StatCard,
   StatusBadge,
   StatusLegend,
@@ -91,7 +94,7 @@ export default async function CountryLedgerPage({
         <div className="stat-grid">
           <StatCard label="国家/地区代码" value={ledger.entity.iso3 ?? ledger.entity.name} detail={`ISO2 ${ledger.entity.iso2 ?? "未知"} · UN M49 ${ledger.entity.m49 ?? "未知"}`} />
           <StatCard label="统计期间" value={<PeriodLabel period={ledger.period} />} detail={`${ledger.period.start} 至 ${ledger.period.end}`} />
-          <StatCard label="数据集版本" value={ledger.datasetVersion.version} detail={ledger.datasetVersion.status} />
+          <StatCard label="数据集版本" value={ledger.datasetVersion.version} detail={publicationStatusLabel(ledger.datasetVersion.status)} />
           {ledger.tradeObservations.length > 0 && <StatCard label={`${itemLabel(ledger.product)}贸易观察`} value={ledger.tradeObservations.length} detail="已发布观察" />}
         </div>
 
@@ -117,9 +120,9 @@ export default async function CountryLedgerPage({
                     {observation.currency && <MetadataItem label="币种" value={observation.currency} />}
                     <MetadataItem label="单位" value={observation.unit ?? <UnknownValue label="未提供" />} />
                     <MetadataItem label="来源" value={source?.name ?? <UnknownValue label="未提供" />} />
-                    <MetadataItem label="method" value={observation.method} />
-                    <MetadataItem label="datasetVersion" value={observation.datasetVersionId ? `${ledger.datasetVersion.version} (${observation.datasetVersionId})` : <UnknownValue label="未提供" />} />
-                    <MetadataItem label="dataStatus" value={<StatusBadge status={observation.dataStatus} />} />
+                    <MetadataItem label="整理方法" value={dataMethodLabel(observation.method)} />
+                    <MetadataItem label="数据版本" value={observation.datasetVersionId ? `${ledger.datasetVersion.version} (${observation.datasetVersionId})` : <UnknownValue label="未提供" />} />
+                    <MetadataItem label="数据状态" value={factStatusLabel(observation.dataStatus)} />
                   </div>
                   <div className="interpretation-notes">
                     {definition.valueMeaning ? <p><strong>数值含义：</strong>{definition.valueMeaning}</p> : null}
@@ -171,10 +174,10 @@ export default async function CountryLedgerPage({
                       {observation.currency && <MetadataItem label="币种" value={observation.currency} />}
                       <MetadataItem label="单位" value={observation.unit ?? <UnknownValue label="未提供" />} />
                       <MetadataItem label="来源" value={view.source?.name ?? <UnknownValue label="未提供" />} />
-                      <MetadataItem label="method" value={observation.method} />
-                      <MetadataItem label="datasetVersion" value={observation.datasetVersionId ? `${ledger.datasetVersion.version} (${observation.datasetVersionId})` : <UnknownValue label="未提供" />} />
-                      <MetadataItem label="金额 dataStatus" value={<StatusBadge status={view.valueDataStatus} />} />
-                      <MetadataItem label="数量 dataStatus" value={<StatusBadge status={view.quantityDataStatus} />} />
+                      <MetadataItem label="整理方法" value={dataMethodLabel(observation.method)} />
+                      <MetadataItem label="数据版本" value={observation.datasetVersionId ? `${ledger.datasetVersion.version} (${observation.datasetVersionId})` : <UnknownValue label="未提供" />} />
+                      <MetadataItem label="金额状态" value={factStatusLabel(view.valueDataStatus)} />
+                      <MetadataItem label="数量状态" value={factStatusLabel(view.quantityDataStatus)} />
                     </div>
                     </details>
                     {observation.qualityNote ? <details className="quality-details"><summary>查看来源质量标记</summary><code>{observation.qualityNote}</code></details> : null}

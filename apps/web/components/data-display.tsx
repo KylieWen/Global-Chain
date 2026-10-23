@@ -127,6 +127,25 @@ const methodLabels: Record<string, string> = {
   mock: "演示样例"
 };
 
+export function dataMethodLabel(method: string): string {
+  return methodLabels[method] ?? method;
+}
+
+export function factStatusLabel(status: FactStatus): string {
+  return statusLabels[status];
+}
+
+const publicationStatusLabels: Record<DatasetVersion["status"], string> = {
+  draft: "编辑中",
+  validated: "已核验",
+  published: "已发布",
+  deprecated: "历史版本"
+};
+
+export function publicationStatusLabel(status: DatasetVersion["status"]): string {
+  return publicationStatusLabels[status];
+}
+
 export function StatusBadge({
   status,
   method
@@ -142,7 +161,7 @@ export function StatusBadge({
       aria-label={`数据状态：${statusLabels[status]}`}
     >
       {statusLabels[status]}
-      {method ? ` · ${methodLabels[method] ?? method}` : ""}
+      {method ? ` · ${dataMethodLabel(method)}` : ""}
     </span>
   );
 }
@@ -197,13 +216,7 @@ export function StatusLegend() {
 }
 
 export function PublicationBadge({ status }: { status: DatasetVersion["status"] }) {
-  const labels: Record<DatasetVersion["status"], string> = {
-    draft: "编辑中",
-    validated: "已核验",
-    published: "已发布",
-    deprecated: "历史版本"
-  };
-  return <span className={`publication-badge publication-${status}`}>{labels[status]}</span>;
+  return <span className={`publication-badge publication-${status}`}>{publicationStatusLabel(status)}</span>;
 }
 
 export function PeriodLabel({
@@ -494,10 +507,10 @@ function renderEvidenceGapAudit(view: ResolvedEvidenceGapView) {
           <MetadataItem label="当前主张" value={gap.currentClaim} />
           <MetadataItem label="当前证据等级" value={evidenceLevelCodeLabels[gap.currentEvidenceLevel]} />
           <MetadataItem label="期间" value={<PeriodLabel period={gap.period} />} />
-          <MetadataItem label="method" value={gap.method} />
+          <MetadataItem label="整理方法" value={dataMethodLabel(gap.method)} />
           <MetadataItem label="登记项 ID" value={<code>{gap.gapId}</code>} />
-          <MetadataItem label="datasetVersion" value={<code>{gap.datasetVersionId}</code>} />
-          <MetadataItem label="contentVersion" value={<code>{gap.contentVersionId}</code>} />
+          <MetadataItem label="数据版本编号" value={<code>{gap.datasetVersionId}</code>} />
+          <MetadataItem label="内容版本编号" value={<code>{gap.contentVersionId}</code>} />
         </div>
         <div className="evidence-gap-copy">
           <div><strong>缺少的证据</strong><p>{gap.missingEvidence}</p></div>
@@ -591,9 +604,9 @@ function renderEvidenceGapCard(
         <MetadataItem label="当前主张" value={gap.currentClaim} />
         <MetadataItem label="当前证据等级" value={evidenceLevelCodeLabels[gap.currentEvidenceLevel]} />
         <MetadataItem label="期间" value={<PeriodLabel period={gap.period} />} />
-        <MetadataItem label="method" value={gap.method} />
-        <MetadataItem label="datasetVersion" value={gap.datasetVersionId} />
-        <MetadataItem label="contentVersion" value={gap.contentVersionId} />
+        <MetadataItem label="整理方法" value={dataMethodLabel(gap.method)} />
+        <MetadataItem label="数据版本编号" value={gap.datasetVersionId} />
+        <MetadataItem label="内容版本编号" value={gap.contentVersionId} />
       </div>
       <div className="evidence-gap-copy">
         <div><strong>缺少的证据</strong><p>{gap.missingEvidence}</p></div>
@@ -816,9 +829,9 @@ export function RouteMethodology({
         </div>
         <div className="route-methodology-meta">
           <MetadataItem label="期间" value={<PeriodLabel period={route.period} />} />
-          <MetadataItem label="method" value={route.method} />
+          <MetadataItem label="整理方法" value={dataMethodLabel(route.method)} />
           <MetadataItem
-            label="contentVersion"
+            label="内容版本"
             value={route.contentVersion?.version ?? <UnknownValue label="未提供" />}
           />
         </div>
@@ -910,15 +923,15 @@ export function IndicatorDefinitionList({
                 {definition.formula ? (
                   <MetadataItem label="计算公式" value={definition.formula} />
                 ) : null}
-                {definition.method ? <MetadataItem label="method" value={definition.method} /> : null}
+                {definition.method ? <MetadataItem label="整理方法" value={dataMethodLabel(definition.method)} /> : null}
                 {definition.dataStatus ? (
                   <MetadataItem
-                    label="dataStatus"
-                    value={<StatusBadge status={definition.dataStatus} />}
+                    label="数据状态"
+                    value={factStatusLabel(definition.dataStatus)}
                   />
                 ) : null}
                 {definition.datasetVersionId ? (
-                  <MetadataItem label="datasetVersion" value={definition.datasetVersionId} />
+                  <MetadataItem label="数据版本编号" value={definition.datasetVersionId} />
                 ) : null}
                 {sourceLabel ? <MetadataItem label="来源" value={sourceLabel} /> : null}
               </div>
