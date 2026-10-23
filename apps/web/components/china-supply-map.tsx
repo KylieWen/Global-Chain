@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { geoArea, geoMercator, geoPath, type GeoPermissibleObjects } from "d3-geo";
 import type { RegionalAtlas } from "@globe-chain/contracts";
 import { getRegionalAtlasView, regionalStageLabels } from "@globe-chain/domain";
@@ -30,15 +30,16 @@ type Props={atlas:RegionalAtlas;productId:string;productName:string;products:{id
 
 export function ChinaSupplyMap({atlas,productId,productName,products,organizations,context,initialProvince,initialStage,initialNode}:Props) {
   const router=useRouter(); const svg=useRef<SVGSVGElement>(null);
+  const searchParams=useSearchParams();
   const [renderedWidth,setRenderedWidth]=useState(width);
   useEffect(()=>{const element=svg.current;if(!element)return;const observer=new ResizeObserver(entries=>setRenderedWidth(entries[0].contentRect.width||width));observer.observe(element);return()=>observer.disconnect();},[]);
-  const [province,setProvince]=useState(initialProvince??''); const [stage,setStage]=useState(initialStage??'');
-  const [selected,setSelected]=useState(initialNode??''); const [hovered,setHovered]=useState('');
+  // Native history updates and same-product Next links share one filter source.
+  const province=searchParams?searchParams.get('province')??'':initialProvince??'';
+  const stage=searchParams?searchParams.get('stage')??'':initialStage??'';
+  const selected=searchParams?searchParams.get('node')??'':initialNode??'';
+  const [hovered,setHovered]=useState('');
   const [transform,setTransform]=useState<MapTransform>({x:0,y:0,scale:1});
-  useEffect(()=>{
-    const restore=()=>{const query=new URLSearchParams(window.location.search);setProvince(query.get('province')??'');setStage(query.get('stage')??'');setSelected(query.get('node')??'');setHovered('');};
-    window.addEventListener('popstate',restore);return()=>window.removeEventListener('popstate',restore);
-  },[]);
+  useEffect(()=>{setHovered('');},[province,stage,selected]);
   const drag=useRef<{x:number;y:number;tx:number;ty:number;moved:boolean}|null>(null); const dragged=useRef(false);
   const view=useMemo(()=>getRegionalAtlasView(atlas,productId,{province,stage}),[atlas,productId,province,stage]);
   const placeById=new Map(view.places.map(place=>[place.id,place]));
@@ -53,8 +54,8 @@ export function ChinaSupplyMap({atlas,productId,productName,products,organizatio
     const url=chinaMapPath({...context,product:productId,province:nextProvince||undefined,stage:nextStage||undefined,node:nextNode||undefined});
     if(window.location.pathname+window.location.search!==url)window.history.pushState(null,'',url);
   };
-  const chooseNode=(id:string)=>{if(dragged.current)return;setSelected(id);setHovered('');sync(province,stage,id);};
-  const changeFilter=(nextProvince:string,nextStage:string)=>{setProvince(nextProvince);setStage(nextStage);setSelected('');setHovered('');sync(nextProvince,nextStage,'');};
+  const chooseNode=(id:string)=>{if(dragged.current)return;setHovered('');sync(province,stage,id);};
+  const changeFilter=(nextProvince:string,nextStage:string)=>{setHovered('');sync(nextProvince,nextStage,'');};
   const onDown=(event:PointerEvent<SVGSVGElement>)=>{if(event.pointerType==='touch'||event.button!==0)return;dragged.current=false;if(transform.scale<=1)return;drag.current={x:event.clientX,y:event.clientY,tx:transform.x,ty:transform.y,moved:false};};
   const onMove=(event:PointerEvent<SVGSVGElement>)=>{const start=drag.current;if(!start)return;const dx=event.clientX-start.x;const dy=event.clientY-start.y;if(Math.abs(dx)+Math.abs(dy)>5)start.moved=true;dragged.current=start.moved;if(!start.moved)return;event.currentTarget.setPointerCapture(event.pointerId);const matrix=svg.current?.getScreenCTM();const ratio=matrix?1/matrix.a:1;setTransform(clampMapTransform({scale:transform.scale,x:start.tx+dx*ratio,y:start.ty+dy*ratio},width,height));};
   useMapWheel(svg,setTransform,width,height,transform,dragged);
@@ -85,7 +86,7 @@ export function ChinaSupplyMap({atlas,productId,productName,products,organizatio
       <div className="regional-map-bottom"><span>{activePlace?`${activePlace.name} · ${active?.label}`:'点击省份或城市节点，展开当地产业环节'}</span><small>双指缩放与移动 · Ctrl + 滚轮缩放</small></div>
       <div className="regional-legend">{Object.entries(regionalStageLabels).map(([key,label])=><span key={key}><i style={{background:stageColors[key as keyof typeof stageColors]}}/>{label}</span>)}<span className="regional-line-key">虚线：代表性环节联系</span></div>
     </div><aside className="regional-details" aria-label="中国产业环节详情">
-      {selectedNode?<><button className="regional-back" onClick={()=>{setSelected('');sync(province,stage,'');}}>← 返回区域列表</button><p className="eyebrow">{placeById.get(selectedNode.placeId)?.name} · {regionalStageLabels[selectedNode.stage]}</p><h2>{selectedNode.label}</h2><p>{selectedNode.description}</p><span className="regional-period">{selectedNode.period.label}</span>
+      {selectedNode?<><button className="regional-back" onClick={()=>{sync(province,stage,'');}}>← 返回区域列表</button><p className="eyebrow">{placeById.get(selectedNode.placeId)?.name} · {regionalStageLabels[selectedNode.stage]}</p><h2>{selectedNode.label}</h2><p>{selectedNode.description}</p><span className="regional-period">{selectedNode.period.label}</span>
         <div className="regional-adjacent"><h3>沿上下游继续看</h3>{atlas.connections.filter(edge=>edge.from===selectedNode.id||edge.to===selectedNode.id).map(edge=>{const target=allById.get(edge.from===selectedNode.id?edge.to:edge.from)!;return <button key={edge.id} onClick={()=>{dragged.current=false;chooseNode(target.id);}}><small>{edge.to===selectedNode.id?'← 上游':'下游 →'}</small><strong>{placeById.get(target.placeId)?.name} · {target.label}</strong></button>;})}</div>
         {linkedOrganizations.map(org=><article className="regional-organization" key={org.id}><h3>{org.name}</h3><Link href={industryPath(productId,selectedNode.topicIds[0]??org.topicId,context)}>查看企业能力与上下游 →</Link>{org.links.slice(0,2).map(link=><a href={link.url} key={link.url} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>)}</article>)}
         <details className="regional-sources"><summary>依据与适用范围</summary>{sourceFor(selectedNode.sourceIds).map(source=><p key={source.id}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.name} ↗</a><small>{source.publisher} · {source.retrievedAt.slice(0,10)}</small><span>{source.scope}</span></p>)}</details>
