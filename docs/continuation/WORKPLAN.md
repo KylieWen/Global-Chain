@@ -1,5 +1,16 @@
 # GlobeChain 完整产品迭代清单
 
+## 最新完成（2026-10-24 07:46，展位首次体验四项已上线）
+
+- 按用户最新要求仅完成首次新手引导、退役独立演示模块、二维码和服务器同步；反馈包/Claude评审暂缓，不再按下方历史要求自动开展。
+- 首次首页为深蓝地球SVG+三步个性化引导：选五商品之一、公众/产业/研究视角、预览并进入对应商品的世界/中国地图或来源页；全程跳过/Escape、Tab双向圈定和焦点恢复、完成/跳过记忆、首页重开、手机、减动和受限存储均已验收。首页优先展示地图；旧/demo回首页，主导航/推荐/预热不再提供独立三分钟模块，原视频材料保留。
+- 当前公网http://62.171.148.193/，应用39ee82f4775b0865fad1116d8200a329cdc1ee7c；07:39:03切换current至/opt/globechain/releases/39ee82f4775b，BUILD_ID WDQ8cdftFGHMlZ2xORRf8。旧b021953e105b保留回退；globechain/nginx active，NRestarts=0/ExecMainStatus=0。候选已停，全部本轮SSH/转发/SCP已退出，没有新域名/采购。
+- 全工作区typecheck、最终build含lint/type、53文件266通过1跳过；本地新手07:25:45及五商品既有浏览回归通过。Linux安装/构建、36fixture/上传哈希、27候选检查通过；独立SSH通道下新手07:36:38和完整元数据/当前及历史导出07:37:14通过，前轮补验已完成。公网新手07:41:01、五商品各5页/5导出/历史/世界→中国→企业/1024和390菜单07:43:04、中国筛选历史/分享/刷新07:43:20通过，pageErrors=[]，截图已目视。新手脚本已接入浏览器运行器，未宣称托管CI已运行，不重复已过单元批次。
+- 二维码已交付准备：output/booth/2026-10-24/global-chain-home-qr.png（2368²）、同前缀.svg、global-chain-home-print.html；PNG及写出SVG均独立解码为真实公网首页，品牌/HTTP200及打印目视通过，哈希清单global-chain-home-verification.json已核对。生成脚本scripts/generate-booth-qr.py，不增加产品依赖。
+- 正式源码包1,762,942字节，SHA256 f3d5e61cf013a7f80d2d8128400f271b7bcb738aafc9863a087b16ad6f22aea1。证据output/deploy/39ee82f-evidence/，QA在output/qa/2026-10-24-booth-{local,candidate,public,public-self-host,public-china-navigation}/，方法见docs/reviews/2026-10-24-booth-first-visit.md。原始ID/数据/不可变release、其它聊天修改和无关物料保留；只提交本轮相关文件。
+- 四项已完成，已通过app删除global-chain heartbeat（deleteStatus=deleted），不归档聊天；下方ACTIVE/06:59/待部署/待Claude均为历史。末次额度五小时剩31%、周74%，普通使用允许，未触12%/3%。后续按用户新要求继续，不自动恢复旧反馈包任务。应用提交39ee82f，本文收尾提交从Git最新日志读取。
+
+
 ## 最新用户追加（2026-10-24 03:09，额度恢复后继续展位体验与Claude评审）
 
 - 用户要求评委扫码后亲自体验：首次进入提供类似Edge首次使用的有质感、有趣、个性化、随时可跳过的新手教程，结合既有身份与地图；原三分钟视频演示不再作为独立产品模块。需同步服务器，生成指向正式公网首页的网页二维码。详细原话和验收见BOOTH-ONBOARDING-CLAUDE-2026-10-24.md。

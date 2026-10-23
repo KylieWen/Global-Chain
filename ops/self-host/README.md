@@ -5,13 +5,15 @@ The first deployment was completed on 2026-10-23 (Asia/Singapore):
 `b7f2f4201dcd23cfa2694e99c24f50062099b8ff`. This is IP-based HTTP; no domain
 or HTTPS is configured. No account credentials belong here.
 
-The current application is `b021953e105bf386bf3e688b83966eb9c16f8d9f`, including
-three browsing perspectives, historical export/guide consistency and the final
-two-round presentation review. It retains the China atlas 2026.10.2
+The current application is `39ee82f4775b0865fad1116d8200a329cdc1ee7c`, including
+the optional personalized first-visit guide, retired standalone demo entry,
+three browsing perspectives, and the China navigation/metadata fixes. It retains the China atlas 2026.10.2
 (18 roles, 12 representative connections). The current release directory is
-`/opt/globechain/releases/b021953e105b`; the immediately preceding verified release
-`/opt/globechain/releases/6fe4a31dbaf5` and older releases remain available for rollback.
-The homepage at [the public root](http://62.171.148.193/) offers audience selection.
+`/opt/globechain/releases/39ee82f4775b`; the immediately preceding verified release
+`/opt/globechain/releases/b021953e105b` and older releases remain available for rollback.
+The homepage at [the public root](http://62.171.148.193/) offers a skippable first-visit
+guide and a button to reopen it. `/demo` redirects there. Printable booth QR assets
+are in `output/booth/2026-10-24/`; the PNG and SVG independently decode to this root.
 
 The templates support future installations; inspect each host before applying them.
 The actual host uses Ubuntu 24.04, Node v24.22.1 and the pinned pnpm 11.19.0.
@@ -25,6 +27,8 @@ accounts, contributor submissions, enterprise applications or a database.
 See [deployment evidence and limits](../../docs/reviews/2026-10-23-contabo-deployment.md).
 From the repository root, `node scripts/verify-self-host.mjs` checks the public site
 using installed Chrome. Set `REVIEW_BASE_URL` to check another host.
+`node scripts/verify-booth-onboarding.mjs` verifies fresh visits, skip/reopen,
+personalized destinations, keyboard focus and mobile/restricted-storage behavior.
 
 ## Maintenance on the host
 
