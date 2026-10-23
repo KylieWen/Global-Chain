@@ -44,7 +44,7 @@ export default async function ProductProvenancePage({
               <Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>返回供应链路径</Link>
               <Link className="button button-secondary" href={evidenceGapsPath(productId, pageContext)}>证据缺口登记册</Link>
               <Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料观察浏览器</Link>
-              <a className="button button-secondary" href={researchExportPath(productId)}>下载研究快照（JSON）</a>
+              <a className="button button-secondary" href={researchExportPath(productId, { datasetVersion: provenance.datasetVersion.version })}>下载研究快照（JSON）</a>
               <Link className="button button-secondary" href={productPath(productId, pageContext)}>返回商品概览</Link>
             </>
           )}
@@ -75,7 +75,7 @@ export default async function ProductProvenancePage({
         <section className="section-block method-strip" aria-labelledby="research-export-title">
           <div><p className="eyebrow">研究快照</p><h2 id="research-export-title">可复核研究快照</h2></div>
           <p>JSON 导出包含商品维度、供应链、国家贸易观察、材料贸易观察、来源、逐条证据和证据缺口，并同时保留数据集版本与内容版本。它是当前 published 输入的确定性只读快照，不会补齐未知值或生成新结论。</p>
-          <a className="text-link" href={researchExportPath(productId)}>下载 {provenance.datasetVersion.version} 研究快照 →</a>
+          <a className="text-link" href={researchExportPath(productId, { datasetVersion: provenance.datasetVersion.version })}>下载 {provenance.datasetVersion.version} 研究快照 →</a>
         </section>
 
         <ProvenancePanel provenance={provenance} />

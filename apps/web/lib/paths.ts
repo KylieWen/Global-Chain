@@ -29,8 +29,8 @@ export function provenancePath(productId: string, context?: PageContext): string
   return `/products/${segment(productId)}/provenance${contextQuery(context)}`;
 }
 
-export function researchExportPath(productId: string): string {
-  return `/api/products/${segment(productId)}/research-export`;
+export function researchExportPath(productId: string, context?: PageContext): string {
+  return `/api/products/${segment(productId)}/research-export${contextQuery({ datasetVersion: context?.datasetVersion })}`;
 }
 
 export function evidenceGapsPath(productId: string, context?: PageContext): string {

@@ -5,6 +5,7 @@ import { TradeGuideDirectory, TradeGuideResults } from "../../components/trade-g
 import { GuideQueryForm } from "../../components/guide-query-form";
 import { getQueryService } from "../../lib/data";
 import { readPageContext, type SearchParamsLike } from "../../lib/context";
+import { tradeGuidePath } from "../../lib/paths";
 
 export const dynamic = "force-dynamic";
 
@@ -18,15 +19,18 @@ export default async function TradeGuidePage({
   searchParams: Promise<SearchParamsLike>;
 }) {
   const params = await searchParams;
-  const context = readPageContext(params);
+  const requestedContext = readPageContext(params);
   const productId = first(params.product) ?? "generic-smartphone";
   const jurisdiction = first(params.jurisdiction);
   const direction = first(params.direction) as "import" | "export" | undefined;
-  const queries = await getQueryService(context.datasetVersion);
+  const queries = await getQueryService(requestedContext.datasetVersion);
   const products = queries.listProducts();
   const countries = queries.listCountries();
   const product = products.find(({ productId: id }) => id === productId) ?? products[0];
   const selectedProductId = product?.productId ?? productId;
+  // Link and form navigation must follow the snapshot that actually resolved,
+  // including when an unavailable requested version fell back to the active one.
+  const context = { ...requestedContext, datasetVersion: requestedContext.datasetVersion ? product?.datasetVersion.version : undefined };
   const guides = product
     ? queries.getTradeGuides(selectedProductId, {
       jurisdictionEntityId: jurisdiction,
@@ -55,16 +59,16 @@ export default async function TradeGuidePage({
           <div className="trade-guide-workbench-heading"><div><p className="eyebrow">查询条件</p><h2>你要查哪一组进出口要求？</h2></div><span>当前已发布：{allGuides.length} 组指南</span></div>
           {allGuides.length ? <div className="trade-guide-presets" aria-label="快捷查询任务">
             <span className="trade-guide-presets-label">快捷任务</span>
-            {allGuides.slice(0, 4).map((view) => <Link className="trade-guide-preset" href={`/trade-guide?product=${encodeURIComponent(selectedProductId)}&jurisdiction=${encodeURIComponent(view.guide.scope.jurisdictionEntityId)}&direction=${view.guide.scope.direction}`} key={view.guide.id}>{view.directionLabel} · {view.jurisdiction?.name ?? "未指定国家/地区"} <span>→</span></Link>)}
+            {allGuides.slice(0, 4).map((view) => <Link className="trade-guide-preset" href={tradeGuidePath({ ...context, product: selectedProductId, jurisdiction: view.guide.scope.jurisdictionEntityId, direction: view.guide.scope.direction })} key={view.guide.id}>{view.directionLabel} · {view.jurisdiction?.name ?? "未指定国家/地区"} <span>→</span></Link>)}
           </div> : null}
-          <GuideQueryForm products={products.filter(entry=>queryGuides.some(guide=>guide.productId===entry.productId)).map(entry=>({id:entry.productId,name:itemLabel(entry.item)}))} countries={countries.map(({entity})=>({id:entity.id,name:entity.name}))} guides={queryGuides} productId={selectedProductId} jurisdiction={jurisdiction} direction={direction}/>
+          <GuideQueryForm key={`${selectedProductId}:${context.datasetVersion ?? ""}:${jurisdiction ?? ""}:${direction ?? ""}`} products={products.filter(entry=>queryGuides.some(guide=>guide.productId===entry.productId)).map(entry=>({id:entry.productId,name:itemLabel(entry.item)}))} countries={countries.map(({entity})=>({id:entity.id,name:entity.name}))} guides={queryGuides} productId={selectedProductId} jurisdiction={jurisdiction} direction={direction} context={context}/>
           <div className="trade-guide-task-note"><strong>{direction === "import" ? "进口查询" : direction === "export" ? "出口查询" : "查询提示"}</strong><span>{direction === "import" ? "这里选择的是进口目的地；原产地、商品细分和申报日期仍需在官方系统中继续选择。" : direction === "export" ? "这里选择的是出口起运地；目的地规则和原产地待遇仍需在官方系统中继续核验。" : "进口时选择目的地，出口时选择起运地；具体原产地和日期需要在官方系统中进一步核验。"}</span></div>
 
         </section>
 
 
         <div className="trade-guide-results-heading"><div><p className="eyebrow">指南资料</p><h2>{hasFilters ? "筛选结果" : "选择一组示范指南"}</h2></div><span>{guides.length} 组结果</span></div>
-        {hasFilters ? <TradeGuideResults views={guides} productId={selectedProductId} /> : <TradeGuideDirectory views={guides} productId={selectedProductId} />}
+        {hasFilters ? <TradeGuideResults views={guides} productId={selectedProductId} context={context} /> : <TradeGuideDirectory views={guides} productId={selectedProductId} context={context} />}
 
 
       </div>

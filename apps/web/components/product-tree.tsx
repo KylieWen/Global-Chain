@@ -47,6 +47,7 @@ function TreeNode({
   const hasRoute = node.depth === 0 || coverage?.hasInspectableStory === true || explorableItemIds?.includes(node.item.id) === true;
   const processChain = coverage?.processChains[0];
   const canExplore = hasRoute || Boolean(processChain);
+  const actionLabel = !hasRoute ? "查看制造工序" : node.depth === 0 ? "查看全部环节" : "查看生产路线";
   return (
     <li>
       <div className={`tree-node ${node.depth === 0 ? "tree-root" : ""}`}>
@@ -56,8 +57,8 @@ function TreeNode({
           {node.item.description ? <small>{node.item.description}</small> : null}
           {coverage ? <small>{coverage.statusLabel} · {coverage.nodeCount} 个节点 · {coverage.flowCount} 条连接</small> : null}
         </div>
-        {canExplore ? <Link className="text-link" href={hasRoute ? supplyChainPath(productId, node.depth === 0 ? undefined : node.item.id, context) : manufacturingProcessPath(productId, processChain!.id, context)}>
-          {!hasRoute ? "查看制造工序" : node.depth === 0 ? "查看全部环节" : "查看生产路线"} →
+        {canExplore ? <Link className="text-link" aria-label={`${actionLabel}：${itemLabel(node.item)}`} href={hasRoute ? supplyChainPath(productId, node.depth === 0 ? undefined : node.item.id, context) : manufacturingProcessPath(productId, processChain!.id, context)}>
+          {actionLabel} →
         </Link> : null}
       </div>
       {hasChildren ? (

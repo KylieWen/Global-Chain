@@ -32,6 +32,10 @@ try {
  await go('/map?product=generic-smartphone&datasetVersion=globe-chain-smartphone-2026.2');
  assert.ok((await page.locator('.atlas-reading-notes a').getAttribute('href')).includes('datasetVersion=globe-chain-smartphone-2026.2'));
  await go('/products/generic-smartphone/provenance?datasetVersion=globe-chain-smartphone-2026.2');await page.locator('.context-banner summary').click();assert.ok((await page.locator('.context-banner').innerText()).includes('globe-chain-smartphone-2026.2'));
+ const historicalDownload=await page.getByRole('link',{name:'下载研究快照（JSON）',exact:true}).getAttribute('href');
+ assert.ok(historicalDownload.includes('datasetVersion=globe-chain-smartphone-2026.2'));
+ assert.equal((await browserResearchExport(page,historicalDownload)).datasetVersion,'globe-chain-smartphone-2026.2');
+ checks.push('Historical source page downloads the selected 2026.2 snapshot');
  for(const width of [1024,390]){
   await page.setViewportSize({width,height:900});await go('/map/china?product=generic-home-air-conditioner');
   const dimensions=await page.evaluate(()=>({client:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth}));assert.ok(dimensions.scroll<=dimensions.client);

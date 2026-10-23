@@ -4,8 +4,9 @@ import { MetadataItem, StatusBadge, UnknownValue } from "./data-display";
 import { tradeGuidePath } from "../lib/paths";
 import { HintLink } from "./hint-link";
 import { itemLabel } from "../lib/item-label";
+import type { PageContext } from "../lib/context";
 
-export function TradeGuideSummaryCard({ view, productId }: { view: TradeGuideView; productId: string }) {
+export function TradeGuideSummaryCard({ view, productId, context }: { view: TradeGuideView; productId: string; context?: PageContext }) {
   const { guide, jurisdiction, item } = view;
   return (
     <article className="trade-guide-summary-card">
@@ -22,14 +23,14 @@ export function TradeGuideSummaryCard({ view, productId }: { view: TradeGuideVie
         <span>{view.originScopeLabel}</span>
         <span>最近复核：{view.lastReviewedLabel}</span>
       </div>
-      <HintLink className="button button-secondary trade-guide-summary-action" href={tradeGuidePath({ product: productId, jurisdiction: guide.scope.jurisdictionEntityId, direction: guide.scope.direction })} label="查看这组指南 →" explanation={guide.summary} />
+      <HintLink className="button button-secondary trade-guide-summary-action" href={tradeGuidePath({ ...context, product: productId, jurisdiction: guide.scope.jurisdictionEntityId, direction: guide.scope.direction })} label="查看这组指南 →" explanation={guide.summary} />
     </article>
   );
 }
 
-export function TradeGuideDirectory({ views, productId }: { views: readonly TradeGuideView[]; productId: string }) {
+export function TradeGuideDirectory({ views, productId, context }: { views: readonly TradeGuideView[]; productId: string; context?: PageContext }) {
   if (views.length === 0) return <div className="empty-state large-empty"><strong>当前没有已发布指南</strong><p>可以先选择其他商品或等待新的国家/地区指南发布。</p></div>;
-  return <div className="trade-guide-directory">{views.map((view) => <TradeGuideSummaryCard view={view} productId={productId} key={view.guide.id} />)}</div>;
+  return <div className="trade-guide-directory">{views.map((view) => <TradeGuideSummaryCard view={view} productId={productId} context={context} key={view.guide.id} />)}</div>;
 }
 
 export function TradeGuideCard({ view }: { view: TradeGuideView }) {
@@ -129,9 +130,9 @@ export function TradeGuideCard({ view }: { view: TradeGuideView }) {
   );
 }
 
-export function TradeGuideResults({ views, productId }: { views: readonly TradeGuideView[]; productId: string }) {
+export function TradeGuideResults({ views, productId, context }: { views: readonly TradeGuideView[]; productId: string; context?: PageContext }) {
   if (views.length === 0) {
-    return <div className="empty-state large-empty"><strong>暂未收录这组目的地/方向</strong><p>换一个国家或方向，查看已整理的规则和办理步骤。</p><Link className="text-link" href={tradeGuidePath({ product: productId })}>查看全部已收录指南 →</Link></div>;
+    return <div className="empty-state large-empty"><strong>暂未收录这组目的地/方向</strong><p>换一个国家或方向，查看已整理的规则和办理步骤。</p><Link className="text-link" href={tradeGuidePath({ ...context, product: productId })}>查看全部已收录指南 →</Link></div>;
   }
   return <div className="trade-guide-results">{views.map((view) => <TradeGuideCard view={view} key={view.guide.id} />)}</div>;
 }

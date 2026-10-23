@@ -77,6 +77,18 @@ try {
     assert.match(await page.locator('.trade-guide-results-heading').innerText(), /[1-9]\d*\s*组结果/);
   }
   checks.push({ offeredGuideProducts: offeredProducts.length });
+  const historicalVersion = 'globe-chain-smartphone-2026.2';
+  await go(`/products/generic-smartphone/provenance?datasetVersion=${historicalVersion}`);
+  const historicalDownload = await page.getByRole('link', { name: '下载研究快照（JSON）', exact: true }).getAttribute('href');
+  assert.equal(new URL(historicalDownload, base).searchParams.get('datasetVersion'), historicalVersion);
+  assert.equal((await browserResearchExport(page, historicalDownload)).datasetVersion, historicalVersion);
+  const rejectedVersion = await page.evaluate(async () => {
+    const response = await fetch('/api/products/generic-smartphone/research-export?datasetVersion=not-a-published-version');
+    return {status:response.status, body:await response.json()};
+  });
+  assert.equal(rejectedVersion.status, 404);
+  assert.equal(rejectedVersion.body.release, undefined);
+  checks.push({ historicalExport: historicalVersion, unknownExportVersionRejected: true });
   for (const width of [1024, 390]) {
     await page.setViewportSize({ width, height: 900 });
     await go('/map/china');

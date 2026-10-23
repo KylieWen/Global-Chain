@@ -39,11 +39,13 @@ try {
     await delay(250);
   }
   if (!ready) throw new Error('Browser preview did not become ready');
-  const test = spawn(process.execPath, [resolve(root, 'scripts/verify-browser-smoke.mjs')], {
-    cwd: root, env: { ...process.env, REVIEW_BASE_URL: base, REVIEW_OUTPUT_DIR: output }, windowsHide: true, stdio: 'inherit'
-  });
-  const code = await new Promise((done, reject) => { test.once('error', reject); test.once('exit', done); });
-  if (code !== 0) throw new Error(`Browser smoke failed (${code})`);
+  for (const script of ['verify-browser-smoke.mjs', 'verify-final-experience.mjs', 'verify-navigation-experience.mjs', 'verify-guide-history.mjs']) {
+    const test = spawn(process.execPath, [resolve(root, 'scripts', script)], {
+      cwd: root, env: { ...process.env, REVIEW_BASE_URL: base, REVIEW_OUTPUT_DIR: script === 'verify-browser-smoke.mjs' ? output : resolve(output, script.replace(/^verify-/, '').replace(/\.mjs$/, '')) }, windowsHide: true, stdio: 'inherit'
+    });
+    const code = await new Promise((done, reject) => { test.once('error', reject); test.once('exit', done); });
+    if (code !== 0) throw new Error(`${script} failed (${code})`);
+  }
 } finally {
   if (server.exitCode === null) server.kill();
   await closed;

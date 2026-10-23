@@ -14,8 +14,8 @@ function Test-DemoReady {
 }
 if (Test-DemoReady) {
   if ($Build) { throw "A service already uses port $Port. Stop the known local demo before building; no process was killed." }
-  $home = Invoke-WebRequest -UseBasicParsing "$url/" -TimeoutSec 30
-  if ($home.Content -notmatch 'Global Chain|GlobeChain') { throw "Port $Port belongs to another site; no process was changed." }
+  $homeResponse = Invoke-WebRequest -UseBasicParsing "$url/" -TimeoutSec 30
+  if ($homeResponse.Content -notmatch 'Global Chain|GlobeChain') { throw "Port $Port belongs to another site; no process was changed." }
   Write-Host "The local site is already running: $url/"
   if (-not $NoBrowser) { Start-Process "$url/" }
   return

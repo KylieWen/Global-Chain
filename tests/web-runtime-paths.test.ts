@@ -68,6 +68,9 @@ describe("Web runtime boundary and route helpers", () => {
     expect(researchExportPath(productId)).toBe(
       "/api/products/product%2Fwith%3Freserved%23chars/research-export"
     );
+    expect(researchExportPath(productId, { datasetVersion: "version/old", period: "2023" })).toBe(
+      "/api/products/product%2Fwith%3Freserved%23chars/research-export?datasetVersion=version%2Fold"
+    );
     expect(materialObservationsPath(productId)).toBe(
       "/products/product%2Fwith%3Freserved%23chars/materials"
     );

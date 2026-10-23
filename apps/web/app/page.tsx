@@ -3,8 +3,9 @@ import Link from "next/link";
 import { getQueryService } from "../lib/data";
 import { SiteShell } from "../components/site-shell";
 import { HomeMapPreview } from "../components/home-map-preview";
+import { PersonaHome } from "../components/persona-home";
 import { createMapView } from "../lib/map-view-model";
-import { chinaMapPath, industryPath, mapPath, productPath, supplyChainPath } from "../lib/paths";
+import { chinaMapPath, industryPath, mapPath, productPath, provenancePath, supplyChainPath } from "../lib/paths";
 import demoNavigation from "../../../content/demo-navigation.json";
 export const dynamic = "force-dynamic";
 export default async function HomePage() {
@@ -12,6 +13,7 @@ export default async function HomePage() {
  const mapView = featured ? createMapView(queries,{product:featured.productId,layer:'supply-chain'}) : null;
  const steps = [{n:"01",title:"拆开一件商品",copy:"从成品到部件、材料，看看它由什么组成。",href},{n:"02",title:"沿着供应链走",copy:"跟随生产环节，认识各地的分工。",href:featured?supplyChainPath(featured.productId):"/products"},{n:"03",title:"把世界连起来",copy:"在地图上选一个国家，打开它的贸易账本。",href:"/map"}];
  return <SiteShell><div className="content-column wide-column visitor-home">
+  <PersonaHome provenanceHref={featured ? provenancePath(featured.productId) : "/versions"}/>
   <section className="visitor-hero"><div className="visitor-hero-copy"><p className="eyebrow">从地图，看见全球分工</p><h1>一件商品，<br/>一个相连的世界。</h1><p>沿着世界地图追溯原料与制造，再走进中国的省市和产业环节。</p><div className="visitor-hero-actions"><Link className="button button-primary" href="/map">从世界地图开始 →</Link><Link className="text-link" href={chinaMapPath()}>走进中国供应链 ↗</Link><Link className="text-link" href={industryPath(demoNavigation.industry.productId,demoNavigation.industry.topicId)}>{demoNavigation.industry.label} ↗</Link></div><div className="visitor-hero-facts"><span><strong>{products.length}</strong> 商品</span><span><strong>{countries.length}</strong> 国家与地区</span><Link href="/demo">3 分钟浏览路径 →</Link></div></div>
   {mapView && featured && <HomeMapPreview view={mapView} productId={featured.productId}/>}</section>
   <section className="home-product-strip" aria-label="按商品进入地图">{products.map(product=><Link key={product.productId} href={mapPath({product:product.productId})}><strong>{itemLabel(product.item)}</strong><span>在世界地图上探索 ↗</span></Link>)}</section>

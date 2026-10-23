@@ -1,0 +1,47 @@
+{
+  "defaultPersona": "explorer",
+  "personas": [
+    {
+      "id": "explorer",
+      "label": "公众探索",
+      "symbol": "◎",
+      "summary": "从身边的商品，读懂世界怎样相连",
+      "focus": "先看地图，再拆开一件商品",
+      "navigationOrder": ["maps", "products", "data"],
+      "recommendedHrefs": ["/map", "/products", "/demo"],
+      "recommendations": [
+        { "label": "世界地图", "description": "看原料、制造与国家之间的连接", "href": "/map" },
+        { "label": "商品拆解", "description": "从成品逐层走向部件和材料", "href": "/products" },
+        { "label": "3 分钟浏览", "description": "沿一条准备好的路径认识平台", "href": "/demo" }
+      ]
+    },
+    {
+      "id": "industry",
+      "label": "产业参与者",
+      "symbol": "◇",
+      "summary": "追溯上下游，查材料、设备与企业能力",
+      "focus": "从中国产业环节，继续查上下游",
+      "navigationOrder": ["products", "maps", "data"],
+      "recommendedHrefs": ["/industry", "/map/china", "/trade-guide"],
+      "recommendations": [
+        { "label": "产业上下游", "description": "先看空调与制冷案例的材料、设备和企业官方入口", "href": "/industry" },
+        { "label": "中国产业地图", "description": "按商品、城市和生产环节逐层查看", "href": "/map/china" },
+        { "label": "进出口核验", "description": "查已收录的手续、文件与官方查询入口", "href": "/trade-guide" }
+      ]
+    },
+    {
+      "id": "researcher",
+      "label": "高校研究者",
+      "symbol": "◈",
+      "summary": "对照贸易数据，核验来源、年份与证据",
+      "focus": "从研究问题，追到数据和原始依据",
+      "navigationOrder": ["data", "maps", "products"],
+      "recommendedHrefs": ["/countries", "/versions", "/help"],
+      "recommendations": [
+        { "label": "国家贸易账本", "description": "对照进出口、差额与宏观指标的口径", "href": "/countries" },
+        { "label": "数据版本", "description": "查看发布记录、历史快照与覆盖范围", "href": "/versions" },
+        { "label": "研究依据", "description": "查当前示范商品的来源、方法与资料状态", "destination": "provenance" }
+      ]
+    }
+  ]
+}

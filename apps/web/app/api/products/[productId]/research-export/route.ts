@@ -10,12 +10,13 @@ export async function GET(
   { params }: { params: Promise<{ productId: string }> }
 ) {
   const { productId } = await params;
-  const queries = await getQueryService();
+  const datasetVersion = new URL(request.url).searchParams.get("datasetVersion") || undefined;
+  const queries = await getQueryService(datasetVersion);
   const researchExport = queries.getProductResearchExport(productId);
 
-  if (!researchExport) {
+  if (!researchExport || (datasetVersion && researchExport.release.datasetVersion.version !== datasetVersion)) {
     return Response.json(
-      { error: "not_found", message: "该商品没有可发布的研究快照。" },
+      { error: "not_found", message: "该商品没有所选版本的已发布研究快照。" },
       { status: 404 }
     );
   }
