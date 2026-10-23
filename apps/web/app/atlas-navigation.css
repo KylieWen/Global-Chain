@@ -56,6 +56,8 @@
 .regional-connection.active { stroke:#e8d59b; stroke-width:2.8; opacity:1; }
 .regional-connection.muted { opacity:.2; }
 .regional-node { cursor:pointer; }
+.regional-node-hit { fill:transparent; pointer-events:all; }
+.regional-node circle { pointer-events:none; }
 .regional-node-halo { opacity:.19; stroke:none; }
 .regional-node circle:not(.regional-node-halo) { stroke:#e9f8ec; stroke-width:1; }
 .regional-node.active .regional-node-halo,.regional-node:hover .regional-node-halo { opacity:.45; }

@@ -2,6 +2,7 @@ import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir,readFile,writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { browserResearchExport } from './lib/browser-research-export.mjs';
 
 const base=process.env.REVIEW_BASE_URL??'http://62.171.148.193';
 const output=resolve('output/deploy/live-verification');await mkdir(output,{recursive:true});
@@ -16,8 +17,7 @@ try {
  for(const {productId,datasetVersion} of products){
   for(const path of [`/products/${productId}`,`/products/${productId}/supply-chain`,`/products/${productId}/provenance`,`/map?product=${productId}`,`/map/china?product=${productId}`])await go(path);
   assert.ok(await page.locator('.regional-node').count()>0);
-  const exported=await page.request.get(base+`/api/products/${productId}/research-export`);assert.equal(exported.status(),200);
-  const body=await exported.text();assert.ok(body.includes(datasetVersion));
+  const exported=await browserResearchExport(page,`/api/products/${productId}/research-export`);assert.equal(exported.status,200);assert.equal(exported.datasetVersion,datasetVersion);assert.ok(exported.bytes>0);
   checks.push({productId,datasetVersion,pages:5,export:true});
  }
  await go('/map?product=generic-home-air-conditioner');

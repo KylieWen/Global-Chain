@@ -1,0 +1,32 @@
+[
+  {
+    "id": "dongguan-terminals",
+    "status": 200,
+    "reused": true
+  },
+  {
+    "id": "dongguan-industry",
+    "status": 200,
+    "reused": true
+  },
+  {
+    "id": "tianjin-soy",
+    "status": 200,
+    "reused": true
+  },
+  {
+    "id": "ningbo-knitwear",
+    "status": 200,
+    "reused": true
+  },
+  {
+    "id": "suzhou-drives",
+    "status": 200,
+    "reused": true
+  },
+  {
+    "id": "xinxiang-copper",
+    "status": 200,
+    "reused": true
+  }
+]

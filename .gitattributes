@@ -31,3 +31,4 @@ content/geography/** -text
 apps/web/lib/geo/china-provinces.json -text
 data/raw/review-supplement-2026-10-23/** -text -whitespace
 docs/reviews/2026-10-23-independent-review-original.md -text -whitespace
+data/raw/regional-review-2026-10-23/** -text -whitespace

@@ -21,7 +21,8 @@
     "start": "pnpm --filter @globe-chain/web start",
     "lint": "pnpm --filter @globe-chain/web lint",
     "typecheck": "pnpm --filter @globe-chain/web typecheck && pnpm --filter @globe-chain/contracts typecheck && pnpm --filter @globe-chain/domain typecheck && pnpm --filter @globe-chain/db typecheck",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:browser": "node scripts/run-browser-smoke.mjs"
   },
   "devDependencies": {
     "@globe-chain/contracts": "workspace:*",

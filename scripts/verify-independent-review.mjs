@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {spawn} from 'node:child_process';
+import {browserResearchExport} from './lib/browser-research-export.mjs';
 
 const base=process.env.REVIEW_BASE_URL??'http://127.0.0.1:3000';
 const output=resolve(process.env.REVIEW_OUTPUT_DIR??'output/qa/2026-10-23-independent-review');await mkdir(output,{recursive:true});
@@ -31,7 +32,7 @@ try{
   await page.getByRole('button',{name:'开始查询 →',exact:true}).click();await page.waitForLoadState('networkidle');
   assert.match(await page.locator('.trade-guide-results-heading').innerText(),/1\s*组结果/);
   if(entry.productId!=='generic-smartphone')assert.ok((await page.locator('main').innerText()).includes('中国出口核验导航'));
-  const exported=await page.request.get(base+`/api/products/${entry.productId}/research-export`);assert.equal(exported.status(),200);assert.ok((await exported.text()).includes(entry.datasetVersion));
+  const exported=await browserResearchExport(page,`/api/products/${entry.productId}/research-export`);assert.equal(exported.status,200);assert.equal(exported.datasetVersion,entry.datasetVersion);assert.ok(exported.bytes>0);
  }
  await shot('export-guide');checks.push('Five selectable product export tasks and versioned exports');
  const config=JSON.parse(await readFile('content/data-refresh/review-supplement-2026-10-23.json','utf8'));

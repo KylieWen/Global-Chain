@@ -1,0 +1,206 @@
+{
+  "basePath": "content/geography/china-supply-atlas-2026-10-22.json",
+  "baseSha256": "d1c89fe3019bf010039640498bd7bdfdcc89c0ae5ada6a275a834540bbf6d8d6",
+  "datasetVersion": "china-supply-geography-2026.10.2",
+  "reviewedAt": "2026-10-23T10:32:00.000Z",
+  "outputPath": "content/geography/china-supply-atlas-2026-10-23.json",
+  "sources": [
+    {
+      "id": "regional23-dongguan-terminals",
+      "name": "国家统计局来莞开展驻企调研",
+      "publisher": "东莞市统计局",
+      "url": "https://tjj.dg.gov.cn/gzdt/sgzdt/content/post_4559582.html",
+      "rawPath": "data/raw/regional-review-2026-10-23/dongguan-terminals.html",
+      "sha256": "84f7239809fbd33a45dec980b00c78508bba57ec39c4466fd0771eb162277fa6",
+      "scope": "2026年7月驻企调研支持东莞终端企业的生产角色；不披露具体手机型号或供货路线。"
+    },
+    {
+      "id": "regional23-dongguan-industry",
+      "name": "莞深移动终端产业应用中试基地",
+      "publisher": "东莞市人民政府",
+      "url": "https://www.dg.gov.cn/jjdz/bmdt/content/post_4465945.html",
+      "rawPath": "data/raw/regional-review-2026-10-23/dongguan-industry.html",
+      "sha256": "0c32ad8a7b0d5b36d573da02fede3284ecd4d59bb8146495abad16cb801315f8",
+      "scope": "2025年移动终端产业背景；基地建设不能视为全部项目已经投产。"
+    },
+    {
+      "id": "regional23-ningbo-knitwear",
+      "name": "宁波申洲针织有限公司公开企业简介",
+      "publisher": "宁波申洲针织有限公司（天津工业大学就业平台）",
+      "url": "https://jobs.tiangong.edu.cn/company/index/id/2446.html",
+      "rawPath": "data/raw/regional-review-2026-10-23/ningbo-knitwear.html",
+      "sha256": "6dc7e478d541c3df3a46f9e189ac20914f54b0781c426332ff4339af7a3a345f",
+      "scope": "企业公开简介列明宁波生产基地及服装制造角色；非高校审计，不支持某件T恤的棉含量或特定供货关系。"
+    },
+    {
+      "id": "regional23-tianjin-soy",
+      "name": "天津大豆科技子公司介绍",
+      "publisher": "中垦国邦集团企业官网",
+      "url": "http://www.zkgbgroup.com/about_52.html",
+      "rawPath": "data/raw/regional-review-2026-10-23/tianjin-soy.html",
+      "sha256": "149778eeda776d5e28946d409da15a7f4070b9b638a8f005e1a82c10dbc4ee1a",
+      "scope": "官网列明天津滨海新区的大豆油加工及进口大豆原料；页面未标发布日期，不采用未注明期间的产能数字。"
+    },
+    {
+      "id": "regional23-suzhou-drives",
+      "name": "BAFANG 公司及产品简介",
+      "publisher": "八方电气（苏州）股份有限公司",
+      "url": "https://www.bafang-e.com/en/home",
+      "rawPath": "data/raw/regional-review-2026-10-23/suzhou-drives.html",
+      "sha256": "a1389d1fa99d2794b7e590517fa53ed192fb172a9913291478a17feca7d3821d",
+      "scope": "官网列明电助力驱动系统和苏州研发制造中心；不推定特定整车客户或中国电动自行车合规型号。"
+    },
+    {
+      "id": "regional23-xinxiang-copper",
+      "name": "新乡金龙制冷铜管现场参访记录",
+      "publisher": "河南科技学院经济与管理学院",
+      "url": "https://www.hist.edu.cn/info/2651/261941.htm",
+      "rawPath": "data/raw/regional-review-2026-10-23/xinxiang-copper.html",
+      "sha256": "5ee0715ef97e5564f73ffdac9df48deeadbd2cfe1b6c339124ffbdc716c0ec9c",
+      "scope": "2019年现场参访支持制冷铜管工艺与区域角色；不作为2026年产量、当前客户或实时供货证明。"
+    }
+  ],
+  "places": [
+    {
+      "id": "dongguan",
+      "name": "东莞",
+      "provinceCode": "440000",
+      "cityCode": 441900,
+      "coordinateSourceId": "datav-440000"
+    },
+    {
+      "id": "suzhou",
+      "name": "苏州",
+      "provinceCode": "320000",
+      "cityCode": 320500,
+      "coordinateSourceId": "datav-320000"
+    },
+    {
+      "id": "xinxiang",
+      "name": "新乡",
+      "provinceCode": "410000",
+      "cityCode": 410700,
+      "coordinateSourceId": "datav-410000"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "phone-dg",
+      "productId": "generic-smartphone",
+      "placeId": "dongguan",
+      "stage": "manufacturing",
+      "label": "智能终端制造",
+      "description": "从东莞的移动终端产业与企业车间调研，观察终端制造环节。",
+      "sourceIds": [
+        "regional23-dongguan-terminals",
+        "regional23-dongguan-industry"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2026-01-01",
+        "end": "2026-12-31",
+        "label": "2026年资料"
+      }
+    },
+    {
+      "id": "cotton-nb",
+      "productId": "generic-cotton-tshirt",
+      "placeId": "ningbo",
+      "stage": "manufacturing",
+      "label": "针织服装生产",
+      "description": "以宁波公开生产基地为例，观察针织服装制造与面料配套环节。",
+      "sourceIds": [
+        "regional23-ningbo-knitwear"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-23",
+        "end": "2026-10-23",
+        "label": "2026-10-23官网快照；页面未标发布日期"
+      }
+    },
+    {
+      "id": "soy-tj",
+      "productId": "generic-soybean-oil",
+      "placeId": "tianjin",
+      "stage": "manufacturing",
+      "label": "进口大豆与油脂加工",
+      "description": "天津滨海的沿海加工案例：进口大豆进入大豆油、豆粕等产品加工环节。",
+      "sourceIds": [
+        "regional23-tianjin-soy"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-23",
+        "end": "2026-10-23",
+        "label": "2026-10-23官网快照；页面未标发布日期"
+      }
+    },
+    {
+      "id": "ebike-sz",
+      "productId": "generic-electric-bicycle",
+      "placeId": "suzhou",
+      "stage": "component",
+      "label": "电助力电机与驱动系统",
+      "description": "苏州研发制造中心提供电助力电机与驱动系统，进入整车部件配套视角。",
+      "sourceIds": [
+        "regional23-suzhou-drives"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-23",
+        "end": "2026-10-23",
+        "label": "2026-10-23官网快照；页面未标发布日期"
+      }
+    },
+    {
+      "id": "ac-xx",
+      "productId": "generic-home-air-conditioner",
+      "placeId": "xinxiang",
+      "stage": "material",
+      "label": "制冷铜管制造",
+      "description": "从新乡的制冷铜管现场参访记录，观察熔铸、成型与拉拔工艺。",
+      "sourceIds": [
+        "regional23-xinxiang-copper"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2019-01-01",
+        "end": "2019-12-31",
+        "label": "2019年资料"
+      }
+    }
+  ],
+  "connectionPeriod": {
+    "granularity": "snapshot",
+    "start": "2026-10-23",
+    "end": "2026-10-23",
+    "label": "2026-10-23代表性区域关系整理"
+  },
+  "connections": [
+    {
+      "id": "regional23-phone",
+      "from": "phone-sz",
+      "to": "phone-dg",
+      "label": "部件配套 → 终端制造"
+    },
+    {
+      "id": "regional23-cotton",
+      "from": "cotton-sx",
+      "to": "cotton-nb",
+      "label": "面料加工 → 针织服装"
+    },
+    {
+      "id": "regional23-ebike",
+      "from": "ebike-sz",
+      "to": "ebike-wx",
+      "label": "电助力部件 → 整车制造"
+    },
+    {
+      "id": "regional23-ac",
+      "from": "ac-xx",
+      "to": "ac-zh",
+      "label": "制冷铜管 → 空调整机"
+    }
+  ]
+}

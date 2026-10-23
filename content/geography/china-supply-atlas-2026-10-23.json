@@ -1,0 +1,1179 @@
+{
+  "schemaVersion": "regional-supply-atlas.v1",
+  "datasetVersion": "china-supply-geography-2026.10.2",
+  "reviewedAt": "2026-10-23T10:32:00.000Z",
+  "regionEntityId": "country-cn",
+  "sources": [
+    {
+      "id": "datav-100000",
+      "name": "中国省级边界与南海诸岛线",
+      "publisher": "阿里云 DataV.GeoAtlas",
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json",
+      "retrievedAt": "2026-10-22T12:19:55.341Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/100000_full.json",
+      "sha256": "99adfeded5223848bbe37a0a12f8023e11ee12161c7800521c27db42fdeac275",
+      "scope": "保留原始边界；城市中心仅作区域示意点，非工厂地址。"
+    },
+    {
+      "id": "datav-440000",
+      "name": "城市参考位置",
+      "publisher": "阿里云 DataV.GeoAtlas",
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/440000_full.json",
+      "retrievedAt": "2026-10-22T12:27:22.1364138Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/440000_full.json",
+      "sha256": "209ad617a296b154c4fd0828180b2a9ab2b270044990ab34e72a344ce913c8c7",
+      "scope": "保留原始边界；城市中心仅作区域示意点，非工厂地址。"
+    },
+    {
+      "id": "datav-410000",
+      "name": "城市参考位置",
+      "publisher": "阿里云 DataV.GeoAtlas",
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/410000_full.json",
+      "retrievedAt": "2026-10-22T12:27:22.6979257Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/410000_full.json",
+      "sha256": "34119256db754324763c8484122d71524818c9cec974207bd27a9aafe2d8ad63",
+      "scope": "保留原始边界；城市中心仅作区域示意点，非工厂地址。"
+    },
+    {
+      "id": "datav-650000",
+      "name": "城市参考位置",
+      "publisher": "阿里云 DataV.GeoAtlas",
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/650000_full.json",
+      "retrievedAt": "2026-10-22T12:27:22.6828373Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/650000_full.json",
+      "sha256": "587b5069eddcad4b5a2f784380351f756f0ba955211721091b85a6528ae74745",
+      "scope": "保留原始边界；城市中心仅作区域示意点，非工厂地址。"
+    },
+    {
+      "id": "datav-330000",
+      "name": "城市参考位置",
+      "publisher": "阿里云 DataV.GeoAtlas",
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/330000_full.json",
+      "retrievedAt": "2026-10-22T12:27:22.7301446Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/330000_full.json",
+      "sha256": "f87241d47687264861aa619b8dc37ffeb61a2be5d6018a8c01ec0ce0acb5cb38",
+      "scope": "保留原始边界；城市中心仅作区域示意点，非工厂地址。"
+    },
+    {
+      "id": "datav-230000",
+      "name": "城市参考位置",
+      "publisher": "阿里云 DataV.GeoAtlas",
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/230000_full.json",
+      "retrievedAt": "2026-10-22T12:27:22.9089000Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/230000_full.json",
+      "sha256": "f8d3bdbee4068811237efd23fe349a4c6e3bc99334079f9746f19e7df5ea4854",
+      "scope": "保留原始边界；城市中心仅作区域示意点，非工厂地址。"
+    },
+    {
+      "id": "datav-320000",
+      "name": "城市参考位置",
+      "publisher": "阿里云 DataV.GeoAtlas",
+      "url": "https://geo.datav.aliyun.com/areas_v3/bound/320000_full.json",
+      "retrievedAt": "2026-10-22T12:27:22.8982347Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/320000_full.json",
+      "sha256": "6af17f07a3c83bad7d4d552efdd7f59ba8f7574363d1a686f59bc1d0f91733e7",
+      "scope": "保留原始边界；城市中心仅作区域示意点，非工厂地址。"
+    },
+    {
+      "id": "sz-terminals",
+      "name": "深圳智能终端产业集群行动计划",
+      "publisher": "深圳市发展和改革委员会",
+      "url": "https://fgw.sz.gov.cn/gkmlpt/content/10/10289/mpost_10289350.html",
+      "retrievedAt": "2026-10-22T12:27:20.7702388Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/sz-terminals.html",
+      "sha256": "bf2c6b8577f16e0e29c654f4978a714ace3738e384fd9c14981e32e3d1779a25",
+      "scope": "深圳的智能终端研发、部件与整机产业角色；不是2026年产量。"
+    },
+    {
+      "id": "zz-assembly",
+      "name": "富士康新事业总部及研发中心项目开工",
+      "publisher": "郑州市人民政府",
+      "url": "https://www.zhengzhou.gov.cn/news1/9104847.jhtml",
+      "retrievedAt": "2026-10-22T12:27:20.7895307Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/zz-assembly.html",
+      "sha256": "6ae1af40cad01f10efbc23afacdc2df83b0895c63817bc3324d8af9a3e63ec3e",
+      "scope": "郑州智能终端生产基地角色；不证明深圳向郑州供货。"
+    },
+    {
+      "id": "xj-cotton",
+      "name": "新疆纺织服装产业发展新闻发布会",
+      "publisher": "新疆维吾尔自治区人民政府",
+      "url": "https://www.xinjiang.gov.cn/xinjiang/xwfb/202509/c2e0f1113cde479296fd4a8d7663016a.shtml",
+      "retrievedAt": "2026-10-22T12:27:20.9091642Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/xj-cotton.html",
+      "sha256": "d6399de53c580c0e3e86d0d5ff3e456ab5703838bc2dc870d95731d363cba497",
+      "scope": "棉花与纺织产业、阿克苏等产业集聚区；不是特定T恤的产地证明。"
+    },
+    {
+      "id": "sx-textiles",
+      "name": "绍兴纺织产业高质量发展现场会",
+      "publisher": "绍兴市柯桥区会展部门",
+      "url": "https://wz.kq.gov.cn/art/2024/6/7/art_1613601_58944865.html",
+      "retrievedAt": "2026-10-22T12:28:05.2332685Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/sx-textiles.html",
+      "sha256": "8b62ca2a176f4fa34d0be61fae7355bd32a66e4041189edc3e18843ea80d93c4",
+      "scope": "柯桥纺织、印染与服装产业角色，覆盖纺织品大类。"
+    },
+    {
+      "id": "gz-apparel",
+      "name": "番禺时尚产业发展行动方案",
+      "publisher": "广州市番禺区人民政府",
+      "url": "https://www.panyu.gov.cn/gzpykgsx/gkmlpt/content/9/9604/post_9604237.html",
+      "retrievedAt": "2026-10-22T12:27:21.8533820Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/gz-apparel.html",
+      "sha256": "49a1858d13854d7604f834e43d7297970a2785dd2bd0c7933cca66113351d56b",
+      "scope": "番禺纺织服装集群；不是某件棉质T恤的工厂路线。"
+    },
+    {
+      "id": "heihe-soy",
+      "name": "稳粮稳豆强举措",
+      "publisher": "黑河市人民政府",
+      "url": "https://www.heihe.gov.cn/hhs/c100749/202502/c11_321021.shtml",
+      "retrievedAt": "2026-10-22T12:27:21.4568436Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/heihe-soy.html",
+      "sha256": "c8bea7eb6fdc1157d5dd3dda78e45c16fb34ca873b2a79ea95f1ebb6d6fa8895",
+      "scope": "黑河大豆种植角色；不推断全部原料都用于榨油。"
+    },
+    {
+      "id": "harbin-oil",
+      "name": "九三食品公司概况",
+      "publisher": "九三食品股份有限公司",
+      "url": "https://www.93food.com/index.php?lanmu=14&p=touzi",
+      "retrievedAt": "2026-10-22T12:27:21.1195159Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/harbin-oil.html",
+      "sha256": "15d7b6c025452f9d25aed9b6a6a53c03a7aa9db5a9f4217aede75741728d0ece",
+      "scope": "哈尔滨大豆精深加工与食用油能力的官网快照，不验证实际采购来源。"
+    },
+    {
+      "id": "tj-ebike",
+      "name": "电动自行车产业链上下游交流活动",
+      "publisher": "天津市工业和信息化局",
+      "url": "https://www.tj.gov.cn/sy/zwdt/bmdt/202608/t20260804_7346875.html",
+      "retrievedAt": "2026-10-22T12:27:21.8238615Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/tj-ebike.html",
+      "sha256": "02bbf70c38a2644e53e117b834e9945de7401772a5b0fc7653214f61eb48c8c0",
+      "scope": "天津整车、零部件与制造配套；参加同场活动不等于已建立供货关系。"
+    },
+    {
+      "id": "wx-ebike",
+      "name": "锡山电动车产业发展推进会",
+      "publisher": "无锡市锡山区人民政府",
+      "url": "https://www.jsxishan.gov.cn/doc/2026/03/24/4749606.shtml",
+      "retrievedAt": "2026-10-22T12:27:21.4121260Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/wx-ebike.html",
+      "sha256": "060c7fb38caf5b20fb380c46052555480a165fa1dc6ccadfd216cb3d57b6c76d",
+      "scope": "锡山电动车产业集群角色，包含电动两轮车大类。"
+    },
+    {
+      "id": "jt-tube",
+      "name": "金田铜管产品与企业资料",
+      "publisher": "宁波金田铜管有限公司",
+      "url": "https://www.jtcopper.com/branch/tong-guan",
+      "retrievedAt": "2026-10-22T12:27:22.5241560Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/jt-tube.html",
+      "sha256": "9ff5606e2490adec8bf462e161e0e4f34c17619a11e252f70d1910502e651ae1",
+      "scope": "铜管能力与宁波机构位置；不代表向某空调企业实际供货。"
+    },
+    {
+      "id": "gmcc-compressor",
+      "name": "GMCC联系信息",
+      "publisher": "GMCC / Welling",
+      "url": "https://www.gmcc-welling.com/cn/About-us/join-us",
+      "retrievedAt": "2026-10-22T12:27:22.3068397Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/gmcc-compressor.html",
+      "sha256": "7ffd1263519404be002fa052e8d4d41948f436912afd877766f51a0d7f143dc5",
+      "scope": "佛山顺德公开机构地址，压缩机能力沿用当前产业网络中的独立来源。"
+    },
+    {
+      "id": "gree-assembly",
+      "name": "格力公司概况",
+      "publisher": "珠海格力电器股份有限公司",
+      "url": "https://global.gree.com/channels/113.html",
+      "retrievedAt": "2026-10-22T12:28:06.0484028Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/gree-assembly.html",
+      "sha256": "5b6ac384ec7a47416eae8ce3172f80031aa4e7107a448f8fbe648a2358f4c100",
+      "scope": "珠海公开机构位置，空调能力沿用当前产业网络的独立来源。"
+    },
+    {
+      "id": "tn-profile",
+      "name": "天能公司简介",
+      "publisher": "天能控股集团",
+      "url": "https://www.tianneng.com/about-us/company-overview/profile",
+      "retrievedAt": "2026-10-22T12:31:35.5751556Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/tn-profile.html",
+      "sha256": "edf5a51d202a6a3b0610f1f0ee82ee7e647284720ad1f8dcc2e1f590b5397c69",
+      "scope": "电动助力车电池能力及长兴的企业机构位置；不代表具体整车客户。"
+    },
+    {
+      "id": "tn-contact",
+      "name": "天能联系地址",
+      "publisher": "天能控股集团",
+      "url": "https://www.tianneng.com/about-us/contact-us",
+      "retrievedAt": "2026-10-22T12:31:35.8540361Z",
+      "rawPath": "data/raw/china-atlas-2026-10-22/tn-contact.html",
+      "sha256": "b213fbac5b271243ebb449b365995864ebeae46f74918edc34f0582ba5597db0",
+      "scope": "长兴公开机构位置；城市参考点并非工厂坐标。"
+    },
+    {
+      "id": "regional23-dongguan-terminals",
+      "name": "国家统计局来莞开展驻企调研",
+      "publisher": "东莞市统计局",
+      "url": "https://tjj.dg.gov.cn/gzdt/sgzdt/content/post_4559582.html",
+      "rawPath": "data/raw/regional-review-2026-10-23/dongguan-terminals.html",
+      "sha256": "84f7239809fbd33a45dec980b00c78508bba57ec39c4466fd0771eb162277fa6",
+      "scope": "2026年7月驻企调研支持东莞终端企业的生产角色；不披露具体手机型号或供货路线。",
+      "retrievedAt": "2026-10-23T10:25:55.489Z"
+    },
+    {
+      "id": "regional23-dongguan-industry",
+      "name": "莞深移动终端产业应用中试基地",
+      "publisher": "东莞市人民政府",
+      "url": "https://www.dg.gov.cn/jjdz/bmdt/content/post_4465945.html",
+      "rawPath": "data/raw/regional-review-2026-10-23/dongguan-industry.html",
+      "sha256": "0c32ad8a7b0d5b36d573da02fede3284ecd4d59bb8146495abad16cb801315f8",
+      "scope": "2025年移动终端产业背景；基地建设不能视为全部项目已经投产。",
+      "retrievedAt": "2026-10-23T10:29:37.160Z"
+    },
+    {
+      "id": "regional23-ningbo-knitwear",
+      "name": "宁波申洲针织有限公司公开企业简介",
+      "publisher": "宁波申洲针织有限公司（天津工业大学就业平台）",
+      "url": "https://jobs.tiangong.edu.cn/company/index/id/2446.html",
+      "rawPath": "data/raw/regional-review-2026-10-23/ningbo-knitwear.html",
+      "sha256": "6dc7e478d541c3df3a46f9e189ac20914f54b0781c426332ff4339af7a3a345f",
+      "scope": "企业公开简介列明宁波生产基地及服装制造角色；非高校审计，不支持某件T恤的棉含量或特定供货关系。",
+      "retrievedAt": "2026-10-23T10:28:45.994Z"
+    },
+    {
+      "id": "regional23-tianjin-soy",
+      "name": "天津大豆科技子公司介绍",
+      "publisher": "中垦国邦集团企业官网",
+      "url": "http://www.zkgbgroup.com/about_52.html",
+      "rawPath": "data/raw/regional-review-2026-10-23/tianjin-soy.html",
+      "sha256": "149778eeda776d5e28946d409da15a7f4070b9b638a8f005e1a82c10dbc4ee1a",
+      "scope": "官网列明天津滨海新区的大豆油加工及进口大豆原料；页面未标发布日期，不采用未注明期间的产能数字。",
+      "retrievedAt": "2026-10-23T10:28:45.761Z"
+    },
+    {
+      "id": "regional23-suzhou-drives",
+      "name": "BAFANG 公司及产品简介",
+      "publisher": "八方电气（苏州）股份有限公司",
+      "url": "https://www.bafang-e.com/en/home",
+      "rawPath": "data/raw/regional-review-2026-10-23/suzhou-drives.html",
+      "sha256": "a1389d1fa99d2794b7e590517fa53ed192fb172a9913291478a17feca7d3821d",
+      "scope": "官网列明电助力驱动系统和苏州研发制造中心；不推定特定整车客户或中国电动自行车合规型号。",
+      "retrievedAt": "2026-10-23T10:25:58.298Z"
+    },
+    {
+      "id": "regional23-xinxiang-copper",
+      "name": "新乡金龙制冷铜管现场参访记录",
+      "publisher": "河南科技学院经济与管理学院",
+      "url": "https://www.hist.edu.cn/info/2651/261941.htm",
+      "rawPath": "data/raw/regional-review-2026-10-23/xinxiang-copper.html",
+      "sha256": "5ee0715ef97e5564f73ffdac9df48deeadbd2cfe1b6c339124ffbdc716c0ec9c",
+      "scope": "2019年现场参访支持制冷铜管工艺与区域角色；不作为2026年产量、当前客户或实时供货证明。",
+      "retrievedAt": "2026-10-23T10:25:58.464Z"
+    }
+  ],
+  "places": [
+    {
+      "id": "shenzhen",
+      "name": "深圳",
+      "provinceCode": "440000",
+      "coordinates": [
+        114.09,
+        22.55
+      ],
+      "coordinateMethod": "approximate_city_anchor",
+      "coordinateSourceId": "datav-440000"
+    },
+    {
+      "id": "zhengzhou",
+      "name": "郑州",
+      "provinceCode": "410000",
+      "coordinates": [
+        113.67,
+        34.76
+      ],
+      "coordinateMethod": "approximate_city_anchor",
+      "coordinateSourceId": "datav-410000"
+    },
+    {
+      "id": "aksu",
+      "name": "阿克苏",
+      "provinceCode": "650000",
+      "coordinates": [
+        80.27,
+        41.17
+      ],
+      "coordinateMethod": "approximate_city_anchor",
+      "coordinateSourceId": "datav-650000"
+    },
+    {
+      "id": "shaoxing",
+      "name": "绍兴·柯桥",
+      "provinceCode": "330000",
+      "coordinates": [
+        120.58,
+        30
+      ],
+      "coordinateMethod": "approximate_city_anchor",
+      "coordinateSourceId": "datav-330000"
+    },
+    {
+      "id": "guangzhou",
+      "name": "广州·番禺",
+      "provinceCode": "440000",
+      "coordinates": [
+        113.28,
+        23.13
+      ],
+      "coordinateMethod": "approximate_city_anchor",
+      "coordinateSourceId": "datav-440000"
+    },
+    {
+      "id": "heihe",
+      "name": "黑河",
+      "provinceCode": "230000",
+      "coordinates": [
+        127.5,
+        50.25
+      ],
+      "coordinateMethod": "approximate_city_anchor",
+      "coordinateSourceId": "datav-230000"
+    },
+    {
+      "id": "harbin",
+      "name": "哈尔滨",
+      "provinceCode": "230000",
+      "coordinates": [
+        126.64,
+        45.76
+      ],
+      "coordinateMethod": "approximate_city_anchor",
+      "coordinateSourceId": "datav-230000"
+    },
+    {
+      "id": "tianjin",
+      "name": "天津",
+      "provinceCode": "120000",
+      "coordinates": [
+        117.19,
+        39.13
+      ],
+      "coordinateMethod": "approximate_city_anchor",
+      "coordinateSourceId": "datav-100000"
+    },
+    {
+      "id": "wuxi",
+      "name": "无锡·锡山",
+      "provinceCode": "320000",
+      "coordinates": [
+        120.3,
+        31.57
+      ],
+      "coordinateMethod": "approximate_city_anchor",
+      "coordinateSourceId": "datav-320000"
+    },
+    {
+      "id": "huzhou",
+      "name": "湖州·长兴",
+      "provinceCode": "330000",
+      "coordinates": [
+        120.1,
+        30.87
+      ],
+      "coordinateMethod": "approximate_city_anchor",
+      "coordinateSourceId": "datav-330000"
+    },
+    {
+      "id": "ningbo",
+      "name": "宁波",
+      "provinceCode": "330000",
+      "coordinates": [
+        121.55,
+        29.87
+      ],
+      "coordinateMethod": "approximate_city_anchor",
+      "coordinateSourceId": "datav-330000"
+    },
+    {
+      "id": "foshan",
+      "name": "佛山·顺德",
+      "provinceCode": "440000",
+      "coordinates": [
+        113.12,
+        23.03
+      ],
+      "coordinateMethod": "approximate_city_anchor",
+      "coordinateSourceId": "datav-440000"
+    },
+    {
+      "id": "zhuhai",
+      "name": "珠海",
+      "provinceCode": "440000",
+      "coordinates": [
+        113.55,
+        22.22
+      ],
+      "coordinateMethod": "approximate_city_anchor",
+      "coordinateSourceId": "datav-440000"
+    },
+    {
+      "id": "dongguan",
+      "name": "东莞",
+      "provinceCode": "440000",
+      "coordinateSourceId": "datav-440000",
+      "coordinates": [
+        113.75,
+        23.05
+      ],
+      "coordinateMethod": "approximate_city_anchor"
+    },
+    {
+      "id": "suzhou",
+      "name": "苏州",
+      "provinceCode": "320000",
+      "coordinateSourceId": "datav-320000",
+      "coordinates": [
+        120.62,
+        31.3
+      ],
+      "coordinateMethod": "approximate_city_anchor"
+    },
+    {
+      "id": "xinxiang",
+      "name": "新乡",
+      "provinceCode": "410000",
+      "coordinateSourceId": "datav-410000",
+      "coordinates": [
+        113.88,
+        35.3
+      ],
+      "coordinateMethod": "approximate_city_anchor"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "phone-sz",
+      "productId": "generic-smartphone",
+      "placeId": "shenzhen",
+      "stage": "component",
+      "label": "终端研发与部件配套",
+      "description": "深圳具备智能终端研发、关键部件和整机配套产业。这里展示区域产业能力。",
+      "sourceIds": [
+        "sz-terminals"
+      ],
+      "organizationIds": [],
+      "topicIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2022-01-01",
+        "end": "2022-12-31",
+        "label": "2022年资料"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "id": "phone-zz",
+      "productId": "generic-smartphone",
+      "placeId": "zhengzhou",
+      "stage": "manufacturing",
+      "label": "智能终端生产与组装",
+      "description": "郑州的富士康智能终端生产基地是国内整机生产的代表性区域之一。",
+      "sourceIds": [
+        "zz-assembly"
+      ],
+      "organizationIds": [],
+      "topicIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "label": "2025年资料"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "id": "cotton-aksu",
+      "productId": "generic-cotton-tshirt",
+      "placeId": "aksu",
+      "stage": "material",
+      "label": "棉纺原料与纺纱",
+      "description": "阿克苏是新疆棉纺产业集聚区之一，连接棉花资源与纺纱加工。",
+      "sourceIds": [
+        "xj-cotton"
+      ],
+      "organizationIds": [],
+      "topicIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "label": "2025年资料"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "id": "cotton-sx",
+      "productId": "generic-cotton-tshirt",
+      "placeId": "shaoxing",
+      "stage": "component",
+      "label": "纺织面料与染整",
+      "description": "柯桥拥有织造、印染和面料流通等产业环节，资料覆盖纺织品大类。",
+      "sourceIds": [
+        "sx-textiles"
+      ],
+      "organizationIds": [],
+      "topicIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "label": "2024年资料"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "id": "cotton-gz",
+      "productId": "generic-cotton-tshirt",
+      "placeId": "guangzhou",
+      "stage": "manufacturing",
+      "label": "服装加工与产业配套",
+      "description": "广州番禺的纺织服装集群可用于理解成衣制造环节，不对应特定品牌T恤。",
+      "sourceIds": [
+        "gz-apparel"
+      ],
+      "organizationIds": [],
+      "topicIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2024-01-01",
+        "end": "2024-12-31",
+        "label": "2024年资料"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "id": "soy-heihe",
+      "productId": "generic-soybean-oil",
+      "placeId": "heihe",
+      "stage": "material",
+      "label": "大豆种植",
+      "description": "黑河的大豆种植构成国产大豆原料的一条研究起点。国产豆与进口豆路径分别理解。",
+      "sourceIds": [
+        "heihe-soy"
+      ],
+      "organizationIds": [],
+      "topicIds": [],
+      "period": {
+        "granularity": "annual",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "label": "2025年资料"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "id": "soy-harbin",
+      "productId": "generic-soybean-oil",
+      "placeId": "harbin",
+      "stage": "manufacturing",
+      "label": "大豆加工与食用油",
+      "description": "九三食品公开资料展示哈尔滨的大豆深加工和成品油能力；这里不认定其具体采购地。",
+      "sourceIds": [
+        "harbin-oil"
+      ],
+      "organizationIds": [],
+      "topicIds": [],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22整理；各原始资料年份见来源"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "id": "ebike-hz",
+      "productId": "generic-electric-bicycle",
+      "placeId": "huzhou",
+      "stage": "component",
+      "label": "电动助力车电池",
+      "description": "长兴的天能公开电动助力车电池业务。点位为湖州城市参考位置。",
+      "sourceIds": [
+        "tn-profile",
+        "tn-contact"
+      ],
+      "organizationIds": [],
+      "topicIds": [],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22整理；各原始资料年份见来源"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "id": "ebike-tj",
+      "productId": "generic-electric-bicycle",
+      "placeId": "tianjin",
+      "stage": "manufacturing",
+      "label": "整车与零部件配套",
+      "description": "天津的电动自行车产业包括整车生产、零部件和检测配套。",
+      "sourceIds": [
+        "tj-ebike"
+      ],
+      "organizationIds": [],
+      "topicIds": [],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22整理；各原始资料年份见来源"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "id": "ebike-wx",
+      "productId": "generic-electric-bicycle",
+      "placeId": "wuxi",
+      "stage": "manufacturing",
+      "label": "电动两轮车制造",
+      "description": "锡山具有电动两轮车产业集群，涵盖电动自行车及相关大类。",
+      "sourceIds": [
+        "wx-ebike"
+      ],
+      "organizationIds": [],
+      "topicIds": [],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22整理；各原始资料年份见来源"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "id": "ac-nb",
+      "productId": "generic-home-air-conditioner",
+      "placeId": "ningbo",
+      "stage": "material",
+      "label": "铜管与换热材料",
+      "description": "宁波金田铜管的公开能力可作为空调铜管材料研究入口。",
+      "organizationIds": [
+        "org-jintian"
+      ],
+      "topicIds": [
+        "copper-tube"
+      ],
+      "sourceIds": [
+        "jt-tube"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22整理；各原始资料年份见来源"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "id": "ac-fs",
+      "productId": "generic-home-air-conditioner",
+      "placeId": "foshan",
+      "stage": "component",
+      "label": "压缩机与机电部件",
+      "description": "美芝的公开联系机构位于佛山顺德，压缩机能力可继续在产业上下游查看。",
+      "organizationIds": [
+        "org-gmcc"
+      ],
+      "topicIds": [
+        "compressor"
+      ],
+      "sourceIds": [
+        "gmcc-compressor"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22整理；各原始资料年份见来源"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "id": "ac-zh",
+      "productId": "generic-home-air-conditioner",
+      "placeId": "zhuhai",
+      "stage": "manufacturing",
+      "label": "家用空调与整机能力",
+      "description": "珠海格力的公开空调业务与官方入口，可继续查看整机及售后环节。",
+      "organizationIds": [
+        "org-gree"
+      ],
+      "topicIds": [
+        "room-air-conditioner"
+      ],
+      "sourceIds": [
+        "gree-assembly"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22整理；各原始资料年份见来源"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "organizationIds": [],
+      "topicIds": [],
+      "id": "phone-dg",
+      "productId": "generic-smartphone",
+      "placeId": "dongguan",
+      "stage": "manufacturing",
+      "label": "智能终端制造",
+      "description": "从东莞的移动终端产业与企业车间调研，观察终端制造环节。",
+      "sourceIds": [
+        "regional23-dongguan-terminals",
+        "regional23-dongguan-industry"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2026-01-01",
+        "end": "2026-12-31",
+        "label": "2026年资料"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "organizationIds": [],
+      "topicIds": [],
+      "id": "cotton-nb",
+      "productId": "generic-cotton-tshirt",
+      "placeId": "ningbo",
+      "stage": "manufacturing",
+      "label": "针织服装生产",
+      "description": "以宁波公开生产基地为例，观察针织服装制造与面料配套环节。",
+      "sourceIds": [
+        "regional23-ningbo-knitwear"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-23",
+        "end": "2026-10-23",
+        "label": "2026-10-23官网快照；页面未标发布日期"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "organizationIds": [],
+      "topicIds": [],
+      "id": "soy-tj",
+      "productId": "generic-soybean-oil",
+      "placeId": "tianjin",
+      "stage": "manufacturing",
+      "label": "进口大豆与油脂加工",
+      "description": "天津滨海的沿海加工案例：进口大豆进入大豆油、豆粕等产品加工环节。",
+      "sourceIds": [
+        "regional23-tianjin-soy"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-23",
+        "end": "2026-10-23",
+        "label": "2026-10-23官网快照；页面未标发布日期"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "organizationIds": [],
+      "topicIds": [],
+      "id": "ebike-sz",
+      "productId": "generic-electric-bicycle",
+      "placeId": "suzhou",
+      "stage": "component",
+      "label": "电助力电机与驱动系统",
+      "description": "苏州研发制造中心提供电助力电机与驱动系统，进入整车部件配套视角。",
+      "sourceIds": [
+        "regional23-suzhou-drives"
+      ],
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-23",
+        "end": "2026-10-23",
+        "label": "2026-10-23官网快照；页面未标发布日期"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    },
+    {
+      "organizationIds": [],
+      "topicIds": [],
+      "id": "ac-xx",
+      "productId": "generic-home-air-conditioner",
+      "placeId": "xinxiang",
+      "stage": "material",
+      "label": "制冷铜管制造",
+      "description": "从新乡的制冷铜管现场参访记录，观察熔铸、成型与拉拔工艺。",
+      "sourceIds": [
+        "regional23-xinxiang-copper"
+      ],
+      "period": {
+        "granularity": "annual",
+        "start": "2019-01-01",
+        "end": "2019-12-31",
+        "label": "2019年资料"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2"
+    }
+  ],
+  "connections": [
+    {
+      "from": "phone-sz",
+      "to": "phone-zz",
+      "label": "部件配套 → 整机生产",
+      "id": "cn-route-1",
+      "description": "按生产环节组织的代表性区域连接；两端资料分别支持区域角色，不证明这两地或企业间的实际供货、运输路线或交易金额。",
+      "evidenceLevel": "representative",
+      "value": null,
+      "valueDataStatus": "unknown",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22整理；各原始资料年份见来源"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2",
+      "sourceIds": [
+        "sz-terminals",
+        "zz-assembly"
+      ]
+    },
+    {
+      "from": "cotton-aksu",
+      "to": "cotton-sx",
+      "label": "棉纺原料 → 面料加工",
+      "id": "cn-route-2",
+      "description": "按生产环节组织的代表性区域连接；两端资料分别支持区域角色，不证明这两地或企业间的实际供货、运输路线或交易金额。",
+      "evidenceLevel": "representative",
+      "value": null,
+      "valueDataStatus": "unknown",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22整理；各原始资料年份见来源"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2",
+      "sourceIds": [
+        "xj-cotton",
+        "sx-textiles"
+      ]
+    },
+    {
+      "from": "cotton-sx",
+      "to": "cotton-gz",
+      "label": "面料 → 成衣加工",
+      "id": "cn-route-3",
+      "description": "按生产环节组织的代表性区域连接；两端资料分别支持区域角色，不证明这两地或企业间的实际供货、运输路线或交易金额。",
+      "evidenceLevel": "representative",
+      "value": null,
+      "valueDataStatus": "unknown",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22整理；各原始资料年份见来源"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2",
+      "sourceIds": [
+        "sx-textiles",
+        "gz-apparel"
+      ]
+    },
+    {
+      "from": "soy-heihe",
+      "to": "soy-harbin",
+      "label": "国产大豆 → 食用油加工",
+      "id": "cn-route-4",
+      "description": "按生产环节组织的代表性区域连接；两端资料分别支持区域角色，不证明这两地或企业间的实际供货、运输路线或交易金额。",
+      "evidenceLevel": "representative",
+      "value": null,
+      "valueDataStatus": "unknown",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22整理；各原始资料年份见来源"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2",
+      "sourceIds": [
+        "heihe-soy",
+        "harbin-oil"
+      ]
+    },
+    {
+      "from": "ebike-hz",
+      "to": "ebike-tj",
+      "label": "动力电池 → 整车环节",
+      "id": "cn-route-5",
+      "description": "按生产环节组织的代表性区域连接；两端资料分别支持区域角色，不证明这两地或企业间的实际供货、运输路线或交易金额。",
+      "evidenceLevel": "representative",
+      "value": null,
+      "valueDataStatus": "unknown",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22整理；各原始资料年份见来源"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2",
+      "sourceIds": [
+        "tn-profile",
+        "tn-contact",
+        "tj-ebike"
+      ]
+    },
+    {
+      "from": "ebike-hz",
+      "to": "ebike-wx",
+      "label": "动力电池 → 整车环节",
+      "id": "cn-route-6",
+      "description": "按生产环节组织的代表性区域连接；两端资料分别支持区域角色，不证明这两地或企业间的实际供货、运输路线或交易金额。",
+      "evidenceLevel": "representative",
+      "value": null,
+      "valueDataStatus": "unknown",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22整理；各原始资料年份见来源"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2",
+      "sourceIds": [
+        "tn-profile",
+        "tn-contact",
+        "wx-ebike"
+      ]
+    },
+    {
+      "from": "ac-nb",
+      "to": "ac-zh",
+      "label": "换热材料 → 空调整机",
+      "id": "cn-route-7",
+      "description": "按生产环节组织的代表性区域连接；两端资料分别支持区域角色，不证明这两地或企业间的实际供货、运输路线或交易金额。",
+      "evidenceLevel": "representative",
+      "value": null,
+      "valueDataStatus": "unknown",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22整理；各原始资料年份见来源"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2",
+      "sourceIds": [
+        "jt-tube",
+        "gree-assembly"
+      ]
+    },
+    {
+      "from": "ac-fs",
+      "to": "ac-zh",
+      "label": "压缩机 → 空调整机",
+      "id": "cn-route-8",
+      "description": "按生产环节组织的代表性区域连接；两端资料分别支持区域角色，不证明这两地或企业间的实际供货、运输路线或交易金额。",
+      "evidenceLevel": "representative",
+      "value": null,
+      "valueDataStatus": "unknown",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-22",
+        "end": "2026-10-22",
+        "label": "2026-10-22整理；各原始资料年份见来源"
+      },
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2",
+      "sourceIds": [
+        "gmcc-compressor",
+        "gree-assembly"
+      ]
+    },
+    {
+      "id": "regional23-phone",
+      "from": "phone-sz",
+      "to": "phone-dg",
+      "label": "部件配套 → 终端制造",
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-23",
+        "end": "2026-10-23",
+        "label": "2026-10-23代表性区域关系整理"
+      },
+      "description": "按环节组织的代表性区域联系；资料分别支持两端产业角色，未核验具体企业间供货或运输。",
+      "sourceIds": [
+        "sz-terminals",
+        "regional23-dongguan-terminals",
+        "regional23-dongguan-industry"
+      ],
+      "evidenceLevel": "representative",
+      "value": null,
+      "valueDataStatus": "unknown"
+    },
+    {
+      "id": "regional23-cotton",
+      "from": "cotton-sx",
+      "to": "cotton-nb",
+      "label": "面料加工 → 针织服装",
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-23",
+        "end": "2026-10-23",
+        "label": "2026-10-23代表性区域关系整理"
+      },
+      "description": "按环节组织的代表性区域联系；资料分别支持两端产业角色，未核验具体企业间供货或运输。",
+      "sourceIds": [
+        "sx-textiles",
+        "regional23-ningbo-knitwear"
+      ],
+      "evidenceLevel": "representative",
+      "value": null,
+      "valueDataStatus": "unknown"
+    },
+    {
+      "id": "regional23-ebike",
+      "from": "ebike-sz",
+      "to": "ebike-wx",
+      "label": "电助力部件 → 整车制造",
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-23",
+        "end": "2026-10-23",
+        "label": "2026-10-23代表性区域关系整理"
+      },
+      "description": "按环节组织的代表性区域联系；资料分别支持两端产业角色，未核验具体企业间供货或运输。",
+      "sourceIds": [
+        "regional23-suzhou-drives",
+        "wx-ebike"
+      ],
+      "evidenceLevel": "representative",
+      "value": null,
+      "valueDataStatus": "unknown"
+    },
+    {
+      "id": "regional23-ac",
+      "from": "ac-xx",
+      "to": "ac-zh",
+      "label": "制冷铜管 → 空调整机",
+      "unit": "not_applicable",
+      "method": "curated",
+      "dataStatus": "observed",
+      "datasetVersion": "china-supply-geography-2026.10.2",
+      "period": {
+        "granularity": "snapshot",
+        "start": "2026-10-23",
+        "end": "2026-10-23",
+        "label": "2026-10-23代表性区域关系整理"
+      },
+      "description": "按环节组织的代表性区域联系；资料分别支持两端产业角色，未核验具体企业间供货或运输。",
+      "sourceIds": [
+        "regional23-xinxiang-copper",
+        "gree-assembly"
+      ],
+      "evidenceLevel": "representative",
+      "value": null,
+      "valueDataStatus": "unknown"
+    }
+  ]
+}
