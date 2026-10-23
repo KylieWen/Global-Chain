@@ -1,5 +1,16 @@
 # GlobeChain 持续开发恢复入口
 
+## 最新完成与恢复点（2026-10-24 03:07，遵循用户原始目标）
+
+- 用户最新澄清：上一段AI代写接续若冲突，以用户先前原始要求及判断为准。已恢复持续产品优化、Claude反馈/数据方向及原已授权的服务器同步；旧“本轮不得部署/下一步仅交付包”不再约束执行。12%/3%保护与今天08:00截止保留；唯一主监测，触线只收尾，不扩新任务。
+- 已完成应用修复`d3d81996e8149c4f7b3b7c98ee5cc6d7a9a67879`：中国地图省份/环节/节点以URL为准，修复同商品导航清URL却残留旧筛选/详情；保留Back/Forward、分享与刷新。最终本地build含lint/type通过，区域相关2文件8测试通过，真实浏览器导航回归通过、pageErrors=[]，截图已目视。证据output/qa/2026-10-24-china-navigation-local/。
+- 服务器同步进行中，不能称已上线：已上传d3d81996e814源码包，1,755,766字节、SHA256 e000d0181e98f65b5b27d63a9b2ca1d266094e5a88bccc287dc1f4d4aabbcf0d；本地36fixture及远端sha256一致。/opt/globechain/releases/d3d81996e814冻结安装、Linux生产构建成功，BUILD_ID Xi9Z8kL6HQVDZjWBJUhlr；日志/opt/globechain/build-d3d81996e814.log。27候选检查通过，报告/opt/globechain/candidate-d3d8199-check.json。
+- 候选真实地图导航通过（output/qa/2026-10-24-navigation-candidate/）；随后元数据浏览器脚本中断，错误诊断自身遇到Execution context was destroyed，SSH也已断开，未完成整套元数据补验，原因未定位。仅为验收脚本将远端页面等待调为90秒、诊断失败不掩盖原异常；node --check/diffcheck通过，未重跑并假称通过。不能把中断当已确认产品缺陷或验收成功。
+- 12%保护触线后已停止新增工作并重新登录收尾：候选globechain-candidate-d3d8199已停止且inactive；正式current仍/opt/globechain/releases/b021953e105b，globechain/nginx均active，未切换、未重启整机、所有SSH/转发及SCP已关闭。成功构建保留，恢复时不要重复上传/安装/构建。
+- 下一步（06:59接续优先）：先真实读取额度/最新用户消息，核对Git与服务器现状→重启现有d3d候选→用独立稳定SSH -N转发13001到3001，运行修正后的metadata脚本定位原异常并完成桌面/手机/完整当前与历史导出→通过后原子切换current、只重启globechain并做公网metadata/中国导航/五商品地图导出验收→停候选、保留b021回退、关闭SSH→准备匹配最终实际本地/线上版本的新V4反馈包。V3仍固定2ed7770/线上b021，是历史包，不能当d3d最新版直接交付；不覆盖旧包、不发送Claude、不写凭据、不改不可变release。
+- heartbeat global-chain已通过app更新为原始目标（允许已授权服务器同步，非仅本地/仅交付），ACTIVE、每5小时，下一次今天06:59:29 Asia/Singapore；截止08:00或本轮授权任务含早晨交付真正完成后删除，不归档。额度最后触线快照五小时used88%、剩12%，周used14%、剩86%，ordinaryUsageAllowed=true，恢复必须重读。未重复通过的266全测；保留其他聊天未提交历史记录和个人物料。
+
+
 ## 最新完成/接续状态（2026-10-24，本地元数据收口与12%保护）
 
 - 已完成：账本、来源与证据详情中的字段/方法/状态中文显示，已观测状态不再空白；修复桌面长证据标题、手机账本长查询串和来源列表的横向溢出；原始ID、来源、质量JSON和导出契约保留。应用提交`2ed777031e344a714e66fbf31d8c87d515459c63`，此批仅本地，服务器仍`b021953`，没有部署。

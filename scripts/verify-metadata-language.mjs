@@ -45,7 +45,7 @@ const errors = [];
 const checks = [];
 page.on('pageerror', error => errors.push(error.message));
 const go = async path => {
-  const response = await page.goto(base + path, { waitUntil: 'networkidle' });
+  const response = await page.goto(base + path, { waitUntil: 'networkidle', timeout: 90000 });
   assert.equal(response.status(), 200, path);
 };
 const openDetails = async details => {
@@ -177,14 +177,14 @@ try {
   const overflow = await page.evaluate(() => [...document.querySelectorAll('main *')].map(element => {
     const rect = element.getBoundingClientRect();
     return { tag: element.tagName, className: element.className, id: element.id, left: rect.left, right: rect.right, width: rect.width, text: element.textContent.trim().slice(0, 140), leaf: element.children.length === 0 };
-  }).filter(item => item.right > document.documentElement.clientWidth + 1 || item.left < -1).sort((a, b) => Number(b.leaf) - Number(a.leaf) || b.right - a.right).slice(0, 35));
+  }).filter(item => item.right > document.documentElement.clientWidth + 1 || item.left < -1).sort((a, b) => Number(b.leaf) - Number(a.leaf) || b.right - a.right).slice(0, 35)).catch(() => []);
   const culprit = await page.evaluate(() => {
     const heading = [...document.querySelectorAll('.evidence-heading')].find(element => element.getBoundingClientRect().right > document.documentElement.clientWidth);
     return heading ? [heading, ...heading.children, heading.parentElement, heading.parentElement.parentElement, heading.parentElement.parentElement.parentElement].map(element => {
       const rect = element.getBoundingClientRect(); const style = getComputedStyle(element);
       return { tag: element.tagName, className: element.className, text: element.textContent.trim().slice(0, 500), left: rect.left, right: rect.right, width: rect.width, display: style.display, minWidth: style.minWidth, overflowWrap: style.overflowWrap, whiteSpace: style.whiteSpace, gridTemplateColumns: style.gridTemplateColumns };
     }) : [];
-  });
+  }).catch(() => []);
   await writeFile(resolve(output, 'failure-details.json'), JSON.stringify({ url: page.url(), error: String(error), checks, overflow, culprit, pageErrors: errors }, null, 2));
   await page.screenshot({ path: resolve(output, 'failure.png'), fullPage: false }).catch(() => {});
   throw error;
