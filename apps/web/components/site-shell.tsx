@@ -10,10 +10,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
     <div className="app-frame">
       <header className="site-header">
         <div className="site-header-inner">
-          <Link className="brand" href="/" aria-label="GlobeChain 首页">
+          <Link className="brand" href="/" aria-label="Global Chain 首页">
             <span className="brand-mark" aria-hidden="true">G</span>
             <span>
-              <strong>GlobeChain</strong>
+              <strong>Global Chain</strong>
               <small>全球商品供应链与贸易可视化</small>
             </span>
           </Link>
@@ -33,7 +33,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       ) : null}
       <main className="main-content">{children}</main>
       <footer className="site-footer">
-        <span>GlobeChain · 全球商品供应链与贸易数据可视化</span>
+        <span>Global Chain · 全球商品供应链与贸易数据可视化</span>
         <Link href="/help">使用帮助与数据说明 ↗</Link>
       </footer>
     </div>

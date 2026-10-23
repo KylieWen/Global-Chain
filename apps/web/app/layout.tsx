@@ -4,7 +4,7 @@ import "./atlas-navigation.css";
 import "./interaction.css";
 
 export const metadata: Metadata = {
-  title: "GlobeChain",
+  title: "Global Chain",
   description: "以可追溯数据阅读全球商品供应链与贸易链路"
 };
 
