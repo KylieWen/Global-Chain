@@ -11,9 +11,14 @@ const context = await browser.newContext({ viewport: { width: 1440, height: 1000
 const page = await context.newPage();
 const errors = [], checks = [];
 page.on('pageerror', error => errors.push(error.message));
+const dismissFirstVisit = async target => {
+  const guide = target.getByRole('dialog', { name: 'Global Chain 新手引导', exact: true });
+  if (await guide.isVisible()) await guide.locator('[data-guide-action="skip"]').click();
+};
 const go = async path => {
   const response = await page.goto(base + path, { waitUntil: 'networkidle' });
   assert.equal(response.status(), 200, path);
+  await dismissFirstVisit(page);
 };
 const noOverflow = async () => assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth), 'No horizontal overflow');
 const key = 'global-chain.audience.v1';
@@ -88,6 +93,7 @@ try {
   const restrictedPage = await restricted.newPage();
   restrictedPage.on('pageerror', error => errors.push(error.message));
   await restrictedPage.goto(base, { waitUntil: 'networkidle' });
+  await dismissFirstVisit(restrictedPage);
   await restrictedPage.getByRole('group', { name: '选择浏览身份' }).getByRole('button', { name: /产业参与者/ }).click();
   await restrictedPage.locator('.persona-home[data-persona="industry"]').waitFor();
   await restrictedPage.locator('.persona-recommendations a').first().click();

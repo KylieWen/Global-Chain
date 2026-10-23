@@ -1,0 +1,42 @@
+{
+  "createdAt": "2026-10-24T07:16:07.049926+08:00",
+  "target": "http://62.171.148.193/",
+  "http": {
+    "status": 200,
+    "finalURL": "http://62.171.148.193/",
+    "expectedBrandPresent": true
+  },
+  "qr": {
+    "version": 3,
+    "errorCorrection": "H",
+    "quietZoneModules": 4,
+    "pngPixels": [
+      2368,
+      2368
+    ],
+    "svgViewBox": "0 0 37 37"
+  },
+  "independentDecoder": "zxing-cpp",
+  "decodedPng": "http://62.171.148.193/",
+  "decodedSvgRasterizedFromWrittenVector": "http://62.171.148.193/",
+  "decodingVerified": true,
+  "generatorVersion": "8.2",
+  "decoderVersion": "3.1.1",
+  "files": [
+    {
+      "path": "output/booth/2026-10-24/global-chain-home-qr.png",
+      "bytes": 23061,
+      "sha256": "0d798d76d436789312fff881b59ce1735013a536c747e35df3470ca73959992d"
+    },
+    {
+      "path": "output/booth/2026-10-24/global-chain-home-qr.svg",
+      "bytes": 23531,
+      "sha256": "05c54e45bb8839c16f9663f5b6d37bb6f52b085842997231839ee9a694abf73d"
+    },
+    {
+      "path": "output/booth/2026-10-24/global-chain-home-print.html",
+      "bytes": 24884,
+      "sha256": "95b65dcd60ab64ab6e4c27f07026be278fa83a979e6c481e1e3bc39b7a70d420"
+    }
+  ]
+}

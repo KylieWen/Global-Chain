@@ -26,6 +26,8 @@ await page.route('**/*', route => {
 const go = async path => {
   const response = await page.goto(base + path, { waitUntil: 'networkidle' });
   assert.equal(response.status(), 200, path);
+  const guide = page.getByRole('dialog', { name: 'Global Chain 新手引导', exact: true });
+  if (await guide.isVisible()) await guide.locator('[data-guide-action="skip"]').click();
 };
 try {
   await go('/');
@@ -34,6 +36,11 @@ try {
   await page.locator('.industry-selected h2').waitFor();
   assert.ok((await page.locator('.industry-selected h2').innerText()).trim());
   checks.push('Home industry entry opens its configured topic');
+  await go('/demo');
+  assert.equal(new URL(page.url()).pathname, '/', 'The retired demo URL opens the actual homepage');
+  assert.equal(await page.locator('nav[aria-label="主导航"] a[href="/demo"]').count(), 0);
+  assert.ok(await page.locator('[data-guide-action="open"]:visible').count() > 0, 'The actual homepage offers the new visitor guide');
+  checks.push('Retired demo redirects to the homepage guide without a separate navigation item');
 
   for (const { productId, datasetVersion } of manifest.fixtures) {
     await go(`/products/${productId}`);
@@ -94,7 +101,8 @@ try {
     await go('/map/china');
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
     await page.locator('.nav-group > summary').filter({ hasText: '数据与指南' }).click();
-    await page.getByRole('navigation', { name: '主导航' }).getByRole('link', { name: /3 分钟演示/ }).waitFor();
+    await page.getByRole('navigation', { name: '主导航' }).getByRole('link', { name: /数据版本/ }).waitFor();
+    assert.equal(await page.locator('nav[aria-label="主导航"] a[href="/demo"]').count(), 0);
     await page.screenshot({ path: resolve(output, `menu-${width}.png`), fullPage: true });
     checks.push({ width, menu: true, noOverflow: true });
   }

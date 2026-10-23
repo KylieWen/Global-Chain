@@ -8,11 +8,11 @@
       "summary": "从身边的商品，读懂世界怎样相连",
       "focus": "先看地图，再拆开一件商品",
       "navigationOrder": ["maps", "products", "data"],
-      "recommendedHrefs": ["/map", "/products", "/demo"],
+      "recommendedHrefs": ["/map", "/products", "/map/china"],
       "recommendations": [
         { "label": "世界地图", "description": "看原料、制造与国家之间的连接", "href": "/map" },
         { "label": "商品拆解", "description": "从成品逐层走向部件和材料", "href": "/products" },
-        { "label": "3 分钟浏览", "description": "沿一条准备好的路径认识平台", "href": "/demo" }
+        { "label": "中国供应链", "description": "从省市走进商品的材料与制造环节", "href": "/map/china" }
       ]
     },
     {

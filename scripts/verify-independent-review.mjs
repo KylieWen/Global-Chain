@@ -11,7 +11,7 @@ const manifest=JSON.parse(await readFile('data/published/manifest.json','utf8'))
 const browser=await chromium.launch({channel:process.env.CI?undefined:'chrome'});
 const page=await browser.newPage({viewport:{width:1440,height:1000}});const errors=[];const checks=[];
 page.on('pageerror',error=>errors.push(error.message));
-const go=async path=>{const response=await page.goto(base+path,{waitUntil:'networkidle',timeout:60000});assert.equal(response.status(),200,path)};
+const go=async path=>{const response=await page.goto(base+path,{waitUntil:'networkidle',timeout:60000});assert.equal(response.status(),200,path);const guide=page.getByRole('dialog',{name:'Global Chain 新手引导',exact:true});if(await guide.isVisible())await guide.locator('[data-guide-action="skip"]').click()};
 const shot=async name=>page.screenshot({path:resolve(output,name+'.png'),fullPage:true});
 try{
  await go('/map?product=generic-smartphone');assert.equal(await page.locator('.map-country-shape.selected').count(),0);
@@ -23,7 +23,7 @@ try{
  assert.ok(!(await page.locator('.industry-flow-columns').innerText()).includes('企业产品与业务咨询'));
  assert.ok(await page.locator('.industry-company-grid a[href^="https://www.snowman.cn"]').count()>0);await shot('industry-condenser');
  await page.locator('.industry-flow-columns a').filter({hasText:'蒸发式冷凝盘管'}).click();await page.getByRole('heading',{name:'蒸发式冷凝盘管',exact:true}).waitFor();await page.waitForLoadState('networkidle');assert.ok((await page.locator('.industry-flow-columns').innerText()).includes('不锈钢盘管管材'));checks.push('Home -> condenser -> coil -> material; sourced ice application and enterprise links');
- await go('/demo');assert.ok(await page.locator('main a[href*="industry?topic=evaporative-condenser"]').count()>0);await shot('demo');
+ await go('/demo');assert.equal(new URL(page.url()).pathname,'/');assert.ok(await page.locator('main a[href*="industry?topic=evaporative-condenser"]').count()>0);assert.ok(await page.locator('[data-guide-action="open"]:visible').count()>0);assert.equal(await page.locator('nav[aria-label="主导航"] a[href="/demo"]').count(),0);await shot('retired-demo-home');checks.push('Retired demo opens the real homepage and its visitor guide');
  for(const keyword of ['封装','锂','蒸发冷','冷排','GMCC']){await go('/search?q='+encodeURIComponent(keyword));assert.equal(await page.getByRole('heading',{name:'换个关键词试试'}).count(),0,keyword)}checks.push('Node/material search and industry aliases work');
  for(const entry of manifest.fixtures){
   await go('/trade-guide');await page.locator('select[name="product"]').selectOption(entry.productId);
@@ -47,10 +47,10 @@ try{
  await go('/map?product=generic-smartphone');
  await page.route('**/map?**',async route=>{if(route.request().headers().rsc==='1')await new Promise(resolve=>setTimeout(resolve,700));await route.continue()});
  const began=Date.now();await page.getByRole('combobox',{name:'选择国家',exact:true}).selectOption('country-cn');await page.getByRole('status').filter({hasText:'正在更新地图'}).waitFor();checks.push({pendingObservedMs:Date.now()-began});await shot('pending');await page.waitForURL(url=>url.searchParams.get('country')==='country-cn');await page.locator('.atlas-workspace[aria-busy="false"]').waitFor();await page.unrouteAll({behavior:'wait'});
- for(const width of [1024,390]){await page.setViewportSize({width,height:900});await go('/map/china');assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth));await page.locator('.nav-group > summary').filter({hasText:'数据与指南'}).click();await page.getByRole('navigation',{name:'主导航'}).getByRole('link',{name:/3 分钟演示/}).waitFor();await shot(`menu-${width}`)}
+ for(const width of [1024,390]){await page.setViewportSize({width,height:900});await go('/map/china');assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth));await page.locator('.nav-group > summary').filter({hasText:'数据与指南'}).click();await page.getByRole('navigation',{name:'主导航'}).getByRole('link',{name:/数据版本/}).waitFor();assert.equal(await page.locator('nav[aria-label="主导航"] a[href="/demo"]').count(),0);await shot(`menu-${width}`)}
  if(['127.0.0.1','localhost'].includes(new URL(base).hostname)){
   const outside=[];await page.route('**/*',route=>{const host=new URL(route.request().url()).hostname;if(!['127.0.0.1','localhost'].includes(host)){outside.push(route.request().url());return route.abort()}return route.continue()});
-  for(const path of ['/demo','/map','/map/china','/products/generic-home-air-conditioner/industry?topic=evaporative-condenser','/trade-guide'])await go(path);
+  for(const path of ['/','/map','/map/china','/products/generic-home-air-conditioner/industry?topic=evaporative-condenser','/trade-guide'])await go(path);
   assert.deepEqual(outside,[]);await page.unrouteAll({behavior:'wait'});checks.push('Local walkthrough uses no external network resources');
   const faulty=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3003'],{cwd:resolve('apps/web'),env:{...process.env,GLOBECHAIN_DATA_MANIFEST:resolve(output,'intentionally-missing-manifest.json')},stdio:'ignore',windowsHide:true});
   const errorPage=await browser.newPage();try{
