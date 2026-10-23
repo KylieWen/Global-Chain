@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-smartphone",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-smartphone-2026.5",
+  "generatedAt": "2026-10-23",
+  "fixtureSha256": "241e6cd39146deb07836a21fb5f4ef1bf06a28b745b9adccd8321f2c27b576d4",
+  "release": {
+    "productId": "generic-smartphone",
+    "datasetVersion": "globe-chain-smartphone-2026.5",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2026.5",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "independent-review-2026-10-23",
+    "contentSource": "content/data-refresh/review-supplement-2026-10-23.json",
+    "contentPathBase": "repository-root",
+    "contentSha256": "4a0d3270bf6ebb6026e61b2c3ae162a353f2ae4884ea80dbdc68bf142276960e",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "3c697c74c8cefb8b9fc9490c9e4062a9857b7bd049d0483ac229c0e113239c04"
+  }
+}

@@ -21,3 +21,8 @@
   .step-summary { grid-template-columns:2.2rem minmax(0,1fr) auto; gap:.5rem; padding:.8rem; }
   .step-card-collapsible > .step-body { padding:0 .8rem .8rem; }
 }
+/* Announce server-backed navigation without moving the map controls. */
+.atlas-workspace { position:relative; }
+.map-pending { position:absolute; z-index:8; top:.5rem; right:.5rem; padding:.45rem .8rem; border:1px solid #b7d4d2; border-radius:.5rem; background:#f0faf8; color:#006d72; box-shadow:0 3px 12px #102a4320; }
+.page-loading { display:flex; align-items:center; gap:.7rem; padding:2rem 0; color:#36516e; }
+.loading-dot { width:.65rem; height:.65rem; border-radius:50%; background:#007d83; }

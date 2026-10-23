@@ -42,6 +42,9 @@ export default async function IndustryPage({params,searchParams}: {params:Promis
   const mismatches = contextMismatch({datasetVersion:requestedContext.datasetVersion},{period:view.network.period.label,datasetVersion:view.datasetVersion.version});
   const context = {...requestedContext,...(mismatches.length ? {datasetVersion:view.datasetVersion.version} : {})};
   const groups = [...new Set(view.matchingTopics.map(topic => topic.kind))];
+  const upstream=view.upstream.filter(connection=>connection.relation.kind!=="sold_through");
+  const downstream=view.downstream.filter(connection=>connection.relation.kind!=="sold_through");
+  const channelLinks=[...view.upstream,...view.downstream].filter(connection=>connection.relation.kind==="sold_through");
   const companyMap = new Map([...view.participants,...view.adjacentParticipants].map(company => [company.id,company]));
   return <SiteShell><div className="content-column wide-column industry-page">
     <Breadcrumbs items={[{label:"商品目录",href:"/products"},{label:itemLabel(view.product),href:productPath(productId,context)},{label:"产业上下游"}]}/>
@@ -70,9 +73,10 @@ export default async function IndustryPage({params,searchParams}: {params:Promis
       <div className="industry-focus" id="industry-focus">
         <section className="industry-selected"><TopicMark kind={view.selectedTopic.kind}/><div><p className="eyebrow">{kindLabels[view.selectedTopic.kind]}</p><h2>{view.selectedTopic.label}</h2><p>{view.selectedTopic.description}</p><Sources sources={view.selectedTopic.sources} period={view.selectedTopic.period}/>{view.relatedProcesses.length > 0 && <div className="industry-process-links">{view.relatedProcesses.map(chain => <Link className="button button-secondary" key={chain.id} href={manufacturingProcessPath(productId,chain.id,context)}>查看制造工序与投入产出 →</Link>)}</div>}</div></section>
         <div className="industry-flow-columns">
-          {view.upstream.length > 0 && <section><h2>上游投入与设备 <span>{view.upstream.length}</span></h2><div className="industry-connection-list">{view.upstream.map(connection => <ConnectionCard key={connection.relation.id} connection={connection} productId={productId} context={context}/>)}</div></section>}
-          {view.downstream.length > 0 && <section><h2>下游加工与应用 <span>{view.downstream.length}</span></h2><div className="industry-connection-list">{view.downstream.map(connection => <ConnectionCard key={connection.relation.id} connection={connection} productId={productId} context={context}/>)}</div></section>}
+          {upstream.length > 0 && <section><h2>上游投入与设备 <span>{upstream.length}</span></h2><div className="industry-connection-list">{upstream.map(connection => <ConnectionCard key={connection.relation.id} connection={connection} productId={productId} context={context}/>)}</div></section>}
+          {downstream.length > 0 && <section><h2>下游加工与应用 <span>{downstream.length}</span></h2><div className="industry-connection-list">{downstream.map(connection => <ConnectionCard key={connection.relation.id} connection={connection} productId={productId} context={context}/>)}</div></section>}
         </div>
+        {channelLinks.length>0 && <section className="industry-relevant"><h2>渠道与官方入口</h2><div className="industry-connection-list">{channelLinks.map(connection=><ConnectionCard key={connection.relation.id} connection={connection} productId={productId} context={context}/>)}</div></section>}
         {companyMap.size > 0 && <section className="industry-relevant"><div className="section-heading"><div><p className="eyebrow">从公开产品找到企业</p><h2>{view.participants.length ? "这个环节的企业" : "相邻环节的企业"}</h2></div><a href="#industry-directory">查看全部企业 ↓</a></div><div className="industry-company-grid">{(view.participants.length ? view.participants : view.adjacentParticipants).map(organization => <ParticipantCard key={organization.id} organization={organization} productId={productId} context={context}/>)}</div></section>}
       </div>
     </div>

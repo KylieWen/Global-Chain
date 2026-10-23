@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "review-supplement.v1",
+  "batchId": "independent-review-2026-10-23",
+  "reviewedAt": "2026-10-23",
+  "records": [
+    {
+      "productId": "generic-smartphone",
+      "basePath": "data/published/releases/generic-smartphone/globe-chain-smartphone-2026.4/fixture.json",
+      "baseSha256": "7b2ef71d8bc7d70dc69a9063030d1be540af65e7d8acbac54958f2b71fb93394",
+      "datasetVersion": "globe-chain-smartphone-2026.5",
+      "datasetVersionId": "dataset-smartphone-published-2026-5"
+    },
+    {
+      "productId": "generic-cotton-tshirt",
+      "basePath": "data/published/releases/generic-cotton-tshirt/globe-chain-cotton-tshirt-2026.1/fixture.json",
+      "baseSha256": "00f9236c410da5fe15dc7459233b7fcc386849cf42b9921dd34851f971109f13",
+      "datasetVersion": "globe-chain-cotton-tshirt-2026.2",
+      "datasetVersionId": "dataset-cotton-tshirt-2026-2"
+    },
+    {
+      "productId": "generic-soybean-oil",
+      "basePath": "data/published/releases/generic-soybean-oil/globe-chain-soybean-oil-2026.1/fixture.json",
+      "baseSha256": "3ae8cbf93dc75ec312316f4a8d2da5fb3daa83dd7186b6cd29d40ef0277edd05",
+      "datasetVersion": "globe-chain-soybean-oil-2026.2",
+      "datasetVersionId": "dataset-soybean-oil-2026-2"
+    },
+    {
+      "productId": "generic-electric-bicycle",
+      "basePath": "data/published/releases/generic-electric-bicycle/globe-chain-electric-bicycle-2026.1/fixture.json",
+      "baseSha256": "c5dbace1c2420f6a137afed745dc6859911dc7df907e6e40a2ef990cf1a92f21",
+      "datasetVersion": "globe-chain-electric-bicycle-2026.2",
+      "datasetVersionId": "dataset-electric-bicycle-2026-2"
+    },
+    {
+      "productId": "generic-home-air-conditioner",
+      "basePath": "data/published/releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.3/fixture.json",
+      "baseSha256": "6eeae623d9b686fbec7085fb1d1a590cf9103e57400aa3430fa88b8bee039377",
+      "datasetVersion": "globe-chain-home-air-conditioner-2026.4",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-4"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/review-supplement-2026-10-23/wdi-FI.RES.TOTL.CD.json",
+      "sha256": "f478dcbb96702cd887e2c49c2e9d32c0da0b72b238a5907ec07e941e32a4747b"
+    },
+    {
+      "path": "data/raw/review-supplement-2026-10-23/wdi-TM.VAL.MRCH.CD.WT.json",
+      "sha256": "d2e2167e0acd7bddcf3be29f22347372141df45b643e24cf4dab83817c8e7c74"
+    },
+    {
+      "path": "data/raw/review-supplement-2026-10-23/wdi-TX.VAL.MRCH.CD.WT.json",
+      "sha256": "75ed9c1b114339c74a750fb7a881747b000c89f0115b54c51bb28b0552ba3bc8"
+    }
+  ],
+  "topicAliases": {
+    "evaporative-condenser": [
+      "蒸发冷",
+      "蒸发冷却"
+    ],
+    "ice-machine": [
+      "制冰",
+      "制冰系统"
+    ]
+  },
+  "notes": "补充原无宏观指标国家的世界银行最新可用2024/2025观测；贸易差额仅在同期进口与出口均有值时相减。原商品贸易与代表性路线不变。 四商品增加中国出口官方核验导航（部分覆盖），不填未核验税率、许可和强制单证。",
+  "policySources": [
+    {
+      "id": "source-review23-customs-query",
+      "name": "海关政务服务：归类、税率与监管查询",
+      "publisher": "中华人民共和国海关总署",
+      "url": "https://online.customs.gov.cn/ocportal/mySearch/",
+      "retrievedAt": "2026-10-23T04:27:06.544Z",
+      "rawFile": "data/raw/review-supplement-2026-10-23/customs-query.html",
+      "sha256": "d47d98ae262fc6a8b58eb4cc963b4e73df2217cbcffd55ba968ed877db601c64"
+    },
+    {
+      "id": "source-review23-export-tax-query",
+      "name": "如何通过电子税务局查询货物是否属于出口应征税货物",
+      "publisher": "国家税务总局天津市税务局",
+      "url": "https://tianjin.chinatax.gov.cn/nsrxt/11200000000/0500/050011/20250603142736825.shtml",
+      "retrievedAt": "2026-10-23T04:27:06.863Z",
+      "rawFile": "data/raw/review-supplement-2026-10-23/export-tax-query.html",
+      "sha256": "9c1c4c52ee6c8b821545d0c348f2f50f9a3bd5c271c11d0237036c3b363d8be1"
+    }
+  ],
+  "exportGuideProducts": {
+    "generic-cotton-tshirt": "棉质T恤",
+    "generic-soybean-oil": "大豆食用油",
+    "generic-electric-bicycle": "电动自行车",
+    "generic-home-air-conditioner": "家用空调"
+  }
+}

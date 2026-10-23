@@ -1,0 +1,112 @@
+Browser tab: 6, Title: "BAC Evaporative Condensers - Automatic ICE™ Systems", URL: "https://automaticice.com/b-a-c-evaporative-condensers/".
+0 AXWebArea BAC Evaporative Condensers - Automatic ICE™ Systems, URL: automaticice.com/b-a-c-evaporative-condensers/
+	1 container
+		2 content list
+			3 link Description: Skip to primary navigation, Value: automaticice.com/b-a-c-evaporative-condensers/#genesis-nav-primary
+			4 link Description: Skip to main content, Value: automaticice.com/b-a-c-evaporative-condensers/#genesis-content
+			5 link Description: Skip to footer, Value: automaticice.com/b-a-c-evaporative-condensers/#genesis-footer-widgets
+		6 container
+			7 link Description: cropped-AutomaticICE_Logo_number-1.png, Value: automaticice.com/
+			8 text Automatic ICE™ Systems Automated Packaging Systems,Ice Factory Automation,Commercial Ice Machines
+		9 container Description: Main, ID: genesis-nav-primary
+			10 content list menu-smnav1
+				11 link Description: Home, Value: automaticice.com/
+				12 link Description: Store, Value: store.automaticice.com/
+				13 link Description: Products, Value: automaticice.com/products/
+				14 link Description: Services, Value: automaticice.com/services/
+				15 link Description: Knowledge Base, Value: automaticice.com/knowledge-base/
+				16 link Description: Contact, Value: automaticice.com/contact-ais-2/
+		17 container
+			18 container
+				19 text BAC  Evaporative Condensers
+			20 image Description: bac, Help: BAC Evaporative Condensers 1
+			21 link Description: BAC VCA, Value: automaticice.com/wp-content/uploads/2020/04/BAC-VCA.jpg
+			22 text CONTACT A SALES REPRESENTATIVE
+			23 text phone: 
+			24 text (800) 325-3667
+			25 text email: 
+			26 link Description: info@automaticice.com, Value: mailto:info@automaticice.com
+			27 text Automatic ICE™ Systems supplies industry-proven Baltimore Aircoil (BAC) Evaporative Condensers. We properly integrate this reliable equipment line into our high capacity ice manufacturing systems. The evaporative condenser transfers the heat extracted, when making ice, to ambient air. This is accomplished by circulating high pressure refrigerant gas (ammonia or other refrigerants) through a condensing coil which is continuously wetted on the outside by a circulating water system. Air is simultaneously blown upward over the coil causing a small portion of the re-circulated water to evaporate. This evaporation lowers the vapor temperature, thus condensing the refrigerant vapor to liquid. Since the evaporative condenser directly controls the pressure of the system’s high side, it is very important it is sized properly. A 10 PSIG decrease in high side pressure lowers your electrical cost by 4%. Automatic ICE™ Systems has the experience and expertise to size the evaporative condenser properly and to get the most out of your equipment investment.
+		28 container genesis-footer-widgets
+			29 heading Footer, Value: 2
+				30 text Footer
+			31 container text-27
+				32 container
+					33 text Main Office & Warehouse
+					34 text 12976 Maurer Industrial Dr
+					35 text St. Louis, Missouri 63127
+					36 text (800) 325-3667
+					37 text (314) 849-4411
+				38 container
+					39 text International Inquiries
+					40 text Mike Carpenter
+					41 text International Sales Mgr
+					42 text +1 (314) 849-4411
+					43 link Description: mike@automaticice.com, Value: mailto:mike@automaticice.com
+				44 container
+					45 text Northeastern Office
+					46 text Gabriel Thibault
+					47 text (514) 771-9007
+					48 link Description: gabriel@automaticice.com, Value: mailto:gabriel@automaticice.com
+					49 text Don Hutton
+					50 text (514) 212-0388
+					51 link Description: dhutton@automaticice.com, Value: mailto:dhutton@automaticice.com
+					52 text Northeastern Regional Mgrs
+			53 container text-28
+				54 container
+					55 text Central States Office
+					56 text Pat Ard
+					57 text Central States Regional Mgr
+					58 text St. Mary’s, Kansas
+					59 text (608) 547-7039
+					60 link Description: pat@automaticice.com, Value: mailto:pat@automaticice.com
+				61 container
+					62 text Western States Office
+					63 text Mark Beason
+					64 text Western Regional Mgr
+					65 text Clinton, Washington
+					66 text (541) 905-1283
+					67 link Description: mark@automaticice.com, Value: mailto:mark@automaticice.com
+			68 link Description: AIS Privacy Policy, Value: automaticice.com/automatic-ice-systems-privacy-policy/
+			69 container mc_embed_signup_scroll
+				70 text Subscribe to Email Newsletter
+				71 text field (settable) Subscribe to Email Newsletter
+				72 button Subscribe, ID: mc-embedded-subscribe
+			73 container sfsi-widget-2
+				74 heading Please Follow Us!, Value: 3
+					75 text Please Follow Us!
+				76 container
+					77 link Description: 1, Value: facebook.com/automaticicesystems/, ID: sfsiid_facebook_icon
+					78 link Description: 1, Value: instagram.com/automaticicesystems/, ID: sfsiid_instagram_icon
+					79 link Description: 1, Value: youtube.com/commercialice, ID: sfsiid_youtube_icon
+					80 link Description: 1, Value: twitter.com/AutomaticIce, ID: sfsiid_twitter_icon
+					81 link Description: 1, Value: linkedin.com/company/automatic-ice-systems-inc, ID: sfsiid_linkedin_icon
+			82 text Proud Member
+			83 link automaticice.com/wp-content/uploads/2025/01/member.png
+		84 container
+			85 text Copyright © 2026 · Automatic Ice Systems · 
+			86 link Description: Log in, Value: automaticice.com/wp-login.php
+		87 link Description: en English, Value: automaticice.com/b-a-c-evaporative-condensers/#
+		88 container mailmunch-popover-container-1a1670e51cc13db1
+			89 container Description: Popup, ID: mailmunch-popover-frame-1a1670e51cc13db1
+				90 AXWebArea automaticice.com/b-a-c-evaporative-condensers/
+					91 container
+						92 link Value: automaticice.com/b-a-c-evaporative-condensers/#, ID: close-icon
+						93 container u_body
+							94 container u_column_1
+								95 image AIS logo
+								96 text Join Our Newsletter!
+								97 container
+									98 text Signup today to get important AIS news and information in your inbox.
+								99 container
+									100 text field (settable)
+									101 text field (settable)
+									102 text field (settable)
+									103 text field (settable)
+									104 text field (settable)
+									105 text field (settable)
+									106 button Subscribe
+								107 container divider
+					108 link Description: MailMunch, Value: mailmunch.com/forms-popups?utm_source=optin-form&utm_medium=website&utm_campaign=powered-by&r=optin_branding
+
+The focused UI element is 0 AXWebArea BAC Evaporative Condensers - Automatic ICE™ Systems, URL: automaticice.com/b-a-c-evaporative-condensers/

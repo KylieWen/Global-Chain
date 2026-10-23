@@ -1,0 +1,151 @@
+{
+  "schemaVersion": "review-supplement.v1",
+  "batchId": "evaporative-condenser-2026-10-23",
+  "reviewedAt": "2026-10-23",
+  "records": [
+    {
+      "productId": "generic-home-air-conditioner",
+      "basePath": "data/published/releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.4/fixture.json",
+      "baseSha256": "01322abb04c34128356908d5e7787302f32e8073ff8438c3f63ff5687ef6e5fc",
+      "datasetVersion": "globe-chain-home-air-conditioner-2026.5",
+      "datasetVersionId": "dataset-home-air-conditioner-2026-5"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/review-supplement-2026-10-23/wdi-FI.RES.TOTL.CD.json",
+      "sha256": "f478dcbb96702cd887e2c49c2e9d32c0da0b72b238a5907ec07e941e32a4747b"
+    },
+    {
+      "path": "data/raw/review-supplement-2026-10-23/wdi-TM.VAL.MRCH.CD.WT.json",
+      "sha256": "d2e2167e0acd7bddcf3be29f22347372141df45b643e24cf4dab83817c8e7c74"
+    },
+    {
+      "path": "data/raw/review-supplement-2026-10-23/wdi-TX.VAL.MRCH.CD.WT.json",
+      "sha256": "75ed9c1b114339c74a750fb7a881747b000c89f0115b54c51bb28b0552ba3bc8"
+    }
+  ],
+  "topicAliases": {},
+  "notes": "增加蒸发式冷凝器的代表性盘管、循环水泵、风机结构与制冰用途；采用国外公开技术案例说明一般技术联系，不推定中国企业间实际供货。原统计、指南及企业能力记录保留。",
+  "policySources": [],
+  "exportGuideProducts": {},
+  "industryAppend": {
+    "sources": [
+      {
+        "id": "source-review23-evapco-lsc-e",
+        "name": "EVAPCO LSC-E：运行原理与不锈钢盘管选件",
+        "publisher": "EVAPCO, Inc.",
+        "url": "https://www.evapco.com/products/condensers-evaporative/lsc-e-evaporative-condenser?page=0",
+        "retrievedAt": "2026-10-23T04:38:38.139310+00:00",
+        "rawFile": "data/raw/review-supplement-2026-10-23/evapco-lsc-e.html",
+        "sha256": "f6abcd6e6110d64e1280b2390d9077c092ef2794dbf4d9fe7c6a2fc65b59c1c7",
+        "captureMethod": "http-original-bytes"
+      },
+      {
+        "id": "source-review23-automatic-ice-condenser",
+        "name": "制冰系统集成商：蒸发式冷凝器的制冰应用",
+        "publisher": "Automatic ICE Systems",
+        "url": "https://automaticice.com/b-a-c-evaporative-condensers/",
+        "retrievedAt": "2026-10-23T04:39:26.751Z",
+        "rawFile": "data/raw/review-supplement-2026-10-23/automatic-ice-condenser.txt",
+        "sha256": "5d86bd94386276f50db8481ba22dad84b0de4623fb7ba28feae94ad185b51b81",
+        "captureMethod": "browser-accessibility-text"
+      }
+    ],
+    "topics": [
+      {
+        "id": "review23-stainless-coil-tube",
+        "label": "不锈钢盘管管材",
+        "kind": "material",
+        "description": "LSC-E 代表型号可选304或316不锈钢盘管；选材依据实际型号。",
+        "sourceIds": [
+          "source-review23-evapco-lsc-e"
+        ]
+      },
+      {
+        "id": "review23-evaporative-coil",
+        "label": "蒸发式冷凝盘管",
+        "kind": "component",
+        "description": "制冷剂在盘管内流动，管外喷水与空气共同带走热量。",
+        "aliases": [
+          "冷凝盘管",
+          "蒸发冷盘管",
+          "冷排"
+        ],
+        "sourceIds": [
+          "source-review23-evapco-lsc-e"
+        ]
+      },
+      {
+        "id": "review23-water-pump",
+        "label": "蒸发冷凝器循环水泵",
+        "kind": "component",
+        "description": "将集水盘中的冷却水送回布水系统，形成循环。",
+        "sourceIds": [
+          "source-review23-evapco-lsc-e"
+        ]
+      },
+      {
+        "id": "review23-condenser-fan",
+        "label": "蒸发冷凝器离心风机",
+        "kind": "component",
+        "description": "代表型号由离心风机推动空气通过换热盘管。",
+        "sourceIds": [
+          "source-review23-evapco-lsc-e"
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "id": "review23-evap-relation-1",
+        "fromTopicId": "review23-stainless-coil-tube",
+        "toTopicId": "review23-evaporative-coil",
+        "kind": "process_input",
+        "description": "不锈钢管材用于可选不锈钢盘管结构。",
+        "sourceIds": [
+          "source-review23-evapco-lsc-e"
+        ]
+      },
+      {
+        "id": "review23-evap-relation-2",
+        "fromTopicId": "review23-evaporative-coil",
+        "toTopicId": "evaporative-condenser",
+        "kind": "used_in",
+        "description": "代表型号通过冷凝盘管将制冷剂热量传给管外水与空气。",
+        "sourceIds": [
+          "source-review23-evapco-lsc-e"
+        ]
+      },
+      {
+        "id": "review23-evap-relation-3",
+        "fromTopicId": "review23-water-pump",
+        "toTopicId": "evaporative-condenser",
+        "kind": "used_in",
+        "description": "循环水泵为代表结构中的布水回路供水。",
+        "sourceIds": [
+          "source-review23-evapco-lsc-e"
+        ]
+      },
+      {
+        "id": "review23-evap-relation-4",
+        "fromTopicId": "review23-condenser-fan",
+        "toTopicId": "evaporative-condenser",
+        "kind": "used_in",
+        "description": "离心风机驱动代表型号中的空气流动。",
+        "sourceIds": [
+          "source-review23-evapco-lsc-e"
+        ]
+      },
+      {
+        "id": "review23-evap-relation-5",
+        "fromTopicId": "evaporative-condenser",
+        "toTopicId": "ice-machine",
+        "kind": "used_in",
+        "description": "公开制冰系统集成案例使用蒸发式冷凝器排出制冰过程的热量。",
+        "sourceIds": [
+          "source-review23-automatic-ice-condenser"
+        ]
+      }
+    ]
+  }
+}

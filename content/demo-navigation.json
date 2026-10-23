@@ -1,0 +1,18 @@
+{
+  "featuredProductId": "generic-smartphone",
+  "industry": {
+    "productId": "generic-home-air-conditioner",
+    "topicId": "evaporative-condenser",
+    "label": "空调与制冷产业导览",
+    "description": "从蒸发式冷凝器出发，查看盘管、循环水泵、风机、制冰应用与企业官方入口。"
+  },
+  "warmupPaths": [
+    "/",
+    "/map",
+    "/map/china",
+    "/demo",
+    "/products/generic-smartphone",
+    "/products/generic-home-air-conditioner/industry?topic=evaporative-condenser",
+    "/trade-guide"
+  ]
+}

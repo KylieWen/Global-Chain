@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
+import { useEffect, useMemo, useRef, useState, useTransition, type PointerEvent } from "react";
 import { useRouter } from "next/navigation";
 import { geoCentroid, geoEqualEarth, geoGraticule10, geoPath, type GeoPermissibleObjects } from "d3-geo";
 import { feature } from "topojson-client";
 import type { GeometryCollection, Topology } from "topojson-specification";
 import worldAtlas from "world-atlas/countries-110m.json";
+import smallCountries from "../../../content/geography/world-small-country-geometry.json";
 import { ledgerPath, mapPath, nodePath, supplyChainPath, type MapFilters } from "../lib/paths";
 import { useMapWheel } from "./use-map-wheel";
 import type { MapCountry, MapViewModel } from "../lib/map-view-model";
@@ -17,7 +18,8 @@ import { MapRecordDetails, mapEvidenceLabel, mapMappingLabel, mapRecordTitle, ma
 const mapWidth = 1000;
 const mapHeight = 540;
 const atlas = worldAtlas as unknown as Topology<{ countries: GeometryCollection }>;
-const features = feature(atlas, atlas.objects.countries).features;
+const coarseFeatures = feature(atlas, atlas.objects.countries).features;
+const features = [...coarseFeatures, ...(smallCountries.features as unknown as typeof coarseFeatures)];
 const projection = geoEqualEarth().fitExtent([[25, 25], [975, 515]], { type: "Sphere" });
 const pathGenerator = geoPath(projection);
 const coordinate = (value: number) => Number(value.toFixed(3));
@@ -27,6 +29,7 @@ type Props = { view: MapViewModel; filters: MapFilters & { product: string }; pr
 export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: Props) {
   const { countries, records, lines, nodes, items, years, scope, scopeCounts, selectedItemName, relatedMaterials, datasetVersion, hasFocusTradeCoverage } = view;
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const [transform, setTransform] = useState<MapTransform>({ x: 0, y: 0, scale: 1 });
   const [hoveredCountryId, setHoveredCountryId] = useState<string | null>(null);
   const [hoveredRecordId, setHoveredRecordId] = useState<string | null>(null);
@@ -60,7 +63,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   const activeNodes = nodes.filter(node => node.countryId === activeCountry?.id);
   const hasLayerRecords = (country: MapCountry) => isTrade ? country.hasTradeRecords : country.hasRouteNodes;
   const coverageLabel = (country: MapCountry) => hasLayerRecords(country) ? (isTrade ? "有统计" : "参与供应链") : country.hasTradeLedger ? "仅有账本" : "尚未收录";
-  const navigate = (patch: Partial<MapFilters>) => { setUncoveredCountry(null); router.push(mapPath({ ...filters, ...patch }), { scroll: false }); };
+  const navigate = (patch: Partial<MapFilters>) => { setUncoveredCountry(null); startTransition(() => router.push(mapPath({ ...filters, ...patch }), { scroll: false })); };
   const chooseCountry = (country: MapCountry | undefined, name: string, featureKey: string) => {
     if (suppressClick.current) return;
     if (country) navigate({ country: country.id });
@@ -99,7 +102,8 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   };
   const stopDrag = () => { if (drag.current) suppressClick.current = drag.current.moved; drag.current = null; };
 
-  return <section className="country-map-workspace atlas-workspace" aria-label="可交互世界国家地图">
+  return <section className="country-map-workspace atlas-workspace" aria-label="可交互世界国家地图" aria-busy={isPending}>
+    {isPending && <div className="map-pending" role="status" aria-live="polite">正在更新地图…</div>}
     <div className="atlas-compact-filters">
       <label>商品<select aria-label="选择商品" value={filters.product} onChange={event => navigate({ product: event.target.value, focus: undefined, year: undefined, country: undefined, direction: undefined, scope: undefined, datasetVersion: undefined, contentVersion: undefined })}>{products.map(product => <option key={product.id} value={product.id}>{product.name}</option>)}</select></label>
       <label>{isTrade ? "统计对象" : "部件 / 材料"}<select aria-label="选择部件或材料" value={filters.focus === filters.product ? "" : filters.focus ?? ""} onChange={event => navigate({ focus: event.target.value || undefined, year: undefined, country: undefined, scope: undefined })}><option value="">整件商品</option>{items.filter(item => item.id !== filters.product && (!isTrade || item.relatedTradeCount > 0 || item.id === filters.focus)).map(item => <option key={item.id} value={item.id}>{`${"　".repeat(Math.max(0, item.depth - 1))}${item.name}${isTrade && item.directTradeCount === 0 && item.relatedTradeCount > 0 ? " · 相关材料" : ""}`}</option>)}</select></label>

@@ -1,0 +1,361 @@
+{
+  "schemaVersion": "review-supplement-audit.v1",
+  "batchId": "independent-review-2026-10-23",
+  "reviewedAt": "2026-10-23",
+  "base": {
+    "path": "data/published/releases/generic-cotton-tshirt/globe-chain-cotton-tshirt-2026.1/fixture.json",
+    "sha256": "00f9236c410da5fe15dc7459233b7fcc386849cf42b9921dd34851f971109f13"
+  },
+  "inputs": [
+    {
+      "path": "data/raw/review-supplement-2026-10-23/wdi-FI.RES.TOTL.CD.json",
+      "sha256": "f478dcbb96702cd887e2c49c2e9d32c0da0b72b238a5907ec07e941e32a4747b",
+      "url": "https://api.worldbank.org/v2/country/CHN;DEU;USA;SGP;VNM;IND;BGD;BRA/indicator/FI.RES.TOTL.CD?date=2024:2025&format=json&per_page=100",
+      "responseSha256": "8546c112c020cc5df30698753a7cd47a35ed61781ee4165d3a8929aff086f022",
+      "retrievedAt": "2026-10-23T04:19:15.619Z",
+      "lastupdated": "2026-10-08"
+    },
+    {
+      "path": "data/raw/review-supplement-2026-10-23/wdi-TM.VAL.MRCH.CD.WT.json",
+      "sha256": "d2e2167e0acd7bddcf3be29f22347372141df45b643e24cf4dab83817c8e7c74",
+      "url": "https://api.worldbank.org/v2/country/CHN;DEU;USA;SGP;VNM;IND;BGD;BRA/indicator/TM.VAL.MRCH.CD.WT?date=2024:2025&format=json&per_page=100",
+      "responseSha256": "6442aaace9aa6fd495b3c74fd7e7d6994e02697d96503cb96fa45a48b691b3b3",
+      "retrievedAt": "2026-10-23T04:19:15.042Z",
+      "lastupdated": "2026-10-08"
+    },
+    {
+      "path": "data/raw/review-supplement-2026-10-23/wdi-TX.VAL.MRCH.CD.WT.json",
+      "sha256": "75ed9c1b114339c74a750fb7a881747b000c89f0115b54c51bb28b0552ba3bc8",
+      "url": "https://api.worldbank.org/v2/country/CHN;DEU;USA;SGP;VNM;IND;BGD;BRA/indicator/TX.VAL.MRCH.CD.WT?date=2024:2025&format=json&per_page=100",
+      "responseSha256": "92d3b76eebb0f3b065bac6275412ae62dce261aba2a0cddfc007dc6c283e45ae",
+      "retrievedAt": "2026-10-23T04:19:14.389Z",
+      "lastupdated": "2026-10-08"
+    }
+  ],
+  "policyInputs": [
+    {
+      "id": "source-review23-customs-query",
+      "name": "海关政务服务：归类、税率与监管查询",
+      "publisher": "中华人民共和国海关总署",
+      "url": "https://online.customs.gov.cn/ocportal/mySearch/",
+      "retrievedAt": "2026-10-23T04:27:06.544Z",
+      "rawFile": "data/raw/review-supplement-2026-10-23/customs-query.html",
+      "sha256": "d47d98ae262fc6a8b58eb4cc963b4e73df2217cbcffd55ba968ed877db601c64"
+    },
+    {
+      "id": "source-review23-export-tax-query",
+      "name": "如何通过电子税务局查询货物是否属于出口应征税货物",
+      "publisher": "国家税务总局天津市税务局",
+      "url": "https://tianjin.chinatax.gov.cn/nsrxt/11200000000/0500/050011/20250603142736825.shtml",
+      "retrievedAt": "2026-10-23T04:27:06.863Z",
+      "rawFile": "data/raw/review-supplement-2026-10-23/export-tax-query.html",
+      "sha256": "9c1c4c52ee6c8b821545d0c348f2f50f9a3bd5c271c11d0237036c3b363d8be1"
+    }
+  ],
+  "addedMacroIndicators": [
+    {
+      "id": "review23-country-br-TX-VAL-MRCH-CD-WT-2025",
+      "entityId": "country-br",
+      "indicator": "merchandise_exports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "label": "2025"
+      },
+      "value": 348278000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "statisticalConcept": "customs",
+      "sourceId": "source-world-bank-review-20261023",
+      "datasetVersionId": "dataset-cotton-tshirt-2026-2",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI TX.VAL.MRCH.CD.WT; lastupdated=2026-10-08; country=BRA; raw=data/raw/review-supplement-2026-10-23/wdi-TX.VAL.MRCH.CD.WT.json; responseSHA256=92d3b76eebb0f3b065bac6275412ae62dce261aba2a0cddfc007dc6c283e45ae. All-goods national total, not this product's trade. Reserves include gold; not foreign-exchange-only reserves."
+    },
+    {
+      "id": "review23-country-br-TM-VAL-MRCH-CD-WT-2025",
+      "entityId": "country-br",
+      "indicator": "merchandise_imports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "label": "2025"
+      },
+      "value": 293696000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "statisticalConcept": "customs",
+      "sourceId": "source-world-bank-review-20261023",
+      "datasetVersionId": "dataset-cotton-tshirt-2026-2",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI TM.VAL.MRCH.CD.WT; lastupdated=2026-10-08; country=BRA; raw=data/raw/review-supplement-2026-10-23/wdi-TM.VAL.MRCH.CD.WT.json; responseSHA256=6442aaace9aa6fd495b3c74fd7e7d6994e02697d96503cb96fa45a48b691b3b3. All-goods national total, not this product's trade. Reserves include gold; not foreign-exchange-only reserves."
+    },
+    {
+      "id": "review23-country-br-FI-RES-TOTL-CD-2025",
+      "entityId": "country-br",
+      "indicator": "official_reserves_including_gold_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "label": "2025"
+      },
+      "value": 358513128727.455,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "statisticalConcept": "official_reserve",
+      "sourceId": "source-world-bank-review-20261023",
+      "datasetVersionId": "dataset-cotton-tshirt-2026-2",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI FI.RES.TOTL.CD; lastupdated=2026-10-08; country=BRA; raw=data/raw/review-supplement-2026-10-23/wdi-FI.RES.TOTL.CD.json; responseSHA256=8546c112c020cc5df30698753a7cd47a35ed61781ee4165d3a8929aff086f022. All-goods national total, not this product's trade. Reserves include gold; not foreign-exchange-only reserves."
+    },
+    {
+      "id": "review23-country-br-trade-balance-2025",
+      "entityId": "country-br",
+      "indicator": "merchandise_trade_balance_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "label": "2025"
+      },
+      "value": 54582000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "statisticalConcept": "customs",
+      "sourceId": "source-world-bank-review-20261023",
+      "datasetVersionId": "dataset-cotton-tshirt-2026-2",
+      "method": "derived",
+      "dataStatus": "observed",
+      "notes": "Same-country, same-year merchandise exports minus imports; inputs=review23-country-br-TX-VAL-MRCH-CD-WT-2025,review23-country-br-TM-VAL-MRCH-CD-WT-2025. National all-goods balance; not enterprise profit."
+    },
+    {
+      "id": "review23-country-in-TX-VAL-MRCH-CD-WT-2025",
+      "entityId": "country-in",
+      "indicator": "merchandise_exports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "label": "2025"
+      },
+      "value": 445278000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "statisticalConcept": "customs",
+      "sourceId": "source-world-bank-review-20261023",
+      "datasetVersionId": "dataset-cotton-tshirt-2026-2",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI TX.VAL.MRCH.CD.WT; lastupdated=2026-10-08; country=IND; raw=data/raw/review-supplement-2026-10-23/wdi-TX.VAL.MRCH.CD.WT.json; responseSHA256=92d3b76eebb0f3b065bac6275412ae62dce261aba2a0cddfc007dc6c283e45ae. All-goods national total, not this product's trade. Reserves include gold; not foreign-exchange-only reserves."
+    },
+    {
+      "id": "review23-country-in-TM-VAL-MRCH-CD-WT-2025",
+      "entityId": "country-in",
+      "indicator": "merchandise_imports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "label": "2025"
+      },
+      "value": 753481000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "statisticalConcept": "customs",
+      "sourceId": "source-world-bank-review-20261023",
+      "datasetVersionId": "dataset-cotton-tshirt-2026-2",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI TM.VAL.MRCH.CD.WT; lastupdated=2026-10-08; country=IND; raw=data/raw/review-supplement-2026-10-23/wdi-TM.VAL.MRCH.CD.WT.json; responseSHA256=6442aaace9aa6fd495b3c74fd7e7d6994e02697d96503cb96fa45a48b691b3b3. All-goods national total, not this product's trade. Reserves include gold; not foreign-exchange-only reserves."
+    },
+    {
+      "id": "review23-country-in-FI-RES-TOTL-CD-2025",
+      "entityId": "country-in",
+      "indicator": "official_reserves_including_gold_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "label": "2025"
+      },
+      "value": 700073798240.701,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "statisticalConcept": "official_reserve",
+      "sourceId": "source-world-bank-review-20261023",
+      "datasetVersionId": "dataset-cotton-tshirt-2026-2",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI FI.RES.TOTL.CD; lastupdated=2026-10-08; country=IND; raw=data/raw/review-supplement-2026-10-23/wdi-FI.RES.TOTL.CD.json; responseSHA256=8546c112c020cc5df30698753a7cd47a35ed61781ee4165d3a8929aff086f022. All-goods national total, not this product's trade. Reserves include gold; not foreign-exchange-only reserves."
+    },
+    {
+      "id": "review23-country-in-trade-balance-2025",
+      "entityId": "country-in",
+      "indicator": "merchandise_trade_balance_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "label": "2025"
+      },
+      "value": -308203000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "statisticalConcept": "customs",
+      "sourceId": "source-world-bank-review-20261023",
+      "datasetVersionId": "dataset-cotton-tshirt-2026-2",
+      "method": "derived",
+      "dataStatus": "observed",
+      "notes": "Same-country, same-year merchandise exports minus imports; inputs=review23-country-in-TX-VAL-MRCH-CD-WT-2025,review23-country-in-TM-VAL-MRCH-CD-WT-2025. National all-goods balance; not enterprise profit."
+    },
+    {
+      "id": "review23-country-bd-TX-VAL-MRCH-CD-WT-2025",
+      "entityId": "country-bd",
+      "indicator": "merchandise_exports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "label": "2025"
+      },
+      "value": 48167000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "statisticalConcept": "customs",
+      "sourceId": "source-world-bank-review-20261023",
+      "datasetVersionId": "dataset-cotton-tshirt-2026-2",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI TX.VAL.MRCH.CD.WT; lastupdated=2026-10-08; country=BGD; raw=data/raw/review-supplement-2026-10-23/wdi-TX.VAL.MRCH.CD.WT.json; responseSHA256=92d3b76eebb0f3b065bac6275412ae62dce261aba2a0cddfc007dc6c283e45ae. All-goods national total, not this product's trade. Reserves include gold; not foreign-exchange-only reserves."
+    },
+    {
+      "id": "review23-country-bd-TM-VAL-MRCH-CD-WT-2025",
+      "entityId": "country-bd",
+      "indicator": "merchandise_imports_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "label": "2025"
+      },
+      "value": 69373000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "statisticalConcept": "customs",
+      "sourceId": "source-world-bank-review-20261023",
+      "datasetVersionId": "dataset-cotton-tshirt-2026-2",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI TM.VAL.MRCH.CD.WT; lastupdated=2026-10-08; country=BGD; raw=data/raw/review-supplement-2026-10-23/wdi-TM.VAL.MRCH.CD.WT.json; responseSHA256=6442aaace9aa6fd495b3c74fd7e7d6994e02697d96503cb96fa45a48b691b3b3. All-goods national total, not this product's trade. Reserves include gold; not foreign-exchange-only reserves."
+    },
+    {
+      "id": "review23-country-bd-FI-RES-TOTL-CD-2025",
+      "entityId": "country-bd",
+      "indicator": "official_reserves_including_gold_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "label": "2025"
+      },
+      "value": 28562651500.7356,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "statisticalConcept": "official_reserve",
+      "sourceId": "source-world-bank-review-20261023",
+      "datasetVersionId": "dataset-cotton-tshirt-2026-2",
+      "method": "official",
+      "dataStatus": "observed",
+      "notes": "World Bank WDI FI.RES.TOTL.CD; lastupdated=2026-10-08; country=BGD; raw=data/raw/review-supplement-2026-10-23/wdi-FI.RES.TOTL.CD.json; responseSHA256=8546c112c020cc5df30698753a7cd47a35ed61781ee4165d3a8929aff086f022. All-goods national total, not this product's trade. Reserves include gold; not foreign-exchange-only reserves."
+    },
+    {
+      "id": "review23-country-bd-trade-balance-2025",
+      "entityId": "country-bd",
+      "indicator": "merchandise_trade_balance_current_usd",
+      "period": {
+        "granularity": "annual",
+        "start": "2025-01-01",
+        "end": "2025-12-31",
+        "label": "2025"
+      },
+      "value": -21206000000,
+      "quantity": null,
+      "currency": "USD",
+      "unit": "current USD",
+      "statisticalConcept": "customs",
+      "sourceId": "source-world-bank-review-20261023",
+      "datasetVersionId": "dataset-cotton-tshirt-2026-2",
+      "method": "derived",
+      "dataStatus": "observed",
+      "notes": "Same-country, same-year merchandise exports minus imports; inputs=review23-country-bd-TX-VAL-MRCH-CD-WT-2025,review23-country-bd-TM-VAL-MRCH-CD-WT-2025. National all-goods balance; not enterprise profit."
+    }
+  ],
+  "missing": [],
+  "topicAliases": [],
+  "addedGuides": [
+    {
+      "id": "review23-generic-cotton-tshirt-cn-export",
+      "scope": {
+        "jurisdictionEntityId": "country-cn",
+        "direction": "export",
+        "itemId": "generic-cotton-tshirt",
+        "classification": null,
+        "originScope": "unknown",
+        "originEntityId": null,
+        "destinationEntityId": null,
+        "regime": "standard",
+        "period": {
+          "granularity": "monthly",
+          "start": "2026-10-23",
+          "end": "2026-10-23",
+          "label": "2026-10-23 官方入口复核"
+        }
+      },
+      "title": "棉质T恤：中国出口核验导航",
+      "summary": "先确认商品归类，再查监管和税务事项，沿官方入口准备申报。",
+      "coverageStatus": "partial",
+      "reviewStatus": "published",
+      "lastReviewedAt": "2026-10-23",
+      "nextReviewAt": null,
+      "disclaimer": "以官方系统按实际申报条件返回的结果为准。",
+      "period": {
+        "granularity": "monthly",
+        "start": "2026-10-23",
+        "end": "2026-10-23",
+        "label": "2026-10-23 官方入口复核"
+      },
+      "method": "curated",
+      "sourceIds": [
+        "source-review23-customs-query",
+        "source-review23-export-tax-query"
+      ],
+      "evidenceIds": [],
+      "dataStatus": "observed",
+      "datasetVersionId": "dataset-cotton-tshirt-2026-2",
+      "contentVersionId": null,
+      "limitations": [
+        "通用官方核验导航，部分覆盖；完整归类、监管条件与税率需按实际商品、目的地和申报日期查询。"
+      ]
+    }
+  ],
+  "transformations": [
+    "补充原无宏观指标国家的世界银行最新可用2024/2025观测；贸易差额仅在同期进口与出口均有值时相减。原商品贸易与代表性路线不变。 四商品增加中国出口官方核验导航（部分覆盖），不填未核验税率、许可和强制单证。",
+    "Alias terms are search aids; no new technical or commercial relationships are inferred. Existing records only rebind datasetVersionId."
+  ]
+}

@@ -1,14 +1,15 @@
+param([ValidateRange(1024,65535)][int]$Port = 3000)
 $ErrorActionPreference = "Stop"
-
-$projectRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
-$processes = Get-CimInstance Win32_Process | Where-Object {
-  $_.Name -eq "node.exe" -and
-  $_.CommandLine -and
-  $_.CommandLine.IndexOf($projectRoot, [System.StringComparison]::OrdinalIgnoreCase) -ge 0
+$projectRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
+$statePath = Join-Path $projectRoot ".local/demo/server-$Port.json"
+if (-not (Test-Path -LiteralPath $statePath)) { Write-Host "No demo started by this launcher is recorded on port $Port."; return }
+$state = Get-Content -LiteralPath $statePath -Raw -Encoding UTF8 | ConvertFrom-Json
+if ($state.projectRoot -ne $projectRoot -or $state.port -ne $Port) { throw "Demo ownership record does not match; no process was stopped." }
+$server = Get-Process -Id $state.pid -ErrorAction SilentlyContinue
+if ($server) {
+  $started = $server.StartTime.ToUniversalTime().ToString("o")
+  if ($server.ProcessName -ne "node" -or $started -ne $state.startedAt -or $server.Path -ne $state.executable) { throw "The recorded process has changed; no process was stopped." }
+  Stop-Process -Id $server.Id
 }
-
-$processes | ForEach-Object {
-  Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue
-}
-
-Write-Host "GlobeChain local Demo has stopped."
+Remove-Item -LiteralPath $statePath
+Write-Host "Global Chain demo on port $Port has stopped."

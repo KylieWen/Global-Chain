@@ -31,6 +31,7 @@ export default async function SupplyChainNodePage({
   const overview = queries.getProductOverview(productId);
   const node = queries.getSupplyChainNode(productId, nodeId);
   if (!overview || !node) notFound();
+  const hasLedger=queries.listCountries().some(country=>country.entity.id===node.node.entity?.id&&country.ledgerProductIds.includes(productId));
   const contextMismatches = contextMismatch(pageContext, {
     period: node.node.period.label,
     datasetVersion: node.datasetVersion.version,
@@ -54,7 +55,7 @@ export default async function SupplyChainNodePage({
           description="查看这个环节用到什么、产出什么，以及它连接的上下游。"
           actions={(
             <>
-              {node.node.entity ? <Link className="button button-primary" href={ledgerPath(productId, node.node.entity.id, pageContext)}>打开国家账本</Link> : null}
+              {node.node.entity && hasLedger ? <Link className="button button-primary" href={ledgerPath(productId, node.node.entity.id, pageContext)}>打开国家账本</Link> : null}
               <Link className="button button-secondary" href={evidenceGapsPath(productId, pageContext)}>完整证据缺口</Link>
             </>
           )}
@@ -141,7 +142,7 @@ export default async function SupplyChainNodePage({
           <EvidenceGapRegistry gaps={node.evidenceGaps} />
         </details>}
 
-        <section className="hierarchy-next-step"><strong>下一层</strong><span>继续查看相关国家的进出口和贸易伙伴。</span>{node.node.entity ? <Link className="button button-primary" href={ledgerPath(productId, node.node.entity.id, pageContext)}>打开国家账本 →</Link> : <Link className="button button-primary" href={evidenceGapsPath(productId, pageContext)}>打开证据登记册 →</Link>}</section>
+        <section className="hierarchy-next-step"><strong>下一层</strong><span>继续查看相关国家的进出口和贸易伙伴。</span>{node.node.entity && hasLedger ? <Link className="button button-primary" href={ledgerPath(productId, node.node.entity.id, pageContext)}>打开国家账本 →</Link> : <Link className="button button-primary" href={evidenceGapsPath(productId, pageContext)}>打开证据登记册 →</Link>}</section>
       </div>
     </SiteShell>
   );

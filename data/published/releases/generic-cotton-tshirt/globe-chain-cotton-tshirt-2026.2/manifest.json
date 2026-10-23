@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-cotton-tshirt",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-cotton-tshirt-2026.2",
+  "generatedAt": "2026-10-23",
+  "fixtureSha256": "d9acaec45db1a011699f0c22d80fcc36c22d4064880a57c561d004277cd49227",
+  "release": {
+    "productId": "generic-cotton-tshirt",
+    "datasetVersion": "globe-chain-cotton-tshirt-2026.2",
+    "releasePath": "releases/generic-cotton-tshirt/globe-chain-cotton-tshirt-2026.2",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "independent-review-2026-10-23",
+    "contentSource": "content/data-refresh/review-supplement-2026-10-23.json",
+    "contentPathBase": "repository-root",
+    "contentSha256": "4a0d3270bf6ebb6026e61b2c3ae162a353f2ae4884ea80dbdc68bf142276960e",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "7056f712baa10fd1eaa0f069ff8c1eaa84a90faa6562a78d730a476b5e44fbc9"
+  }
+}

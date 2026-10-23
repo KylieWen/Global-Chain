@@ -17,7 +17,7 @@ const officialLink = z.object({
 export const IndustryTopicSchema = z.object({
   id: IdSchema, label: NonEmptyStringSchema,
   kind: z.enum(["material", "component", "process", "equipment", "product", "channel", "service"]),
-  description: NonEmptyStringSchema, itemIds: z.array(IdSchema).optional(), ...fact
+  description: NonEmptyStringSchema, aliases: z.array(NonEmptyStringSchema).optional(), itemIds: z.array(IdSchema).optional(), ...fact
 });
 export const IndustryRelationSchema = z.object({
   id: IdSchema, fromTopicId: IdSchema, toTopicId: IdSchema,

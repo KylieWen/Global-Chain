@@ -3,38 +3,38 @@
   "fixtures": [
     {
       "productId": "generic-smartphone",
-      "path": "releases/generic-smartphone/globe-chain-smartphone-2026.4/fixture.json",
-      "datasetVersion": "globe-chain-smartphone-2026.4",
-      "fixtureSha256": "7b2ef71d8bc7d70dc69a9063030d1be540af65e7d8acbac54958f2b71fb93394"
+      "path": "releases/generic-smartphone/globe-chain-smartphone-2026.5/fixture.json",
+      "datasetVersion": "globe-chain-smartphone-2026.5",
+      "fixtureSha256": "241e6cd39146deb07836a21fb5f4ef1bf06a28b745b9adccd8321f2c27b576d4"
     },
     {
       "productId": "generic-cotton-tshirt",
-      "path": "releases/generic-cotton-tshirt/globe-chain-cotton-tshirt-2026.1/fixture.json",
-      "datasetVersion": "globe-chain-cotton-tshirt-2026.1",
-      "fixtureSha256": "00f9236c410da5fe15dc7459233b7fcc386849cf42b9921dd34851f971109f13"
+      "path": "releases/generic-cotton-tshirt/globe-chain-cotton-tshirt-2026.2/fixture.json",
+      "datasetVersion": "globe-chain-cotton-tshirt-2026.2",
+      "fixtureSha256": "d9acaec45db1a011699f0c22d80fcc36c22d4064880a57c561d004277cd49227"
     },
     {
       "productId": "generic-soybean-oil",
-      "path": "releases/generic-soybean-oil/globe-chain-soybean-oil-2026.1/fixture.json",
-      "datasetVersion": "globe-chain-soybean-oil-2026.1",
-      "fixtureSha256": "3ae8cbf93dc75ec312316f4a8d2da5fb3daa83dd7186b6cd29d40ef0277edd05"
+      "path": "releases/generic-soybean-oil/globe-chain-soybean-oil-2026.2/fixture.json",
+      "datasetVersion": "globe-chain-soybean-oil-2026.2",
+      "fixtureSha256": "a1c3b75eed0b11c8572a14a2a89f7925037d8e26fca206f9f46ce180ed741fdc"
     },
     {
       "productId": "generic-electric-bicycle",
-      "path": "releases/generic-electric-bicycle/globe-chain-electric-bicycle-2026.1/fixture.json",
-      "datasetVersion": "globe-chain-electric-bicycle-2026.1",
-      "fixtureSha256": "c5dbace1c2420f6a137afed745dc6859911dc7df907e6e40a2ef990cf1a92f21"
+      "path": "releases/generic-electric-bicycle/globe-chain-electric-bicycle-2026.2/fixture.json",
+      "datasetVersion": "globe-chain-electric-bicycle-2026.2",
+      "fixtureSha256": "990a32f371157afea91f074adbdb6304858e4b0884b67ca3cb38dfe2c303a503"
     },
     {
       "productId": "generic-home-air-conditioner",
-      "path": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.3/fixture.json",
-      "datasetVersion": "globe-chain-home-air-conditioner-2026.3",
-      "fixtureSha256": "6eeae623d9b686fbec7085fb1d1a590cf9103e57400aa3430fa88b8bee039377"
+      "path": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.5/fixture.json",
+      "datasetVersion": "globe-chain-home-air-conditioner-2026.5",
+      "fixtureSha256": "cace8c0df8ae6bde1b830ae6f802218c2596409672ba58913ca19e0ac3d76f2d"
     }
   ],
-  "datasetVersion": "globe-chain-home-air-conditioner-2026.3",
-  "generatedAt": "2026-10-22",
-  "fixtureSha256": "6eeae623d9b686fbec7085fb1d1a590cf9103e57400aa3430fa88b8bee039377",
+  "datasetVersion": "globe-chain-home-air-conditioner-2026.5",
+  "generatedAt": "2026-10-23",
+  "fixtureSha256": "cace8c0df8ae6bde1b830ae6f802218c2596409672ba58913ca19e0ac3d76f2d",
   "routeContentVersion": "smartphone-route-2026.1",
   "routeContentSha256": "f44dc5485d9a03c4be0ea8927ff59ae372485e303ce509795db9033a27ffb5df",
   "contentSources": [
@@ -98,22 +98,22 @@
   ],
   "release": {
     "productId": "generic-home-air-conditioner",
-    "datasetVersion": "globe-chain-home-air-conditioner-2026.3",
-    "releasePath": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.3",
+    "datasetVersion": "globe-chain-home-air-conditioner-2026.5",
+    "releasePath": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.5",
     "immutable": true
   },
   "refreshContentSource": "content/refresh-2026-09-16.json",
   "refreshContentPathBase": "repository-root",
   "refreshContentSha256": "4be2f302a28da81ff549e739b00617ec484a064e768cfd7915796fa71ee40520",
-  "activeDatasetVersion": "globe-chain-home-air-conditioner-2026.3",
+  "activeDatasetVersion": "globe-chain-home-air-conditioner-2026.5",
   "activeManifest": true,
   "evidenceReview": {
-    "batchId": "china-hvac-equipment-2026-10-22",
-    "contentSource": "content/industry/china-hvac-equipment-supplement-2026-10-22.json",
+    "batchId": "evaporative-condenser-2026-10-23",
+    "contentSource": "content/data-refresh/evaporative-condenser-2026-10-23.json",
     "contentPathBase": "repository-root",
-    "contentSha256": "e4cce3382176de24c2e19ab443ea557184f4558b8a1a362fb43b50b4261b5aca",
+    "contentSha256": "f2a114242c6dea09ab283e14cf3c449178cebc4fb99655915191025cc81cf214",
     "auditPath": "review-audit.json",
     "auditPathBase": "release-directory",
-    "auditSha256": "2fa78df2493c8a5a0daf19f521deaef9cb5690c8c681296e5476985d0698479b"
+    "auditSha256": "6fdfe9f23e004cc0c5bb467409a04128774b5cd4b0a1b8d9b1fdf2778707227f"
   }
 }

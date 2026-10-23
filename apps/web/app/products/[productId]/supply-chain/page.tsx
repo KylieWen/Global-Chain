@@ -41,6 +41,7 @@ export default async function SupplyChainPage({
   const overview = queries.getProductOverview(productId);
   const industry = queries.getIndustryNetwork(productId);
   if (!overview) notFound();
+  const ledgerCountries=new Set(queries.listCountries().filter(country=>country.ledgerProductIds.includes(productId)).map(country=>country.entity.id));
   const fullGraph = firstParam(query.view) === "all";
   const suggestedFocus = overview.componentCoverage.find(coverage => coverage.item.id !== productId && coverage.hasInspectableStory && coverage.nodeCount >= 2)?.item.id;
   const focusItemId = requestedFocusItemId ?? (fullGraph ? undefined : suggestedFocus);
@@ -228,7 +229,7 @@ export default async function SupplyChainPage({
                 </div>
                 <div className="node-links">
                   <Link className="text-link" href={nodePath(productId, node.node.id, pageContext)}>节点详情 →</Link>
-                  {node.entity ? <Link className="text-link" href={ledgerPath(productId, node.entity.id, pageContext)}>国家账本 →</Link> : null}
+                  {node.entity && ledgerCountries.has(node.entity.id) ? <Link className="text-link" href={ledgerPath(productId, node.entity.id, pageContext)}>国家账本 →</Link> : null}
                 </div>
               </article>
             ))}

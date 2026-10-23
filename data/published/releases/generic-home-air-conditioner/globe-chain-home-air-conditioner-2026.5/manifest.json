@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-home-air-conditioner",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-home-air-conditioner-2026.5",
+  "generatedAt": "2026-10-23",
+  "fixtureSha256": "cace8c0df8ae6bde1b830ae6f802218c2596409672ba58913ca19e0ac3d76f2d",
+  "release": {
+    "productId": "generic-home-air-conditioner",
+    "datasetVersion": "globe-chain-home-air-conditioner-2026.5",
+    "releasePath": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.5",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "evaporative-condenser-2026-10-23",
+    "contentSource": "content/data-refresh/evaporative-condenser-2026-10-23.json",
+    "contentPathBase": "repository-root",
+    "contentSha256": "f2a114242c6dea09ab283e14cf3c449178cebc4fb99655915191025cc81cf214",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "6fdfe9f23e004cc0c5bb467409a04128774b5cd4b0a1b8d9b1fdf2778707227f"
+  }
+}

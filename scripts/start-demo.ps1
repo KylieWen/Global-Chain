@@ -1,58 +1,54 @@
+param([switch]$Build, [ValidateRange(1024,65535)][int]$Port = 3000, [switch]$NoBrowser)
 $ErrorActionPreference = "Stop"
-
-$projectRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
-$webCache = [System.IO.Path]::GetFullPath((Join-Path $projectRoot "apps/web/.next"))
-
-function Get-ProjectNodeProcesses {
-  Get-CimInstance Win32_Process | Where-Object {
-    $_.Name -eq "node.exe" -and
-    $_.CommandLine -and
-    $_.CommandLine.IndexOf($projectRoot, [System.StringComparison]::OrdinalIgnoreCase) -ge 0
-  }
+$projectRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
+$webRoot = Join-Path $projectRoot "apps/web"
+$stateRoot = Join-Path $projectRoot ".local/demo"
+$statePath = Join-Path $stateRoot "server-$Port.json"
+$url = "http://127.0.0.1:$Port"
+$node = Get-Command node.exe -ErrorAction SilentlyContinue
+if (-not $node) { throw "Node.js was not found. Add a supported Node.js LTS installation to PATH." }
+New-Item -ItemType Directory -Path $stateRoot -Force | Out-Null
+function Test-DemoReady {
+  try { $health = Invoke-RestMethod "$url/api/health" -TimeoutSec 2; return $health.service -eq "web" }
+  catch { return $false }
 }
-
-Get-ProjectNodeProcesses | ForEach-Object {
-  Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue
+if (Test-DemoReady) {
+  if ($Build) { throw "A service already uses port $Port. Stop the known local demo before building; no process was killed." }
+  $home = Invoke-WebRequest -UseBasicParsing "$url/" -TimeoutSec 30
+  if ($home.Content -notmatch 'Global Chain|GlobeChain') { throw "Port $Port belongs to another site; no process was changed." }
+  Write-Host "The local site is already running: $url/"
+  if (-not $NoBrowser) { Start-Process "$url/" }
+  return
 }
-
-if ($webCache.IndexOf($projectRoot, [System.StringComparison]::OrdinalIgnoreCase) -eq 0 -and (Test-Path -LiteralPath $webCache)) {
-  Remove-Item -LiteralPath $webCache -Recurse -Force
-}
-
-$corepack = Get-Command corepack.cmd -ErrorAction SilentlyContinue
-if (-not $corepack -and (Test-Path -LiteralPath "E:\EDA\corepack.cmd")) {
-  $corepackPath = "E:\EDA\corepack.cmd"
-} elseif ($corepack) {
-  $corepackPath = $corepack.Source
-} else {
-  throw "corepack.cmd was not found. Install Node.js 20+ or add Corepack to PATH."
-}
-
-$server = Start-Process -FilePath $corepackPath `
-  -ArgumentList @("pnpm", "run", "dev") `
-  -WorkingDirectory $projectRoot `
-  -WindowStyle Hidden `
-  -PassThru
-
-$ready = $false
-for ($attempt = 0; $attempt -lt 30; $attempt += 1) {
-  Start-Sleep -Milliseconds 500
+if ($Build) {
+  $pnpm = Get-Command pnpm.cmd -ErrorAction SilentlyContinue
+  $corepack = Get-Command corepack.cmd -ErrorAction SilentlyContinue
+  Push-Location $projectRoot
   try {
-    $response = Invoke-WebRequest -UseBasicParsing "http://localhost:3000/api/health" -TimeoutSec 2
-    if ($response.StatusCode -eq 200) {
-      $ready = $true
-      break
-    }
-  } catch {
-    # The development server is still compiling.
+    if ($pnpm) { & $pnpm.Source run build }
+    elseif ($corepack) { & $corepack.Source pnpm run build }
+    else { throw "pnpm 11.19.0 or Corepack was not found. Add it to PATH before preparing the demo." }
+    if ($LASTEXITCODE -ne 0) { throw "Production build failed; the demo was not started." }
+  } finally { Pop-Location }
+}
+if (-not (Test-Path -LiteralPath (Join-Path $webRoot ".next/BUILD_ID"))) { throw "Prepare the production build first: powershell -File scripts/start-demo.ps1 -Build" }
+$server = Start-Process -FilePath $node.Source -ArgumentList @("node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", "$Port") -WorkingDirectory $webRoot -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $stateRoot "stdout-$Port.log") -RedirectStandardError (Join-Path $stateRoot "stderr-$Port.log")
+$started = (Get-Process -Id $server.Id).StartTime.ToUniversalTime().ToString("o")
+@{ pid=$server.Id; startedAt=$started; executable=$node.Source; projectRoot=$projectRoot; port=$Port } | ConvertTo-Json | Set-Content -LiteralPath $statePath -Encoding UTF8
+try {
+  $deadline = [DateTime]::UtcNow.AddSeconds(120)
+  while (-not (Test-DemoReady)) {
+    if ($server.HasExited) { throw "The local server exited. See .local/demo/stderr-$Port.log." }
+    if ([DateTime]::UtcNow -gt $deadline) { throw "The local server did not become ready within 120 seconds." }
+    Start-Sleep -Milliseconds 250
   }
-}
-
-if (-not $ready) {
-  Stop-Process -Id $server.Id -Force -ErrorAction SilentlyContinue
-  throw "GlobeChain Demo did not start within 15 seconds."
-}
-
-Start-Process "http://localhost:3000/"
-Write-Host "GlobeChain Demo is ready: http://localhost:3000/"
-Write-Host "Double-click stop-demo.cmd to stop it."
+  $config = Get-Content -LiteralPath (Join-Path $projectRoot "content/demo-navigation.json") -Raw -Encoding UTF8 | ConvertFrom-Json
+  foreach ($path in $config.warmupPaths) {
+    if (-not $path.StartsWith("/") -or $path.StartsWith("//")) { throw "Invalid local warmup path." }
+    $response = Invoke-WebRequest -UseBasicParsing "$url$path" -TimeoutSec 60
+    if ($response.StatusCode -ne 200) { throw "Warmup failed: $path" }
+  }
+} catch { & (Join-Path $PSScriptRoot "stop-demo.ps1") -Port $Port; throw }
+if (-not $NoBrowser) { Start-Process "$url/" }
+Write-Host "Global Chain production demo is ready: $url/"
+Write-Host "Use stop-demo.cmd to stop only this demo. No build cache was removed."

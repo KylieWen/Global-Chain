@@ -71,12 +71,13 @@ export function getIndustryNetwork(repository: FixtureRepository, productId: str
   const search = options.search?.trim().slice(0, 120) ?? "";
   const needle = search.toLocaleLowerCase();
   const matches = (text: string) => !needle || text.toLocaleLowerCase().includes(needle);
-  const directory = Object.freeze(organizations.filter(organization => matches([organization.name,organization.description,...organization.topics.map(topic => topic.label)].join(" "))).map(organization => Object.freeze({...organization, entryTopicId:organization.topics.find(topic => matches(topic.label))?.id ?? organization.topics.find(topic => matches(topic.description))?.id ?? organization.topicIds[0]!})));
+  const topicSearchText = (topic: IndustryTopicView) => [topic.label,topic.description,...(topic.aliases??[])].join(" ");
+  const directory = Object.freeze(organizations.filter(organization => matches([organization.name,organization.description,...organization.topics.map(topicSearchText)].join(" "))).map(organization => Object.freeze({...organization, entryTopicId:organization.topics.find(topic => matches(topicSearchText(topic)))?.id ?? organization.topicIds[0]!})));
   const matchingParticipantTopics = new Set(needle ? directory.flatMap(organization => organization.topicIds) : []);
   return Object.freeze({
     product, region, datasetVersion:fixture.datasetVersion, network, topics, selectedTopic, upstream, downstream,
     participants, adjacentParticipants, relatedItems, relatedProcesses,
-    matchingTopics:Object.freeze(topics.filter(topic => matches(topic.label + " " + topic.description) || matchingParticipantTopics.has(topic.id))),
+    matchingTopics:Object.freeze(topics.filter(topic => matches([topic.label,topic.description,...(topic.aliases??[])].join(" ")) || matchingParticipantTopics.has(topic.id))),
     directory,
     sources:resolveSources(network.sourceIds), search
   });
