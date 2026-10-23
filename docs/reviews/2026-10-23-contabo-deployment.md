@@ -1,5 +1,12 @@
 # Contabo 首次公网部署验收
 
+## 最终发布（2026-10-23 19:12，Asia/Singapore）
+
+- 当前线上应用6fe4a31dbaf5515ebe34337fe098f318de2864cf，current=/opt/globechain/releases/6fe4a31dbaf5；Linux构建ID eozKMEAIfju-qY5xN0Nbv。源码包1,751,293字节，SHA256 d17ea2a8c44618bb19cb629b4408b185912bbfa8bcdb4dd164ce28155e0ce4f8，36组fixture校验通过，远端校验一致。
+- 新候选21项检查通过：五商品页面、世界/中国地图、五份精确版本导出与历史页面；中国地图每商品节点数与新区域文件一致，区域版本2026.10.2、点击区域已渲染。随后原子切换；globechain与nginx active/enabled，NRestarts=0、ExecMainStatus=0。候选已停止，SSH已退出。
+- 公网浏览器最终验收在2026-10-23 19:11:52通过，五个新增节点的来源/年份、2019历史提示、无虚构天津国产供货链接、深圳/东莞和无锡/苏州真实点击及390px五商品无横向溢出均通过；pageErrors=[]。截图已目视。证据 output/qa/2026-10-23-regional-review-public/，远端构建/候选/服务记录 output/deploy/6fe4a31-evidence/。
+- 保留16d96c3a6b1a、99b95fe6eb5b及最初版本回退。公网仍IP/HTTP，未购域名、未配置HTTPS；没有新自动化、数据库、账号后台或运行时外部API。此次是已授权优化的两个完整批次，不代表全部长期数据待办已完成。
+
 日期：2026-10-23（Asia/Singapore）。用户明确授权将本地已验证版本先搭载到已购买的服务器；本报告覆盖部署，不扩展企业申请、审核或账号功能。
 
 ## 部署结果

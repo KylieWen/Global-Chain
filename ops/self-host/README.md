@@ -5,9 +5,11 @@ The first deployment was completed on 2026-10-23 (Asia/Singapore):
 `b7f2f4201dcd23cfa2694e99c24f50062099b8ff`. This is IP-based HTTP; no domain
 or HTTPS is configured. No account credentials belong here.
 
-The current application is `99b95fe6eb5beeb4d7342424aa9b061d4dc79478`, which
-corrects the public brand to **Global Chain**. The current release directory is
-`/opt/globechain/releases/99b95fe6eb5b`; the first release remains available for rollback.
+The current application is `6fe4a31dbaf5515ebe34337fe098f318de2864cf`, including
+Global Chain branding, sourced coverage supplements and the China atlas 2026.10.2
+(18 roles, 12 representative connections). The current release directory is
+`/opt/globechain/releases/6fe4a31dbaf5`; the immediately preceding verified release
+`/opt/globechain/releases/16d96c3a6b1a` and older releases remain available for rollback.
 
 The templates support future installations; inspect each host before applying them.
 The actual host uses Ubuntu 24.04, Node v24.22.1 and the pinned pnpm 11.19.0.
