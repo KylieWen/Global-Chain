@@ -1,5 +1,13 @@
 # GlobeChain 持续开发恢复入口
 
+## 最新实施（2026-10-23 11:37，品牌名称更正）
+
+- 用户明确项目名称是 Global Chain，指出此前沿用 GlobeChain 不符合原意。当前对外品牌统一为 Global Chain；旧证据、不可变发布版本、包名和既有部署服务标识不做机械替换。
+- 已修改网页标题、页头、品牌首页无障碍名称、页脚及 README。应用 99b95fe6eb5beeb4d7342424aa9b061d4dc79478 已 Linux 构建并部署；current 指向 /opt/globechain/releases/99b95fe6eb5b，原 b7f2f42 保留回滚。服务 active/running、NRestarts=0，临时 SSH 已退出。
+- 源码包 SHA256 992135d1ed7f309de60fabdfbe9c9b2ccd59719ced719fe0e12c919a9616562d，1,469,390 字节，打包时30组数据校验通过。候选世界/中国地图品牌检查通过后切换；公网1440/1024/390两地图的标题/页头/页脚及无横向溢出均通过，pageErrors为空，手机截图已目视。记录 output/qa/2026-10-23-global-chain-brand/。只改名称，无领域/数据变更，不新增标签文本测试或重复全套测试。
+- 域名尚未购买；用户希望完整 globalchain 加其它后缀，不采用 GlobeChain 或加 map/atlas 的建议。Porkbun实时查询 globalchain.app 首年8.75美元/续14.93，globalchain.fyi 每年5.66，globalchain.me 每年17.27；globalchain.com/.net/.world 已占用，价格及可用性以结算为准。等待用户选域名后再购买/配置DNS与HTTPS；未创建账号、未付款、未改DNS。
+- 本次没有新建或恢复自动化。仅暂存本聊天新增记录，其他聊天工作与未跟踪用户资料保留。
+
 ## 最新实施（2026-10-23 06:26，Contabo 公网部署完成）
 
 - 额度恢复后本聊天按已有授权立即接续，完成 Node v24.22.1 / pnpm 11.19.0 安装、白名单包上传与 SHA/30 组发布校验、非特权用户 Linux 构建、3001 候选验证及持久服务切换。

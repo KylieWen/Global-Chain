@@ -5,10 +5,14 @@ The first deployment was completed on 2026-10-23 (Asia/Singapore):
 `b7f2f4201dcd23cfa2694e99c24f50062099b8ff`. This is IP-based HTTP; no domain
 or HTTPS is configured. No account credentials belong here.
 
+The current application is `99b95fe6eb5beeb4d7342424aa9b061d4dc79478`, which
+corrects the public brand to **Global Chain**. The current release directory is
+`/opt/globechain/releases/99b95fe6eb5b`; the first release remains available for rollback.
+
 The templates support future installations; inspect each host before applying them.
 The actual host uses Ubuntu 24.04, Node v24.22.1 and the pinned pnpm 11.19.0.
-Its release is `/opt/globechain/releases/b7f2f4201dcd`, selected by
-`/opt/globechain/current`. The unprivileged `globechain` systemd service runs Next.js
+The current release is selected by `/opt/globechain/current`.
+The unprivileged `globechain` systemd service runs Next.js
 on `127.0.0.1:3000`; nginx serves public port 80. Both services are enabled.
 The separate nginx site is `/etc/nginx/sites-available/globechain`; the package's
 default site and existing SSH access were preserved. This deployment does not add
@@ -29,8 +33,8 @@ pnpm is linked from `/opt/globechain/tooling/bin/pnpm`.
 For an update, build a new release, verify it temporarily on loopback port 3001,
 then switch `current` and restart the app. Keep the prior release. To roll back,
 point `current` back to that verified directory and restart; recheck health and the
-public map. This initial installation has no older production release to roll back
-to. Release activation is manual; CI does not deploy automatically.
+public map. The initial `b7f2f4201dcd` release remains available as a rollback target.
+Release activation is manual; CI does not deploy automatically.
 
 ## Source artifact
 

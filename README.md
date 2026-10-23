@@ -133,7 +133,7 @@ pipelines/data/raw
 
 ## 生产部署与环境配置
 
-应用使用 RSC 和服务端 node:fs 读取 fixture，不能静态导出。2026-10-23 已将应用版本 b7f2f42 部署到 Contabo：[世界地图](http://62.171.148.193/map)、[中国供应链](http://62.171.148.193/map/china)。当前使用公网 IP/HTTP，尚未配置域名和 HTTPS。运行状态、更新与回滚见 [自托管维护说明](ops/self-host/README.md) 和 [部署验收](docs/reviews/2026-10-23-contabo-deployment.md)；CI 仍没有自动部署 job。
+应用使用 RSC 和服务端 node:fs 读取 fixture，不能静态导出。2026-10-23 已将应用版本 99b95fe（品牌名称更正为 Global Chain）部署到 Contabo：[世界地图](http://62.171.148.193/map)、[中国供应链](http://62.171.148.193/map/china)。当前使用公网 IP/HTTP，尚未配置域名和 HTTPS。运行状态、更新与回滚见 [自托管维护说明](ops/self-host/README.md) 和 [首次部署验收](docs/reviews/2026-10-23-contabo-deployment.md)；CI 仍没有自动部署 job。
 
 1. 用 node scripts/package-self-host.mjs 生成公开源码白名单部署包，传到受支持的 Node.js LTS、pnpm 11.19.0 主机，核对 SHA 后解压；保留 apps、packages、content、data/published（含历史 releases 和 active-manifest）及锁文件。不要只复制 .next，也不要上传下载原件、私人物料或凭据。本次主机使用 Node v24.22.1。
 2. 从仓库根目录执行 pnpm install --frozen-lockfile 和上述全部质量命令；构建完成后执行 pnpm run start。
