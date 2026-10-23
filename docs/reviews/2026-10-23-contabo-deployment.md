@@ -1,5 +1,12 @@
 # Contabo 首次公网部署验收
 
+## 最新发布（2026-10-24 00:28，Asia/Singapore）
+
+- 已发布应用b021953e105bf386bf3e688b83966eb9c16f8d9f：三身份浏览、历史导出与指南一致性、导航收口。current=/opt/globechain/releases/b021953e105b；前版6fe4a31dbaf5保留回退。Linux构建ID TbG26JLpMTncgSPCqFdU1，源码包SHA256 8059d67e182d37681f5bd6038b8a251af7cd4014664644181930dbb3e5f2ce0e，1,755,614字节、36fixture校验通过。
+- Linux构建及27候选检查通过，服务实际启动00:20:32；五商品各5页与完整/历史导出、钻取/窄屏00:23:09通过，导航与严格指南00:21:45通过，三身份三宽度及键盘/跨标签/受限存储00:27:16通过，页面错误为空，截图已目视。
+- 服务/nginx active/enabled、NRestarts=0、ExecMainStatus=0；应用仅监听127.0.0.1:3000，候选停止、SSH全部退出。首页 http://62.171.148.193/ 提供身份选择；IP/HTTP保持，没有新增账号/数据库/企业审核后台。
+- 证据 output/deploy/b021953-evidence/ 及 output/qa/2026-10-24-*-public/；完整范围和局限见2026-10-24-final-two-rounds.md。下文为历史，不能替代最新状态。
+
 ## 最终发布（2026-10-23 19:12，Asia/Singapore）
 
 - 当前线上应用6fe4a31dbaf5515ebe34337fe098f318de2864cf，current=/opt/globechain/releases/6fe4a31dbaf5；Linux构建ID eozKMEAIfju-qY5xN0Nbv。源码包1,751,293字节，SHA256 d17ea2a8c44618bb19cb629b4408b185912bbfa8bcdb4dd164ce28155e0ce4f8，36组fixture校验通过，远端校验一致。

@@ -5,11 +5,13 @@ The first deployment was completed on 2026-10-23 (Asia/Singapore):
 `b7f2f4201dcd23cfa2694e99c24f50062099b8ff`. This is IP-based HTTP; no domain
 or HTTPS is configured. No account credentials belong here.
 
-The current application is `6fe4a31dbaf5515ebe34337fe098f318de2864cf`, including
-Global Chain branding, sourced coverage supplements and the China atlas 2026.10.2
+The current application is `b021953e105bf386bf3e688b83966eb9c16f8d9f`, including
+three browsing perspectives, historical export/guide consistency and the final
+two-round presentation review. It retains the China atlas 2026.10.2
 (18 roles, 12 representative connections). The current release directory is
-`/opt/globechain/releases/6fe4a31dbaf5`; the immediately preceding verified release
-`/opt/globechain/releases/16d96c3a6b1a` and older releases remain available for rollback.
+`/opt/globechain/releases/b021953e105b`; the immediately preceding verified release
+`/opt/globechain/releases/6fe4a31dbaf5` and older releases remain available for rollback.
+The homepage at [the public root](http://62.171.148.193/) offers audience selection.
 
 The templates support future installations; inspect each host before applying them.
 The actual host uses Ubuntu 24.04, Node v24.22.1 and the pinned pnpm 11.19.0.

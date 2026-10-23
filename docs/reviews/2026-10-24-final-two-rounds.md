@@ -30,7 +30,11 @@
 
 ## 发布状态
 
-本地已实施，服务器待按候选验证与公网验收后记录。此次部署前线上为6fe4a31dbaf5，须保留作为回退。没有域名/HTTPS配置变更。
+已发布应用`b021953e105bf386bf3e688b83966eb9c16f8d9f`，current=`/opt/globechain/releases/b021953e105b`；前版`6fe4a31dbaf5`保留回退。服务实际启动2026-10-24 00:20:32 SGT，构建ID`TbG26JLpMTncgSPCqFdU1`。源码包1,755,614字节、316项，SHA256 `8059d67e182d37681f5bd6038b8a251af7cd4014664644181930dbb3e5f2ce0e`，36fixture校验通过，上传校验一致。Linux构建及27项候选检查通过，含历史/当前ETag不混淆、无效或不属于商品的版本404。
+
+公网导航与严格指南00:21:45通过；五商品各5页、完整精确版本导出、世界→中国→企业、历史2026.2完整下载及1024/390菜单00:23:09通过。三身份最终公网矩阵00:27:16通过：三身份×1440/1024/390、推荐与菜单顺序、刷新/子页保留、切换不丢过滤、键盘互斥/Escape回焦/离开关闭、非法值、跨标签/clear与存储拒绝均正常。全部`pageErrors=[]`，桌面产业与手机研究者截图已目视。
+
+globechain/nginx active/enabled、NRestarts=0、ExecMainStatus=0；3000仅回环监听，临时候选已停止，SSH已退出。证据`output/deploy/b021953-evidence/`与`output/qa/2026-10-24-final-self-host-public/`、`2026-10-24-guide-round2-public/`、`2026-10-24-navigation-round2-public/`、`2026-10-24-final-identity-public/`。部署记录的activatedAt字段是记录写入时间00:21:39，实际服务启动以service-b021953.txt的ActiveEnterTimestamp为准。没有域名/HTTPS配置变更。
 
 ## 明确保留范围
 

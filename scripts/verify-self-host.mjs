@@ -5,7 +5,7 @@ import { resolve } from 'node:path';
 import { browserResearchExport } from './lib/browser-research-export.mjs';
 
 const base=process.env.REVIEW_BASE_URL??'http://62.171.148.193';
-const output=resolve('output/deploy/live-verification');await mkdir(output,{recursive:true});
+const output=resolve(process.env.REVIEW_OUTPUT_DIR??'output/deploy/live-verification');await mkdir(output,{recursive:true});
 const products=JSON.parse(await readFile('data/published/manifest.json','utf8')).fixtures;
 const browser=await chromium.launch({channel:'chrome',args:['--disable-gpu']});
 const page=await browser.newPage({viewport:{width:1440,height:1000}});
