@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-soybean-oil",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-soybean-oil-2026.3",
+  "generatedAt": "2026-10-24",
+  "fixtureSha256": "9e67d64a71aabb36aa97ee39a6d6656b57eab7715fea8bde2f2f7dbf95f5b34b",
+  "release": {
+    "productId": "generic-soybean-oil",
+    "datasetVersion": "globe-chain-soybean-oil-2026.3",
+    "releasePath": "releases/generic-soybean-oil/globe-chain-soybean-oil-2026.3",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "industry-content-expansion-2026-10-24",
+    "auditPath": "review-audit.json",
+    "auditSha256": "e96ff56efd71baeb96977c842c63a27945c4ac31fca0beac9918db0fffdeb73a"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-home-air-conditioner",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-home-air-conditioner-2026.6",
+  "generatedAt": "2026-10-24",
+  "fixtureSha256": "a5c97d26c94537699dae69b0c8a752506ff672566b07dcea653f63db0f131ac2",
+  "release": {
+    "productId": "generic-home-air-conditioner",
+    "datasetVersion": "globe-chain-home-air-conditioner-2026.6",
+    "releasePath": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.6",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "industry-content-expansion-2026-10-24",
+    "auditPath": "review-audit.json",
+    "auditSha256": "1abfd95896f0d13c32c9246ddabbc71c4f213406b59763ee7bcf3346a927c2e1"
+  }
+}

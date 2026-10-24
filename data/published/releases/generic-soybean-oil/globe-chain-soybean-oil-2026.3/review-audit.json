@@ -1,0 +1,18 @@
+{
+  "batchId": "industry-content-expansion-2026-10-24",
+  "baseVersion": "globe-chain-soybean-oil-2026.2",
+  "basePath": "releases/generic-soybean-oil/globe-chain-soybean-oil-2026.2/fixture.json",
+  "baseSha256": "a1c3b75eed0b11c8572a14a2a89f7925037d8e26fca206f9f46ce180ed741fdc",
+  "method": "Only observed process inputs/outputs/equipment and manufacturer-supported capabilities are projected into existing industry records. No new geographic/trade facts or inferred suppliers.",
+  "before": {
+    "topics": 0,
+    "relations": 0,
+    "organizations": 0
+  },
+  "after": {
+    "topics": 37,
+    "relations": 41,
+    "organizations": 0
+  },
+  "extractedAt": "2026-10-24T01:45:00.000Z"
+}

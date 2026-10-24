@@ -1,0 +1,18 @@
+{
+  "batchId": "industry-content-expansion-2026-10-24",
+  "baseVersion": "globe-chain-electric-bicycle-2026.2",
+  "basePath": "releases/generic-electric-bicycle/globe-chain-electric-bicycle-2026.2/fixture.json",
+  "baseSha256": "990a32f371157afea91f074adbdb6304858e4b0884b67ca3cb38dfe2c303a503",
+  "method": "Only observed process inputs/outputs/equipment and manufacturer-supported capabilities are projected into existing industry records. No new geographic/trade facts or inferred suppliers.",
+  "before": {
+    "topics": 0,
+    "relations": 0,
+    "organizations": 0
+  },
+  "after": {
+    "topics": 27,
+    "relations": 39,
+    "organizations": 0
+  },
+  "extractedAt": "2026-10-24T01:45:00.000Z"
+}

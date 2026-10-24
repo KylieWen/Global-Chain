@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-electric-bicycle",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-electric-bicycle-2026.3",
+  "generatedAt": "2026-10-24",
+  "fixtureSha256": "b723ec90faf5ca0b41583fd570aa6bb72e9cde54c165115df5658d58a8212229",
+  "release": {
+    "productId": "generic-electric-bicycle",
+    "datasetVersion": "globe-chain-electric-bicycle-2026.3",
+    "releasePath": "releases/generic-electric-bicycle/globe-chain-electric-bicycle-2026.3",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "industry-content-expansion-2026-10-24",
+    "auditPath": "review-audit.json",
+    "auditSha256": "50b79fa5fece778dde3d9b15fed922daa1ca33fc37f1926f8dbb5c1efd8891e5"
+  }
+}

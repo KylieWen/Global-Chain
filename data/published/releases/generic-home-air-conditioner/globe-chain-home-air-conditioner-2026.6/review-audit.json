@@ -1,0 +1,18 @@
+{
+  "batchId": "industry-content-expansion-2026-10-24",
+  "baseVersion": "globe-chain-home-air-conditioner-2026.5",
+  "basePath": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.5/fixture.json",
+  "baseSha256": "cace8c0df8ae6bde1b830ae6f802218c2596409672ba58913ca19e0ac3d76f2d",
+  "method": "Only observed process inputs/outputs/equipment and manufacturer-supported capabilities are projected into existing industry records. No new geographic/trade facts or inferred suppliers.",
+  "before": {
+    "topics": 45,
+    "relations": 67,
+    "organizations": 18
+  },
+  "after": {
+    "topics": 86,
+    "relations": 107,
+    "organizations": 18
+  },
+  "extractedAt": "2026-10-24T01:45:00.000Z"
+}

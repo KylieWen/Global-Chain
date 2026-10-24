@@ -1,0 +1,18 @@
+{
+  "batchId": "industry-content-expansion-2026-10-24",
+  "baseVersion": "globe-chain-smartphone-2026.5",
+  "basePath": "releases/generic-smartphone/globe-chain-smartphone-2026.5/fixture.json",
+  "baseSha256": "241e6cd39146deb07836a21fb5f4ef1bf06a28b745b9adccd8321f2c27b576d4",
+  "method": "Only observed process inputs/outputs/equipment and manufacturer-supported capabilities are projected into existing industry records. No new geographic/trade facts or inferred suppliers.",
+  "before": {
+    "topics": 0,
+    "relations": 0,
+    "organizations": 0
+  },
+  "after": {
+    "topics": 69,
+    "relations": 63,
+    "organizations": 6
+  },
+  "extractedAt": "2026-10-24T01:45:00.000Z"
+}

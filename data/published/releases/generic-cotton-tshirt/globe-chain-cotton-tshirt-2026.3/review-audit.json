@@ -1,0 +1,18 @@
+{
+  "batchId": "industry-content-expansion-2026-10-24",
+  "baseVersion": "globe-chain-cotton-tshirt-2026.2",
+  "basePath": "releases/generic-cotton-tshirt/globe-chain-cotton-tshirt-2026.2/fixture.json",
+  "baseSha256": "d9acaec45db1a011699f0c22d80fcc36c22d4064880a57c561d004277cd49227",
+  "method": "Only observed process inputs/outputs/equipment and manufacturer-supported capabilities are projected into existing industry records. No new geographic/trade facts or inferred suppliers.",
+  "before": {
+    "topics": 0,
+    "relations": 0,
+    "organizations": 0
+  },
+  "after": {
+    "topics": 40,
+    "relations": 42,
+    "organizations": 0
+  },
+  "extractedAt": "2026-10-24T01:45:00.000Z"
+}
