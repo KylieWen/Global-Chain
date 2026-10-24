@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, type RefObject, type Dispatch, type SetStateAction } from "react";
 import { pinchMap, type MapTransform } from "../lib/map-geometry";
+import { publishUsageEvent } from "../lib/usage-events";
 
 /** One finger scrolls the page; two fingers manipulate the map without browser zoom. */
 export function useMapWheel(ref: RefObject<SVGSVGElement | null>, setTransform: Dispatch<SetStateAction<MapTransform>>, width: number, height: number, transform: MapTransform, suppressClick: RefObject<boolean>) {
@@ -30,11 +31,13 @@ export function useMapWheel(ref: RefObject<SVGSVGElement | null>, setTransform: 
       const pair = touchPair(event.touches);
       setTransform(pinchMap(pinch.transform, pinch.center, pair.center, pair.distance / Math.max(1, pinch.distance), width, height));
     };
-    const end = (event: TouchEvent) => { if (event.touches.length < 2) pinch = null; };
+    const end = (event: TouchEvent) => { if (event.touches.length < 2) { if (pinch) publishUsageEvent("map_zoom"); pinch = null; } };
+    let lastWheelRecord = 0;
     const wheel = (event: WheelEvent) => {
       if (!event.ctrlKey && !event.metaKey) return;
       event.preventDefault();
       const anchor = point(event.clientX, event.clientY);
+      if (Date.now() - lastWheelRecord > 1000) { publishUsageEvent("map_zoom"); lastWheelRecord = Date.now(); }
       setTransform(current => pinchMap(current, anchor, anchor, Math.exp(-event.deltaY * .004), width, height));
     };
     svg.addEventListener("wheel", wheel, { passive: false });

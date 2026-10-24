@@ -1,4 +1,5 @@
 "use client";
+import { publishUsageEvent } from "../lib/usage-events";
 
 import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import { useRouter } from "next/navigation";
@@ -97,7 +98,7 @@ export function FirstVisitGuide({ products }: { products: readonly GuideProduct[
     if (open) title.current?.focus({ preventScroll: true });
   }, [open, step]);
 
-  const dismiss = () => { rememberGuide("skipped"); setOpen(false); };
+  const dismiss = () => { publishUsageEvent("guide_skip"); rememberGuide("skipped"); setOpen(false); };
   const destination = personaId === "industry"
     ? { label: "中国地图", action: "进入中国地图", copy: "从省市和生产环节，继续查上下游与企业资料。", href: chinaMapPath({ product: selectedProduct?.id }) }
     : personaId === "researcher"
@@ -106,6 +107,7 @@ export function FirstVisitGuide({ products }: { products: readonly GuideProduct[
   const start = () => {
     selectPersona(personaId);
     rememberGuide("completed");
+    publishUsageEvent("guide_complete");
     setOpen(false);
     router.push(destination.href);
   };

@@ -34,6 +34,7 @@ export default async function ProductProvenancePage({
           { label: itemLabel(overview.product), href: productPath(productId, pageContext) },
           { label: "来源与版本" }
         ]} />
+        <ProductNavigation productId={productId} context={pageContext} active="sources" hasIndustry={Boolean(queries.getIndustryNetwork(productId))} hasMaterials={materialObservations.length>0}/>
         <ContextBanner period={overview.period.label} datasetVersion={provenance.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
         <PageIntro
           eyebrow="来源与版本"
@@ -60,7 +61,6 @@ export default async function ProductProvenancePage({
 
         <WarningList warnings={provenance.warnings} />
 
-        <ProductNavigation productId={productId} context={pageContext} active="sources" hasIndustry={Boolean(queries.getIndustryNetwork(productId))} hasMaterials={materialObservations.length>0}/>
         <section className="section-block" aria-labelledby="release-selector-title">
           <div className="section-heading"><div><p className="eyebrow">研究版本</p><h2 id="release-selector-title">选择研究版本</h2></div><span className="section-caption">历史版本只读，不会覆盖当前发布版本</span></div>
           <p className="muted">选择版本后，商品、供应链、账本、材料观察和证据页面都会读取对应的只读历史数据快照。版本参数不再只是提示，而是实际查询选择。</p>

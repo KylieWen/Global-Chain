@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily retention for Global Chain aggregate usage
+
+[Timer]
+OnCalendar=*-*-* 00:05:00 UTC
+Persistent=true
+Unit=globechain-usage-prune.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,58 @@
+.site-search { margin-left:auto; }
+.site-search .global-search { margin:0; }
+.mobile-search-toggle { display:none; }
+.usage-preference { max-width:32rem; }
+.usage-preference summary { cursor:pointer; min-height:2.75rem; display:flex; align-items:center; }
+.usage-preference p { line-height:1.8; }
+.usage-preference label { display:flex; align-items:center; gap:.6rem; min-height:2.75rem; }
+.usage-preference input { width:1.2rem; height:1.2rem; }
+.usage-preference small { display:block; margin-top:.5rem; }
+.mobile-filter-toggle { display:none; }
+.mobile-map-return { display:none; }
+@media(max-width:640px), (max-width:900px) and (max-height:500px) {
+  .site-header-inner { display:grid; grid-template-columns:minmax(0,1fr) auto auto; min-height:0; gap:0 .35rem; padding:.25rem 0 0; }
+  .site-header .brand { grid-column:1; grid-row:1; min-height:48px; gap:.4rem; min-width:0; }
+  .site-header .brand strong { font-size:.87rem; white-space:nowrap; }
+  .site-header .brand-mark { width:1.8rem; height:1.8rem; border-radius:.6rem; }
+  .site-header .persona-switcher { grid-column:2; grid-row:1; margin:0; }
+  .site-header .persona-switcher > summary { min-height:44px; padding:.45rem .5rem; font-size:.72rem; }
+  .site-search { grid-column:3; grid-row:1; margin:0; }
+  .mobile-search-toggle { display:grid; place-items:center; min-width:44px; min-height:44px; padding:0; border:1px solid var(--line); border-radius:.65rem; background:white; color:var(--blue); font-size:1.8rem; cursor:pointer; }
+  .site-search-panel { display:none; position:absolute; left:0; right:0; top:100%; padding:.6rem; background:var(--paper,#f4f7fb); border-bottom:1px solid var(--line); box-shadow:0 8px 20px #12244018; }
+  .site-search[data-open=true] .site-search-panel { display:block; }
+  .site-search .global-search { width:100%; }
+  .site-search .global-search input { flex:1; width:0; min-height:44px; font-size:16px; }
+  .site-search .global-search button { min-height:44px; }
+  .site-header .hierarchical-nav { grid-column:1 / -1; grid-row:2; display:flex; flex-wrap:nowrap; justify-content:space-between; gap:0; padding:0; margin:0; }
+  .site-header .nav-group > summary { min-height:44px; padding:.45rem .55rem; gap:.35rem; font-size:.75rem; }
+  .site-header .nav-group-menu { top:100%; max-height:65dvh; overflow-y:auto; width:min(17rem,calc(100vw - 1.25rem)); }
+  .site-header .persona-switcher-menu { right:-48px; max-width:calc(100vw - 1.25rem); }
+  .product-level-nav { flex-wrap:nowrap; overflow-x:auto; scrollbar-width:thin; margin-bottom:.65rem; padding:.2rem; overscroll-behavior-x:contain; scroll-padding:.25rem; }
+  .product-level-nav a { flex:none; white-space:nowrap; min-height:44px; padding:.5rem .7rem; font-size:.78rem; }
+  .breadcrumbs { margin-bottom:.7rem; font-size:.73rem; }
+  .page-intro { margin:.65rem 0 1rem; }
+  .page-intro h1 { font-size:1.65rem; line-height:1.35; }
+  .page-intro .intro-copy { font-size:.9rem; }
+  .regional-heading { margin-bottom:.65rem; gap:.4rem; }
+  .china-atlas-page .regional-heading h1 { font-size:1.6rem; }
+  .regional-heading p:not(.eyebrow) { font-size:.83rem; margin-bottom:.5rem; }
+  .regional-heading .eyebrow { margin-bottom:.3rem; }
+  .atlas-compact-filters { display:grid; grid-template-columns:1fr 1fr; gap:.4rem; }
+  .atlas-compact-filters label { min-width:0; }
+  .atlas-compact-filters select,.regional-toolbar select { min-width:0; min-height:44px; width:100%; font-size:16px; }
+  .atlas-compact-filters .map-zoom-controls { grid-column:1 / -1; }
+  .atlas-workspace .map-zoom-controls button,.regional-workspace .map-zoom-controls button { min-width:44px; min-height:44px; }
+  .atlas-records-heading,.regional-list-heading { scroll-margin-top:115px; }
+  .atlas-records .atlas-record-details,.regional-details { font-size:.9rem; }
+  .regional-details { max-height:none; overflow:visible; }
+  .atlas-records .atlas-detail-heading p,.atlas-records .atlas-sources p { font-size:.85rem; }
+  .regional-map-bottom small,.atlas-map-caption > span:last-child { display:none; }
+  .regional-map-top { padding:.5rem; }
+  .regional-toolbar { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.45rem; }
+  .regional-toolbar .regional-stats { grid-column:1 / -1; margin:0; justify-content:flex-start; }
+  .regional-toolbar label { min-width:0; }
+  .mobile-map-return { display:inline-flex; align-items:center; min-height:44px; padding:.4rem .7rem; border:1px solid var(--line); border-radius:.5rem; background:white; color:var(--blue); cursor:pointer; }
+  .site-footer { flex-wrap:wrap; padding-bottom:calc(1.25rem + env(safe-area-inset-bottom)); }
+  .site-footer > span { flex-basis:100%; }
+}
+@media(max-height:500px) and (orientation:landscape) { .site-header { position:relative; } }

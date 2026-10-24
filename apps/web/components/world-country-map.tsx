@@ -38,6 +38,9 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   const [renderedWidth, setRenderedWidth] = useState(mapWidth);
   const svgRef = useRef<SVGSVGElement>(null);
   useEffect(() => {
+    if (selectedRecordId && window.matchMedia("(max-width:640px)").matches) document.querySelector(".atlas-records")?.scrollIntoView({ block: "start" });
+  }, [selectedRecordId]);
+  useEffect(() => {
     const svg = svgRef.current;
     if (!svg) return;
     const observer = new ResizeObserver(entries => setRenderedWidth(entries[0].contentRect.width || mapWidth));
@@ -151,6 +154,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
       {!uncoveredCountry && activeCountry && <div className="atlas-country-context"><strong>{activeCountry.name}</strong>{activeCountry.roles.length > 0 && <span>{activeCountry.roles.slice(0, 2).join(" / ")}</span>}{regionalLinks.filter(link=>link.entityId===activeCountry.id).map(link=><Link key={link.href} className="button button-primary" href={link.href}>{link.label} →</Link>)}{activeCountry.hasTradeLedger && <Link href={ledgerPath(filters.product, activeCountry.id, context)}>国家账本 →</Link>}{filters.country && <button type="button" onClick={() => navigate({ country: undefined })}>清除国家</button>}</div>}
       {!uncoveredCountry && activeNodes.length > 0 && <details className="atlas-country-nodes"><summary>{activeCountry?.name}的生产环节 · {activeNodes.length}</summary><div>{activeNodes.map(node => <Link key={node.id} href={nodePath(filters.product, node.id, { ...context, period: node.periodLabel })}><strong>{node.itemName} · {node.stageLabel}</strong><span>{node.periodLabel}</span></Link>)}</div></details>}
     </div><aside className="atlas-records" aria-label={isTrade ? "贸易记录" : "路线连接记录"}>
+      <button type="button" className="mobile-map-return" onClick={() => svgRef.current?.scrollIntoView({ block: "center" })}>↑ 返回地图</button>
       <div className="atlas-records-heading"><h2>{isTrade && relatedMaterials.length ? `${selectedItemName}相关材料` : selectedItemName} <small>{records.length}</small></h2>
         {isTrade ? <div className="atlas-scope-switch" aria-label="统计范围"><button type="button" aria-pressed={!isWorld} onClick={() => navigate({ scope: "bilateral" })}>双边 <small>{scopeCounts.bilateral}</small></button><button type="button" aria-pressed={isWorld} onClick={() => navigate({ scope: "world" })}>世界总计 <small>{scopeCounts.world}</small></button></div> : <p>{filters.focus ? "上下游分支" : "原料、部件与市场"} · {filters.year ?? years.join(" / ")}</p>}
       </div>

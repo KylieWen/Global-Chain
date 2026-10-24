@@ -1,0 +1,13 @@
+[Unit]
+Description=Remove expired Global Chain aggregate usage counts
+
+[Service]
+Type=oneshot
+User=globechain
+Group=globechain
+ExecStart=/usr/local/bin/node /opt/globechain/tools/prune-usage.mjs /opt/globechain/shared/usage
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/opt/globechain/shared/usage
+UMask=0077

@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 import { isPreviewData } from "../lib/runtime";
 import { SiteNavigation } from "./site-navigation";
 import { PersonaSwitcher } from "./persona-switcher";
+import { SiteSearch } from "./site-search";
+import { UsageInsights } from "./usage-insights";
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const preview = isPreviewData();
@@ -20,11 +22,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </Link>
           <SiteNavigation />
           <PersonaSwitcher />
-          <form className="global-search" action="/search" role="search">
-            <label className="sr-only" htmlFor="global-search-input">搜索商品、国家或企业</label>
-            <input id="global-search-input" name="q" placeholder="搜索商品 / 国家 / 企业" />
-            <button type="submit">搜索</button>
-          </form>
+          <SiteSearch />
           {preview ? <span className="mode-pill mode-preview">开发预览</span> : null}
         </div>
       </header>
@@ -37,6 +35,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <footer className="site-footer">
         <span>Global Chain · 全球商品供应链与贸易数据可视化</span>
         <Link href="/help">使用帮助与数据说明 ↗</Link>
+        <UsageInsights enabled={Boolean(process.env.GLOBECHAIN_USAGE_DIR)} />
       </footer>
     </div>
   );

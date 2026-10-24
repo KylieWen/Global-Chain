@@ -8,7 +8,8 @@ if ($state.projectRoot -ne $projectRoot -or $state.port -ne $Port) { throw "Demo
 $server = Get-Process -Id $state.pid -ErrorAction SilentlyContinue
 if ($server) {
   $started = $server.StartTime.ToUniversalTime().ToString("o")
-  if ($server.ProcessName -ne "node" -or $started -ne $state.startedAt -or $server.Path -ne $state.executable) { throw "The recorded process has changed; no process was stopped." }
+  $expectedStart = ([DateTime]$state.startedAt).ToUniversalTime().ToString("o")
+  if ($server.ProcessName -ne "node" -or $started -ne $expectedStart -or [IO.Path]::GetFullPath($server.Path) -ne [IO.Path]::GetFullPath($state.executable)) { throw "The recorded process has changed; no process was stopped." }
   Stop-Process -Id $server.Id
 }
 Remove-Item -LiteralPath $statePath

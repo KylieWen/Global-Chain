@@ -38,6 +38,7 @@ export function ChinaSupplyMap({atlas,productId,productName,products,organizatio
   const stage=searchParams?searchParams.get('stage')??'':initialStage??'';
   const selected=searchParams?searchParams.get('node')??'':initialNode??'';
   const [hovered,setHovered]=useState('');
+  useEffect(()=>{if(selected&&window.matchMedia('(max-width:640px)').matches)document.querySelector('.regional-details')?.scrollIntoView({block:'start'});},[selected]);
   const [transform,setTransform]=useState<MapTransform>({x:0,y:0,scale:1});
   useEffect(()=>{setHovered('');},[province,stage,selected]);
   const drag=useRef<{x:number;y:number;tx:number;ty:number;moved:boolean}|null>(null); const dragged=useRef(false);
@@ -86,6 +87,7 @@ export function ChinaSupplyMap({atlas,productId,productName,products,organizatio
       <div className="regional-map-bottom"><span>{activePlace?`${activePlace.name} · ${active?.label}`:'点击省份或城市节点，展开当地产业环节'}</span><small>双指缩放与移动 · Ctrl + 滚轮缩放</small></div>
       <div className="regional-legend">{Object.entries(regionalStageLabels).map(([key,label])=><span key={key}><i style={{background:stageColors[key as keyof typeof stageColors]}}/>{label}</span>)}<span className="regional-line-key">虚线：代表性环节联系</span></div>
     </div><aside className="regional-details" aria-label="中国产业环节详情">
+      <button type="button" className="mobile-map-return" onClick={()=>svg.current?.scrollIntoView({block:'center'})}>↑ 返回地图</button>
       {selectedNode?<><button className="regional-back" onClick={()=>{sync(province,stage,'');}}>← 返回区域列表</button><p className="eyebrow">{placeById.get(selectedNode.placeId)?.name} · {regionalStageLabels[selectedNode.stage]}</p><h2>{selectedNode.label}</h2><p>{selectedNode.description}</p><span className="regional-period">{selectedNode.period.label}</span>
         <div className="regional-adjacent"><h3>沿上下游继续看</h3>{atlas.connections.filter(edge=>edge.from===selectedNode.id||edge.to===selectedNode.id).map(edge=>{const target=allById.get(edge.from===selectedNode.id?edge.to:edge.from)!;return <button key={edge.id} onClick={()=>{dragged.current=false;chooseNode(target.id);}}><small>{edge.to===selectedNode.id?'← 上游':'下游 →'}</small><strong>{placeById.get(target.placeId)?.name} · {target.label}</strong></button>;})}</div>
         {linkedOrganizations.map(org=><article className="regional-organization" key={org.id}><h3>{org.name}</h3><Link href={industryPath(productId,selectedNode.topicIds[0]??org.topicId,context)}>查看企业能力与上下游 →</Link>{org.links.slice(0,2).map(link=><a href={link.url} key={link.url} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>)}</article>)}

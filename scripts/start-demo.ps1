@@ -34,7 +34,7 @@ if ($Build) {
 if (-not (Test-Path -LiteralPath (Join-Path $webRoot ".next/BUILD_ID"))) { throw "Prepare the production build first: powershell -File scripts/start-demo.ps1 -Build" }
 $server = Start-Process -FilePath $node.Source -ArgumentList @("node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", "$Port") -WorkingDirectory $webRoot -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $stateRoot "stdout-$Port.log") -RedirectStandardError (Join-Path $stateRoot "stderr-$Port.log")
 $started = (Get-Process -Id $server.Id).StartTime.ToUniversalTime().ToString("o")
-@{ pid=$server.Id; startedAt=$started; executable=$node.Source; projectRoot=$projectRoot; port=$Port } | ConvertTo-Json | Set-Content -LiteralPath $statePath -Encoding UTF8
+@{ pid=$server.Id; startedAt=$started; executable=[IO.Path]::GetFullPath($node.Source); projectRoot=$projectRoot; port=$Port } | ConvertTo-Json | Set-Content -LiteralPath $statePath -Encoding UTF8
 try {
   $deadline = [DateTime]::UtcNow.AddSeconds(120)
   while (-not (Test-DemoReady)) {
