@@ -1,5 +1,15 @@
 # GlobeChain 持续开发恢复入口
 
+## 最新完成（2026-10-24 13:59，手机大图/横屏已上线，Claude报告已核对）
+
+- 用户要求手机地图放大进入横屏，已完成世界/中国共用大图入口、横竖屏布局、双指缩放、按需筛选/详情、退出/Escape后焦点/滚动恢复和换商品卸载清理。同一SVG/URL/缩放状态保留；支持时请求原生全屏及landscape锁，不支持时网页大图+手动转动手机兜底，不承诺真机强制旋转。
+- 13:53:44已切换公网http://62.171.148.193/到6de7227f987a577db4f2b2a41f68137c8deeedcc，current=/opt/globechain/releases/6de7227f987a，BUILD_ID n7QHPGGzQUapTvTFMLPfz；旧cedbf651871d保留回退。globechain/nginx/统计清理timer active，NRestarts=0/ExecMainStatus=0；统计持久目录、代理配置和旧二维码不变，实际匿名POST通过。
+- 类型检查/最终生产构建lint/type通过；地图/点击区/标注/统计4文件24测试通过，没有重跑未变的全量271。两地图大图本地最终13:47:59、候选13:52:00、公网13:54:31通过双指、筛选详情、缩放/URL保持、退出和卸载、API拒绝兜底，pageErrors=[]；真实Chrome原生全屏进入退出通过，方向锁成功分支仅模拟、物理旋转未验。首次候选最后页30秒超时未当成功，改远程等待后补验完整通过。公网五商品各5页/5导出/历史/世界→中国→企业/390与1024菜单13:56:43通过，截图已目视。新脚本接入浏览器运行器，托管CI未实际确认。
+- 候选已停止，全部SSH/SCP/转发已关闭。源包1,995,316字节，SHA c6346bfc0ca4ea89952840ae3dea2688cb499cf056028d520206f98a01fdca64，41fixture/上传/Linux冻结安装构建/27基础检查通过。证据output/qa/2026-10-24-map-focus-{local,candidate,public,self-host-public}/和output/deploy/6de7227-evidence/；说明docs/reviews/2026-10-24-map-focus-and-v4-triage.md。
+- Claude V4原报告按原字节保存docs/reviews/2026-10-24-claude-v4-original.md，33,415字节、SHA 2c69376bac1cfd46c361b66e789fbc54951d7e4a11f6b883942d6fd8557fb5c3；工作区/Git均核对一致。它分析e7c09af/a8a0c16且未操作公网，不能代替新版验收。独立重算确认手机19弱分量/默认入2出0、空调45+41两网，其余3商品单网/0企业；证据output/qa/2026-10-24-claude-v4-triage/current-network-check.json。
+- 产业断点尚未修复：本轮未改数据或不可变release/旧V4包。下一数据批次优先核实手机工序顺序与状态投影/默认入口、空调同义概念显式映射及证据范围、无企业商品文案/原件缺口；不得为了连通指标虚构关系。分组optgroup当前已有，勿按Claude建议重复实现；其它意见逐项核实，不统称已修。当前用户横屏目标完成，不自动扩新批或恢复旧定时任务。末读五小时剩18%/周57%，普通使用允许，12%/3%保护保持；其他脏历史和个人物料保留。
+
+
 ## 最新完成（2026-10-24 13:26，手机优化与匿名汇总已上线）
 
 - 用户已确认“按匿名范围实施”。完成共用页面的手机专项布局与匿名统计，13:20:15同步公网http://62.171.148.193/，应用cedbf651871d193ee7013b5f0502ca5d557e59e8，current=/opt/globechain/releases/cedbf651871d，BUILD_ID 6oEbSjW7xEaN4EIFWCbPS。旧e7c09af2de18保留回退，globechain/nginx active、NRestarts=0/ExecMainStatus=0。早先未知额度/尚未实现/等待统计范围已被本段覆盖。

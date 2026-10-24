@@ -39,7 +39,7 @@ try {
     await delay(250);
   }
   if (!ready) throw new Error('Browser preview did not become ready');
-  for (const script of ['verify-booth-onboarding.mjs', 'verify-browser-smoke.mjs', 'verify-final-experience.mjs', 'verify-navigation-experience.mjs', 'verify-guide-history.mjs']) {
+  for (const script of ['verify-booth-onboarding.mjs', 'verify-map-focus.mjs', 'verify-browser-smoke.mjs', 'verify-final-experience.mjs', 'verify-navigation-experience.mjs', 'verify-guide-history.mjs']) {
     const test = spawn(process.execPath, [resolve(root, 'scripts', script)], {
       cwd: root, env: { ...process.env, REVIEW_BASE_URL: base, REVIEW_OUTPUT_DIR: script === 'verify-browser-smoke.mjs' ? output : resolve(output, script.replace(/^verify-/, '').replace(/\.mjs$/, '')) }, windowsHide: true, stdio: 'inherit'
     });

@@ -4,10 +4,11 @@ import {mkdir,writeFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 const base=process.env.REVIEW_BASE_URL??'http://127.0.0.1:3000';
 const out=resolve(process.env.REVIEW_OUTPUT_DIR??'output/qa/2026-10-24-map-focus-local');await mkdir(out,{recursive:true});
-const browser=await chromium.launch({channel:'chrome'});const errors=[];const checks=[];
+const browser=await chromium.launch({channel:process.env.CI?undefined:'chrome'});const errors=[];const checks=[];
 const setup=()=>{localStorage.setItem('global-chain.anonymous-usage.v1','off');localStorage.setItem('global-chain.first-visit-guide.v1','skipped');};
 try{
  const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+ context.setDefaultNavigationTimeout(90000);
  await context.addInitScript(setup);
  await context.addInitScript(()=>{Element.prototype.requestFullscreen=()=>Promise.reject(new Error('Test unsupported fullscreen'));});
  const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
@@ -23,10 +24,15 @@ try{
   await page.setViewportSize({width:844,height:390});
   const box=await dialog.boundingBox();assert.equal(Math.round(box.width),844);assert.equal(Math.round(box.height),390);
   const mapBox=await page.locator(svgSelector).boundingBox();assert.ok(mapBox.height>240&&mapBox.y+mapBox.height<=391,JSON.stringify({kind,mapBox}));
-  await dialog.getByRole('button',{name:'大图放大',exact:true}).click();const zoomed=await page.locator(svgSelector+' > g[transform]').first().getAttribute('transform');assert.notEqual(zoomed,transform);
+  await dialog.getByRole('button',{name:'大图放大',exact:true}).click();let zoomed=await page.locator(svgSelector+' > g[transform]').first().getAttribute('transform');assert.notEqual(zoomed,transform);
   await dialog.getByRole('button',{name:'筛选',exact:true}).click();assert.ok(await dialog.getByRole('combobox').count()>0);
   await dialog.getByRole('button',{name:'筛选',exact:true}).click();
   await page.screenshot({path:resolve(out,kind+'-landscape.png')});
+  const touch=await context.newCDPSession(page);const cy=mapBox.y+mapBox.height/2;
+  await touch.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:330,y:cy,id:1},{x:450,y:cy,id:2}]});
+  await touch.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:290,y:cy,id:1},{x:490,y:cy,id:2}]});
+  await touch.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+  await page.waitForTimeout(100);const pinched=await page.locator(svgSelector+' > g[transform]').first().getAttribute('transform');assert.notEqual(pinched,zoomed);zoomed=pinched;await touch.detach();
   await dialog.getByRole('button',{name:'详情',exact:true}).click();await dialog.locator('aside').waitFor({state:'visible'});
   await page.screenshot({path:resolve(out,kind+'-details.png')});
   await dialog.getByRole('button',{name:'退出大图 ×',exact:true}).click();await dialog.waitFor({state:'hidden'});
@@ -34,14 +40,14 @@ try{
   assert.equal(await page.locator(svgSelector+' > g[transform]').first().getAttribute('transform'),zoomed);
   assert.ok(await entry.evaluate(el=>document.activeElement===el));
   await entry.click();await page.keyboard.press('Escape');await dialog.waitFor({state:'hidden'});
-  checks.push({kind,fallback:true,portrait:true,landscapeMapHeight:mapBox.height,filtersAndDetails:true,zoomAndUrlRetained:true,exitAndEscapeRestoreFocus:true});
+  checks.push({kind,fallback:true,portrait:true,landscapeMapHeight:mapBox.height,filtersAndDetails:true,twoFingerZoom:true,zoomAndUrlRetained:true,exitAndEscapeRestoreFocus:true});
  }
  await page.goto(base+'/map?product=generic-home-air-conditioner',{waitUntil:'networkidle'});await page.getByRole('button',{name:'展开世界地图',exact:true}).click();
  await page.getByRole('dialog').getByRole('button',{name:'筛选',exact:true}).click();await page.getByRole('combobox',{name:'选择商品',exact:true}).selectOption('generic-smartphone');
  await page.waitForURL(url=>url.searchParams.get('product')==='generic-smartphone');await page.locator('.map-focus-root[data-expanded=true]').waitFor({state:'detached'});
  assert.equal(await page.locator('body').evaluate(el=>el.style.overflow),'');assert.equal(await page.locator('.site-header').evaluate(el=>el.inert),false);checks.push({navigationUnmountReleasesFocusAndScroll:true});
  await context.close();
- const native=await browser.newContext({viewport:{width:844,height:390}});await native.addInitScript(setup);
+ const native=await browser.newContext({viewport:{width:844,height:390}});native.setDefaultNavigationTimeout(90000);await native.addInitScript(setup);
  await native.addInitScript(()=>{
   let element=null;window.__mapLocks=0;window.__mapUnlocks=0;
   Object.defineProperty(document,'fullscreenElement',{configurable:true,get:()=>element});
@@ -55,7 +61,7 @@ try{
  await p.evaluate(()=>document.exitFullscreen());await p.getByRole('dialog').waitFor({state:'hidden'});
  assert.equal(await p.evaluate(()=>window.__mapUnlocks),1);assert.equal(await p.locator('.site-header').evaluate(el=>el.inert),false);
  checks.push({nativeApiSuccessBranch:'simulated',nativeExitUnlocks:true});await native.close();
- const real=await browser.newContext({viewport:{width:844,height:390}});await real.addInitScript(setup);const live=await real.newPage();live.on('pageerror',e=>errors.push(e.message));
+ const real=await browser.newContext({viewport:{width:844,height:390}});real.setDefaultNavigationTimeout(90000);await real.addInitScript(setup);const live=await real.newPage();live.on('pageerror',e=>errors.push(e.message));
  await live.goto(base+'/map/china?product=generic-home-air-conditioner',{waitUntil:'networkidle'});await live.getByRole('button',{name:'展开中国地图',exact:true}).click();await live.getByRole('dialog').waitFor();
  const actualFullscreen=await live.evaluate(()=>Boolean(document.fullscreenElement));await live.getByRole('button',{name:'退出大图 ×',exact:true}).click();await live.getByRole('dialog').waitFor({state:'hidden'});
  assert.equal(await live.evaluate(()=>Boolean(document.fullscreenElement)),false);checks.push({realChromeFullscreen:actualFullscreen,physicalRotationVerified:false});await real.close();

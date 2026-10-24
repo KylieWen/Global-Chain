@@ -1,5 +1,15 @@
 # 手机地图大图/横屏与Claude V4核对
 
+## 公网完成补记
+
+13:53:44 Asia/Singapore已切换6de7227f987a577db4f2b2a41f68137c8deeedcc，current=/opt/globechain/releases/6de7227f987a，BUILD_ID n7QHPGGzQUapTvTFMLPfz；旧cedbf651871d保留回退。源包1,995,316字节，SHA256 c6346bfc0ca4ea89952840ae3dea2688cb499cf056028d520206f98a01fdca64，本地41fixture校验/上传哈希/Linux冻结安装与构建/27候选基础检查通过。
+
+本地最终13:47:59、候选13:52:00、公网13:54:31两地图大图/竖横屏/双指缩放/保留缩放与URL/筛选详情/退出焦点与滚动/换商品卸载/全屏API拒绝降级均通过，pageErrors=[]；真实Chrome原生全屏进入退出通过，方向锁成功分支另为模拟，未验证物理手机旋转。首次候选末页30秒导航超时未算成功，增加远程等待时限后完整补验通过；产品未因这次超时再改。
+
+公网五商品各5页/5导出、历史版本、世界→中国→企业、390/1024菜单也通过，截图已目视。脚本接入run-browser-smoke运行器并支持CI的Chromium选择，但未声称托管CI已实际运行。globechain/nginx/统计清理timer均active，NRestarts=0/ExecMainStatus=0；原统计目录保留、实际POST通过，没有修改统计/代理/账号配置。候选已停，全部本轮SSH/SCP/转发已关闭。
+
+证据output/qa/2026-10-24-map-focus-{candidate,public,self-host-public}/及output/deploy/6de7227-evidence/；证据包SHA256 b519e7be546c284d291f44a533cc6755b40dd82442a72a53a44761daf41bd008。下文“公网仍cedbf”为初始本地阶段。产业数据/release/V4评审包未修改；下述网络断点仅核实并登记，尚未修复。
+
 用户新增“手机可以考虑放大地图进入横屏”，同时回传CLAUDE-REVIEW-V4.md。本轮重点实现两地图共用的大图浏览；附带报告作为评审材料读取，不把其中建议当作自动执行全部修改的指令。
 
 ## 已实现并本地验证
