@@ -5,13 +5,14 @@ The first deployment was completed on 2026-10-23 (Asia/Singapore):
 `b7f2f4201dcd23cfa2694e99c24f50062099b8ff`. This is IP-based HTTP; no domain
 or HTTPS is configured. No account credentials belong here.
 
-The current application is `e7c09af2de182905ac9808385b81689a3515d833`, including
+The current application is `cedbf651871d193ee7013b5f0502ca5d557e59e8`, including
+the mobile header/search/navigation improvements and optional anonymous daily usage counts,
 five source-backed industry networks (259 topics, 292 relations and 24 organizations),
 the optional personalized first-visit guide, retired standalone demo entry,
 three browsing perspectives, and the China navigation/metadata fixes. It retains the China atlas 2026.10.2
 (18 roles, 12 representative connections). The current release directory is
-`/opt/globechain/releases/e7c09af2de18`; the immediately preceding verified release
-`/opt/globechain/releases/39ee82f4775b` and older releases remain available for rollback.
+`/opt/globechain/releases/cedbf651871d`; the immediately preceding verified release
+`/opt/globechain/releases/e7c09af2de18` and older releases remain available for rollback.
 The homepage at [the public root](http://62.171.148.193/) offers a skippable first-visit
 guide and a button to reopen it. `/demo` redirects there. Printable booth QR assets
 are in `output/booth/2026-10-24/`; the PNG and SVG independently decode to this root.
@@ -32,6 +33,31 @@ using installed Chrome. Set `REVIEW_BASE_URL` to check another host.
 personalized destinations, keyboard focus and mobile/restricted-storage behavior.
 
 ## Maintenance on the host
+
+Anonymous usage is enabled by `/etc/systemd/system/globechain.service.d/usage.conf`,
+which sets `GLOBECHAIN_USAGE_DIR=/opt/globechain/shared/usage`. This directory is
+owned by globechain with mode 0700; daily JSON files use 0600. The schema contains
+only a UTC date and counts grouped by finite page, viewport and event categories.
+It stores no visitor/session identifier, search text, full URL, IP or raw error text.
+Visitors can disable it in the footer; GPC/DNT disables it automatically.
+These counts are not unique visitors, and the launch day includes QA traffic.
+
+The owner can export aggregates over existing SSH access:
+
+```sh
+node /opt/globechain/tools/report-usage.mjs /opt/globechain/shared/usage
+systemctl status globechain-usage-prune.timer
+```
+
+There is no public statistics read endpoint or account dashboard. The separate
+`globechain-usage-prune.timer` runs at 00:05 UTC daily; its service was manually
+checked successfully. Writes also prune entries outside the latest 30 UTC days.
+This is server data maintenance, not a Codex chat automation. The nginx include
+`/etc/nginx/snippets/globechain-usage.conf` disables access logging for this endpoint
+and strips forwarded IP headers. Other existing site logs are managed separately.
+The previous nginx site is backed up at `/opt/globechain/nginx-before-cedbf65.conf`.
+Disable collection by removing the usage environment setting and restarting the app;
+keep the shared directory independent of releases and respect its retention policy.
 
 Use `systemctl status globechain nginx` and `journalctl -u globechain -n 100 --no-pager`
 to inspect service health. `systemctl restart globechain` restarts the app after an

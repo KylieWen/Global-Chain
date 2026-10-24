@@ -1,5 +1,14 @@
 # 手机专项与匿名汇总（2026-10-24）
 
+## 公网上线补记（13:26）
+
+- 13:20:15 Asia/Singapore已切换到cedbf651871d193ee7013b5f0502ca5d557e59e8，current=/opt/globechain/releases/cedbf651871d，BUILD_ID 6oEbSjW7xEaN4EIFWCbPS；旧e7c09af2de18保留回退。globechain/nginx active，NRestarts=0/ExecMainStatus=0。下方“仅本地/计划目录”为初始提交状态，已被本段覆盖。
+- 源码包1,992,619字节，SHA256 7817791f3c882441a2738179a35e0573c9c520459170ba3a6deaca5edee05d63；上传一致、41fixture、Linux冻结安装/构建及27候选检查通过。候选手机/匿名统计13:18:23通过，并独立确认隔离目录实际汇总落盘。
+- 公网首次引导13:21:41、五商品各5页/5导出/历史/世界→中国→企业及390/1024菜单通过；手机16组合及统计13:25:34通过，真实批次返回204，关闭后刷新无新请求、GPC停发、额外字段400、跨域403、公开读取405，pageErrors=[]。截图已目视。首次公网脚本按固定5.5秒判断响应失败，改为等待实际响应后通过，未因此再改产品；一次默认/map浏览器瞬时访问失败，随后默认/map HTTP200/442777字节及健康200，未确认持续故障，不称该次失败已验收成功。
+- 生产目录/opt/globechain/shared/usage实际0700，JSON0600、globechain所有；正常事件落盘，导出已取得21组汇总键，包含上线验证流量。nginx统计专用location关闭access_log/清空转发IP；原配置备份/opt/globechain/nginx-before-cedbf65.conf。其他原有日志没有改动。
+- globechain-usage-prune.timer enabled/active；每日00:05 UTC（下一次10月25日08:05 Asia/Singapore）。实际手动运行清理服务Result=success/ExecMainStatus=0。目录独立于发布，查询仅SSH导出，未开放后台读接口，未创建聊天自动化。
+- 候选已停止，全部本轮SSH/SCP/转发已关闭。证据output/deploy/cedbf65-evidence/（部署、候选、构建、匿名汇总），压缩包SHA256 9ef66ad310ddb99bfe9a1a62cd43e9de688f81213420c65549b58b797e633209；公网证据output/qa/2026-10-24-mobile-{usage,guide,self-host}-public/。V4评审包仍固定a8a0c16/e7c09af，未覆盖；不能拿它的源码快照冒称本次手机版。
+
 用户已明确选择匿名范围：页面/功能点击、地图操作、引导完成或跳过、页面错误；不记录姓名、联系方式或搜索原文，提供关闭入口。共用业务页面，未创建商品或手机专属业务数据类型。
 
 ## 手机交互

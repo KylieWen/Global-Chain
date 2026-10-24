@@ -1,5 +1,15 @@
 # GlobeChain 持续开发恢复入口
 
+## 最新完成（2026-10-24 13:26，手机优化与匿名汇总已上线）
+
+- 用户已确认“按匿名范围实施”。完成共用页面的手机专项布局与匿名统计，13:20:15同步公网http://62.171.148.193/，应用cedbf651871d193ee7013b5f0502ca5d557e59e8，current=/opt/globechain/releases/cedbf651871d，BUILD_ID 6oEbSjW7xEaN4EIFWCbPS。旧e7c09af2de18保留回退，globechain/nginx active、NRestarts=0/ExecMainStatus=0。早先未知额度/尚未实现/等待统计范围已被本段覆盖。
+- 手机页头161→97px，商品导航103→52px、可横滑且自动露出当前项；搜索按需展开/Escape、44px地图控件、来源导航前置、城市/连线详情与返回地图。390中国地图顶部752→549px，世界484→430px。360/390/430及844横屏16路径组合无页面横溢；只称Chrome触屏模拟，未冒称真机软键盘已全部验证。
+- 统计只存UTC每日event/page/device白名单汇总，无访客ID/轨迹/IP/搜索原文/完整URL/原始错误文本；页脚可关闭并刷新保留，GPC/DNT关闭。/api/usage仅同源POST、4KiB/批量/频率限制，读405。持久目录/opt/globechain/shared/usage实测0700/JSON0600；所有者SSH执行/opt/globechain/tools/report-usage.mjs导出，无公开后台。nginx统计接口关闭access_log且不转发IP，其它站点日志独立。
+- 最近30UTC日保留；每日systemd清理timer active/enabled、手动运行Result=success/Exit=0，下一次10月25日08:05新加坡。不是聊天自动化，不重建旧heartbeat。导出21组匿名汇总键已核对，初始日包含QA流量，不能作为独立访客数。
+- 全工作区类型/最终构建含lint通过，55文件271测试通过。候选Linux构建/41fixture哈希/27检查及手机13:18:23通过；公网引导13:21:41、五商品浏览/导出/地图回归、最终手机统计13:25:34通过、pageErrors=[]、真实POST204/关闭后刷新停发/GPC停发/字段400/跨域403/公开读405，截图已目视。首次固定等待过短的统计断言未算成功，改等真实响应后通过；瞬时默认/map失败后HTTP200复查，不确认持续产品故障。
+- 候选已停，全部SSH/SCP/转发已结束；证据output/deploy/cedbf65-evidence/和output/qa/2026-10-24-mobile-{usage,guide,self-host}-public/。部署详情/导出维护见docs/reviews/2026-10-24-mobile-usage-implementation.md及ops/self-host/README.md。应用数据/不可变release不改，V4评审包保持a8a0c16/e7c09af历史快照，没有覆盖或发送。最近实读五小时剩51%、周62%，普通使用允许，12%/3%保护保持；只提交本轮成果，其他脏历史和个人物料保留。
+
+
 ## 最新任务与恢复点（2026-10-24，手机专项优化与使用统计）
 
 - 用户新增要求：“我觉得手机版的浏览需要做单独优化，以及我们应该后台收集用户使用记录获取优化”。当前任务转为手机实际体验与后台使用统计，不再停留在V4评审包；具体范围见docs/reviews/2026-10-24-mobile-and-usage-next.md。

@@ -12,6 +12,7 @@ const context=await browser.newContext({viewport:{width:390,height:844},isMobile
 await context.addInitScript(()=>localStorage.setItem('global-chain.first-visit-guide.v1','skipped'));
 const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
 const packets=[];page.on('request',request=>{if(new URL(request.url()).pathname==='/api/usage')packets.push(JSON.parse(request.postData()));});
+const collectionStatuses=[];page.on('response',response=>{if(new URL(response.url()).pathname==='/api/usage')collectionStatuses.push(response.status());});
 const go=async path=>{assert.equal((await page.goto(base+path,{waitUntil:'networkidle',timeout:90000})).status(),200);};
 try {
  for(const [width,height] of [[360,800],[390,844],[430,932],[844,390]]){
@@ -34,8 +35,9 @@ try {
  await page.keyboard.press('Escape');await page.locator('#global-search-input').waitFor({state:'hidden'});
  await page.getByRole('button',{name:'放大地图',exact:true}).click();
  await page.getByRole('combobox',{name:'选择记录年度',exact:true}).selectOption({index:0});
- await page.waitForTimeout(5500);
+ await page.waitForResponse(response=>new URL(response.url()).pathname==='/api/usage',{timeout:20000});
  assert.ok(packets.flatMap(p=>p.events).some(e=>e.event==='map_zoom'));
+ assert.ok(collectionStatuses.length>0&&collectionStatuses.every(status=>status===204),'Real browser batches are successfully stored: '+JSON.stringify(collectionStatuses));
  for(const row of packets.flatMap(p=>p.events))assert.deepEqual(Object.keys(row).sort(),['device','event','page']);
  assert.ok(!JSON.stringify(packets).includes('PRIVATE-SEARCH'));
  await page.locator('.usage-preference > summary').click();await page.getByRole('checkbox',{name:'允许匿名使用统计'}).uncheck();
@@ -48,6 +50,6 @@ try {
  const cross=await page.request.post(base+'/api/usage',{headers:{origin:'http://outside.example'},data:{events:[{event:'page_view',page:'home',device:'phone'}]}});assert.equal(cross.status(),403);
  assert.equal((await page.request.get(base+'/api/usage')).status(),405);
  assert.deepEqual(errors,[]);
- const result={base,checkedAt:new Date().toISOString(),checks,packets:packets.length,optOutPersists:true,globalPrivacyControl:true,searchTextExcluded:true,crossOriginRejected:true,publicReadRejected:true,pageErrors:errors};
+ const result={base,checkedAt:new Date().toISOString(),checks,packets:packets.length,collectionStatuses,optOutPersists:true,globalPrivacyControl:true,searchTextExcluded:true,crossOriginRejected:true,publicReadRejected:true,pageErrors:errors};
  await writeFile(resolve(output,'result.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
 } finally {await browser.close();}
