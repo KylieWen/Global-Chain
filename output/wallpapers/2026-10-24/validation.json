@@ -1,0 +1,44 @@
+[
+  {
+    "file": "Global-Chain-QR-2560x1600-navy.png",
+    "pixels": [
+      2560,
+      1600
+    ],
+    "originalPayloadPreserved": true,
+    "qrModulesIncludingQuietZone": 37,
+    "modulePitchPx": 24,
+    "qrPixels": [
+      888,
+      888
+    ],
+    "quietZoneModules": 4,
+    "qrAreaPixelVerified": true,
+    "decodedAt": [
+      "2560x1600",
+      "1920x1200",
+      "1280x800"
+    ]
+  },
+  {
+    "file": "Global-Chain-QR-2560x1600-ivory.png",
+    "pixels": [
+      2560,
+      1600
+    ],
+    "originalPayloadPreserved": true,
+    "qrModulesIncludingQuietZone": 37,
+    "modulePitchPx": 24,
+    "qrPixels": [
+      888,
+      888
+    ],
+    "quietZoneModules": 4,
+    "qrAreaPixelVerified": true,
+    "decodedAt": [
+      "2560x1600",
+      "1920x1200",
+      "1280x800"
+    ]
+  }
+]
