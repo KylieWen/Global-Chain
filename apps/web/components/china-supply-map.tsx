@@ -13,6 +13,7 @@ import { clampMapTransform, zoomMap, type MapTransform } from "../lib/map-geomet
 import { layoutMapLabels } from "../lib/map-presentation";
 import { layoutMapHitRegions } from "../lib/map-hit-regions";
 import { useMapWheel } from "./use-map-wheel";
+import { MapFocus, MapFocusButton } from "./map-focus";
 
 const width=900; const height=520;
 type ChinaFeature={type:'Feature';properties:{name:string;adcode:string|number};geometry:{type:'Polygon';coordinates:number[][][]}|{type:'MultiPolygon';coordinates:number[][][][]}};
@@ -32,7 +33,7 @@ export function ChinaSupplyMap({atlas,productId,productName,products,organizatio
   const router=useRouter(); const svg=useRef<SVGSVGElement>(null);
   const searchParams=useSearchParams();
   const [renderedWidth,setRenderedWidth]=useState(width);
-  useEffect(()=>{const element=svg.current;if(!element)return;const observer=new ResizeObserver(entries=>setRenderedWidth(entries[0].contentRect.width||width));observer.observe(element);return()=>observer.disconnect();},[]);
+  useEffect(()=>{const element=svg.current;if(!element)return;const observer=new ResizeObserver(entries=>setRenderedWidth(element.getScreenCTM()?Math.abs(element.getScreenCTM()!.a)*width:entries[0].contentRect.width||width));observer.observe(element);return()=>observer.disconnect();},[]);
   // Native history updates and same-product Next links share one filter source.
   const province=searchParams?searchParams.get('province')??'':initialProvince??'';
   const stage=searchParams?searchParams.get('stage')??'':initialStage??'';
@@ -66,14 +67,14 @@ export function ChinaSupplyMap({atlas,productId,productName,products,organizatio
   const sourceFor=(ids:string[])=>atlas.sources.filter(source=>ids.includes(source.id));
   const linkedOrganizations=organizations.filter(org=>selectedNode?.organizationIds.includes(org.id));
 
-  return <section className="regional-workspace" aria-label="中国商品供应链地图">
+  return <MapFocus title="中国地图" onZoom={factor=>setTransform(current=>zoomMap(current,factor,width,height))} onReset={()=>setTransform({x:0,y:0,scale:1})}><section className="regional-workspace" aria-label="中国商品供应链地图">
     <div className="regional-toolbar"><label>探索商品<select aria-label="中国地图商品" value={productId} onChange={event=>router.push(chinaMapPath({product:event.target.value}))}>{products.map(product=><option key={product.id} value={product.id}>{product.name}</option>)}</select></label>
       <label>生产环节<select aria-label="中国地图生产环节" value={stage} onChange={event=>changeFilter(province,event.target.value)}><option value="">全部环节</option>{Object.entries(regionalStageLabels).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label>
       <label>省份<select aria-label="中国地图省份" value={province} onChange={event=>changeFilter(event.target.value,stage)}><option value="">全国</option>{geography.features.filter(feature=>feature.properties.name).map(feature=><option key={feature.properties.adcode} value={feature.properties.adcode}>{feature.properties.name}{coverage.has(String(feature.properties.adcode))?' · 已收录':''}</option>)}</select></label>
       <div className="regional-stats"><strong>{view.places.length}</strong> 个区域节点<span>·</span><strong>{view.allNodes.length}</strong> 个产业环节</div>
     </div>
     <div className="regional-layout"><div className="regional-map-panel">
-      <div className="regional-map-top"><span>CHINA / {productName}</span><div className="map-zoom-controls"><button aria-label="放大中国地图" onClick={()=>setTransform(t=>zoomMap(t,1.3,width,height))} disabled={transform.scale>=4}>＋</button><button aria-label="缩小中国地图" onClick={()=>setTransform(t=>zoomMap(t,1/1.3,width,height))} disabled={transform.scale<=1}>－</button><button onClick={()=>setTransform({x:0,y:0,scale:1})}>复位</button></div></div>
+      <div className="regional-map-top"><span>CHINA / {productName}</span><div className="map-zoom-controls"><button aria-label="放大中国地图" onClick={()=>setTransform(t=>zoomMap(t,1.3,width,height))} disabled={transform.scale>=4}>＋</button><button aria-label="缩小中国地图" onClick={()=>setTransform(t=>zoomMap(t,1/1.3,width,height))} disabled={transform.scale<=1}>－</button><button onClick={()=>setTransform({x:0,y:0,scale:1})}>复位</button><MapFocusButton label="中国地图"/></div></div>
       <svg className="china-supply-map" ref={svg} viewBox={`0 0 ${width} ${height}`} role="group" aria-label="可交互中国省级供应链地图" onPointerDown={onDown} onPointerMove={onMove} onPointerUp={()=>{drag.current=null;}} onPointerCancel={()=>{drag.current=null;}}>
         <defs><marker id="china-role-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth={8/transform.scale} markerHeight={8/transform.scale} markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10Z" fill="#79dfc9"/></marker><radialGradient id="china-map-light"><stop stopColor="#335969" stopOpacity=".35"/><stop offset="1" stopColor="#162f3e" stopOpacity="0"/></radialGradient></defs>
         <rect width={width} height={height} fill="url(#china-map-light)"/>
@@ -96,5 +97,5 @@ export function ChinaSupplyMap({atlas,productId,productName,products,organizatio
     </aside></div>
     <p className="regional-scope-note">城市点位为区域参考位置；虚线连接生产环节，不代表已核实的企业供货或实际运输。各环节保留原资料年份。</p>
     <details className="regional-method"><summary>地图来源、资料版本与覆盖范围</summary><p>省市边界与城市参考点来自阿里云 DataV.GeoAtlas，原始省级轮廓、港澳台和南海诸岛参考要素保留。点位不是厂址，未按产量或份额加权。当前是已收录区域的研究入口。</p><p>国内区域资料版本：{atlas.datasetVersion} · {atlas.reviewedAt.slice(0,10)}。商品数据版本与区域资料独立；历史商品页面不会改变这批区域资料的观察时间。</p><ul>{atlas.sources.map(source=><li key={source.id}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.name} ↗</a> · {source.publisher}</li>)}</ul></details>
-  </section>;
+  </section></MapFocus>;
 }

@@ -4,6 +4,7 @@ import "./atlas-navigation.css";
 import "./interaction.css";
 import "./persona.css";
 import "./mobile.css";
+import "./map-focus.css";
 
 export const metadata: Metadata = {
   title: "Global Chain",

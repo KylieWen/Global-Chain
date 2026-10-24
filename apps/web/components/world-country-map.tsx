@@ -10,6 +10,7 @@ import worldAtlas from "world-atlas/countries-110m.json";
 import smallCountries from "../../../content/geography/world-small-country-geometry.json";
 import { ledgerPath, mapPath, nodePath, supplyChainPath, type MapFilters } from "../lib/paths";
 import { useMapWheel } from "./use-map-wheel";
+import { MapFocus, MapFocusButton } from "./map-focus";
 import type { MapCountry, MapViewModel } from "../lib/map-view-model";
 import { clampMapTransform, zoomMap, type MapTransform } from "../lib/map-geometry";
 import { layoutMapLabels, tradeAmountBands, tradeAmountWidth } from "../lib/map-presentation";
@@ -43,7 +44,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   useEffect(() => {
     const svg = svgRef.current;
     if (!svg) return;
-    const observer = new ResizeObserver(entries => setRenderedWidth(entries[0].contentRect.width || mapWidth));
+    const observer = new ResizeObserver(entries => setRenderedWidth(svg.getScreenCTM() ? Math.abs(svg.getScreenCTM()!.a) * mapWidth : entries[0].contentRect.width || mapWidth));
     observer.observe(svg);
     return () => observer.disconnect();
   }, []);
@@ -105,7 +106,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   };
   const stopDrag = () => { if (drag.current) suppressClick.current = drag.current.moved; drag.current = null; };
 
-  return <section className="country-map-workspace atlas-workspace" aria-label="可交互世界国家地图" aria-busy={isPending}>
+  return <MapFocus title="世界地图" onZoom={factor => setTransform(current => zoomMap(current, factor))} onReset={() => setTransform({x:0,y:0,scale:1})}><section className="country-map-workspace atlas-workspace" aria-label="可交互世界国家地图" aria-busy={isPending}>
     {isPending && <div className="map-pending" role="status" aria-live="polite">正在更新地图…</div>}
     <div className="atlas-compact-filters">
       <label>商品<select aria-label="选择商品" value={filters.product} onChange={event => navigate({ product: event.target.value, focus: undefined, year: undefined, country: undefined, direction: undefined, scope: undefined, datasetVersion: undefined, contentVersion: undefined })}>{products.map(product => <option key={product.id} value={product.id}>{product.name}</option>)}</select></label>
@@ -113,7 +114,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
       <label>年份<select aria-label="选择记录年度" value={filters.year ?? ""} onChange={event => navigate({ year: event.target.value || undefined })}><option value="">全部年份</option>{filters.year && !years.includes(filters.year) && <option value={filters.year}>{filters.year} · 无记录</option>}{years.map(year => <option key={year} value={year}>{year}</option>)}</select></label>
       <label>国家<select aria-label="选择国家" value={filters.country ?? ""} onChange={event => navigate({ country: event.target.value || undefined })}><option value="">全部国家</option>{countries.map(country => <option key={country.id} value={country.id}>{country.name}{hasLayerRecords(country) ? "" : ` · ${coverageLabel(country)}`}</option>)}</select></label>
       {isTrade && <label>报告方向<select aria-label="报告方向" value={filters.direction ?? ""} onChange={event => navigate({ direction: event.target.value === "import" || event.target.value === "export" ? event.target.value : undefined })}><option value="">进出口</option><option value="export">出口</option><option value="import">进口</option></select></label>}
-      <div className="map-zoom-controls" aria-label="地图缩放"><button type="button" onClick={() => setTransform(current => zoomMap(current, 1.25))} aria-label="放大地图" disabled={transform.scale >= 4}>＋</button><button type="button" onClick={() => setTransform(current => zoomMap(current, 0.8))} aria-label="缩小地图" disabled={transform.scale <= 1}>－</button><button type="button" onClick={() => setTransform({ x: 0, y: 0, scale: 1 })}>复位</button></div>
+      <div className="map-zoom-controls" aria-label="地图缩放"><button type="button" onClick={() => setTransform(current => zoomMap(current, 1.25))} aria-label="放大地图" disabled={transform.scale >= 4}>＋</button><button type="button" onClick={() => setTransform(current => zoomMap(current, 0.8))} aria-label="缩小地图" disabled={transform.scale <= 1}>－</button><button type="button" onClick={() => setTransform({ x: 0, y: 0, scale: 1 })}>复位</button><MapFocusButton label="世界地图"/></div>
     </div>
     <div className="atlas-layout"><div className="atlas-canvas">
       <div className="map-viewport"><svg ref={svgRef} className="world-country-map" data-zoomed={transform.scale > 1} viewBox={`0 0 ${mapWidth} ${mapHeight}`} role="group" aria-labelledby="world-country-map-title" aria-describedby="world-country-map-description" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={stopDrag} onPointerCancel={stopDrag}>
@@ -171,5 +172,5 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
         {isTrade && filters.focus && hasFocusTradeCoverage && <button className="atlas-to-product" type="button" onClick={toProductStatistics}>查看整件商品统计 →</button>}
       </>}
     </aside></div>
-  </section>;
+  </section></MapFocus>;
 }

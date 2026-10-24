@@ -1,0 +1,63 @@
+import {chromium} from 'playwright';
+import assert from 'node:assert/strict';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+const base=process.env.REVIEW_BASE_URL??'http://127.0.0.1:3000';
+const out=resolve(process.env.REVIEW_OUTPUT_DIR??'output/qa/2026-10-24-map-focus-local');await mkdir(out,{recursive:true});
+const browser=await chromium.launch({channel:'chrome'});const errors=[];const checks=[];
+const setup=()=>{localStorage.setItem('global-chain.anonymous-usage.v1','off');localStorage.setItem('global-chain.first-visit-guide.v1','skipped');};
+try{
+ const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+ await context.addInitScript(setup);
+ await context.addInitScript(()=>{Element.prototype.requestFullscreen=()=>Promise.reject(new Error('Test unsupported fullscreen'));});
+ const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
+ for(const [kind,path,label,svgSelector] of [['world','/map?product=generic-home-air-conditioner&country=country-cn','世界地图','.world-country-map'],['china','/map/china?product=generic-home-air-conditioner&stage=material','中国地图','.china-supply-map']]){
+  await page.setViewportSize({width:390,height:844});await page.goto(base+path,{waitUntil:'networkidle',timeout:90000});
+  const entry=page.getByRole('button',{name:'展开'+label,exact:true});await entry.focus();
+  const url=page.url();const transform=await page.locator(svgSelector+' > g[transform]').first().getAttribute('transform');
+  await entry.click();const dialog=page.getByRole('dialog',{name:label+' · 大图',exact:true});await dialog.waitFor();
+  assert.equal(await page.locator('body').evaluate(el=>el.style.overflow),'hidden');assert.equal(await page.locator('.site-header').evaluate(el=>el.inert),true);
+  assert.equal(await page.locator(svgSelector).count(),1);assert.equal(await page.locator(svgSelector+' > g[transform]').first().getAttribute('transform'),transform);
+  await page.keyboard.press('Shift+Tab');assert.ok(await dialog.evaluate(el=>el.contains(document.activeElement)));
+  await page.screenshot({path:resolve(out,kind+'-portrait.png')});
+  await page.setViewportSize({width:844,height:390});
+  const box=await dialog.boundingBox();assert.equal(Math.round(box.width),844);assert.equal(Math.round(box.height),390);
+  const mapBox=await page.locator(svgSelector).boundingBox();assert.ok(mapBox.height>240&&mapBox.y+mapBox.height<=391,JSON.stringify({kind,mapBox}));
+  await dialog.getByRole('button',{name:'大图放大',exact:true}).click();const zoomed=await page.locator(svgSelector+' > g[transform]').first().getAttribute('transform');assert.notEqual(zoomed,transform);
+  await dialog.getByRole('button',{name:'筛选',exact:true}).click();assert.ok(await dialog.getByRole('combobox').count()>0);
+  await dialog.getByRole('button',{name:'筛选',exact:true}).click();
+  await page.screenshot({path:resolve(out,kind+'-landscape.png')});
+  await dialog.getByRole('button',{name:'详情',exact:true}).click();await dialog.locator('aside').waitFor({state:'visible'});
+  await page.screenshot({path:resolve(out,kind+'-details.png')});
+  await dialog.getByRole('button',{name:'退出大图 ×',exact:true}).click();await dialog.waitFor({state:'hidden'});
+  assert.equal(page.url(),url);assert.equal(await page.locator('body').evaluate(el=>el.style.overflow),'');assert.equal(await page.locator('.site-header').evaluate(el=>el.inert),false);
+  assert.equal(await page.locator(svgSelector+' > g[transform]').first().getAttribute('transform'),zoomed);
+  assert.ok(await entry.evaluate(el=>document.activeElement===el));
+  await entry.click();await page.keyboard.press('Escape');await dialog.waitFor({state:'hidden'});
+  checks.push({kind,fallback:true,portrait:true,landscapeMapHeight:mapBox.height,filtersAndDetails:true,zoomAndUrlRetained:true,exitAndEscapeRestoreFocus:true});
+ }
+ await page.goto(base+'/map?product=generic-home-air-conditioner',{waitUntil:'networkidle'});await page.getByRole('button',{name:'展开世界地图',exact:true}).click();
+ await page.getByRole('dialog').getByRole('button',{name:'筛选',exact:true}).click();await page.getByRole('combobox',{name:'选择商品',exact:true}).selectOption('generic-smartphone');
+ await page.waitForURL(url=>url.searchParams.get('product')==='generic-smartphone');await page.locator('.map-focus-root[data-expanded=true]').waitFor({state:'detached'});
+ assert.equal(await page.locator('body').evaluate(el=>el.style.overflow),'');assert.equal(await page.locator('.site-header').evaluate(el=>el.inert),false);checks.push({navigationUnmountReleasesFocusAndScroll:true});
+ await context.close();
+ const native=await browser.newContext({viewport:{width:844,height:390}});await native.addInitScript(setup);
+ await native.addInitScript(()=>{
+  let element=null;window.__mapLocks=0;window.__mapUnlocks=0;
+  Object.defineProperty(document,'fullscreenElement',{configurable:true,get:()=>element});
+  Element.prototype.requestFullscreen=async function(){element=this;document.dispatchEvent(new Event('fullscreenchange'));};
+  document.exitFullscreen=async()=>{element=null;document.dispatchEvent(new Event('fullscreenchange'));};
+  Object.defineProperty(screen.orientation,'lock',{configurable:true,value:async()=>{window.__mapLocks++;}});
+  Object.defineProperty(screen.orientation,'unlock',{configurable:true,value:()=>{window.__mapUnlocks++;}});
+ });
+ const p=await native.newPage();p.on('pageerror',e=>errors.push(e.message));await p.goto(base+'/map?product=generic-home-air-conditioner',{waitUntil:'networkidle'});
+ await p.getByRole('button',{name:'展开世界地图',exact:true}).click();await p.waitForFunction(()=>window.__mapLocks===1);
+ await p.evaluate(()=>document.exitFullscreen());await p.getByRole('dialog').waitFor({state:'hidden'});
+ assert.equal(await p.evaluate(()=>window.__mapUnlocks),1);assert.equal(await p.locator('.site-header').evaluate(el=>el.inert),false);
+ checks.push({nativeApiSuccessBranch:'simulated',nativeExitUnlocks:true});await native.close();
+ const real=await browser.newContext({viewport:{width:844,height:390}});await real.addInitScript(setup);const live=await real.newPage();live.on('pageerror',e=>errors.push(e.message));
+ await live.goto(base+'/map/china?product=generic-home-air-conditioner',{waitUntil:'networkidle'});await live.getByRole('button',{name:'展开中国地图',exact:true}).click();await live.getByRole('dialog').waitFor();
+ const actualFullscreen=await live.evaluate(()=>Boolean(document.fullscreenElement));await live.getByRole('button',{name:'退出大图 ×',exact:true}).click();await live.getByRole('dialog').waitFor({state:'hidden'});
+ assert.equal(await live.evaluate(()=>Boolean(document.fullscreenElement)),false);checks.push({realChromeFullscreen:actualFullscreen,physicalRotationVerified:false});await real.close();
+ assert.deepEqual(errors,[]);const result={base,checkedAt:new Date().toISOString(),checks,pageErrors:errors};await writeFile(resolve(out,'result.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
+}finally{await browser.close();}
