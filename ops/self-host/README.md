@@ -5,12 +5,13 @@ The first deployment was completed on 2026-10-23 (Asia/Singapore):
 `b7f2f4201dcd23cfa2694e99c24f50062099b8ff`. This is IP-based HTTP; no domain
 or HTTPS is configured. No account credentials belong here.
 
-The current application is `39ee82f4775b0865fad1116d8200a329cdc1ee7c`, including
+The current application is `e7c09af2de182905ac9808385b81689a3515d833`, including
+five source-backed industry networks (259 topics, 292 relations and 24 organizations),
 the optional personalized first-visit guide, retired standalone demo entry,
 three browsing perspectives, and the China navigation/metadata fixes. It retains the China atlas 2026.10.2
 (18 roles, 12 representative connections). The current release directory is
-`/opt/globechain/releases/39ee82f4775b`; the immediately preceding verified release
-`/opt/globechain/releases/b021953e105b` and older releases remain available for rollback.
+`/opt/globechain/releases/e7c09af2de18`; the immediately preceding verified release
+`/opt/globechain/releases/39ee82f4775b` and older releases remain available for rollback.
 The homepage at [the public root](http://62.171.148.193/) offers a skippable first-visit
 guide and a button to reopen it. `/demo` redirects there. Printable booth QR assets
 are in `output/booth/2026-10-24/`; the PNG and SVG independently decode to this root.
