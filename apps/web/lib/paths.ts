@@ -66,6 +66,10 @@ export type MapFilters = PageContext & {
   layer?: "supply-chain" | "trade";
   scope?: "bilateral" | "world";
   focus?: string;
+  items?: string;
+  currency?: string;
+  measure?: "quantity";
+  unit?: string;
   year?: string;
 };
 

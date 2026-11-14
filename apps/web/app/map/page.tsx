@@ -20,13 +20,16 @@ export default async function MapPage({ searchParams }: { searchParams: Promise<
   const productId = firstParam(params.product) ?? products[0]?.productId;
   const rawDirection = firstParam(params.direction);
   const rawScope = firstParam(params.scope);
+  const focus = firstParam(params.focus);
+  const layer = firstParam(params.layer) === "supply-chain" || (!params.layer && focus) ? "supply-chain" : "trade";
   const filters: MapFilters & { product: string } = {
     ...pageContext, period: undefined, label: undefined,
     product: productId ?? "", country: firstParam(params.country),
     direction: rawDirection === "import" || rawDirection === "export" ? rawDirection : undefined,
     scope: rawScope === "bilateral" || rawScope === "world" ? rawScope : undefined,
-    layer: firstParam(params.layer) === "trade" ? "trade" : "supply-chain",
-    focus: firstParam(params.focus), year: firstParam(params.year) ?? pageContext.label ?? pageContext.period
+    layer, focus, items: firstParam(params.items) ?? (layer === "trade" && !focus ? productId : undefined),
+    currency: firstParam(params.currency), measure: firstParam(params.measure) === "quantity" ? "quantity" : undefined,
+    unit: firstParam(params.unit), year: firstParam(params.year) ?? pageContext.label ?? pageContext.period
   };
   let view = productId ? createMapView(queries, filters) : null;
   if (productId && !view) notFound();

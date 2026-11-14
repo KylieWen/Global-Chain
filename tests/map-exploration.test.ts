@@ -133,3 +133,17 @@ describe("map pan and zoom bounds", () => {
     expect(zoomMap({ x: -1000, y: -540, scale: 4 }, 2).scale).toBe(4);
   });
 });
+
+it("renders preferred flows for three selected soybean items and removes an unchecked item", async () => {
+  const queries = createProductQueryService(await loadFixtureRepositoryFromManifest(resolve("data/published/releases/generic-soybean-oil/globe-chain-soybean-oil-2026.3/manifest.json")));
+  const filters = { product: "generic-soybean-oil", layer: "trade" as const, items: "generic-soybean-oil,soybean,crude-soybean-oil" };
+  const view = createMapView(queries, filters)!;
+  expect(view.selectedYear).toBe("2024");
+  expect(view.selectedCurrency).toBe("USD");
+  expect(new Set(view.lines.map(line => line.itemId))).toEqual(new Set(filters.items.split(",")));
+  expect(view.lines.every(line => line.periodLabel === "2024" && line.currency === "USD" && line.sources.length)).toBe(true);
+  expect(new URL(mapPath(filters), "http://localhost").searchParams.get("items")).toBe(filters.items);
+  const reduced = createMapView(queries, { ...filters, items: "generic-soybean-oil,crude-soybean-oil" })!;
+  expect(new Set(reduced.lines.map(line => line.itemId))).toEqual(new Set(["generic-soybean-oil", "crude-soybean-oil"]));
+  expect(createMapView(queries, { ...filters, scope: "world" })!.lines).toHaveLength(0);
+});

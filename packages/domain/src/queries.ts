@@ -1,4 +1,5 @@
 import { getIndustryNetwork, type IndustryNetworkOptions, type IndustryNetworkView, type IndustryTopicView } from "./industry";
+import { selectTradeFlows, type TradeFlowSelectionOptions, type TradeFlowSelectionView } from "./trade-flow-selection";
 import type {
   ClassificationCode,
   ClassificationCrosswalk,
@@ -650,6 +651,7 @@ export interface ProductQueryService {
   listCategories(): readonly CategoryCatalogView[];
   getTradeNetwork(productId: string, options?: TradeNetworkOptions): TradeNetworkView | null;
   getTradeMapView(productId: string, options?: TradeMapOptions): TradeMapView | null;
+  selectTradeFlows(productId: string, options: TradeFlowSelectionOptions): TradeFlowSelectionView | null;
   getProductOverview(productId: string): ProductOverviewView | null;
   getProductBreakdown(productId: string): ProductBreakdownNode | null;
   getSupplyChainStory(
@@ -2265,6 +2267,7 @@ export function createProductQueryService(
     listCategories: () => listCategories(repository),
     getTradeNetwork: (productId: string, options?: TradeNetworkOptions) => getTradeNetwork(repository, productId, options),
     getTradeMapView: (productId: string, options?: TradeMapOptions) => getTradeMapView(repository, productId, options),
+    selectTradeFlows: (productId: string, options: TradeFlowSelectionOptions) => selectTradeFlows(repository, productId, options),
     getProductOverview: (productId: string) => getProductOverview(repository, productId),
     getProductBreakdown: (productId: string) => getProductBreakdown(repository, productId),
     getSupplyChainStory: (productId: string, options?: SupplyChainStoryOptions) =>

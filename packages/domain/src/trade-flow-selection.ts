@@ -21,6 +21,8 @@ export interface TradeFlowSelectionOptions {
   readonly itemIds: readonly string[];
   readonly year: string;
   readonly currency: string;
+  readonly direction?: TradeMapObservationView["direction"];
+  readonly exactItems?: boolean;
 }
 
 export interface TradeFlowRecord {
@@ -161,7 +163,7 @@ export function selectTradeFlows(
   const { itemIds, year, currency } = options;
   if (!itemIds || itemIds.length === 0) return null;
 
-  const coveringSet = computeMinimalCoveringSet(fixture, itemIds);
+  const coveringSet = options.exactItems ? [...new Set(itemIds)].filter(id => fixture.items.some(item => item.id === id)) : computeMinimalCoveringSet(fixture, itemIds);
   if (coveringSet.length === 0) return null;
 
   const observationById = new Map<
@@ -170,9 +172,10 @@ export function selectTradeFlows(
   >();
 
   for (const focusItemId of coveringSet) {
-    const view = getTradeMapView(repository, productId, { focusItemId });
+    const view = getTradeMapView(repository, productId, { focusItemId, direction: options.direction });
     if (!view) continue;
     for (const obs of view.observations) {
+      if (options.exactItems && obs.item?.id !== focusItemId) continue;
       const recordId = `${obs.recordKind}:${obs.id}`;
       if (observationById.has(recordId)) continue;
       const item: ReadonlyItem = obs.item ?? view.selectedItem;

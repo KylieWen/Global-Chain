@@ -117,17 +117,31 @@ export function createMapView(queries: ProductQueryService, filters: MapFilters 
     return { ...item, directTradeCount: coverage?.directObservationCount ?? 0, relatedTradeCount: coverage?.relatedObservationCount ?? 0 };
   });
   const layer = filters.layer ?? "supply-chain";
-  const scope = filters.scope ?? (baseTrade.observations.some(record => record.partnerScope === "entity") ? "bilateral" : "world");
+  const selectedItemIds = [...new Set(filters.items?.split(","))].filter(id => items.some(item => item.id === id));
+  if (!selectedItemIds.length) selectedItemIds.push(baseTrade.selectedItem.id);
+  const compareTrade = layer === "trade" && filters.items !== undefined;
+  const tradeCoverage = compareTrade ? selectedItemIds.flatMap(focusItemId =>
+    queries.getTradeMapView(filters.product, { focusItemId })?.observations.filter(record => record.item?.id === focusItemId) ?? []
+  ) : baseTrade.observations;
+  const scope = filters.scope ?? (tradeCoverage.some(record => record.partnerScope === "entity") ? "bilateral" : "world");
   const matchesScope = (record: { partnerScope: string }) => scope === "world" ? record.partnerScope === "world_total" : record.partnerScope === "entity";
   const allBaseStory = queries.getSupplyChainStory(filters.product);
   const baseStory = allBaseStory ? mapStoryWithContext(allBaseStory, breakdown, focus) : null;
   const years = [...new Set(layer === "trade"
-    ? baseTrade.observations.filter(matchesScope).map(record => record.period.label)
+    ? tradeCoverage.filter(matchesScope).map(record => record.period.label)
     : [...(baseStory?.nodes.map(view => view.period.label) ?? []), ...(baseStory?.flows.map(view => view.flow.period.label) ?? [])])].sort().reverse();
+  const coverageByYear = new Map(years.map(year => [year, new Set(tradeCoverage.filter(record => matchesScope(record) && record.period.label === year).map(record => record.item?.id)).size]));
+  const bestYear = [...years].sort((a, b) => coverageByYear.get(b)! - coverageByYear.get(a)!)[0];
+  const selectedYear = filters.year ?? (compareTrade ? bestYear : undefined);
+  const currencies = [...new Set(tradeCoverage.filter(record => matchesScope(record) && record.period.label === selectedYear).flatMap(record => record.currency ?? []))].sort();
+  const selectedCurrency = filters.currency && currencies.includes(filters.currency) ? filters.currency : currencies[0];
   const allStory = queries.getSupplyChainStory(filters.product, { label: filters.year });
   const story = allStory ? mapStoryWithContext(allStory, breakdown, focus) : null;
-  const trade = queries.getTradeMapView(filters.product, { focusItemId: focus, label: filters.year, direction: filters.direction })!;
-  const tradeRecords: MapRecord[] = trade.observations.map(record => {
+  const selection = compareTrade && selectedYear && selectedCurrency ? queries.selectTradeFlows(filters.product, { itemIds: selectedItemIds, year: selectedYear, currency: selectedCurrency, direction: filters.direction, exactItems: true }) : null;
+  const observations = compareTrade
+    ? [...(selection?.flows.filter(flow => flow.isPreferredRecord) ?? []), ...(selection?.worldTotals ?? [])].map(flow => flow.observation)
+    : queries.getTradeMapView(filters.product, { focusItemId: focus, label: filters.year, direction: filters.direction })!.observations;
+  const tradeRecords: MapRecord[] = observations.map(record => {
     const from = record.direction === "export" ? record.reporter : record.partner;
     const to = record.direction === "export" ? record.partner : record.reporter;
     return {
@@ -176,11 +190,12 @@ export function createMapView(queries: ProductQueryService, filters: MapFilters 
     };
   });
   const records = (layer === "trade" ? activeTradeRecords : routeRecords).filter(concernsCountry);
-  const relatedMaterials = baseTrade.relatedItems.filter(item => item.id !== baseTrade.selectedItem.id).map(item => ({ id: item.id, name: itemLabel(item) }));
+  const relatedMaterials = compareTrade ? [] : baseTrade.relatedItems.filter(item => item.id !== baseTrade.selectedItem.id).map(item => ({ id: item.id, name: itemLabel(item) }));
   return {
     countries, records, lines: records.filter(isMapLine), nodes: layer === "supply-chain" ? nodes : [], years, items, layer, scope,
+    compareTrade, selectedItemIds, selectedYear, currencies, selectedCurrency,
     datasetVersion: overview.datasetVersion.version, selectedItemName: itemLabel(baseTrade.selectedItem), relatedMaterials,
-    hasFocusTradeCoverage: baseTrade.observations.length > 0,
+    hasFocusTradeCoverage: tradeCoverage.length > 0,
     scopeCounts: { bilateral: tradeRecords.filter(record => record.partnerScope === "entity" && concernsCountry(record)).length, world: tradeRecords.filter(record => record.partnerScope === "world_total" && concernsCountry(record)).length }
   };
 }
