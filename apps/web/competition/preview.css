@@ -1,0 +1,21 @@
+.competition-header {
+  display:flex;
+  gap:.6rem 1.25rem;
+  align-items:baseline;
+  flex-wrap:wrap;
+  padding:1rem max(1rem, calc((100vw - 1400px) / 2));
+  background:#102b3a;
+  color:#dcebf0;
+}
+.competition-header a { color:#fff; font-weight:750; font-size:1.2rem; }
+.competition-header span { font-size:.86rem; }
+.competition-card {
+  margin:1rem auto;
+  padding:1rem 1.4rem;
+  border:1px solid #dce5e8;
+  border-radius:.7rem;
+  max-width:72rem;
+  background:#fff;
+  overflow-wrap:anywhere;
+}
+.competition-card li { margin:.35rem 0; }
