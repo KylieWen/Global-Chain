@@ -38,7 +38,7 @@ await writeFile(resolve(output, "fixtures.json"), JSON.stringify(fixtures));
 await writeFile(resolve(output, "index.html"), `<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="在地图上比较商品与上下游贸易流，查看统计金额、数量与来源">
-<title>GlobeChain · 全球贸易地图</title><link rel="stylesheet" href="/preview.css"></head>
-<body><div id="root"><main class="competition-card"><h1>GlobeChain</h1><p>正在加载贸易地图…</p></main></div><script src="/preview.js" defer></script></body></html>
+<title>Global Chain · 全球贸易地图</title><link rel="stylesheet" href="/preview.css"></head>
+<body><div id="root"><main class="competition-card"><h1>Global Chain</h1><p>正在加载贸易地图…</p></main></div><script src="/preview.js" defer></script></body></html>
 `);
 console.log(`Built ${fixtures.length} published snapshots to ${output}`);

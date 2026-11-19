@@ -1,0 +1,165 @@
+.product-explorer {
+  margin: 1rem auto;
+  padding: clamp(.9rem, 3vw, 1.6rem);
+  border: 1px solid #dce5e8;
+  border-radius: .75rem;
+  background: #fff;
+  overflow-wrap: anywhere;
+}
+
+.product-explorer > h2 {
+  margin: 0 0 .65rem;
+  font-size: 1.35rem;
+}
+
+.product-explorer-path ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem .55rem;
+  align-items: center;
+  padding: 0;
+  margin: 0 0 1rem;
+  list-style: none;
+  font-size: .875rem;
+}
+
+.product-explorer-path li {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  min-width: 0;
+}
+
+.product-explorer-path a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #176455;
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+
+.product-explorer-path [aria-current] {
+  color: #304c5c;
+  font-weight: 650;
+}
+
+.product-explorer-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  align-items: start;
+  gap: 1.4rem;
+}
+
+.product-explorer-detail {
+  padding: clamp(.9rem, 3vw, 1.4rem);
+  border: 1px solid #cce4dd;
+  border-radius: .65rem;
+  background: #eff8f4;
+}
+
+.product-explorer-detail h3 {
+  margin: 0;
+  color: #123b36;
+  font-size: clamp(1.16rem, 3vw, 1.5rem);
+}
+
+.product-explorer-detail h3:focus {
+  outline: none;
+}
+
+.product-explorer-detail p {
+  margin: .65rem 0 0;
+  color: #304c5c;
+  line-height: 1.65;
+}
+
+.product-explorer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin-top: 1rem;
+}
+
+.product-explorer-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  min-height: 44px;
+  padding: .4rem .7rem;
+  border: 1px solid #accfc6;
+  border-radius: .45rem;
+  background: #fff;
+  color: #115749;
+  font-size: .875rem;
+  font-weight: 700;
+}
+
+.product-explorer-actions a:first-child {
+  border-color: #136454;
+  background: #136454;
+  color: #fff;
+}
+
+.product-explorer-actions a:hover {
+  text-decoration: underline;
+}
+
+.product-explorer-children h3 {
+  margin: 0 0 .45rem;
+  font-size: .92rem;
+}
+
+.product-explorer-children ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  gap: .5rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.product-explorer-children a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-content: center;
+  align-items: center;
+  column-gap: .5rem;
+  min-height: 3rem;
+  height: 100%;
+  padding: .55rem .7rem;
+  border: 1px solid #dce5e8;
+  border-radius: .45rem;
+  color: #1c3947;
+  font-size: .9rem;
+}
+
+.product-explorer-children a:hover {
+  border-color: #8ab9ac;
+  background: #f4faf7;
+}
+
+.product-explorer-children small {
+  grid-row: 2;
+  color: #456474;
+  font-size: .75rem;
+}
+
+.product-explorer-children a > span {
+  grid-area: 1 / 2 / span 2;
+  color: #176455;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.product-explorer a:focus-visible {
+  outline: 2px solid #176455;
+  outline-offset: 2px;
+}
+
+@media (max-width: 760px) {
+  .product-explorer-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+}

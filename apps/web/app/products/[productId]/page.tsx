@@ -29,6 +29,7 @@ export default async function ProductOverviewPage({
   const provenance = queries.getProvenance(productId);
   if (!overview || !breakdown || !provenance) notFound();
   const coverageByItemId = new Map(overview.componentCoverage.map((coverage) => [coverage.item.id, coverage]));
+  const tradeItems = new Set(queries.getTradeMapView(productId)?.itemCoverage.filter(entry => entry.directObservationCount > 0).map(entry => entry.item.id));
   const industry = queries.getIndustryNetwork(productId);
   const hasGuides = queries.getTradeGuides(productId).length > 0;
   const hasMaterialTrade = queries.getMaterialTradeObservations(productId).length > 0;
@@ -66,14 +67,14 @@ export default async function ProductOverviewPage({
               const coverage = coverageByItemId.get(item.id);
               const processChain = coverage?.processChains[0];
               const hasInspectableStory = coverage?.hasInspectableStory ?? false;
-              const target = hasInspectableStory ? supplyChainPath(productId, item.id, routeContext) : processChain ? manufacturingProcessPath(productId, processChain.id, routeContext) : null;
+              const target = hasInspectableStory ? supplyChainPath(productId, item.id, routeContext) : processChain ? manufacturingProcessPath(productId, processChain.id, routeContext) : tradeItems.has(item.id) ? mapPath({ ...routeContext, product: productId, layer: "trade", items: item.id }) : null;
               return target ? <Link className="component-card" href={target} key={item.id}>
                 <span className="card-kicker">{item.category}</span>
                 <h3>{item.name}</h3>
                 {item.description ? <p>{item.description}</p> : null}
                 <span className="muted">{hasInspectableStory ? `${coverage?.nodeCount} 个生产环节` : processChain ? `${processChain.stepCount} 道制造工序` : ""}</span>
                 <StatusBadge status={item.dataStatus} method={item.method} />
-                <span className="card-footer">{hasInspectableStory ? "探索生产路线" : "查看制造工序"} <span>→</span></span>
+                <span className="card-footer">{hasInspectableStory ? "探索生产路线" : processChain ? "查看制造工序" : "查看贸易地图"} <span>→</span></span>
               </Link> : <article className="component-card component-card-disabled" key={item.id}>
                 <span className="card-kicker">{item.category}</span>
                 <h3>{item.name}</h3>
@@ -88,7 +89,7 @@ export default async function ProductOverviewPage({
 
         <details className="section-block detail-collapsible">
           <summary className="section-heading detail-summary"><div><p className="eyebrow">完整拆解</p><h2>展开完整拆解树</h2></div><span className="section-caption">从整件商品查看组成关系</span></summary>
-          <ProductTree root={breakdown} productId={productId} componentCoverage={overview.componentCoverage} explorableItemIds={explorableItemIds} context={routeContext} />
+          <ProductTree root={breakdown} productId={productId} componentCoverage={overview.componentCoverage} tradeItems={tradeItems} explorableItemIds={explorableItemIds} context={routeContext} />
         </details>
 
         {processChains.length > 0 && <section className="section-block" aria-labelledby="process-depth-title">

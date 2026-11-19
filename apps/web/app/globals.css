@@ -131,6 +131,7 @@ p { line-height: 1.7; }
 .product-tree > li::before, .product-tree > li::after { display: none; }
 .tree-node { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 4.2rem; padding: 0.85rem 1rem; border: 1px solid var(--line); border-radius: 0.8rem; background: #fff; }
 .tree-node strong, .tree-node small { display: block; }
+.tree-node .tree-actions { display:grid; gap:.4rem; flex-shrink:0; }
 .tree-node small { margin-top: 0.25rem; color: var(--ink-soft); font-size: 0.76rem; }
 .tree-root { border-color: #9bb6e9; background: linear-gradient(90deg, #f4f8ff, #fff); }
 

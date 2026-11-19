@@ -2,7 +2,7 @@
 import { itemLabel } from "../lib/item-label";
 import Link from "next/link";
 import type { ComponentCoverageView, ProductBreakdownNode } from "@globe-chain/domain";
-import { manufacturingProcessPath, supplyChainPath } from "../lib/paths";
+import { manufacturingProcessPath, mapPath, supplyChainPath } from "../lib/paths";
 import type { PageContext } from "../lib/context";
 
 export function ProductTree({
@@ -10,6 +10,7 @@ export function ProductTree({
   productId,
   maxDepth,
   componentCoverage,
+  tradeItems,
   explorableItemIds,
   context
 }: {
@@ -17,12 +18,13 @@ export function ProductTree({
   productId: string;
   maxDepth?: number;
   componentCoverage?: readonly ComponentCoverageView[];
+  tradeItems: ReadonlySet<string>;
   explorableItemIds?: readonly string[];
   context?: PageContext;
 }) {
   return (
     <ul className="product-tree">
-      <TreeNode node={root} productId={productId} maxDepth={maxDepth} componentCoverage={componentCoverage} explorableItemIds={explorableItemIds} context={context} />
+      <TreeNode node={root} productId={productId} maxDepth={maxDepth} componentCoverage={componentCoverage} tradeItems={tradeItems} explorableItemIds={explorableItemIds} context={context} />
     </ul>
   );
 }
@@ -32,6 +34,7 @@ function TreeNode({
   productId,
   maxDepth,
   componentCoverage,
+  tradeItems,
   explorableItemIds,
   context
 }: {
@@ -39,6 +42,7 @@ function TreeNode({
   productId: string;
   maxDepth?: number;
   componentCoverage?: readonly ComponentCoverageView[];
+  tradeItems: ReadonlySet<string>;
   explorableItemIds?: readonly string[];
   context?: PageContext;
 }) {
@@ -57,14 +61,15 @@ function TreeNode({
           {node.item.description ? <small>{node.item.description}</small> : null}
           {coverage ? <small>{coverage.statusLabel} · {coverage.nodeCount} 个节点 · {coverage.flowCount} 条连接</small> : null}
         </div>
-        {canExplore ? <Link className="text-link" aria-label={`${actionLabel}：${itemLabel(node.item)}`} href={hasRoute ? supplyChainPath(productId, node.depth === 0 ? undefined : node.item.id, context) : manufacturingProcessPath(productId, processChain!.id, context)}>
+        <div className="tree-actions">{canExplore ? <Link className="text-link" aria-label={`${actionLabel}：${itemLabel(node.item)}`} href={hasRoute ? supplyChainPath(productId, node.depth === 0 ? undefined : node.item.id, context) : manufacturingProcessPath(productId, processChain!.id, context)}>
           {actionLabel} →
         </Link> : null}
+        {tradeItems.has(node.item.id) && <Link className="text-link" aria-label={`查看贸易地图：${itemLabel(node.item)}`} href={mapPath({ ...context, product: productId, layer: "trade", items: node.item.id })}>查看贸易地图 →</Link>}</div>
       </div>
       {hasChildren ? (
         <ul>
           {node.children.map((child) => (
-            <TreeNode key={child.item.id} node={child} productId={productId} maxDepth={maxDepth} componentCoverage={componentCoverage} explorableItemIds={explorableItemIds} context={context} />
+            <TreeNode key={child.item.id} node={child} productId={productId} maxDepth={maxDepth} componentCoverage={componentCoverage} tradeItems={tradeItems} explorableItemIds={explorableItemIds} context={context} />
           ))}
         </ul>
       ) : null}

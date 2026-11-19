@@ -1,12 +1,14 @@
 import { createRoot } from "react-dom/client";
-import { createInMemoryFixtureRepository, createProductQueryService, type ReadonlyProductFixture, type ProductBreakdownNode } from "@globe-chain/domain";
+import { createInMemoryFixtureRepository, createProductQueryService, type ReadonlyProductFixture } from "@globe-chain/domain";
 import { WorldCountryMap } from "../components/world-country-map";
 import { mapValue } from "../components/map-record-details";
 import { createMapView } from "../lib/map-view-model";
 import { itemLabel } from "../lib/item-label";
 import { mapPath, productPath, provenancePath, type MapFilters } from "../lib/paths";
-import Link, { useLocation } from "./navigation";
+import Link, { MapLinkContext, useLocation } from "./navigation";
 import { findTradeTimeline, type TradeTimeline } from "./trade-timeline";
+import { ProductExplorer } from "./product-explorer";
+import { CountryLedger, MaterialLedgerLink } from "./country-ledger";
 import "../app/globals.css";
 import "../app/atlas-navigation.css";
 import "../app/interaction.css";
@@ -16,24 +18,15 @@ import "./preview.css";
 
 const root = createRoot(document.getElementById("root")!);
 
-function Breakdown({ node }: { node: ProductBreakdownNode }) {
-  return <li>{itemLabel(node.item)}{node.children.length > 0 && <ul>{node.children.map(child => <Breakdown key={child.item.id} node={child} />)}</ul>}</li>;
-}
-
 type Queries = ReturnType<typeof createProductQueryService>;
 
-function App({ fixtures, queries, timelines }: { fixtures: readonly ReadonlyProductFixture[]; queries: Queries; timelines: readonly TradeTimeline[] }) {
-  const url = new URL(useLocation());
-  const productRoute = url.pathname.match(/^\/products\/([^/]+)(?:\/(.*))?$/);
-  const requested = productRoute?.[1] ?? url.searchParams.get("product");
-  const params = url.searchParams;
-  const fixture = fixtures.find(snapshot => snapshot.productId === requested) ?? fixtures[0];
-  const product = fixture.productId;
-  const layer = url.pathname.endsWith("/supply-chain") || params.get("layer") === "supply-chain" ? "supply-chain" : "trade";
+function readMapFilters(params: URLSearchParams, product: string, supplyChainRoute = false): MapFilters & { product: string } {
+  const layer = supplyChainRoute || params.get("layer") === "supply-chain" ? "supply-chain" : "trade";
   const focus = params.get("focus") ?? undefined;
   const direction = params.get("direction");
   const scope = params.get("scope");
-  const filters: MapFilters & { product: string } = {
+
+  return {
     product, layer, focus,
     items: params.get("items") ?? (layer === "trade" && !focus ? product : undefined),
     year: params.get("year") ?? params.get("label") ?? params.get("period") ?? undefined,
@@ -44,6 +37,17 @@ function App({ fixtures, queries, timelines }: { fixtures: readonly ReadonlyProd
     measure: params.get("measure") === "quantity" ? "quantity" : undefined,
     unit: params.get("unit") ?? undefined
   };
+}
+
+function App({ fixtures, queries, timelines }: { fixtures: readonly ReadonlyProductFixture[]; queries: Queries; timelines: readonly TradeTimeline[] }) {
+  const url = new URL(useLocation());
+  const productRoute = url.pathname.match(/^\/products\/([^/]+)(?:\/(.*))?$/);
+  const requested = productRoute?.[1] ?? url.searchParams.get("product");
+  const params = url.searchParams;
+  const fixture = fixtures.find(snapshot => snapshot.productId === requested) ?? fixtures[0];
+  const product = fixture.productId;
+  const filters = readMapFilters(params, product, url.pathname.endsWith("/supply-chain"));
+  const layer = filters.layer;
   const products = queries.listProducts().map(entry => ({ id: entry.productId, name: itemLabel(entry.item) }));
   const title = products.find(entry => entry.id === product)?.name;
   const subsection = productRoute?.[2] ?? "";
@@ -55,6 +59,10 @@ function App({ fixtures, queries, timelines }: { fixtures: readonly ReadonlyProd
   const material = materialId ? queries.getMaterialTradeObservation(product, materialId) : null;
   const node = nodeId ? queries.getSupplyChainNode(product, nodeId) : null;
   const isMap = !productRoute || subsection === "supply-chain";
+  const mapParams = new URLSearchParams(params.get("map") ?? "");
+  const mapFilters = isMap ? filters : mapParams.get("product") === product ? readMapFilters(mapParams, product) : null;
+  const mapHref = mapPath(mapFilters ?? { product });
+  const mapContext = mapFilters ? { product, search: mapHref.split("?")[1] } : null;
   const view = isMap ? createMapView(queries, filters) ?? createMapView(queries, { ...filters, focus: undefined, items: product }) : null;
   const timeline = timelines.find(candidate => candidate.product === product) ?? timelines[0];
   const isTimelineOpen = timeline && filters.product === timeline.product && layer === "trade" &&
@@ -62,8 +70,8 @@ function App({ fixtures, queries, timelines }: { fixtures: readonly ReadonlyProd
     filters.country === timeline.country && filters.direction === timeline.direction &&
     !filters.focus && !filters.measure && filters.year && timeline.years.includes(filters.year);
 
-  return <div className="competition-shell">
-    <header className="competition-header"><Link href="/">GlobeChain</Link><span>全球商品供应链与贸易地图</span></header>
+  return <MapLinkContext.Provider value={mapContext}><div className="competition-shell">
+    <header className="competition-header"><Link href="/">Global Chain</Link><span>全球商品供应链与贸易地图</span></header>
     <main className="content-column wide-column atlas-page">
       <header className="atlas-page-heading"><h1>{isMap ? "世界地图" : title}</h1>
         {isMap && <nav className="atlas-layer-switch" aria-label="地图图层">
@@ -72,7 +80,7 @@ function App({ fixtures, queries, timelines }: { fixtures: readonly ReadonlyProd
         </nav>}
       </header>
       <nav className="product-level-nav" aria-label="当前商品探索">
-        <Link aria-current={isMap ? "page" : undefined} href={mapPath({ product })}>世界地图</Link>
+        <Link aria-current={isMap ? "page" : undefined} href={mapHref}>世界地图</Link>
         <Link href={productPath(product)}>商品拆解</Link>
         <Link href={provenancePath(product)}>资料来源</Link>
         {isMap && timeline && !isTimelineOpen && <Link className="competition-timeline-link"
@@ -82,14 +90,15 @@ function App({ fixtures, queries, timelines }: { fixtures: readonly ReadonlyProd
         </Link>}
       </nav>
       {view && <WorldCountryMap key={product + layer} view={view} filters={filters} products={products} />}
-      {productRoute && !subsection && breakdown && <section className="competition-card"><h2>商品拆解</h2><ul><Breakdown node={breakdown} /></ul></section>}
+      {productRoute && !subsection && breakdown && <ProductExplorer breakdown={breakdown} queries={queries} />}
       {subsection === "provenance" && <section className="competition-card"><h2>资料来源</h2><p>{fixture.datasetVersion.version}</p><ul>{fixture.sources.map(source => <li key={source.id}>{source.url ? <a href={source.url} target="_blank" rel="noreferrer">{source.name} ↗</a> : source.name}</li>)}</ul></section>}
-      {ledger && <section className="competition-card"><h2>报告国账本</h2><ul>{ledger.tradeObservations.map(observation => { const source = fixture.sources.find(entry => entry.id === observation.sourceId); return <li key={observation.id}>{observation.period.label} · {observation.direction === "export" ? "出口" : "进口"} · HS {observation.classificationCode} · {mapValue(observation.value ?? null, observation.valueDataStatus ?? observation.dataStatus, observation.currency ?? null)}{source?.url && <> · <a href={source.url} target="_blank" rel="noreferrer">{source.publisher} ↗</a></>}</li>; })}</ul></section>}
-      {material && <section className="competition-card"><h2>材料统计详情</h2><p>{material.observation.period.label} · HS {material.observation.classificationCode} · {mapValue(material.observation.value, material.observation.valueDataStatus, material.observation.currency)}</p><Link href={provenancePath(product)}>资料来源 →</Link></section>}
+      {ledger && <CountryLedger key={`${product}:${ledger.entity.id}:${filters.focus ?? ""}:${filters.year ?? ""}`} ledger={ledger}
+        initialItem={filters.focus} initialYear={filters.year} materials={queries.getMaterialTradeObservations(product, { reporterEntityId: ledger.entity.id })} />}
+      {material && <section className="competition-card"><h2>材料统计详情</h2><p>{material.observation.period.label} · HS {material.observation.classificationCode} · {mapValue(material.observation.value, material.observation.valueDataStatus, material.observation.currency)}</p><p><MaterialLedgerLink product={product} material={material} /></p><Link href={provenancePath(product)}>资料来源 →</Link></section>}
       {node && <section className="competition-card"><h2>{node.node.node.label}</h2><p>{node.node.period.label}</p><Link href={provenancePath(product)}>资料来源 →</Link></section>}
       {!isMap && subsection && subsection !== "provenance" && !ledger && !material && !node && <p>当前快照未收录这条记录。</p>}
     </main>
-  </div>;
+  </div></MapLinkContext.Provider>;
 }
 
 fetch("/fixtures.json").then(response => {
