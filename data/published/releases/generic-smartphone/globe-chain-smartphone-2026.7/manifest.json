@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-smartphone",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-smartphone-2026.7",
+  "generatedAt": "2026-11-19",
+  "fixtureSha256": "98c67bcbd25dfc5fa31cc813a2c35b91a1984295821e30334335cd2b08ef951c",
+  "release": {
+    "productId": "generic-smartphone",
+    "datasetVersion": "globe-chain-smartphone-2026.7",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2026.7",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "smartphone-bilateral-history-2026-11-19",
+    "baseDatasetVersion": "globe-chain-smartphone-2026.6",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "ed7090fc477a56960b3e6736af0c31acb613b092717294cea418bf9eaf163b78"
+  },
+  "notes": [
+    "从本地 UN Comtrade 原始快照补齐 HS 2022/851713 具体伙伴贸易观察。德国及美国统计区报告的对华进出口覆盖 2023–2025 年，中国报告的对德、对美统计区进出口覆盖 2023–2024 年。"
+  ]
+}

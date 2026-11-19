@@ -6,6 +6,7 @@ import { createMapView } from "../lib/map-view-model";
 import { itemLabel } from "../lib/item-label";
 import { mapPath, productPath, provenancePath, type MapFilters } from "../lib/paths";
 import Link, { useLocation } from "./navigation";
+import { findTradeTimeline, type TradeTimeline } from "./trade-timeline";
 import "../app/globals.css";
 import "../app/atlas-navigation.css";
 import "../app/interaction.css";
@@ -19,7 +20,9 @@ function Breakdown({ node }: { node: ProductBreakdownNode }) {
   return <li>{itemLabel(node.item)}{node.children.length > 0 && <ul>{node.children.map(child => <Breakdown key={child.item.id} node={child} />)}</ul>}</li>;
 }
 
-function App({ fixtures }: { fixtures: readonly ReadonlyProductFixture[] }) {
+type Queries = ReturnType<typeof createProductQueryService>;
+
+function App({ fixtures, queries, timelines }: { fixtures: readonly ReadonlyProductFixture[]; queries: Queries; timelines: readonly TradeTimeline[] }) {
   const url = new URL(useLocation());
   const productRoute = url.pathname.match(/^\/products\/([^/]+)(?:\/(.*))?$/);
   const requested = productRoute?.[1] ?? url.searchParams.get("product");
@@ -53,6 +56,11 @@ function App({ fixtures }: { fixtures: readonly ReadonlyProductFixture[] }) {
   const node = nodeId ? queries.getSupplyChainNode(product, nodeId) : null;
   const isMap = !productRoute || subsection === "supply-chain";
   const view = isMap ? createMapView(queries, filters) ?? createMapView(queries, { ...filters, focus: undefined, items: product }) : null;
+  const timeline = timelines.find(candidate => candidate.product === product) ?? timelines[0];
+  const isTimelineOpen = timeline && filters.product === timeline.product && layer === "trade" &&
+    filters.scope === "bilateral" && filters.items === timeline.product && filters.currency === timeline.currency &&
+    filters.country === timeline.country && filters.direction === timeline.direction &&
+    !filters.focus && !filters.measure && filters.year && timeline.years.includes(filters.year);
 
   return <div className="competition-shell">
     <header className="competition-header"><Link href="/">GlobeChain</Link><span>全球商品供应链与贸易地图</span></header>
@@ -67,6 +75,11 @@ function App({ fixtures }: { fixtures: readonly ReadonlyProductFixture[] }) {
         <Link aria-current={isMap ? "page" : undefined} href={mapPath({ product })}>世界地图</Link>
         <Link href={productPath(product)}>商品拆解</Link>
         <Link href={provenancePath(product)}>资料来源</Link>
+        {isMap && timeline && !isTimelineOpen && <Link className="competition-timeline-link"
+          href={mapPath({ product: timeline.product, layer: "trade", scope: "bilateral", items: timeline.product,
+            currency: timeline.currency, country: timeline.country, direction: timeline.direction, year: timeline.years[0] })}>
+          看历年贸易 →
+        </Link>}
       </nav>
       {view && <WorldCountryMap key={product + layer} view={view} filters={filters} products={products} />}
       {productRoute && !subsection && breakdown && <section className="competition-card"><h2>商品拆解</h2><ul><Breakdown node={breakdown} /></ul></section>}
@@ -79,12 +92,13 @@ function App({ fixtures }: { fixtures: readonly ReadonlyProductFixture[] }) {
   </div>;
 }
 
-let queries: ReturnType<typeof createProductQueryService>;
 fetch("/fixtures.json").then(response => {
   if (!response.ok) throw new Error("无法读取发布快照");
   return response.json() as Promise<readonly ReadonlyProductFixture[]>;
 }).then(fixtures => {
   if (!fixtures.length) throw new Error("发布快照为空");
-  queries = createProductQueryService(createInMemoryFixtureRepository(fixtures));
-  root.render(<App fixtures={fixtures} />);
+  const queries = createProductQueryService(createInMemoryFixtureRepository(fixtures));
+  const timelines = fixtures.flatMap(({ productId }) => findTradeTimeline(queries, productId) ?? [])
+    .sort((first, second) => Number(Boolean(second.country)) - Number(Boolean(first.country)) || second.years.length - first.years.length);
+  root.render(<App fixtures={fixtures} queries={queries} timelines={timelines} />);
 }).catch(() => root.render(<main className="competition-card"><h1>贸易地图暂时无法加载</h1><button onClick={() => window.location.reload()}>重新加载</button></main>));

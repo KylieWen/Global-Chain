@@ -62,6 +62,8 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   const isTrade = filters.layer === "trade";
   const isWorld = isTrade && scope === "world";
   const { compareTrade, selectedItemIds, selectedYear, currencies, selectedCurrency } = view;
+  const timelineYears = years.filter(year => /^\d{4}$/.test(year)).sort();
+  const timeIndex = selectedYear ? timelineYears.indexOf(selectedYear) : -1;
   const selectableItems = items.filter(item => item.directTradeCount > 0 || selectedItemIds.includes(item.id));
   const coloredItems = items.filter(item => item.directTradeCount > 0 || item.relatedTradeCount > 0);
   const colors = new Map(coloredItems.map((item, index) => [item.id, itemColors[index] ?? `hsl(${index * 137.508 % 360} 85% 73%)`]));
@@ -136,6 +138,17 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
       <div className="map-zoom-controls" aria-label="地图缩放"><button type="button" onClick={() => setTransform(current => zoomMap(current, 1.25))} aria-label="放大地图" disabled={transform.scale >= 4}>＋</button><button type="button" onClick={() => setTransform(current => zoomMap(current, 0.8))} aria-label="缩小地图" disabled={transform.scale <= 1}>－</button><button type="button" onClick={() => setTransform({ x: 0, y: 0, scale: 1 })}>复位</button><MapFocusButton label="世界地图"/></div>
     </div>
     <div className="atlas-layout"><div className="atlas-canvas">
+      {isTrade && timeIndex >= 0 && (timelineYears.length > 1
+        ? <label className="trade-timeline">
+            <span>贸易时间轴 <strong>{selectedYear}</strong></span>
+            <span className="trade-timeline-track">
+              <small>{timelineYears[0]}</small>
+              <input type="range" aria-label="贸易年份" aria-valuetext={selectedYear + " 年"} min={0} max={timelineYears.length - 1} step={1} value={timeIndex}
+                onChange={event => navigate({ year: timelineYears[event.currentTarget.valueAsNumber] })} />
+              <small>{timelineYears[timelineYears.length - 1]}</small>
+            </span>
+          </label>
+        : <p className="trade-timeline">当前统计范围收录 {selectedYear} 年</p>)}
       <div className="map-viewport"><svg ref={svgRef} className="world-country-map" data-zoomed={transform.scale > 1} viewBox={`0 0 ${mapWidth} ${mapHeight}`} role="group" aria-labelledby="world-country-map-title" aria-describedby="world-country-map-description" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={stopDrag} onPointerCancel={stopDrag}>
         <title id="world-country-map-title">{isTrade ? isWorld ? "国家世界贸易总计地图" : "官方双边贸易统计地图" : "代表性供应链地图"}</title>
         <desc id="world-country-map-description">选择国家查看相关记录。连线与列表均可通过鼠标或键盘打开详情。</desc>

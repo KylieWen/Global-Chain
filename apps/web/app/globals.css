@@ -619,6 +619,10 @@ p { line-height: 1.7; }
 .world-country-map { display:block; width:100%; height:auto; max-height:480px; cursor:default; user-select:none; }
 .world-country-map[data-zoomed="true"] { cursor:grab; }
 .world-country-map[data-zoomed="true"]:active { cursor:grabbing; }
+.trade-timeline { display:flex; align-items:center; flex-wrap:wrap; gap:.35rem 1rem; padding:.4rem .8rem; margin:0; font-size:.86rem; }
+.trade-timeline strong { margin-inline-start:.35rem; font-variant-numeric:tabular-nums; }
+.trade-timeline-track { display:flex; flex:1 1 12rem; align-items:center; gap:.6rem; }
+.trade-timeline-track input { flex:1; min-width:0; height:2rem; margin:0; accent-color:#19997e; cursor:pointer; }
 .map-ocean { fill:#102b3a; }
 .map-country-shape { fill:#274554; stroke:#426070; stroke-width:.5; vector-effect:non-scaling-stroke; transition:fill 140ms ease; cursor:pointer; }
 .map-country-shape.has-data { fill:#486e7a; stroke:#7a9da4; }

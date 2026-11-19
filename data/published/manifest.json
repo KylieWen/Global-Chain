@@ -3,9 +3,9 @@
   "fixtures": [
     {
       "productId": "generic-smartphone",
-      "path": "releases/generic-smartphone/globe-chain-smartphone-2026.6/fixture.json",
-      "datasetVersion": "globe-chain-smartphone-2026.6",
-      "fixtureSha256": "428e6d5a8b5f52ea377d128f5527dc4ee08c56832df556f66e3578b1c9161e42"
+      "path": "releases/generic-smartphone/globe-chain-smartphone-2026.7/fixture.json",
+      "datasetVersion": "globe-chain-smartphone-2026.7",
+      "fixtureSha256": "98c67bcbd25dfc5fa31cc813a2c35b91a1984295821e30334335cd2b08ef951c"
     },
     {
       "productId": "generic-cotton-tshirt",
@@ -32,9 +32,9 @@
       "fixtureSha256": "a5c97d26c94537699dae69b0c8a752506ff672566b07dcea653f63db0f131ac2"
     }
   ],
-  "datasetVersion": "globe-chain-home-air-conditioner-2026.6",
-  "generatedAt": "2026-10-24",
-  "fixtureSha256": "a5c97d26c94537699dae69b0c8a752506ff672566b07dcea653f63db0f131ac2",
+  "datasetVersion": "globe-chain-smartphone-2026.7",
+  "generatedAt": "2026-11-19",
+  "fixtureSha256": "98c67bcbd25dfc5fa31cc813a2c35b91a1984295821e30334335cd2b08ef951c",
   "routeContentVersion": "smartphone-route-2026.1",
   "routeContentSha256": "f44dc5485d9a03c4be0ea8927ff59ae372485e303ce509795db9033a27ffb5df",
   "contentSources": [
@@ -94,22 +94,24 @@
     "raw/refresh-2026-09-16/wdi-FI.RES.TOTL.CD.json"
   ],
   "notes": [
-    "独立、可通过published loader读取的候选；是否可见由总manifest决定。2014电池结构、2022拟建工序、2024海关统计与2025回收指引期间分开。"
+    "从本地 UN Comtrade 原始快照补齐 HS 2022/851713 具体伙伴贸易观察。德国及美国统计区报告的对华进出口覆盖 2023–2025 年，中国报告的对德、对美统计区进出口覆盖 2023–2024 年。"
   ],
   "release": {
-    "productId": "generic-home-air-conditioner",
-    "datasetVersion": "globe-chain-home-air-conditioner-2026.6",
-    "releasePath": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.6",
+    "productId": "generic-smartphone",
+    "datasetVersion": "globe-chain-smartphone-2026.7",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2026.7",
     "immutable": true
   },
   "refreshContentSource": "content/refresh-2026-09-16.json",
   "refreshContentPathBase": "repository-root",
   "refreshContentSha256": "4be2f302a28da81ff549e739b00617ec484a064e768cfd7915796fa71ee40520",
-  "activeDatasetVersion": "globe-chain-home-air-conditioner-2026.6",
+  "activeDatasetVersion": "globe-chain-smartphone-2026.7",
   "activeManifest": true,
   "evidenceReview": {
-    "batchId": "industry-content-expansion-2026-10-24",
+    "batchId": "smartphone-bilateral-history-2026-11-19",
+    "baseDatasetVersion": "globe-chain-smartphone-2026.6",
     "auditPath": "review-audit.json",
-    "auditSha256": "1abfd95896f0d13c32c9246ddabbc71c4f213406b59763ee7bcf3346a927c2e1"
+    "auditPathBase": "release-directory",
+    "auditSha256": "ed7090fc477a56960b3e6736af0c31acb613b092717294cea418bf9eaf163b78"
   }
 }

@@ -4,15 +4,21 @@ import { createHash } from "node:crypto";
 import { ProductFixtureSchema } from "../packages/contracts/src/index";
 
 const read = (path: string) => JSON.parse(readFileSync(path, "utf8"));
-const manifest = read("data/published/manifest.json");
 const config = read("content/data-refresh/industry-content-expansion-2026-10-24.json");
+const expansionVersions: Record<string, string> = {
+  "generic-smartphone": "globe-chain-smartphone-2026.6",
+  "generic-cotton-tshirt": "globe-chain-cotton-tshirt-2026.3",
+  "generic-soybean-oil": "globe-chain-soybean-oil-2026.3",
+  "generic-electric-bicycle": "globe-chain-electric-bicycle-2026.3",
+  "generic-home-air-conditioner": "globe-chain-home-air-conditioner-2026.6",
+};
 
 describe("source-preserving industry content expansion", () => {
   it("makes all five products deeply navigable without upgrading unknown process claims", () => {
     let added = 0;
-    for (const entry of manifest.fixtures) {
-      const fixture = ProductFixtureSchema.parse(read(`data/published/${entry.path}`));
-      const baseline = config.fixtures.find((row: {productId:string}) => row.productId === entry.productId);
+    for (const baseline of config.fixtures) {
+      const version = expansionVersions[baseline.productId];
+      const fixture = ProductFixtureSchema.parse(read(`data/published/releases/${baseline.productId}/${version}/fixture.json`));
       const before = read(`data/published/${baseline.path}`);
       expect(createHash("sha256").update(readFileSync(`data/published/${baseline.path}`)).digest("hex")).toBe(baseline.fixtureSha256);
       const network = fixture.industryNetwork!;
