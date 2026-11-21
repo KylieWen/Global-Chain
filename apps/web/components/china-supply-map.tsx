@@ -27,9 +27,9 @@ const projection=geoMercator().fitExtent([[24,20],[width-24,height-24]],geograph
 const path=geoPath(projection);
 const stageColors={material:'#f2ca7a',component:'#86baff',manufacturing:'#77e0c5',market:'#e4a5d9'};
 type Organization={id:string;name:string;description:string;links:readonly {label:string;url:string}[];topicId:string};
-type Props={atlas:RegionalAtlas;productId:string;productName:string;products:{id:string;name:string}[];organizations:Organization[];context:PageContext;initialProvince?:string;initialStage?:string;initialNode?:string};
+type Props={atlas:RegionalAtlas;productId:string;productName:string;products:{id:string;name:string}[];organizations:Organization[];context:PageContext;initialProvince?:string;initialStage?:string;initialNode?:string;navigate?: (href:string, options:{scroll:boolean})=>void};
 
-export function ChinaSupplyMap({atlas,productId,productName,products,organizations,context,initialProvince,initialStage,initialNode}:Props) {
+export function ChinaSupplyMap({atlas,productId,productName,products,organizations,context,initialProvince,initialStage,initialNode,navigate}:Props) {
   const router=useRouter(); const svg=useRef<SVGSVGElement>(null);
   const searchParams=useSearchParams();
   const [renderedWidth,setRenderedWidth]=useState(width);
@@ -54,7 +54,9 @@ export function ChinaSupplyMap({atlas,productId,productName,products,organizatio
   const adjacentIds=new Set(view.connections.flatMap(edge=>[edge.from,edge.to]));
   const sync=(nextProvince:string,nextStage:string,nextNode:string)=>{
     const url=chinaMapPath({...context,product:productId,province:nextProvince||undefined,stage:nextStage||undefined,node:nextNode||undefined});
-    if(window.location.pathname+window.location.search!==url)window.history.pushState(null,'',url);
+    if(window.location.pathname+window.location.search===url)return;
+    if(navigate)navigate(url,{scroll:false});
+    else window.history.pushState(null,'',url);
   };
   const chooseNode=(id:string)=>{if(dragged.current)return;setHovered('');sync(province,stage,id);};
   const changeFilter=(nextProvince:string,nextStage:string)=>{setHovered('');sync(nextProvince,nextStage,'');};
@@ -68,7 +70,7 @@ export function ChinaSupplyMap({atlas,productId,productName,products,organizatio
   const linkedOrganizations=organizations.filter(org=>selectedNode?.organizationIds.includes(org.id));
 
   return <MapFocus title="中国地图" onZoom={factor=>setTransform(current=>zoomMap(current,factor,width,height))} onReset={()=>setTransform({x:0,y:0,scale:1})}><section className="regional-workspace" aria-label="中国商品供应链地图">
-    <div className="regional-toolbar"><label>探索商品<select aria-label="中国地图商品" value={productId} onChange={event=>router.push(chinaMapPath({product:event.target.value}))}>{products.map(product=><option key={product.id} value={product.id}>{product.name}</option>)}</select></label>
+    <div className="regional-toolbar"><label>探索商品<select aria-label="中国地图商品" value={productId} onChange={event=>(navigate??router.push)(chinaMapPath({product:event.target.value}),{scroll:true})}>{products.map(product=><option key={product.id} value={product.id}>{product.name}</option>)}</select></label>
       <label>生产环节<select aria-label="中国地图生产环节" value={stage} onChange={event=>changeFilter(province,event.target.value)}><option value="">全部环节</option>{Object.entries(regionalStageLabels).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label>
       <label>省份<select aria-label="中国地图省份" value={province} onChange={event=>changeFilter(event.target.value,stage)}><option value="">全国</option>{geography.features.filter(feature=>feature.properties.name).map(feature=><option key={feature.properties.adcode} value={feature.properties.adcode}>{feature.properties.name}{coverage.has(String(feature.properties.adcode))?' · 已收录':''}</option>)}</select></label>
       <div className="regional-stats"><strong>{view.places.length}</strong> 个区域节点<span>·</span><strong>{view.allNodes.length}</strong> 个产业环节</div>

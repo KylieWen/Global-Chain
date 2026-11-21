@@ -25,3 +25,15 @@
   overflow-wrap:anywhere;
 }
 .competition-card li { margin:.35rem 0; }
+
+@media (max-width: 480px) {
+  .competition-shell .regional-toolbar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .competition-shell .regional-toolbar .regional-stats {
+    grid-column: auto;
+    align-self: end;
+    min-height: 44px;
+    gap: .1rem .3rem;
+  }
+}

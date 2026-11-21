@@ -3,7 +3,7 @@ import { createContext, useContext, useSyncExternalStore } from "react";
 
 const eventName = "globechain-static-navigation";
 
-export const MapLinkContext = createContext<{ product: string; search: string } | null>(null);
+export const MapLinkContext = createContext<{ product: string; search?: string; china?: string } | null>(null);
 
 function subscribe(listener: () => void) {
   window.addEventListener("popstate", listener);
@@ -16,6 +16,10 @@ function subscribe(listener: () => void) {
 
 export function useLocation() {
   return useSyncExternalStore(subscribe, () => window.location.href);
+}
+
+export function useSearchParams() {
+  return new URL(useLocation()).searchParams;
 }
 
 export function useRouter() {
@@ -37,7 +41,8 @@ export default function Link({ href, onClick, ...props }: ComponentProps<"a"> & 
     const productPath = `/products/${encodeURIComponent(map.product)}`;
     const isCurrentProduct = target.pathname === productPath || target.pathname.startsWith(`${productPath}/`);
     if (target.origin === window.location.origin && isCurrentProduct && target.pathname !== `${productPath}/supply-chain`) {
-      target.searchParams.set("map", map.search);
+      if (map.search) target.searchParams.set("map", map.search);
+      if (map.china && target.pathname === `${productPath}/industry`) target.searchParams.set("china", map.china);
       destination = target.pathname + target.search + target.hash;
     }
   }
