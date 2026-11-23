@@ -10,13 +10,14 @@
 .mobile-filter-toggle { display:none; }
 .mobile-map-return { display:none; }
 @media(max-width:640px), (max-width:900px) and (max-height:500px) {
-  .site-header-inner { display:grid; grid-template-columns:minmax(0,1fr) auto auto; min-height:0; gap:0 .35rem; padding:.25rem 0 0; }
+  .site-header-inner { display:grid; grid-template-columns:minmax(0,1fr) auto auto auto; min-height:0; gap:0 .35rem; padding:.25rem 0 0; }
   .site-header .brand { grid-column:1; grid-row:1; min-height:48px; gap:.4rem; min-width:0; }
   .site-header .brand strong { font-size:.87rem; white-space:nowrap; }
   .site-header .brand-mark { width:1.8rem; height:1.8rem; border-radius:.6rem; }
-  .site-header .persona-switcher { grid-column:2; grid-row:1; margin:0; }
+  .site-header .persona-switcher { grid-column:2; grid-row:1; margin:0; min-width:0; }
   .site-header .persona-switcher > summary { min-height:44px; padding:.45rem .5rem; font-size:.72rem; }
-  .site-search { grid-column:3; grid-row:1; margin:0; }
+  .theme-switcher { grid-column:3; grid-row:1; min-width:44px; min-height:44px; padding:.35rem .5rem; font-size:.72rem; }
+  .site-search { grid-column:4; grid-row:1; margin:0; }
   .mobile-search-toggle { display:grid; place-items:center; min-width:44px; min-height:44px; padding:0; border:1px solid var(--line); border-radius:.65rem; background:white; color:var(--blue); font-size:1.8rem; cursor:pointer; }
   .site-search-panel { display:none; position:absolute; left:0; right:0; top:100%; padding:.6rem; background:var(--paper,#f4f7fb); border-bottom:1px solid var(--line); box-shadow:0 8px 20px #12244018; }
   .site-search[data-open=true] .site-search-panel { display:block; }
@@ -51,6 +52,7 @@
   .regional-toolbar { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.45rem; }
   .regional-toolbar .regional-stats { grid-column:1 / -1; margin:0; justify-content:flex-start; }
   .regional-toolbar label { min-width:0; }
+  .regional-adjacent button { min-height:44px; }
   .mobile-map-return { display:inline-flex; align-items:center; min-height:44px; padding:.4rem .7rem; border:1px solid var(--line); border-radius:.5rem; background:white; color:var(--blue); cursor:pointer; }
   .site-footer { flex-wrap:wrap; padding-bottom:calc(1.25rem + env(safe-area-inset-bottom)); }
   .site-footer > span { flex-basis:100%; }

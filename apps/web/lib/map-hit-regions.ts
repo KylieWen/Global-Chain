@@ -1,5 +1,19 @@
-type HitPoint = { id: string; x: number; y: number };
+export type HitPoint = { id: string; x: number; y: number };
 type Point = [number, number];
+
+/** Resolve an overlapping full-size target by the city nearest to the actual pointer. */
+export function nearestHitPoint<T extends HitPoint>(points: readonly T[], x: number, y: number): T | undefined {
+  let nearest: T | undefined;
+  let nearestDistance = Infinity;
+  for (const point of points) {
+    const distance = (point.x - x) ** 2 + (point.y - y) ** 2;
+    if (distance < nearestDistance) {
+      nearest = point;
+      nearestDistance = distance;
+    }
+  }
+  return nearest;
+}
 
 /** Partition each marker's local hit area by nearest city, without moving it. */
 export function layoutMapHitRegions(points: HitPoint[], radius: number): Map<string, string> {

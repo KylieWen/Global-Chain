@@ -38,40 +38,41 @@
 .china-atlas-page .regional-heading h1 { font-size:2.2rem; margin-bottom:.35rem; }
 .china-atlas-page .regional-heading { margin-bottom:1rem; }
 .china-atlas-page .regional-heading p:not(.eyebrow) { font-size:.9rem; }
-.regional-workspace { border:1px solid var(--line); border-radius:1rem; overflow:hidden; background:#fff; }
-.regional-toolbar { display:flex; align-items:center; flex-wrap:wrap; gap:1rem; padding:1rem 1.25rem; border-bottom:1px solid var(--line); }
-.regional-toolbar label { display:grid; gap:.3rem; font-size:.7rem; color:var(--muted); }
-.regional-toolbar select { max-width:100%; min-width:9rem; min-height:2.35rem; border:1px solid var(--line-strong); border-radius:.45rem; padding:.4rem .65rem; color:var(--ink); background:#fff; }
-.regional-stats { display:flex; align-items:center; flex-wrap:wrap; gap:.4rem; margin-left:auto; font-size:.75rem; color:var(--ink-soft); }
-.regional-stats strong { font-size:1.2rem; color:var(--navy); }
+.regional-workspace { border:1px solid var(--line, #dce3ed); border-radius:1rem; overflow:hidden; background:var(--surface, #fff); }
+.regional-toolbar { display:flex; align-items:center; flex-wrap:wrap; gap:1rem; padding:1rem 1.25rem; border-bottom:1px solid var(--line, #dce3ed); }
+.regional-toolbar label { display:grid; gap:.3rem; font-size:.7rem; color:var(--muted, #7c879c); }
+.regional-toolbar select { max-width:100%; min-width:9rem; min-height:2.35rem; border:1px solid var(--line-strong, #c7d1df); border-radius:.45rem; padding:.4rem .65rem; color:var(--ink, #17233b); background:var(--surface-raised, #fff); }
+.regional-stats { display:flex; align-items:center; flex-wrap:wrap; gap:.4rem; margin-left:auto; font-size:.75rem; color:var(--ink-soft, #536078); }
+.regional-stats strong { font-size:1.2rem; color:var(--ink, #17233b); }
 .regional-layout { display:grid; grid-template-columns:minmax(0,1fr) 320px; }
-.regional-map-panel { min-width:0; background:radial-gradient(ellipse at 55% 30%,#254653,#102938); color:#c7dde3; }
+.regional-map-panel { min-width:0; background:radial-gradient(ellipse at 55% 30%,var(--regional-panel-from, #254653),var(--regional-panel-to, #102938)); color:var(--ink-soft, #c7dde3); }
 .regional-map-top { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:1rem 1.25rem .1rem; font-size:.7rem; letter-spacing:.12em; }
-.regional-map-top .map-zoom-controls button { border-color:#49646e; color:#e8f2f3; background:#274653; }
+.regional-map-top .map-zoom-controls button { border-color:var(--line-strong, #49646e); color:var(--ink-soft, #e8f2f3); background:var(--surface-raised, #274653); }
 .china-supply-map { display:block; width:100%; touch-action:pan-y; user-select:none; }
-.china-province { fill:#244554; stroke:#56717c; stroke-width:.7; cursor:pointer; transition:fill .16s; }
-.china-province.covered { fill:#37695f; stroke:#6c9d8d; }
-.china-province:hover,.china-province.selected { fill:#568e7d; stroke:#b7d8b0; stroke-width:1.5; }
-.china-province:focus-visible { outline:none; stroke:#fff; stroke-width:2.5; }
-.regional-connection { fill:none; stroke:#79dfc9; stroke-width:1.65; stroke-dasharray:5 4; opacity:.7; pointer-events:none; }
-.regional-connection.active { stroke:#e8d59b; stroke-width:2.8; opacity:1; }
+.china-province { fill:var(--regional-province, #244554); stroke:var(--map-border, #56717c); stroke-width:.7; cursor:pointer; transition:fill .16s; }
+.china-province.covered { fill:var(--regional-province-covered, #37695f); stroke:var(--regional-province-covered-stroke, #6c9d8d); }
+.china-province:hover,.china-province.selected { fill:var(--regional-province-hover, #568e7d); stroke:var(--regional-province-hover-stroke, #b7d8b0); stroke-width:1.5; }
+.china-province:focus-visible { outline:none; stroke:var(--accent, #fff); stroke-width:2.5; }
+.regional-connection { fill:none; stroke:var(--regional-connection, #79dfc9); stroke-width:1.65; stroke-dasharray:5 4; opacity:.7; pointer-events:none; }
+.regional-connection.active { stroke:var(--regional-connection-active, #e8d59b); stroke-width:2.8; opacity:1; }
 .regional-connection.muted { opacity:.2; }
+.regional-role-arrow path { fill:var(--regional-connection, #79dfc9); }
 .regional-node { cursor:pointer; }
 .regional-node-hit { fill:transparent; pointer-events:all; }
 .regional-node circle { pointer-events:none; }
 .regional-node-halo { opacity:.19; stroke:none; }
-.regional-node circle:not(.regional-node-halo) { stroke:#e9f8ec; stroke-width:1; }
+.regional-node circle:not(.regional-node-halo) { stroke:var(--regional-node-stroke, #e9f8ec); stroke-width:1; }
 .regional-node.active .regional-node-halo,.regional-node:hover .regional-node-halo { opacity:.45; }
 .regional-node.outside-filter { opacity:.25; }
 .regional-node:focus-visible { outline:none; }
-.regional-node:focus-visible circle { stroke:#fff; stroke-width:2.5; }
-.regional-city-labels text { fill:#eef9f6; font-size:14px; paint-order:stroke; stroke:#183543; stroke-width:3; stroke-linejoin:round; pointer-events:none; }
+.regional-node:focus-visible circle { stroke:var(--accent, #fff); stroke-width:2.5; }
+.regional-city-labels text { fill:var(--regional-label, #eef9f6); font-size:14px; paint-order:stroke; stroke:var(--regional-label-halo, #183543); stroke-width:3; stroke-linejoin:round; pointer-events:none; }
 .regional-map-bottom { min-height:3rem; display:flex; flex-wrap:wrap; justify-content:space-between; gap:.5rem; padding:.5rem 1.25rem 1rem; font-size:.78rem; }
-.regional-map-bottom small { font-size:.68rem; color:#9ab7c2; }
-.regional-legend { display:flex; flex-wrap:wrap; gap:.7rem 1.1rem; border-top:1px solid #355362; padding:1rem 1.25rem; font-size:.68rem; }
+.regional-map-bottom small { font-size:.68rem; color:var(--regional-muted, #9ab7c2); }
+.regional-legend { display:flex; flex-wrap:wrap; gap:.7rem 1.1rem; border-top:1px solid var(--regional-legend-line, #355362); padding:1rem 1.25rem; font-size:.68rem; }
 .regional-legend span { display:flex; gap:.4rem; align-items:center; }
 .regional-legend i { width:7px; height:7px; border-radius:50%; }
-.regional-line-key { color:#a8c1ca; }
+.regional-line-key { color:var(--ink-soft, #a8c1ca); }
 .regional-details { padding:1.3rem; border-left:1px solid var(--line); max-height:740px; overflow-y:auto; min-width:0; }
 .regional-details h2 { font-size:1.35rem; line-height:1.4; }
 .regional-details p { font-size:.86rem; color:var(--ink-soft); }
@@ -88,7 +89,7 @@
 .regional-back { border:0; padding:0; background:none; color:var(--blue); cursor:pointer; margin:0 0 1.25rem; }
 .regional-adjacent { padding-top:1.5rem; }
 .regional-adjacent h3 { font-size:.83rem; }
-.regional-adjacent button { display:grid; gap:.35rem; width:100%; text-align:left; padding:.8rem; margin-bottom:.5rem; border:1px solid var(--line); border-radius:.5rem; color:var(--ink); background:#f6fafb; cursor:pointer; }
+.regional-adjacent button { display:grid; gap:.35rem; width:100%; text-align:left; padding:.8rem; margin-bottom:.5rem; border:1px solid var(--line, #dce3ed); border-radius:.5rem; color:var(--ink, #17233b); background:var(--surface-raised, #f6fafb); cursor:pointer; }
 .regional-adjacent small { color:var(--teal); }
 .regional-adjacent strong { font-size:.8rem; }
 .regional-organization { padding:1rem 0; border-bottom:1px solid var(--line); }
@@ -99,8 +100,8 @@
 .regional-sources a { color:var(--blue); }
 .regional-sources small { color:var(--muted); }
 .regional-empty { padding:1rem 0; }
-.regional-empty button { color:var(--blue); padding:.6rem; border:1px solid var(--line); border-radius:.5rem; background:#fff; cursor:pointer; }
-.regional-scope-note { margin:0; padding:.9rem 1.25rem; background:#f7f9fc; border-top:1px solid var(--line); font-size:.75rem; color:var(--ink-soft); }
+.regional-empty button { color:var(--blue, #0b8f88); padding:.6rem; border:1px solid var(--line, #dce3ed); border-radius:.5rem; background:var(--surface-raised, #fff); cursor:pointer; }
+.regional-scope-note { margin:0; padding:.9rem 1.25rem; background:var(--surface-raised, #f7f9fc); border-top:1px solid var(--line, #dce3ed); font-size:.75rem; color:var(--ink-soft, #536078); }
 .regional-method { padding:.75rem 1.25rem; border-top:1px solid var(--line); font-size:.75rem; }
 .regional-method p { margin:.75rem 0; }
 .regional-method ul { columns:2; padding-left:1.2rem; line-height:1.9; }

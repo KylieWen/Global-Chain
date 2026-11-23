@@ -38,6 +38,8 @@ export type PaletteTokens = {
   mapLand: string;
   mapLandLimited: string;
   mapGraticule: string;
+  /** Country / province outline and graticule stroke. */
+  mapBorder: string;
 };
 
 export type TypeTokens = {
@@ -97,6 +99,8 @@ export type MapFlowTokens = {
   };
   palette: {
     itemColors: string[];
+    /** Regional supply-stage colors for the China atlas (material / component / manufacturing / market). */
+    stageColors: Record<"material" | "component" | "manufacturing" | "market", string>;
   };
 };
 
@@ -143,7 +147,8 @@ const darkTokens: ThemeTokens = {
     mapOcean: "#0d1626",
     mapLand: "#1c2a3f",
     mapLandLimited: "#162233",
-    mapGraticule: "#2e4059"
+    mapGraticule: "#2e4059",
+    mapBorder: "#384961"
   },
   type: {
     familyBase: '"Segoe UI", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif',
@@ -172,7 +177,8 @@ const darkTokens: ThemeTokens = {
     particle: { density: 0.6, speed: 0.5, width: 2, maxParticles: 240, trail: 0.35 },
     node: { radius: 5, glow: 0.35 },
     palette: {
-      itemColors: ["#68e4c1", "#ffbb66", "#86baff", "#f3a8db", "#cfe381", "#ff9a93", "#c9b4ff", "#83dce9"]
+      itemColors: ["#68e4c1", "#ffbb66", "#86baff", "#f3a8db", "#cfe381", "#ff9a93", "#c9b4ff", "#83dce9"],
+      stageColors: { material: "#f2ca7a", component: "#86baff", manufacturing: "#77e0c5", market: "#e4a5d9" }
     }
   }
 };
@@ -198,7 +204,8 @@ const lightTokens: ThemeTokens = {
     mapOcean: "#eef3f8",
     mapLand: "#dfe8f1",
     mapLandLimited: "#e9eef4",
-    mapGraticule: "#c7d1df"
+    mapGraticule: "#c7d1df",
+    mapBorder: "#c7d1df"
   },
   type: {
     familyBase: '"Segoe UI", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif',
@@ -227,7 +234,8 @@ const lightTokens: ThemeTokens = {
     particle: { density: 0.6, speed: 0.5, width: 2, maxParticles: 240, trail: 0.3 },
     node: { radius: 5, glow: 0.25 },
     palette: {
-      itemColors: ["#2f9e83", "#c76b24", "#2f65d5", "#b05596", "#7a9a2e", "#b94c51", "#6c55b8", "#2b8fa6"]
+      itemColors: ["#2f9e83", "#c76b24", "#2f65d5", "#b05596", "#7a9a2e", "#b94c51", "#6c55b8", "#2b8fa6"],
+      stageColors: { material: "#c76b24", component: "#2f65d5", manufacturing: "#2f9e83", market: "#b05596" }
     }
   }
 };

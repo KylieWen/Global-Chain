@@ -30,6 +30,23 @@
   --map-land: #1c2a3f;
   --map-land-limited: #162233;
   --map-graticule: #2e4059;
+  --map-border: #384961;
+
+  /* Regional (China atlas) panel and geometry, mirrored from the map tokens. */
+  --regional-panel-from: #254653;
+  --regional-panel-to: #102938;
+  --regional-province: var(--map-land);
+  --regional-province-covered: #37695f;
+  --regional-province-covered-stroke: #6c9d8d;
+  --regional-province-hover: #568e7d;
+  --regional-province-hover-stroke: #b7d8b0;
+  --regional-connection: var(--accent);
+  --regional-connection-active: var(--warning);
+  --regional-label: var(--ink-soft);
+  --regional-label-halo: var(--map-ocean);
+  --regional-legend-line: #355362;
+  --regional-node-stroke: var(--surface);
+  --regional-muted: #9ab7c2;
 
   --font-base: "Segoe UI", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
   --font-mono: "SF Mono", "JetBrains Mono", "Consolas", "Roboto Mono", monospace;
@@ -94,6 +111,23 @@
   --map-land: #dfe8f1;
   --map-land-limited: #e9eef4;
   --map-graticule: #c7d1df;
+  --map-border: #c7d1df;
+
+  /* Regional (China atlas) panel and geometry for the light scheme. */
+  --regional-panel-from: var(--map-ocean);
+  --regional-panel-to: var(--map-ocean);
+  --regional-province: var(--map-land);
+  --regional-province-covered: #bfd8d3;
+  --regional-province-covered-stroke: #78a49d;
+  --regional-province-hover: #8fc9bc;
+  --regional-province-hover-stroke: var(--accent);
+  --regional-connection: var(--accent);
+  --regional-connection-active: var(--warning);
+  --regional-label: var(--ink-soft);
+  --regional-label-halo: var(--map-ocean);
+  --regional-legend-line: var(--line);
+  --regional-node-stroke: var(--surface);
+  --regional-muted: var(--muted);
 
   --font-base: "Segoe UI", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
   --font-mono: "SF Mono", "JetBrains Mono", "Consolas", "Roboto Mono", monospace;
@@ -689,6 +723,7 @@ body {
 :root[data-theme="dark"] .persona-switcher-menu button,
 :root[data-theme="dark"] .persona-choice,
 :root[data-theme="dark"] .regional-workspace,
+:root[data-theme="dark"] .regional-details,
 :root[data-theme="dark"] .regional-toolbar select,
 :root[data-theme="dark"] .regional-adjacent button,
 :root[data-theme="dark"] .regional-empty button,
@@ -718,6 +753,7 @@ body {
 }
 
 :root[data-theme="dark"] .regional-scope-note,
+:root[data-theme="dark"] .regional-method,
 :root[data-theme="dark"] .hint-toggle {
   background: var(--surface-raised);
   color: var(--ink-soft);

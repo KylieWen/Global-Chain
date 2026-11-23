@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { layoutMapHitRegions } from "../apps/web/lib/map-hit-regions";
+import { layoutMapHitRegions, nearestHitPoint } from "../apps/web/lib/map-hit-regions";
 const vertices = (path: string) => {
   const values = path.match(/[-+]?(?:\d*\.?\d+)(?:e[-+]?\d+)?/gi)!.map(Number);
   return Array.from({length: values.length / 2}, (_, index) => [values[2 * index], values[2 * index + 1]]);
@@ -19,6 +19,13 @@ describe("city marker hit regions", () => {
       expect(result).toHaveLength(20);
       for(const [x,y] of result) expect(Math.hypot(x,y)).toBeCloseTo(radius,8);
     }
+  });
+  it("resolves overlapping full-size targets to the nearest city", () => {
+    const points=[{id:'a',x:10,y:10},{id:'b',x:15,y:11},{id:'c',x:13,y:16}];
+    expect(nearestHitPoint(points,10.5,10)?.id).toBe('a');
+    expect(nearestHitPoint(points,14.5,11)?.id).toBe('b');
+    expect(nearestHitPoint(points,13,15)?.id).toBe('c');
+    expect(nearestHitPoint([],0,0)).toBeUndefined();
   });
   it("handles empty maps and rejects invalid targets", () => {
     expect(layoutMapHitRegions([],14).size).toBe(0);
