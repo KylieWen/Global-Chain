@@ -7,7 +7,9 @@ import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../compo
 import { ProductTree } from "../../../components/product-tree";
 import { ProductArtwork } from "../../../components/product-artwork";
 import { industryPath, manufacturingProcessPath, mapPath, materialObservationsPath, provenancePath, supplyChainPath, tradeGuidePath } from "../../../lib/paths";
-import { contextMismatch, readPageContext, type SearchParamsLike } from "../../../lib/context";
+import { contextMismatch, firstParam, readPageContext, type SearchParamsLike } from "../../../lib/context";
+import { buildExplodedModel } from "../../../lib/exploded-model";
+import { ExplodedExplorer } from "../../../components/exploded-explorer";
 import {
   StatusBadge,
   WarningList
@@ -21,7 +23,8 @@ export default async function ProductOverviewPage({
   searchParams: Promise<SearchParamsLike>;
 }) {
   const { productId } = await params;
-  const pageContext = readPageContext(await searchParams);
+  const queryParams = await searchParams;
+  const pageContext = readPageContext(queryParams);
   const queries = await getQueryService(pageContext.datasetVersion);
   const routeContext = { datasetVersion: pageContext.datasetVersion, contentVersion: pageContext.contentVersion };
   const overview = queries.getProductOverview(productId);
@@ -35,6 +38,24 @@ export default async function ProductOverviewPage({
   const hasMaterialTrade = queries.getMaterialTradeObservations(productId).length > 0;
   const completeStory = queries.getSupplyChainStory(productId);
   const explorableItemIds = [...new Set([...(completeStory?.nodes.flatMap((node) => node.item ? [node.item.id] : []) ?? []), ...(completeStory?.flows.map((flow) => flow.flow.itemId) ?? [])])];
+  const focusParam = firstParam(queryParams.focus);
+  const ledgerEntitiesByItem: Record<string, { id: string; name: string }[]> = {};
+  for (const storyNode of completeStory?.nodes ?? []) {
+    if (storyNode.item && storyNode.entity) {
+      const list = ledgerEntitiesByItem[storyNode.item.id] ?? [];
+      if (!list.some((entry) => entry.id === storyNode.entity!.id)) {
+        list.push({ id: storyNode.entity.id, name: storyNode.entity.name });
+      }
+      ledgerEntitiesByItem[storyNode.item.id] = list;
+    }
+  }
+  const explodedModel = buildExplodedModel({
+    root: breakdown,
+    componentCoverage: overview.componentCoverage,
+    tradeItems: [...tradeItems],
+    explorableItemIds,
+    ledgerEntitiesByItem
+  });
   const processChains = [...new Map(overview.componentCoverage.flatMap((coverage) => coverage.processChains).map((chain) => [chain.id, chain])).values()];
   const mismatches = contextMismatch(pageContext, { period: overview.period.label, datasetVersion: overview.datasetVersion.version, contentVersion: provenance.route.contentVersion?.version });
 
@@ -53,6 +74,8 @@ export default async function ProductOverviewPage({
         <ProductArtwork productId={productId} variant="overview" />
         </div>
         <ProductNavigation productId={productId} context={routeContext} active="overview" hasIndustry={Boolean(industry)} hasMaterials={hasMaterialTrade}/>
+
+        <ExplodedExplorer model={explodedModel} productId={productId} context={routeContext} initialFocus={focusParam} />
 
         <section className="section-block" aria-labelledby="children-title">
           <div className="section-heading">

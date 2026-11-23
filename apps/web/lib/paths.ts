@@ -37,7 +37,14 @@ export function evidenceGapsPath(productId: string, context?: PageContext): stri
   return `/products/${segment(productId)}/evidence-gaps${contextQuery(context)}`;
 }
 
-export function materialObservationsPath(productId: string, context?: PageContext): string {
+export type MaterialObservationsFilters = PageContext & {
+  material?: string;
+  partnerScope?: string;
+  flow?: string;
+  mapping?: string;
+};
+
+export function materialObservationsPath(productId: string, context?: MaterialObservationsFilters): string {
   return `/products/${segment(productId)}/materials${contextQuery(context)}`;
 }
 
