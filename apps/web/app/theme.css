@@ -1,0 +1,777 @@
+/*
+ * Theme layer for the "dark atlas" experience.
+ *
+ * CSS custom properties below mirror apps/web/lib/theme/tokens.ts. The dark
+ * scheme is the default; light is an explicit alternative. Map and flow
+ * variables are kept as a serializable extension surface for batch 2
+ * (particle beam mode, density / speed / width tuning) — this batch only
+ * ships the static-arc fallback.
+ */
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0b1220;
+  --bg-elevated: #0f1728;
+  --surface: #131d31;
+  --surface-raised: #1a263d;
+  --ink: #e8eef6;
+  --ink-soft: #b6c2d4;
+  --muted: #8494ab;
+  --line: #26344a;
+  --line-strong: #384961;
+  --accent: #5ec8b4;
+  --accent-soft: rgb(94 200 180 / 14%);
+  --accent-ink: #0b1220;
+  --success: #68e4c1;
+  --warning: #ffbb66;
+  --danger: #ff9a93;
+  --map-ocean: #0d1626;
+  --map-land: #1c2a3f;
+  --map-land-limited: #162233;
+  --map-graticule: #2e4059;
+
+  --font-base: "Segoe UI", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", "Consolas", "Roboto Mono", monospace;
+
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-section: 4rem;
+
+  --motion-fast: 160ms;
+  --motion-base: 240ms;
+  --motion-slow: 400ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --map-line-min-width: 1.2;
+  --map-line-max-width: 5.2;
+  --map-line-opacity: 0.65;
+  --map-line-active-opacity: 1;
+  --map-line-muted-opacity: 0.1;
+  --map-particle-density: 0.6;
+  --map-particle-speed: 0.5;
+  --map-particle-width: 2;
+  --map-node-radius: 5;
+  --map-node-glow: 0.35;
+
+  /* Legacy aliases kept so existing page rules adopt the new palette. */
+  --paper: var(--bg);
+  --panel: var(--surface);
+  --navy: var(--ink);
+  --blue: var(--accent);
+  --blue-soft: var(--accent-soft);
+  --teal: var(--accent);
+  --teal-soft: var(--accent-soft);
+  --orange: var(--warning);
+  --orange-soft: rgb(255 187 102 / 14%);
+  --red: var(--danger);
+  --red-soft: rgb(255 154 147 / 14%);
+  --shadow: 0 18px 60px rgb(2 8 18 / 45%);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #f4f7fb;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-raised: #f7f9fc;
+  --ink: #17233b;
+  --ink-soft: #536078;
+  --muted: #7c879c;
+  --line: #dce3ed;
+  --line-strong: #c7d1df;
+  --accent: #0b8f88;
+  --accent-soft: #e6f7f4;
+  --accent-ink: #ffffff;
+  --success: #0b8f88;
+  --warning: #c76b24;
+  --danger: #b94c51;
+  --map-ocean: #eef3f8;
+  --map-land: #dfe8f1;
+  --map-land-limited: #e9eef4;
+  --map-graticule: #c7d1df;
+
+  --font-base: "Segoe UI", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", "Consolas", "Roboto Mono", monospace;
+
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-section: 4rem;
+
+  --motion-fast: 160ms;
+  --motion-base: 240ms;
+  --motion-slow: 400ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --map-line-min-width: 1.2;
+  --map-line-max-width: 5.2;
+  --map-line-opacity: 0.7;
+  --map-line-active-opacity: 1;
+  --map-line-muted-opacity: 0.12;
+  --map-particle-density: 0.6;
+  --map-particle-speed: 0.5;
+  --map-particle-width: 2;
+  --map-node-radius: 5;
+  --map-node-glow: 0.25;
+
+  --paper: var(--bg);
+  --panel: var(--surface);
+  --navy: var(--ink);
+  --blue: var(--accent);
+  --blue-soft: var(--accent-soft);
+  --teal: var(--accent);
+  --teal-soft: var(--accent-soft);
+  --orange: var(--warning);
+  --orange-soft: #fff0df;
+  --red: var(--danger);
+  --red-soft: #ffebec;
+  --shadow: 0 18px 60px rgb(28 52 91 / 8%);
+}
+
+/* ---------- Base ---------- */
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-base);
+}
+
+.num,
+.stat-value,
+.atlas-record > strong,
+.visitor-hero-facts strong {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Shell ---------- */
+
+.site-header {
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg-elevated) 86%, transparent);
+  backdrop-filter: blur(18px);
+}
+
+.brand-mark {
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 25%);
+}
+
+.theme-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.25rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.65rem;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: color var(--motion-fast) var(--ease), border-color var(--motion-fast) var(--ease), background var(--motion-fast) var(--ease);
+}
+
+.theme-switcher:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+
+/* ---------- Three-step journey strip ---------- */
+
+.path-steps {
+  width: min(1280px, calc(100% - 2.5rem));
+  margin: 0 auto;
+  padding: 0.7rem 0 0;
+}
+
+.path-steps ol {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.path-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.path-step-separator {
+  color: var(--muted);
+  font-size: 0.75rem;
+  margin: 0 0.35rem;
+}
+
+.path-step a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.6rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  transition: color var(--motion-fast) var(--ease), background var(--motion-fast) var(--ease);
+}
+
+.path-step-index {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.path-step a:hover {
+  color: var(--ink);
+  background: var(--surface-raised);
+}
+
+.path-step.is-active a {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.path-step.is-active .path-step-index {
+  color: var(--accent);
+}
+
+/* ---------- Home: hero and story entries ---------- */
+
+.home-atlas {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: var(--space-xl);
+  align-items: center;
+  padding: var(--space-section) 0;
+}
+
+.home-atlas-claim .eyebrow {
+  color: var(--accent);
+}
+
+.home-atlas-claim h1 {
+  font-size: clamp(2.4rem, 4.6vw, 4.2rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  margin: 0.8rem 0 1.2rem;
+  color: var(--ink);
+}
+
+.home-atlas-claim > p {
+  max-width: 29rem;
+  color: var(--ink-soft);
+  line-height: var(--line-height-relaxed, 1.9);
+  font-size: 1.05rem;
+}
+
+.home-atlas-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 1.8rem;
+}
+
+/* Primary CTA: accent fill with themed ink, readable in both schemes.
+   Outranks the legacy `.button-primary { background: var(--navy) }` rule. */
+:root[data-theme] .button-primary {
+  color: var(--accent-ink);
+  background: var(--accent);
+}
+
+.home-atlas-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+  margin-top: 1.8rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.home-atlas-facts strong {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  margin-right: 0.3rem;
+}
+
+.home-product-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--space-md);
+  margin: var(--space-section) 0 0;
+}
+
+/* Scope under .home-product-strip so these rules outrank the legacy
+   `.home-product-strip a` white-card rule in atlas-navigation.css. */
+.home-product-strip .home-product-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: var(--space-lg);
+  border-radius: 1rem;
+  background: var(--surface);
+  border-color: var(--line);
+  transition: transform var(--motion-fast) var(--ease), border-color var(--motion-fast) var(--ease), background var(--motion-fast) var(--ease);
+}
+
+.home-product-strip .home-product-entry:hover {
+  transform: translateY(-2px);
+  background: var(--surface-raised);
+  border-color: var(--line-strong);
+}
+
+.home-product-strip .home-product-entry strong {
+  font-size: 1.02rem;
+  color: var(--ink);
+}
+
+.home-product-strip .home-product-entry span {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+/* ---------- Home interactive map preview ---------- */
+
+.home-atlas-map {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: var(--space-md);
+  border-radius: 1.4rem;
+  background: var(--surface);
+}
+
+.home-atlas-map-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0 0.4rem;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
+
+.home-atlas-map-heading a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.home-atlas-map .map-viewport {
+  position: relative;
+}
+
+.home-atlas-map svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  background: var(--map-ocean);
+}
+
+/* Outrank the legacy hard-coded `.map-ocean { fill:#102b3a }` rule so the
+   preview ocean follows the active scheme token. */
+.home-atlas-map .map-ocean {
+  fill: var(--map-ocean);
+}
+
+.home-atlas-map-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 0.4rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.home-atlas-map-footer a {
+  color: var(--accent);
+}
+
+.home-atlas-country {
+  fill: var(--map-land);
+  stroke: var(--line);
+  stroke-width: 0.4;
+}
+
+.home-atlas-country.has-data {
+  fill: var(--map-land-limited);
+}
+
+.home-atlas-country.hovered,
+.home-atlas-country.selected {
+  fill: var(--accent-soft);
+  stroke: var(--accent);
+}
+
+.home-atlas-line {
+  fill: none;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  opacity: var(--map-line-opacity);
+}
+
+.home-atlas-endpoint circle {
+  fill: var(--accent);
+}
+
+.home-atlas-map .map-zoom-controls {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  display: flex;
+  gap: 0.3rem;
+}
+
+.home-atlas-map .map-zoom-controls button {
+  min-width: 2rem;
+  min-height: 2rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.5rem;
+  background: var(--surface-raised);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+/* ---------- Dark-scheme fallback for legacy page components ----------
+   Batch 1 retokenizes the shell and home; legacy pages keep their logic and
+   adopt the dark palette through these grouped overrides. Light scheme keeps
+   the original rules untouched. */
+
+:root[data-theme="dark"] {
+  --panel-solid: var(--surface);
+}
+
+:root[data-theme="dark"] .site-nav-more-menu,
+:root[data-theme="dark"] .global-search,
+:root[data-theme="dark"] .button-secondary,
+:root[data-theme="dark"] .tree-node,
+:root[data-theme="dark"] .provenance-panel,
+:root[data-theme="dark"] .evidence-gap-card,
+:root[data-theme="dark"] .gap-candidate-list li,
+:root[data-theme="dark"] .gap-classification-list li,
+:root[data-theme="dark"] .evidence-gap-list-secondary .evidence-gap-card,
+:root[data-theme="dark"] .filter-strip,
+:root[data-theme="dark"] .route-graph-shell,
+:root[data-theme="dark"] .interpretation-summary,
+:root[data-theme="dark"] .interpretation-card,
+:root[data-theme="dark"] .graph-reading-key,
+:root[data-theme="dark"] .process-chain-entry,
+:root[data-theme="dark"] .process-chain-entry-meta span,
+:root[data-theme="dark"] .manufacturing-step-main,
+:root[data-theme="dark"] .manufacturer-capability,
+:root[data-theme="dark"] .manufacturer-empty,
+:root[data-theme="dark"] .manufacturing-step-card,
+:root[data-theme="dark"] .exploration-nav,
+:root[data-theme="dark"] .graph-clear-button,
+:root[data-theme="dark"] .graph-selection-meta span,
+:root[data-theme="dark"] .graph-selection-evidence > div,
+:root[data-theme="dark"] .hierarchy-card,
+:root[data-theme="dark"] .hierarchy-next-step,
+:root[data-theme="dark"] .step-card,
+:root[data-theme="dark"] .step-node-chip,
+:root[data-theme="dark"] .node-identity-panel,
+:root[data-theme="dark"] .activity-card,
+:root[data-theme="dark"] .metric-row,
+:root[data-theme="dark"] .trade-observation-card,
+:root[data-theme="dark"] .product-focus-strip,
+:root[data-theme="dark"] .compact-detail,
+:root[data-theme="dark"] .process-variant-card,
+:root[data-theme="dark"] .country-card,
+:root[data-theme="dark"] .category-card,
+:root[data-theme="dark"] .version-card,
+:root[data-theme="dark"] .map-shell,
+:root[data-theme="dark"] .map-filters,
+:root[data-theme="dark"] .ledger-snapshot,
+:root[data-theme="dark"] .home-task-card,
+:root[data-theme="dark"] .home-audience-intro,
+:root[data-theme="dark"] .home-audience-card,
+:root[data-theme="dark"] .home-entry-card,
+:root[data-theme="dark"] .help-card,
+:root[data-theme="dark"] .demo-step-card,
+:root[data-theme="dark"] .trade-guide-workbench,
+:root[data-theme="dark"] .trade-guide-task-note,
+:root[data-theme="dark"] .trade-guide-preset,
+:root[data-theme="dark"] .trade-guide-intro-grid article,
+:root[data-theme="dark"] .trade-guide-summary-card,
+:root[data-theme="dark"] .trade-guide-card,
+:root[data-theme="dark"] .trade-guide-conclusion,
+:root[data-theme="dark"] .trade-guide-details,
+:root[data-theme="dark"] .trade-requirement-row,
+:root[data-theme="dark"] .reading-details,
+:root[data-theme="dark"] .atlas-records,
+:root[data-theme="dark"] .atlas-record,
+:root[data-theme="dark"] .atlas-country-nodes a,
+:root[data-theme="dark"] .atlas-record-details,
+:root[data-theme="dark"] .atlas-compact-filters,
+:root[data-theme="dark"] .atlas-item-chip,
+:root[data-theme="dark"] .atlas-scope-switch button,
+:root[data-theme="dark"] .stat-card,
+:root[data-theme="dark"] .product-card,
+:root[data-theme="dark"] .component-card,
+:root[data-theme="dark"] .node-card,
+:root[data-theme="dark"] .hero-panel,
+:root[data-theme="dark"] .visitor-step,
+:root[data-theme="dark"] .empty-state,
+:root[data-theme="dark"] .evidence-gap-all,
+:root[data-theme="dark"] .graph-selection,
+:root[data-theme="dark"] .graph-selection-empty {
+  background: var(--surface);
+  border-color: var(--line);
+  color: var(--ink-soft);
+}
+
+:root[data-theme="dark"] .tree-root,
+:root[data-theme="dark"] .route-methodology-grid > div,
+:root[data-theme="dark"] .evidence-gap-meta,
+:root[data-theme="dark"] .evidence-gap-copy > div,
+:root[data-theme="dark"] .evidence-gap-detail-grid > div,
+:root[data-theme="dark"] .evidence-gap-human-summary > div,
+:root[data-theme="dark"] .equipment-requirement,
+:root[data-theme="dark"] .process-detail-panel,
+:root[data-theme="dark"] .step-context,
+:root[data-theme="dark"] .trade-values > div,
+:root[data-theme="dark"] .plain-list li,
+:root[data-theme="dark"] .evidence-gap-summary-item,
+:root[data-theme="dark"] .manufacturing-step-summary-facts span,
+:root[data-theme="dark"] .process-count-chip,
+:root[data-theme="dark"] .period-label,
+:root[data-theme="dark"] .content-status,
+:root[data-theme="dark"] .node-type,
+:root[data-theme="dark"] .iso-chip {
+  background: var(--surface-raised);
+  color: var(--ink-soft);
+}
+
+:root[data-theme="dark"] .warning-panel,
+:root[data-theme="dark"] .missing-data-panel,
+:root[data-theme="dark"] .representative-statement,
+:root[data-theme="dark"] .process-boundary-banner,
+:root[data-theme="dark"] .route-declaration,
+:root[data-theme="dark"] .trade-guide-boundary,
+:root[data-theme="dark"] .trade-guide-disclaimer,
+:root[data-theme="dark"] .demo-boundary-note,
+:root[data-theme="dark"] .context-banner-warning {
+  background: var(--surface-raised);
+  border-color: var(--line-strong);
+  color: var(--ink-soft);
+}
+
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea {
+  background: var(--surface-raised);
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+:root[data-theme="dark"] .graph-node rect {
+  fill: var(--surface);
+  stroke: var(--line-strong);
+}
+
+:root[data-theme="dark"] .data-table th {
+  background: var(--surface-raised);
+  color: var(--muted);
+}
+
+:root[data-theme="dark"] .data-table tr:hover td {
+  background: var(--surface-raised);
+}
+
+:root[data-theme="dark"] .atlas-record:hover,
+:root[data-theme="dark"] .atlas-record:focus-visible {
+  background: var(--surface-raised);
+}
+
+:root[data-theme="dark"] .atlas-record-route,
+:root[data-theme="dark"] .atlas-record > strong,
+:root[data-theme="dark"] .product-card h3,
+:root[data-theme="dark"] .component-card h3,
+:root[data-theme="dark"] .node-card h3,
+:root[data-theme="dark"] .country-card h3 {
+  color: var(--ink);
+}
+
+:root[data-theme="dark"] .nav-group-menu,
+:root[data-theme="dark"] .product-level-nav,
+:root[data-theme="dark"] .persona-switcher > summary,
+:root[data-theme="dark"] .persona-switcher-menu,
+:root[data-theme="dark"] .persona-switcher-menu button,
+:root[data-theme="dark"] .persona-choice,
+:root[data-theme="dark"] .regional-workspace,
+:root[data-theme="dark"] .regional-toolbar select,
+:root[data-theme="dark"] .regional-adjacent button,
+:root[data-theme="dark"] .regional-empty button,
+:root[data-theme="dark"] .material-filter-group a,
+:root[data-theme="dark"] .mobile-search-toggle,
+:root[data-theme="dark"] .mobile-map-return {
+  background: var(--surface);
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+:root[data-theme="dark"] .persona-switcher-menu button:hover,
+:root[data-theme="dark"] .persona-choice:hover,
+:root[data-theme="dark"] .persona-choice[aria-pressed=true] {
+  background: var(--surface-raised);
+}
+
+:root[data-theme="dark"] .product-level-nav a[aria-current=page],
+:root[data-theme="dark"] .material-filter-group a[aria-current=page] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+:root[data-theme="dark"] .site-search-panel {
+  background: var(--bg-elevated);
+}
+
+:root[data-theme="dark"] .regional-scope-note,
+:root[data-theme="dark"] .hint-toggle {
+  background: var(--surface-raised);
+  color: var(--ink-soft);
+}
+
+:root[data-theme="dark"] .map-focus-root[data-expanded=true] {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+:root[data-theme="dark"] .map-focus-bar,
+:root[data-theme="dark"] .map-focus-tools button {
+  background: var(--surface);
+  color: var(--ink-soft);
+  border-color: var(--line-strong);
+}
+
+/* Map zoom / reset / fullscreen controls on the full workspace. */
+:root[data-theme="dark"] .map-zoom-controls button {
+  background: var(--surface-raised);
+  color: var(--ink-soft);
+  border-color: var(--line-strong);
+}
+
+/* Layer switch (representative route vs official trade) in the map heading. */
+:root[data-theme="dark"] .atlas-layer-switch {
+  background: var(--surface);
+  border-color: var(--line-strong);
+}
+
+:root[data-theme="dark"] .atlas-layer-switch a {
+  color: var(--ink-soft);
+}
+
+:root[data-theme="dark"] .atlas-layer-switch a[aria-current="page"] {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+:root[data-theme="dark"] .map-pending {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--line-strong);
+}
+
+:root[data-theme="dark"] .page-loading {
+  color: var(--muted);
+}
+
+:root[data-theme="dark"] .loading-dot {
+  background: var(--accent);
+}
+
+:root[data-theme="dark"] .first-visit-guide {
+  background: var(--surface-raised);
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+:root[data-theme="dark"] .guide-step-content h2,
+:root[data-theme="dark"] .guide-preview-product h3,
+:root[data-theme="dark"] .guide-path strong {
+  color: var(--ink);
+}
+
+:root[data-theme="dark"] .guide-description,
+:root[data-theme="dark"] .guide-personas small,
+:root[data-theme="dark"] .guide-preview-product small,
+:root[data-theme="dark"] .guide-path small,
+:root[data-theme="dark"] .guide-topline {
+  color: var(--ink-soft);
+}
+
+:root[data-theme="dark"] .guide-product,
+:root[data-theme="dark"] .guide-personas button,
+:root[data-theme="dark"] .guide-preview {
+  background: var(--surface);
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+:root[data-theme="dark"] .guide-option-check {
+  background: var(--surface-raised);
+  border-color: var(--line-strong);
+}
+
+:root[data-theme="dark"] .guide-next {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-switcher,
+  .home-product-entry,
+  .home-atlas-map,
+  .atlas-workspace path {
+    transition: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@media (max-width: 1000px) {
+  .home-atlas {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .home-product-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .home-product-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .path-steps ol {
+    overflow-x: auto;
+  }
+}

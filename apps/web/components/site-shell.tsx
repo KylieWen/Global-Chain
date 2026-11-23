@@ -5,6 +5,8 @@ import { SiteNavigation } from "./site-navigation";
 import { PersonaSwitcher } from "./persona-switcher";
 import { SiteSearch } from "./site-search";
 import { UsageInsights } from "./usage-insights";
+import { ThemeSwitcher } from "./theme-switcher";
+import { PathSteps } from "./path-steps";
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const preview = isPreviewData();
@@ -22,9 +24,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </Link>
           <SiteNavigation />
           <PersonaSwitcher />
+          <ThemeSwitcher />
           <SiteSearch />
           {preview ? <span className="mode-pill mode-preview">开发预览</span> : null}
         </div>
+        <PathSteps />
       </header>
       {preview ? (
         <div className="preview-banner" role="status">
