@@ -442,11 +442,11 @@ body {
   stroke: var(--map-ocean);
 }
 
-:root[data-theme="light"] .atlas-workspace .country-trade-export path {
+:root[data-theme="light"] .atlas-workspace .country-trade-export path.atlas-line-visible {
   stroke: var(--accent);
 }
 
-:root[data-theme="light"] .atlas-workspace .country-trade-import path {
+:root[data-theme="light"] .atlas-workspace .country-trade-import path.atlas-line-visible {
   stroke: var(--orange);
 }
 

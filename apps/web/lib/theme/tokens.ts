@@ -68,10 +68,10 @@ export type MotionTokens = {
 
 /**
  * Reserved, serializable map / flow configuration.
- * `mode` selects the renderer: `static-arc` is the current fallback; `beam`
- * is reserved for the batch 2 particle flow. `particle` and `node` are unused
- * in batch 1 but kept in the contract so later tuning panels and shared theme
- * presets can persist them through the same import/export path.
+ * `mode` selects the renderer: `beam` is the NEXUS-style particle flow;
+ * `static-arc` is the classic arrow / static arc fallback. `particle` and
+ * `node` drive the tuning panel and persist through the same import/export
+ * path as the rest of the theme config.
  */
 export type MapFlowTokens = {
   mode: "static-arc" | "beam";
@@ -88,6 +88,8 @@ export type MapFlowTokens = {
     speed: number;
     width: number;
     maxParticles: number;
+    /** Trail persistence per particle, 0–1. */
+    trail: number;
   };
   node: {
     radius: number;
@@ -158,7 +160,7 @@ const darkTokens: ThemeTokens = {
     reducedMotion: "respect-preference"
   },
   map: {
-    mode: "static-arc",
+    mode: "beam",
     line: {
       minWidth: 1.2,
       maxWidth: 5.2,
@@ -167,7 +169,7 @@ const darkTokens: ThemeTokens = {
       mutedOpacity: 0.1,
       dashArray: "4 5"
     },
-    particle: { density: 0.6, speed: 0.5, width: 2, maxParticles: 240 },
+    particle: { density: 0.6, speed: 0.5, width: 2, maxParticles: 240, trail: 0.35 },
     node: { radius: 5, glow: 0.35 },
     palette: {
       itemColors: ["#68e4c1", "#ffbb66", "#86baff", "#f3a8db", "#cfe381", "#ff9a93", "#c9b4ff", "#83dce9"]
@@ -213,7 +215,7 @@ const lightTokens: ThemeTokens = {
     reducedMotion: "respect-preference"
   },
   map: {
-    mode: "static-arc",
+    mode: "beam",
     line: {
       minWidth: 1.2,
       maxWidth: 5.2,
@@ -222,7 +224,7 @@ const lightTokens: ThemeTokens = {
       mutedOpacity: 0.12,
       dashArray: "4 5"
     },
-    particle: { density: 0.6, speed: 0.5, width: 2, maxParticles: 240 },
+    particle: { density: 0.6, speed: 0.5, width: 2, maxParticles: 240, trail: 0.3 },
     node: { radius: 5, glow: 0.25 },
     palette: {
       itemColors: ["#2f9e83", "#c76b24", "#2f65d5", "#b05596", "#7a9a2e", "#b94c51", "#6c55b8", "#2b8fa6"]

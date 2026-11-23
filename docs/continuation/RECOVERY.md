@@ -1,5 +1,14 @@
 # GlobeChain 持续开发恢复入口
 
+## 2026-11-23 · 体验层重构批次 2（NEXUS 粒子流）
+
+- 世界地图新增 Canvas2D 粒子光束与经典箭头双模式，粒子沿既有真实 from→to 贝塞尔路径移动，具有节点辉光、单段拖尾、物品色、金额/数量档位到束宽与密度的映射；缺失或不可报告值保留细基线光束，不把 unknown 当 0。SVG 国家、命中区、键盘、标题和记录语义继续保留。
+- 「调节流动」抽屉支持粒子量、速度、束宽、辉光、拖尾和粒子上限，复用 `globechain-theme` 的版本化 tokens.map 配置持久化、复制与导入；时间轴支持数据驱动播放/暂停和末年停止。自适应四级降级，减少动态直接静态回退，粒子总量不突破 cap。
+- 连线详情已改为桌面右侧/390 底部抽屉，保留来源、method、datasetVersion、contentVersion、数据状态和账本链接；多选物品面板完成视觉收尾。验收修复了浅色方向色误染 14px 透明命中区形成粗色带、恢复默认误切模式及导入成功提示被内联回调 effect 清除等真实问题。
+- 最终门禁：64 文件、358 用例全绿，typecheck、lint（0 warning）、生产构建通过。独立 Chrome/Playwright 完整复验 80/80，通过大豆油三色 1440 深浅与 390、粒子/经典切换和刷新持久化、详情抽屉、多选、六滑杆、真实复制/导入/非法 JSON、减少动态、受限存储、十次开关清理及手机 2023–2025 真实键盘/拖动/播放/刷新恢复；无 page error、console error 或页面横向溢出。
+- 证据在 `output/qa/experience-rebuild-2026-11/batch-2-final/`：result.json、performance.json、acceptance-report.md、nexus-flow-demo.webm 和最终截图。1440 与 390 采样中位帧间隔均 6.1ms、P95 6.2ms、长帧 0，粒子 144≤cap 240；这是本机 Headless Chrome 数据，390 只是视口模拟，不冒称真实手机/GPU 帧率。
+- 下一批按 `REBUILD-PLAN-2026-11-23.md` 做程序化 3D 爆炸图与电池/锂地图联动；真实 BOM 层级缺口必须显式呈现，不为凑五级伪造装配关系。公开站与 Qoder 未改。
+
 ## 2026-11-23 · 体验层重构批次 0+1
 
 - 从 `3e64f32` 建立 `rebuild/experience-2026-11` 分支。批次 0 实测基线为 57 文件、304 用例全部通过（覆盖旧记录中的 303 通过、1 跳过），`node scripts/build-qoder-preview.mjs` 成功生成五商品参赛静态包；公开站与 Qoder 未改。

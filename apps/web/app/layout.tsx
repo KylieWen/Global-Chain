@@ -6,6 +6,7 @@ import "./interaction.css";
 import "./persona.css";
 import "./mobile.css";
 import "./map-focus.css";
+import "./map-flow.css";
 
 export const metadata: Metadata = {
   title: "Global Chain",

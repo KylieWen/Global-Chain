@@ -926,8 +926,8 @@ p { line-height: 1.7; }
 .atlas-graticule { stroke:#31505e; stroke-width:.45; fill:none; opacity:.5; pointer-events:none; }
 .atlas-workspace .map-country-shape.selected { fill:#599e92; stroke:#c3f3df; stroke-width:1.4; }
 .atlas-workspace .country-trade-line path { fill:none; stroke-width:1.4; stroke-linecap:round; opacity:.65; transition:opacity 160ms,stroke-width 160ms; }
-.atlas-workspace .country-trade-export path { stroke:#8be4c4; }
-.atlas-workspace .country-trade-import path { stroke:#d7b880; stroke-dasharray:4 5; }
+.atlas-workspace .country-trade-export path.atlas-line-visible { stroke:#8be4c4; }
+.atlas-workspace .country-trade-import path.atlas-line-visible { stroke:#d7b880; stroke-dasharray:4 5; }
 .atlas-workspace .country-trade-line.is-active path { opacity:1; stroke-width:2.8; }
 .atlas-workspace .country-trade-line.is-muted path { opacity:.1; }
 .atlas-endpoint { pointer-events:none; }

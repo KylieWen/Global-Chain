@@ -7,10 +7,23 @@ import { createMediaQueryStore, type MediaQueryStore } from "../lib/theme/media-
 import {
   parseThemeConfig,
   resolveResolvedTheme,
+  resolveThemeTokens,
   type ResolvedTheme,
   type ThemeConfig,
-  type ThemeMode
+  type ThemeMode,
+  type ThemeTokens,
+  type ThemeTokenOverrides
 } from "../lib/theme/tokens";
+import {
+  mapResetPatch,
+  mapTokenPatch,
+  normalizeSettingsPatch,
+  settingsFromMapTokens,
+  flowModeFromTokenMode,
+  tokenModeFromFlowMode,
+  type FlowMode,
+  type FlowSettings
+} from "../lib/flow-config";
 
 const changeEvent = "global-chain:theme-change";
 
@@ -60,13 +73,45 @@ function commitAndNotify(next: ThemeConfig): void {
   window.dispatchEvent(new Event(changeEvent));
 }
 
+function isPlainRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function deepMergeRecord(base: Record<string, unknown>, patch: Record<string, unknown>): Record<string, unknown> {
+  const out: Record<string, unknown> = { ...base };
+  for (const [key, value] of Object.entries(patch)) {
+    out[key] = isPlainRecord(value) && isPlainRecord(out[key]) ? deepMergeRecord(out[key], value) : value;
+  }
+  return out;
+}
+
+/** Deep-merge a validated UI patch into the persisted partial token overrides. */
+function mergeTokenPatch(current: ThemeConfig, patch: ThemeTokenOverrides): ThemeConfig {
+  const baseTokens = (current.tokens ?? {}) as Record<string, unknown>;
+  const mergedTokens = { ...baseTokens };
+  for (const [section, sectionPatch] of Object.entries(patch)) {
+    if (!isPlainRecord(sectionPatch)) {
+      mergedTokens[section] = sectionPatch;
+      continue;
+    }
+    const existing = isPlainRecord(mergedTokens[section]) ? (mergedTokens[section] as Record<string, unknown>) : {};
+    mergedTokens[section] = deepMergeRecord(existing, sectionPatch);
+  }
+  return { ...current, tokens: mergedTokens as ThemeTokenOverrides };
+}
+
 export type ThemePreference = {
   resolved: ResolvedTheme;
   mode: ThemeMode;
   reducedMotion: boolean;
   config: ThemeConfig;
+  tokens: ThemeTokens;
+  flowMode: FlowMode;
   setMode: (mode: ThemeMode) => void;
   toggleResolved: () => void;
+  setFlowMode: (mode: FlowMode) => void;
+  updateFlowSettings: (patch: Partial<FlowSettings>) => { warnings: string[] };
+  resetFlowSettings: () => void;
   exportConfig: () => string;
   importConfig: (raw: string) => { ok: boolean; warnings: string[] };
 };
@@ -76,6 +121,7 @@ export function useThemePreference(): ThemePreference {
   const systemDark = useMediaQuery(darkMedia);
   const reducedMotion = useMediaQuery(motionMedia);
   const resolved = resolveResolvedTheme(config.mode, systemDark);
+  const { tokens } = resolveThemeTokens(config, systemDark);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -92,6 +138,31 @@ export function useThemePreference(): ThemePreference {
     commitAndNotify({ ...config, mode: current === "dark" ? "light" : "dark" });
   }, [config, systemDark]);
 
+  const setFlowMode = useCallback((mode: FlowMode) => {
+    commitAndNotify(mergeTokenPatch(store.snapshot(), { map: { mode: tokenModeFromFlowMode(mode) } }));
+  }, []);
+
+  const updateFlowSettings = useCallback((patch: Partial<FlowSettings>) => {
+    const current = settingsFromMapTokens(resolveThemeTokens(store.snapshot(), systemDark).tokens.map);
+    const { settings, warnings } = normalizeSettingsPatch(current, patch);
+    commitAndNotify(mergeTokenPatch(store.snapshot(), { map: mapTokenPatch(settings) }));
+    return { warnings };
+  }, [systemDark]);
+
+  const resetFlowSettings = useCallback(() => {
+    const snapshot = store.snapshot();
+    const next: ThemeConfig = { ...snapshot };
+    if (!next.tokens) {
+      commitAndNotify(next);
+      return;
+    }
+    const currentMap = resolveThemeTokens(snapshot, systemDark).tokens.map;
+    const restTokens = { ...next.tokens };
+    restTokens.map = mapResetPatch(currentMap);
+    next.tokens = restTokens;
+    commitAndNotify(next);
+  }, [systemDark]);
+
   const exportConfig = useCallback(() => JSON.stringify(config, null, 2), [config]);
 
   const importConfig = useCallback((raw: string): { ok: boolean; warnings: string[] } => {
@@ -106,5 +177,19 @@ export function useThemePreference(): ThemePreference {
     return { ok: true, warnings };
   }, []);
 
-  return { resolved, mode: config.mode, reducedMotion, config, setMode, toggleResolved, exportConfig, importConfig };
+  return {
+    resolved,
+    mode: config.mode,
+    reducedMotion,
+    config,
+    tokens,
+    flowMode: flowModeFromTokenMode(tokens.map.mode),
+    setMode,
+    toggleResolved,
+    setFlowMode,
+    updateFlowSettings,
+    resetFlowSettings,
+    exportConfig,
+    importConfig
+  };
 }
