@@ -4,10 +4,10 @@
 
 - 从 `3e64f32` 建立 `rebuild/experience-2026-11` 分支。批次 0 实测基线为 57 文件、304 用例全部通过（覆盖旧记录中的 303 通过、1 跳过），`node scripts/build-qoder-preview.mjs` 成功生成五商品参赛静态包；公开站与 Qoder 未改。
 - 批次 1 已完成可序列化 tokens（色板、字体、间距、动效及地图/流向扩展段）、默认深色与浅色切换、本地持久化、系统主题和减少动态偏好响应、存储受限内存兜底；新 SiteShell、全站「拆解→路线→账本」路径条、新首页真实数据地图预览与五商品故事入口已接入。首页商品来自现有查询与配置，未改数据、领域层或发布版本。
-- 真实 Chrome 首轮发现 `useSyncExternalStore` 快照未缓存导致全站 #185 无限更新，已抽离稳定 theme store，并为系统深色/减少动态偏好使用独立 boolean store；随后修复主按钮、商品卡、浅色地图海洋和旧地图控件的对比度。品牌 `icon.svg` 与 `favicon.ico` 已补齐。
-- 最终工程复验：`pnpm run typecheck`、`pnpm run lint`、`pnpm run build` 通过；全量 Vitest 为 62 文件、334 用例全部通过，0 失败、0 跳过；参赛静态包再次构建成功。新增 `scripts/verify-experience-batch1.mjs`，最终 Chrome/Playwright 验收 98 项通过，覆盖 1440/390、深浅主题、刷新持久化、受限存储、系统主题、减少动态、首页地图、三步旅程及旧地图/商品/路线/账本页面，无 pageerror、无横向溢出。
+- 真实 Chrome 首轮发现 `useSyncExternalStore` 快照未缓存导致全站 #185 无限更新，已抽离稳定 theme store，并为系统深色/减少动态偏好使用独立 boolean store；随后修复主按钮、商品卡、首页与完整地图的浅色底图和旧地图控件的对比度。品牌 `icon.svg` 与 `favicon.ico` 已补齐。
+- 最终工程复验：`pnpm run typecheck`、`pnpm run lint`、`pnpm run build` 通过；全量 Vitest 为 62 文件、334 用例全部通过，0 失败、0 跳过；参赛静态包再次构建成功。新增 `scripts/verify-experience-batch1.mjs`，最终 Chrome/Playwright 完整回归 98 项通过，完整地图浅色补充检查 1 项通过（合计 99 项），覆盖 1440/390、深浅主题、刷新持久化、受限存储、系统主题、减少动态、首页地图、三步旅程及旧地图/商品/路线/账本页面，无 pageerror、无横向溢出。
 - 证据：`output/qa/experience-rebuild-2026-11/batch-1-full-final/`（完整结果与截图）、`batch-1-final/`（视觉修复对照及 computed style）、`tmp/experience-rebuild-2026-11/`（基线和工程日志）。复跑完整验收时先构建并启动本地 `next start`，再设置 `REVIEW_BASE_URL` 与 `REVIEW_OUTPUT_DIR` 执行上述脚本。
-- 本批未实现批次 2 粒子流/参数抽屉和批次 3 五级 3D 爆炸图；主题导入/导出保留配置接口但未挂 UI。浏览器证据为桌面 Chrome 与 390px 模拟，不冒称真实手机实测。未运行旧 `test:browser` 全套，未发布；下一批按更新后的方案继续地图主卖点。
+- 本批未实现批次 2 粒子流/参数抽屉和批次 3 五级 3D 爆炸图；主题导入/导出保留配置接口但未挂 UI。浏览器证据为桌面 Chrome 与 390px 模拟，不冒称真实手机实测。手机供应链二级导航与路线图保留既有容器内横向滚动，不属于页面横向溢出。未运行旧 `test:browser` 全套，未发布；下一批按更新后的方案继续地图主卖点。
 
 ## 最新用户方向与接续入口（2026-10-24，商品/上下游多选贸易流向图）
 

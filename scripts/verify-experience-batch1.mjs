@@ -524,6 +524,10 @@ try {
       ok(`regression ${reg.name} 1440 ${mode}: no horizontal overflow`, !overflow.overflow, overflow);
       ok(`regression ${reg.name} 1440 ${mode}: source/version context visible`, bannerText.length > 0 || hasStatusBadge || mapSourceVisible || hasMapSource, { bannerText: bannerText.slice(0, 120), hasStatusBadge, mapSourceVisible, hasMapSource });
       const oceanFill = await regPage.locator(".map-ocean").first().evaluate(el => getComputedStyle(el).fill).catch(() => null);
+      if (reg.name === "map" && mode === "light") {
+        const countryFill = await regPage.locator(".map-country-shape").first().evaluate(el => getComputedStyle(el).fill).catch(() => null);
+        ok("regression full map light: ocean follows light token", (luminance(parseRgb(oceanFill)) ?? 0) > 0.6, { oceanFill, countryFill });
+      }
       await shot(regPage, `reg-${reg.name}-1440-${mode}.png`);
       results.pages.push({ name: reg.name, mode, viewport: 1440, path: reg.path, theme: state.theme, status, missingSelectors, bannerText: bannerText.slice(0, 160), oceanFill, hasMapSource });
 

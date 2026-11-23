@@ -393,6 +393,76 @@ body {
   fill: var(--map-ocean);
 }
 
+/* The full map shares the light atlas surface too. Keep country states and
+   labels readable instead of retaining the legacy dark SVG paint in light mode. */
+:root[data-theme="light"] .atlas-workspace .map-viewport {
+  background: var(--map-ocean);
+  border-color: var(--map-border);
+}
+
+:root[data-theme="light"] .atlas-workspace .map-ocean {
+  fill: var(--map-ocean);
+}
+
+:root[data-theme="light"] .atlas-workspace .map-country-shape {
+  fill: var(--map-land);
+  stroke: var(--map-border);
+}
+
+:root[data-theme="light"] .atlas-workspace .map-country-shape.has-data {
+  fill: #bfd8d3;
+  stroke: #78a49d;
+}
+
+:root[data-theme="light"] .atlas-workspace .map-country-shape.has-data.atlas-country-limited {
+  fill: var(--map-land-limited);
+  stroke: #9aafb9;
+}
+
+:root[data-theme="light"] .atlas-workspace .map-country-shape:hover,
+:root[data-theme="light"] .atlas-workspace .map-country-shape.hovered,
+:root[data-theme="light"] .atlas-workspace .map-country-shape.selected,
+:root[data-theme="light"] .atlas-workspace .map-country-shape.atlas-record-country {
+  fill: #8fc9bc;
+  stroke: var(--accent);
+}
+
+:root[data-theme="light"] .atlas-workspace .atlas-graticule {
+  stroke: var(--map-border);
+}
+
+:root[data-theme="light"] .atlas-workspace .atlas-endpoint circle {
+  fill: var(--accent);
+  stroke: var(--surface);
+}
+
+:root[data-theme="light"] .atlas-workspace .atlas-endpoint text,
+:root[data-theme="light"] .atlas-workspace .atlas-country-labels text {
+  fill: var(--ink-soft);
+  stroke: var(--map-ocean);
+}
+
+:root[data-theme="light"] .atlas-workspace .country-trade-export path {
+  stroke: var(--accent);
+}
+
+:root[data-theme="light"] .atlas-workspace .country-trade-import path {
+  stroke: var(--orange);
+}
+
+:root[data-theme="light"] .atlas-workspace .atlas-map-caption {
+  color: var(--muted);
+}
+
+:root[data-theme="light"] .atlas-workspace .map-legend .legend-country-covered {
+  background: #bfd8d3;
+}
+
+:root[data-theme="light"] .atlas-workspace .map-legend .legend-country-limited {
+  background: var(--map-land-limited);
+  border-color: #9aafb9;
+}
+
 .home-atlas-map-footer {
   display: flex;
   justify-content: space-between;
