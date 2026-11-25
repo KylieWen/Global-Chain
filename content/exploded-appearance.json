@@ -2,15 +2,16 @@
   "version": 3,
   "note": "Procedural exploded-view appearance mapping. Geometry, node count and depth still come from the real BOM; this file only assigns visual role, material color group and exploded layer. Missing entries fall back to the node type defaults below. The `viewer` block holds presentation parameters for the 3D view (camera, layer offsets, sheet thickness, orbit and labels); no product, route or statistic number is stored here.",
   "viewer": {
-    "camera": { "fov": 35, "yawDeg": -28, "pitchDeg": 18 },
-    "defaultExplosion": 0.35,
+    "camera": { "fov": 35, "yawDeg": 44.7, "pitchDeg": 21.8 },
+    "defaultExplosion": 0.85,
     "layerOffsetRatio": { "front": 0.9, "mid": 0.55, "rear": -0.9 },
     "partThicknessRatio": 0.06,
     "cornerRadius": 0.02,
     "orbit": { "damping": 0.08, "zoomMin": 0.7, "zoomMax": 2.2 },
-    "labelMaxPersistent": 6,
+    "labelMaxPersistent": 8,
     "labelLeaderMax": 80,
     "fitMargin": 0.97,
+    "fitZoom": 0.72,
     "fitBodyHeightRatio": 0.65
   },
   "products": {
@@ -47,7 +48,7 @@
         "packaging-consumables": { "shape": "module", "material": "polymer", "layer": "mid" },
         "silicon-substrate": { "shape": "wafer", "material": "glass-mat", "layer": "mid" },
         "chip-design-layout": { "shape": "note", "material": "material", "layer": "mid" },
-        "camera": { "shape": "camera-bump", "material": "module", "layer": "rear", "flank": "left" },
+        "camera": { "shape": "camera-bump", "material": "module", "layer": "rear", "flank": "right" },
         "image-sensor": { "shape": "chip", "material": "chip", "layer": "rear" },
         "camera-lens": { "shape": "lens", "material": "glass-mat", "layer": "rear" },
         "camera-module": { "shape": "camera-bump", "material": "module", "layer": "rear" },

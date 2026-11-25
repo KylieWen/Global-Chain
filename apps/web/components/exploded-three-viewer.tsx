@@ -60,7 +60,7 @@ type LabelRecord = {
   line: SVGLineElement;
 };
 
-type SilBox = { minX: number; minY: number; maxX: number; maxY: number; cx: number; cy: number };
+type SilBox = { minX: number; minY: number; maxX: number; maxY: number; cx: number; cy: number; depth: number };
 type LabelRect = { left: number; top: number; right: number; bottom: number; cx: number; cy: number };
 
 const VIEWER = viewerConfig();
@@ -486,7 +486,11 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
           const upExtent = Math.max(Math.abs(topOffset.dot(up)), Math.abs(bottomOffset.dot(up)));
           bodyDistance = upExtent / (tanV * VIEWER.fitBodyHeightRatio);
         }
-        state.baseDistance = Math.max(required, bodyDistance);
+        // Round-7 framing: fit the whole exploded bounding box, then apply the
+        // closeness multiplier so the body reads at the manual-view scale
+        // instead of sitting small inside a wide reserved box.
+        const fittedRequired = required * VIEWER.fitZoom;
+        state.baseDistance = Math.max(fittedRequired, bodyDistance);
         state.distance = state.baseDistance;
 
         // Build label DOM nodes.
@@ -596,7 +600,7 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
                 }
               }
             }
-            silMap.set(record.node.id, { minX, minY, maxX, maxY, cx: (minX + maxX) / 2, cy: (minY + maxY) / 2 });
+            silMap.set(record.node.id, { minX, minY, maxX, maxY, cx: (minX + maxX) / 2, cy: (minY + maxY) / 2, depth: record.node.depth });
           });
 
           const clampX = (v: number) => Math.min(Math.max(v, 6), width - 6);
@@ -641,6 +645,9 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
             if (rect.left < 6 || rect.right > width - 6 || rect.top < 6 || rect.bottom > height - 6) return false;
             for (const [id, sil] of silMap) {
               if (id === ownId) continue;
+              // Descendant sub-parts belong to the labeled assembly; their small
+              // projected boxes do not count as a foreign part for label clearance.
+              if (sil.depth > 1) continue;
               const silRect = { left: sil.minX, top: sil.minY, right: sil.maxX, bottom: sil.maxY };
               if (rectsOverlap(rect, silRect, LABEL_SIL_PAD)) return false;
             }

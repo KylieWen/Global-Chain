@@ -86,6 +86,7 @@ export type ViewerConfig = {
   readonly labelMaxPersistent: number;
   readonly labelLeaderMax: number;
   readonly fitMargin: number;
+  readonly fitZoom: number;
   readonly fitBodyHeightRatio: number;
 };
 
@@ -102,15 +103,16 @@ const GENERIC_FALLBACK: ResolvedRole = { shape: "module", material: "material", 
 
 /** Presentation defaults aligned to the visual spec; content config overrides them. */
 const DEFAULT_VIEWER: ViewerConfig = {
-  camera: { fov: 35, yawDeg: -28, pitchDeg: 18 },
-  defaultExplosion: 0.35,
+  camera: { fov: 35, yawDeg: 44.7, pitchDeg: 21.8 },
+  defaultExplosion: 0.85,
   layerOffsetRatio: { front: 0.9, mid: 0.55, rear: -0.9 },
   partThicknessRatio: 0.06,
   cornerRadius: 0.02,
   orbit: { damping: 0.08, zoomMin: 0.7, zoomMax: 2.2 },
-  labelMaxPersistent: 6,
+  labelMaxPersistent: 8,
   labelLeaderMax: 80,
   fitMargin: 0.97,
+  fitZoom: 0.72,
   fitBodyHeightRatio: 0.65
 };
 
@@ -127,6 +129,7 @@ export function viewerConfig(): ViewerConfig {
     labelMaxPersistent: v?.labelMaxPersistent ?? DEFAULT_VIEWER.labelMaxPersistent,
     labelLeaderMax: v?.labelLeaderMax ?? DEFAULT_VIEWER.labelLeaderMax,
     fitMargin: v?.fitMargin ?? DEFAULT_VIEWER.fitMargin,
+    fitZoom: v?.fitZoom ?? DEFAULT_VIEWER.fitZoom,
     fitBodyHeightRatio: v?.fitBodyHeightRatio ?? DEFAULT_VIEWER.fitBodyHeightRatio
   };
 }
