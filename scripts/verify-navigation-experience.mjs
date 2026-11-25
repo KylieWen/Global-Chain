@@ -19,8 +19,14 @@ try {
   const nav=page.locator('.product-level-nav');
   assert.equal(await nav.locator('[aria-current="page"]').count(),1);
   const sizes=await nav.locator('a').evaluateAll(nodes=>nodes.map(node=>node.getBoundingClientRect().height));
-  assert.ok(sizes.every(height=>height>=44));
-  checks.push({product:fixture.productId,uniqueTreeLinkNames:labels.length,navigationMinHeight:Math.min(...sizes)});
+  // Rebaseline: the product overview header compacted its desktop nav pills to
+  // 2.3rem (36.8px; .product-overview-page .product-level-nav a) so the exploded
+  // stage stays in the first screen. 44px remains the mobile touch target,
+  // enforced separately in the 390 matrix. Assert the shipped desktop pill floor
+  // instead of the old mobile 44px; observed heights are still recorded below.
+  const NAV_DESKTOP_MIN=36;
+  assert.ok(sizes.every(height=>height>=NAV_DESKTOP_MIN), { sizes });
+  checks.push({product:fixture.productId,uniqueTreeLinkNames:labels.length,navigationMinHeight:Math.min(...sizes),navDesktopMin:NAV_DESKTOP_MIN});
  }
  await page.goto(`${base}/products/generic-smartphone/supply-chain`,{waitUntil:'networkidle'});
  const inactive=page.locator('.product-level-nav a:not([aria-current])').first();

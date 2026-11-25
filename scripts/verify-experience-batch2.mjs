@@ -478,6 +478,17 @@ try {
   await dPage.waitForTimeout(300);
 
   // ---- Multi-item checkboxes ----
+  // Rebaseline: the compact filter capsule starts collapsed; its body
+  // (#atlas-filters-body, data-open=false) hides the item picker until the
+  // 筛选条件 toggle opens it. Open the body before touching the picker summary.
+  const filtersToggle = dPage.locator(".atlas-filters-toggle").first();
+  if (await filtersToggle.count()) {
+    const bodyOpen = await dPage.locator("#atlas-filters-body").getAttribute("data-open");
+    if (bodyOpen !== "true") {
+      await filtersToggle.click();
+      await dPage.waitForTimeout(200);
+    }
+  }
   const picker = dPage.locator(".atlas-item-picker");
   await picker.locator("summary").click();
   await dPage.waitForTimeout(300);

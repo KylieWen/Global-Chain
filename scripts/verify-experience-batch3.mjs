@@ -110,7 +110,14 @@ async function readExplorer(page) {
   return page.evaluate(() => {
     const root = document.querySelector(".exploded-explorer");
     if (!root) return { present: false };
-    const canvas = root.querySelector(".exploded-canvas-wrap canvas");
+    // Rebaseline: the procedural view ships two renderers. The WebGL wrap carries
+    // both the shared base class `.exploded-canvas-wrap` and `.exploded-three-wrap`;
+    // the kept Canvas2D fallback carries only the base class. Read the mounted
+    // wrap's `data-renderer` instead of probing a single canvas class.
+    const three = root.querySelector(".exploded-three-wrap");
+    const two = root.querySelector(".exploded-canvas-wrap:not(.exploded-three-wrap)");
+    const procedural = three ?? two;
+    const canvas = procedural?.querySelector("canvas") ?? null;
     const iso = root.querySelector(".exploded-iso");
     const modeBadge = root.querySelector(".exploded-mode-badge")?.textContent.trim() ?? null;
     const gaps = [...root.querySelectorAll(".exploded-gaps li")].map((li) => li.textContent.trim());
@@ -128,7 +135,8 @@ async function readExplorer(page) {
     const slider = root.querySelector('.exploded-slider input[type="range"]');
     return {
       present: true,
-      mode: canvas ? "procedural-3d" : iso ? "iso-layers" : "unknown",
+      mode: procedural ? "procedural-3d" : iso ? "iso-layers" : "unknown",
+      renderer: procedural?.dataset.renderer ?? null,
       modeBadge,
       gapCount: gaps.length,
       gaps,
@@ -170,6 +178,7 @@ const phoneCard = dPage.locator(".product-card", { hasText: "智能手机" }).fi
 const phoneHref = await phoneCard.getAttribute("href");
 await phoneCard.click();
 await dPage.waitForSelector(".exploded-explorer", { timeout: 10000 });
+await dPage.waitForSelector(".exploded-three-wrap, .exploded-canvas-wrap, .exploded-iso", { timeout: 10000 }).catch(() => {});
 ok("catalog entry navigates to the phone product page", phoneHref === "/products/generic-smartphone" && dPage.url().includes("/products/generic-smartphone"), { phoneHref, url: dPage.url() });
 
 const dExplorer = await readExplorer(dPage);
@@ -186,7 +195,7 @@ checkLedgerNames(dExplorer, "phone-1440-dark");
 await shot(dPage, "phone-1440-dark.png");
 
 // Real pointer drag rotates the view; wheel zooms; no errors expected.
-const canvas = dPage.locator(".exploded-canvas-wrap canvas");
+const canvas = dPage.locator(".exploded-three-wrap canvas, .exploded-canvas-wrap canvas");
 ok("3D canvas is mounted", (await canvas.count()) === 1);
 const box = await canvas.boundingBox();
 if (box) {
@@ -290,6 +299,7 @@ for (const chain of deepChains) {
 /* -------------------------------------------------------------------------- */
 await dPage.goto(base + "/products/generic-smartphone", { waitUntil: "domcontentloaded", timeout: 15000 });
 await dismissGuide(dPage);
+await dPage.waitForSelector(".exploded-three-wrap, .exploded-canvas-wrap, .exploded-iso", { timeout: 10000 }).catch(() => {});
 await dPage.locator(".theme-switcher").click();
 await dPage.waitForFunction(() => document.documentElement.dataset.theme === "light", { timeout: 3000 }).catch(() => {});
 const lightExplorer = await readExplorer(dPage);

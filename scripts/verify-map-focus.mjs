@@ -25,7 +25,13 @@ try{
   const box=await dialog.boundingBox();assert.equal(Math.round(box.width),844);assert.equal(Math.round(box.height),390);
   const mapBox=await page.locator(svgSelector).boundingBox();assert.ok(mapBox.height>240&&mapBox.y+mapBox.height<=391,JSON.stringify({kind,mapBox}));
   await dialog.getByRole('button',{name:'大图放大',exact:true}).click();let zoomed=await page.locator(svgSelector+' > g[transform]').first().getAttribute('transform');assert.notEqual(zoomed,transform);
-  await dialog.getByRole('button',{name:'筛选',exact:true}).click();assert.ok(await dialog.getByRole('combobox').count()>0);
+  await dialog.getByRole('button',{name:'筛选',exact:true}).click();
+  // Rebaseline: inside the focus dialog the compact filter body starts closed
+  // (data-open=false), so its selects stay hidden from the accessibility tree
+  // until the capsule's 筛选条件 toggle opens the body.
+  const innerToggle = dialog.locator('.atlas-filters-toggle');
+  if (await innerToggle.count()) { await innerToggle.first().click(); await page.waitForTimeout(150); }
+  assert.ok(await dialog.getByRole('combobox').count()>0);
   await dialog.getByRole('button',{name:'筛选',exact:true}).click();
   await page.screenshot({path:resolve(out,kind+'-landscape.png')});
   const touch=await context.newCDPSession(page);const cy=mapBox.y+mapBox.height/2;
