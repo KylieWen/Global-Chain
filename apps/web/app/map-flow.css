@@ -5,6 +5,29 @@
  */
 
 /* -------------------------------------------------------------------------- */
+/* Entry: 600ms opacity fade only, no fly-in / translate. Reduced-motion users
+   get the static bundle directly (handled by the adaptive level), so no motion
+   animation runs. */
+/* -------------------------------------------------------------------------- */
+
+@keyframes map-beam-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.atlas-workspace .beam-layer-host,
+.atlas-workspace .map-trade-layer {
+  animation: map-beam-fade-in 600ms ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atlas-workspace .beam-layer-host,
+  .atlas-workspace .map-trade-layer {
+    animation: none;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
 /* Beam canvas overlay                                                         */
 /* -------------------------------------------------------------------------- */
 
@@ -528,11 +551,23 @@
 .atlas-page.content-column.wide-column {
   width: 100%;
   max-width: none;
-  padding: 3.5rem 0 0;
+  padding: 4rem 0 0;
   min-height: 100dvh;
   position: relative;
   display: flex;
   flex-direction: column;
+}
+
+/* Map-scope header: the shared shell stays at its default height on every
+   other page; only /map gets the spec 64px top bar. */
+.site-header--map .site-header-inner {
+  min-height: 64px;
+  height: 64px;
+}
+
+/* The overlay header floats above the page; the top padding clears its 64px. */
+.site-header--map.site-header--overlay + .main-content .atlas-page.content-column.wide-column {
+  padding-top: 64px;
 }
 
 /* One slim top line: heading + layer switch + product chips share a single
@@ -543,7 +578,9 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 0.3rem 0.9rem;
-  padding: 0.25rem 1.25rem 0;
+  height: 56px;
+  min-height: 56px;
+  padding: 0 1.25rem;
 }
 
 .atlas-topline .atlas-page-heading {
@@ -988,13 +1025,16 @@
     display: none;
   }
 
-  /* On narrow screens the floating bottom cards stack toward the edges so they
-     never cover the whole map. */
+  /* On narrow screens the timeline is an independent row below the canvas
+     (draggable + keyboard accessible via the range input), not a floating card. */
   .atlas-workspace .trade-timeline {
-    left: 0.75rem;
-    right: 0.75rem;
-    bottom: 0.75rem;
-    max-width: calc(100% - 1.5rem);
+    position: static;
+    flex: none;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    max-width: none;
+    margin: 0.5rem 0.75rem 0.75rem;
   }
 
   .atlas-workspace .atlas-below-map {

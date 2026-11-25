@@ -39,51 +39,61 @@ const pathGenerator = geoPath(projection);
 const coordinate = (value: number) => Number(value.toFixed(3));
 
 /**
- * Narrow screens default to a zoomed view centred on the densest endpoint
- * cluster (endpoints whose degree is at least half the top), so the converging
- * flow fills the first screen; the user can still pan / zoom and reset returns
- * to this default. Wide screens keep the full world at scale 1.
+ * Default framing centres the selected flow envelope. On narrow screens the
+ * whole envelope (every endpoint, not just the strongest cluster) fits the
+ * first screen; wide screens keep the full world with a modest zoom. The
+ * slice-fit SVG crops whichever axis overflows, so the fit scale accounts for
+ * the visible viewBox rectangle under the current viewport aspect.
  */
 function focusTransformForLines(
   lines: readonly { fromM49: string | null; toM49: string | null }[],
   centerMap: Map<string, [number, number] | null>,
-  narrow: boolean
+  narrow: boolean,
+  viewport: { width: number; height: number }
 ): MapTransform {
-  // Wide screens: a modest zoom keeps the full world; the projection extent
-  // biases the frame downward so the converging flow band sits near the visual
-  // centre instead of floating over an empty southern ocean. The rest of the
-  // world stays reachable by dragging.
-  if (!narrow) return { x: 0, y: 0, scale: 1.06 };
-  const degree = new Map<string, number>();
+  const points: Array<[number, number]> = [];
   lines.forEach(line => {
-    if (line.fromM49) degree.set(line.fromM49, (degree.get(line.fromM49) ?? 0) + 1);
-    if (line.toM49) degree.set(line.toM49, (degree.get(line.toM49) ?? 0) + 1);
+    const from = line.fromM49 ? centerMap.get(line.fromM49) : null;
+    const to = line.toM49 ? centerMap.get(line.toM49) : null;
+    if (from) points.push([from[0], from[1]]);
+    if (to) points.push([to[0], to[1]]);
   });
-  let bestDegree = 0;
-  degree.forEach(count => { if (count > bestDegree) bestDegree = count; });
-  if (bestDegree === 0) return { x: 0, y: 0, scale: 1 };
-  const heavy = [...degree.entries()].filter(([code, count]) => count >= Math.max(2, Math.ceil(bestDegree / 2)) && centerMap.get(code));
-  if (!heavy.length) return { x: 0, y: 0, scale: 1 };
-  let weightedX = 0;
-  let weightedY = 0;
-  let weightTotal = 0;
-  heavy.forEach(([code, count]) => {
-    const point = centerMap.get(code)!;
-    weightedX += point[0] * count;
-    weightedY += point[1] * count;
-    weightTotal += count;
-  });
-  const centroidX = weightedX / weightTotal;
-  const centroidY = weightedY / weightTotal;
-  // Blend the cluster centroid with the single highest-degree node so the
-  // strongest convergence sits near the frame instead of the mid-ocean average.
-  let maxCode: string | null = null;
-  degree.forEach((count, code) => { if (count === bestDegree && centerMap.get(code)) maxCode = code; });
-  const maxPoint = maxCode ? centerMap.get(maxCode) : null;
-  const cx = maxPoint ? centroidX * 0.5 + maxPoint[0] * 0.5 : centroidX;
-  const cy = maxPoint ? centroidY * 0.5 + maxPoint[1] * 0.5 : centroidY;
-  const scale = 1.8;
-  return { scale, x: mapWidth * 0.56 - cx * scale, y: mapHeight / 2 - cy * scale };
+  if (points.length === 0) return { x: 0, y: 0, scale: 1 };
+
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minY = Infinity;
+  let maxY = -Infinity;
+  for (const point of points) {
+    minX = Math.min(minX, point[0]);
+    maxX = Math.max(maxX, point[0]);
+    minY = Math.min(minY, point[1]);
+    maxY = Math.max(maxY, point[1]);
+  }
+  const bboxWidth = Math.max(1, maxX - minX);
+  const bboxHeight = Math.max(1, maxY - minY);
+
+  const viewportAspect = viewport.height > 0 ? viewport.width / viewport.height : 1;
+  const mapAspect = mapWidth / mapHeight;
+  const visibleWidth = viewportAspect < mapAspect ? mapWidth * (viewportAspect / mapAspect) : mapWidth;
+  const visibleHeight = viewportAspect > mapAspect ? mapHeight * (mapAspect / viewportAspect) : mapHeight;
+
+  // Wide: keep the world whole; centre the envelope. The fit zooms the envelope
+  // to fill the viewport height so the empty ocean below the lowest endpoint
+  // stays within the spec budget.
+  if (!narrow) {
+    const scale = Math.max(1, Math.min(1.5, (visibleHeight * 0.95) / bboxHeight, (visibleWidth * 0.92) / bboxWidth));
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+    const targetY = visibleHeight * 0.6;
+    return { scale, x: mapWidth / 2 - cx * scale, y: targetY - cy * scale };
+  }
+  // Narrow: fit the entire envelope with a small inset, capped so distant
+  // geography stays reachable by dragging.
+  const scale = Math.min((visibleWidth * 0.92) / bboxWidth, (visibleHeight * 0.9) / bboxHeight, 2.4);
+  const cx = (minX + maxX) / 2;
+  const cy = (minY + maxY) / 2;
+  return { scale, x: mapWidth / 2 - cx * scale, y: mapHeight / 2 - cy * scale };
 }
 
 /**
@@ -94,18 +104,21 @@ function focusTransformForLines(
 function arcControl(
   from: readonly [number, number],
   to: readonly [number, number],
-  lane: number,
-  index: number,
-  compareTrade: boolean
+  lane: number
 ): [number, number] {
   const dx = to[0] - from[0];
   const dy = to[1] - from[1];
   const length = Math.hypot(dx, dy) || 1;
-  const bend = compareTrade ? 26 + lane * 16 : 34 + (index % 4) * 15;
-  const fanOffset = lane * 6;
+  // Same origin/destination lanes fan to alternating sides of the chord; the
+  // perpendicular step grows with the lane so adjacent arcs keep a stable
+  // ≥14px screen separation instead of overlapping (e.g. Brazil→China).
+  const side = lane % 2 === 0 ? 1 : -1;
+  const bend = side * (24 + lane * 11);
+  const fanOffset = side * lane * 5;
   const nx = -dy / length;
   const ny = dx / length;
-  return [(from[0] + to[0]) / 2 + nx * (bend + fanOffset), (from[1] + to[1]) / 2 + ny * (bend + fanOffset)];
+  const displacement = bend + fanOffset;
+  return [(from[0] + to[0]) / 2 + nx * displacement, (from[1] + to[1]) / 2 + ny * displacement];
 }
 
 type Props = { view: MapViewModel; filters: MapFilters & { product: string }; products: readonly { id: string; name: string }[]; regionalLinks?: readonly {entityId:string;label:string;href:string}[] };
@@ -196,7 +209,12 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   const quantityMode = compareTrade && filters.measure === "quantity";
   const widthUnit = quantityMode ? selectedUnit : tradeCurrency;
   const visibleLines = quantityMode ? lines.filter(line => line.unit === selectedUnit && selectedUnit) : lines;
-  const defaultTransform = useMemo(() => focusTransformForLines(visibleLines, centers, narrow), [visibleLines, centers, narrow]);
+  const defaultTransform = useMemo(() => {
+    const viewport = typeof window === "undefined"
+      ? { width: 1440, height: 960 }
+      : { width: window.innerWidth, height: window.innerHeight };
+    return focusTransformForLines(visibleLines, centers, narrow, viewport);
+  }, [visibleLines, centers, narrow]);
   const prevNarrowRef = useRef<boolean | null>(null);
 
   // Re-apply the default view only when the breakpoint crosses; line/filter
@@ -238,7 +256,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
     if (!beamActive) return [];
     const laneIndex = new Map<string, number>();
     const result: BeamFlow[] = [];
-    visibleLines.forEach((line, index) => {
+    visibleLines.forEach((line) => {
       const from = centers.get(line.fromM49);
       const to = centers.get(line.toM49);
       if (!from || !to) return;
@@ -248,7 +266,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
       laneIndex.set(pair, lane + 1);
       const control: [number, number] = length < 1
         ? [from[0] - 20, from[1] - 48]
-        : arcControl(from, to, lane, index, compareTrade);
+        : arcControl(from, to, lane);
       const band = recordMass({
         value: line.value,
         valueStatus: line.valueDataStatus,
@@ -262,7 +280,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
       result.push({ id: line.id, from, to, control, color: colors.get(line.itemId ?? "") ?? mapTokens.palette.itemColors[0], factor, width, state });
     });
     return result;
-  }, [beamActive, visibleLines, centers, compareTrade, quantityMode, mapTokens.line.minWidth, mapTokens.line.maxWidth, mapTokens.palette.itemColors, settings.beamWidth, activeRecord, colors]);
+  }, [beamActive, visibleLines, centers, quantityMode, mapTokens.line.minWidth, mapTokens.line.maxWidth, mapTokens.palette.itemColors, settings.beamWidth, activeRecord, colors]);
 
   const diagnosticsRef = useRef<{ particleCount: number; level: number; cap: number }>({ particleCount: 0, level: adaptiveLevel, cap: settings.maxParticles });
   const handleDiagnostics = useCallback((info: { particleCount: number; level: number; cap: number }) => {
@@ -396,7 +414,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
             const pair = `${line.fromM49}:${line.toM49}`;
             const lane = parallelLines.get(pair) ?? 0;
             parallelLines.set(pair, lane + 1);
-            const [cx, cy] = length < 1 ? [from[0] - 20, from[1] - 48] : arcControl(from, to, lane, index, compareTrade);
+            const [cx, cy] = length < 1 ? [from[0] - 20, from[1] - 48] : arcControl(from, to, lane);
             const d = length < 1
               ? `M${coordinate(from[0])},${coordinate(from[1])} c${20 + index % 3 * 8},-48 ${-45 - index % 3 * 8},-48 0,0`
               : `M${coordinate(from[0])},${coordinate(from[1])} Q${coordinate(cx)},${coordinate(cy)} ${coordinate(to[0])},${coordinate(to[1])}`;

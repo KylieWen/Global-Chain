@@ -15,8 +15,11 @@ import { ThemeSwitcher } from "./theme-switcher";
 export function SiteHeader({ preview }: { preview: boolean }) {
   const pathname = usePathname() ?? "/";
   const overlay = pathname === "/" || pathname === "/map";
+  // Scope the slimmer 64px header to the map pages only; the shared shell keeps
+  // its default height everywhere else.
+  const mapScope = pathname === "/map" || pathname.startsWith("/map/");
   return (
-    <header className={`site-header${overlay ? " site-header--overlay" : ""}`}>
+    <header className={`site-header${overlay ? " site-header--overlay" : ""}${mapScope ? " site-header--map" : ""}`}>
       <div className="site-header-inner">
         <Link className="brand" href="/" aria-label="Global Chain 首页">
           <span className="brand-mark" aria-hidden="true">G</span>

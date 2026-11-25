@@ -98,6 +98,7 @@ export function BeamCanvas2DLayer({
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const dprRef = useRef(1);
   const stateRef = useRef({ flows, transform, settings, level, nodeColor, scheme });
   stateRef.current = { flows, transform, settings, level, nodeColor, scheme };
 
@@ -163,6 +164,7 @@ export function BeamCanvas2DLayer({
     const resize = () => {
       const rect = wrapper.getBoundingClientRect();
       const dpr = Math.min(2, window.devicePixelRatio || 1);
+      dprRef.current = dpr;
       canvas.width = Math.max(1, Math.round(rect.width * dpr));
       canvas.height = Math.max(1, Math.round(rect.height * dpr));
     };
@@ -239,7 +241,9 @@ export function BeamCanvas2DLayer({
 
         if (particles.length === 0) continue;
 
-        const radius = Math.min(0.7, Math.max(0.4, 0.42 + flow.factor * 0.24));
+        // Head radius in CSS px (diameter 1.2–1.8px), converted to map units.
+        const radiusCss = 0.6 + flow.factor * 0.3;
+        const radius = (radiusCss * dprRef.current) / scaleX;
         const trailAlpha = ((light ? 0.26 : 0.32) + current.trail * (light ? 0.45 : 0.5)) * trailScale;
 
         for (const particle of particles) {
@@ -277,12 +281,14 @@ export function BeamCanvas2DLayer({
       }
 
       if (glowScale > 0) {
-        const breathe = currentLevel === 3 ? 1 : 1 + 0.07 * Math.sin(time / 620);
+        // 2.4s breathe, ±12% (within the ≤15% spec); static at level 3.
+        const breathe = currentLevel === 3 ? 1 : 1 + 0.12 * Math.sin((2 * Math.PI * time) / 2400);
         for (const endpoint of endpointsRef.current) {
           const degree = Math.min(endpoint.degree, 6);
           const strength = Math.min(1, endpoint.strength / 6);
-          const baseRadius = (light ? 4.5 + degree * 1.4 + strength * 4.5 : 5.5 + degree * 1.6 + strength * 6) * current.glow * glowScale;
-          const radius = baseRadius * breathe;
+          // Spec glow radius 10–14 CSS px, converted to map units.
+          const radiusCss = (10 + Math.min(4, degree * 0.5 + strength * 3)) * glowScale;
+          const radius = (radiusCss * dprRef.current) / scaleX * breathe;
           if (radius <= 0.2) continue;
           const glowAlpha = (light
             ? Math.min(0.5, 0.08 + degree * 0.06 + strength * 0.18)

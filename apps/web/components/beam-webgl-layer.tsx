@@ -265,6 +265,7 @@ const PARTICLE_VERTEX = /* glsl */ `
   attribute float iBand;
   attribute float iTrail;
   uniform float uTime;
+  uniform float uPxPerUnit;
   varying vec3 vColor;
   varying vec2 vUv;
 
@@ -292,7 +293,7 @@ const PARTICLE_VERTEX = /* glsl */ `
     vec2 across = vec2(-axis.y, axis.x);
 
     vec3 world = head + vec3(
-      axis * position.x * 2.0 * iTrail + across * position.y * 2.0 * iData.w,
+      axis * position.x * 2.0 * iTrail + across * position.y * 2.0 * iData.w * uPxPerUnit,
       0.0
     );
 
@@ -332,12 +333,16 @@ const GLOW_VERTEX = /* glsl */ `
   attribute vec2 iPos;
   attribute float iScale;
   attribute float iAlpha;
+  uniform float uTime;
+  uniform float uPxPerUnit;
   varying vec2 vLocal;
   varying float vAlpha;
   void main() {
     vAlpha = iAlpha;
     vLocal = position.xy;
-    vec3 world = vec3(iPos + position.xy * iScale, 0.0);
+    // 2.4s breathe, ±12% (within the ≤15% spec); iScale is a CSS half-size.
+    float breathe = 1.0 + 0.12 * sin(6.2831853 * uTime / 2.4);
+    vec3 world = vec3(iPos + position.xy * iScale * breathe * uPxPerUnit, 0.0);
     gl_Position = projectionMatrix * modelViewMatrix * vec4(world, 1.0);
   }
 `;
@@ -359,12 +364,27 @@ const GLOW_FRAGMENT = /* glsl */ `
   }
 `;
 
+const CORE_VERTEX = /* glsl */ `
+  attribute vec2 iPos;
+  attribute float iScale;
+  attribute float iAlpha;
+  varying vec2 vLocal;
+  varying float vAlpha;
+  void main() {
+    vAlpha = iAlpha;
+    vLocal = position.xy;
+    vec3 world = vec3(iPos + position.xy * iScale, 0.0);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(world, 1.0);
+  }
+`;
+
 export function BeamWebGLLayer(props: WebGLProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const stateRef = useRef(props);
   stateRef.current = props;
   const onFallbackRef = useRef(props.onFallback);
   onFallbackRef.current = props.onFallback;
+  const pxPerUnitRef = useRef(1);
 
   const prepared = useMemo(() => {
     const flows = prepareFlows(props.flows, props.settings.beamWidth);
@@ -467,8 +487,9 @@ export function BeamWebGLLayer(props: WebGLProps) {
         const laneFraction = (i / Math.max(1, count) - 0.5) + (Math.random() - 0.5) * 0.08;
         const speed = 0.75 + Math.random() * 0.5;
         const phase = i / Math.max(1, count) + Math.random() * 0.2;
-        const headRadius = 1.0 + pf.flow.factor * 0.7;
-        pData.push(laneFraction, speed, phase, headRadius);
+        // Half-width in CSS px: head diameter lands in the 1.2–1.8px spec band.
+        const headHalfCss = 0.6 + pf.flow.factor * 0.3;
+        pData.push(laneFraction, speed, phase, headHalfCss);
         pBand.push(pf.bandWidth);
         pTrail.push((2.5 + stateRef.current.settings.trail * 5) * trailScale);
         particleTotal += 1;
@@ -494,6 +515,7 @@ export function BeamWebGLLayer(props: WebGLProps) {
       fragmentShader: PARTICLE_FRAGMENT,
       uniforms: {
         uTime: { value: 0 },
+        uPxPerUnit: { value: 1 },
         uTrailAlpha: { value: 0.22 },
         uHeadAlpha: { value: 0.3 },
         uBoost: { value: 1 },
@@ -522,11 +544,13 @@ export function BeamWebGLLayer(props: WebGLProps) {
       const degree = Math.min(endpoint.degree, 6);
       const strength = Math.min(1, endpoint.strength / 6);
       const dark = stateRef.current.scheme !== "light";
-      const radius = dark
-        ? (6 + degree * 1.8 + strength * 15) * stateRef.current.settings.glow * glowScale
-        : (5 + degree * 1.6 + strength * 12) * stateRef.current.settings.glow * glowScale;
+      // Spec glow radius 10–14 CSS px; iScale is a CSS half-size converted in
+      // the shader by uPxPerUnit.
+      const radiusCss = (10 + Math.min(4, degree * 0.5 + strength * 3)) * glowScale;
       glowPos.push(endpoint.x, endpoint.y);
-      glowScaleArr.push(radius * 2);
+      // Sprite plane spans 1×1 (half extents 0.5), so the scale attribute
+      // carries the diameter to land at the CSS radius after uPxPerUnit.
+      glowScaleArr.push(radiusCss * 2);
       glowAlphaArr.push((dark
         ? Math.min(0.75, 0.2 + degree * 0.09 + strength * 0.62)
         : Math.min(0.7, 0.14 + degree * 0.08 + strength * 0.5)) * stateRef.current.settings.glow * glowScale);
@@ -550,7 +574,7 @@ export function BeamWebGLLayer(props: WebGLProps) {
     const glowMaterial = new THREE.ShaderMaterial({
       vertexShader: GLOW_VERTEX,
       fragmentShader: GLOW_FRAGMENT,
-      uniforms: { uColor: { value: glowColor }, uBoost: { value: 1 }, uMode: { value: 0 } },
+      uniforms: { uColor: { value: glowColor }, uTime: { value: 0 }, uPxPerUnit: { value: 1 }, uBoost: { value: 1 }, uMode: { value: 0 } },
       transparent: true,
       depthTest: false,
       depthWrite: false,
@@ -571,7 +595,7 @@ export function BeamWebGLLayer(props: WebGLProps) {
     coreGeometry.setAttribute("iAlpha", new THREE.InstancedBufferAttribute(new Float32Array(coreAlphaArr), 1));
     coreGeometry.instanceCount = endpoints.length;
     const coreMaterial = new THREE.ShaderMaterial({
-      vertexShader: GLOW_VERTEX,
+      vertexShader: CORE_VERTEX,
       fragmentShader: GLOW_FRAGMENT,
       uniforms: { uColor: { value: glowColor }, uBoost: { value: 1 }, uMode: { value: 0 } },
       transparent: true,
@@ -594,6 +618,7 @@ export function BeamWebGLLayer(props: WebGLProps) {
       const rect = svg?.getBoundingClientRect() ?? hostRect;
       const w = Math.max(1, rect.width);
       const h = Math.max(1, rect.height);
+      pxPerUnitRef.current = Math.max(1, w / MAP_WIDTH);
       const dx = rect.left - hostRect.left;
       const dy = rect.top - hostRect.top;
       renderer!.setSize(w, h, false);
@@ -641,6 +666,7 @@ export function BeamWebGLLayer(props: WebGLProps) {
       }
 
       particleMaterial.uniforms.uTime.value = time / 1000;
+      particleMaterial.uniforms.uPxPerUnit.value = pxPerUnitRef.current;
       particleMaterial.uniforms.uBoost.value = boost;
       particleMaterial.uniforms.uMode.value = mode;
       particleMaterial.uniforms.uTrailAlpha.value = isLight ? 0.42 : 0.52;
@@ -650,6 +676,8 @@ export function BeamWebGLLayer(props: WebGLProps) {
         particleMaterial.needsUpdate = true;
       }
 
+      glowMaterial.uniforms.uTime.value = time / 1000;
+      glowMaterial.uniforms.uPxPerUnit.value = pxPerUnitRef.current;
       glowMaterial.uniforms.uBoost.value = boost;
       glowMaterial.uniforms.uMode.value = mode;
       coreMaterial.uniforms.uBoost.value = boost;
