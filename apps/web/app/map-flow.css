@@ -1047,9 +1047,11 @@
   }
 
   .atlas-workspace .atlas-below-map {
-    right: 0.75rem;
-    bottom: 4.6rem;
-    max-width: calc(100% - 1.5rem);
+    position: static;
+    right: auto;
+    bottom: auto;
+    max-width: none;
+    margin: 0 0.75rem 0.75rem;
   }
 
   .atlas-workspace .atlas-amount-key {
