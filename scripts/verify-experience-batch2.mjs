@@ -174,7 +174,7 @@ async function readWorkspace(page) {
       particles: Number(w?.dataset.particleCount ?? NaN),
       cap: Number(w?.dataset.flowCap ?? NaN),
       level: w?.dataset.adaptiveLevel ?? null,
-      canvas: document.querySelectorAll(".beam-layer canvas").length,
+      canvas: document.querySelectorAll(".beam-layer-host canvas").length,
       lines: document.querySelectorAll(".atlas-line-visible").length,
       labels: document.querySelectorAll(".atlas-country-labels text").length,
       records: document.querySelectorAll(".atlas-record").length,
@@ -250,11 +250,15 @@ async function readDrawer(page) {
     const d = drawers[0];
     if (!d) return { count: drawers.length, open: false };
     const heading = d.querySelector("#map-record-title")?.textContent.trim() ?? "";
-    const source = d.querySelector(".atlas-near-source")?.textContent.trim() ?? "";
-    const methodDt = [...d.querySelectorAll(".atlas-provenance dt")].find(x => x.textContent.trim() === "方法");
-    const method = methodDt?.nextElementSibling?.textContent.trim() ?? "";
-    const versionDt = [...d.querySelectorAll(".atlas-provenance dt")].find(x => x.textContent.trim() === "数据版本");
-    const datasetVersion = versionDt?.nextElementSibling?.textContent.trim() ?? "";
+    // Rebaseline: provenance now renders `.atlas-provenance-item` spans (方法 /
+    // 数据版本 / 路线版本 / 来源) instead of dt/dd rows; source publisher is
+    // the inner <b> or <a> of the 来源 item.
+    const provItems = [...d.querySelectorAll(".atlas-provenance-item")];
+    const pickProv = (label) => provItems.find(i => i.textContent.trim().startsWith(label));
+    const sourceItem = pickProv("来源");
+    const source = sourceItem ? (sourceItem.querySelector("a,b")?.textContent.trim() ?? sourceItem.textContent.trim()) : "";
+    const method = pickProv("方法")?.querySelector("b")?.textContent.trim() ?? "";
+    const datasetVersion = pickProv("数据版本")?.querySelector("b")?.textContent.trim() ?? "";
     const panelBg = getComputedStyle(d).backgroundColor;
     const rootBg = getComputedStyle(document.documentElement).getPropertyValue("--bg-elevated").trim();
     const dds = [...d.querySelectorAll(".atlas-values dd")].map(el => ({ text: el.textContent.trim(), color: getComputedStyle(el).color }));
@@ -417,7 +421,9 @@ try {
   ok("map zoom-in changes transform", transformBefore !== transformZoomed, { transformBefore, transformZoomed });
   await dPage.locator('.map-zoom-controls button:has-text("复位")').click();
   const transformReset = await svgGroup.getAttribute("transform");
-  ok("map reset restores identity transform", /translate\(0 0\) scale\(1\)/.test(transformReset ?? ""), { transformReset });
+  // Rebaseline: reset restores the shipped centered-framing default transform,
+  // not a bare identity matrix; compare against the pre-zoom default state.
+  ok("map reset restores default framing transform", transformReset === transformBefore, { transformBefore, transformReset });
 
   // Classic mode (dark), persistence, then beam persistence after reload.
   await dPage.locator('.flow-mode-controls button:has-text("经典箭头")').click();
@@ -550,13 +556,13 @@ try {
   await shot(dPage, "soy-1440-beam-adjusted.png");
 
   // Reset to scheme defaults. Shipped tokens (lib/theme/tokens.ts) are
-  // particle density 0.78, width 2.3 -> beamWidth 1.15; the range inputs snap
-  // to step 0.05 / 0.1, so read-back values land on 0.8 / 1.2.
+  // particle density 1, width 2.3 -> beamWidth 1.15; the range inputs snap
+  // to step 0.05 / 0.1, so read-back values land on 1 / 1.2.
   await dPage.locator('.flow-drawer-actions button:has-text("恢复默认")').click();
   await dPage.waitForTimeout(500);
   const densityReset = await sliderValue(dPage, "粒子量");
   const beamReset = await sliderValue(dPage, "束宽");
-  ok("reset: density returns to scheme default 0.78", Math.abs(Number(densityReset) - 0.78) <= 0.05, { densityReset, schemeDefault: 0.78 });
+  ok("reset: density returns to scheme default 1", Math.abs(Number(densityReset) - 1) <= 0.05, { densityReset, schemeDefault: 1 });
   ok("reset: beam width returns to scheme default 1.15", Math.abs(Number(beamReset) - 1.15) <= 0.1, { beamReset, schemeDefault: 1.15 });
 
   // Settings persist across reload: tweak density, reload, reopen, compare.
@@ -702,7 +708,7 @@ try {
     await sPage.waitForTimeout(120);
     await sPage.locator('.flow-mode-controls button:has-text("经典箭头")').click();
     await sPage.waitForTimeout(150);
-    classicCanvasCounts.push(await sPage.locator(".beam-layer canvas").count());
+    classicCanvasCounts.push(await sPage.locator(".beam-layer-host canvas").count());
     await sPage.locator('.flow-mode-controls button:has-text("粒子流")').click();
     await sPage.waitForTimeout(150);
   }
@@ -825,6 +831,18 @@ try {
     };
   });
 
+  /** Measure whether the floating legend strip covers the timeline controls. */
+  const probeTimelinePointer = async () => tPage.evaluate(() => {
+    const rect = (el) => { if (!el) return null; const r = el.getBoundingClientRect(); return { x: Math.round(r.x * 10) / 10, y: Math.round(r.y * 10) / 10, w: Math.round(r.width * 10) / 10, h: Math.round(r.height * 10) / 10 }; };
+    const play = document.querySelector(".trade-play");
+    const range = document.querySelector('.trade-timeline input[aria-label="贸易年份"]');
+    const below = document.querySelector(".atlas-below-map");
+    const hit = (el) => { if (!el) return null; const r = el.getBoundingClientRect(); const t = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return t ? { tag: t.tagName, cls: typeof t.className === "string" ? t.className : "", text: t.textContent.trim().slice(0, 30) } : null; };
+    const overlap = (a, b) => { if (!a || !b) return null; return !(a.x + a.w <= b.x || b.x + b.w <= a.x || a.y + a.h <= b.y || b.y + b.h <= a.y); };
+    const pr = rect(play), rr = rect(range), br = rect(below);
+    return { play: pr, range: rr, below: br, playHit: hit(play), rangeHit: hit(range), playOverlapsBelow: overlap(pr, br), rangeOverlapsBelow: overlap(rr, br) };
+  });
+
   /** Poll until range thumb, label and URL agree on `year` (or timeout with evidence). */
   const waitTlYear = async (year, timeoutMs = 5000) => {
     const deadline = Date.now() + timeoutMs;
@@ -871,33 +889,45 @@ try {
   const tlKb = await waitTlYear("2024");
   ok("timeline: ArrowRight advances back to 2024", tlKb.strong === "2024" && tlKb.urlYear === "2024" && tlKb.valueAgrees, { from: "2023", ...tlKb });
 
-  // Play / pause.
-  const playBtn = tPage.locator(".trade-play");
-  await playBtn.click();
-  await tPage.waitForTimeout(400);
-  const playing = await playBtn.getAttribute("aria-pressed");
-  ok("timeline: play starts (aria-pressed)", playing === "true", { playing });
-  await tPage.waitForTimeout(1600);
-  await playBtn.click();
-  await tPage.waitForTimeout(300);
-  const paused = await playBtn.getAttribute("aria-pressed");
-  ok("timeline: pause stops", paused === "false", { paused });
+  // Play / pause. On 390 the legend strip can cover the static timeline row;
+  // measure the hit target first so an intercepted click is recorded as a
+  // layout defect with rect evidence instead of crashing the whole suite.
+  const tlPointer = await probeTimelinePointer();
+  observe("phone-timeline-pointer", tlPointer);
+  if (tlPointer.playOverlapsBelow) {
+    ok("timeline: play button reachable by pointer on 390", false, { defect: "390 双边贸易视图中绝对定位图例条 (.atlas-below-map) 压住静态时间轴，播放按钮指针命中被拦截", ...tlPointer });
+  } else {
+    const playBtn = tPage.locator(".trade-play");
+    await playBtn.click();
+    await tPage.waitForTimeout(400);
+    const playing = await playBtn.getAttribute("aria-pressed");
+    ok("timeline: play starts (aria-pressed)", playing === "true", { playing });
+    await tPage.waitForTimeout(1600);
+    await playBtn.click();
+    await tPage.waitForTimeout(300);
+    const paused = await playBtn.getAttribute("aria-pressed");
+    ok("timeline: pause stops", paused === "false", { paused });
+  }
 
   // Real drag across the track to the latest year (2025), with intermediate
   // moves so the native range picks up each stepped position.
-  const box = await tPage.locator('.trade-timeline input[aria-label="贸易年份"]').boundingBox();
-  if (box) {
-    await tPage.mouse.move(box.x + box.width * 0.05, box.y + box.height / 2);
-    await tPage.mouse.down();
-    for (const frac of [0.3, 0.55, 0.8, 0.98]) {
-      await tPage.mouse.move(box.x + box.width * frac, box.y + box.height / 2, { steps: 4 });
-      await tPage.waitForTimeout(200);
+  if (tlPointer.rangeOverlapsBelow) {
+    ok("timeline: range slider draggable by pointer on 390", false, { defect: "图例条压住时间轴滑轨，指针拖拽被拦截；键盘方向键可达性已由前述 ArrowLeft/Right 断言覆盖", ...tlPointer });
+  } else {
+    const box = await tPage.locator('.trade-timeline input[aria-label="贸易年份"]').boundingBox();
+    if (box) {
+      await tPage.mouse.move(box.x + box.width * 0.05, box.y + box.height / 2);
+      await tPage.mouse.down();
+      for (const frac of [0.3, 0.55, 0.8, 0.98]) {
+        await tPage.mouse.move(box.x + box.width * frac, box.y + box.height / 2, { steps: 4 });
+        await tPage.waitForTimeout(200);
+      }
+      await tPage.mouse.up();
     }
-    await tPage.mouse.up();
+    const tl2025 = await waitTlYear("2025");
+    observe("phone-timeline-2025", tl2025);
+    ok("timeline: real drag reaches latest year 2025 (thumb/label/URL agree)", tl2025.strong === "2025" && tl2025.urlYear === "2025" && tl2025.valueAgrees, tl2025);
   }
-  const tl2025 = await waitTlYear("2025");
-  observe("phone-timeline-2025", tl2025);
-  ok("timeline: real drag reaches latest year 2025 (thumb/label/URL agree)", tl2025.strong === "2025" && tl2025.urlYear === "2025" && tl2025.valueAgrees, tl2025);
   await shot(tPage, "phone-390-timeline-2025.png");
 
   // Refresh restores the selected year carried in the URL.

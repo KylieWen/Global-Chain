@@ -49,7 +49,12 @@ try{
   checks.push({kind,fallback:true,portrait:true,landscapeMapHeight:mapBox.height,filtersAndDetails:true,twoFingerZoom:true,zoomAndUrlRetained:true,exitAndEscapeRestoreFocus:true});
  }
  await page.goto(base+'/map?product=generic-home-air-conditioner',{waitUntil:'networkidle'});await page.getByRole('button',{name:'展开世界地图',exact:true}).click();
- await page.getByRole('dialog').getByRole('button',{name:'筛选',exact:true}).click();await page.getByRole('combobox',{name:'选择商品',exact:true}).selectOption('generic-smartphone');
+ const navDialog=page.getByRole('dialog');await navDialog.getByRole('button',{name:'筛选',exact:true}).click();
+ // Rebaseline: compact filter body starts closed; open the capsule body via its
+ // 筛选条件 toggle before the product combobox is reachable.
+ const navToggle=navDialog.locator('.atlas-filters-toggle');
+ if(await navToggle.count()){await navToggle.first().click();await page.waitForTimeout(150);}
+ await navDialog.getByRole('combobox',{name:'选择商品',exact:true}).selectOption('generic-smartphone');
  await page.waitForURL(url=>url.searchParams.get('product')==='generic-smartphone');await page.locator('.map-focus-root[data-expanded=true]').waitFor({state:'detached'});
  assert.equal(await page.locator('body').evaluate(el=>el.style.overflow),'');assert.equal(await page.locator('.site-header').evaluate(el=>el.inert),false);checks.push({navigationUnmountReleasesFocusAndScroll:true});
  await context.close();
