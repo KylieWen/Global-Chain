@@ -84,6 +84,7 @@ export type ViewerConfig = {
   readonly cornerRadius: number;
   readonly orbit: ViewerOrbitConfig;
   readonly labelMaxPersistent: number;
+  readonly labelLeaderMax: number;
   readonly fitMargin: number;
   readonly fitBodyHeightRatio: number;
 };
@@ -108,6 +109,7 @@ const DEFAULT_VIEWER: ViewerConfig = {
   cornerRadius: 0.02,
   orbit: { damping: 0.08, zoomMin: 0.7, zoomMax: 2.2 },
   labelMaxPersistent: 6,
+  labelLeaderMax: 80,
   fitMargin: 0.97,
   fitBodyHeightRatio: 0.65
 };
@@ -123,6 +125,7 @@ export function viewerConfig(): ViewerConfig {
     cornerRadius: v?.cornerRadius ?? DEFAULT_VIEWER.cornerRadius,
     orbit: { ...DEFAULT_VIEWER.orbit, ...v?.orbit },
     labelMaxPersistent: v?.labelMaxPersistent ?? DEFAULT_VIEWER.labelMaxPersistent,
+    labelLeaderMax: v?.labelLeaderMax ?? DEFAULT_VIEWER.labelLeaderMax,
     fitMargin: v?.fitMargin ?? DEFAULT_VIEWER.fitMargin,
     fitBodyHeightRatio: v?.fitBodyHeightRatio ?? DEFAULT_VIEWER.fitBodyHeightRatio
   };

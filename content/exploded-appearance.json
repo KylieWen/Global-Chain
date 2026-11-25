@@ -9,6 +9,7 @@
     "cornerRadius": 0.02,
     "orbit": { "damping": 0.08, "zoomMin": 0.7, "zoomMax": 2.2 },
     "labelMaxPersistent": 6,
+    "labelLeaderMax": 80,
     "fitMargin": 0.97,
     "fitBodyHeightRatio": 0.65
   },

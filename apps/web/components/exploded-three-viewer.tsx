@@ -60,6 +60,9 @@ type LabelRecord = {
   line: SVGLineElement;
 };
 
+type SilBox = { minX: number; minY: number; maxX: number; maxY: number; cx: number; cy: number };
+type LabelRect = { left: number; top: number; right: number; bottom: number; cx: number; cy: number };
+
 const VIEWER = viewerConfig();
 const DEFAULT_YAW = (VIEWER.camera.yawDeg * Math.PI) / 180;
 const DEFAULT_PITCH = (VIEWER.camera.pitchDeg * Math.PI) / 180;
@@ -67,8 +70,9 @@ const MIN_PITCH = -0.5;
 const MAX_PITCH = 1.1;
 const FOV = VIEWER.camera.fov;
 const FIT_MARGIN = VIEWER.fitMargin;
-const LABEL_MIN_GAP = 10;
 const LABEL_OFFSET = 16;
+const LABEL_SIL_PAD = 2;
+const LABEL_RECT_PAD = 4;
 const ROT_YAW_FACTOR = VIEWER.orbit.damping * 0.075;
 const ROT_PITCH_FACTOR = VIEWER.orbit.damping * 0.0625;
 const MATERIAL_GROUP_ORDER = ["copper", "aluminum", "rare", "ceramic", "carbon", "polymer", "material", "glass-mat", "chip"];
@@ -566,84 +570,156 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
               if (visible) active.add(label.nodeId);
             });
 
-          const projected = new Map<string, { x: number; y: number }>();
-          const sb = { minX: width, minY: height, maxX: 0, maxY: 0 };
-          const projectMesh = (record: MeshRecord) => {
-            const world = record.mesh.position.clone();
-            world.y += record.box.size[1] / 2;
-            const v = world.project(state.camera!);
-            return {
-              x: (v.x * 0.5 + 0.5) * width,
-              y: (-v.y * 0.5 + 0.5) * height
-            };
+          // Projected silhouette (screen-space AABB) per visible non-material mesh.
+          const silMap = new Map<string, SilBox>();
+          const toScreen = (v: THREE.Vector3) => {
+            const p = v.project(state.camera!);
+            return { x: (p.x * 0.5 + 0.5) * width, y: (-p.y * 0.5 + 0.5) * height };
           };
+          const V = state.THREE!.Vector3;
           state.meshes.forEach((record) => {
             if (!record.mesh.visible || record.box.lane === "material") return;
-            const p = projectMesh(record);
-            sb.minX = Math.min(sb.minX, p.x);
-            sb.minY = Math.min(sb.minY, p.y);
-            sb.maxX = Math.max(sb.maxX, p.x);
-            sb.maxY = Math.max(sb.maxY, p.y);
-          });
-          state.labels.forEach((label) => {
-            const record = state.meshes.get(label.nodeId);
-            if (!record || label.el.style.display === "none") return;
-            projected.set(label.nodeId, projectMesh(record));
+            const [hw, hh, hd] = record.box.size.map((s) => s / 2);
+            let minX = width; let minY = height; let maxX = 0; let maxY = 0;
+            for (const dx of [-hw, hw]) {
+              for (const dy of [-hh, hh]) {
+                for (const dz of [-hd, hd]) {
+                  const p = toScreen(new V(
+                    record.mesh.position.x + dx,
+                    record.mesh.position.y + dy,
+                    record.mesh.position.z + dz
+                  ));
+                  minX = Math.min(minX, p.x);
+                  minY = Math.min(minY, p.y);
+                  maxX = Math.max(maxX, p.x);
+                  maxY = Math.max(maxY, p.y);
+                }
+              }
+            }
+            silMap.set(record.node.id, { minX, minY, maxX, maxY, cx: (minX + maxX) / 2, cy: (minY + maxY) / 2 });
           });
 
-          // Collision avoidance per label side: push overlapping labels apart.
-          const bySide: Record<LabelRecord["side"], LabelRecord[]> = { top: [], right: [], left: [], bottom: [] };
-          state.labels.forEach((label) => bySide[label.side].push(label));
-          (Object.keys(bySide) as LabelRecord["side"][]).forEach((side) => {
-            const list = bySide[side];
-            const ordered = list
-              .filter((label) => projected.has(label.nodeId))
-              .sort((a, b) => {
-                const pa = projected.get(a.nodeId)!;
-                const pb = projected.get(b.nodeId)!;
-                return side === "left" || side === "right" ? pa.x - pb.x : pa.y - pb.y;
-              });
-            let lastEdge = -Infinity;
-            ordered.forEach((label) => {
-              const p = projected.get(label.nodeId)!;
-              const el = label.el;
-              const lw = el.offsetWidth || 60;
-              const lh = el.offsetHeight || 16;
-              let x = 0;
-              let y = 0;
-              if (side === "top") {
-                x = p.x - lw / 2;
-                y = p.y - lh - LABEL_OFFSET;
-                y = Math.max(y, lastEdge + LABEL_MIN_GAP);
-                lastEdge = y + lh;
-              } else if (side === "bottom") {
-                x = p.x - lw / 2;
-                y = p.y + LABEL_OFFSET;
-                y = Math.max(y, lastEdge + LABEL_MIN_GAP);
-                lastEdge = y + lh;
-              } else if (side === "left") {
-                x = sb.minX - 12 - lw;
-                y = p.y - lh / 2;
-                y = Math.max(y, lastEdge + LABEL_MIN_GAP);
-                lastEdge = y + lh;
-              } else {
-                x = sb.maxX + 12;
-                y = p.y - lh / 2;
-                y = Math.max(y, lastEdge + LABEL_MIN_GAP);
-                lastEdge = y + lh;
-              }
-              x = Math.min(Math.max(x, 8), width - lw - 8);
-              y = Math.min(Math.max(y, 6), height - lh - 6);
-              el.style.transform = `translate(${x}px, ${y}px)`;
-              label.line.setAttribute("x1", String(p.x));
-              label.line.setAttribute("y1", String(p.y));
-              const edgeX = side === "left" ? x + lw : side === "right" ? x : x + lw / 2;
-              const edgeY = side === "top" ? y + lh : side === "bottom" ? y : y + lh / 2;
-              label.line.setAttribute("x2", String(edgeX));
-              label.line.setAttribute("y2", String(edgeY));
-              el.classList.toggle("selected", selectedRef.current === label.nodeId);
-            });
+          const clampX = (v: number) => Math.min(Math.max(v, 6), width - 6);
+          const clampY = (v: number) => Math.min(Math.max(v, 6), height - 6);
+          const rectsOverlap = (
+            a: LabelRect,
+            b: { left: number; top: number; right: number; bottom: number },
+            pad: number
+          ) => !(a.right <= b.left + pad || b.right <= a.left + pad || a.bottom <= b.top + pad || b.bottom <= a.top + pad);
+
+          const placedBySide: Record<LabelRecord["side"], LabelRect[]> = {
+            top: [], right: [], left: [], bottom: []
+          };
+          const candidateRect = (side: LabelRecord["side"], sil: SilBox, lw: number, lh: number): LabelRect => {
+            const stacked = placedBySide[side];
+            if (side === "top") {
+              const left = clampX(sil.cx - lw / 2);
+              const above = stacked.length ? Math.min(...stacked.map((r) => r.top)) : Infinity;
+              const top = Math.min(sil.minY - LABEL_OFFSET - lh, above - LABEL_RECT_PAD - lh);
+              return { left, top, right: left + lw, bottom: top + lh, cx: left + lw / 2, cy: top + lh / 2 };
+            }
+            if (side === "bottom") {
+              const left = clampX(sil.cx - lw / 2);
+              const below = stacked.length ? Math.max(...stacked.map((r) => r.bottom)) : -Infinity;
+              const top = Math.max(sil.maxY + LABEL_OFFSET, below + LABEL_RECT_PAD);
+              return { left, top, right: left + lw, bottom: top + lh, cx: left + lw / 2, cy: top + lh / 2 };
+            }
+            if (side === "left") {
+              const rightOf = stacked.length ? Math.min(...stacked.map((r) => r.left)) : Infinity;
+              const right = Math.min(sil.minX - LABEL_OFFSET, rightOf - LABEL_RECT_PAD - lw);
+              const left = right - lw;
+              const top = clampY(sil.cy - lh / 2);
+              return { left, top, right, bottom: top + lh, cx: left + lw / 2, cy: top + lh / 2 };
+            }
+            const leftOf = stacked.length ? Math.max(...stacked.map((r) => r.right)) : -Infinity;
+            const left = Math.max(sil.maxX + LABEL_OFFSET, leftOf + LABEL_RECT_PAD);
+            const top = clampY(sil.cy - lh / 2);
+            return { left, top, right: left + lw, bottom: top + lh, cx: left + lw / 2, cy: top + lh / 2 };
+          };
+
+          const fitsOutside = (rect: LabelRect, ownId: string, placed: LabelRect[]) => {
+            if (rect.left < 6 || rect.right > width - 6 || rect.top < 6 || rect.bottom > height - 6) return false;
+            for (const [id, sil] of silMap) {
+              if (id === ownId) continue;
+              const silRect = { left: sil.minX, top: sil.minY, right: sil.maxX, bottom: sil.maxY };
+              if (rectsOverlap(rect, silRect, LABEL_SIL_PAD)) return false;
+            }
+            return !placed.some((placedRect) => rectsOverlap(rect, placedRect, LABEL_RECT_PAD));
+          };
+
+          const edgeOnSil = (sil: SilBox, rect: LabelRect, side: LabelRecord["side"]) => {
+            if (side === "top") return { x: Math.min(Math.max(rect.cx, sil.minX), sil.maxX), y: sil.minY };
+            if (side === "bottom") return { x: Math.min(Math.max(rect.cx, sil.minX), sil.maxX), y: sil.maxY };
+            if (side === "left") return { x: sil.minX, y: Math.min(Math.max(rect.cy, sil.minY), sil.maxY) };
+            return { x: sil.maxX, y: Math.min(Math.max(rect.cy, sil.minY), sil.maxY) };
+          };
+          const facingEdge = (rect: LabelRect, side: LabelRecord["side"]) => {
+            if (side === "top") return { x: rect.cx, y: rect.bottom };
+            if (side === "bottom") return { x: rect.cx, y: rect.top };
+            if (side === "left") return { x: rect.right, y: rect.cy };
+            return { x: rect.left, y: rect.cy };
+          };
+          const leaderLength = (sil: SilBox, rect: LabelRect, side: LabelRecord["side"]) => {
+            const s = edgeOnSil(sil, rect, side);
+            const e = facingEdge(rect, side);
+            return Math.hypot(e.x - s.x, e.y - s.y);
+          };
+
+          const placedRects: LabelRect[] = [];
+          const visibleLabels = state.labels.filter((label) => label.el.style.display !== "none");
+          visibleLabels.forEach((label) => {
+            const record = state.meshes.get(label.nodeId);
+            const sil = record ? silMap.get(record.node.id) : undefined;
+            const el = label.el;
+            if (!record || !sil) {
+              el.style.display = "none";
+              label.line.style.display = "none";
+              return;
+            }
+            const lw = el.offsetWidth || 60;
+            const lh = el.offsetHeight || 16;
+            const emphasized = selectedRef.current === label.nodeId || hoveredRef.current === label.nodeId;
+            const sideOrder = ([label.side, "top", "right", "bottom", "left"] as LabelRecord["side"][])
+              .filter((s, i, arr) => arr.indexOf(s) === i);
+            const candidates: { side: LabelRecord["side"]; rect: LabelRect; len: number }[] = [];
+            for (const side of sideOrder) {
+              const rect = candidateRect(side, sil, lw, lh);
+              if (!emphasized && !fitsOutside(rect, label.nodeId, placedRects)) continue;
+              const len = leaderLength(sil, rect, side);
+              if (!emphasized && len > VIEWER.labelLeaderMax) continue;
+              candidates.push({ side, rect, len });
+            }
+            if (!candidates.length) {
+              // No clean side within the leader budget: drop the persistent
+              // label instead of sitting it on another part's projection or
+              // stretching a long leader across the stage.
+              el.style.display = "none";
+              label.line.style.display = "none";
+              return;
+            }
+            candidates.sort((a, b) => a.len - b.len);
+            const chosen = candidates[0];
+            label.side = chosen.side;
+            el.style.transform = `translate(${chosen.rect.left}px, ${chosen.rect.top}px)`;
+            placedRects.push(chosen.rect);
+            placedBySide[chosen.side].push(chosen.rect);
+            const start = edgeOnSil(sil, chosen.rect, chosen.side);
+            const end = facingEdge(chosen.rect, chosen.side);
+            label.line.setAttribute("x1", String(start.x));
+            label.line.setAttribute("y1", String(start.y));
+            label.line.setAttribute("x2", String(end.x));
+            label.line.setAttribute("y2", String(end.y));
+            el.dataset.node = label.nodeId;
+            el.dataset.sil = `${sil.minX},${sil.minY},${sil.maxX},${sil.maxY}`;
+            el.dataset.rect = `${chosen.rect.left},${chosen.rect.top},${chosen.rect.right},${chosen.rect.bottom}`;
+            el.dataset.leader = chosen.len.toFixed(1);
+            el.classList.toggle("selected", selectedRef.current === label.nodeId);
           });
+
+          if (hostRef.current) {
+            (hostRef.current as unknown as { explodedSilhouettes: Record<string, SilBox> }).explodedSilhouettes =
+              Object.fromEntries([...silMap].map(([id, s]) => [id, { ...s }]));
+          }
         };
 
         const renderFrame = () => {
