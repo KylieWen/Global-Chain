@@ -2,6 +2,19 @@
 
 恢复长任务先读 [任务目的与当前接续](INTENT.md)，核对用户原意、已确认方向、候选方案及时间轴的本地和公开状态，再按下方记录定位工程细节。
 
+## 2026-11-25 · 换模型后视觉迭代 + 规格驱动对照试验（世界地图、爆炸图）
+
+- 本轮分两段。前段按口头要求迭代：爆炸图引入 three.js 真三维（`apps/web/components/exploded-three-viewer.tsx`，动态 `import("three")`），双栏舞台 + 右栏详情/节点列表，390 材料改单行横滑色带 14/14；地图重建纤维束（halo + 细丝 + 亮芯 + 实例化粒子 + 端点辉光），深色提亮、构图重心下移；首页 Hero 改按金额降序前 8 条精选 + 展开其余 12 条；浅色顶栏对比度修复。依赖只加 `three ^0.187.0` 与 `@types/three`（devDep），两处渲染均为懒加载 chunk（gzip 101.4kB / 86.8kB），不进首屏。
+- 后段是**规格驱动对照试验**：按 `docs/visual-specs/2026-11-25-map-and-exploded.md` 严格实现，试验组证据在 `output/qa/model-switch-2026-11-25/spec-driven/`（9 张与对照组 `round-5-map/`、`round-7/` 同名一一对应的生产截图 + 两份量测 JSON + `spec-compliance.md` 逐项达成表）。
+- 地图规格落地：`/map/*` 作用域顶栏 64px（其他页面未动）、顶行 56px、画布 1440 下 807.9px、宽屏图例/时间轴为画布内浮层、窄屏时间轴独立静态行；默认 density 1.0 / speed 0.55 / trail 0.62 / glow 0.65 / maxParticles 600（`FLOW_SETTING_RANGES` 与 tokens 默认值同步上调，契约测试未改）；束体 band 宽度 profile 3.0/4.8/7.7/12.3/19.7/31.5 CSS px（相邻比 1.60、最低 3px）只作用于 beam 层，经典箭头线宽仍受 `tests/map-presentation.test.ts` 锁定；同向弧曲率交替、弧顶间距 143.2/143.2/214.8px，巴西→中国两条弧分开；beam 模式国家标签移到 `.atlas-label-overlay` 覆盖层，避免被束体洗淡。
+- 爆炸图规格落地：新增配置段 `content/exploded-appearance.json` 的 `viewer`（fov 35 / yaw −28° / pitch 18°、默认爆炸度 0.35、层距 0.9/0.55/0.9×机身厚、片厚与圆角、轨道阻尼、缩放 clamp、常驻标签上限 6、引线上限 `labelLeaderMax` 80）。主体占画布高 0.664–0.686，四周留白 ≥14.8%；标签改按**每个部件自身投影轮廓**就近择侧，最小间距 16px、与其他部件相交 0、叠字 0、常驻 3 条、引线最长 46.6px；摄像头岛靠配置 `flank` 摆到近侧翼，默认视角可见。
+- **规格未达成两项，如实记录**：①「下方空海洋 ≤18%」只约束下方留白，对横贯全宽的中纬度薄带满足它会制造上方约 55% 空洞并裁掉北方陆块，交付采用居中均衡版（手机上方 42.3%/下方 45.2%），达标版留证 `spec-stage/1440-dark-phone-below18-variant.png`，建议规格改为「上下留白均衡」或「总空白占比」；②「1440 帧耗 ≤6ms」在此采集口径不可判定——地图页与空白页纯 rAF 对照同为 6.1ms（`spec-stage/floor-audit.json`），是 headless rAF 节拍地板，未为此砍粒子或辉光。另有口径偏差：阻尼 0.08 为灵敏度系数非惯性、圆角 0.02 按世界单位且机身不套用、mid 0.55 只作用对齐壳层、2D 回退查看器保留旧机位常量。
+- 修复一个由本轮布局改动引入的真缺陷：390 双边贸易视图时间轴改静态行后，图例条 `.atlas-below-map` 仍绝对定位，压住播放键与滑轨致指针不可达（提交 `0b91ace`）。窄屏图例条并入静态流，宽屏浮层不变；生产复核播放键/滑轨中心命中自身控件、两矩形无重叠、播放 2023→2024 且 URL 同步、刷新按 URL 还原。
+- 最终门禁（停开发实例后）：typecheck 四包 0 错、lint 0 warning、65 文件 **368 用例全绿**、生产构建通过。生产 `next start` 上 11 个现役套件：batch1 99/99、batch2 **80/80**（修复后复验，D1/D2/D3 全通）、batch3 83/83、batch4 630/630、中国专项 34/34、地图大图 5/5、导航体验 9/9、中国导航状态 4/4、元数据语言 24/24、移动使用统计 16/16（8 跳过，实例未配 `GLOBECHAIN_USAGE_DIR`）、**新增 `verify-renderer-branches.mjs` 33/33**（爆炸图 webgl/canvas2d/reduced-motion/webgl-unavailable，地图 webgl/canvas2d，含 chrome 行结构与首页折叠展开断言）。0 pageerror、0 console error，待处理产品缺陷 0。逐条重定基线见 `output/qa/model-switch-2026-11-25/regression-final/rebaseline-log.md`。
+- 生产复走查（`usage-walkthrough/round-1-prod/`）：原 6 条卡点 P1–P4 与桌面 P6 已解决，移动端爆炸滑杆裁切本轮一并修掉；重复 key 与 hydration 根因已修（`world-country-map.tsx` 用 `featureKey`、投影坐标三位小数截断）。
+- 证据目录 `output/qa/model-switch-2026-11-25/`：`round-1`…`round-7`（爆炸图）、`round-5-map`/`round-6-map`（地图）、`round-8-prod`/`round-7-map-prod`/`round-5-shell-prod`（生产采证）、`spec-stage/`（规格迭代自查与两版取景对照）、`spec-driven/`（正式对比图）、`regression-final/`、`usage-walkthrough/`；逐轮判断见 `exploded-notes.md`、`map-notes.md`、`home-shell-notes.md`。备份标签 `backup/post-model-switch-2026-11-25`，本轮起点 `backup/pre-model-switch-2026-11-25`。
+- 遗留：地图桌面紧凑控件 34.4px（窄屏已 44px）；深色弱流亮度弱于强流属金额分档预期；390 材料列表首卡主操作仍需滚动触达；three chunk 下载期间无显式加载骨架，弱网与 `import-failed` 回退链路未实测。公开站与 Qoder 未改动，发布仍等待用户确认。
+
 ## 2026-11-25 · 视觉重塑（世界地图、首页、爆炸图与导航）
 
 - 世界地图改为全幅：1440 下地图从页面顶边 123px 起，标题与图层切换压成一行、筛选条悬浮、时间轴独立成行；记录列表默认收起为右侧浮层抽屉，中国等汇聚点完整可见。浅色方案提高光束核心饱和度。≤759px 控件收成一行并默认放大到高权节点簇（可拖动、可复位），390 下地图占首屏 58%；≤374px 控件行可换行，320–430 宽均无页面横溢。时间轴年份改用本地即时值再回写 URL，连续方向键不再丢步。
