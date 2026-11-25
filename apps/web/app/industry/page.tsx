@@ -2,7 +2,7 @@
 import { itemLabel } from "../../lib/item-label";
 import Link from "next/link";
 import { getQueryService } from "../../lib/data";
-import { Breadcrumbs, PageIntro, SiteShell } from "../../components/site-shell";
+import { PageIntro, SiteShell } from "../../components/site-shell";
 import { ProductArtwork } from "../../components/product-artwork";
 import { industryPath } from "../../lib/paths";
 
@@ -15,7 +15,6 @@ export default async function IndustryDirectoryPage() {
     return view ? [{productId,item,view}] : [];
   });
   return <SiteShell><div className="content-column wide-column">
-    <Breadcrumbs items={[{label:"产业上下游"}]} />
     <PageIntro eyebrow="从环节找到企业" title="产业上下游" description="查看材料、部件、制造设备和产品应用，沿上下游找到企业的官方产品、联系与销售入口。" />
     <div className="product-grid">{networks.map(({productId,item,view}) => <Link className="product-card" key={productId} href={industryPath(productId)}>
       <ProductArtwork productId={productId} variant="catalog" decorative />

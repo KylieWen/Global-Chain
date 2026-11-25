@@ -179,8 +179,7 @@ body {
 
 .num,
 .stat-value,
-.atlas-record > strong,
-.visitor-hero-facts strong {
+.atlas-record > strong {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
@@ -203,9 +202,9 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  min-height: 2.25rem;
-  padding: 0.35rem 0.7rem;
-  border: 1px solid var(--line-strong);
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--line);
   border-radius: 0.65rem;
   background: var(--surface);
   color: var(--ink-soft);
@@ -218,6 +217,7 @@ body {
 .theme-switcher:hover {
   color: var(--accent);
   border-color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .site-footer {
@@ -225,103 +225,7 @@ body {
   color: var(--muted);
 }
 
-/* ---------- Three-step journey strip ---------- */
-
-.path-steps {
-  width: min(1280px, calc(100% - 2.5rem));
-  margin: 0 auto;
-  padding: 0.7rem 0 0;
-}
-
-.path-steps ol {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.path-step {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.path-step-separator {
-  color: var(--muted);
-  font-size: 0.75rem;
-  margin: 0 0.35rem;
-}
-
-.path-step a {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.45rem;
-  padding: 0.4rem 0.7rem;
-  border-radius: 0.6rem;
-  color: var(--muted);
-  font-size: 0.82rem;
-  transition: color var(--motion-fast) var(--ease), background var(--motion-fast) var(--ease);
-}
-
-.path-step-index {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--muted);
-}
-
-.path-step a:hover {
-  color: var(--ink);
-  background: var(--surface-raised);
-}
-
-.path-step.is-active a {
-  color: var(--accent);
-  background: var(--accent-soft);
-}
-
-.path-step.is-active .path-step-index {
-  color: var(--accent);
-}
-
 /* ---------- Home: hero and story entries ---------- */
-
-.home-atlas {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-  gap: var(--space-xl);
-  align-items: center;
-  padding: var(--space-section) 0;
-}
-
-.home-atlas-claim .eyebrow {
-  color: var(--accent);
-}
-
-.home-atlas-claim h1 {
-  font-size: clamp(2.4rem, 4.6vw, 4.2rem);
-  line-height: 1.12;
-  letter-spacing: -0.03em;
-  margin: 0.8rem 0 1.2rem;
-  color: var(--ink);
-}
-
-.home-atlas-claim > p {
-  max-width: 29rem;
-  color: var(--ink-soft);
-  line-height: var(--line-height-relaxed, 1.9);
-  font-size: 1.05rem;
-}
-
-.home-atlas-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1.2rem;
-  margin-top: 1.8rem;
-}
 
 /* Primary CTA: accent fill with themed ink, readable in both schemes.
    Outranks the legacy `.button-primary { background: var(--navy) }` rule. */
@@ -330,102 +234,7 @@ body {
   background: var(--accent);
 }
 
-.home-atlas-facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  align-items: center;
-  margin-top: 1.8rem;
-  color: var(--muted);
-  font-size: 0.75rem;
-}
-
-.home-atlas-facts strong {
-  color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: 1.3rem;
-  margin-right: 0.3rem;
-}
-
-.home-product-strip {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: var(--space-md);
-  margin: var(--space-section) 0 0;
-}
-
-/* Scope under .home-product-strip so these rules outrank the legacy
-   `.home-product-strip a` white-card rule in atlas-navigation.css. */
-.home-product-strip .home-product-entry {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  padding: var(--space-lg);
-  border-radius: 1rem;
-  background: var(--surface);
-  border-color: var(--line);
-  transition: transform var(--motion-fast) var(--ease), border-color var(--motion-fast) var(--ease), background var(--motion-fast) var(--ease);
-}
-
-.home-product-strip .home-product-entry:hover {
-  transform: translateY(-2px);
-  background: var(--surface-raised);
-  border-color: var(--line-strong);
-}
-
-.home-product-strip .home-product-entry strong {
-  font-size: 1.02rem;
-  color: var(--ink);
-}
-
-.home-product-strip .home-product-entry span {
-  color: var(--muted);
-  font-size: 0.78rem;
-}
-
-/* ---------- Home interactive map preview ---------- */
-
-.home-atlas-map {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  padding: var(--space-md);
-  border-radius: 1.4rem;
-  background: var(--surface);
-}
-
-.home-atlas-map-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  padding: 0 0.4rem;
-  color: var(--ink-soft);
-  font-size: 0.82rem;
-}
-
-.home-atlas-map-heading a {
-  color: var(--accent);
-  font-weight: 700;
-}
-
-.home-atlas-map .map-viewport {
-  position: relative;
-}
-
-.home-atlas-map svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 1rem;
-  background: var(--map-ocean);
-}
-
-/* Outrank the legacy hard-coded `.map-ocean { fill:#102b3a }` rule so the
-   preview ocean follows the active scheme token. */
-.home-atlas-map .map-ocean {
-  fill: var(--map-ocean);
-}
+/* ---------- Light-scheme map surface overrides ---------- */
 
 /* The full map shares the light atlas surface too. Keep country states and
    labels readable instead of retaining the legacy dark SVG paint in light mode. */
@@ -497,65 +306,6 @@ body {
   border-color: #9aafb9;
 }
 
-.home-atlas-map-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0 0.4rem;
-  color: var(--muted);
-  font-size: 0.72rem;
-}
-
-.home-atlas-map-footer a {
-  color: var(--accent);
-}
-
-.home-atlas-country {
-  fill: var(--map-land);
-  stroke: var(--line);
-  stroke-width: 0.4;
-}
-
-.home-atlas-country.has-data {
-  fill: var(--map-land-limited);
-}
-
-.home-atlas-country.hovered,
-.home-atlas-country.selected {
-  fill: var(--accent-soft);
-  stroke: var(--accent);
-}
-
-.home-atlas-line {
-  fill: none;
-  stroke-width: 1.4;
-  stroke-linecap: round;
-  opacity: var(--map-line-opacity);
-}
-
-.home-atlas-endpoint circle {
-  fill: var(--accent);
-}
-
-.home-atlas-map .map-zoom-controls {
-  position: absolute;
-  top: 0.6rem;
-  right: 0.6rem;
-  display: flex;
-  gap: 0.3rem;
-}
-
-.home-atlas-map .map-zoom-controls button {
-  min-width: 2rem;
-  min-height: 2rem;
-  padding: 0.2rem 0.5rem;
-  border: 1px solid var(--line-strong);
-  border-radius: 0.5rem;
-  background: var(--surface-raised);
-  color: var(--ink-soft);
-  cursor: pointer;
-}
-
 /* ---------- Dark-scheme fallback for legacy page components ----------
    Batch 1 retokenizes the shell and home; legacy pages keep their logic and
    adopt the dark palette through these grouped overrides. Light scheme keeps
@@ -565,7 +315,6 @@ body {
   --panel-solid: var(--surface);
 }
 
-:root[data-theme="dark"] .site-nav-more-menu,
 :root[data-theme="dark"] .global-search,
 :root[data-theme="dark"] .button-secondary,
 :root[data-theme="dark"] .tree-node,
@@ -606,12 +355,7 @@ body {
 :root[data-theme="dark"] .map-shell,
 :root[data-theme="dark"] .map-filters,
 :root[data-theme="dark"] .ledger-snapshot,
-:root[data-theme="dark"] .home-task-card,
-:root[data-theme="dark"] .home-audience-intro,
-:root[data-theme="dark"] .home-audience-card,
-:root[data-theme="dark"] .home-entry-card,
 :root[data-theme="dark"] .help-card,
-:root[data-theme="dark"] .demo-step-card,
 :root[data-theme="dark"] .trade-guide-workbench,
 :root[data-theme="dark"] .trade-guide-task-note,
 :root[data-theme="dark"] .trade-guide-preset,
@@ -633,8 +377,6 @@ body {
 :root[data-theme="dark"] .product-card,
 :root[data-theme="dark"] .component-card,
 :root[data-theme="dark"] .node-card,
-:root[data-theme="dark"] .hero-panel,
-:root[data-theme="dark"] .visitor-step,
 :root[data-theme="dark"] .empty-state,
 :root[data-theme="dark"] .evidence-gap-all,
 :root[data-theme="dark"] .graph-selection,
@@ -672,9 +414,7 @@ body {
 :root[data-theme="dark"] .process-boundary-banner,
 :root[data-theme="dark"] .route-declaration,
 :root[data-theme="dark"] .trade-guide-boundary,
-:root[data-theme="dark"] .trade-guide-disclaimer,
-:root[data-theme="dark"] .demo-boundary-note,
-:root[data-theme="dark"] .context-banner-warning {
+:root[data-theme="dark"] .trade-guide-disclaimer {
   background: var(--surface-raised);
   border-color: var(--line-strong);
   color: var(--ink-soft);
@@ -717,7 +457,6 @@ body {
 }
 
 :root[data-theme="dark"] .nav-group-menu,
-:root[data-theme="dark"] .product-level-nav,
 :root[data-theme="dark"] .persona-switcher > summary,
 :root[data-theme="dark"] .persona-switcher-menu,
 :root[data-theme="dark"] .persona-switcher-menu button,
@@ -741,7 +480,12 @@ body {
   background: var(--surface-raised);
 }
 
-:root[data-theme="dark"] .product-level-nav a[aria-current=page],
+:root[data-theme="dark"] .product-level-nav a[aria-current=page] {
+  background: var(--accent-soft);
+  border-color: transparent;
+  color: var(--accent);
+}
+
 :root[data-theme="dark"] .material-filter-group a[aria-current=page] {
   background: var(--accent);
   border-color: var(--accent);
@@ -851,7 +595,6 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .theme-switcher,
   .home-product-entry,
-  .home-atlas-map,
   .atlas-workspace path {
     transition: none;
   }
@@ -861,23 +604,3 @@ body {
   }
 }
 
-@media (max-width: 1000px) {
-  .home-atlas {
-    grid-template-columns: 1fr;
-    gap: var(--space-lg);
-  }
-
-  .home-product-strip {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 640px) {
-  .home-product-strip {
-    grid-template-columns: 1fr;
-  }
-
-  .path-steps ol {
-    overflow-x: auto;
-  }
-}

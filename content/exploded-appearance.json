@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "note": "Procedural exploded-view appearance mapping. Geometry, node count and depth still come from the real BOM; this file only assigns visual role, material color group and exploded layer. Missing entries fall back to the node type defaults below.",
+  "products": {
+    "generic-smartphone": {
+      "prototype": "phone",
+      "bodySize": [1.62, 3.15, 0.6],
+      "fallbackByType": {
+        "final_product": { "shape": "frame", "material": "frame", "layer": "mid" },
+        "component": { "shape": "module", "material": "module", "layer": "mid" },
+        "material": { "shape": "sheet", "material": "material", "layer": "mid" },
+        "raw_material": { "shape": "sheet", "material": "material", "layer": "mid" },
+        "service": { "shape": "note", "material": "material", "layer": "mid" }
+      },
+      "nodeRoles": {
+        "generic-smartphone": { "shape": "frame", "material": "frame", "layer": "mid" },
+        "display": { "shape": "screen", "material": "screen", "layer": "front" },
+        "cover-glass": { "shape": "glass", "material": "screen", "layer": "front" },
+        "display-panel": { "shape": "panel", "material": "screen", "layer": "front" },
+        "display-module": { "shape": "panel", "material": "screen", "layer": "front" },
+        "battery": { "shape": "battery-pack", "material": "battery", "layer": "mid" },
+        "cell": { "shape": "battery-cell", "material": "battery", "layer": "mid" },
+        "battery-module": { "shape": "battery-pack", "material": "battery", "layer": "mid" },
+        "battery-bms": { "shape": "board-small", "material": "chip", "layer": "mid" },
+        "processor-memory": { "shape": "pcb", "material": "pcb", "layer": "mid" },
+        "application-processor": { "shape": "chip", "material": "chip", "layer": "mid" },
+        "baseband-chip": { "shape": "chip", "material": "chip", "layer": "mid" },
+        "dram": { "shape": "chip", "material": "chip", "layer": "mid" },
+        "nand-flash": { "shape": "chip", "material": "chip", "layer": "mid" },
+        "semiconductor-wafer": { "shape": "wafer", "material": "chip", "layer": "mid" },
+        "chip-packaging": { "shape": "chip", "material": "chip", "layer": "mid" },
+        "bonding-wire": { "shape": "wire", "material": "material", "layer": "mid" },
+        "molding-compound": { "shape": "module", "material": "material", "layer": "mid" },
+        "underfill-material": { "shape": "module", "material": "material", "layer": "mid" },
+        "packaging-consumables": { "shape": "module", "material": "material", "layer": "mid" },
+        "silicon-substrate": { "shape": "wafer", "material": "material", "layer": "mid" },
+        "chip-design-layout": { "shape": "note", "material": "material", "layer": "mid" },
+        "camera": { "shape": "camera-bump", "material": "module", "layer": "rear" },
+        "image-sensor": { "shape": "chip", "material": "chip", "layer": "rear" },
+        "camera-lens": { "shape": "lens", "material": "chip", "layer": "rear" },
+        "camera-module": { "shape": "camera-bump", "material": "module", "layer": "rear" },
+        "camera-actuator": { "shape": "module", "material": "chip", "layer": "rear" },
+        "pcb-connector": { "shape": "pcb", "material": "pcb", "layer": "mid" },
+        "bare-pcb": { "shape": "pcb", "material": "pcb", "layer": "mid" },
+        "populated-board": { "shape": "pcb", "material": "pcb", "layer": "mid" },
+        "phone-connector": { "shape": "module", "material": "chip", "layer": "mid" },
+        "pcb-copper-foil": { "shape": "sheet", "material": "material", "layer": "mid" },
+        "pcb-laminate": { "shape": "sheet", "material": "material", "layer": "mid" },
+        "enclosure-structure": { "shape": "rear", "material": "rear", "layer": "rear" },
+        "phone-frame": { "shape": "frame-part", "material": "frame", "layer": "rear" },
+        "frame-alloy": { "shape": "sheet", "material": "material", "layer": "rear" },
+        "sensor-audio": { "shape": "module", "material": "module", "layer": "mid" },
+        "mems-microphone": { "shape": "chip", "material": "chip", "layer": "mid" },
+        "mini-speaker": { "shape": "speaker", "material": "module", "layer": "mid" },
+        "haptic-motor": { "shape": "motor", "material": "chip", "layer": "mid" },
+        "battery-housing": { "shape": "sheet", "material": "material", "layer": "mid" },
+        "processed-graphite": { "shape": "sheet", "material": "material", "layer": "mid" }
+      }
+    },
+    "generic-cotton-tshirt": {
+      "prototype": "tshirt",
+      "bodySize": [2.6, 2.0, 0.35],
+      "fallbackByType": {
+        "final_product": { "shape": "garment", "material": "fabric", "layer": "mid" },
+        "component": { "shape": "module", "material": "fabric", "layer": "mid" },
+        "material": { "shape": "sheet", "material": "material", "layer": "mid" },
+        "raw_material": { "shape": "sheet", "material": "material", "layer": "mid" },
+        "service": { "shape": "note", "material": "material", "layer": "mid" }
+      },
+      "nodeRoles": {
+        "generic-cotton-tshirt": { "shape": "garment", "material": "fabric", "layer": "mid" },
+        "tshirt-body-panels": { "shape": "garment", "material": "fabric", "layer": "mid" },
+        "tshirt-sleeve-panels": { "shape": "garment", "material": "fabric", "layer": "mid" },
+        "tshirt-neck-trim": { "shape": "sheet", "material": "fabric", "layer": "mid" }
+      }
+    },
+    "generic-soybean-oil": {
+      "prototype": "bottle",
+      "bodySize": [1.5, 2.6, 1.0],
+      "fallbackByType": {
+        "final_product": { "shape": "bottle", "material": "liquid", "layer": "mid" },
+        "component": { "shape": "module", "material": "module", "layer": "mid" },
+        "material": { "shape": "sheet", "material": "material", "layer": "mid" },
+        "raw_material": { "shape": "sheet", "material": "material", "layer": "mid" },
+        "service": { "shape": "note", "material": "material", "layer": "mid" }
+      },
+      "nodeRoles": {
+        "generic-soybean-oil": { "shape": "bottle", "material": "liquid", "layer": "mid" },
+        "oil-packaging": { "shape": "bottle-cap", "material": "frame", "layer": "mid" },
+        "refined-soybean-oil": { "shape": "liquid", "material": "liquid", "layer": "mid" }
+      }
+    },
+    "generic-electric-bicycle": {
+      "prototype": "ebike",
+      "bodySize": [3.2, 1.9, 0.7],
+      "fallbackByType": {
+        "final_product": { "shape": "bike", "material": "frame-paint", "layer": "mid" },
+        "component": { "shape": "module", "material": "module", "layer": "mid" },
+        "material": { "shape": "sheet", "material": "material", "layer": "mid" },
+        "raw_material": { "shape": "sheet", "material": "material", "layer": "mid" },
+        "service": { "shape": "note", "material": "material", "layer": "mid" }
+      },
+      "nodeRoles": {
+        "generic-electric-bicycle": { "shape": "bike", "material": "frame-paint", "layer": "mid" },
+        "ebike-wheelset": { "shape": "wheel", "material": "frame-paint", "layer": "mid" },
+        "ebike-hub-motor": { "shape": "motor", "material": "chip", "layer": "mid" },
+        "ebike-battery-pack": { "shape": "battery-pack", "material": "battery", "layer": "mid" }
+      }
+    },
+    "generic-home-air-conditioner": {
+      "prototype": "ac-split",
+      "bodySize": [3.0, 1.7, 0.7],
+      "fallbackByType": {
+        "final_product": { "shape": "ac-unit", "material": "appliance", "layer": "mid" },
+        "component": { "shape": "module", "material": "module", "layer": "mid" },
+        "material": { "shape": "sheet", "material": "material", "layer": "mid" },
+        "raw_material": { "shape": "sheet", "material": "material", "layer": "mid" },
+        "service": { "shape": "note", "material": "material", "layer": "mid" }
+      },
+      "nodeRoles": {
+        "generic-home-air-conditioner": { "shape": "ac-unit", "material": "appliance", "layer": "mid" },
+        "ac-housing": { "shape": "ac-unit", "material": "appliance", "layer": "mid" },
+        "ac-heat-exchanger": { "shape": "sheet", "material": "chip", "layer": "mid" },
+        "ac-compressor": { "shape": "motor", "material": "chip", "layer": "mid" }
+      }
+    }
+  },
+  "materials": {
+    "dark": {
+      "frame": "#62738f",
+      "screen": "#131d2e",
+      "rear": "#394862",
+      "pcb": "#20584a",
+      "battery": "#3e4f6b",
+      "chip": "#7687a1",
+      "module": "#5b6a86",
+      "material": "#69798f",
+      "fabric": "#5f8579",
+      "liquid": "#8a7a3f",
+      "frame-paint": "#54647c",
+      "appliance": "#5a6880"
+    },
+    "light": {
+      "frame": "#d5dde8",
+      "screen": "#1f2c44",
+      "rear": "#ffffff",
+      "pcb": "#2f7d66",
+      "battery": "#e4ebf3",
+      "chip": "#b7c6d8",
+      "module": "#ccd7e3",
+      "material": "#c6d1de",
+      "fabric": "#bcd9cf",
+      "liquid": "#e8d9a0",
+      "frame-paint": "#cfd9e4",
+      "appliance": "#dde4ec"
+    }
+  }
+}

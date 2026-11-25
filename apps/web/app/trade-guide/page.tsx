@@ -1,6 +1,6 @@
 import { itemLabel } from "../../lib/item-label";
 import Link from "next/link";
-import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../components/site-shell";
+import { ContextBanner, PageIntro, SiteShell } from "../../components/site-shell";
 import { TradeGuideDirectory, TradeGuideResults } from "../../components/trade-guide";
 import { GuideQueryForm } from "../../components/guide-query-form";
 import { getQueryService } from "../../lib/data";
@@ -46,12 +46,11 @@ export default async function TradeGuidePage({
   return (
     <SiteShell>
       <div className="content-column wide-column">
-        <Breadcrumbs items={[{ label: "进出口指南" }]} />
-        {product && period ? <ContextBanner period={period.label} datasetVersion={product.datasetVersion.version} /> : null}
         <PageIntro
           eyebrow="进出口查询"
           title="进出口指南"
           description="选择商品、国家和方向，查看基础税费、手续与文件清单。"
+          meta={product && period ? <ContextBanner period={period.label} datasetVersion={product.datasetVersion.version} /> : null}
           actions={<Link className="button button-secondary" href="/products">查看商品背景</Link>}
         />
 

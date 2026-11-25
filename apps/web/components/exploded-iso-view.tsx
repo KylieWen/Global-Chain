@@ -2,8 +2,8 @@
 
 import { useMemo } from "react";
 import type { ExplodedModel } from "../lib/exploded-model";
-import { explodedColorIndex } from "../lib/exploded-model";
 import { layoutIsoSlots, type IsoSlot } from "../lib/exploded-layout";
+import { productPrototype, resolveNodeRole, schemeMaterials } from "../lib/exploded-appearance";
 
 type Tokens = {
   inkSoft: string;
@@ -13,7 +13,8 @@ type Tokens = {
 
 type Props = {
   model: ExplodedModel;
-  palette: readonly string[];
+  productId: string;
+  scheme: "dark" | "light";
   tokens: Tokens;
   selectedId: string | null;
   onSelect: (id: string) => void;
@@ -23,9 +24,58 @@ type Props = {
 const ROW_GAP_MIN = 56;
 const ROW_GAP_MAX = 112;
 
-export function ExplodedIsoView({ model, palette, tokens, selectedId, onSelect, explosion }: Props) {
+/** Decorative prototype silhouettes for the fallback layers; not extra BOM parts. */
+function PrototypeGlyph({ prototype, color }: { prototype: string | null; color: string }) {
+  const common = {
+    fill: "none",
+    stroke: color,
+    strokeWidth: 1.6,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const
+  };
+  return (
+    <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+      {prototype === "phone" && (
+        <g {...common}>
+          <rect x="7" y="2.5" width="10" height="19" rx="2.2" />
+          <line x1="10" y1="5" x2="14" y2="5" />
+          <circle cx="12" cy="18" r="1" />
+        </g>
+      )}
+      {prototype === "tshirt" && (
+        <path {...common} d="M8 4 L3 7.5 L5.5 11 L8.5 9.5 L8.5 20 L15.5 20 L15.5 9.5 L18.5 11 L21 7.5 L16 4 L12 6.5 Z" />
+      )}
+      {prototype === "bottle" && (
+        <g {...common}>
+          <rect x="9.5" y="2.5" width="5" height="2.2" rx="0.6" />
+          <path d="M10.5 4.7 L10.5 8 L8.5 10.5 L8.5 19.5 Q8.5 21 10 21 L14 21 Q15.5 21 15.5 19.5 L15.5 10.5 L13.5 8 L13.5 4.7" />
+          <line x1="8.8" y1="14" x2="15.2" y2="14" />
+        </g>
+      )}
+      {prototype === "ebike" && (
+        <g {...common}>
+          <circle cx="7" cy="16" r="3.6" />
+          <circle cx="17" cy="16" r="3.6" />
+          <path d="M7 16 L11.5 8.5 L17 16 M11.5 8.5 L13.5 16 M9.5 8.5 L13.5 8.5" />
+        </g>
+      )}
+      {prototype === "ac-split" && (
+        <g {...common}>
+          <rect x="3" y="5.5" width="18" height="6.5" rx="2" />
+          <line x1="5.5" y1="9.5" x2="18.5" y2="9.5" />
+          <rect x="3" y="15" width="8" height="6" rx="1.2" />
+        </g>
+      )}
+      {!prototype && <circle cx="12" cy="12" r="4" {...common} />}
+    </svg>
+  );
+}
+
+export function ExplodedIsoView({ model, productId, scheme, tokens, selectedId, onSelect, explosion }: Props) {
   const slots = useMemo(() => layoutIsoSlots(model), [model]);
   const nodeById = useMemo(() => new Map(model.nodes.map((node) => [node.id, node])), [model]);
+  const materials = useMemo(() => schemeMaterials(scheme), [scheme]);
+  const prototype = productPrototype(productId);
   const rows = useMemo(() => {
     const byRow = new Map<number, IsoSlot[]>();
     slots.forEach((slot) => {
@@ -47,18 +97,22 @@ export function ExplodedIsoView({ model, palette, tokens, selectedId, onSelect, 
             {rowSlots.map((slot) => {
               const node = nodeById.get(slot.id);
               if (!node) return null;
-              const color = palette[explodedColorIndex(model.nodes, node.id) % palette.length] ?? palette[0];
+              const role = resolveNodeRole(productId, node);
+              const color = materials[role.material] ?? materials.material;
               const selected = selectedId === node.id;
+              const isRoot = node.depth === 0;
               return (
                 <button
                   type="button"
                   key={node.id}
-                  className={`exploded-iso-chip${selected ? " selected" : ""}`}
+                  className={`exploded-iso-chip${selected ? " selected" : ""}${isRoot ? " root" : ""}`}
                   style={{ borderColor: selected ? tokens.accent : color }}
                   aria-pressed={selected}
                   onClick={() => onSelect(node.id)}
                 >
-                  <span className="exploded-iso-chip-swatch" style={{ background: color }} />
+                  {isRoot
+                    ? <PrototypeGlyph prototype={prototype} color={color} />
+                    : <span className="exploded-iso-chip-swatch" style={{ background: color }} />}
                   <span className="exploded-iso-chip-name">{node.name}</span>
                   <span className="exploded-iso-chip-type">{node.category}</span>
                 </button>

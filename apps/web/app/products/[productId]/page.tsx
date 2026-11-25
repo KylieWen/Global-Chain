@@ -3,7 +3,7 @@ import { ProductNavigation } from "../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../lib/data";
-import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../components/site-shell";
+import { ContextBanner, PageIntro, SiteShell } from "../../../components/site-shell";
 import { ProductTree } from "../../../components/product-tree";
 import { ProductArtwork } from "../../../components/product-artwork";
 import { industryPath, manufacturingProcessPath, mapPath, materialObservationsPath, provenancePath, supplyChainPath, tradeGuidePath } from "../../../lib/paths";
@@ -62,18 +62,17 @@ export default async function ProductOverviewPage({
   return (
     <SiteShell>
       <div className="content-column">
-        <Breadcrumbs items={[{ label: "商品目录", href: "/products" }, { label: itemLabel(overview.product) }]} />
-        <ContextBanner period={overview.period.label} datasetVersion={overview.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
+        <ProductNavigation productId={productId} context={routeContext} active="overview" hasIndustry={Boolean(industry)} hasMaterials={hasMaterialTrade}/>
         <div className="product-overview-intro">
         <PageIntro
           eyebrow={overview.product.category}
           title={itemLabel(overview.product)}
           description="从部件组成出发，沿供应链探索各国的生产与贸易联系。"
+          meta={<ContextBanner period={overview.period.label} datasetVersion={overview.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />}
           actions={<>{industry && <Link className="button button-primary" href={industryPath(productId, undefined, routeContext)}>查找中国产业上下游</Link>}<Link className="button button-primary" href={supplyChainPath(productId, undefined, routeContext)}>查看供应链路线</Link><Link className="button button-secondary" href={mapPath({ ...routeContext, product: productId, layer: "supply-chain" })}>在地图上探索</Link>{hasGuides && <Link className="button button-secondary" href={tradeGuidePath({ product: productId, ...pageContext })}>查进出口要求</Link>}{hasMaterialTrade && <Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link>}</>}
         />
         <ProductArtwork productId={productId} variant="overview" />
         </div>
-        <ProductNavigation productId={productId} context={routeContext} active="overview" hasIndustry={Boolean(industry)} hasMaterials={hasMaterialTrade}/>
 
         <ExplodedExplorer model={explodedModel} productId={productId} context={routeContext} initialFocus={focusParam} />
 

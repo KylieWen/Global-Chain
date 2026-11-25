@@ -1,7 +1,7 @@
 import { itemLabel } from "../../lib/item-label";
 import Link from "next/link";
 import { getQueryService } from "../../lib/data";
-import { Breadcrumbs, PageIntro, SiteShell } from "../../components/site-shell";
+import { PageIntro, SiteShell } from "../../components/site-shell";
 import { industryPath, ledgerPath, nodePath, productPath } from "../../lib/paths";
 
 export const dynamic = "force-dynamic";
@@ -26,7 +26,6 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     return (story?.nodes??[]).filter(view=>[view.node.label,view.item?.name,view.processStage?.label,view.node.notes].join(" ").toLocaleLowerCase("zh-CN").includes(normalized)).map(view=>({productId,product:item,view}));
   }) : [];
   return <SiteShell><div className="content-column narrow-column">
-    <Breadcrumbs items={[{ label: "搜索" }]} />
     <PageIntro eyebrow="站内搜索" title={query ? `搜索“${query}”` : "搜索商品、国家或产业环节"} description="输入商品、国家、材料、设备或企业名称，进入相关资料与官方入口。" />
     <form className="page-search" action="/search" role="search" aria-label="资料搜索"><label htmlFor="page-search-input">关键词</label><div><input id="page-search-input" name="q" defaultValue={query} placeholder="商品、国家、材料、设备或企业"/><button className="button button-primary" type="submit">搜索</button></div></form>
     {nodeResults.length>0 && <section className="section-block"><div className="section-heading"><h2>供应链环节与材料</h2><span className="section-caption">{nodeResults.length} 个结果</span></div><div className="component-grid">{nodeResults.map(({productId,product,view})=><Link className="component-card" key={`${productId}-${view.node.id}`} href={nodePath(productId,view.node.id)}><p className="card-kicker">{itemLabel(product)} · {view.processStage?.label}</p><h3>{view.node.label}</h3><p>{view.item?.name}{view.entity?` · ${view.entity.name}`:""}</p><span className="card-footer">打开环节与来源 →</span></Link>)}</div></section>}

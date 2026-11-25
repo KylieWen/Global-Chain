@@ -1,10 +1,10 @@
 /* Audience preferences change recommendations while preserving every published route. */
 .persona-switcher { position:relative; flex:none; color:var(--ink-soft); font-size:.78rem; }
-.persona-switcher > summary { display:flex; align-items:center; gap:.4rem; padding:.55rem .65rem; border:1px solid var(--line-strong); border-radius:.6rem; background:#fff; list-style:none; cursor:pointer; white-space:nowrap; }
+.persona-switcher > summary { display:flex; align-items:center; gap:.4rem; min-height:2.75rem; padding:.5rem .75rem; border:1px solid var(--line); border-radius:.65rem; background:var(--surface); list-style:none; cursor:pointer; white-space:nowrap; transition:color 140ms,border-color 140ms,background 140ms; }
 .persona-switcher > summary::-webkit-details-marker { display:none; }
 .persona-switcher > summary:focus-visible,.nav-group > summary:focus-visible { outline:3px solid #2f65d561; outline-offset:3px; }
-.persona-switcher > summary:hover,.persona-switcher[open] > summary { color:#126c63; border-color:#83b5aa; background:#eef8f5; }
-.persona-switcher > summary > span:first-child { color:#168577; font-size:1rem; }
+.persona-switcher > summary:hover,.persona-switcher[open] > summary { color:var(--accent); border-color:var(--accent); background:var(--accent-soft); }
+.persona-switcher > summary > span:first-child { color:var(--accent); font-size:1rem; }
 .persona-switcher-menu { position:absolute; z-index:40; right:0; top:calc(100% + .5rem); width:20rem; max-width:calc(100vw - 1.5rem); padding:.6rem; border:1px solid var(--line); border-radius:.85rem; box-shadow:var(--shadow); background:#fff; }
 .persona-switcher-menu > p { margin:.3rem .45rem .65rem; font-size:.76rem; font-weight:750; color:var(--ink); }
 .persona-switcher-menu button { display:flex; align-items:center; gap:.75rem; width:100%; border:0; border-radius:.55rem; padding:.75rem .55rem; text-align:left; cursor:pointer; background:#fff; color:var(--ink); font:inherit; }

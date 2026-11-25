@@ -44,7 +44,7 @@
 
 .product-overview-intro {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 210px;
+  grid-template-columns: minmax(0, 1fr) 172px;
   align-items: center;
   gap: 1.5rem;
 }
@@ -56,23 +56,24 @@
 }
 
 .product-artwork-overview {
-  width: 210px;
-  height: 160px;
-  border-radius: 1rem;
-  background: linear-gradient(145deg, #f8faf5, #eef4f4);
+  width: 172px;
+  height: 132px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
 }
 
 @media (max-width: 640px) {
   .product-artwork-catalog { height: 160px; }
   .product-artwork-hero { height: 210px; }
-  .product-overview-intro { grid-template-columns: minmax(0, 1fr) 116px; gap: .6rem; align-items: start; }
-  .product-artwork-overview { width: 116px; height: 100px; margin-top: 1rem; }
+  .product-overview-intro { grid-template-columns: minmax(0, 1fr) 108px; gap: .6rem; align-items: start; }
+  .product-artwork-overview { width: 108px; height: 92px; margin-top: 1rem; }
   .product-overview-intro .intro-actions { grid-column: 1 / -1; }
 }
 
 @media (max-width: 440px) {
   .product-overview-intro { display: block; position: relative; }
   .product-overview-intro > .page-intro { display: flex; }
-  .product-overview-intro .page-intro > div:first-child { padding-right: 94px; }
-  .product-artwork-overview { position: absolute; top: 0; right: 0; width: 92px; height: 86px; }
+  .product-overview-intro .page-intro > div:first-child { padding-right: 84px; }
+  .product-artwork-overview { position: absolute; top: 0; right: 0; width: 78px; height: 74px; }
 }

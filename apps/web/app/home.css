@@ -1,0 +1,317 @@
+/* ==========================================================================
+   Home visual refresh 2026-11: full-bleed hero map + editorial product
+   entries. Loaded from page.tsx after the layout-level stylesheets, so these
+   rules outrank the legacy two-column hero and catalog card rules.
+   ========================================================================== */
+
+.home-page.content-column.wide-column {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}
+
+/* ---------- Full-viewport hero ---------- */
+
+.home-hero {
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-hero-map {
+  position: absolute;
+  inset: 0;
+}
+
+.home-hero-viewport {
+  position: absolute;
+  inset: 0;
+}
+
+.home-hero-viewport svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.home-hero-viewport .map-ocean {
+  fill: var(--map-ocean);
+}
+
+.home-hero-country {
+  fill: var(--map-land);
+  stroke: var(--map-border);
+  stroke-width: 0.5;
+}
+
+.home-hero-line {
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: 0.72;
+}
+
+.home-hero-endpoint circle {
+  fill: var(--accent);
+  stroke: var(--surface);
+  stroke-width: 1;
+}
+
+/* Soft edge-fade mask over the whole hero: bottom, left and top all dissolve
+   into transparency, so no rectangular gradient boundary is visible. */
+.home-hero-mask {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, color-mix(in srgb, var(--bg) 82%, transparent) 0%, transparent 44%),
+    linear-gradient(to right, color-mix(in srgb, var(--bg) 60%, transparent) 0%, transparent 56%),
+    linear-gradient(to bottom, color-mix(in srgb, var(--bg) 36%, transparent) 0%, transparent 30%);
+}
+
+/* Claim overlay sits over the lower-left of the map; readability comes from the
+   soft mask above, not a solid card behind the text. */
+.home-hero-claim {
+  position: relative;
+  z-index: 5;
+  margin-top: auto;
+  padding: 0 clamp(1.25rem, 5vw, 3rem) 2.5rem;
+  max-width: 40rem;
+  background: transparent;
+}
+
+.home-hero-claim .eyebrow {
+  color: var(--accent);
+}
+
+.home-hero-claim h1 {
+  font-size: clamp(2.4rem, 4.6vw, 4rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  margin: 0.8rem 0 1.2rem;
+  color: var(--ink);
+}
+
+.home-hero-claim > p:not(.eyebrow) {
+  max-width: 29rem;
+  color: var(--ink-soft);
+  line-height: var(--line-height-relaxed, 1.9);
+  font-size: 1.05rem;
+}
+
+.home-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 1.8rem;
+}
+
+.home-hero-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+  margin-top: 1.8rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.home-hero-facts strong {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  margin-right: 0.3rem;
+}
+
+/* Corner product switcher. */
+.home-hero-switcher {
+  position: absolute;
+  top: 5.25rem;
+  right: 1.25rem;
+  z-index: 6;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  max-width: 60vw;
+}
+
+.home-hero-switcher button {
+  min-height: 2.5rem;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg-elevated) 80%, transparent);
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.home-hero-switcher button[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+
+.home-hero-zoom {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 6;
+  display: flex;
+  gap: 0.3rem;
+}
+
+.home-hero-zoom button {
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--bg-elevated) 84%, transparent);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+/* ---------- Editorial product entries ---------- */
+
+.home-product-strip.home-product-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 3rem clamp(1.25rem, 5vw, 3rem);
+}
+
+/* Sections below the hero share the same max-width and side gutters as the
+   product strip, so persona cards and the next-step row never bleed wider. */
+.home-below {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 5vw, 3rem);
+}
+
+.home-product-strip .home-product-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 1.1rem;
+  overflow: hidden;
+  background: var(--surface);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 160ms var(--ease), border-color 160ms var(--ease);
+}
+
+.home-product-strip .home-product-entry:hover {
+  transform: translateY(-3px);
+  border-color: var(--line-strong);
+}
+
+.home-product-thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.home-thumb-country {
+  fill: var(--map-land-limited);
+  stroke: var(--map-border);
+  stroke-width: 0.5;
+}
+
+.home-thumb-line {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  opacity: 0.75;
+}
+
+.home-thumb-endpoint circle {
+  fill: var(--accent);
+}
+
+/* Dark scheme: thumbnails sit on a near-black card, so raise line width and
+   brightness to match the hero's beam presence. */
+:root[data-theme="dark"] .home-thumb-line {
+  stroke-width: 1.9;
+  opacity: 0.95;
+}
+
+:root[data-theme="dark"] .home-thumb-endpoint circle {
+  opacity: 0.95;
+}
+
+.home-product-entry-copy {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0 1rem 1rem;
+}
+
+.home-product-entry-copy strong {
+  font-size: 1.02rem;
+  color: var(--ink);
+}
+
+.home-product-facts {
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.6;
+}
+
+.home-product-link {
+  color: var(--accent);
+  font-size: 0.78rem;
+}
+
+@media (max-width: 1100px) {
+  .home-product-strip.home-product-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .home-product-strip.home-product-strip {
+    grid-template-columns: 1fr;
+    padding: 2rem 1rem;
+  }
+
+  .home-below {
+    padding-inline: 1rem;
+  }
+
+  .home-hero-switcher {
+    top: 7.25rem;
+    left: 1rem;
+    right: 1rem;
+    max-width: none;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .home-hero-switcher::-webkit-scrollbar {
+    display: none;
+  }
+
+  .home-hero-switcher button {
+    flex: none;
+  }
+
+  .home-hero-zoom {
+    bottom: 6.5rem;
+  }
+}

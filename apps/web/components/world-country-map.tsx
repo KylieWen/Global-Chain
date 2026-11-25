@@ -38,6 +38,50 @@ const projection = geoEqualEarth().fitExtent([[25, 25], [975, 515]], { type: "Sp
 const pathGenerator = geoPath(projection);
 const coordinate = (value: number) => Number(value.toFixed(3));
 
+/**
+ * Narrow screens default to a zoomed view centred on the densest endpoint
+ * cluster (endpoints whose degree is at least half the top), so the converging
+ * flow fills the first screen; the user can still pan / zoom and reset returns
+ * to this default. Wide screens keep the full world at scale 1.
+ */
+function focusTransformForLines(
+  lines: readonly { fromM49: string | null; toM49: string | null }[],
+  centerMap: Map<string, [number, number] | null>,
+  narrow: boolean
+): MapTransform {
+  if (!narrow) return { x: 0, y: 0, scale: 1 };
+  const degree = new Map<string, number>();
+  lines.forEach(line => {
+    if (line.fromM49) degree.set(line.fromM49, (degree.get(line.fromM49) ?? 0) + 1);
+    if (line.toM49) degree.set(line.toM49, (degree.get(line.toM49) ?? 0) + 1);
+  });
+  let bestDegree = 0;
+  degree.forEach(count => { if (count > bestDegree) bestDegree = count; });
+  if (bestDegree === 0) return { x: 0, y: 0, scale: 1 };
+  const heavy = [...degree.entries()].filter(([code, count]) => count >= Math.max(2, Math.ceil(bestDegree / 2)) && centerMap.get(code));
+  if (!heavy.length) return { x: 0, y: 0, scale: 1 };
+  let weightedX = 0;
+  let weightedY = 0;
+  let weightTotal = 0;
+  heavy.forEach(([code, count]) => {
+    const point = centerMap.get(code)!;
+    weightedX += point[0] * count;
+    weightedY += point[1] * count;
+    weightTotal += count;
+  });
+  const centroidX = weightedX / weightTotal;
+  const centroidY = weightedY / weightTotal;
+  // Blend the cluster centroid with the single highest-degree node so the
+  // strongest convergence sits near the frame instead of the mid-ocean average.
+  let maxCode: string | null = null;
+  degree.forEach((count, code) => { if (count === bestDegree && centerMap.get(code)) maxCode = code; });
+  const maxPoint = maxCode ? centerMap.get(maxCode) : null;
+  const cx = maxPoint ? centroidX * 0.5 + maxPoint[0] * 0.5 : centroidX;
+  const cy = maxPoint ? centroidY * 0.5 + maxPoint[1] * 0.5 : centroidY;
+  const scale = 1.8;
+  return { scale, x: mapWidth * 0.56 - cx * scale, y: mapHeight / 2 - cy * scale };
+}
+
 type Props = { view: MapViewModel; filters: MapFilters & { product: string }; products: readonly { id: string; name: string }[]; regionalLinks?: readonly {entityId:string;label:string;href:string}[] };
 
 export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: Props) {
@@ -75,7 +119,27 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   const suppressClick = useRef(false);
   const workspaceRef = useRef<HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [recordsOpen, setRecordsOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [playing, setPlaying] = useState(false);
+  const [narrow, setNarrow] = useState(false);
+  // Immediate local year for the range input: arrow keys update this right
+  // away, while the URL write-back settles via transition. The local value
+  // is re-synced whenever the year changes from outside (select, autoplay,
+  // direct URL entry, product switch).
+  const [timelineYear, setTimelineYear] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const wide = window.innerWidth >= 760;
+    setRecordsOpen(false);
+    setFiltersOpen(wide);
+    const mq = window.matchMedia("(max-width: 759px)");
+    const updateNarrow = () => setNarrow(mq.matches);
+    updateNarrow();
+    mq.addEventListener("change", updateNarrow);
+    return () => mq.removeEventListener("change", updateNarrow);
+  }, []);
   useMapWheel(svgRef, setTransform, mapWidth, mapHeight, transform, suppressClick);
   const byM49 = useMemo(() => new Map(countries.filter(country => country.m49).map(country => [country.m49!, country])), [countries]);
   const byId = useMemo(() => new Map(countries.map(country => [country.id, country])), [countries]);
@@ -86,9 +150,13 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   const activeRecord = records.find(record => record.id === hoveredRecordId) ?? selectedRecord;
   const isTrade = filters.layer === "trade";
   const isWorld = isTrade && scope === "world";
+  const captionDescription = isTrade ? isWorld ? "世界总计 · 圆点表示报告国" : "双边贸易 · 连线表示统计联系" : "代表性路线 · 连接原料、生产与市场";
   const { compareTrade, selectedItemIds, selectedYear, currencies, selectedCurrency } = view;
   const timelineYears = years.filter(year => /^\d{4}$/.test(year)).sort();
   const timeIndex = selectedYear ? timelineYears.indexOf(selectedYear) : -1;
+  const localIndexRaw = timelineYear != null ? timelineYears.indexOf(timelineYear) : timeIndex;
+  const timelineIndex = localIndexRaw >= 0 ? localIndexRaw : timeIndex;
+  const activeTimelineYear = timelineYear && timelineIndex >= 0 ? timelineYear : selectedYear;
   const selectableItems = items.filter(item => item.directTradeCount > 0 || selectedItemIds.includes(item.id));
   const paletteColors = mapTokens.palette.itemColors;
   const coloredItems = useMemo(() => items.filter(item => item.directTradeCount > 0 || item.relatedTradeCount > 0), [items]);
@@ -103,6 +171,16 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   const quantityMode = compareTrade && filters.measure === "quantity";
   const widthUnit = quantityMode ? selectedUnit : tradeCurrency;
   const visibleLines = quantityMode ? lines.filter(line => line.unit === selectedUnit && selectedUnit) : lines;
+  const defaultTransform = useMemo(() => focusTransformForLines(visibleLines, centers, narrow), [visibleLines, centers, narrow]);
+  const prevNarrowRef = useRef<boolean | null>(null);
+
+  // Re-apply the default view only when the breakpoint crosses; line/filter
+  // changes must not wipe the user's current pan/zoom.
+  useEffect(() => {
+    if (prevNarrowRef.current === narrow) return;
+    prevNarrowRef.current = narrow;
+    setTransform(defaultTransform);
+  }, [narrow, defaultTransform]);
 
   const adaptiveHint: AdaptiveHint = useMemo(() => ({
     reducedMotion,
@@ -180,6 +258,12 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
     if (timelineYears.length < 2) setPlaying(false);
   }, [timelineYears.length]);
 
+  // Re-sync the local range value when the year changes outside the input
+  // itself (year select, autoplay, direct URL, product/filter switch).
+  useEffect(() => {
+    setTimelineYear(selectedYear ?? null);
+  }, [selectedYear]);
+
   useEffect(() => {
     if (!playing || timeIndex < 0 || timelineYears.length < 2) return;
     const timer = window.setInterval(() => {
@@ -240,9 +324,11 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   };
   const stopDrag = () => { if (drag.current) suppressClick.current = drag.current.moved; drag.current = null; };
 
-  return <MapFocus title="世界地图" onZoom={factor => setTransform(current => zoomMap(current, factor))} onReset={() => setTransform({x:0,y:0,scale:1})}><section ref={workspaceRef} className={`country-map-workspace atlas-workspace${beamActive ? " beam-mode" : ""}`} data-flow-mode={effectiveMode} data-adaptive-level={adaptiveLevel} data-particle-count={diagnosticsRef.current.particleCount} data-flow-cap={settings.maxParticles} aria-label="可交互世界国家地图" aria-busy={isPending}>
+  return <MapFocus title="世界地图" onZoom={factor => setTransform(current => zoomMap(current, factor))} onReset={() => setTransform(defaultTransform)}><section ref={workspaceRef} className={`country-map-workspace atlas-workspace${beamActive ? " beam-mode" : ""}`} data-flow-mode={effectiveMode} data-adaptive-level={adaptiveLevel} data-particle-count={diagnosticsRef.current.particleCount} data-flow-cap={settings.maxParticles} aria-label="可交互世界国家地图" aria-busy={isPending}>
     {isPending && <div className="map-pending" role="status" aria-live="polite">正在更新地图…</div>}
     <div className="atlas-compact-filters">
+      <button type="button" className="atlas-filters-toggle" aria-expanded={filtersOpen} aria-controls="atlas-filters-body" onClick={() => setFiltersOpen(value => !value)}>筛选条件</button>
+      <div className="atlas-compact-filters-body" id="atlas-filters-body" data-open={filtersOpen}>
       <label>商品<select aria-label="选择商品" value={filters.product} onChange={event => navigate({ product: event.target.value, items: isTrade ? event.target.value : undefined, focus: undefined, year: undefined, country: undefined, direction: undefined, scope: undefined, currency: undefined, measure: undefined, unit: undefined, datasetVersion: undefined, contentVersion: undefined })}>{products.map(product => <option key={product.id} value={product.id}>{product.name}</option>)}</select></label>
       {isTrade ? <details className="atlas-item-picker"><summary>选择统计物品 · {selectedItemIds.length}</summary><fieldset disabled={isPending}><legend>成品与上下游</legend>{selectableItems.map(item => <label key={item.id}><input type="checkbox" value={item.id} checked={selectedItemIds.includes(item.id)} disabled={selectedItemIds.length === 1 && selectedItemIds.includes(item.id)} onChange={event => toggleItem(item.id, event.target.checked)} /><i style={{backgroundColor:colorFor(item.id)}} aria-hidden="true" />{item.name}</label>)}</fieldset></details> : <label>部件 / 材料<select aria-label="选择部件或材料" value={filters.focus === filters.product ? "" : filters.focus ?? ""} onChange={event => navigate({ focus: event.target.value || undefined, items: undefined, year: undefined, country: undefined, scope: undefined })}><option value="">整件商品</option>{items.filter(item => item.id !== filters.product).map(item => <option key={item.id} value={item.id}>{`${"　".repeat(Math.max(0, item.depth - 1))}${item.name}`}</option>)}</select></label>}
       <label>年份<select aria-label="选择记录年度" value={selectedYear ?? ""} onChange={event => navigate({ year: event.target.value || undefined })}>{(!compareTrade || !selectedYear) && <option value="">{compareTrade ? "暂无年份" : "全部年份"}</option>}{selectedYear && !years.includes(selectedYear) && <option value={selectedYear}>{selectedYear} · 无记录</option>}{years.map(year => <option key={year} value={year}>{year}</option>)}</select></label>
@@ -251,29 +337,19 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
       {quantityMode && quantityUnits.length > 1 && <label>数量单位<select value={selectedUnit} onChange={event => navigate({ unit: event.target.value })}>{quantityUnits.map(unit => <option key={unit}>{unit}</option>)}</select></label>}
       <label>国家<select aria-label="选择国家" value={filters.country ?? ""} onChange={event => navigate({ country: event.target.value || undefined })}><option value="">全部国家</option>{countries.map(country => <option key={country.id} value={country.id}>{country.name}{hasLayerRecords(country) ? "" : ` · ${coverageLabel(country)}`}</option>)}</select></label>
       {isTrade && <label>报告方向<select aria-label="报告方向" value={filters.direction ?? ""} onChange={event => navigate({ direction: event.target.value === "import" || event.target.value === "export" ? event.target.value : undefined })}><option value="">进出口</option><option value="export">出口</option><option value="import">进口</option></select></label>}
+      <button type="button" className="flow-settings-open flow-settings-open--mobile" aria-expanded={drawerOpen} onClick={() => setDrawerOpen(true)}>调节流动</button>
+      </div>
+      <div className="atlas-compact-filters-actions">
       <div className="flow-mode-controls" role="group" aria-label="流向渲染模式">
         <button type="button" aria-pressed={effectiveMode === "beam"} onClick={() => setFlowMode("beam")}>粒子流</button>
         <button type="button" aria-pressed={effectiveMode === "classic"} onClick={() => setFlowMode("classic")}>经典箭头</button>
         <button type="button" className="flow-settings-open" aria-expanded={drawerOpen} onClick={() => setDrawerOpen(true)}>调节流动</button>
       </div>
-      <div className="map-zoom-controls" aria-label="地图缩放"><button type="button" onClick={() => setTransform(current => zoomMap(current, 1.25))} aria-label="放大地图" disabled={transform.scale >= 4}>＋</button><button type="button" onClick={() => setTransform(current => zoomMap(current, 0.8))} aria-label="缩小地图" disabled={transform.scale <= 1}>－</button><button type="button" onClick={() => setTransform({ x: 0, y: 0, scale: 1 })}>复位</button><MapFocusButton label="世界地图"/></div>
+      <div className="map-zoom-controls" aria-label="地图缩放"><button type="button" onClick={() => setTransform(current => zoomMap(current, 1.25))} aria-label="放大地图" disabled={transform.scale >= 4}>＋</button><button type="button" onClick={() => setTransform(current => zoomMap(current, 0.8))} aria-label="缩小地图" disabled={transform.scale <= 1}>－</button><button type="button" aria-label="复位地图" onClick={() => setTransform(defaultTransform)}>复位</button><MapFocusButton label="世界地图"/></div>
+      </div>
     </div>
     <div className="atlas-layout"><div className="atlas-canvas">
-      {isTrade && timeIndex >= 0 && (timelineYears.length > 1
-        ? <div className="trade-timeline">
-            <span className="trade-timeline-head">
-              <button type="button" className="trade-play" aria-pressed={playing} aria-label={playing ? "暂停年份播放" : "播放年份变化"} disabled={timelineYears.length < 2} onClick={() => setPlaying(value => !value)}>{playing ? "❚❚" : "▶"}</button>
-              <span>贸易时间轴 <strong>{selectedYear}</strong></span>
-            </span>
-            <span className="trade-timeline-track">
-              <small>{timelineYears[0]}</small>
-              <input type="range" aria-label="贸易年份" aria-valuetext={selectedYear + " 年"} min={0} max={timelineYears.length - 1} step={1} value={timeIndex}
-                onChange={event => { setPlaying(false); navigate({ year: timelineYears[event.currentTarget.valueAsNumber] }); }} />
-              <small>{timelineYears[timelineYears.length - 1]}</small>
-            </span>
-          </div>
-        : <p className="trade-timeline">当前统计范围收录 {selectedYear} 年</p>)}
-      <div className="map-viewport"><svg ref={svgRef} className="world-country-map" data-zoomed={transform.scale > 1} viewBox={`0 0 ${mapWidth} ${mapHeight}`} role="group" aria-labelledby="world-country-map-title" aria-describedby="world-country-map-description" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={stopDrag} onPointerCancel={stopDrag}>
+      <div className="map-viewport"><svg ref={svgRef} className="world-country-map" data-zoomed={transform.scale > 1} viewBox={`0 0 ${mapWidth} ${mapHeight}`} preserveAspectRatio="xMidYMid slice" role="group" aria-labelledby="world-country-map-title" aria-describedby="world-country-map-description" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={stopDrag} onPointerCancel={stopDrag}>
         <title id="world-country-map-title">{isTrade ? isWorld ? "国家世界贸易总计地图" : "官方双边贸易统计地图" : "代表性供应链地图"}</title>
         <desc id="world-country-map-description">选择国家查看相关记录。连线与列表均可通过鼠标或键盘打开详情。</desc>
         <defs>{[{id:"atlas-selected-arrow",fill:"#aee9db"},{id:"atlas-export-arrow",fill:"#8be4c4"},{id:"atlas-import-arrow",fill:"#d7b880"}].map(marker => <marker key={marker.id} id={marker.id} viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth={9 / transform.scale} markerHeight={9 / transform.scale} orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill={marker.fill} /></marker>)}</defs>
@@ -309,14 +385,32 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
         </g>
         <g className="atlas-country-labels" aria-hidden="true">{labels.map(label => <text key={label.id} x={label.x + 3} y={label.y + labelFontSize + 2} style={{fontSize:labelFontSize}}>{label.name}</text>)}</g>
       </svg>
-      {beamActive && <BeamFlowLayer flows={beamFlows} transform={transform} settings={settings} level={adaptiveLevel} nodeColor={tokens.palette.accent} onDiagnostics={handleDiagnostics} onFrameSample={handleFrameSample} />}
-      <div className="atlas-map-caption"><span>{isTrade ? isWorld ? "世界总计 · 圆点表示报告国" : "双边贸易 · 连线表示统计联系" : "代表性路线 · 连接原料、生产与市场"}</span><span>{beamActive ? "粒子沿货物流向移动 · 双指缩放与移动" : "双指缩放与移动 · 放大后鼠标拖动"}</span></div></div>
-      <div className="atlas-below-map"><div className="map-legend">{compareTrade ? selectedItemIds.map(id => <button type="button" className="atlas-item-chip" disabled={selectedItemIds.length === 1 || isPending} key={id} onClick={() => toggleItem(id, false)} aria-label={`移除${items.find(item => item.id === id)?.name ?? id}`}><i style={{backgroundColor: colorFor(id), border: "1px solid #576978"}} />{items.find(item => item.id === id)?.name ?? id}{selectedItemIds.length > 1 ? " ×" : ""}</button>) : isTrade && !isWorld ? <><span><i className="legend-trade-export" />出口报告</span><span><i className="legend-trade-import" />进口报告</span></> : null}<span><i className="legend-country-covered" />{isTrade ? "有统计" : "参与供应链"}</span><span><i className="legend-country-limited" />仅有账本</span></div><Link className="text-link" href={supplyChainPath(filters.product, filters.focus, context)}>展开供应链 →</Link></div>
+      {beamActive && <BeamFlowLayer flows={beamFlows} transform={transform} settings={settings} level={adaptiveLevel} nodeColor={tokens.palette.accent} scheme={tokens.scheme} onDiagnostics={handleDiagnostics} onFrameSample={handleFrameSample} />}
+      <div className="atlas-map-caption"><span>{captionDescription}</span><span>{beamActive ? "粒子沿货物流向移动 · 双指缩放与移动" : "双指缩放与移动 · 放大后鼠标拖动"}</span></div></div>
+      {isTrade && timeIndex >= 0 && (timelineYears.length > 1
+        ? <div className="trade-timeline">
+            <span className="trade-timeline-head">
+              <button type="button" className="trade-play" aria-pressed={playing} aria-label={playing ? "暂停年份播放" : "播放年份变化"} disabled={timelineYears.length < 2} onClick={() => setPlaying(value => !value)}>{playing ? "❚❚" : "▶"}</button>
+              <span>贸易时间轴 <strong>{activeTimelineYear}</strong></span>
+            </span>
+            <span className="trade-timeline-track">
+              <small>{timelineYears[0]}</small>
+              <input type="range" aria-label="贸易年份" aria-valuetext={activeTimelineYear + " 年"} min={0} max={timelineYears.length - 1} step={1} value={timelineIndex}
+                onChange={event => { setPlaying(false); const year = timelineYears[event.currentTarget.valueAsNumber]; if (!year) return; setTimelineYear(year); navigate({ year }); }} />
+              <small>{timelineYears[timelineYears.length - 1]}</small>
+            </span>
+          </div>
+        : <p className="trade-timeline">当前统计范围收录 {selectedYear} 年</p>)}
+      <div className="atlas-below-map"><p className="atlas-caption-note">{captionDescription}</p><button type="button" className="atlas-records-reopen--mobile" aria-label={`展开${isTrade ? "贸易" : "路线"}记录列表，共 ${records.length} 条`} onClick={() => setRecordsOpen(true)}><span>记录</span><strong>{records.length}</strong></button><div className="map-legend">{compareTrade ? selectedItemIds.map(id => <button type="button" className="atlas-item-chip" disabled={selectedItemIds.length === 1 || isPending} key={id} onClick={() => toggleItem(id, false)} aria-label={`移除${items.find(item => item.id === id)?.name ?? id}`}><i style={{backgroundColor: colorFor(id), border: "1px solid #576978"}} />{items.find(item => item.id === id)?.name ?? id}{selectedItemIds.length > 1 ? " ×" : ""}</button>) : isTrade && !isWorld ? <><span><i className="legend-trade-export" />出口报告</span><span><i className="legend-trade-import" />进口报告</span></> : null}<span><i className="legend-country-covered" />{isTrade ? "有统计" : "参与供应链"}</span><span><i className="legend-country-limited" />仅有账本</span></div><Link className="text-link" href={supplyChainPath(filters.product, filters.focus, context)}>展开供应链 →</Link></div>
       {isTrade && !isWorld && lines.length > 0 && <details className="atlas-amount-key"><summary>{widthUnit ? `线宽按${quantityMode ? "数量" : "金额"}分档 · ${widthUnit}` : quantityMode ? "所选记录暂无同单位数量" : "选择同年同币种查看金额线宽"}</summary>{widthUnit && <div>{tradeAmountBands.map(band => <span key={band.minimum}><i style={{borderTopWidth:band.width}} />{band.label} {widthUnit}</span>)}</div>}<p>箭头表示货物流向；每条记录保留原年度、报告方和商品分类，不合并加总。未收录数值使用细线或虚线，具体金额与状态见记录。</p></details>}
 
       {!uncoveredCountry && activeCountry && <div className="atlas-country-context"><strong>{activeCountry.name}</strong>{activeCountry.roles.length > 0 && <span>{activeCountry.roles.slice(0, 2).join(" / ")}</span>}{regionalLinks.filter(link=>link.entityId===activeCountry.id).map(link=><Link key={link.href} className="button button-primary" href={link.href}>{link.label} →</Link>)}{activeCountry.hasTradeLedger && <Link href={ledgerPath(filters.product, activeCountry.id, context)}>国家账本 →</Link>}{filters.country && <button type="button" onClick={() => navigate({ country: undefined })}>清除国家</button>}</div>}
       {!uncoveredCountry && activeNodes.length > 0 && <details className="atlas-country-nodes"><summary>{activeCountry?.name}的生产环节 · {activeNodes.length}</summary><div>{activeNodes.map(node => <Link key={node.id} href={nodePath(filters.product, node.id, { ...context, period: node.periodLabel })}><strong>{node.itemName} · {node.stageLabel}</strong><span>{node.periodLabel}</span></Link>)}</div></details>}
-    </div><aside className="atlas-records" aria-label={isTrade ? "贸易记录" : "路线连接记录"}>
+    </div><aside className={`atlas-records records-drawer${recordsOpen ? " is-open" : " is-closed"}`} data-open={recordsOpen} aria-label={isTrade ? "贸易记录" : "路线连接记录"}>
+      <div className="atlas-records-bar">
+        <button type="button" className="atlas-records-toggle" aria-expanded={recordsOpen} aria-controls="atlas-records-panel" onClick={() => setRecordsOpen(value => !value)}><span>{recordsOpen ? "收起记录" : "展开记录"}</span><small>{records.length}</small></button>
+      </div>
+      <div id="atlas-records-panel" className="atlas-records-panel">
       <button type="button" className="mobile-map-return" onClick={() => svgRef.current?.scrollIntoView({ block: "center" })}>↑ 返回地图</button>
       <div className="atlas-records-heading"><h2>{compareTrade && selectedItemIds.length > 1 ? "所选物品" : compareTrade ? items.find(item => item.id === selectedItemIds[0])?.name ?? selectedItemName : isTrade && relatedMaterials.length ? `${selectedItemName}相关材料` : selectedItemName} <small>{records.length}</small></h2>
         {isTrade ? <div className="atlas-scope-switch" aria-label="统计范围"><button type="button" aria-pressed={!isWorld} onClick={() => navigate({ scope: "bilateral" })}>双边 <small>{scopeCounts.bilateral}</small></button><button type="button" aria-pressed={isWorld} onClick={() => navigate({ scope: "world" })}>世界总计 <small>{scopeCounts.world}</small></button></div> : <p>{filters.focus ? "上下游分支" : "原料、部件与市场"} · {filters.year ?? years.join(" / ")}</p>}
@@ -333,7 +427,10 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
         </div>
         {isTrade && filters.focus && hasFocusTradeCoverage && <button className="atlas-to-product" type="button" onClick={toProductStatistics}>查看整件商品统计 →</button>}
       </>}
-    </aside></div>
+      </div>
+    </aside>
+    {!recordsOpen && <button type="button" className="atlas-records-reopen" aria-label={`展开${isTrade ? "贸易" : "路线"}记录列表，共 ${records.length} 条`} onClick={() => setRecordsOpen(true)}><span>记录</span><strong>{records.length}</strong></button>}
+  </div>
     {selectedRecord && !uncoveredCountry && (
       <div className="record-drawer-backdrop" onClick={closeDetail}>
         <div ref={drawerPanelRef} className="record-drawer" role="dialog" aria-modal="true" aria-label="连线详情" tabIndex={-1} onClick={event => event.stopPropagation()}>

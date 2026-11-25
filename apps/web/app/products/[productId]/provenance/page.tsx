@@ -1,9 +1,8 @@
-import { itemLabel } from "../../../../lib/item-label";
 import { ProductNavigation } from "../../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../lib/data";
-import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../../components/site-shell";
+import { ContextBanner, PageIntro, SiteShell } from "../../../../components/site-shell";
 import { dataMethodLabel, factStatusLabel, PeriodLabel, PublicationBadge, StatCard, WarningList, ProvenancePanel } from "../../../../components/data-display";
 import { evidenceGapsPath, materialObservationsPath, productPath, researchExportPath, supplyChainPath } from "../../../../lib/paths";
 import { contextMismatch, readPageContext, type SearchParamsLike } from "../../../../lib/context";
@@ -29,17 +28,12 @@ export default async function ProductProvenancePage({
   return (
     <SiteShell>
       <div className="content-column">
-        <Breadcrumbs items={[
-          { label: "商品目录", href: "/products" },
-          { label: itemLabel(overview.product), href: productPath(productId, pageContext) },
-          { label: "来源与版本" }
-        ]} />
         <ProductNavigation productId={productId} context={pageContext} active="sources" hasIndustry={Boolean(queries.getIndustryNetwork(productId))} hasMaterials={materialObservations.length>0}/>
-        <ContextBanner period={overview.period.label} datasetVersion={provenance.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
         <PageIntro
           eyebrow="来源与版本"
           title="来源、口径与版本"
           description="这页同时说明统计数据与代表性供应链内容的来源、方法、期间、数据版本和内容版本。"
+          meta={<ContextBanner period={overview.period.label} datasetVersion={provenance.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />}
           actions={(
             <>
               <Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>返回供应链路径</Link>

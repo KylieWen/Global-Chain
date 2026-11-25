@@ -99,7 +99,7 @@ const PRESERVED_KEYS = ["layer", "items", "year", "country", "direction", "scope
 // scroll is recorded separately and must NOT be counted as page overflow.
 const INTERNAL_SCROLL_CONTAINERS = [
   ".product-level-nav",
-  ".path-steps ol",
+  ".exploded-node-list",
   ".route-graph-shell",
   ".route-graph",
   ".table-wrap",
@@ -151,7 +151,7 @@ async function gotoPage(page, path, { waitSelector, retries = 4 } = {}) {
     } catch (e) {
       lastError = e;
       const msg = String(e?.message ?? e);
-      if (/ERR_CONNECTION_REFUSED|ECONNREFUSED|net::ERR_|Navigation timeout/i.test(msg) && i < retries) {
+      if (/ERR_CONNECTION_REFUSED|ECONNREFUSED|net::ERR_|Navigation timeout|page\.goto: Timeout|Timeout 15000/i.test(msg) && i < retries) {
         await new Promise((r) => setTimeout(r, 2000));
         continue;
       }
@@ -263,15 +263,16 @@ async function probeTouchTargets(page, contextLabel) {
     const rects = els.map((el) => {
       const r = el.getBoundingClientRect();
       const cs = getComputedStyle(el);
-      return { height: Math.round(r.height * 10) / 10, minHeight: cs.minHeight, width: Math.round(r.width * 10) / 10 };
-    });
+      return { height: Math.round(r.height * 10) / 10, minHeight: cs.minHeight, width: Math.round(r.width * 10) / 10, visible: r.width > 0 && r.height > 0 };
+    }).filter((r) => r.visible);
     const heights = rects.map((r) => r.height);
     return {
       ...item,
       count: els.length,
+      visibleCount: rects.length,
       minHeight: heights.length ? Math.min(...heights) : null,
       heights: rects.slice(0, 6),
-      belowTarget: heights.some((h) => h < item.min)
+      belowTarget: heights.length > 0 && heights.some((h) => h < item.min)
     };
   }), selectors);
   observe("touch-targets", { context: contextLabel, report });
@@ -496,13 +497,21 @@ try {
     journeySteps.push({ step: "home→world", url: jPage.url(), entryHref });
     ok("journey: home entry opens the world map", /\/map/.test(new URL(jPage.url()).pathname), { url: jPage.url(), entryHref });
 
+    // Rebaseline: the old .path-steps strip was removed; the equivalent journey
+    // step now goes through the product level nav (.product-level-nav). Ledger
+    // links on route pages live in the node link block, so fall back there.
+    const NAV_LABEL_BY_STEP = { "拆解": "商品拆解", "路线": "生产路线", "账本": "国家账本" };
     const clickStep = async (label) => {
+      const navLabel = NAV_LABEL_BY_STEP[label] ?? label;
       const before = jPage.url();
-      const step = jPage.locator(".path-steps .path-step", { hasText: label }).first();
-      if ((await step.count()) === 0) throw new Error(`path step "${label}" not found`);
+      let target = jPage.locator(".product-level-nav a", { hasText: navLabel }).first();
+      if ((await target.count()) === 0) {
+        target = jPage.locator(".node-links a, .step-node-list a", { hasText: label }).first();
+      }
+      if ((await target.count()) === 0) throw new Error(`nav step "${label}" (${navLabel}) not found`);
       await Promise.all([
         jPage.waitForURL((u) => u.toString() !== before, { timeout: 10000 }),
-        step.locator("a").click()
+        target.click()
       ]);
       await jPage.waitForLoadState("domcontentloaded");
       await dismissGuide(jPage);

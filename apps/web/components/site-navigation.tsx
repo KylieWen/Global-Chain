@@ -24,13 +24,36 @@ export function SiteNavigation() {
     const outsideFocus = (event: FocusEvent) => {if(!nav.current?.contains(event.target as Node)) close();};
     const escape = (event: KeyboardEvent) => {if(event.key==='Escape') {const open=nav.current?.querySelector('details[open]');close();(open?.querySelector('summary') as HTMLElement)?.focus();}};
     document.addEventListener('pointerdown',outside); document.addEventListener('focusin',outsideFocus); document.addEventListener('keydown',escape);
-    return () => {document.removeEventListener('pointerdown',outside);document.removeEventListener('focusin',outsideFocus);document.removeEventListener('keydown',escape);};
+    return () => {document.removeEventListener('pointerdown',outside); document.removeEventListener('focusin',outsideFocus); document.removeEventListener('keydown',escape);};
   },[pathname,persona.id]);
   const current = (href:string) => href==='/map'?pathname==='/map':href==='/products'?pathname==='/products'||pathname.startsWith('/products/'):pathname===href;
+  const sortItems = (items: typeof groups[number]["items"]) => [...items].sort((left,right)=>Number(persona.recommendedHrefs.includes(right.href))-Number(persona.recommendedHrefs.includes(left.href)));
+  const onToggle = (event: React.ToggleEvent<HTMLDetailsElement>) => {
+    const selected=event.currentTarget;
+    if(selected.open){nav.current?.querySelectorAll('details[open]').forEach(other=>{if(other!==selected)other.removeAttribute('open');});nav.current?.closest('.site-header')?.querySelectorAll('.persona-switcher[open]').forEach(other=>other.removeAttribute('open'));}
+  };
+  const closeAll = () => nav.current?.querySelectorAll('details[open]').forEach(element=>element.removeAttribute('open'));
+  const renderLink = (item: typeof groups[number]["items"][number]) => (
+    <Link key={item.href} href={item.href} aria-current={current(item.href)?'page':undefined} onClick={closeAll}>
+      <strong>{item.label}{hasChosen && persona.recommendedHrefs.includes(item.href) ? <em className="nav-recommendation">推荐</em> : null}</strong>
+      <small>{item.copy}</small>
+    </Link>
+  );
   return <nav className="site-nav hierarchical-nav" aria-label="主导航" ref={nav}>
-    {orderedGroups.map(group=><details className="nav-group" key={group.label} onToggle={event=>{const selected=event.currentTarget;if(selected.open){nav.current?.querySelectorAll('details[open]').forEach(other=>{if(other!==selected)other.removeAttribute('open');});nav.current?.closest('.site-header')?.querySelectorAll('.persona-switcher[open]').forEach(other=>other.removeAttribute('open'));}}}>
+    {orderedGroups.map(group=><details className="nav-group nav-group--groups" key={group.label} onToggle={onToggle}>
       <summary className={group.items.some(item=>current(item.href))?'nav-group-active':undefined}>{group.label}<span aria-hidden="true">⌄</span></summary>
-      <div className="nav-group-menu">{[...group.items].sort((left,right)=>Number(persona.recommendedHrefs.includes(right.href))-Number(persona.recommendedHrefs.includes(left.href))).map(item=><Link key={item.href} href={item.href} aria-current={current(item.href)?'page':undefined} onClick={()=>nav.current?.querySelectorAll('details[open]').forEach(element=>element.removeAttribute('open'))}><strong>{item.label}{hasChosen && persona.recommendedHrefs.includes(item.href) ? <em className="nav-recommendation">推荐</em> : null}</strong><small>{item.copy}</small></Link>)}</div>
+      <div className="nav-group-menu">{sortItems(group.items).map(renderLink)}</div>
     </details>)}
+    <details className="nav-group nav-group--menu">
+      <summary>菜单<span aria-hidden="true">⌄</span></summary>
+      <div className="nav-group-menu nav-group-menu--menu">
+        {orderedGroups.map(group=>(
+          <div className="nav-menu-group" key={group.label}>
+            <p className="nav-menu-group-label">{group.label}</p>
+            {sortItems(group.items).map(renderLink)}
+          </div>
+        ))}
+      </div>
+    </details>
   </nav>;
 }

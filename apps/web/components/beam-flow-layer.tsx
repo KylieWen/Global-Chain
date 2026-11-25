@@ -38,9 +38,16 @@ type Pool = {
   particles: Particle[];
 };
 
+type Endpoint = {
+  x: number;
+  y: number;
+  degree: number;
+};
+
 const MAP_WIDTH = 1000;
 const MAP_HEIGHT = 540;
 const TAU = Math.PI * 2;
+const BEZIER_SAMPLES = 22;
 
 function bezier(point: BeamFlow, t: number, lane: number): [number, number] {
   const [x0, y0] = point.from;
@@ -55,11 +62,28 @@ function bezier(point: BeamFlow, t: number, lane: number): [number, number] {
   return [x + (-dy / length) * lane, y + (dx / length) * lane];
 }
 
+/** Append an alpha channel to a #rrggbb color; pass other colors through. */
+function withAlpha(color: string, alpha: number): string {
+  const clamped = Math.round(Math.min(1, Math.max(0, alpha)) * 255);
+  const hex = clamped.toString(16).padStart(2, "0");
+  return /^#[0-9a-fA-F]{6}$/.test(color) ? `${color}${hex}` : color;
+}
+
+function traceBezier(context: CanvasRenderingContext2D, flow: BeamFlow): void {
+  context.beginPath();
+  for (let index = 0; index <= BEZIER_SAMPLES; index += 1) {
+    const [x, y] = bezier(flow, index / BEZIER_SAMPLES, 0);
+    if (index === 0) context.moveTo(x, y);
+    else context.lineTo(x, y);
+  }
+}
+
 /**
  * Canvas2D particle beam layer. The SVG keeps country geometry, hit targets,
- * labels and the classic static arcs; this overlay only draws moving particles.
- * It is pointer-transparent and stays in the same 1000×540 map coordinate space,
- * so panning and zooming transform the particles exactly like the SVG group.
+ * labels and the classic static arcs; this overlay draws the beam volume band,
+ * moving particles and the converging endpoint glow. It is pointer-transparent
+ * and stays in the same 1000×540 map coordinate space, so panning and zooming
+ * transform the particles exactly like the SVG group.
  */
 export function BeamFlowLayer({
   flows,
@@ -67,6 +91,7 @@ export function BeamFlowLayer({
   settings,
   level,
   nodeColor,
+  scheme = "dark",
   onDiagnostics,
   onFrameSample
 }: {
@@ -75,13 +100,14 @@ export function BeamFlowLayer({
   settings: FlowSettings;
   level: AdaptiveLevel;
   nodeColor: string;
+  scheme?: "dark" | "light";
   onDiagnostics?: (info: BeamDiagnostics) => void;
   onFrameSample?: (frameMs: number) => void;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const stateRef = useRef({ flows, transform, settings, level, nodeColor });
-  stateRef.current = { flows, transform, settings, level, nodeColor };
+  const stateRef = useRef({ flows, transform, settings, level, nodeColor, scheme });
+  stateRef.current = { flows, transform, settings, level, nodeColor, scheme };
 
   const pools = useMemo<Pool[]>(() => {
     const scale = LEVEL_PARTICLE_SCALE[level];
@@ -101,8 +127,28 @@ export function BeamFlowLayer({
     });
   }, [flows, settings.density, settings.maxParticles, level]);
 
+  const endpoints = useMemo<Endpoint[]>(() => {
+    const map = new Map<string, Endpoint>();
+    const add = (point: readonly [number, number]) => {
+      const key = `${Math.round(point[0])},${Math.round(point[1])}`;
+      let entry = map.get(key);
+      if (!entry) {
+        entry = { x: point[0], y: point[1], degree: 0 };
+        map.set(key, entry);
+      }
+      entry.degree += 1;
+    };
+    flows.forEach(flow => {
+      add(flow.from);
+      add(flow.to);
+    });
+    return [...map.values()];
+  }, [flows]);
+
   const poolsRef = useRef(pools);
   poolsRef.current = pools;
+  const endpointsRef = useRef(endpoints);
+  endpointsRef.current = endpoints;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -130,7 +176,7 @@ export function BeamFlowLayer({
     const draw = (time: number) => {
       if (disposed) return;
       raf = requestAnimationFrame(draw);
-      const { transform: mapTransform, settings: current, level: currentLevel, flows: currentFlows, nodeColor: currentNodeColor } = stateRef.current;
+      const { transform: mapTransform, settings: current, level: currentLevel, flows: currentFlows, nodeColor: currentNodeColor, scheme: currentScheme } = stateRef.current;
       const hidden = document.hidden;
       if (hidden) { lastTime = time; return; }
 
@@ -150,37 +196,37 @@ export function BeamFlowLayer({
       const trailScale = LEVEL_TRAIL_SCALE[currentLevel];
       const baseSpeed = current.speed / 6;
       const mutedActive = currentFlows.some(flow => flow.state !== "normal");
+      const light = currentScheme === "light";
 
       let particleCount = 0;
       for (const pool of poolsRef.current) {
         const { flow, particles } = pool;
         if (flow.state === "muted" && mutedActive) continue;
+
+        const alpha = flow.state === "active" ? 1 : flow.state === "muted" ? 0.18 : 0.9;
+        const bandWidth = flow.width * current.beamWidth;
+
+        // Static volume band: soft wide halo + saturated narrow core. This
+        // keeps the beam readable even where particles are sparse.
+        if (particles.length > 0 || flow.state !== "muted") {
+          const haloAlpha = light ? 0.11 : 0.11;
+          const coreAlpha = light ? 0.48 : 0.3;
+          context.lineJoin = "round";
+          context.lineCap = "round";
+          context.strokeStyle = withAlpha(flow.color, haloAlpha * alpha);
+          context.lineWidth = bandWidth * 2.1;
+          traceBezier(context, flow);
+          context.stroke();
+          context.strokeStyle = withAlpha(flow.color, coreAlpha * alpha);
+          context.lineWidth = bandWidth * 0.85;
+          traceBezier(context, flow);
+          context.stroke();
+        }
+
         if (particles.length === 0) continue;
 
-        const alpha = flow.state === "active" ? 1 : flow.state === "muted" ? 0.16 : 0.78;
-        const radius = Math.max(0.6, flow.width * 0.5 * current.beamWidth);
-        const trailAlpha = (0.22 + current.trail * 0.5) * trailScale;
-
-        // Node convergence glow at both endpoints uses the neutral accent,
-        // not the item flow color.
-        if (glowScale > 0) {
-          const glowRadius = flow.width * 1.7 * glowScale;
-          const glowAlpha = Math.round(alpha * glowScale * 90).toString(16).padStart(2, "0");
-          const glow = context.createRadialGradient(flow.from[0], flow.from[1], 0, flow.from[0], flow.from[1], glowRadius);
-          glow.addColorStop(0, `${currentNodeColor}${glowAlpha}`);
-          glow.addColorStop(1, `${currentNodeColor}00`);
-          context.fillStyle = glow;
-          context.beginPath();
-          context.arc(flow.from[0], flow.from[1], glowRadius, 0, TAU);
-          context.fill();
-          const glowTo = context.createRadialGradient(flow.to[0], flow.to[1], 0, flow.to[0], flow.to[1], glowRadius);
-          glowTo.addColorStop(0, `${currentNodeColor}${glowAlpha}`);
-          glowTo.addColorStop(1, `${currentNodeColor}00`);
-          context.fillStyle = glowTo;
-          context.beginPath();
-          context.arc(flow.to[0], flow.to[1], glowRadius, 0, TAU);
-          context.fill();
-        }
+        const radius = Math.max(0.8, bandWidth * 0.55);
+        const trailAlpha = (0.24 + current.trail * 0.5) * trailScale;
 
         for (const particle of particles) {
           particle.t += baseSpeed * particle.speed * (dt / 1000);
@@ -191,23 +237,54 @@ export function BeamFlowLayer({
           const [x, y] = bezier(flow, particle.t, particle.lane);
           const prev: readonly [number, number] = particle.started ? [particle.prevX, particle.prevY] : [x, y];
 
-          context.strokeStyle = `${flow.color}${Math.round(trailAlpha * 255).toString(16).padStart(2, "0")}`;
-          context.lineWidth = radius * 0.8;
+          context.strokeStyle = withAlpha(flow.color, trailAlpha * alpha);
+          context.lineWidth = radius * 0.85;
           context.lineCap = "round";
           context.beginPath();
           context.moveTo(prev[0], prev[1]);
           context.lineTo(x, y);
           context.stroke();
 
-          context.fillStyle = `${flow.color}${Math.round(alpha * 235).toString(16).padStart(2, "0")}`;
+          // Soft outer dot plus a bright core for a lit-particle look.
+          context.fillStyle = withAlpha(flow.color, (light ? 0.42 : 0.35) * alpha);
           context.beginPath();
-          context.arc(x, y, radius * 0.6, 0, TAU);
+          context.arc(x, y, radius, 0, TAU);
+          context.fill();
+          context.fillStyle = withAlpha(flow.color, Math.min(1, alpha * 0.96));
+          context.beginPath();
+          context.arc(x, y, radius * 0.62, 0, TAU);
           context.fill();
 
           particle.prevX = x;
           particle.prevY = y;
           particle.started = true;
           particleCount += 1;
+        }
+      }
+
+      // Converging endpoint glow: one accumulated halo per shared node, scaled
+      // by how many flows meet there. Breathes while animated; static under
+      // reduced motion.
+      if (glowScale > 0) {
+        const breathe = currentLevel === 3 ? 1 : 1 + 0.07 * Math.sin(time / 620);
+        for (const endpoint of endpointsRef.current) {
+          const degree = Math.min(endpoint.degree, 6);
+          const baseRadius = (5.5 + degree * 1.7) * current.glow * glowScale;
+          const radius = baseRadius * breathe;
+          if (radius <= 0.2) continue;
+          const glowAlpha = Math.min(0.55, 0.1 + degree * 0.07) * current.glow * glowScale;
+          const gradient = context.createRadialGradient(endpoint.x, endpoint.y, 0, endpoint.x, endpoint.y, radius);
+          gradient.addColorStop(0, withAlpha(currentNodeColor, glowAlpha));
+          gradient.addColorStop(1, withAlpha(currentNodeColor, 0));
+          context.fillStyle = gradient;
+          context.beginPath();
+          context.arc(endpoint.x, endpoint.y, radius, 0, TAU);
+          context.fill();
+
+          context.fillStyle = currentNodeColor;
+          context.beginPath();
+          context.arc(endpoint.x, endpoint.y, 2.6 + glowScale, 0, TAU);
+          context.fill();
         }
       }
 

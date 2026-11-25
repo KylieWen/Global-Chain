@@ -1,37 +1,42 @@
 import type { ExplodedModel, ExplodedNode } from "./exploded-model";
+import { isBodyAligned, productBodySize, resolveNodeRole, shapeSize, type ExplodedLayer, type Vec3 } from "./exploded-appearance";
 
 /**
  * Deterministic, data-driven layout for the exploded views. Positions derive from
- * tree depth and sibling order only; no product, item id, geometry count or color
- * is hard-coded here.
+ * tree depth, sibling order and the content appearance config only; no product,
+ * item id, geometry count or color is hard-coded here.
  */
-
-export type Vec3 = readonly [number, number, number];
 
 export type ExplodedBox = {
   readonly id: string;
   readonly parentId: string | null;
-  readonly anchor: Vec3;
+  anchor: [number, number, number];
   readonly size: Vec3;
   readonly depth: number;
   readonly lane: string;
+  readonly layer: ExplodedLayer;
 };
 
-const LANE_SIZE: Record<string, Vec3> = {
-  product: [2.1, 1.6, 1.3],
-  module: [1.35, 1.0, 0.95],
-  "assembly-part": [0.95, 0.7, 0.66],
-  part: [0.76, 0.58, 0.52],
-  material: [0.6, 0.45, 0.45],
-  service: [0.52, 0.38, 0.38]
+const INNER_X_GAP = 0.62;
+const INNER_Z = 0.18;
+const CHILD_RADIUS = 0.3;
+const MATERIAL_X_GAP = 0.34;
+const MATERIAL_Y = 0.6;
+
+// Layer bands separate front glass, mid internals and rear cover along depth,
+// so the exploded stack reads as a product manual rather than a scatter of boxes.
+const LAYER_Z: Record<ExplodedLayer, number> = {
+  front: 0.55,
+  mid: 0,
+  rear: -0.55
 };
 
-const MODULE_RADIUS = 3.3;
-const CHILD_RADIUS = 1.95;
-
-function sizeFor(node: ExplodedNode): Vec3 {
-  return LANE_SIZE[node.isService ? "service" : node.lane] ?? LANE_SIZE["assembly-part"];
-}
+// Diagonal spread per band: each layer steps up and to the right of the one in
+// front, like a product-manual exploded view. Values are fractions of body size
+// applied against the root body footprint, kept generic for any product.
+const LAYER_RANK: Record<ExplodedLayer, number> = { front: 0, mid: 1, rear: 2 };
+const DIAG_X = 0.13;
+const DIAG_Y = 0.2;
 
 function ringAngle(index: number, total: number, offset = 0): number {
   if (total <= 1) return offset;
@@ -41,28 +46,104 @@ function ringAngle(index: number, total: number, offset = 0): number {
 /**
  * 3D anchors before camera projection. `explosion` is 0 (assembled) to 1 (fully
  * separated); intermediate values interpolate child offsets toward the parent.
+ * `productId` is optional so the pure layout stays usable without appearance data.
  */
-export function layoutExplodedBoxes(model: ExplodedModel, explosion: number): Map<string, ExplodedBox> {
+export function layoutExplodedBoxes(
+  model: ExplodedModel,
+  explosion: number,
+  productId?: string
+): Map<string, ExplodedBox> {
   const boxes = new Map<string, ExplodedBox>();
   const ease = Math.min(1, Math.max(0, explosion));
+  const bodySize = productId ? productBodySize(productId) : null;
 
-  const place = (node: ExplodedNode, parent: ExplodedBox | null, parentAngle: number, siblingIndex: number, siblingTotal: number): void => {
-    let anchor: Vec3;
+  const place = (
+    node: ExplodedNode,
+    parent: ExplodedBox | null,
+    parentAngle: number,
+    siblingIndex: number,
+    siblingTotal: number
+  ): void => {
+    const role = productId ? resolveNodeRole(productId, node) : null;
+    const layer: ExplodedLayer = role?.layer ?? "mid";
+    let anchor: [number, number, number];
+
+    const aligned = role ? isBodyAligned(role.shape) : false;
+
     if (!parent) {
       anchor = [0, 0, 0];
+    } else if (aligned) {
+      // Body-footprint layers (front glass, screen, rear cover) fan along a gentle
+      // up-right diagonal plus the depth axis, so each band reads as a separate
+      // sheet in a product-manual exploded view.
+      const rank = LAYER_RANK[layer];
+      const diagX = rank * DIAG_X * ease;
+      const diagY = -rank * DIAG_Y * ease;
+      const spreadZ = node.depth === 1
+        ? LAYER_Z[layer] * ease
+        : parent.anchor[2] + 0.35 * ease;
+      const nested: Vec3 = [
+        parent.anchor[0] * 0.94,
+        parent.anchor[1] * 0.94,
+        parent.anchor[2]
+      ];
+      const spread: Vec3 = [
+        parent.anchor[0] * 0.94 + diagX,
+        parent.anchor[1] * 0.94 + diagY,
+        spreadZ
+      ];
+      anchor = [
+        nested[0] + (spread[0] - nested[0]) * ease,
+        nested[1] + (spread[1] - nested[1]) * ease,
+        nested[2] + (spread[2] - nested[2]) * ease
+      ];
+    } else if (node.depth === 1) {
+      // Internal modules flank the body in two sides of a tidy row, lowered
+      // slightly so at least half of each battery / board / module stays visible
+      // beside the frame instead of being hidden behind the front panel.
+      const spreadX = (siblingIndex - (siblingTotal - 1) / 2) * INNER_X_GAP;
+      const spreadZ = -INNER_Z + LAYER_Z[layer] * 0.35 * ease;
+      const spreadY = -0.12 * ease;
+      const nested: Vec3 = [
+        parent.anchor[0] + spreadX * 0.16,
+        parent.anchor[1] + spreadY * 0.2,
+        parent.anchor[2] + spreadZ * 0.16
+      ];
+      const spread: Vec3 = [
+        parent.anchor[0] + spreadX,
+        parent.anchor[1] + spreadY,
+        parent.anchor[2] + spreadZ
+      ];
+      anchor = [
+        nested[0] + (spread[0] - nested[0]) * ease,
+        nested[1] + (spread[1] - nested[1]) * ease,
+        nested[2] + (spread[2] - nested[2]) * ease
+      ];
+    } else if (node.lane === "material") {
+      // Material inputs gather in one tidy row below their parent instead of
+      // scattering as loose slabs around the body.
+      const spreadX = (siblingIndex - (siblingTotal - 1) / 2) * MATERIAL_X_GAP;
+      const spreadY = parent.anchor[1] - MATERIAL_Y;
+      const nested: Vec3 = [
+        parent.anchor[0] + spreadX * 0.16,
+        parent.anchor[1] + (spreadY - parent.anchor[1]) * 0.2,
+        parent.anchor[2] - 0.12 * ease
+      ];
+      const spread: Vec3 = [parent.anchor[0] + spreadX, spreadY, parent.anchor[2] - 0.12];
+      anchor = [
+        nested[0] + (spread[0] - nested[0]) * ease,
+        nested[1] + (spread[1] - nested[1]) * ease,
+        nested[2] + (spread[2] - nested[2]) * ease
+      ];
     } else {
       const angle = ringAngle(siblingIndex, siblingTotal, parentAngle);
-      const radius = node.depth === 1 ? MODULE_RADIUS : CHILD_RADIUS;
-      const bandY = node.lane === "material"
-        ? parent.anchor[1] - 1.45
-        : node.depth === 1
-          ? 0.85
-          : parent.anchor[1] - 0.8;
-      const outward: Vec3 = [Math.cos(angle) * radius, bandY, Math.sin(angle) * radius];
+      const radius = CHILD_RADIUS;
+      const bandY = parent.anchor[1] - 0.3;
+      const outward: Vec3 = [Math.cos(angle) * radius, bandY, Math.sin(angle) * radius * 0.6];
       const nested: Vec3 = [
-        parent.anchor[0] + outward[0] * 0.15,
+        parent.anchor[0] + outward[0] * 0.16,
         parent.anchor[1] + outward[1] * 0.2,
-        parent.anchor[2] + outward[2] * 0.15
+        parent.anchor[2] + outward[2] * 0.16
       ];
       const spread: Vec3 = [
         parent.anchor[0] + outward[0],
@@ -75,13 +156,15 @@ export function layoutExplodedBoxes(model: ExplodedModel, explosion: number): Ma
         nested[2] + (spread[2] - nested[2]) * ease
       ];
     }
+
     const box: ExplodedBox = {
       id: node.id,
       parentId: parent?.id ?? null,
       anchor,
-      size: sizeFor(node),
+      size: shapeSize(role?.shape ?? "module", bodySize, node.depth === 0),
       depth: node.depth,
-      lane: node.lane
+      lane: node.lane,
+      layer
     };
     boxes.set(node.id, box);
 
@@ -90,6 +173,26 @@ export function layoutExplodedBoxes(model: ExplodedModel, explosion: number): Ma
   };
 
   place(model.root, null, 0, 0, 1);
+
+  // Material inputs gather in one compact wrapped grid beside the body (right
+  // side), outside the body fit bounding box, so they never shrink the main
+  // device. The dashed parent link still explains where each material feeds in.
+  const materialBoxes = [...boxes.values()].filter((box) => box.lane === "material");
+  const MATERIAL_COLS = 3;
+  const MATERIAL_GAP_X = 0.34;
+  const MATERIAL_GAP_Y = 0.3;
+  const MATERIAL_X0 = 1.9;
+  const MATERIAL_Y0 = 0.7;
+  materialBoxes.forEach((box, index) => {
+    const col = index % MATERIAL_COLS;
+    const row = Math.floor(index / MATERIAL_COLS);
+    box.anchor = [
+      MATERIAL_X0 + (col - (MATERIAL_COLS - 1) / 2) * MATERIAL_GAP_X,
+      MATERIAL_Y0 - row * MATERIAL_GAP_Y,
+      -0.1
+    ];
+  });
+
   return boxes;
 }
 

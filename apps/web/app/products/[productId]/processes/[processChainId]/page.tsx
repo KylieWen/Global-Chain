@@ -1,11 +1,10 @@
-import { itemLabel } from "../../../../../lib/item-label";
 import { ProductNavigation } from "../../../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../../lib/data";
 import { contextMismatch, readPageContext, type SearchParamsLike } from "../../../../../lib/context";
 import { industryPath, productPath, provenancePath, supplyChainPath } from "../../../../../lib/paths";
-import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../../../components/site-shell";
+import { ContextBanner, PageIntro, SiteShell } from "../../../../../components/site-shell";
 import {
   PeriodLabel,
   ResolvedEvidenceList,
@@ -47,16 +46,15 @@ export default async function ManufacturingProcessPage({
 
   return <SiteShell>
     <div className="content-column wide-column manufacturing-page">
-      <Breadcrumbs items={[{ label: "商品目录", href: "/products" }, { label: itemLabel(view.product), href: productPath(productId, pageContext) }, { label: view.chain.title }]} />
-      <ContextBanner period={view.chain.period.label} datasetVersion={view.datasetVersion.version} contentVersion={view.contentVersion?.version} mismatches={mismatches} />
+      <ProductNavigation productId={productId} context={pageContext} active="route" hasIndustry={Boolean(industry)} hasMaterials={queries.getMaterialTradeObservations(productId).length>0}/>
       <PageIntro
         eyebrow="制造工艺"
         title={view.chain.title}
         description={view.chain.description}
+        meta={<ContextBanner period={view.chain.period.label} datasetVersion={view.datasetVersion.version} contentVersion={view.contentVersion?.version} mismatches={mismatches} />}
         actions={<>{industry && <Link className="button button-primary" href={industryPath(productId,undefined,pageContext)}>查企业与产业上下游</Link>}<Link className="button button-secondary" href={view.componentItem ? supplyChainPath(productId, view.componentItem.id, pageContext) : productPath(productId, pageContext)}>返回组件路线</Link><Link className="button button-secondary" href={provenancePath(productId, pageContext)}>来源与版本</Link></>}
       />
 
-      <ProductNavigation productId={productId} context={pageContext} active="route" hasIndustry={Boolean(industry)} hasMaterials={queries.getMaterialTradeObservations(productId).length>0}/>
       <div className="stat-grid">
         <StatCard label="关键工序" value={view.steps.length} detail="按顺序查看阶段摘要" />
         {equipmentCount > 0 && <StatCard label="设备类别" value={equipmentCount} detail="按工序关联" />}

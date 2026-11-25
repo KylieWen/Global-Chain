@@ -1,4 +1,3 @@
-import { itemLabel } from "../../../../lib/item-label";
 import { ProductNavigation } from "../../../../components/product-navigation";
 import "./industry.css";
 import Link from "next/link";
@@ -6,8 +5,8 @@ import { notFound } from "next/navigation";
 import type { IndustryConnectionView, IndustryParticipantView, IndustryTopicView } from "@globe-chain/domain";
 import { getQueryService } from "../../../../lib/data";
 import { contextMismatch, firstParam, readPageContext, type PageContext, type SearchParamsLike } from "../../../../lib/context";
-import { chinaFiltersFromNestedSearch, industryPath, manufacturingProcessPath, productPath } from "../../../../lib/paths";
-import { Breadcrumbs, ContextBanner, SiteShell } from "../../../../components/site-shell";
+import { chinaFiltersFromNestedSearch, industryPath, manufacturingProcessPath } from "../../../../lib/paths";
+import { ContextBanner, SiteShell } from "../../../../components/site-shell";
 
 const kindLabels: Record<string,string> = {material:"材料",component:"部件",process:"工艺",equipment:"设备",product:"产品与应用",channel:"销售渠道",service:"服务"};
 const relationLabels: Record<string,string> = {process_input:"投入与加工",equipment_for:"制造设备",used_in:"用途与加工",sold_through:"销售入口"};
@@ -50,10 +49,9 @@ export default async function IndustryPage({params,searchParams}: {params:Promis
   const channelLinks=[...view.upstream,...view.downstream].filter(connection=>connection.relation.kind==="sold_through");
   const companyMap = new Map([...view.participants,...view.adjacentParticipants].map(company => [company.id,company]));
   return <SiteShell><div className="content-column wide-column industry-page">
-    <Breadcrumbs items={[{label:"商品目录",href:"/products"},{label:itemLabel(view.product),href:productPath(productId,context)},{label:"产业上下游"}]}/>
+    <ProductNavigation productId={productId} context={context} active="industry" hasIndustry={true} hasMaterials={queries.getMaterialTradeObservations(productId).length>0} chinaSearch={chinaRaw} worldSearch={worldSearch}/>
     {mismatches.length > 0 && <ContextBanner period={view.network.period.label} datasetVersion={view.datasetVersion.version} mismatches={mismatches}/>}
     <div className="industry-heading"><div><p className="eyebrow">产业上下游 · {view.region.name}</p><h1>从一个环节，找到上下游</h1><p>查看材料、部件、制造设备和产品应用，进入企业官方产品、联系与销售入口。</p></div><div className="industry-counts"><span><strong>{view.topics.length}</strong>产业环节</span><span><strong>{view.network.organizations.length}</strong>家企业</span></div></div>
-    <ProductNavigation productId={productId} context={context} active="industry" hasIndustry={true} hasMaterials={queries.getMaterialTradeObservations(productId).length>0} chinaSearch={chinaRaw} worldSearch={worldSearch}/>
     <div className="industry-mobile-picker">
       <form className="industry-mobile-topic-form" action={industryPath(productId, undefined, context, {china:chinaRaw}) + "#industry-focus"}>
         <label htmlFor="industry-topic-mobile">选择产业环节</label>

@@ -12,7 +12,6 @@ vi.mock("../apps/web/lib/data", () => ({ getQueryService: queryService }));
 // form against real immutable data without a browser navigation context.
 vi.mock("../apps/web/components/site-shell", () => ({
   SiteShell: ({ children }: { children: unknown }) => children,
-  Breadcrumbs: () => null,
   ContextBanner: () => null,
   PageIntro: () => null
 }));

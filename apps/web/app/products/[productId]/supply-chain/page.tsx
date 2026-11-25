@@ -4,7 +4,7 @@ import { ProductNavigation } from "../../../../components/product-navigation";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../lib/data";
-import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../../components/site-shell";
+import { ContextBanner, PageIntro, SiteShell } from "../../../../components/site-shell";
 import { contextMismatch, readPageContext } from "../../../../lib/context";
 import {
   EvidenceLevelBadge,
@@ -17,7 +17,7 @@ import {
 } from "../../../../components/data-display";
 import { FlowTable } from "../../../../components/flow-table";
 import { SupplyChainGraph } from "../../../../components/supply-chain-graph";
-import { industryPath, ledgerPath, manufacturingProcessPath, mapPath, nodePath, productPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
+import { industryPath, ledgerPath, manufacturingProcessPath, mapPath, nodePath, provenancePath, supplyChainPath } from "../../../../lib/paths";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -76,16 +76,12 @@ export default async function SupplyChainPage({
   return (
     <SiteShell>
       <div className="content-column wide-column route-page">
-        <Breadcrumbs items={[
-          { label: "商品目录", href: "/products" },
-          { label: itemLabel(overview.product), href: productPath(productId, pageContext) },
-          { label: "供应链路径" }
-        ]} />
-        <ContextBanner period={story.period.label} datasetVersion={story.datasetVersion.version} contentVersion={story.route.contentVersion?.version} mismatches={contextMismatches} />
+        <ProductNavigation productId={productId} context={pageContext} active="route" hasIndustry={Boolean(industry)} hasMaterials={queries.getMaterialTradeObservations(productId).length>0}/>
         <PageIntro
           eyebrow="生产路线"
           title={`${itemLabel(overview.product)} · ${focusName}`}
           description="从材料、部件到整机，点击生产环节继续向上下游探索。"
+          meta={<ContextBanner period={story.period.label} datasetVersion={story.datasetVersion.version} contentVersion={story.route.contentVersion?.version} mismatches={contextMismatches} />}
           actions={(
             <>
               {industry && <Link className="button button-primary" href={industryPath(productId, undefined, pageContext)}>查找中国产业上下游</Link>}
@@ -95,7 +91,6 @@ export default async function SupplyChainPage({
           )}
         />
 
-        <ProductNavigation productId={productId} context={pageContext} active="route" hasIndustry={Boolean(industry)} hasMaterials={queries.getMaterialTradeObservations(productId).length>0}/>
         <section className="filter-strip" aria-label="路径筛选">
           <div>
             <span className="filter-label">聚焦商品</span>

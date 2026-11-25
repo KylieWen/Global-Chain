@@ -1,35 +1,15 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { isPreviewData } from "../lib/runtime";
-import { SiteNavigation } from "./site-navigation";
-import { PersonaSwitcher } from "./persona-switcher";
-import { SiteSearch } from "./site-search";
+import { SiteHeader } from "./site-header";
 import { UsageInsights } from "./usage-insights";
-import { ThemeSwitcher } from "./theme-switcher";
-import { PathSteps } from "./path-steps";
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const preview = isPreviewData();
 
   return (
     <div className="app-frame">
-      <header className="site-header">
-        <div className="site-header-inner">
-          <Link className="brand" href="/" aria-label="Global Chain 首页">
-            <span className="brand-mark" aria-hidden="true">G</span>
-            <span>
-              <strong>Global Chain</strong>
-              <small>全球商品供应链与贸易可视化</small>
-            </span>
-          </Link>
-          <SiteNavigation />
-          <PersonaSwitcher />
-          <ThemeSwitcher />
-          <SiteSearch />
-          {preview ? <span className="mode-pill mode-preview">开发预览</span> : null}
-        </div>
-        <PathSteps />
-      </header>
+      <SiteHeader preview={preview} />
       {preview ? (
         <div className="preview-banner" role="status">
           开发预览 · 合成样例
@@ -45,41 +25,26 @@ export function SiteShell({ children }: { children: ReactNode }) {
   );
 }
 
-export function Breadcrumbs({
-  items
-}: {
-  items: ReadonlyArray<{ label: string; href?: string }>;
-}) {
-  const breadcrumbItems = items[0]?.label === "首页" ? items : [{ label: "首页", href: "/" }, ...items];
-  return (
-    <nav className="breadcrumbs" aria-label="面包屑导航">
-      {breadcrumbItems.map((item, index) => (
-        <span className="breadcrumb-item" key={`${item.label}-${index}`}>
-          {index > 0 ? <span className="breadcrumb-separator">/</span> : null}
-          {item.href ? <Link href={item.href}>{item.label}</Link> : <span>{item.label}</span>}
-        </span>
-      ))}
-    </nav>
-  );
-}
-
 export function PageIntro({
   eyebrow,
   title,
   description,
-  actions
+  actions,
+  meta
 }: {
   eyebrow: string;
   title: string;
   description?: string;
   actions?: ReactNode;
+  meta?: ReactNode;
 }) {
   return (
     <div className="page-intro">
-      <div>
+      <div className="page-intro-copy">
         <p className="eyebrow">{eyebrow}</p>
         <h1>{title}</h1>
         {description ? <p className="intro-copy">{description}</p> : null}
+        {meta ? <div className="intro-meta">{meta}</div> : null}
       </div>
       {actions ? <div className="intro-actions">{actions}</div> : null}
     </div>

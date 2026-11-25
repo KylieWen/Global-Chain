@@ -2,7 +2,7 @@ import { itemLabel } from "../../lib/item-label";
 import Link from "next/link";
 import { readFile } from "node:fs/promises";
 import { notFound } from "next/navigation";
-import { Breadcrumbs, PageIntro, SiteShell } from "../../components/site-shell";
+import { PageIntro, SiteShell } from "../../components/site-shell";
 import { firstParam, type SearchParamsLike } from "../../lib/context";
 import { getQueryService } from "../../lib/data";
 import { getPublishedReleaseManifestPath, listPublishedDatasetVersions } from "../../lib/data-manifest";
@@ -25,7 +25,6 @@ export default async function VersionsPage({ searchParams }: { searchParams: Pro
     } catch { return {}; }
   }));
   return <SiteShell><div className="content-column narrow-column">
-    <Breadcrumbs items={[{ label: "数据版本" }]} />
     <PageIntro eyebrow="研究版本" title="数据版本" description="选择商品及其历史研究快照，查看当时已整理的国家、节点和证据。" actions={<Link className="button button-secondary" href="/products">返回商品探索</Link>} />
     <nav className="filter-links" aria-label="选择商品的历史版本">
       {products.map(({ productId, item }) => <Link className={productId === selectedId ? "filter-chip active" : "filter-chip"} href={`/versions?product=${encodeURIComponent(productId)}`} key={productId}>{itemLabel(item)}</Link>)}

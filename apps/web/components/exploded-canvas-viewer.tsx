@@ -1,9 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import type { ExplodedModel, ExplodedNode } from "../lib/exploded-model";
-import { explodedColorIndex } from "../lib/exploded-model";
 import { layoutExplodedBoxes, type ExplodedBox } from "../lib/exploded-layout";
+import { resolveNodeRole, schemeMaterials, type ResolvedRole } from "../lib/exploded-appearance";
+
+export type ExplodedViewerHandle = {
+  resetView: () => void;
+};
 
 type Tokens = {
   ink: string;
@@ -16,7 +20,8 @@ type Tokens = {
 
 type Props = {
   model: ExplodedModel;
-  palette: readonly string[];
+  productId: string;
+  scheme: "dark" | "light";
   tokens: Tokens;
   selectedId: string | null;
   onSelect: (id: string) => void;
@@ -24,37 +29,55 @@ type Props = {
   reducedMotion: boolean;
 };
 
+type ProjectedPoint = { sx: number; sy: number; depth: number };
+
 type ProjectedBox = {
   box: ExplodedBox;
   node: ExplodedNode;
+  role: ResolvedRole;
   screen: { x: number; y: number; w: number; h: number };
   depth: number;
-  color: string;
+  closeness: number;
+  baseColor: string;
 };
 
-const DEFAULT_YAW = -0.62;
-const DEFAULT_PITCH = 0.42;
+const DEFAULT_YAW = 0.16;
+const DEFAULT_PITCH = 0.14;
 const MIN_PITCH = -0.6;
 const MAX_PITCH = 1.15;
 
-// Padding fraction kept around the fitted model; larger value leaves more margin.
+// Padding fraction kept around the fitted body; the main device fills most of
+// the canvas height. Material chips are positioned beside the body and are
+// excluded from the fit bounding box so they never shrink the device.
 const FIT_PAD_X = 0.08;
-const FIT_PAD_Y = 0.1;
-// Per-face brightness so the top / side / front read as separate planes.
-const FACE_SHADE = [1, 0.74, 0.55] as const;
+const BODY_FIT_HEIGHT = 0.78;
+// Per-face brightness so the top / side / front read as separate planes under one light.
+const FACE_SHADE = [1.07, 0.82, 0.64] as const;
 
-function hexToRgba(hex: string, alpha: number): string {
+function parseHex(hex: string): { r: number; g: number; b: number } | null {
   const normalized = hex.replace("#", "");
-  const value = normalized.length === 3 ? normalized.split("").map((ch) => ch + ch).join("") : normalized;
-  const parsed = Number.parseInt(value, 16);
-  if (Number.isNaN(parsed)) return hex;
-  const r = (parsed >> 16) & 255;
-  const g = (parsed >> 8) & 255;
-  const b = parsed & 255;
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  if (!/^[0-9a-fA-F]{6}$/.test(normalized)) return null;
+  const value = Number.parseInt(normalized, 16);
+  if (Number.isNaN(value)) return null;
+  return { r: (value >> 16) & 255, g: (value >> 8) & 255, b: value & 255 };
 }
 
-export function ExplodedCanvasViewer({ model, palette, tokens, selectedId, onSelect, explosion, reducedMotion }: Props) {
+function shadeColor(hex: string, factor: number): string {
+  const rgb = parseHex(hex);
+  if (!rgb) return hex;
+  const target = factor >= 1 ? 255 : 0;
+  const mix = Math.min(1, Math.abs(factor - 1));
+  const channel = (value: number) => Math.round(value + (target - value) * mix);
+  return `rgb(${channel(rgb.r)}, ${channel(rgb.g)}, ${channel(rgb.b)})`;
+}
+
+function withAlpha(hex: string, alpha: number): string {
+  const rgb = parseHex(hex);
+  if (!rgb) return hex;
+  return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${Math.min(1, Math.max(0, alpha))})`;
+}
+
+export const ExplodedCanvasViewer = forwardRef<ExplodedViewerHandle, Props>(function ExplodedCanvasViewer({ model, productId, scheme, tokens, selectedId, onSelect, explosion, reducedMotion }, ref) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 640, height: 420 });
@@ -65,6 +88,7 @@ export function ExplodedCanvasViewer({ model, palette, tokens, selectedId, onSel
   const interaction = useRef<number>(0);
 
   const nodeById = useMemo(() => new Map(model.nodes.map((node) => [node.id, node])), [model]);
+  const materials = useMemo(() => schemeMaterials(scheme), [scheme]);
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -78,12 +102,11 @@ export function ExplodedCanvasViewer({ model, palette, tokens, selectedId, onSel
   }, []);
 
   const project = useCallback(() => {
-    const boxes = layoutExplodedBoxes(model, explosion);
+    const boxes = layoutExplodedBoxes(model, explosion, productId);
     const { yaw, pitch, zoom } = camera.current;
     const cx = size.width / 2;
     const cy = size.height / 2;
 
-    // Fit the real projected bounding box into the viewport; zoom multiplies the fit.
     const cosY = Math.cos(yaw);
     const sinY = Math.sin(yaw);
     const cosP = Math.cos(pitch);
@@ -99,7 +122,8 @@ export function ExplodedCanvasViewer({ model, palette, tokens, selectedId, onSel
 
     let minX = Infinity; let maxX = -Infinity;
     let minY = Infinity; let maxY = -Infinity;
-    boxes.forEach((box) => {
+    const fitBoxes = [...boxes.values()].filter((box) => box.lane !== "material");
+    fitBoxes.forEach((box) => {
       const [w, h, d] = box.size;
       const [ax, ay, az] = box.anchor;
       const corners = [
@@ -123,19 +147,23 @@ export function ExplodedCanvasViewer({ model, palette, tokens, selectedId, onSel
     const midY = (minY + maxY) / 2;
     const fit = Math.min(
       (size.width - size.width * FIT_PAD_X * 2) / rawW,
-      (size.height - size.height * FIT_PAD_Y * 2) / rawH
+      (size.height * BODY_FIT_HEIGHT) / rawH
     );
     const scale = fit * zoom;
 
-    const projectPoint = (x: number, y: number, z: number) => {
+    const projectPoint = (x: number, y: number, z: number): ProjectedPoint => {
       const cam = toCamera(x, y, z);
       return { sx: cx + (cam.x1 - midX) * scale, sy: cy - (cam.y2 - midY) * scale, depth: cam.z2 };
     };
 
     const projected: ProjectedBox[] = [];
+    let depthMin = Infinity; let depthMax = -Infinity;
+    const temp: ProjectedBox[] = [];
+
     boxes.forEach((box, id) => {
       const node = nodeById.get(id);
       if (!node) return;
+      const role = resolveNodeRole(productId, node);
       const [w, h, d] = box.size;
       const [ax, ay, az] = box.anchor;
       const corners = [
@@ -151,10 +179,12 @@ export function ExplodedCanvasViewer({ model, palette, tokens, selectedId, onSel
       const xs = corners.map((c) => c.sx);
       const ys = corners.map((c) => c.sy);
       const depth = corners.reduce((sum, c) => sum + c.depth, 0) / corners.length;
-      const color = palette[explodedColorIndex(model.nodes, id) % palette.length] ?? palette[0];
-      projected.push({
+      depthMin = Math.min(depthMin, depth);
+      depthMax = Math.max(depthMax, depth);
+      temp.push({
         box,
         node,
+        role,
         screen: {
           x: Math.min(...xs),
           y: Math.min(...ys),
@@ -162,17 +192,25 @@ export function ExplodedCanvasViewer({ model, palette, tokens, selectedId, onSel
           h: Math.max(...ys) - Math.min(...ys)
         },
         depth,
-        color
+        closeness: 0,
+        baseColor: materials[role.material] ?? materials.material
       });
     });
-    projected.sort((a, b) => b.depth - a.depth);
+
+    const depthSpan = Math.max(depthMax - depthMin, 1e-6);
+    for (const item of temp) {
+      projected.push({ ...item, closeness: (item.depth - depthMin) / depthSpan });
+    }
+    projected.sort((a, b) => a.depth - b.depth);
     projectedRef.current = projected;
     return { projected, projectPoint };
-  }, [model, explosion, nodeById, palette, size]);
+  }, [model, explosion, productId, nodeById, materials, size]);
 
   const draw = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    const cosY = Math.cos(camera.current.yaw);
+    const sinY = Math.sin(camera.current.yaw);
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     const dpr = typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1;
@@ -183,6 +221,19 @@ export function ExplodedCanvasViewer({ model, palette, tokens, selectedId, onSel
 
     const { projected, projectPoint } = project();
 
+    // Soft contact shadows on a shared ground plane, drawn under the parts.
+    for (const item of projected) {
+      const [w, , d] = item.box.size;
+      const [ax, ay, az] = item.box.anchor;
+      const ground = projectPoint(ax, ay + item.box.size[1] / 2, az);
+      const rx = (w / 2) * size.width * 0.12;
+      const ry = Math.max(3, d * size.height * 0.05);
+      ctx.beginPath();
+      ctx.ellipse(ground.sx, ground.sy + 6, rx, ry, 0, 0, Math.PI * 2);
+      ctx.fillStyle = scheme === "dark" ? "rgba(0, 0, 0, 0.22)" : "rgba(23, 35, 59, 0.12)";
+      ctx.fill();
+    }
+
     // Parent-to-child guide lines, drawn under the boxes.
     ctx.lineWidth = 1;
     for (const item of projected) {
@@ -192,16 +243,18 @@ export function ExplodedCanvasViewer({ model, palette, tokens, selectedId, onSel
       const a = projectPoint(...parent.box.anchor);
       const b = projectPoint(...item.box.anchor);
       ctx.strokeStyle = tokens.line;
-      ctx.globalAlpha = 0.5;
+      ctx.globalAlpha = 0.22;
+      ctx.setLineDash([3, 4]);
       ctx.beginPath();
       ctx.moveTo(a.sx, a.sy);
       ctx.lineTo(b.sx, b.sy);
       ctx.stroke();
     }
     ctx.globalAlpha = 1;
+    ctx.setLineDash([]);
 
     for (const item of projected) {
-      const { box, node, screen, color } = item;
+      const { box, node, role, screen, baseColor } = item;
       const [w, h, d] = box.size;
       const [ax, ay, az] = box.anchor;
       const corners = [
@@ -216,36 +269,69 @@ export function ExplodedCanvasViewer({ model, palette, tokens, selectedId, onSel
       ];
       const selected = selectedId === node.id;
       const hovered = hoveredId === node.id;
-      const stroke = selected ? tokens.accent : hexToRgba(color, 0.95);
-      const baseAlpha = selected ? 0.97 : hovered ? 0.94 : 0.9;
+      const dimmed = selectedId !== null && !selected && !hovered;
 
-      // Top face (0,1,2,3), right face (1,2,6,5), left/front face (0,3,7,4).
+      // Air perspective: farther layers sit slightly quieter; nearer parts stay crisp.
+      const perspective = 0.72 + 0.28 * item.closeness;
+      const stateAlpha = selected ? 0.98 : hovered ? 0.95 : dimmed ? 0.6 : 0.9;
+      const baseAlpha = stateAlpha * perspective;
+
+      // Visible faces chosen from the camera azimuth: top plus one x-side and
+      // one z-side corner, so every solid reads as a closed extruded part.
+      const sideXFaces = cosY >= 0
+        ? [corners[1], corners[2], corners[6], corners[5]]
+        : [corners[0], corners[3], corners[7], corners[4]];
+      const sideZFaces = sinY >= 0
+        ? [corners[3], corners[2], corners[6], corners[7]]
+        : [corners[0], corners[1], corners[5], corners[4]];
       const faces = [
         [corners[0], corners[1], corners[2], corners[3]],
-        [corners[1], corners[2], corners[6], corners[5]],
-        [corners[0], corners[3], corners[7], corners[4]]
+        sideXFaces,
+        sideZFaces
       ];
+      const stroke = selected ? tokens.accent : shadeColor(baseColor, 0.72);
+      if (selected) {
+        ctx.shadowColor = tokens.accent;
+        ctx.shadowBlur = 10;
+      }
       faces.forEach((face, faceIndex) => {
         ctx.beginPath();
         ctx.moveTo(face[0].sx, face[0].sy);
         for (let i = 1; i < face.length; i += 1) ctx.lineTo(face[i].sx, face[i].sy);
         ctx.closePath();
-        const shade = FACE_SHADE[faceIndex];
-        ctx.fillStyle = hexToRgba(color, baseAlpha * shade);
+        ctx.fillStyle = withAlpha(shadeColor(baseColor, FACE_SHADE[faceIndex]), baseAlpha);
         ctx.fill();
-        ctx.strokeStyle = stroke;
-        ctx.lineWidth = selected ? 2 : 1.2;
+        ctx.strokeStyle = withAlpha(stroke, selected ? 1 : 0.85);
+        ctx.lineWidth = selected ? 2.2 : 1;
         ctx.stroke();
       });
+      ctx.shadowBlur = 0;
 
-      if (node.depth <= 1 || selected || hovered) {
+      drawDecoration(ctx, corners, role, baseColor, materials, selected, scheme, sideZFaces, node.depth === 0);
+
+      // Labels stay on the top-level bands (body, front glass/screen, battery,
+      // rear cover); deeper parts appear only when hovered or selected.
+      const showLabel = node.depth <= 1 || selected || hovered;
+      if (showLabel && screen.w >= 28) {
+        const above = node.depth === 0 || role.layer === "front";
+        const nudge = role.layer === "rear" ? 16 : node.depth === 1 && role.layer === "mid" ? -12 : 0;
+        const cx = screen.x + screen.w / 2 + nudge;
+        const labelY = above ? screen.y - 10 : screen.y + screen.h + 14;
+        ctx.strokeStyle = tokens.line;
+        ctx.globalAlpha = 0.55;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(cx, above ? screen.y : screen.y + screen.h);
+        ctx.lineTo(cx, above ? labelY + 3 : labelY - 3);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
         ctx.fillStyle = selected ? tokens.accent : tokens.inkSoft;
-        ctx.font = `${selected ? 600 : 500} 11px var(--font-base)`;
+        ctx.font = `${selected ? 600 : 500} 11px var(--font-base, sans-serif)`;
         ctx.textAlign = "center";
-        ctx.fillText(node.name, screen.x + screen.w / 2, screen.y - 6);
+        ctx.fillText(node.name, cx, labelY);
       }
     }
-  }, [project, size, selectedId, hoveredId, tokens]);
+  }, [project, size, selectedId, hoveredId, tokens, materials, scheme]);
 
   // Redraw on state/theme/size changes; reduced motion skips the idle animation loop.
   useEffect(() => {
@@ -257,7 +343,7 @@ export function ExplodedCanvasViewer({ model, palette, tokens, selectedId, onSel
     let frame = 0;
     const loop = () => {
       const idle = Date.now() - interaction.current > 2600;
-      if (idle) camera.current.yaw += 0.0016;
+      if (idle) camera.current.yaw += 0.0012;
       draw();
       frame = requestAnimationFrame(loop);
     };
@@ -327,11 +413,13 @@ export function ExplodedCanvasViewer({ model, palette, tokens, selectedId, onSel
     return () => canvas.removeEventListener("wheel", onWheel);
   }, [onWheel]);
 
-  const resetView = () => {
+  const resetView = useCallback(() => {
     camera.current = { yaw: DEFAULT_YAW, pitch: DEFAULT_PITCH, zoom: 1 };
     interaction.current = Date.now();
     draw();
-  };
+  }, [draw]);
+
+  useImperativeHandle(ref, () => ({ resetView }), [resetView]);
 
   return (
     <div className="exploded-canvas-wrap" ref={wrapRef}>
@@ -345,10 +433,212 @@ export function ExplodedCanvasViewer({ model, palette, tokens, selectedId, onSel
         onPointerUp={onPointerUp}
         onPointerLeave={() => setHoveredId(null)}
       />
-      <div className="exploded-view-controls">
-        <button type="button" className="button button-secondary exploded-reset" onClick={resetView}>重置视角</button>
-        <span className="exploded-hint">拖动旋转 · 滚轮缩放 · 点击部件</span>
-      </div>
     </div>
   );
+});
+
+/** Local 2D point on the top face: u,v run from -0.5 (left/back) to 0.5 (right/front). */
+function topPoint(corners: ProjectedPoint[], u: number, v: number): ProjectedPoint {
+  const p0 = corners[0];
+  const p1 = corners[1];
+  const p3 = corners[3];
+  return {
+    sx: p0.sx + (p1.sx - p0.sx) * (0.5 + u) + (p3.sx - p0.sx) * (0.5 + v),
+    sy: p0.sy + (p1.sy - p0.sy) * (0.5 + u) + (p3.sy - p0.sy) * (0.5 + v),
+    depth: p0.depth
+  };
+}
+
+/** Bilinear point on a side face: u left→right, v top→bottom. */
+function facePoint(face: ProjectedPoint[], u: number, v: number): ProjectedPoint {
+  const tl = face[0];
+  const tr = face[1];
+  const bl = face[3];
+  return {
+    sx: tl.sx + (tr.sx - tl.sx) * u + (bl.sx - tl.sx) * v,
+    sy: tl.sy + (tr.sy - tl.sy) * u + (bl.sy - tl.sy) * v,
+    depth: tl.depth
+  };
+}
+
+function drawDecoration(
+  ctx: CanvasRenderingContext2D,
+  corners: ProjectedPoint[],
+  role: ResolvedRole,
+  baseColor: string,
+  materials: Readonly<Record<string, string>>,
+  selected: boolean,
+  scheme: "dark" | "light",
+  zFace: ProjectedPoint[],
+  isRoot: boolean
+): void {
+  const top = (u: number, v: number) => topPoint(corners, u, v);
+  const chipColor = materials.chip ?? baseColor;
+
+  switch (role.shape) {
+    case "screen":
+    case "glass":
+    case "panel": {
+      // Diagonal glass sheen across the top face.
+      const a = top(-0.45, -0.45);
+      const b = top(0.45, 0.45);
+      const grad = ctx.createLinearGradient(a.sx, a.sy, b.sx, b.sy);
+      grad.addColorStop(0, scheme === "dark" ? "rgba(255,255,255,0.16)" : "rgba(255,255,255,0.35)");
+      grad.addColorStop(0.5, "rgba(255,255,255,0.02)");
+      grad.addColorStop(1, scheme === "dark" ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.18)");
+      ctx.beginPath();
+      corners.slice(0, 4).forEach((c, i) => (i === 0 ? ctx.moveTo(c.sx, c.sy) : ctx.lineTo(c.sx, c.sy)));
+      ctx.closePath();
+      ctx.fillStyle = grad;
+      ctx.fill();
+      break;
+    }
+    case "pcb":
+    case "board-small": {
+      // Traces and small solder pads.
+      ctx.strokeStyle = withAlpha(shadeColor(baseColor, 1.35), 0.7);
+      ctx.lineWidth = 1;
+      const traces: [number, number, number, number][] = [
+        [-0.4, -0.2, 0.1, -0.2],
+        [0.1, -0.2, 0.1, 0.2],
+        [-0.3, 0.25, 0.35, 0.25]
+      ];
+      for (const [u1, v1, u2, v2] of traces) {
+        const p1 = top(u1, v1);
+        const p2 = top(u2, v2);
+        ctx.beginPath();
+        ctx.moveTo(p1.sx, p1.sy);
+        ctx.lineTo(p2.sx, p2.sy);
+        ctx.stroke();
+      }
+      const pad = top(-0.15, 0.05);
+      ctx.fillStyle = withAlpha(chipColor, 0.9);
+      ctx.beginPath();
+      ctx.arc(pad.sx, pad.sy, 2.4, 0, Math.PI * 2);
+      ctx.fill();
+      break;
+    }
+    case "chip": {
+      const c = top(0, 0);
+      ctx.fillStyle = withAlpha(chipColor, 0.95);
+      ctx.strokeStyle = withAlpha(shadeColor(chipColor, 0.7), 0.9);
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(c.sx, c.sy, 3.2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      break;
+    }
+    case "wafer":
+    case "lens":
+    case "motor": {
+      const c = top(0, 0);
+      ctx.fillStyle = withAlpha(shadeColor(baseColor, 0.7), 0.9);
+      ctx.beginPath();
+      ctx.arc(c.sx, c.sy, 3.6, 0, Math.PI * 2);
+      ctx.fill();
+      break;
+    }
+    case "camera-bump": {
+      const island = top(0, 0);
+      ctx.fillStyle = withAlpha(shadeColor(baseColor, 1.15), 0.95);
+      ctx.beginPath();
+      ctx.arc(island.sx, island.sy, 5.5, 0, Math.PI * 2);
+      ctx.fill();
+      for (const [du, dv] of [[-0.12, -0.1], [0.12, 0.1]] as const) {
+        const lens = top(du, dv);
+        ctx.fillStyle = withAlpha(scheme === "dark" ? "#0b1220" : "#233149", 0.95);
+        ctx.beginPath();
+        ctx.arc(lens.sx, lens.sy, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      break;
+    }
+    case "rear": {
+      // Camera island on the visible broad face of the rear cover; lenses map to
+      // the real camera BOM nodes rather than being added as separate parts.
+      if (zFace.length === 4) {
+        const island = facePoint(zFace, 0.3, 0.26);
+        ctx.fillStyle = withAlpha(shadeColor(baseColor, 1.14), 0.95);
+        ctx.beginPath();
+        ctx.arc(island.sx, island.sy, 7, 0, Math.PI * 2);
+        ctx.fill();
+        for (const [du, dv] of [[-0.12, -0.1], [0.12, 0.1]] as const) {
+          const lens = facePoint(zFace, 0.3 + du, 0.26 + dv);
+          ctx.fillStyle = withAlpha(scheme === "dark" ? "#0b1220" : "#233149", 0.95);
+          ctx.beginPath();
+          ctx.arc(lens.sx, lens.sy, 2.4, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      break;
+    }
+    case "battery-pack":
+    case "battery-cell": {
+      const tab = top(0.32, -0.32);
+      ctx.fillStyle = withAlpha(shadeColor(baseColor, 1.3), 0.9);
+      ctx.beginPath();
+      ctx.arc(tab.sx, tab.sy, 1.8, 0, Math.PI * 2);
+      ctx.fill();
+      break;
+    }
+    case "speaker": {
+      ctx.fillStyle = withAlpha(shadeColor(baseColor, 0.7), 0.7);
+      for (const [du, dv] of [[-0.15, 0], [0, 0], [0.15, 0]] as const) {
+        const dot = top(du, dv);
+        ctx.beginPath();
+        ctx.arc(dot.sx, dot.sy, 1.3, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      break;
+    }
+    case "frame":
+    case "frame-part": {
+      // Thin metal highlight along the top perimeter.
+      ctx.strokeStyle = withAlpha(scheme === "dark" ? "#c7d3e4" : "#ffffff", selected ? 0.95 : 0.55);
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      corners.slice(0, 4).forEach((c, i) => (i === 0 ? ctx.moveTo(c.sx, c.sy) : ctx.lineTo(c.sx, c.sy)));
+      ctx.closePath();
+      ctx.stroke();
+
+      if (isRoot && role.shape === "frame" && zFace.length === 4) {
+        // Inset front glass on the visible broad face so the root body reads as a device.
+        const panel = [
+          facePoint(zFace, 0.1, 0.08),
+          facePoint(zFace, 0.9, 0.08),
+          facePoint(zFace, 0.9, 0.92),
+          facePoint(zFace, 0.1, 0.92)
+        ];
+        ctx.beginPath();
+        ctx.moveTo(panel[0].sx, panel[0].sy);
+        for (let i = 1; i < panel.length; i += 1) ctx.lineTo(panel[i].sx, panel[i].sy);
+        ctx.closePath();
+        ctx.fillStyle = withAlpha(materials.screen ?? baseColor, 0.96);
+        ctx.fill();
+        const sheen = ctx.createLinearGradient(panel[0].sx, panel[0].sy, panel[2].sx, panel[2].sy);
+        sheen.addColorStop(0, scheme === "dark" ? "rgba(255,255,255,0.14)" : "rgba(255,255,255,0.3)");
+        sheen.addColorStop(0.55, "rgba(255,255,255,0.02)");
+        sheen.addColorStop(1, "rgba(255,255,255,0.05)");
+        ctx.fillStyle = sheen;
+        ctx.fill();
+        // Speaker slit near the top edge.
+        const slit = [
+          facePoint(zFace, 0.42, 0.035),
+          facePoint(zFace, 0.58, 0.035),
+          facePoint(zFace, 0.58, 0.06),
+          facePoint(zFace, 0.42, 0.06)
+        ];
+        ctx.beginPath();
+        ctx.moveTo(slit[0].sx, slit[0].sy);
+        for (let i = 1; i < slit.length; i += 1) ctx.lineTo(slit[i].sx, slit[i].sy);
+        ctx.closePath();
+        ctx.fillStyle = withAlpha(scheme === "dark" ? "#0b1220" : "#233149", 0.9);
+        ctx.fill();
+      }
+      break;
+    }
+    default:
+      break;
+  }
 }

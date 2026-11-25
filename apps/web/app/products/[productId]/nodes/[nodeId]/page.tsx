@@ -3,7 +3,7 @@ import { ProductNavigation } from "../../../../../components/product-navigation"
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../../lib/data";
-import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../../../components/site-shell";
+import { ContextBanner, PageIntro, SiteShell } from "../../../../../components/site-shell";
 import { contextMismatch, readPageContext } from "../../../../../lib/context";
 import {
   EvidenceGapRegistry,
@@ -15,7 +15,7 @@ import {
   WarningList
 } from "../../../../../components/data-display";
 import { FlowTable, NodeFlowSummary } from "../../../../../components/flow-table";
-import { evidenceGapsPath, ledgerPath, productPath, supplyChainPath } from "../../../../../lib/paths";
+import { evidenceGapsPath, ledgerPath } from "../../../../../lib/paths";
 
 export default async function SupplyChainNodePage({
   params,
@@ -42,17 +42,12 @@ export default async function SupplyChainNodePage({
   return (
     <SiteShell>
       <div className="content-column wide-column">
-        <Breadcrumbs items={[
-          { label: "商品目录", href: "/products" },
-          { label: itemLabel(overview.product), href: productPath(productId, pageContext) },
-          { label: "供应链路径", href: supplyChainPath(productId, undefined, routeContext) },
-          { label: node.node.node.label }
-        ]} />
-        <ContextBanner period={node.node.period.label} datasetVersion={node.datasetVersion.version} contentVersion={node.node.contentVersion?.version} mismatches={contextMismatches} />
+        <ProductNavigation productId={productId} context={routeContext} active="route" hasIndustry={Boolean(queries.getIndustryNetwork(productId))} hasMaterials={queries.getMaterialTradeObservations(productId).length>0}/>
         <PageIntro
           eyebrow="供应链环节"
           title={node.node.node.label}
           description="查看这个环节用到什么、产出什么，以及它连接的上下游。"
+          meta={<ContextBanner period={node.node.period.label} datasetVersion={node.datasetVersion.version} contentVersion={node.node.contentVersion?.version} mismatches={contextMismatches} />}
           actions={(
             <>
               {node.node.entity && hasLedger ? <Link className="button button-primary" href={ledgerPath(productId, node.node.entity.id, pageContext)}>打开国家账本</Link> : null}
@@ -61,7 +56,6 @@ export default async function SupplyChainNodePage({
           )}
         />
 
-        <ProductNavigation productId={productId} context={routeContext} active="route" hasIndustry={Boolean(queries.getIndustryNetwork(productId))} hasMaterials={queries.getMaterialTradeObservations(productId).length>0}/>
 
         {node.warnings.length > 0 && <details className="detail-collapsible compact-detail">
           <summary className="detail-summary"><strong>节点阅读提示</strong><span>{node.warnings.length} 条</span></summary>

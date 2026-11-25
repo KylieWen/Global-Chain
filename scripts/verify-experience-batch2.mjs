@@ -184,6 +184,26 @@ async function readWorkspace(page) {
   });
 }
 
+/**
+ * Rebaseline: the /map record list now starts collapsed as a floating drawer.
+ * Desktop shows a right-edge pill (.atlas-records-reopen); the 390 layout shows
+ * an entry in the control row (.atlas-records-reopen--mobile). The list panel
+ * is display:none while closed, so open it before clicking any .atlas-record.
+ */
+async function openRecords(page) {
+  const list = page.locator(".atlas-record-list").first();
+  if (await list.isVisible().catch(() => false)) return true;
+  const reopenDesktop = page.locator(".atlas-records-reopen").first();
+  const reopenMobile = page.locator(".atlas-records-reopen--mobile").first();
+  if ((await reopenDesktop.count()) > 0 && await reopenDesktop.isVisible().catch(() => false)) {
+    await reopenDesktop.click();
+  } else if ((await reopenMobile.count()) > 0 && await reopenMobile.isVisible().catch(() => false)) {
+    await reopenMobile.click();
+  }
+  await list.waitFor({ state: "visible", timeout: 6000 }).catch(() => {});
+  return list.isVisible().catch(() => false);
+}
+
 async function readStoredTheme(page) {
   return page.evaluate(() => {
     try { return JSON.parse(window.localStorage.getItem("globechain-theme") ?? "null"); }
@@ -315,6 +335,7 @@ try {
   const statusSoy = await gotoPage(dPage, SOY_URL, { waitSelector: ".atlas-canvas svg" });
   ok("soy map loads HTTP 200", statusSoy === 200, { status: statusSoy, url: dPage.url() });
   await dPage.waitForTimeout(1500);
+  await openRecords(dPage);
 
   const stateA = await readWorkspace(dPage);
   const themeA = await themeState(dPage);
@@ -443,6 +464,7 @@ try {
   await shot(dPage, "soy-1440-beam-light.png");
 
   // Light theme detail contrast.
+  await openRecords(dPage);
   await dPage.locator(".atlas-record").first().click();
   await dPage.locator('.record-drawer[role="dialog"]').first().waitFor({ timeout: 5000 });
   const detailLight = await readDrawer(dPage);
@@ -496,7 +518,7 @@ try {
   }
 
   // ---- Drawer functional tests (desktop) ----
-  await dPage.locator(".flow-settings-open").click();
+  await dPage.locator(".flow-mode-controls .flow-settings-open").click();
   await dPage.locator('.flow-drawer[aria-label="调节流动"]').waitFor({ timeout: 5000 });
   const sliderCount = await dPage.locator(".flow-slider input[type=range]").count();
   ok("drawer: six tuning sliders", sliderCount === 6, { sliderCount });
@@ -516,13 +538,15 @@ try {
   observe("soy-desktop-adjusted", stateAdjusted);
   await shot(dPage, "soy-1440-beam-adjusted.png");
 
-  // Reset to defaults.
+  // Reset to scheme defaults. Shipped tokens (lib/theme/tokens.ts) are
+  // particle density 0.78, width 2.3 -> beamWidth 1.15; the range inputs snap
+  // to step 0.05 / 0.1, so read-back values land on 0.8 / 1.2.
   await dPage.locator('.flow-drawer-actions button:has-text("恢复默认")').click();
   await dPage.waitForTimeout(500);
   const densityReset = await sliderValue(dPage, "粒子量");
   const beamReset = await sliderValue(dPage, "束宽");
-  ok("reset: density returns to default 0.6", Number(densityReset) === 0.6, { densityReset });
-  ok("reset: beam width returns to default 1", Number(beamReset) === 1, { beamReset });
+  ok("reset: density returns to scheme default 0.78", Math.abs(Number(densityReset) - 0.78) <= 0.05, { densityReset, schemeDefault: 0.78 });
+  ok("reset: beam width returns to scheme default 1.15", Math.abs(Number(beamReset) - 1.15) <= 0.1, { beamReset, schemeDefault: 1.15 });
 
   // Settings persist across reload: tweak density, reload, reopen, compare.
   await setSlider(dPage, "粒子量", 0.9);
@@ -530,7 +554,7 @@ try {
   await reloadWithRetry(dPage);
   await dismissGuide(dPage);
   await dPage.waitForTimeout(1200);
-  await dPage.locator(".flow-settings-open").click();
+  await dPage.locator(".flow-mode-controls .flow-settings-open").click();
   await dPage.locator('.flow-drawer[aria-label="调节流动"]').waitFor({ timeout: 5000 });
   const densityPersist = await sliderValue(dPage, "粒子量");
   const beamPersist = await sliderValue(dPage, "束宽");
@@ -661,7 +685,7 @@ try {
   const rounds = 10;
   const classicCanvasCounts = [];
   for (let i = 0; i < rounds; i++) {
-    await sPage.locator(".flow-settings-open").click();
+    await sPage.locator(".flow-mode-controls .flow-settings-open").click();
     await sPage.waitForTimeout(150);
     await sPage.locator(".flow-drawer-close").click();
     await sPage.waitForTimeout(120);
@@ -693,7 +717,7 @@ try {
   attachErrorCapture(vPage, "soy-video");
   await gotoPage(vPage, SOY_URL, { waitSelector: ".atlas-canvas svg" });
   await vPage.waitForTimeout(4000); // particles visible at least 4s
-  await vPage.locator(".flow-settings-open").click();
+  await vPage.locator(".flow-mode-controls .flow-settings-open").click();
   await vPage.waitForTimeout(600);
   await setSlider(vPage, "粒子量", 0.85);
   await setSlider(vPage, "束宽", 1.8);
@@ -741,8 +765,11 @@ try {
   ok("mobile: return-to-map button present", (await returnBtn.count()) > 0, { count: await returnBtn.count() });
   await shot(mPage, "soy-390-beam-dark.png");
 
-  // Mobile drawer open + close via Escape.
-  await mPage.locator(".flow-settings-open").click();
+  // Mobile drawer open + close via Escape. On narrow screens the settings
+  // entry lives inside the collapsed filter body; expand it first.
+  await mPage.locator(".atlas-filters-toggle").click();
+  await mPage.waitForTimeout(200);
+  await mPage.locator(".flow-settings-open--mobile").click();
   await mPage.locator('.flow-drawer[aria-label="调节流动"]').waitFor({ timeout: 5000 });
   await shot(mPage, "soy-390-drawer.png");
   await mPage.keyboard.press("Escape");
@@ -937,7 +964,7 @@ try {
   await gotoPage(cPage, SOY_URL, { waitSelector: ".atlas-canvas svg" });
   await cPage.waitForTimeout(1200);
   await shot(cPage, "soy-1440-beam-default.png");
-  await cPage.locator(".flow-settings-open").click();
+  await cPage.locator(".flow-mode-controls .flow-settings-open").click();
   await cPage.waitForTimeout(300);
   await setSlider(cPage, "粒子量", 1);
   await setSlider(cPage, "束宽", 3);

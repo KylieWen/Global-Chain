@@ -236,16 +236,24 @@ await shot(dPage, "route-battery-1440-dark.png");
 const ledgerLink = dPage.locator(".node-links a, .step-node-list a", { hasText: "国家账本" }).first();
 const hasLedgerLink = (await ledgerLink.count()) > 0;
 if (hasLedgerLink) {
-  await ledgerLink.click();
-  await dPage.waitForSelector(".ledger-page", { timeout: 10000 });
+  try {
+    await Promise.all([
+      dPage.waitForURL(u => u.pathname.includes("/ledger/"), { timeout: 10000 }),
+      ledgerLink.click(),
+    ]);
+    await dPage.locator(".ledger-page").first().waitFor({ timeout: 10000 });
+  } catch (e) { recordIssue("probe", "ledger navigation wait", { error: String(e?.message ?? e).split("\n")[0] }); }
 }
 const ledgerUrl = dPage.url();
 ok("route reaches a country ledger without browser back", hasLedgerLink && ledgerUrl.includes("/ledger/"), { url: ledgerUrl, hasLedgerLink });
 await shot(dPage, "ledger-au-1440-dark.png");
 
 // Ledger → world map via in-page navigation.
-await dPage.locator(".product-level-nav a", { hasText: "世界地图" }).first().click();
-await dPage.waitForSelector(".atlas-workspace, .world-country-map, svg", { timeout: 10000 });
+await Promise.all([
+  dPage.waitForURL(u => u.pathname.startsWith("/map"), { timeout: 10000 }),
+  dPage.locator(".product-level-nav a", { hasText: "世界地图" }).first().click()
+]);
+await dPage.waitForSelector(".atlas-workspace, .world-country-map", { timeout: 10000 });
 const mapUrl = dPage.url();
 ok("ledger returns to the world map in-page", mapUrl.includes("/map"), { url: mapUrl });
 await shot(dPage, "map-from-ledger-1440-dark.png");

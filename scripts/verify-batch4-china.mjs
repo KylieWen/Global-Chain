@@ -157,16 +157,27 @@ function parseNested(inner) {
   return Object.fromEntries(new URLSearchParams(inner ?? ""));
 }
 
-// --- Start one clean production server (refuse occupied port) ---
+// --- Start one clean production server, unless REVIEW_BASE_URL points at an
+//     already-running instance. A shared dev instance must not get a second
+//     `next start` against the same .next directory. ---
+const externalBase = Boolean(process.env.REVIEW_BASE_URL);
 const probe = createServer();
-await new Promise((done, reject) => { probe.once("error", reject); probe.listen(port, "127.0.0.1", () => probe.close(done)); });
-const log = createWriteStream(resolve(output, "server.log"));
-const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)], {
-  cwd: resolve(root, "apps/web"), env: { ...process.env, NODE_ENV: "production", NEXT_TELEMETRY_DISABLED: "1" }, windowsHide: true, stdio: ["ignore", "pipe", "pipe"]
-});
-server.stdout.pipe(log, { end: false }); server.stderr.pipe(log, { end: false });
-let serverFailure; server.on("error", error => { serverFailure = error; });
-const closed = new Promise(done => server.once("close", done));
+let server = null;
+let closed = null;
+let log = null;
+if (!externalBase) {
+  await new Promise((done, reject) => { probe.once("error", reject); probe.listen(port, "127.0.0.1", () => probe.close(done)); });
+  log = createWriteStream(resolve(output, "server.log"));
+  server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)], {
+    cwd: resolve(root, "apps/web"), env: { ...process.env, NODE_ENV: "production", NEXT_TELEMETRY_DISABLED: "1" }, windowsHide: true, stdio: ["ignore", "pipe", "pipe"]
+  });
+  server.stdout.pipe(log, { end: false }); server.stderr.pipe(log, { end: false });
+  server.on("error", error => { serverFailure = error; });
+  closed = new Promise(done => server.once("close", done));
+} else {
+  probe.close();
+}
+let serverFailure;
 
 let browser;
 try {
@@ -174,14 +185,14 @@ try {
   let ready = false;
   while (Date.now() < deadline) {
     if (serverFailure) throw serverFailure;
-    if (server.exitCode !== null) throw new Error(`Preview exited ${server.exitCode}; see ${output}/server.log`);
+    if (server && server.exitCode !== null) throw new Error(`Preview exited ${server.exitCode}; see ${output}/server.log`);
     try {
       const response = await fetch(base + "/api/health", { signal: AbortSignal.timeout(1000) });
       if (response.ok) { ready = true; break; }
     } catch { /* still warming up */ }
     await new Promise(r => setTimeout(r, 250));
   }
-  if (!ready) throw new Error("Production preview did not become ready");
+  if (!ready) throw new Error(externalBase ? "Configured REVIEW_BASE_URL did not become ready" : "Production preview did not become ready");
 
   browser = await chromium.launch({ channel: "chrome", headless: true });
   results.browser.name = "Chrome (Playwright channel=chrome)";
@@ -354,9 +365,9 @@ try {
   }
 } finally {
   if (browser) await browser.close().catch(() => {});
-  if (server.exitCode === null) server.kill();
-  await closed;
-  log.end();
+  if (server && server.exitCode === null) server.kill();
+  if (closed) await closed;
+  if (log) log.end();
 }
 
 results.finishedAt = new Date().toISOString();

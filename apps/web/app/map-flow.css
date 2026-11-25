@@ -454,3 +454,456 @@
 :root[data-theme="dark"] .atlas-item-picker[open] summary {
   color: var(--ink);
 }
+
+/* ==========================================================================
+   Full-viewport atlas experience (visual refresh 2026-11)
+   The map canvas is the first-screen subject. Filter controls float over the
+   map as a glass bar; the record list is a collapsible floating drawer instead
+   of a fixed column that squeezes the canvas. These rules load after
+   globals.css so they outrank the legacy two-column layout.
+   ========================================================================== */
+
+.atlas-page.content-column.wide-column {
+  width: 100%;
+  max-width: none;
+  padding: 4.25rem 0 0;
+  min-height: 100dvh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* One slim top line: heading + layer switch + product chips share a single
+   row so the map starts near the top of the viewport. */
+.atlas-page > .atlas-topline {
+  flex: none;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  padding: 0.35rem 1.25rem 0;
+}
+
+.atlas-topline .atlas-page-heading {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.atlas-topline .atlas-page-heading h1 {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+
+.atlas-topline .product-level-nav {
+  flex: 1 1 auto;
+  margin: 0;
+  width: auto;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.atlas-topline .product-level-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.atlas-page .country-map-workspace.atlas-workspace {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.atlas-workspace .atlas-layout {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+
+.atlas-workspace .atlas-canvas {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 0;
+}
+
+/* Year line / playback track is its own flow row between the map and the
+   legend, so it never overlaps the legend chips or the caption. */
+.atlas-workspace .trade-timeline {
+  flex: none;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0.5rem 1.25rem 0;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 0.7rem;
+  background: color-mix(in srgb, var(--bg-elevated) 82%, transparent);
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+}
+
+.atlas-workspace .trade-timeline p,
+.atlas-workspace .trade-timeline span {
+  min-width: 0;
+}
+
+.atlas-workspace .map-viewport {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+}
+
+.atlas-workspace .world-country-map {
+  height: 100%;
+  max-height: none;
+}
+
+/* Filter bar: labels live in the collapsible body; render mode, settings and
+   zoom controls stay in the always-visible actions row. */
+.atlas-compact-filters-body {
+  display: contents;
+}
+
+.atlas-compact-filters-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.6rem;
+}
+
+.atlas-filters-toggle {
+  display: none;
+}
+
+/* Compact floating glass control bar over the top of the canvas. */
+.atlas-workspace .atlas-compact-filters {
+  position: absolute;
+  top: 0.9rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  z-index: 12;
+  margin: 0;
+  padding: 0.55rem 0.7rem;
+  background: color-mix(in srgb, var(--bg-elevated) 86%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 0.85rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow);
+}
+
+.atlas-workspace .atlas-compact-filters label {
+  flex: 1 1 7rem;
+}
+
+/* Record list: right-hand floating drawer on desktop, bottom sheet on mobile. */
+.records-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  width: min(360px, 34vw);
+  display: flex;
+  flex-direction: column;
+  background: color-mix(in srgb, var(--bg-elevated) 88%, transparent);
+  border-left: 1px solid var(--line);
+  border-radius: 0;
+  overflow: hidden;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.records-drawer.is-closed {
+  display: none;
+}
+
+.atlas-records-bar {
+  flex: none;
+  padding: 0.5rem 0.7rem;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface-raised) 72%, transparent);
+}
+
+.atlas-records-toggle {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  min-height: 2.4rem;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.atlas-records-toggle small {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.atlas-records-panel {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.records-drawer .atlas-record-list {
+  max-height: none;
+}
+
+/* Floating reopen entry shown when the drawer is collapsed: a slim right-edge
+   pill that never covers the converging nodes. */
+.atlas-records-reopen {
+  position: absolute;
+  top: 5.5rem;
+  right: 1rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.5rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.7rem;
+  background: color-mix(in srgb, var(--bg-elevated) 90%, transparent);
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+.atlas-records-reopen strong {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Records entry that lives inside the mobile control row; the floating pill is
+   desktop-only. */
+.atlas-records-reopen--mobile {
+  display: none;
+}
+
+/* The mobile-only settings entry lives inside the collapsible filter body. */
+.flow-settings-open--mobile {
+  display: none;
+}
+
+/* Narrow screens move the map description out of the beam area into the
+   below-map legend row; the in-viewport caption overlay stays desktop-only. */
+.atlas-caption-note {
+  display: none;
+}
+
+@media (max-width: 759px) {
+  .atlas-page.content-column.wide-column {
+    padding-top: 3.5rem;
+  }
+
+  .atlas-topline {
+    gap: 0.3rem 0.75rem;
+    padding: 0.25rem 1rem 0;
+  }
+
+  .atlas-topline .atlas-page-heading h1 {
+    font-size: 1rem;
+  }
+
+  .atlas-workspace .atlas-compact-filters {
+    left: 1rem;
+    right: 1rem;
+    top: 0.6rem;
+    padding: 0.5rem;
+  }
+
+  /* Persistent one-row controls: segmented mode + filter entry + zoom / focus. */
+  .atlas-compact-filters-actions {
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .flow-mode-controls {
+    display: flex;
+    flex: 0 1 auto;
+    flex-wrap: nowrap;
+    gap: 0.3rem;
+  }
+
+  .flow-mode-controls .flow-settings-open {
+    display: none;
+  }
+
+  .flow-settings-open--mobile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 0.5rem;
+    background: var(--surface-raised);
+    color: var(--accent);
+    font: inherit;
+    font-size: 0.78rem;
+    cursor: pointer;
+  }
+
+  .atlas-filters-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 0.5rem;
+    background: var(--accent-soft);
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.78rem;
+    cursor: pointer;
+  }
+
+  .map-zoom-controls {
+    display: flex;
+    margin-left: auto;
+    gap: 0.3rem;
+  }
+
+  .map-zoom-controls button {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+  }
+
+  .map-zoom-controls button[aria-label="复位地图"] {
+    display: none;
+  }
+
+  .atlas-compact-filters-body {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .atlas-compact-filters-body[data-open="false"] {
+    display: none;
+  }
+
+  .atlas-workspace .atlas-compact-filters select,
+  .atlas-workspace .atlas-compact-filters button {
+    min-height: 2.75rem;
+  }
+
+  .atlas-workspace .atlas-compact-filters-actions {
+    flex-wrap: nowrap;
+  }
+
+  .flow-mode-controls button,
+  .atlas-filters-toggle,
+  .map-zoom-controls button,
+  .map-focus-open {
+    white-space: nowrap;
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .atlas-workspace .atlas-canvas {
+    padding-top: 3.25rem;
+  }
+
+  .atlas-workspace .map-viewport {
+    min-height: 58dvh;
+  }
+
+  .records-drawer.is-open {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: 64dvh;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 1.1rem 1.1rem 0 0;
+  }
+
+  /* On narrow screens the records entry joins the persistent control row
+     instead of floating over the bottom captions. */
+  .atlas-records-reopen {
+    display: none;
+  }
+
+  .atlas-records-reopen--mobile {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 2.75rem;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 0.5rem;
+    background: var(--surface-raised);
+    color: var(--ink-soft);
+    font: inherit;
+    font-size: 0.78rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .atlas-records-reopen--mobile strong {
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .atlas-map-caption {
+    display: none;
+  }
+
+  .atlas-caption-note {
+    display: block;
+    flex-basis: 100%;
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.02em;
+  }
+}
+
+/* Very narrow phones: the always-visible actions row wraps onto its own
+   line and its groups wrap again instead of clipping the focus/zoom buttons.
+   Touch targets keep the 2.75rem (44px) height from the 759px rules. */
+@media (max-width: 374px) {
+  .atlas-compact-filters-actions {
+    grid-column: 1 / -1;
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+  }
+
+  .flow-mode-controls {
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+  }
+
+  .map-zoom-controls {
+    margin-left: 0;
+  }
+}

@@ -2,7 +2,7 @@ import { itemLabel } from "../../../../lib/item-label";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../lib/data";
-import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../../components/site-shell";
+import { ContextBanner, PageIntro, SiteShell } from "../../../../components/site-shell";
 import {
   EvidenceGapRegistry,
   PeriodLabel,
@@ -10,7 +10,7 @@ import {
   StatCard,
   WarningList
 } from "../../../../components/data-display";
-import { materialObservationsPath, productPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
+import { materialObservationsPath, provenancePath, supplyChainPath } from "../../../../lib/paths";
 import { contextMismatch, readPageContext, type SearchParamsLike } from "../../../../lib/context";
 
 export default async function ProductEvidenceGapsPage({
@@ -31,16 +31,11 @@ export default async function ProductEvidenceGapsPage({
   return (
     <SiteShell>
       <div className="content-column wide-column">
-        <Breadcrumbs items={[
-          { label: "商品目录", href: "/products" },
-          { label: itemLabel(overview.product), href: productPath(productId, pageContext) },
-          { label: "证据缺口登记册" }
-        ]} />
-        <ContextBanner period={overview.period.label} datasetVersion={provenance.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />
         <PageIntro
           eyebrow="证据完整度"
           title={`${itemLabel(overview.product)} · 证据缺口登记册`}
           description="这里列出当前仍需核验的节点和连接。先看摘要，再按需展开来源、证据范围和审计细节；未收录的数据不会被补成零。"
+          meta={<ContextBanner period={overview.period.label} datasetVersion={provenance.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />}
           actions={(
             <>
               <Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>供应链路径</Link>

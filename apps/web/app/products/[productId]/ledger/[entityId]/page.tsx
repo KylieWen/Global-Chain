@@ -3,7 +3,7 @@ import { ProductNavigation } from "../../../../../components/product-navigation"
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../../lib/data";
-import { Breadcrumbs, ContextBanner, PageIntro, SiteShell } from "../../../../../components/site-shell";
+import { ContextBanner, PageIntro, SiteShell } from "../../../../../components/site-shell";
 import { contextMismatch, readPageContext } from "../../../../../lib/context";
 import {
   dataMethodLabel,
@@ -18,7 +18,7 @@ import {
   ValueDisplay,
   WarningList
 } from "../../../../../components/data-display";
-import { ledgerPath, mapPath, nodePath, productPath, supplyChainPath } from "../../../../../lib/paths";
+import { ledgerPath, mapPath, nodePath, supplyChainPath } from "../../../../../lib/paths";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -69,21 +69,15 @@ export default async function CountryLedgerPage({
   return (
     <SiteShell>
       <div className="content-column wide-column ledger-page">
-        <Breadcrumbs items={[
-          { label: "商品目录", href: "/products" },
-          { label: itemLabel(overview.product), href: productPath(productId, pageContext) },
-          { label: "国家贸易账本" },
-          { label: ledger.entity.name }
-        ]} />
-        <ContextBanner period={ledger.period.label} datasetVersion={ledger.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={contextMismatches} />
+        <ProductNavigation productId={productId} context={pageContext} active="ledger" hasIndustry={Boolean(queries.getIndustryNetwork(productId))} hasMaterials={queries.getMaterialTradeObservations(productId).length>0} entityId={entityId}/>
         <PageIntro
           eyebrow="国家贸易账本"
           title={`${ledger.entity.name} · 国家账本`}
           description="查看已收录的产业与贸易数据，继续探索商品、生产环节与贸易伙伴。"
+          meta={<ContextBanner period={ledger.period.label} datasetVersion={ledger.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={contextMismatches} />}
           actions={<Link className="button button-secondary" href={firstRelatedNode ? nodePath(productId, firstRelatedNode.node.id, pageContext) : supplyChainPath(productId, undefined, pageContext)}>查看供应链</Link>}
         />
 
-        <ProductNavigation productId={productId} context={pageContext} active="ledger" hasIndustry={Boolean(queries.getIndustryNetwork(productId))} hasMaterials={queries.getMaterialTradeObservations(productId).length>0} entityId={entityId}/>
 
         {snapshotMetrics.length > 0 && <section className="ledger-snapshot" aria-labelledby="ledger-snapshot-title">
           <div className="section-heading"><div><p className="eyebrow">关键数据</p><h2 id="ledger-snapshot-title">关键数据</h2></div><span className="section-caption">{snapshotMetrics.length} 项指标</span></div>

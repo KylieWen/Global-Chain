@@ -185,20 +185,36 @@ function summarizeErrors(label) {
   };
 }
 
-async function stepsState(page) {
-  await page.locator(".path-steps .path-step a").first().waitFor({ timeout: 10000 });
-  const labels = await page.locator(".path-steps .path-step-label").allTextContents();
-  const active = await page.locator(".path-steps .path-step.is-active .path-step-label").innerText().catch(() => null);
-  const hrefs = await page.locator(".path-steps .path-step a").evaluateAll(els => els.map(a => a.getAttribute("href")));
-  return { labels: labels.map(s => s.trim()), active, hrefs };
+/**
+ * Rebaseline: the全站 PathSteps（.path-steps 拆解→路线→账本）已被有意移除，
+ * 两层外壳改为顶栏 + 商品标签条（.product-level-nav）。这里读取标签条状态，
+ * 等价替代旧路径条的“当前步骤 / 步骤链接”断言。
+ */
+async function navState(page) {
+  const nav = page.locator(".product-level-nav");
+  const present = (await nav.count()) > 0;
+  const labels = present ? (await nav.locator("a").allTextContents()).map(s => s.trim()) : [];
+  const active = present ? await nav.locator('[aria-current="page"]').first().innerText().catch(() => null) : null;
+  const hrefs = present ? await nav.locator("a").evaluateAll(els => els.map(a => a.getAttribute("href"))) : [];
+  return { present, labels, active, hrefs };
 }
 
+/** Old path-strip step label -> equivalent product-level-nav label. */
+const NAV_LABEL_BY_STEP = { "拆解": "商品拆解", "路线": "生产路线", "账本": "国家账本" };
+
 async function clickStep(page, label) {
+  const navLabel = NAV_LABEL_BY_STEP[label] ?? label;
   const before = page.url();
-  const step = page.locator(".path-steps .path-step", { hasText: label }).first();
+  // Prefer the product level nav; ledger links on route pages live in the node
+  // link block, so fall back there when the nav does not expose a ledger entry.
+  let target = page.locator(".product-level-nav a", { hasText: navLabel }).first();
+  if ((await target.count()) === 0) {
+    target = page.locator(".node-links a, .step-node-list a", { hasText: label }).first();
+  }
+  if ((await target.count()) === 0) throw new Error(`nav step "${label}" (${navLabel}) not found`);
   await Promise.all([
     page.waitForURL(url => url.toString() !== before, { timeout: 10000 }),
-    step.locator("a").click()
+    target.click()
   ]);
   await page.waitForLoadState("domcontentloaded");
 }
@@ -226,7 +242,7 @@ try {
 
   const homeDefault = await themeState(dPage);
   ok("fresh isolated context defaults to dark", homeDefault.theme === "dark", homeDefault);
-  ok("home map preview renders (non-zero svg)", await dPage.locator(".home-atlas-map svg").count() > 0);
+  ok("home hero map renders (non-zero svg)", await dPage.locator(".home-hero-map svg").count() > 0);
 
   const homeMeta = await dPage.evaluate(() => ({
     h1: document.querySelector("h1")?.textContent?.trim() ?? "",
@@ -234,8 +250,8 @@ try {
       label: a.querySelector("strong")?.textContent?.trim() ?? "",
       href: a.getAttribute("href") ?? ""
     })),
-    mapBox: (() => { const r = document.querySelector(".home-atlas-map")?.getBoundingClientRect(); return r ? { w: Math.round(r.width), h: Math.round(r.height) } : null; })(),
-    claimBox: (() => { const r = document.querySelector(".home-atlas-claim")?.getBoundingClientRect(); return r ? { w: Math.round(r.width), h: Math.round(r.height) } : null; })()
+    mapBox: (() => { const r = document.querySelector(".home-hero-map")?.getBoundingClientRect(); return r ? { w: Math.round(r.width), h: Math.round(r.height) } : null; })(),
+    claimBox: (() => { const r = document.querySelector(".home-hero-claim")?.getBoundingClientRect(); return r ? { w: Math.round(r.width), h: Math.round(r.height) } : null; })()
   }));
   results.observations.push({ section: "home-meta", ...homeMeta });
   ok("home shows five product entries", homeMeta.productEntries.length === 5, { count: homeMeta.productEntries.length });
@@ -254,7 +270,7 @@ try {
     const btn = document.querySelector(".button-primary");
     const entry = document.querySelector(".home-product-entry");
     const strong = entry?.querySelector("strong");
-    const ocean = document.querySelector(".home-atlas-map .map-ocean");
+    const ocean = document.querySelector(".home-hero-map .map-ocean");
     return {
       button: cs(btn),
       entry: entry ? { bg: getComputedStyle(entry).backgroundColor, strongColor: strong ? getComputedStyle(strong).color : null } : null,
@@ -270,12 +286,12 @@ try {
   await shot(dPage, "home-1440-dark.png");
   await overflowReport(dPage, "home-1440-dark");
 
-  // Map preview interaction: zoom in / out / reset
+  // Map preview interaction: zoom in / out / reset (hero map controls)
   await dismissGuide(dPage);
-  const zoomIn = dPage.locator('.map-zoom-controls button[aria-label="放大地图"]');
-  const zoomOut = dPage.locator('.map-zoom-controls button[aria-label="缩小地图"]');
-  const reset = dPage.locator('.map-zoom-controls button:has-text("复位")');
-  const svgGroup = dPage.locator(".home-atlas-map svg g").first();
+  const zoomIn = dPage.locator('.home-hero-zoom button[aria-label="放大地图"]');
+  const zoomOut = dPage.locator('.home-hero-zoom button[aria-label="缩小地图"]');
+  const reset = dPage.locator('.home-hero-zoom button:has-text("复位")');
+  const svgGroup = dPage.locator(".home-hero-map svg g").first();
   const transformBefore = await svgGroup.getAttribute("transform");
   await zoomIn.click();
   const transformZoomed = await svgGroup.getAttribute("transform");
@@ -285,34 +301,40 @@ try {
   const transformReset = await svgGroup.getAttribute("transform");
   ok("home map reset restores identity transform", /translate\(0 0\) scale\(1\)/.test(transformReset ?? ""), { transformReset });
 
-  // Country selection (pointer + keyboard) and deep link
-  const dataCountry = dPage.locator(".home-atlas-country.has-data").first();
-  const dataCountryCount = await dPage.locator(".home-atlas-country.has-data").count();
-  ok("home map has countries covered by recorded routes", dataCountryCount > 0, { count: dataCountryCount });
-  if (dataCountryCount > 0) {
-    await dataCountry.click();
-    const selectedAfterClick = await dataCountry.getAttribute("aria-pressed");
-    ok("pointer click selects a country (aria-pressed)", selectedAfterClick === "true");
-    const footerLabel = await dPage.locator(".home-atlas-map-footer span").innerText();
-    const deepLink = await dPage.locator('.home-atlas-map-footer a[href*="/map"]').getAttribute("href");
-    results.observations.push({ section: "home-country-selection", footerLabel, deepLink });
-    ok("selection updates footer country label", footerLabel.length > 0);
-    ok("country deep link carries product context", Boolean(deepLink && deepLink.includes("product=")), { deepLink });
+  // Hero coverage: the old home atlas selectable country + footer deep link were
+  // removed with the refresh; the featured route now renders endpoints, flow
+  // lines, the hero claim and a product entry strip instead.
+  const endpointCount = await dPage.locator(".home-hero-endpoint").count();
+  const lineCount = await dPage.locator(".home-hero-line").count();
+  ok("home hero renders endpoints covered by recorded routes", endpointCount > 0, { count: endpointCount });
+  results.observations.push({ section: "home-hero-coverage", endpoints: endpointCount, lines: lineCount });
+  if (endpointCount > 0) {
+    ok("home hero renders flow lines from recorded routes", lineCount > 0, { lines: lineCount });
+    const claimHeading = (await dPage.locator(".home-hero-claim h1").innerText()).trim();
+    const entryHref = await dPage.locator(".home-product-strip .home-product-entry").first().getAttribute("href");
+    results.observations.push({ section: "home-hero-entry", claimHeading, entryHref });
+    ok("hero claim heading is visible with featured product", claimHeading.length > 0, { claimHeading });
+    ok("product entry deep link carries product context", Boolean(entryHref && entryHref.includes("product=")), { entryHref });
 
-    // Keyboard: focus another covered country and activate with Enter
-    const others = dPage.locator(".home-atlas-country.has-data");
+    // Keyboard: move focus to another featured-product switcher and activate with Enter
+    const others = dPage.locator(".home-hero-switcher button");
     const second = others.nth(Math.min(1, await others.count() - 1));
     await second.focus();
     await dPage.keyboard.press("Enter");
+    await dPage.waitForTimeout(150);
     const pressed = await second.getAttribute("aria-pressed");
-    ok("keyboard Enter selects focused country", pressed === "true");
+    ok("keyboard Enter switches featured product on switcher", pressed === "true");
   }
 
-  // Three-step strip on home: home itself sits on the breakdown step.
-  const homeSteps = await stepsState(dPage);
-  results.observations.push({ section: "home-path-steps", ...homeSteps });
-  ok("home path strip lists 拆解/路线/账本", homeSteps.labels.includes("拆解") && homeSteps.labels.includes("路线") && homeSteps.labels.includes("账本"), homeSteps);
-  ok("home marks 拆解 as active step", homeSteps.active === "拆解", { homeActive: homeSteps.active });
+  // Home entry layer: old path strip (拆解/路线/账本) was removed. Equivalent
+  // checks are the hero map CTA and the product entry strip that start the journey.
+  const heroCta = dPage.locator(".home-hero-actions .button-primary").first();
+  const homeCtaHref = await heroCta.getAttribute("href").catch(() => null);
+  const homeEntryCount = await dPage.locator(".home-product-entry").count();
+  results.observations.push({ section: "home-entry-cta", homeCtaHref, entryCount: homeEntryCount });
+  ok("home exposes map CTA and product entries for the journey",
+    Boolean(homeCtaHref) && homeEntryCount === 5, { homeCtaHref, homeEntryCount });
+  ok("home primary CTA points to the world map", Boolean(homeCtaHref && homeCtaHref.startsWith("/map")), { homeCtaHref });
 
   // Toggle to light, verify dataset.theme + persisted storage + reload persistence
   const switcher = dPage.locator(".theme-switcher");
@@ -328,8 +350,8 @@ try {
   await shot(dPage, "home-1440-light.png");
   await overflowReport(dPage, "home-1440-light");
   const lightVisual = await dPage.evaluate(() => {
-    const ocean = document.querySelector(".home-atlas-map .map-ocean");
-    const svg = document.querySelector(".home-atlas-map svg");
+    const ocean = document.querySelector(".home-hero-map .map-ocean");
+    const svg = document.querySelector(".home-hero-map svg");
     return { oceanFill: ocean ? getComputedStyle(ocean).fill : null, svgBg: svg ? getComputedStyle(svg).backgroundColor : null };
   });
   results.observations.push({ section: "light-home-visual", ...lightVisual });
@@ -348,18 +370,18 @@ try {
   ]);
   await dismissGuide(dPage);
   await dPage.locator(".atlas-canvas svg, .product-level-nav").first().waitFor({ timeout: 10000 });
-  const mapSteps = await stepsState(dPage);
-  results.observations.push({ section: "journey-map", ...mapSteps, url: dPage.url() });
+  const mapNav = await navState(dPage);
+  results.observations.push({ section: "journey-map", ...mapNav, url: dPage.url() });
   ok("home entry opens the map page", /\/map/.test(new URL(dPage.url()).pathname), { url: dPage.url() });
-  ok("map page marks 路线 active step", mapSteps.active === "路线", { mapActive: mapSteps.active });
+  ok("map page marks 世界地图 active in level nav", mapNav.active === "世界地图", { mapActive: mapNav.active });
 
   await clickStep(dPage, "拆解");
   await dPage.locator(".product-overview-intro h1, .page-intro h1").first().waitFor({ timeout: 10000 });
-  const productSteps = await stepsState(dPage);
+  const productNav = await navState(dPage);
   const productTitle = await dPage.locator("h1").first().innerText();
-  results.observations.push({ section: "journey-product", title: productTitle, ...productSteps, url: dPage.url() });
+  results.observations.push({ section: "journey-product", title: productTitle, ...productNav, url: dPage.url() });
   ok("拆解 step opens product breakdown page", /\/products\//.test(new URL(dPage.url()).pathname), { url: dPage.url() });
-  ok("product page marks 拆解 active", productSteps.active === "拆解", { productActive: productSteps.active });
+  ok("product page marks 商品拆解 active", productNav.active === "商品拆解", { productActive: productNav.active });
   ok("product page shows context banner + level nav",
     (await dPage.locator(".context-banner").count()) > 0 && (await dPage.locator(".product-level-nav").count()) > 0);
 
@@ -368,15 +390,15 @@ try {
     clickStep(dPage, "路线")
   ]);
   await dPage.locator(".product-level-nav, .route-graph-shell, .flow-table").first().waitFor({ timeout: 10000 });
-  const routeSteps = await stepsState(dPage);
-  results.observations.push({ section: "journey-route", ...routeSteps, url: dPage.url() });
+  const routeNav = await navState(dPage);
+  results.observations.push({ section: "journey-route", ...routeNav, url: dPage.url() });
   ok("路线 step opens supply-chain page", /\/supply-chain/.test(new URL(dPage.url()).pathname), { url: dPage.url() });
-  ok("supply-chain page marks 路线 active", routeSteps.active === "路线", { routeActive: routeSteps.active });
+  ok("supply-chain page marks 生产路线 active", routeNav.active === "生产路线", { routeActive: routeNav.active });
 
   await clickStep(dPage, "账本");
   await dPage.locator(".country-card, .ledger-page, .page-intro h1").first().waitFor({ timeout: 10000 });
-  const ledgerSteps = await stepsState(dPage);
-  results.observations.push({ section: "journey-ledger", ...ledgerSteps, url: dPage.url() });
+  const ledgerNav = await navState(dPage);
+  results.observations.push({ section: "journey-ledger", ...ledgerNav, url: dPage.url() });
   ok("账本 step opens countries/ledger page", /\/(countries|products\/[^/]+\/ledger)/.test(new URL(dPage.url()).pathname), { url: dPage.url() });
   } catch (e) {
     recordIssue("重要", "首页三步导航旅程中断", String(e?.message ?? e).split("\n")[0]);

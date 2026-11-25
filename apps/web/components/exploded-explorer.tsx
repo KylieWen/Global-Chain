@@ -7,7 +7,7 @@ import type { ExplodedModel } from "../lib/exploded-model";
 import { explodedLinks } from "../lib/exploded-links";
 import { useThemePreference } from "./theme-preference";
 import { StatusBadge } from "./data-display";
-import { ExplodedCanvasViewer } from "./exploded-canvas-viewer";
+import { ExplodedCanvasViewer, type ExplodedViewerHandle } from "./exploded-canvas-viewer";
 import { ExplodedIsoView } from "./exploded-iso-view";
 import "./exploded-view.css";
 
@@ -22,15 +22,16 @@ const MATERIAL_TYPES = new Set(["material", "raw_material"]);
 
 export function ExplodedExplorer({ model, productId, context, initialFocus }: Props) {
   const { tokens, reducedMotion } = useThemePreference();
-  const palette = tokens.map.palette.itemColors;
   const initialNode = initialFocus && model.nodes.some((node) => node.id === initialFocus) ? initialFocus : model.root.id;
   const [selectedId, setSelectedId] = useState<string | null>(initialNode);
-  const [explosion, setExplosion] = useState(0.62);
+  const [explosion, setExplosion] = useState(0.5);
+  const viewerRef = useRef<ExplodedViewerHandle | null>(null);
 
   const nodeById = useMemo(() => new Map(model.nodes.map((node) => [node.id, node])), [model]);
   const selected = selectedId ? nodeById.get(selectedId) ?? model.root : model.root;
   const links = explodedLinks(productId, selected, context);
   const mounted = useRef(false);
+  const isProcedural = model.renderMode === "procedural-3d";
 
   useEffect(() => {
     if (!mounted.current) {
@@ -60,20 +61,25 @@ export function ExplodedExplorer({ model, productId, context, initialFocus }: Pr
             <h2 id="exploded-title">商品拆解图</h2>
           </div>
           <span className="exploded-mode-badge">
-            {model.renderMode === "procedural-3d" ? "可旋转 3D 爆炸图" : "等距分层图"}
+            {isProcedural ? "可旋转 3D 爆炸图" : "等距分层图"}
           </span>
         </div>
 
         {model.gaps.length > 0 && (
-          <ul className="exploded-gaps" aria-label="拆解数据缺口">
-            {model.gaps.map((gap) => <li key={gap}>{gap}</li>)}
-          </ul>
+          <details className="exploded-scope">
+            <summary>依据与适用范围</summary>
+            <ul className="exploded-gaps" aria-label="拆解数据缺口">
+              {model.gaps.map((gap) => <li key={gap}>{gap}</li>)}
+            </ul>
+          </details>
         )}
 
-        {model.renderMode === "procedural-3d" ? (
+        {isProcedural ? (
           <ExplodedCanvasViewer
+            ref={viewerRef}
             model={model}
-            palette={palette}
+            productId={productId}
+            scheme={tokens.scheme}
             tokens={tokens.palette}
             selectedId={selected.id}
             onSelect={setSelectedId}
@@ -83,7 +89,8 @@ export function ExplodedExplorer({ model, productId, context, initialFocus }: Pr
         ) : (
           <ExplodedIsoView
             model={model}
-            palette={palette}
+            productId={productId}
+            scheme={tokens.scheme}
             tokens={tokens.palette}
             selectedId={selected.id}
             onSelect={setSelectedId}
@@ -92,18 +99,30 @@ export function ExplodedExplorer({ model, productId, context, initialFocus }: Pr
         )}
 
         <div className="exploded-controls">
-          <label className="exploded-slider">
-            <span>爆炸程度</span>
-            <input
-              type="range"
-              min={0}
-              max={1}
-              step={0.01}
-              value={explosion}
-              onChange={(event) => setExplosion(Number(event.target.value))}
-              aria-label="调节部件展开程度"
-            />
-          </label>
+          <div className="exploded-controls-main">
+            {isProcedural && (
+              <button
+                type="button"
+                className="button button-secondary exploded-reset"
+                onClick={() => viewerRef.current?.resetView()}
+              >
+                重置视角
+              </button>
+            )}
+            <label className="exploded-slider">
+              <span>爆炸程度</span>
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.01}
+                value={explosion}
+                onChange={(event) => setExplosion(Number(event.target.value))}
+                aria-label="调节部件展开程度"
+              />
+            </label>
+            <span className="exploded-hint">{isProcedural ? "拖动旋转 · 滚轮缩放 · 点击部件" : "点击部件查看详情"}</span>
+          </div>
           <div className="exploded-lanes" aria-label="拆解层级">
             {model.lanes.map((lane) => (
               <span key={lane.id} className={`exploded-lane${lane.present ? "" : " missing"}`} title={lane.missingNote ?? lane.hint}>
@@ -123,8 +142,8 @@ export function ExplodedExplorer({ model, productId, context, initialFocus }: Pr
           {selected.description ? <p>{selected.description}</p> : null}
           <div className="exploded-detail-badges">
             <StatusBadge status={selected.dataStatus} method={selected.method} />
-            <span className="muted">第 {selected.depth + 1} 层 · {selected.routeNodeCount} 个路线节点 · {selected.routeFlowCount} 条连接</span>
           </div>
+          <p className="exploded-detail-stats muted">第 {selected.depth + 1} 层 · {selected.routeNodeCount} 个路线节点 · {selected.routeFlowCount} 条连接</p>
           {selected.gapNote ? <p className="exploded-detail-gap">{selected.gapNote}</p> : null}
         </header>
 
@@ -161,32 +180,32 @@ export function ExplodedExplorer({ model, productId, context, initialFocus }: Pr
             </div>
           </div>
         )}
-
-        <nav className="exploded-node-list" aria-label="全部部件列表">
-          {model.lanes.filter((lane) => lane.present).map((lane) => (
-            <div className="exploded-node-list-group" key={lane.id}>
-              <span className="exploded-node-list-label">{lane.label}</span>
-              <div className="exploded-node-list-items">
-                {lane.nodeIds.map((id) => {
-                  const node = nodeById.get(id);
-                  if (!node) return null;
-                  return (
-                    <button
-                      type="button"
-                      key={id}
-                      className={`exploded-node-list-item${selected.id === id ? " selected" : ""}`}
-                      aria-pressed={selected.id === id}
-                      onClick={() => setSelectedId(id)}
-                    >
-                      {node.name}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </nav>
       </aside>
+
+      <nav className="exploded-node-list" aria-label="全部部件列表">
+        {model.lanes.filter((lane) => lane.present).map((lane) => (
+          <div className="exploded-node-list-group" key={lane.id}>
+            <span className="exploded-node-list-label">{lane.label}</span>
+            <div className="exploded-node-list-items">
+              {lane.nodeIds.map((id) => {
+                const node = nodeById.get(id);
+                if (!node) return null;
+                return (
+                  <button
+                    type="button"
+                    key={id}
+                    className={`exploded-node-list-item${selected.id === id ? " selected" : ""}`}
+                    aria-pressed={selected.id === id}
+                    onClick={() => setSelectedId(id)}
+                  >
+                    {node.name}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </nav>
     </section>
   );
 }
