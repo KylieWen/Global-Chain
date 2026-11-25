@@ -1,5 +1,5 @@
 import type { ExplodedModel, ExplodedNode } from "./exploded-model";
-import { isBodyAligned, productBodySize, resolveNodeRole, shapeSize, type ExplodedLayer, type Vec3 } from "./exploded-appearance";
+import { isBodyAligned, layerOffsetZ, productBodySize, resolveNodeRole, shapeSize, type ExplodedLayer, type Vec3 } from "./exploded-appearance";
 
 /**
  * Deterministic, data-driven layout for the exploded views. Positions derive from
@@ -17,13 +17,9 @@ export type ExplodedBox = {
   readonly layer: ExplodedLayer;
 };
 
-// Shell layers separate along the body depth axis (Z) at an even spacing, so the
-// exploded stack reads as a product manual rather than a scatter of boxes.
-const LAYER_Z: Record<ExplodedLayer, number> = {
-  front: 1.35,
-  mid: 0,
-  rear: -1.35
-};
+// Shell layers separate along the body depth axis (Z); the offset per layer is a
+// ratio of body thickness from the content appearance config, so the stack still
+// reads as a product manual rather than a scatter of boxes.
 
 const MODULE_FLANK_GAP = 0.52;
 const MODULE_ROW_GAP = 0.42;
@@ -53,6 +49,8 @@ export function layoutExplodedBoxes(
   const ease = Math.min(1, Math.max(0, explosion));
   const bodySize = productId ? productBodySize(productId) : null;
   const bodyWidth = bodySize?.[0] ?? 1.5;
+  const bodyThickness = bodySize?.[2] ?? 0.42;
+  const layerZ = (layer: ExplodedLayer): number => layerOffsetZ(layer, bodyThickness);
 
   const place = (
     node: ExplodedNode,
@@ -73,8 +71,8 @@ export function layoutExplodedBoxes(
       // Body-footprint layers (front glass, screen, rear cover) stack along the
       // depth axis at an even interval; no lateral diagonal drift.
       const spreadZ = node.depth === 1
-        ? LAYER_Z[layer] * ease
-        : parent.anchor[2] + LAYER_Z[layer] * 0.4 * ease;
+        ? layerZ(layer) * ease
+        : parent.anchor[2] + layerZ(layer) * 0.4 * ease;
       const nested: Vec3 = [parent.anchor[0], parent.anchor[1], parent.anchor[2]];
       const spread: Vec3 = [parent.anchor[0], parent.anchor[1], spreadZ];
       anchor = [
@@ -84,8 +82,10 @@ export function layoutExplodedBoxes(
       ];
     } else if (node.depth === 1) {
       // Internal modules flank the body in two ordered columns, staggered by
-      // rows so each part stays visible beside the frame.
-      const side = siblingIndex % 2 === 0 ? -1 : 1;
+      // rows so each part stays visible beside the frame. An explicit role
+      // `flank` overrides the parity split so a part facing the default camera
+      // can sit on the near side.
+      const side = role?.flank === "left" ? -1 : role?.flank === "right" ? 1 : siblingIndex % 2 === 0 ? -1 : 1;
       const row = Math.floor(siblingIndex / 2);
       const spreadX = side * (bodyWidth / 2 + MODULE_FLANK_GAP + 0.08 * row);
       const spreadY = (row - (siblingTotal - 1) / 4) * MODULE_ROW_GAP;

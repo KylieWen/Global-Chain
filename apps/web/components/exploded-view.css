@@ -478,12 +478,13 @@
   }
 
   .exploded-canvas-wrap {
-    height: clamp(250px, 42vh, 330px);
+    height: clamp(230px, 32vh, 280px);
   }
 
   .exploded-material-strip {
     flex-wrap: nowrap;
     gap: 0.35rem;
+    margin-top: var(--space-xs);
     overflow-x: auto;
     scrollbar-width: thin;
     -webkit-overflow-scrolling: touch;
@@ -493,7 +494,7 @@
     flex: 0 0 auto;
     white-space: nowrap;
     gap: 0.35rem;
-    padding: 0.25rem 0.55rem;
+    padding: 0.2rem 0.5rem;
     font-size: 0.72rem;
   }
 
@@ -511,12 +512,18 @@
     padding-top: 0;
   }
 
+  .exploded-controls {
+    gap: var(--space-xs);
+    margin-top: var(--space-xs);
+  }
+
   .exploded-controls-main {
     gap: var(--space-sm);
   }
 
   .exploded-slider {
     flex: 1 1 100%;
+    min-height: 36px;
   }
 
   .exploded-slider input[type="range"] {

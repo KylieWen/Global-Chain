@@ -10,10 +10,11 @@ import { StatusBadge } from "./data-display";
 import { ExplodedCanvasViewer, type ExplodedViewerHandle } from "./exploded-canvas-viewer";
 import { ExplodedThreeViewer } from "./exploded-three-viewer";
 import { ExplodedIsoView } from "./exploded-iso-view";
-import { resolveNodeRole, schemeMaterials } from "../lib/exploded-appearance";
+import { resolveNodeRole, schemeMaterials, viewerConfig } from "../lib/exploded-appearance";
 import "./exploded-view.css";
 
 const RENDERER_STORAGE_KEY = "globe-chain:exploded-renderer";
+const DEFAULT_EXPLOSION = viewerConfig().defaultExplosion;
 
 function readStoredRenderer(): "webgl" | "canvas2d" | null {
   if (typeof window === "undefined") return null;
@@ -38,7 +39,7 @@ export function ExplodedExplorer({ model, productId, context, initialFocus }: Pr
   const { tokens, reducedMotion } = useThemePreference();
   const initialNode = initialFocus && model.nodes.some((node) => node.id === initialFocus) ? initialFocus : model.root.id;
   const [selectedId, setSelectedId] = useState<string | null>(initialNode);
-  const [explosion, setExplosion] = useState(0.72);
+  const [explosion, setExplosion] = useState(DEFAULT_EXPLOSION);
   const viewerRef = useRef<ExplodedViewerHandle | null>(null);
   // Keep the first render identical on server and client; the stored renderer is
   // read in an effect after mount so a forced fallback cannot cause a hydration mismatch.

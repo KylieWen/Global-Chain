@@ -1,6 +1,17 @@
 {
-  "version": 2,
-  "note": "Procedural exploded-view appearance mapping. Geometry, node count and depth still come from the real BOM; this file only assigns visual role, material color group and exploded layer. Missing entries fall back to the node type defaults below.",
+  "version": 3,
+  "note": "Procedural exploded-view appearance mapping. Geometry, node count and depth still come from the real BOM; this file only assigns visual role, material color group and exploded layer. Missing entries fall back to the node type defaults below. The `viewer` block holds presentation parameters for the 3D view (camera, layer offsets, sheet thickness, orbit and labels); no product, route or statistic number is stored here.",
+  "viewer": {
+    "camera": { "fov": 35, "yawDeg": -28, "pitchDeg": 18 },
+    "defaultExplosion": 0.35,
+    "layerOffsetRatio": { "front": 0.9, "mid": 0.55, "rear": -0.9 },
+    "partThicknessRatio": 0.06,
+    "cornerRadius": 0.02,
+    "orbit": { "damping": 0.08, "zoomMin": 0.7, "zoomMax": 2.2 },
+    "labelMaxPersistent": 6,
+    "fitMargin": 0.97,
+    "fitBodyHeightRatio": 0.65
+  },
   "products": {
     "generic-smartphone": {
       "prototype": "phone",
@@ -35,7 +46,7 @@
         "packaging-consumables": { "shape": "module", "material": "polymer", "layer": "mid" },
         "silicon-substrate": { "shape": "wafer", "material": "glass-mat", "layer": "mid" },
         "chip-design-layout": { "shape": "note", "material": "material", "layer": "mid" },
-        "camera": { "shape": "camera-bump", "material": "module", "layer": "rear" },
+        "camera": { "shape": "camera-bump", "material": "module", "layer": "rear", "flank": "left" },
         "image-sensor": { "shape": "chip", "material": "chip", "layer": "rear" },
         "camera-lens": { "shape": "lens", "material": "glass-mat", "layer": "rear" },
         "camera-module": { "shape": "camera-bump", "material": "module", "layer": "rear" },
@@ -166,7 +177,7 @@
     "dark": {
       "frame": "#93a5bb",
       "screen": "#141d2e",
-      "rear": "#46587a",
+      "rear": "#6e6459",
       "pcb": "#2c6a58",
       "battery": "#4a5d7d",
       "chip": "#8b9cb4",
@@ -188,7 +199,7 @@
     "light": {
       "frame": "#d9e1ea",
       "screen": "#1f2c44",
-      "rear": "#ffffff",
+      "rear": "#d9d2c7",
       "pcb": "#2f7d66",
       "battery": "#e6edf5",
       "chip": "#bac9da",

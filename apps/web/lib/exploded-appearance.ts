@@ -47,12 +47,14 @@ export type ResolvedRole = {
   readonly shape: ShapeKind;
   readonly material: string;
   readonly layer: ExplodedLayer;
+  readonly flank?: "left" | "right";
 };
 
 type NodeRoleConfig = {
   readonly shape?: ShapeKind;
   readonly material?: string;
   readonly layer?: ExplodedLayer;
+  readonly flank?: "left" | "right";
 };
 
 type ProductAppearance = {
@@ -62,15 +64,74 @@ type ProductAppearance = {
   readonly nodeRoles: Readonly<Record<string, NodeRoleConfig>>;
 };
 
+type ViewerCameraConfig = {
+  readonly fov: number;
+  readonly yawDeg: number;
+  readonly pitchDeg: number;
+};
+
+type ViewerOrbitConfig = {
+  readonly damping: number;
+  readonly zoomMin: number;
+  readonly zoomMax: number;
+};
+
+export type ViewerConfig = {
+  readonly camera: ViewerCameraConfig;
+  readonly defaultExplosion: number;
+  readonly layerOffsetRatio: Readonly<Record<ExplodedLayer, number>>;
+  readonly partThicknessRatio: number;
+  readonly cornerRadius: number;
+  readonly orbit: ViewerOrbitConfig;
+  readonly labelMaxPersistent: number;
+  readonly fitMargin: number;
+  readonly fitBodyHeightRatio: number;
+};
+
 type AppearanceConfigShape = {
   readonly version: number;
   readonly products: Readonly<Record<string, ProductAppearance>>;
   readonly materials: Readonly<Record<"dark" | "light", Readonly<Record<string, string>>>>;
+  readonly viewer?: Partial<ViewerConfig>;
 };
 
 const config = appearanceConfig as unknown as AppearanceConfigShape;
 
 const GENERIC_FALLBACK: ResolvedRole = { shape: "module", material: "material", layer: "mid" };
+
+/** Presentation defaults aligned to the visual spec; content config overrides them. */
+const DEFAULT_VIEWER: ViewerConfig = {
+  camera: { fov: 35, yawDeg: -28, pitchDeg: 18 },
+  defaultExplosion: 0.35,
+  layerOffsetRatio: { front: 0.9, mid: 0.55, rear: -0.9 },
+  partThicknessRatio: 0.06,
+  cornerRadius: 0.02,
+  orbit: { damping: 0.08, zoomMin: 0.7, zoomMax: 2.2 },
+  labelMaxPersistent: 6,
+  fitMargin: 0.97,
+  fitBodyHeightRatio: 0.65
+};
+
+/** 3D viewer presentation parameters from content config, with spec defaults. */
+export function viewerConfig(): ViewerConfig {
+  const v = config.viewer;
+  return {
+    camera: { ...DEFAULT_VIEWER.camera, ...v?.camera },
+    defaultExplosion: v?.defaultExplosion ?? DEFAULT_VIEWER.defaultExplosion,
+    layerOffsetRatio: { ...DEFAULT_VIEWER.layerOffsetRatio, ...v?.layerOffsetRatio },
+    partThicknessRatio: v?.partThicknessRatio ?? DEFAULT_VIEWER.partThicknessRatio,
+    cornerRadius: v?.cornerRadius ?? DEFAULT_VIEWER.cornerRadius,
+    orbit: { ...DEFAULT_VIEWER.orbit, ...v?.orbit },
+    labelMaxPersistent: v?.labelMaxPersistent ?? DEFAULT_VIEWER.labelMaxPersistent,
+    fitMargin: v?.fitMargin ?? DEFAULT_VIEWER.fitMargin,
+    fitBodyHeightRatio: v?.fitBodyHeightRatio ?? DEFAULT_VIEWER.fitBodyHeightRatio
+  };
+}
+
+/** Depth-axis anchor for a shell layer: ratio times body thickness (body depth). */
+export function layerOffsetZ(layer: ExplodedLayer, bodyThickness: number): number {
+  return viewerConfig().layerOffsetRatio[layer] * bodyThickness;
+}
 
 export type Vec3 = readonly [number, number, number];
 
@@ -224,7 +285,8 @@ export function resolveNodeRole(productId: string, node: ExplodedNode): Resolved
   return {
     shape: explicit.shape ?? typed.shape ?? GENERIC_FALLBACK.shape,
     material: explicit.material ?? typed.material ?? GENERIC_FALLBACK.material,
-    layer: explicit.layer ?? typed.layer ?? GENERIC_FALLBACK.layer
+    layer: explicit.layer ?? typed.layer ?? GENERIC_FALLBACK.layer,
+    flank: explicit.flank ?? typed.flank
   };
 }
 

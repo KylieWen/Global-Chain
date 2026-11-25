@@ -12,10 +12,12 @@ import type * as THREE from "three";
 import type { ExplodedModel, ExplodedNode } from "../lib/exploded-model";
 import { layoutExplodedBoxes, type ExplodedBox } from "../lib/exploded-layout";
 import {
+  isBodyAligned,
   materialPBR,
   resolveNodeRole,
   schemeMaterials,
   shapeRadius,
+  viewerConfig,
   type ResolvedRole
 } from "../lib/exploded-appearance";
 
@@ -58,14 +60,17 @@ type LabelRecord = {
   line: SVGLineElement;
 };
 
-const DEFAULT_YAW = 0.78;
-const DEFAULT_PITCH = 0.38;
+const VIEWER = viewerConfig();
+const DEFAULT_YAW = (VIEWER.camera.yawDeg * Math.PI) / 180;
+const DEFAULT_PITCH = (VIEWER.camera.pitchDeg * Math.PI) / 180;
 const MIN_PITCH = -0.5;
 const MAX_PITCH = 1.1;
-const FOV = 35;
-const FIT_MARGIN = 0.97;
+const FOV = VIEWER.camera.fov;
+const FIT_MARGIN = VIEWER.fitMargin;
 const LABEL_MIN_GAP = 10;
 const LABEL_OFFSET = 16;
+const ROT_YAW_FACTOR = VIEWER.orbit.damping * 0.075;
+const ROT_PITCH_FACTOR = VIEWER.orbit.damping * 0.0625;
 const MATERIAL_GROUP_ORDER = ["copper", "aluminum", "rare", "ceramic", "carbon", "polymer", "material", "glass-mat", "chip"];
 const MATERIAL_BAND_X = 1.12;
 const MATERIAL_COL_GAP = 0.18;
@@ -102,10 +107,12 @@ function buildGeometry(
   THREE: typeof import("three"),
   shape: ResolvedRole["shape"],
   size: readonly [number, number, number],
-  group: string
+  group: string,
+  bodyThickness: number
 ): THREE.BufferGeometry {
   const [w, h, d] = size;
-  const radius = shapeRadius(shape) * Math.min(w, h);
+  const baseRadius = shapeRadius(shape) * Math.min(w, h);
+  const radius = isBodyAligned(shape) ? baseRadius : Math.min(baseRadius, VIEWER.cornerRadius);
   const groupDepth: Record<string, number> = {
     metal: 0.03,
     "glass-mat": 0.035,
@@ -114,7 +121,8 @@ function buildGeometry(
     ceramic: 0.04,
     material: 0.05
   };
-  const depth = groupDepth[group] ?? d;
+  const minSheetDepth = VIEWER.partThicknessRatio * bodyThickness;
+  const depth = Math.max(groupDepth[group] ?? d, minSheetDepth);
   const flatExtrude = new Set<ResolvedRole["shape"]>([
     "frame",
     "frame-part",
@@ -133,14 +141,14 @@ function buildGeometry(
   ]);
   if (flatExtrude.has(shape)) {
     const geo = new THREE.ExtrudeGeometry(roundedRectShape(THREE, w, h, radius), {
-      depth: Math.max(depth, 0.03),
+      depth,
       bevelEnabled: true,
       bevelThickness: 0.012,
       bevelSize: 0.012,
       bevelSegments: 2,
       curveSegments: 10
     });
-    geo.translate(0, 0, -Math.max(depth, 0.03) / 2);
+    geo.translate(0, 0, -depth / 2);
     return geo;
   }
   if (shape === "lens" || shape === "motor" || shape === "wheel") {
@@ -342,6 +350,8 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
 
         // Build meshes from the deterministic layout.
         const boxes = layoutExplodedBoxes(model, explosion, productId);
+        const rootBoxForThickness = boxes.get(model.root.id);
+        const bodyThickness = rootBoxForThickness?.size[2] ?? 0.42;
         const narrow = host ? host.clientWidth < 600 : false;
         state.narrow = narrow;
         placeMaterials(boxes, narrow, boxes.get(model.root.id));
@@ -361,7 +371,7 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
             transparent: Boolean(pbr.transparent),
             opacity: pbr.opacity ?? 1
           });
-          const geometry = buildGeometry(THREE, role.shape, box.size, role.material);
+          const geometry = buildGeometry(THREE, role.shape, box.size, role.material, bodyThickness);
           const mesh = new THREE.Mesh(geometry, material);
           if (box.lane === "material") {
             mesh.scale.setScalar(0.75);
@@ -460,7 +470,19 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
           const yReq = Math.abs(offset.dot(up)) / (tanV * FIT_MARGIN) + depthAlong;
           required = Math.max(required, xReq, yReq);
         }
-        state.baseDistance = required * 0.72;
+        // Body-height anchor: keep the main body at the configured share of
+        // canvas height (spec range 62–72%) instead of zooming into a tight
+        // exploded bounding box.
+        const bodyRecord = state.meshes.get(model.root.id);
+        let bodyDistance = 0;
+        if (bodyRecord) {
+          const halfY = bodyRecord.box.size[1] / 2;
+          const topOffset = bodyRecord.mesh.position.clone().add(new THREE.Vector3(0, halfY, 0)).sub(center);
+          const bottomOffset = bodyRecord.mesh.position.clone().add(new THREE.Vector3(0, -halfY, 0)).sub(center);
+          const upExtent = Math.max(Math.abs(topOffset.dot(up)), Math.abs(bottomOffset.dot(up)));
+          bodyDistance = upExtent / (tanV * VIEWER.fitBodyHeightRatio);
+        }
+        state.baseDistance = Math.max(required, bodyDistance);
         state.distance = state.baseDistance;
 
         // Build label DOM nodes.
@@ -469,15 +491,17 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
         if (labelLayer && svg) {
           state.meshes.forEach((record, id) => {
             if (record.node.depth > 1 && record.node.lane !== "material") return;
-            const side: LabelRecord["side"] = record.role.layer === "rear"
-              ? "right"
-              : record.node.lane === "material"
-                ? "bottom"
-                : record.box.anchor[0] < -0.2
-                  ? "left"
-                  : record.box.anchor[0] > 0.2
-                    ? "right"
-                    : "top";
+            const side: LabelRecord["side"] = record.role.flank === "left"
+              ? "left"
+              : record.role.flank === "right"
+                ? "right"
+                : record.node.lane === "material"
+                  ? "bottom"
+                  : record.box.anchor[0] < -0.2
+                    ? "left"
+                    : record.box.anchor[0] > 0.2
+                      ? "right"
+                      : "top";
             const el = document.createElement("div");
             el.className = "exploded-three-label";
             el.textContent = record.node.name;
@@ -504,6 +528,7 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
           const width = rect.width;
           const height = rect.height;
           const active = new Set<string>();
+          const persistent: LabelRecord[] = [];
           state.labels.forEach((label) => {
             const record = state.meshes.get(label.nodeId);
             if (!record) return;
@@ -512,15 +537,34 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
             // angle; keep their labels hidden until selected or hovered so
             // they never sit on the shell silhouette.
             const flankHidden = label.side === "left" && record.node.depth === 1 && record.role.layer === "mid";
-            if ((record.node.depth > 1 || flankHidden) && !isActive) {
+            if (isActive) {
+              active.add(label.nodeId);
+              label.el.style.display = "";
+              label.line.style.display = "";
+              return;
+            }
+            if (record.node.depth > 1 || flankHidden) {
               label.el.style.display = "none";
               label.line.style.display = "none";
               return;
             }
-            active.add(label.nodeId);
-            label.el.style.display = "";
-            label.line.style.display = "";
+            persistent.push(label);
           });
+          // Persistent label cap: keep the shallowest current-layer labels;
+          // the rest stay hidden until hovered or selected.
+          const cap = VIEWER.labelMaxPersistent;
+          persistent
+            .sort((a, b) => {
+              const ra = state.meshes.get(a.nodeId);
+              const rb = state.meshes.get(b.nodeId);
+              return (ra?.node.depth ?? 0) - (rb?.node.depth ?? 0);
+            })
+            .forEach((label, index) => {
+              const visible = index < cap;
+              label.el.style.display = visible ? "" : "none";
+              label.line.style.display = visible ? "" : "none";
+              if (visible) active.add(label.nodeId);
+            });
 
           const projected = new Map<string, { x: number; y: number }>();
           const sb = { minX: width, minY: height, maxX: 0, maxY: 0 };
@@ -667,8 +711,8 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
             const dy = event.clientY - current.y;
             if (Math.abs(dx) + Math.abs(dy) > 3) current.moved = true;
             if (current.moved) {
-              state.yaw -= dx * 0.006;
-              state.pitch = Math.min(MAX_PITCH, Math.max(MIN_PITCH, state.pitch + dy * 0.005));
+              state.yaw -= dx * ROT_YAW_FACTOR;
+              state.pitch = Math.min(MAX_PITCH, Math.max(MIN_PITCH, state.pitch + dy * ROT_PITCH_FACTOR));
               state.interaction = Date.now();
               state.drag = { x: event.clientX, y: event.clientY, moved: true };
               return;
@@ -690,7 +734,16 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
           event.preventDefault();
           state.interaction = Date.now();
           const next = state.distance * (event.deltaY < 0 ? 0.92 : 1.08);
-          state.distance = Math.min(state.baseDistance * 2.4, Math.max(state.baseDistance * 0.6, next));
+          state.distance = Math.min(
+            state.baseDistance * VIEWER.orbit.zoomMax,
+            Math.max(state.baseDistance * VIEWER.orbit.zoomMin, next)
+          );
+        };
+        const onDblClick = () => {
+          state.yaw = DEFAULT_YAW;
+          state.pitch = DEFAULT_PITCH;
+          state.distance = state.baseDistance;
+          state.interaction = Date.now();
         };
         const onResize = () => {
           const w = host.clientWidth;
@@ -707,6 +760,7 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
         renderer.domElement.addEventListener("pointerup", onPointerUp);
         renderer.domElement.addEventListener("pointerleave", () => setHoveredId(null));
         renderer.domElement.addEventListener("wheel", onWheel, { passive: false });
+        renderer.domElement.addEventListener("dblclick", onDblClick);
         const observer = new ResizeObserver(onResize);
         observer.observe(host);
 
@@ -716,6 +770,7 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
           renderer.domElement.removeEventListener("pointermove", onPointerMove);
           renderer.domElement.removeEventListener("pointerup", onPointerUp);
           renderer.domElement.removeEventListener("wheel", onWheel);
+          renderer.domElement.removeEventListener("dblclick", onDblClick);
           renderer.domElement.removeEventListener("webglcontextlost", onContextLost);
         };
       };
