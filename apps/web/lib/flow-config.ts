@@ -42,12 +42,12 @@ export type FlowSettings = {
 };
 
 export const FLOW_SETTING_RANGES = {
-  density: { min: 0.1, max: 1, default: 0.78 },
+  density: { min: 0.1, max: 1, default: 0.9 },
   speed: { min: 0.1, max: 2, default: 0.55 },
   beamWidth: { min: 0.6, max: 3, default: 1.15 },
   glow: { min: 0, max: 1, default: 0.5 },
   trail: { min: 0, max: 1, default: 0.42 },
-  maxParticles: { min: 40, max: 600, default: 300 }
+  maxParticles: { min: 40, max: 600, default: 360 }
 } as const;
 
 export const FLOW_MODES: readonly FlowMode[] = ["beam", "classic"];

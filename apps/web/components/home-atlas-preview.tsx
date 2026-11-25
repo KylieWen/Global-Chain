@@ -8,9 +8,6 @@ import type { GeometryCollection, Topology } from "topojson-specification";
 import worldAtlas from "world-atlas/countries-110m.json";
 import { mapPath } from "../lib/paths";
 import { clampMapTransform, zoomMap, type MapTransform } from "../lib/map-geometry";
-import { settingsFromMapTokens } from "../lib/flow-config";
-import { beamWidthFor } from "../lib/flow-encoding";
-import { BeamFlowLayer, type BeamFlow } from "./beam-flow-layer";
 import { useThemePreference } from "./theme-preference";
 
 const MAP_WIDTH = 1000;
@@ -23,14 +20,48 @@ const centers = new Map(
   features.map(country => [String(country.id).padStart(3, "0"), projection(geoCentroid(country))])
 );
 /** Lightweight real-data summary passed from the server; no fabricated figures. */
+export type HomeLine = {
+  from: string;
+  to: string;
+  itemId: string;
+  value: number | null;
+  valueStatus: string;
+  year: string;
+  kind: "trade" | "route";
+};
+
 export type HomeSummary = {
   id: string;
   name: string;
   recordCount: number;
   countryCount: number;
+  entryCount: number;
+  componentCount: number;
   yearLabel: string;
-  lines: { from: string; to: string; itemId: string }[];
+  lines: HomeLine[];
 };
+
+/** Statuses that mean "no reportable amount"; unknown is never ranked as 0. */
+const AMOUNT_MISSING = new Set(["unknown", "withheld", "invalid"]);
+
+function hasReportableAmount(line: HomeLine): boolean {
+  return line.value != null && Number.isFinite(line.value) && !AMOUNT_MISSING.has(line.valueStatus);
+}
+
+/**
+ * Main flows are ranked by reportable amount, descending. Lines without a
+ * reportable amount keep their original content order after the ranked block;
+ * missing amounts are not coerced to zero.
+ */
+function sortByAmount(lines: readonly HomeLine[]): HomeLine[] {
+  const reportable = lines.filter(hasReportableAmount)
+    .sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
+  const missing = lines.filter(line => !hasReportableAmount(line));
+  return [...reportable, ...missing];
+}
+
+/** Default number of main flows shown in the hero preview; the rest expand on demand. */
+const HERO_DEFAULT_LIMIT = 8;
 
 type Point = readonly [number, number];
 
@@ -39,6 +70,17 @@ function controlPoint(from: Point, to: Point, bend: number): [number, number] {
   const dy = to[1] - from[1];
   const length = Math.hypot(dx, dy) || 1;
   return [(from[0] + to[0]) / 2 - (dy / length) * bend, (from[1] + to[1]) / 2 + (dx / length) * bend];
+}
+
+/**
+ * Curvature scales with chord length and alternates sides by index, so arcs
+ * sharing a converging endpoint fan out on both sides instead of bunching
+ * into a one-sided bundle over East Asia.
+ */
+function bendFor(index: number, from: Point, to: Point): number {
+  const length = Math.hypot(to[0] - from[0], to[1] - from[1]);
+  const magnitude = Math.min(44, Math.max(16, length * 0.16));
+  return index % 2 === 0 ? magnitude : -magnitude;
 }
 
 function arcD(from: Point, to: Point, bend: number): string {
@@ -96,9 +138,13 @@ export function HomeHeroMap({ products, featuredId }: { products: HomeSummary[];
   const [transform, setTransform] = useState<MapTransform>({ x: 0, y: 0, scale: 1 });
   const svgRef = useRef<SVGSVGElement>(null);
   const drag = useRef<{ x: number; y: number; originX: number; originY: number; moved: boolean } | null>(null);
-  const { tokens, reducedMotion } = useThemePreference();
-  const settings = settingsFromMapTokens(tokens.map);
+  const { tokens } = useThemePreference();
   const [wide, setWide] = useState(true);
+  const [expanded, setExpanded] = useState(false);
+
+  const sortedLines = useMemo(() => sortByAmount(product.lines), [product.lines]);
+  const visibleLines = expanded ? sortedLines : sortedLines.slice(0, HERO_DEFAULT_LIMIT);
+  const hiddenCount = Math.max(0, sortedLines.length - HERO_DEFAULT_LIMIT);
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 900px)");
@@ -112,35 +158,18 @@ export function HomeHeroMap({ products, featuredId }: { products: HomeSummary[];
     setTransform(focusTransformFor(product.lines, centers, wide));
   }, [product.id, product.lines, wide]);
 
-  const beamOn = wide && !reducedMotion;
   const palette = tokens.map.palette.itemColors;
   const colorMap = useItemColorMap(products, palette);
 
   const endpointCodes = useMemo(
-    () => [...new Set(product.lines.flatMap(line => [line.from, line.to]).filter(Boolean))],
-    [product]
+    () => [...new Set(visibleLines.flatMap(line => [line.from, line.to]).filter(Boolean))],
+    [visibleLines]
   );
 
-  const flows = useMemo<BeamFlow[]>(() => {
-    if (!beamOn) return [];
-    return product.lines.flatMap((line, i) => {
-      const from = centers.get(line.from);
-      const to = centers.get(line.to);
-      if (!from || !to || line.from === line.to) return [];
-      const control = controlPoint(from, to, 26 + (i % 4) * 14);
-      const width = beamWidthFor(0.25, tokens.map.line.minWidth, tokens.map.line.maxWidth, settings.beamWidth);
-      return [{
-        id: `${line.from}-${line.to}-${i}`,
-        from,
-        to,
-        control,
-        color: colorMap.get(line.itemId) ?? palette[0],
-        factor: 0.25,
-        width,
-        state: "normal" as const
-      }];
-    });
-  }, [product, beamOn, colorMap, palette, tokens.map.line.minWidth, tokens.map.line.maxWidth, settings.beamWidth]);
+  const selectProduct = (optionIndex: number) => {
+    setIndex(optionIndex);
+    setExpanded(false);
+  };
 
   const onPointerDown = (event: PointerEvent<SVGSVGElement>) => {
     if (event.pointerType === "touch" || transform.scale === 1 || event.button !== 0) return;
@@ -186,29 +215,33 @@ export function HomeHeroMap({ products, featuredId }: { products: HomeSummary[];
                 className="home-hero-country"
               />
             ))}
-            {product.lines.map((line, index) => {
+            {visibleLines.map((line, index) => {
               const from = centers.get(line.from);
               const to = centers.get(line.to);
               if (!from || !to || line.from === line.to) return null;
-              return <path className="home-hero-line" key={`${line.from}-${line.to}-${index}`} d={arcD(from, to, 26 + (index % 4) * 14)} stroke={colorMap.get(line.itemId) ?? palette[0]} />;
+              return <path className="home-hero-line" key={`${line.from}-${line.to}-${index}`} d={arcD(from, to, bendFor(index, from, to))} stroke={colorMap.get(line.itemId) ?? palette[0]} />;
             })}
             {endpointCodes.map(code => {
               const point = centers.get(code);
               if (!point) return null;
-              return <g className="home-hero-endpoint" key={code} transform={`translate(${point[0]},${point[1]})`}><circle r={4 / transform.scale} /></g>;
+              return <g className="home-hero-endpoint" key={code} transform={`translate(${point[0].toFixed(3)},${point[1].toFixed(3)})`}><circle r={4 / transform.scale} /></g>;
             })}
           </g>
         </svg>
-        {beamOn && <BeamFlowLayer flows={flows} transform={transform} settings={settings} level={reducedMotion ? 3 : 0} nodeColor={tokens.palette.accent} scheme={tokens.scheme} />}
         <div className="home-hero-zoom" aria-label="地图缩放">
           <button type="button" onClick={() => setTransform(current => zoomMap(current, 1.25, MAP_WIDTH, MAP_HEIGHT))} aria-label="放大地图" disabled={transform.scale >= 4}>＋</button>
           <button type="button" onClick={() => setTransform(current => zoomMap(current, 0.8, MAP_WIDTH, MAP_HEIGHT))} aria-label="缩小地图" disabled={transform.scale <= 1}>－</button>
           <button type="button" onClick={() => setTransform({ x: 0, y: 0, scale: 1 })}>复位</button>
         </div>
+        {hiddenCount > 0 && (
+          <button type="button" className="home-hero-more" aria-expanded={expanded} onClick={() => setExpanded(value => !value)}>
+            {expanded ? "收起主流向" : `展开其余 ${hiddenCount} 条流向`}
+          </button>
+        )}
       </div>
       <nav className="home-hero-switcher" aria-label="切换主打卡商品">
         {products.map((option, optionIndex) => (
-          <button key={option.id} type="button" aria-pressed={optionIndex === index} onClick={() => setIndex(optionIndex)}>{option.name}</button>
+          <button key={option.id} type="button" aria-pressed={optionIndex === index} onClick={() => selectProduct(optionIndex)}>{option.name}</button>
         ))}
       </nav>
     </div>
@@ -220,21 +253,22 @@ function HomeProductThumb({ product }: { product: HomeSummary }) {
   const { tokens } = useThemePreference();
   const palette = tokens.map.palette.itemColors;
   const colorMap = useItemColorMap([product], palette);
+  const lines = useMemo(() => sortByAmount(product.lines), [product.lines]);
   return (
     <svg className="home-product-thumb" viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={`${product.name} 的全球流向缩略图`}>
       {features.map((feature, featureIndex) => (
         <path key={feature.id ?? featureIndex} d={pathGenerator(feature as GeoPermissibleObjects) ?? undefined} className="home-thumb-country" />
       ))}
-      {product.lines.map((line, index) => {
+      {lines.map((line, index) => {
         const from = centers.get(line.from);
         const to = centers.get(line.to);
         if (!from || !to || line.from === line.to) return null;
-        return <path className="home-thumb-line" key={`${line.from}-${line.to}-${index}`} d={arcD(from, to, 22 + (index % 4) * 12)} stroke={colorMap.get(line.itemId) ?? palette[0]} />;
+        return <path className="home-thumb-line" key={`${line.from}-${line.to}-${index}`} d={arcD(from, to, bendFor(index, from, to))} stroke={colorMap.get(line.itemId) ?? palette[0]} />;
       })}
-      {[...new Set(product.lines.flatMap(line => [line.from, line.to]).filter(Boolean))].map(code => {
+      {[...new Set(lines.flatMap(line => [line.from, line.to]).filter(Boolean))].map(code => {
         const point = centers.get(code);
         if (!point) return null;
-        return <g className="home-thumb-endpoint" key={code} transform={`translate(${point[0]},${point[1]})`}><circle r={3} /></g>;
+        return <g className="home-thumb-endpoint" key={code} transform={`translate(${point[0].toFixed(3)},${point[1].toFixed(3)})`}><circle r={3} /></g>;
       })}
     </svg>
   );
@@ -250,7 +284,10 @@ export function HomeProductStrip({ products }: { products: HomeSummary[] }) {
           <div className="home-product-entry-copy">
             <strong>{product.name}</strong>
             <span className="home-product-facts">
-              {product.recordCount} 条路线与记录 · {product.countryCount} 个国家与地区{product.yearLabel ? ` · ${product.yearLabel}` : ""}
+              {product.entryCount > 0 ? `拆解 ${product.entryCount} 个部件与材料条目 · ` : ""}{product.countryCount} 个国家与地区{product.yearLabel ? ` · ${product.yearLabel}` : ""}
+            </span>
+            <span className="home-product-facts-sub">
+              {product.componentCount > 0 ? `${product.componentCount} 个直接组成部分 · ` : ""}{product.recordCount} 条路线与记录
             </span>
             <span className="home-product-link">在世界地图上探索 ↗</span>
           </div>

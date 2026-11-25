@@ -15,6 +15,35 @@
   min-width: 0;
 }
 
+@media (min-width: 861px) {
+  .exploded-explorer {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    align-items: stretch;
+  }
+  .exploded-stage {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+  }
+  .exploded-detail {
+    grid-column: 2;
+    grid-row: 1;
+    max-height: 38vh;
+    overflow-y: auto;
+  }
+  .exploded-node-list {
+    grid-column: 2;
+    grid-row: 2;
+    max-height: 34vh;
+    overflow-y: auto;
+  }
+  .exploded-material-strip {
+    display: none;
+  }
+}
+
 .exploded-stage-heading {
   display: flex;
   align-items: baseline;
@@ -73,7 +102,7 @@
 .exploded-canvas-wrap {
   position: relative;
   width: 100%;
-  height: min(70vh, 720px);
+  height: min(58vh, 560px);
   margin-top: var(--space-sm);
 }
 
@@ -87,6 +116,46 @@
 
 .exploded-canvas-wrap canvas:active {
   cursor: grabbing;
+}
+
+/* WebGL label overlay: HTML text + SVG leader lines, projected each frame. */
+
+.exploded-three-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.exploded-three-label-line {
+  stroke: var(--line);
+  stroke-width: 1;
+  opacity: 0.6;
+}
+
+.exploded-three-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.exploded-three-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.exploded-three-label.selected {
+  color: var(--accent);
+  font-weight: 600;
 }
 
 /* Control strip: reset / slider / hint on one row; legend on its own row. */
@@ -305,6 +374,40 @@
   color: var(--accent);
 }
 
+/* Narrow-screen material band: all material samples stay visible as a
+ * compact, clickable strip below the 3D stage (the 3D material meshes are
+ * hidden in narrow mode so the body cannot cover them). */
+.exploded-material-strip {
+  display: none;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+}
+
+.exploded-material-strip-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  background: var(--surface-raised);
+}
+
+.exploded-material-strip-chip .exploded-material-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex: 0 0 auto;
+}
+
+.exploded-material-strip-chip.selected {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 /* Node list: one row per lane, buttons wrap beside the lane label. */
 
 .exploded-node-list {
@@ -350,7 +453,10 @@
 
 @media (max-width: 860px) {
   .exploded-canvas-wrap {
-    height: clamp(300px, 58vh, 520px);
+    height: clamp(300px, 54vh, 440px);
+  }
+  .exploded-material-strip {
+    display: flex;
   }
 }
 
@@ -372,7 +478,28 @@
   }
 
   .exploded-canvas-wrap {
-    height: clamp(280px, 58vh, 440px);
+    height: clamp(250px, 42vh, 330px);
+  }
+
+  .exploded-material-strip {
+    flex-wrap: nowrap;
+    gap: 0.35rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .exploded-material-strip-chip {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    gap: 0.35rem;
+    padding: 0.25rem 0.55rem;
+    font-size: 0.72rem;
+  }
+
+  .exploded-material-strip-chip .exploded-material-swatch {
+    width: 9px;
+    height: 9px;
   }
 
   .exploded-node-list-group {

@@ -49,7 +49,10 @@ function focusTransformForLines(
   centerMap: Map<string, [number, number] | null>,
   narrow: boolean
 ): MapTransform {
-  if (!narrow) return { x: 0, y: 0, scale: 1 };
+  // Wide screens: a slight zoom and upward shift puts the converging flows at
+  // the visual centre and crops the empty southern ocean; the rest of the world
+  // stays reachable by dragging.
+  if (!narrow) return { x: 0, y: -12, scale: 1.06 };
   const degree = new Map<string, number>();
   lines.forEach(line => {
     if (line.fromM49) degree.set(line.fromM49, (degree.get(line.fromM49) ?? 0) + 1);
@@ -80,6 +83,28 @@ function focusTransformForLines(
   const cy = maxPoint ? centroidY * 0.5 + maxPoint[1] * 0.5 : centroidY;
   const scale = 1.8;
   return { scale, x: mapWidth * 0.56 - cx * scale, y: mapHeight / 2 - cy * scale };
+}
+
+/**
+ * Shared arc control point for the SVG guide line and the WebGL/Canvas beam.
+ * Same-pair flows fan out with a stable perpendicular offset plus a lane-scaled
+ * curvature, so multiple items between the two countries stay separable.
+ */
+function arcControl(
+  from: readonly [number, number],
+  to: readonly [number, number],
+  lane: number,
+  index: number,
+  compareTrade: boolean
+): [number, number] {
+  const dx = to[0] - from[0];
+  const dy = to[1] - from[1];
+  const length = Math.hypot(dx, dy) || 1;
+  const bend = compareTrade ? 26 + lane * 16 : 34 + (index % 4) * 15;
+  const fanOffset = lane * 6;
+  const nx = -dy / length;
+  const ny = dx / length;
+  return [(from[0] + to[0]) / 2 + nx * (bend + fanOffset), (from[1] + to[1]) / 2 + ny * (bend + fanOffset)];
 }
 
 type Props = { view: MapViewModel; filters: MapFilters & { product: string }; products: readonly { id: string; name: string }[]; regionalLinks?: readonly {entityId:string;label:string;href:string}[] };
@@ -131,9 +156,8 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const wide = window.innerWidth >= 760;
     setRecordsOpen(false);
-    setFiltersOpen(wide);
+    setFiltersOpen(false);
     const mq = window.matchMedia("(max-width: 759px)");
     const updateNarrow = () => setNarrow(mq.matches);
     updateNarrow();
@@ -217,16 +241,13 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
       const from = centers.get(line.fromM49);
       const to = centers.get(line.toM49);
       if (!from || !to) return;
-      const dx = to[0] - from[0];
-      const dy = to[1] - from[1];
-      const length = Math.hypot(dx, dy);
+      const length = Math.hypot(to[0] - from[0], to[1] - from[1]);
       const pair = `${line.fromM49}:${line.toM49}`;
       const lane = laneIndex.get(pair) ?? 0;
       laneIndex.set(pair, lane + 1);
-      const bend = compareTrade ? 28 + lane * 19 : 35 + index % 4 * 17;
       const control: [number, number] = length < 1
         ? [from[0] - 20, from[1] - 48]
-        : [(from[0] + to[0]) / 2 - dy / length * bend, (from[1] + to[1]) / 2 + dx / length * bend];
+        : arcControl(from, to, lane, index, compareTrade);
       const band = recordMass({
         value: line.value,
         valueStatus: line.valueDataStatus,
@@ -242,8 +263,8 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
     return result;
   }, [beamActive, visibleLines, centers, compareTrade, quantityMode, mapTokens.line.minWidth, mapTokens.line.maxWidth, mapTokens.palette.itemColors, settings.beamWidth, activeRecord, colors]);
 
-  const diagnosticsRef = useRef({ particleCount: 0, level: adaptiveLevel, cap: settings.maxParticles });
-  const handleDiagnostics = useCallback((info: { particleCount: number; level: AdaptiveLevel; cap: number }) => {
+  const diagnosticsRef = useRef<{ particleCount: number; level: number; cap: number }>({ particleCount: 0, level: adaptiveLevel, cap: settings.maxParticles });
+  const handleDiagnostics = useCallback((info: { particleCount: number; level: number; cap: number }) => {
     diagnosticsRef.current = info;
     const root = workspaceRef.current;
     if (root) {
@@ -345,6 +366,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
         <button type="button" aria-pressed={effectiveMode === "classic"} onClick={() => setFlowMode("classic")}>经典箭头</button>
         <button type="button" className="flow-settings-open" aria-expanded={drawerOpen} onClick={() => setDrawerOpen(true)}>调节流动</button>
       </div>
+      <button type="button" className="atlas-records-reopen--mobile" aria-label={`展开${isTrade ? "贸易" : "路线"}记录列表，共 ${records.length} 条`} onClick={() => setRecordsOpen(true)}><span>记录</span><strong>{records.length}</strong></button>
       <div className="map-zoom-controls" aria-label="地图缩放"><button type="button" onClick={() => setTransform(current => zoomMap(current, 1.25))} aria-label="放大地图" disabled={transform.scale >= 4}>＋</button><button type="button" onClick={() => setTransform(current => zoomMap(current, 0.8))} aria-label="缩小地图" disabled={transform.scale <= 1}>－</button><button type="button" aria-label="复位地图" onClick={() => setTransform(defaultTransform)}>复位</button><MapFocusButton label="世界地图"/></div>
       </div>
     </div>
@@ -364,44 +386,47 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
             const isSelected = uncoveredCountry ? uncoveredCountry.featureKey === featureKey : Boolean(country && country.id === filters.country);
             const recordActive = activeRecord?.partnerScope === "world_total" && activeRecord.reporterId === country?.id;
             const name = country?.name ?? (item.properties as {name?:string} | null)?.name ?? "该国家或地区";
-            return <path key={item.id ?? index} d={pathGenerator(item as GeoPermissibleObjects) ?? undefined} className={`map-country-shape${country ? " has-data" : ""}${country && !hasLayerRecords(country) ? " atlas-country-limited" : ""}${isSelected ? " selected" : ""}${country && country.id === hoveredCountryId ? " hovered" : ""}${recordActive ? " atlas-record-country" : ""}`} role="button" aria-label={`${name} · ${country ? coverageLabel(country) : "当前商品未收录"}`} aria-pressed={isSelected} tabIndex={0} onMouseEnter={() => country && setHoveredCountryId(country.id)} onMouseLeave={() => setHoveredCountryId(null)} onFocus={() => country && setHoveredCountryId(country.id)} onBlur={() => setHoveredCountryId(null)} onClick={() => chooseCountry(country, name, featureKey)} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); suppressClick.current = false; chooseCountry(country, name, featureKey); } }}><title>{`${name} · ${country ? coverageLabel(country) : "当前商品未收录"}`}</title></path>;
+            return <path key={featureKey} d={pathGenerator(item as GeoPermissibleObjects) ?? undefined} className={`map-country-shape${country ? " has-data" : ""}${country && !hasLayerRecords(country) ? " atlas-country-limited" : ""}${isSelected ? " selected" : ""}${country && country.id === hoveredCountryId ? " hovered" : ""}${recordActive ? " atlas-record-country" : ""}`} role="button" aria-label={`${name} · ${country ? coverageLabel(country) : "当前商品未收录"}`} aria-pressed={isSelected} tabIndex={0} onMouseEnter={() => country && setHoveredCountryId(country.id)} onMouseLeave={() => setHoveredCountryId(null)} onFocus={() => country && setHoveredCountryId(country.id)} onBlur={() => setHoveredCountryId(null)} onClick={() => chooseCountry(country, name, featureKey)} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); suppressClick.current = false; chooseCountry(country, name, featureKey); } }}><title>{`${name} · ${country ? coverageLabel(country) : "当前商品未收录"}`}</title></path>;
           })}
           {!isWorld && <g className="map-trade-layer" aria-label={isTrade ? "双边贸易观察" : "代表性路线连接"}>{visibleLines.map((line, index) => {
             const from = centers.get(line.fromM49); const to = centers.get(line.toM49);
             if (!from || !to) return null;
-            const dx = to[0] - from[0]; const dy = to[1] - from[1]; const length = Math.hypot(dx, dy);
+            const length = Math.hypot(to[0] - from[0], to[1] - from[1]);
             const pair = `${line.fromM49}:${line.toM49}`;
             const lane = parallelLines.get(pair) ?? 0;
             parallelLines.set(pair, lane + 1);
-            const bend = compareTrade ? 28 + lane * 19 : 35 + index % 4 * 17;
+            const [cx, cy] = length < 1 ? [from[0] - 20, from[1] - 48] : arcControl(from, to, lane, index, compareTrade);
             const d = length < 1
               ? `M${coordinate(from[0])},${coordinate(from[1])} c${20 + index % 3 * 8},-48 ${-45 - index % 3 * 8},-48 0,0`
-              : `M${coordinate(from[0])},${coordinate(from[1])} Q${coordinate((from[0] + to[0]) / 2 - dy / length * bend)},${coordinate((from[1] + to[1]) / 2 + dx / length * bend)} ${coordinate(to[0])},${coordinate(to[1])}`;
+              : `M${coordinate(from[0])},${coordinate(from[1])} Q${coordinate(cx)},${coordinate(cy)} ${coordinate(to[0])},${coordinate(to[1])}`;
             const label = `${mapRecordTitle(line, countries)}，${line.itemName}，${line.periodLabel}${isTrade ? `，${mapValue(line.value, line.valueDataStatus, line.currency, true)}` : ""}`;
             const amountWidth = isTrade && widthUnit ? quantityMode ? tradeAmountWidth(line.quantity, line.quantityDataStatus) : tradeAmountWidth(line.value, line.valueDataStatus) : null;
             return <g key={line.id} className={`country-trade-line country-trade-${line.direction ?? "route"}${activeRecord?.id === line.id ? " is-active" : ""}${activeRecord && activeRecord.id !== line.id ? " is-muted" : ""}`} role="button" tabIndex={0} aria-label={label} aria-pressed={selectedRecordId === line.id} onMouseEnter={() => setHoveredRecordId(line.id)} onMouseLeave={() => setHoveredRecordId(null)} onFocus={() => setHoveredRecordId(line.id)} onBlur={() => setHoveredRecordId(null)} onClick={() => chooseRecord(line.id)} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); suppressClick.current = false; chooseRecord(line.id); } }}><path className="atlas-line-hit" d={d} vectorEffect="non-scaling-stroke" /><path className="atlas-line-visible" d={d} vectorEffect="non-scaling-stroke" style={isTrade ? {strokeWidth: amountWidth ?? 1.4, stroke: compareTrade ? colorFor(line.itemId) : undefined, strokeDasharray: compareTrade ? amountWidth === null ? "4 4" : "none" : undefined} : undefined} markerEnd={beamActive ? undefined : compareTrade ? `url(#atlas-item-${line.itemId})` : isTrade ? `url(#atlas-${line.direction}-arrow)` : activeRecord?.id === line.id ? "url(#atlas-selected-arrow)" : undefined}><title>{label}</title></path></g>;
           })}</g>}
           {[...endpoints].map(code => { const point = centers.get(code); const country = byM49.get(code); if (!point || !country) return null; return <g className="atlas-endpoint" key={code} transform={`translate(${coordinate(point[0])},${coordinate(point[1])})`}><circle r={5 / transform.scale} /></g>; })}
         </g>
-        <g className="atlas-country-labels" aria-hidden="true">{labels.map(label => <text key={label.id} x={label.x + 3} y={label.y + labelFontSize + 2} style={{fontSize:labelFontSize}}>{label.name}</text>)}</g>
+        <g className="atlas-country-labels" aria-hidden="true">{labels.map(label => <text key={label.id} x={coordinate(label.x + 3)} y={coordinate(label.y + labelFontSize + 2)} style={{fontSize:labelFontSize}}>{label.name}</text>)}</g>
       </svg>
       {beamActive && <BeamFlowLayer flows={beamFlows} transform={transform} settings={settings} level={adaptiveLevel} nodeColor={tokens.palette.accent} scheme={tokens.scheme} onDiagnostics={handleDiagnostics} onFrameSample={handleFrameSample} />}
       <div className="atlas-map-caption"><span>{captionDescription}</span><span>{beamActive ? "粒子沿货物流向移动 · 双指缩放与移动" : "双指缩放与移动 · 放大后鼠标拖动"}</span></div></div>
-      {isTrade && timeIndex >= 0 && (timelineYears.length > 1
-        ? <div className="trade-timeline">
-            <span className="trade-timeline-head">
-              <button type="button" className="trade-play" aria-pressed={playing} aria-label={playing ? "暂停年份播放" : "播放年份变化"} disabled={timelineYears.length < 2} onClick={() => setPlaying(value => !value)}>{playing ? "❚❚" : "▶"}</button>
-              <span>贸易时间轴 <strong>{activeTimelineYear}</strong></span>
-            </span>
-            <span className="trade-timeline-track">
-              <small>{timelineYears[0]}</small>
-              <input type="range" aria-label="贸易年份" aria-valuetext={activeTimelineYear + " 年"} min={0} max={timelineYears.length - 1} step={1} value={timelineIndex}
-                onChange={event => { setPlaying(false); const year = timelineYears[event.currentTarget.valueAsNumber]; if (!year) return; setTimelineYear(year); navigate({ year }); }} />
-              <small>{timelineYears[timelineYears.length - 1]}</small>
-            </span>
-          </div>
-        : <p className="trade-timeline">当前统计范围收录 {selectedYear} 年</p>)}
-      <div className="atlas-below-map"><p className="atlas-caption-note">{captionDescription}</p><button type="button" className="atlas-records-reopen--mobile" aria-label={`展开${isTrade ? "贸易" : "路线"}记录列表，共 ${records.length} 条`} onClick={() => setRecordsOpen(true)}><span>记录</span><strong>{records.length}</strong></button><div className="map-legend">{compareTrade ? selectedItemIds.map(id => <button type="button" className="atlas-item-chip" disabled={selectedItemIds.length === 1 || isPending} key={id} onClick={() => toggleItem(id, false)} aria-label={`移除${items.find(item => item.id === id)?.name ?? id}`}><i style={{backgroundColor: colorFor(id), border: "1px solid #576978"}} />{items.find(item => item.id === id)?.name ?? id}{selectedItemIds.length > 1 ? " ×" : ""}</button>) : isTrade && !isWorld ? <><span><i className="legend-trade-export" />出口报告</span><span><i className="legend-trade-import" />进口报告</span></> : null}<span><i className="legend-country-covered" />{isTrade ? "有统计" : "参与供应链"}</span><span><i className="legend-country-limited" />仅有账本</span></div><Link className="text-link" href={supplyChainPath(filters.product, filters.focus, context)}>展开供应链 →</Link></div>
+      {isTrade && timelineYears.length > 1 && timeIndex >= 0 && (
+        <div className="trade-timeline">
+          <span className="trade-timeline-head">
+            <button type="button" className="trade-play" aria-pressed={playing} aria-label={playing ? "暂停年份播放" : "播放年份变化"} disabled={timelineYears.length < 2} onClick={() => setPlaying(value => !value)}>{playing ? "❚❚" : "▶"}</button>
+            <span>贸易时间轴 <strong>{activeTimelineYear}</strong></span>
+          </span>
+          <span className="trade-timeline-track">
+            <small>{timelineYears[0]}</small>
+            <input type="range" aria-label="贸易年份" aria-valuetext={activeTimelineYear + " 年"} min={0} max={timelineYears.length - 1} step={1} value={timelineIndex}
+              onChange={event => { setPlaying(false); const year = timelineYears[event.currentTarget.valueAsNumber]; if (!year) return; setTimelineYear(year); navigate({ year }); }} />
+            <small>{timelineYears[timelineYears.length - 1]}</small>
+          </span>
+        </div>
+      )}
+      {isTrade && timelineYears.length === 1 && (
+        <p className="trade-timeline trade-timeline--single">该商品仅收录 {timelineYears[0]} 年</p>
+      )}
+      <div className="atlas-below-map"><p className="atlas-caption-note">{captionDescription}</p><div className="map-legend">{compareTrade ? selectedItemIds.map(id => <button type="button" className="atlas-item-chip" disabled={selectedItemIds.length === 1 || isPending} key={id} onClick={() => toggleItem(id, false)} aria-label={`移除${items.find(item => item.id === id)?.name ?? id}`}><i style={{backgroundColor: colorFor(id), border: "1px solid #576978"}} />{items.find(item => item.id === id)?.name ?? id}{selectedItemIds.length > 1 ? " ×" : ""}</button>) : isTrade && !isWorld ? <><span><i className="legend-trade-export" />出口报告</span><span><i className="legend-trade-import" />进口报告</span></> : null}<span><i className="legend-country-covered" />{isTrade ? "有统计" : "参与供应链"}</span><span><i className="legend-country-limited" />仅有账本</span></div><Link className="text-link" href={supplyChainPath(filters.product, filters.focus, context)}>展开供应链 →</Link></div>
       {isTrade && !isWorld && lines.length > 0 && <details className="atlas-amount-key"><summary>{widthUnit ? `线宽按${quantityMode ? "数量" : "金额"}分档 · ${widthUnit}` : quantityMode ? "所选记录暂无同单位数量" : "选择同年同币种查看金额线宽"}</summary>{widthUnit && <div>{tradeAmountBands.map(band => <span key={band.minimum}><i style={{borderTopWidth:band.width}} />{band.label} {widthUnit}</span>)}</div>}<p>箭头表示货物流向；每条记录保留原年度、报告方和商品分类，不合并加总。未收录数值使用细线或虚线，具体金额与状态见记录。</p></details>}
 
       {!uncoveredCountry && activeCountry && <div className="atlas-country-context"><strong>{activeCountry.name}</strong>{activeCountry.roles.length > 0 && <span>{activeCountry.roles.slice(0, 2).join(" / ")}</span>}{regionalLinks.filter(link=>link.entityId===activeCountry.id).map(link=><Link key={link.href} className="button button-primary" href={link.href}>{link.label} →</Link>)}{activeCountry.hasTradeLedger && <Link href={ledgerPath(filters.product, activeCountry.id, context)}>国家账本 →</Link>}{filters.country && <button type="button" onClick={() => navigate({ country: undefined })}>清除国家</button>}</div>}

@@ -422,7 +422,7 @@ export const ExplodedCanvasViewer = forwardRef<ExplodedViewerHandle, Props>(func
   useImperativeHandle(ref, () => ({ resetView }), [resetView]);
 
   return (
-    <div className="exploded-canvas-wrap" ref={wrapRef}>
+    <div className="exploded-canvas-wrap" ref={wrapRef} data-renderer="canvas2d">
       <canvas
         ref={canvasRef}
         style={{ width: size.width, height: size.height }}

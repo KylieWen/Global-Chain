@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { getPersonaDefinition, parsePersonaPreference, PERSONA_STORAGE_KEY, type PersonaId } from "../lib/persona-experience";
 
 const changeEvent = "global-chain:audience-change";
@@ -29,6 +29,11 @@ function selectPersona(id: PersonaId) {
 }
 
 export function usePersonaPreference() {
-  const selected = useSyncExternalStore(subscribe, snapshot, () => null);
+  // Match the SSR null snapshot on first paint; localStorage is read only after
+  // mount, avoiding a server/client hydration branch on the chosen persona.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const stored = useSyncExternalStore(subscribe, snapshot, () => null);
+  const selected = mounted ? stored : null;
   return { persona: getPersonaDefinition(selected), hasChosen: selected !== null, selectPersona };
 }

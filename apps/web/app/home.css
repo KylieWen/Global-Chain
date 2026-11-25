@@ -48,9 +48,13 @@
 
 .home-hero-line {
   fill: none;
-  stroke-width: 1.6;
+  stroke-width: 1.8;
   stroke-linecap: round;
-  opacity: 0.72;
+  opacity: 0.8;
+}
+
+:root[data-theme="dark"] .home-hero-line {
+  opacity: 0.9;
 }
 
 .home-hero-endpoint circle {
@@ -67,8 +71,9 @@
   z-index: 4;
   pointer-events: none;
   background:
-    linear-gradient(to top, color-mix(in srgb, var(--bg) 82%, transparent) 0%, transparent 44%),
-    linear-gradient(to right, color-mix(in srgb, var(--bg) 60%, transparent) 0%, transparent 56%),
+    linear-gradient(to top, color-mix(in srgb, var(--bg) 88%, transparent) 0%, transparent 48%),
+    linear-gradient(to right, color-mix(in srgb, var(--bg) 72%, transparent) 0%, transparent 58%),
+    linear-gradient(105deg, color-mix(in srgb, var(--bg) 58%, transparent) 0%, transparent 42%),
     linear-gradient(to bottom, color-mix(in srgb, var(--bg) 36%, transparent) 0%, transparent 30%);
 }
 
@@ -180,6 +185,29 @@
   cursor: pointer;
 }
 
+.home-hero-more {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 4.5rem;
+  z-index: 6;
+  min-height: 2.25rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg-elevated) 84%, transparent);
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.home-hero-more[aria-expanded="true"] {
+  color: var(--ink);
+  border-color: var(--accent);
+}
+
 /* ---------- Editorial product entries ---------- */
 
 .home-product-strip.home-product-strip {
@@ -257,18 +285,27 @@
 .home-product-entry-copy {
   display: grid;
   gap: 0.35rem;
+  min-width: 0;
   padding: 0 1rem 1rem;
 }
 
 .home-product-entry-copy strong {
   font-size: 1.02rem;
   color: var(--ink);
+  overflow-wrap: anywhere;
 }
 
-.home-product-facts {
+.home-product-facts,
+.home-product-facts-sub {
   color: var(--muted);
   font-size: 0.76rem;
   line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.home-product-facts-sub {
+  font-size: 0.72rem;
+  line-height: 1.55;
 }
 
 .home-product-link {
@@ -313,5 +350,11 @@
 
   .home-hero-zoom {
     bottom: 6.5rem;
+  }
+
+  .home-hero-more {
+    bottom: 9.5rem;
+    left: auto;
+    right: 1rem;
   }
 }

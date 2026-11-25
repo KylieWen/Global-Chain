@@ -2,7 +2,7 @@ import appearanceConfig from "../../../content/exploded-appearance.json";
 import type { ExplodedNode } from "./exploded-model";
 
 /**
- * Appearance mapping for the procedural exploded view.
+ * Appearance mapping for the exploded view.
  *
  * The real BOM still drives node count, depth, hierarchy and links; this
  * content configuration only decides how a node is drawn: its silhouette role,
@@ -80,34 +80,34 @@ export type Vec3 = readonly [number, number, number];
  * body uses the product `bodySize` override when present.
  */
 const SHAPE_SIZE: Record<ShapeKind, Vec3> = {
-  frame: [1.62, 3.15, 0.45],
-  "frame-part": [1.2, 2.6, 0.18],
-  glass: [1.36, 2.76, 0.06],
-  screen: [1.36, 2.76, 0.09],
-  panel: [1.1, 2.0, 0.08],
-  rear: [1.38, 2.78, 0.1],
-  bottle: [1.05, 2.3, 0.85],
-  "bottle-cap": [0.65, 0.3, 0.65],
-  liquid: [0.95, 1.85, 0.75],
-  garment: [2.2, 1.7, 0.18],
-  bike: [3.0, 1.6, 0.5],
-  wheel: [0.85, 0.85, 0.22],
-  "ac-unit": [2.8, 1.3, 0.55],
-  "battery-pack": [1.0, 1.35, 0.15],
-  "battery-cell": [0.36, 0.5, 0.12],
-  pcb: [1.1, 1.2, 0.08],
-  "board-small": [0.55, 0.55, 0.08],
-  chip: [0.34, 0.34, 0.1],
-  wafer: [0.3, 0.3, 0.06],
-  lens: [0.18, 0.18, 0.09],
-  "camera-bump": [0.52, 0.52, 0.14],
-  speaker: [0.4, 0.2, 0.24],
-  motor: [0.34, 0.34, 0.3],
-  module: [0.85, 0.7, 0.35],
-  sheet: [0.34, 0.24, 0.05],
-  wire: [0.36, 0.12, 0.05],
-  note: [0.38, 0.26, 0.04],
-  material: [0.42, 0.3, 0.06]
+  frame: [1.5, 3.0, 0.4],
+  "frame-part": [1.15, 2.5, 0.16],
+  glass: [1.4, 2.8, 0.05],
+  screen: [1.4, 2.8, 0.07],
+  panel: [1.05, 1.9, 0.07],
+  rear: [1.44, 2.84, 0.08],
+  bottle: [1.0, 2.2, 0.8],
+  "bottle-cap": [0.6, 0.28, 0.6],
+  liquid: [0.9, 1.8, 0.7],
+  garment: [2.2, 1.6, 0.16],
+  bike: [3.0, 1.5, 0.45],
+  wheel: [0.8, 0.8, 0.2],
+  "ac-unit": [2.7, 1.25, 0.5],
+  "battery-pack": [0.95, 1.25, 0.13],
+  "battery-cell": [0.34, 0.46, 0.1],
+  pcb: [1.0, 1.05, 0.07],
+  "board-small": [0.5, 0.5, 0.07],
+  chip: [0.3, 0.3, 0.09],
+  wafer: [0.28, 0.28, 0.05],
+  lens: [0.16, 0.16, 0.08],
+  "camera-bump": [0.5, 0.5, 0.13],
+  speaker: [0.38, 0.18, 0.2],
+  motor: [0.32, 0.32, 0.28],
+  module: [0.8, 0.66, 0.32],
+  sheet: [0.32, 0.24, 0.05],
+  wire: [0.34, 0.1, 0.05],
+  note: [0.36, 0.24, 0.04],
+  material: [0.34, 0.26, 0.06]
 };
 
 /** Shapes that share the body footprint: they stack on the body axis along depth. */
@@ -139,6 +139,62 @@ export function shapeSize(
 ): Vec3 {
   if (isRoot && bodySize) return bodySize;
   return SHAPE_SIZE[shape] ?? SHAPE_SIZE.module;
+}
+
+/** Corner radius as a fraction of the smaller footprint dimension. */
+const SHAPE_RADIUS: Partial<Record<ShapeKind, number>> = {
+  frame: 0.12,
+  "frame-part": 0.1,
+  glass: 0.12,
+  screen: 0.12,
+  panel: 0.1,
+  rear: 0.12,
+  bottle: 0.2,
+  garment: 0.06,
+  "ac-unit": 0.08,
+  "battery-pack": 0.08,
+  module: 0.06
+};
+
+export function shapeRadius(shape: ShapeKind): number {
+  return SHAPE_RADIUS[shape] ?? 0.04;
+}
+
+export type PBRMaterial = {
+  readonly metalness: number;
+  readonly roughness: number;
+  readonly emissive?: string;
+  readonly emissiveIntensity?: number;
+  readonly transparent?: boolean;
+  readonly opacity?: number;
+};
+
+/** Physical material response per color group; presentation only, no real data claim. */
+const PBR_BY_GROUP: Readonly<Record<string, PBRMaterial>> = {
+  frame: { metalness: 0.7, roughness: 0.28 },
+  screen: { metalness: 0.1, roughness: 0.18, emissive: "#24406b", emissiveIntensity: 0.5 },
+  rear: { metalness: 0.15, roughness: 0.75 },
+  pcb: { metalness: 0.2, roughness: 0.55 },
+  battery: { metalness: 0.25, roughness: 0.5 },
+  chip: { metalness: 0.35, roughness: 0.38 },
+  module: { metalness: 0.2, roughness: 0.55 },
+  material: { metalness: 0.1, roughness: 0.7 },
+  metal: { metalness: 0.85, roughness: 0.28 },
+  copper: { metalness: 0.9, roughness: 0.3 },
+  aluminum: { metalness: 0.9, roughness: 0.25 },
+  rare: { metalness: 0.35, roughness: 0.55 },
+  ceramic: { metalness: 0.05, roughness: 0.8 },
+  polymer: { metalness: 0.05, roughness: 0.65 },
+  "glass-mat": { metalness: 0.05, roughness: 0.12, transparent: true, opacity: 0.62 },
+  carbon: { metalness: 0.1, roughness: 0.85 },
+  fabric: { metalness: 0, roughness: 0.95 },
+  liquid: { metalness: 0, roughness: 0.35, transparent: true, opacity: 0.85 },
+  "frame-paint": { metalness: 0.3, roughness: 0.45 },
+  appliance: { metalness: 0.1, roughness: 0.6 }
+};
+
+export function materialPBR(material: string): PBRMaterial {
+  return PBR_BY_GROUP[material] ?? PBR_BY_GROUP.material;
 }
 
 function productAppearance(productId: string): ProductAppearance | null {

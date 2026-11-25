@@ -19,15 +19,33 @@ export default async function HomePage() {
   const countries = queries.listCountries();
 
   const summaries: HomeSummary[] = products.map(product => {
-    const view = createMapView(queries, { product: product.productId, layer: "supply-chain" });
-    const lines = (view?.lines ?? []).map(line => ({ from: line.fromM49, to: line.toM49, itemId: line.itemId ?? "" }));
-    const years = view?.years ?? [];
+    const routeView = createMapView(queries, { product: product.productId, layer: "supply-chain" });
+    const tradeView = createMapView(queries, { product: product.productId, layer: "trade" });
+    const breakdown = queries.getProductBreakdown(product.productId);
+    const countNodes = (node: NonNullable<typeof breakdown>): number =>
+      1 + node.children.reduce((sum, child) => sum + countNodes(child), 0);
+    const entryCount = breakdown ? countNodes(breakdown) - 1 : 0;
+    const componentCount = breakdown?.children.length ?? 0;
+    // Hero flows come from the official bilateral trade statistics, which carry
+    // a reportable amount; representative route flows stay on the product pages.
+    const lines = (tradeView?.lines ?? []).map(line => ({
+      from: line.fromM49,
+      to: line.toM49,
+      itemId: line.itemId ?? "",
+      value: line.value,
+      valueStatus: line.valueDataStatus,
+      year: line.periodLabel,
+      kind: "trade" as const
+    }));
+    const years = routeView?.years ?? tradeView?.years ?? [];
     const yearLabel = years.length === 0 ? "" : years.length === 1 ? years[0] : `${years[years.length - 1]}–${years[0]}`;
     return {
       id: product.productId,
       name: itemLabel(product.item),
-      recordCount: view?.records.length ?? 0,
-      countryCount: view?.countries.length ?? 0,
+      recordCount: routeView?.records.length ?? 0,
+      countryCount: routeView?.countries.length ?? 0,
+      entryCount,
+      componentCount,
       yearLabel,
       lines
     };

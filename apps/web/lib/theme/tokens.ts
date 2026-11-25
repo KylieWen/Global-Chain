@@ -167,14 +167,14 @@ const darkTokens: ThemeTokens = {
   map: {
     mode: "beam",
     line: {
-      minWidth: 1.2,
-      maxWidth: 5.2,
+      minWidth: 1,
+      maxWidth: 6.4,
       opacity: 0.65,
       activeOpacity: 1,
       mutedOpacity: 0.1,
       dashArray: "4 5"
     },
-    particle: { density: 0.78, speed: 0.55, width: 2.3, maxParticles: 300, trail: 0.42 },
+    particle: { density: 0.9, speed: 0.55, width: 2.3, maxParticles: 360, trail: 0.42 },
     node: { radius: 5, glow: 0.5 },
     palette: {
       itemColors: ["#68e4c1", "#ffbb66", "#86baff", "#f3a8db", "#cfe381", "#ff9a93", "#c9b4ff", "#83dce9"],
@@ -194,7 +194,7 @@ const lightTokens: ThemeTokens = {
     inkSoft: "#536078",
     muted: "#7c879c",
     line: "#dce3ed",
-    lineStrong: "#c7d1df",
+    lineStrong: "#7589a3",
     accent: "#0b8f88",
     accentSoft: "#e6f7f4",
     accentInk: "#ffffff",
@@ -224,14 +224,14 @@ const lightTokens: ThemeTokens = {
   map: {
     mode: "beam",
     line: {
-      minWidth: 1.2,
-      maxWidth: 5.2,
+      minWidth: 1,
+      maxWidth: 6.4,
       opacity: 0.7,
       activeOpacity: 1,
       mutedOpacity: 0.12,
       dashArray: "4 5"
     },
-    particle: { density: 0.78, speed: 0.55, width: 2.3, maxParticles: 300, trail: 0.38 },
+    particle: { density: 0.9, speed: 0.55, width: 2.3, maxParticles: 360, trail: 0.38 },
     node: { radius: 5, glow: 0.4 },
     palette: {
       itemColors: ["#2f9e83", "#c76b24", "#2f65d5", "#b05596", "#7a9a2e", "#b94c51", "#6c55b8", "#2b8fa6"],

@@ -77,3 +77,107 @@
   .product-overview-intro .page-intro > div:first-child { padding-right: 84px; }
   .product-artwork-overview { position: absolute; top: 0; right: 0; width: 78px; height: 74px; }
 }
+
+/* Compact overview header: title, meta and actions on tight rows so the
+ * exploded stage stays inside the first screen. Hooks (.product-overview-intro,
+ * h1, .product-level-nav) are preserved; only spacing and sizes change. */
+.product-overview-page {
+  padding-top: 0.5rem;
+}
+
+.product-overview-page .product-level-nav {
+  margin-bottom: 0.35rem;
+}
+
+.product-overview-page .product-level-nav a {
+  min-height: 2.3rem;
+  padding: 0.4rem 0.7rem;
+}
+
+.product-overview-page .exploded-explorer {
+  margin-top: 0.5rem;
+}
+
+.product-overview-intro--compact {
+  gap: 0.75rem 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.product-overview-intro--compact .page-intro {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1rem;
+  margin: 0;
+}
+
+.product-overview-intro--compact .page-intro-copy {
+  flex: 1 1 300px;
+  max-width: none;
+}
+
+.product-overview-intro--compact .page-intro-copy > .eyebrow {
+  margin-bottom: 0.2rem;
+}
+
+.product-overview-intro--compact h1 {
+  font-size: clamp(1.5rem, 2vw, 1.75rem);
+  line-height: 1.15;
+  margin-bottom: 0.2rem;
+}
+
+.product-overview-intro--compact .intro-copy {
+  margin: 0 0 0.15rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.product-overview-intro--compact .intro-meta {
+  margin-top: 0.2rem;
+}
+
+.product-overview-intro--compact .intro-actions {
+  flex: 0 1 auto;
+  justify-content: flex-end;
+  gap: 0.45rem;
+}
+
+.product-overview-intro--compact .intro-actions .button {
+  min-height: 2.25rem;
+  padding: 0.42rem 0.8rem;
+  font-size: 0.78rem;
+}
+
+.product-overview-intro--compact .product-artwork-overview {
+  width: 96px;
+  height: 76px;
+}
+
+.product-overview-intro--compact .intro-copy {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .product-overview-intro--compact h1 {
+    font-size: 1.35rem;
+  }
+
+  .product-overview-intro--compact .intro-actions {
+    flex: 1 1 100%;
+    justify-content: flex-start;
+    gap: 0.35rem;
+  }
+
+  .product-overview-intro--compact .intro-actions .button {
+    min-height: 2.1rem;
+    padding: 0.38rem 0.7rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 440px) {
+  .product-overview-intro--compact .product-artwork-overview {
+    width: 72px;
+    height: 68px;
+  }
+}

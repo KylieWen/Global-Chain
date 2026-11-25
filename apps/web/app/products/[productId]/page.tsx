@@ -61,9 +61,9 @@ export default async function ProductOverviewPage({
 
   return (
     <SiteShell>
-      <div className="content-column">
+      <div className="content-column product-overview-page">
         <ProductNavigation productId={productId} context={routeContext} active="overview" hasIndustry={Boolean(industry)} hasMaterials={hasMaterialTrade}/>
-        <div className="product-overview-intro">
+        <div className="product-overview-intro product-overview-intro--compact">
         <PageIntro
           eyebrow={overview.product.category}
           title={itemLabel(overview.product)}

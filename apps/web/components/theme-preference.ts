@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import { THEME_STORAGE_KEY, type StorageLike } from "../lib/theme/preference";
 import { createThemeStore } from "../lib/theme/store";
 import { createMediaQueryStore, type MediaQueryStore } from "../lib/theme/media-query";
@@ -117,9 +117,17 @@ export type ThemePreference = {
 };
 
 export function useThemePreference(): ThemePreference {
-  const config = useSyncExternalStore(store.subscribe, store.snapshot, () => store.serverSnapshot);
-  const systemDark = useMediaQuery(darkMedia);
-  const reducedMotion = useMediaQuery(motionMedia);
+  // First client paint must match the SSR snapshot: persisted localStorage and
+  // OS media queries are only read after mount, so hydration never branches on
+  // browser-only state.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const storedConfig = useSyncExternalStore(store.subscribe, store.snapshot, () => store.serverSnapshot);
+  const systemDarkRaw = useMediaQuery(darkMedia);
+  const reducedMotionRaw = useMediaQuery(motionMedia);
+  const config = mounted ? storedConfig : store.serverSnapshot;
+  const systemDark = mounted ? systemDarkRaw : false;
+  const reducedMotion = mounted ? reducedMotionRaw : false;
   const resolved = resolveResolvedTheme(config.mode, systemDark);
   const { tokens } = resolveThemeTokens(config, systemDark);
 

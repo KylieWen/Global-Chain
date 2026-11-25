@@ -37,9 +37,10 @@ p { line-height: 1.7; }
   .site-header-inner { flex-wrap:wrap; gap:.5rem 1rem; padding:.6rem 0; }
   .site-nav { order:3; flex-basis:100%; flex-wrap:wrap; gap:.7rem 1rem; }
 }
-.global-search { display: flex; align-items: center; margin-left: auto; border: 1px solid var(--line); border-radius: 0.65rem; background: var(--surface); overflow: hidden; }
+.global-search { display: flex; align-items: center; margin-left: auto; border: 1px solid var(--line-strong); border-radius: 0.65rem; background: var(--surface); overflow: hidden; }
 .global-search input { width: 10.5rem; min-height: 2.25rem; padding: 0.45rem 0.65rem; border: 0; outline: none; color: var(--ink); background: transparent; }
 .global-search button { min-height: 2.25rem; padding: 0 0.65rem; border: 0; color: var(--accent); background: var(--accent-soft); font-weight: 750; cursor: pointer; }
+:root[data-theme="light"] .global-search button { color: #08736d; }
 .site-nav a:hover, .text-link:hover { color: var(--accent); }
 .mode-pill { padding: 0.35rem 0.65rem; border-radius: 999px; font-size: 0.72rem; font-weight: 700; }
 .mode-preview { color: #8a5316; background: var(--orange-soft); }
@@ -489,6 +490,8 @@ p { line-height: 1.7; }
 .trade-observation-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
 .trade-observation-heading h3 { margin-top: 0.65rem; }
 .trade-observation-heading p { margin-bottom: 0; color: var(--ink-soft); font-size: 0.76rem; }
+.trade-observation-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+.trade-observation-action { color: var(--blue); font-size: 0.78rem; font-weight: 750; white-space: nowrap; }
 .fact-status-stack { display: grid; justify-items: end; gap: 0.3rem; }
 .fact-status-stack small { color: var(--muted); font-size: 0.65rem; }
 .trade-values { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
@@ -809,6 +812,8 @@ p { line-height: 1.7; }
   .activity-status-stack { justify-items: start; min-width: 0; }
   .activity-evidence-details { max-width: none; text-align: left; }
   .interpreted-metric, .trade-observation-list { grid-template-columns: 1fr; }
+  .trade-observation-heading { flex-direction: column; gap: 0.6rem; }
+  .trade-observation-actions { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
   .fact-metadata-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
   .map-zoom-controls { justify-content: flex-start; }

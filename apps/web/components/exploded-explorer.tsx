@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { PageContext } from "../lib/context";
 import type { ExplodedModel } from "../lib/exploded-model";
@@ -8,8 +8,22 @@ import { explodedLinks } from "../lib/exploded-links";
 import { useThemePreference } from "./theme-preference";
 import { StatusBadge } from "./data-display";
 import { ExplodedCanvasViewer, type ExplodedViewerHandle } from "./exploded-canvas-viewer";
+import { ExplodedThreeViewer } from "./exploded-three-viewer";
 import { ExplodedIsoView } from "./exploded-iso-view";
+import { resolveNodeRole, schemeMaterials } from "../lib/exploded-appearance";
 import "./exploded-view.css";
+
+const RENDERER_STORAGE_KEY = "globe-chain:exploded-renderer";
+
+function readStoredRenderer(): "webgl" | "canvas2d" | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const value = window.localStorage.getItem(RENDERER_STORAGE_KEY);
+    return value === "canvas2d" || value === "webgl" ? value : null;
+  } catch {
+    return null;
+  }
+}
 
 type Props = {
   model: ExplodedModel;
@@ -24,14 +38,26 @@ export function ExplodedExplorer({ model, productId, context, initialFocus }: Pr
   const { tokens, reducedMotion } = useThemePreference();
   const initialNode = initialFocus && model.nodes.some((node) => node.id === initialFocus) ? initialFocus : model.root.id;
   const [selectedId, setSelectedId] = useState<string | null>(initialNode);
-  const [explosion, setExplosion] = useState(0.5);
+  const [explosion, setExplosion] = useState(0.72);
   const viewerRef = useRef<ExplodedViewerHandle | null>(null);
+  // Keep the first render identical on server and client; the stored renderer is
+  // read in an effect after mount so a forced fallback cannot cause a hydration mismatch.
+  const [storedRenderer, setStoredRenderer] = useState<"webgl" | "canvas2d" | null>(null);
+  const [fallbackReason, setFallbackReason] = useState<string | null>(null);
+
+  useLayoutEffect(() => {
+    setStoredRenderer(readStoredRenderer());
+  }, []);
 
   const nodeById = useMemo(() => new Map(model.nodes.map((node) => [node.id, node])), [model]);
   const selected = selectedId ? nodeById.get(selectedId) ?? model.root : model.root;
   const links = explodedLinks(productId, selected, context);
   const mounted = useRef(false);
   const isProcedural = model.renderMode === "procedural-3d";
+
+  // Reduced motion, a stored forced fallback, or a WebGL degradation all route
+  // the procedural view to the kept 2D canvas implementation.
+  const useWebGL = isProcedural && !reducedMotion && storedRenderer !== "canvas2d" && !fallbackReason;
 
   useEffect(() => {
     if (!mounted.current) {
@@ -49,11 +75,19 @@ export function ExplodedExplorer({ model, productId, context, initialFocus }: Pr
     return model.nodes.filter((node) => ids.has(node.id) && MATERIAL_TYPES.has(node.itemType));
   }, [selected, model]);
 
+  // All material samples, shown as a compact clickable strip in narrow mode
+  // (the 3D material meshes are hidden there so the body cannot cover them).
+  const stripMaterials = useMemo(
+    () => model.nodes.filter((node) => node.lane === "material"),
+    [model]
+  );
+  const schemePalette = useMemo(() => schemeMaterials(tokens.scheme), [tokens.scheme]);
+
   const laneMeta = new Map(model.lanes.map((lane) => [lane.id, lane]));
   const selectedLane = laneMeta.get(selected.lane);
 
   return (
-    <section className="exploded-explorer" aria-labelledby="exploded-title">
+    <section className="exploded-explorer" aria-labelledby="exploded-title" data-fallback={fallbackReason ?? ""}>
       <div className="exploded-stage">
         <div className="exploded-stage-heading">
           <div>
@@ -75,17 +109,32 @@ export function ExplodedExplorer({ model, productId, context, initialFocus }: Pr
         )}
 
         {isProcedural ? (
-          <ExplodedCanvasViewer
-            ref={viewerRef}
-            model={model}
-            productId={productId}
-            scheme={tokens.scheme}
-            tokens={tokens.palette}
-            selectedId={selected.id}
-            onSelect={setSelectedId}
-            explosion={explosion}
-            reducedMotion={reducedMotion}
-          />
+          useWebGL ? (
+            <ExplodedThreeViewer
+              ref={viewerRef}
+              model={model}
+              productId={productId}
+              scheme={tokens.scheme}
+              tokens={tokens.palette}
+              selectedId={selected.id}
+              onSelect={setSelectedId}
+              explosion={explosion}
+              reducedMotion={reducedMotion}
+              onFallback={setFallbackReason}
+            />
+          ) : (
+            <ExplodedCanvasViewer
+              ref={viewerRef}
+              model={model}
+              productId={productId}
+              scheme={tokens.scheme}
+              tokens={tokens.palette}
+              selectedId={selected.id}
+              onSelect={setSelectedId}
+              explosion={explosion}
+              reducedMotion={reducedMotion}
+            />
+          )
         ) : (
           <ExplodedIsoView
             model={model}
@@ -96,6 +145,27 @@ export function ExplodedExplorer({ model, productId, context, initialFocus }: Pr
             onSelect={setSelectedId}
             explosion={explosion}
           />
+        )}
+
+        {isProcedural && useWebGL && stripMaterials.length > 0 && (
+          <div className="exploded-material-strip">
+            {stripMaterials.map((node) => {
+              const role = resolveNodeRole(productId, node);
+              const color = schemePalette[role.material] ?? schemePalette.material;
+              return (
+                <button
+                  type="button"
+                  key={node.id}
+                  className={`exploded-material-strip-chip${selected.id === node.id ? " selected" : ""}`}
+                  aria-pressed={selected.id === node.id}
+                  onClick={() => setSelectedId(node.id)}
+                >
+                  <span className="exploded-material-swatch" style={{ backgroundColor: color }} />
+                  {node.name}
+                </button>
+              );
+            })}
+          </div>
         )}
 
         <div className="exploded-controls">
