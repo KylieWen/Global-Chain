@@ -34,7 +34,7 @@ const mapHeight = 540;
 const atlas = worldAtlas as unknown as Topology<{ countries: GeometryCollection }>;
 const coarseFeatures = feature(atlas, atlas.objects.countries).features;
 const features = [...coarseFeatures, ...(smallCountries.features as unknown as typeof coarseFeatures)];
-const projection = geoEqualEarth().fitExtent([[25, 25], [975, 515]], { type: "Sphere" });
+const projection = geoEqualEarth().fitExtent([[25, 70], [975, 530]], { type: "Sphere" });
 const pathGenerator = geoPath(projection);
 const coordinate = (value: number) => Number(value.toFixed(3));
 
@@ -49,10 +49,11 @@ function focusTransformForLines(
   centerMap: Map<string, [number, number] | null>,
   narrow: boolean
 ): MapTransform {
-  // Wide screens: a slight zoom and upward shift puts the converging flows at
-  // the visual centre and crops the empty southern ocean; the rest of the world
-  // stays reachable by dragging.
-  if (!narrow) return { x: 0, y: -12, scale: 1.06 };
+  // Wide screens: a modest zoom keeps the full world; the projection extent
+  // biases the frame downward so the converging flow band sits near the visual
+  // centre instead of floating over an empty southern ocean. The rest of the
+  // world stays reachable by dragging.
+  if (!narrow) return { x: 0, y: 0, scale: 1.06 };
   const degree = new Map<string, number>();
   lines.forEach(line => {
     if (line.fromM49) degree.set(line.fromM49, (degree.get(line.fromM49) ?? 0) + 1);
@@ -408,7 +409,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
         <g className="atlas-country-labels" aria-hidden="true">{labels.map(label => <text key={label.id} x={coordinate(label.x + 3)} y={coordinate(label.y + labelFontSize + 2)} style={{fontSize:labelFontSize}}>{label.name}</text>)}</g>
       </svg>
       {beamActive && <BeamFlowLayer flows={beamFlows} transform={transform} settings={settings} level={adaptiveLevel} nodeColor={tokens.palette.accent} scheme={tokens.scheme} onDiagnostics={handleDiagnostics} onFrameSample={handleFrameSample} />}
-      <div className="atlas-map-caption"><span>{captionDescription}</span><span>{beamActive ? "粒子沿货物流向移动 · 双指缩放与移动" : "双指缩放与移动 · 放大后鼠标拖动"}</span></div></div>
+      <div className="atlas-map-caption"><span>{beamActive ? "粒子沿货物流向移动 · 双指缩放与移动" : "双指缩放与移动 · 放大后鼠标拖动"}</span></div></div>
       {isTrade && timelineYears.length > 1 && timeIndex >= 0 && (
         <div className="trade-timeline">
           <span className="trade-timeline-head">
@@ -424,9 +425,9 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
         </div>
       )}
       {isTrade && timelineYears.length === 1 && (
-        <p className="trade-timeline trade-timeline--single">该商品仅收录 {timelineYears[0]} 年</p>
+        <p className="trade-timeline trade-timeline--single"><span>{captionDescription}</span><span>该商品仅收录 {timelineYears[0]} 年</span></p>
       )}
-      <div className="atlas-below-map"><p className="atlas-caption-note">{captionDescription}</p><div className="map-legend">{compareTrade ? selectedItemIds.map(id => <button type="button" className="atlas-item-chip" disabled={selectedItemIds.length === 1 || isPending} key={id} onClick={() => toggleItem(id, false)} aria-label={`移除${items.find(item => item.id === id)?.name ?? id}`}><i style={{backgroundColor: colorFor(id), border: "1px solid #576978"}} />{items.find(item => item.id === id)?.name ?? id}{selectedItemIds.length > 1 ? " ×" : ""}</button>) : isTrade && !isWorld ? <><span><i className="legend-trade-export" />出口报告</span><span><i className="legend-trade-import" />进口报告</span></> : null}<span><i className="legend-country-covered" />{isTrade ? "有统计" : "参与供应链"}</span><span><i className="legend-country-limited" />仅有账本</span></div><Link className="text-link" href={supplyChainPath(filters.product, filters.focus, context)}>展开供应链 →</Link></div>
+      <div className="atlas-below-map">{!(isTrade && timelineYears.length === 1) && <p className="atlas-caption-note">{captionDescription}</p>}<div className="map-legend">{compareTrade ? selectedItemIds.map(id => <button type="button" className="atlas-item-chip" disabled={selectedItemIds.length === 1 || isPending} key={id} onClick={() => toggleItem(id, false)} aria-label={`移除${items.find(item => item.id === id)?.name ?? id}`}><i style={{backgroundColor: colorFor(id), border: "1px solid #576978"}} />{items.find(item => item.id === id)?.name ?? id}{selectedItemIds.length > 1 ? " ×" : ""}</button>) : isTrade && !isWorld ? <><span><i className="legend-trade-export" />出口报告</span><span><i className="legend-trade-import" />进口报告</span></> : null}<span><i className="legend-country-covered" />{isTrade ? "有统计" : "参与供应链"}</span><span><i className="legend-country-limited" />仅有账本</span></div><Link className="text-link" href={supplyChainPath(filters.product, filters.focus, context)}>展开供应链 →</Link></div>
       {isTrade && !isWorld && lines.length > 0 && <details className="atlas-amount-key"><summary>{widthUnit ? `线宽按${quantityMode ? "数量" : "金额"}分档 · ${widthUnit}` : quantityMode ? "所选记录暂无同单位数量" : "选择同年同币种查看金额线宽"}</summary>{widthUnit && <div>{tradeAmountBands.map(band => <span key={band.minimum}><i style={{borderTopWidth:band.width}} />{band.label} {widthUnit}</span>)}</div>}<p>箭头表示货物流向；每条记录保留原年度、报告方和商品分类，不合并加总。未收录数值使用细线或虚线，具体金额与状态见记录。</p></details>}
 
       {!uncoveredCountry && activeCountry && <div className="atlas-country-context"><strong>{activeCountry.name}</strong>{activeCountry.roles.length > 0 && <span>{activeCountry.roles.slice(0, 2).join(" / ")}</span>}{regionalLinks.filter(link=>link.entityId===activeCountry.id).map(link=><Link key={link.href} className="button button-primary" href={link.href}>{link.label} →</Link>)}{activeCountry.hasTradeLedger && <Link href={ledgerPath(filters.product, activeCountry.id, context)}>国家账本 →</Link>}{filters.country && <button type="button" onClick={() => navigate({ country: undefined })}>清除国家</button>}</div>}

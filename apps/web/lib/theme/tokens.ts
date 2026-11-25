@@ -174,8 +174,8 @@ const darkTokens: ThemeTokens = {
       mutedOpacity: 0.1,
       dashArray: "4 5"
     },
-    particle: { density: 0.9, speed: 0.55, width: 2.3, maxParticles: 360, trail: 0.42 },
-    node: { radius: 5, glow: 0.5 },
+    particle: { density: 0.9, speed: 0.55, width: 2.3, maxParticles: 360, trail: 0.55 },
+    node: { radius: 5, glow: 0.65 },
     palette: {
       itemColors: ["#68e4c1", "#ffbb66", "#86baff", "#f3a8db", "#cfe381", "#ff9a93", "#c9b4ff", "#83dce9"],
       stageColors: { material: "#f2ca7a", component: "#86baff", manufacturing: "#77e0c5", market: "#e4a5d9" }
@@ -231,8 +231,8 @@ const lightTokens: ThemeTokens = {
       mutedOpacity: 0.12,
       dashArray: "4 5"
     },
-    particle: { density: 0.9, speed: 0.55, width: 2.3, maxParticles: 360, trail: 0.38 },
-    node: { radius: 5, glow: 0.4 },
+    particle: { density: 0.9, speed: 0.55, width: 2.3, maxParticles: 360, trail: 0.48 },
+    node: { radius: 5, glow: 0.55 },
     palette: {
       itemColors: ["#2f9e83", "#c76b24", "#2f65d5", "#b05596", "#7a9a2e", "#b94c51", "#6c55b8", "#2b8fa6"],
       stageColors: { material: "#c76b24", component: "#2f65d5", manufacturing: "#2f9e83", market: "#b05596" }

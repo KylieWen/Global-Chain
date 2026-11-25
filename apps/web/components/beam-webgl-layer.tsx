@@ -190,25 +190,32 @@ function appendStrip(
   }
 }
 
-function buildBundle(flows: PreparedFlow[], filamentScale: number): BundleGeometry {
+function buildBundle(flows: PreparedFlow[], filamentScale: number, dark: boolean): BundleGeometry {
   const bundle: BundleGeometry = { positions: [], colors: [], alphas: [], sides: [], indices: [] };
   for (const flow of flows) {
     const { bandWidth, factor, alpha: flowAlpha, color } = flow;
     if (flow.flow.state === "muted") continue;
 
+    // Dark additive field: raised halo / filament / core alpha so weak green
+    // and blue strands stay readable; light scheme keeps its normal-composite
+    // alphas unchanged.
+    const haloAlpha = dark ? 0.18 : 0.13;
+    const filamentAlpha = dark ? 0.34 : 0.24;
+    const coreAlpha = dark ? 0.82 : 0.68;
+
     // Wide faint halo that defines the bundle silhouette.
-    appendStrip(bundle, flow, 0, bandWidth * 0.95, 0.11 * flowAlpha, color);
+    appendStrip(bundle, flow, 0, bandWidth * 0.95, haloAlpha * flowAlpha, color);
 
     // Dense thin filaments fanned across the bundle.
     const offsets = filamentOffsets(factor);
     const visibleFilaments = Math.max(1, Math.round(offsets.length * filamentScale));
     for (let index = 0; index < visibleFilaments; index += 1) {
       const lane = offsets[index] * bandWidth;
-      appendStrip(bundle, flow, lane, 0.26, 0.2 * flowAlpha, color);
+      appendStrip(bundle, flow, lane, 0.32, filamentAlpha * flowAlpha, color);
     }
 
     // Bright narrow core along the centre.
-    appendStrip(bundle, flow, 0, Math.max(0.3, bandWidth * 0.12), 0.6 * flowAlpha, color);
+    appendStrip(bundle, flow, 0, Math.max(0.3, bandWidth * 0.12), coreAlpha * flowAlpha, color);
   }
   return bundle;
 }
@@ -386,7 +393,7 @@ export function BeamWebGLLayer(props: WebGLProps) {
     const fallback = () => { if (!disposed) onFallbackRef.current?.(); };
 
     try {
-      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false, powerPreference: "high-performance", preserveDrawingBuffer: true });
+      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false, powerPreference: "high-performance" });
     } catch {
       fallback();
       return;
@@ -417,7 +424,7 @@ export function BeamWebGLLayer(props: WebGLProps) {
     const glowScale = LEVEL_GLOW_SCALE[stateRef.current.level];
 
     /* ---- Static bundle strips ------------------------------------------ */
-    const bundleData = buildBundle(flows, filamentScale);
+    const bundleData = buildBundle(flows, filamentScale, stateRef.current.scheme !== "light");
     const bundleGeometry = new THREE.BufferGeometry();
     bundleGeometry.setAttribute("position", new THREE.Float32BufferAttribute(bundleData.positions, 3));
     bundleGeometry.setAttribute("aColor", new THREE.Float32BufferAttribute(bundleData.colors, 3));
@@ -460,7 +467,7 @@ export function BeamWebGLLayer(props: WebGLProps) {
         const laneFraction = (i / Math.max(1, count) - 0.5) + (Math.random() - 0.5) * 0.08;
         const speed = 0.75 + Math.random() * 0.5;
         const phase = i / Math.max(1, count) + Math.random() * 0.2;
-        const headRadius = 1.4 + pf.flow.factor * 1.0;
+        const headRadius = 1.0 + pf.flow.factor * 0.7;
         pData.push(laneFraction, speed, phase, headRadius);
         pBand.push(pf.bandWidth);
         pTrail.push((2.5 + stateRef.current.settings.trail * 5) * trailScale);
@@ -514,13 +521,20 @@ export function BeamWebGLLayer(props: WebGLProps) {
     endpoints.forEach(endpoint => {
       const degree = Math.min(endpoint.degree, 6);
       const strength = Math.min(1, endpoint.strength / 6);
-      const radius = (5 + degree * 1.6 + strength * 10) * stateRef.current.settings.glow * glowScale;
+      const dark = stateRef.current.scheme !== "light";
+      const radius = dark
+        ? (6 + degree * 1.8 + strength * 15) * stateRef.current.settings.glow * glowScale
+        : (5 + degree * 1.6 + strength * 12) * stateRef.current.settings.glow * glowScale;
       glowPos.push(endpoint.x, endpoint.y);
       glowScaleArr.push(radius * 2);
-      glowAlphaArr.push(Math.min(0.7, 0.14 + degree * 0.08 + strength * 0.45) * stateRef.current.settings.glow * glowScale);
+      glowAlphaArr.push((dark
+        ? Math.min(0.75, 0.2 + degree * 0.09 + strength * 0.62)
+        : Math.min(0.7, 0.14 + degree * 0.08 + strength * 0.5)) * stateRef.current.settings.glow * glowScale);
       corePos.push(endpoint.x, endpoint.y);
-      coreScaleArr.push(2.0 + strength * 0.9 + glowScale * 0.6);
-      coreAlphaArr.push(Math.min(1, 0.6 + strength * 0.35));
+      coreScaleArr.push(dark
+        ? 2.2 + strength * 1.0 + glowScale * 0.6
+        : 2.0 + strength * 0.9 + glowScale * 0.6);
+      coreAlphaArr.push(Math.min(1, (dark ? 0.72 : 0.6) + strength * 0.35));
     });
 
     const glowGeometry = new THREE.InstancedBufferGeometry();
@@ -613,7 +627,7 @@ export function BeamWebGLLayer(props: WebGLProps) {
       const { transform, settings, level } = stateRef.current;
       const isLight = stateRef.current.scheme === "light";
       const targetBlending = isLight ? THREE.NormalBlending : THREE.AdditiveBlending;
-      const boost = isLight ? 1.7 : 1;
+      const boost = isLight ? 1.7 : 1.5;
       const mode = isLight ? 1 : 0;
 
       mapGroup.position.set(transform.x, transform.y, 0);
@@ -629,8 +643,8 @@ export function BeamWebGLLayer(props: WebGLProps) {
       particleMaterial.uniforms.uTime.value = time / 1000;
       particleMaterial.uniforms.uBoost.value = boost;
       particleMaterial.uniforms.uMode.value = mode;
-      particleMaterial.uniforms.uTrailAlpha.value = isLight ? 0.4 : 0.38;
-      particleMaterial.uniforms.uHeadAlpha.value = isLight ? 0.85 : 0.8;
+      particleMaterial.uniforms.uTrailAlpha.value = isLight ? 0.42 : 0.52;
+      particleMaterial.uniforms.uHeadAlpha.value = isLight ? 0.88 : 0.95;
       if (particleMaterial.blending !== targetBlending) {
         particleMaterial.blending = targetBlending;
         particleMaterial.needsUpdate = true;
@@ -657,32 +671,6 @@ export function BeamWebGLLayer(props: WebGLProps) {
       }
     };
     raf = requestAnimationFrame(draw);
-
-    if (typeof window !== "undefined") {
-      (window as unknown as Record<string, unknown>).__beamDebug = {
-        particleMesh,
-        bundleMesh,
-        glowMesh,
-        coreMesh,
-        particleMaterial,
-        bundleMaterial,
-        renderer,
-        scene,
-        camera,
-        mapGroup,
-        sliceGroup,
-        THREE,
-        flows: flows.map(pf => ({
-          id: pf.flow.id,
-          from: pf.flow.from,
-          to: pf.flow.to,
-          factor: pf.factor,
-          bandWidth: pf.bandWidth,
-          state: pf.flow.state
-        })),
-        endpoints: endpoints.map(e => ({ ...e }))
-      };
-    }
 
     return () => {
       disposed = true;

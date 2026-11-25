@@ -208,19 +208,19 @@ export function BeamCanvas2DLayer({
           context.lineJoin = "round";
           context.lineCap = "round";
 
-          const haloAlpha = light ? 0.08 : 0.06;
+          const haloAlpha = light ? 0.08 : 0.11;
           context.strokeStyle = withAlpha(flow.color, haloAlpha * alpha);
           context.lineWidth = bandWidth * 1.9;
           traceBezier(context, flow);
           context.stroke();
 
           const visibleFilaments = Math.max(1, Math.round(filaments.length * filamentScale));
-          const filamentAlpha = light ? 0.13 : 0.1;
+          const filamentAlpha = light ? 0.13 : 0.2;
           for (let index = 0; index < visibleFilaments; index += 1) {
             const fraction = filaments[index];
             const lane = fraction * bandWidth;
             context.strokeStyle = withAlpha(flow.color, filamentAlpha * alpha);
-            context.lineWidth = 0.6;
+            context.lineWidth = 0.7;
             context.beginPath();
             for (let sample = 0; sample <= BEZIER_SAMPLES; sample += 1) {
               const [x, y] = bezier(flow, sample / BEZIER_SAMPLES, lane);
@@ -230,7 +230,7 @@ export function BeamCanvas2DLayer({
             context.stroke();
           }
 
-          const coreAlpha = light ? 0.42 : 0.3;
+          const coreAlpha = light ? 0.42 : 0.5;
           context.strokeStyle = withAlpha(flow.color, coreAlpha * alpha);
           context.lineWidth = Math.max(0.5, bandWidth * 0.18);
           traceBezier(context, flow);
@@ -239,8 +239,8 @@ export function BeamCanvas2DLayer({
 
         if (particles.length === 0) continue;
 
-        const radius = Math.min(0.85, Math.max(0.5, 0.5 + flow.factor * 0.3));
-        const trailAlpha = (0.22 + current.trail * 0.45) * trailScale;
+        const radius = Math.min(0.7, Math.max(0.4, 0.42 + flow.factor * 0.24));
+        const trailAlpha = ((light ? 0.26 : 0.32) + current.trail * (light ? 0.45 : 0.5)) * trailScale;
 
         for (const particle of particles) {
           particle.t += baseSpeed * particle.speed * (dt / 1000);
@@ -260,7 +260,7 @@ export function BeamCanvas2DLayer({
           context.lineTo(x, y);
           context.stroke();
 
-          context.fillStyle = withAlpha(flow.color, (light ? 0.38 : 0.3) * alpha);
+          context.fillStyle = withAlpha(flow.color, (light ? 0.38 : 0.44) * alpha);
           context.beginPath();
           context.arc(x, y, radius, 0, TAU);
           context.fill();
@@ -281,10 +281,12 @@ export function BeamCanvas2DLayer({
         for (const endpoint of endpointsRef.current) {
           const degree = Math.min(endpoint.degree, 6);
           const strength = Math.min(1, endpoint.strength / 6);
-          const baseRadius = (4.5 + degree * 1.4 + strength * 3) * current.glow * glowScale;
+          const baseRadius = (light ? 4.5 + degree * 1.4 + strength * 4.5 : 5.5 + degree * 1.6 + strength * 6) * current.glow * glowScale;
           const radius = baseRadius * breathe;
           if (radius <= 0.2) continue;
-          const glowAlpha = Math.min(0.5, 0.08 + degree * 0.06 + strength * 0.12) * current.glow * glowScale;
+          const glowAlpha = (light
+            ? Math.min(0.5, 0.08 + degree * 0.06 + strength * 0.18)
+            : Math.min(0.55, 0.12 + degree * 0.07 + strength * 0.26)) * current.glow * glowScale;
           const gradient = context.createRadialGradient(endpoint.x, endpoint.y, 0, endpoint.x, endpoint.y, radius);
           gradient.addColorStop(0, withAlpha(currentNodeColor, glowAlpha));
           gradient.addColorStop(1, withAlpha(currentNodeColor, 0));

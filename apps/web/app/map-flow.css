@@ -630,6 +630,24 @@
   min-width: 0;
 }
 
+/* Single-year capsule: scope description and year note share one wrapped row
+   instead of stacking under the floating caption strip. */
+.atlas-workspace .trade-timeline--single {
+  flex-wrap: wrap;
+  column-gap: 0.7rem;
+  row-gap: 0.2rem;
+}
+
+.atlas-workspace .trade-timeline--single span:first-child {
+  color: var(--ink-soft);
+}
+
+/* Caption strip keeps only the gesture hint; right-aligned clear of the left
+   floating timeline / note capsule. */
+.atlas-workspace .atlas-map-caption {
+  justify-content: flex-end;
+}
+
 /* Legend chips and the supply-chain link float over the bottom-right corner. */
 .atlas-workspace .atlas-below-map {
   position: absolute;
