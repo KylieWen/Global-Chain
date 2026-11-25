@@ -10,7 +10,7 @@ import {
   LEVEL_TRAIL_SCALE,
   type AdaptiveLevel
 } from "../lib/flow-encoding";
-import type { FlowSettings } from "../lib/flow-config";
+import { BUNDLE_BAND_FULL_CSS_PX, type FlowSettings } from "../lib/flow-config";
 import type { BeamDiagnostics, BeamFlow } from "./beam-types";
 
 /**
@@ -81,6 +81,8 @@ type PreparedFlow = {
   p2: THREE.Vector3;
   color: [number, number, number];
   bandWidth: number;
+  /** Bundle silhouette full width in CSS px, driven by the amount-band profile. */
+  bundleCssFull: number;
   factor: number;
   alpha: number;
 };
@@ -88,16 +90,21 @@ type PreparedFlow = {
 type PreparedEndpoint = { x: number; y: number; degree: number; strength: number };
 
 function prepareFlows(flows: readonly BeamFlow[], beamWidth: number): PreparedFlow[] {
-  return flows.map(flow => ({
-    flow,
-    p0: new THREE.Vector3(flow.from[0], flow.from[1], 0),
-    p1: new THREE.Vector3(flow.control[0], flow.control[1], 0),
-    p2: new THREE.Vector3(flow.to[0], flow.to[1], 0),
-    color: hexToRgb(flow.color),
-    bandWidth: flow.width * beamWidth,
-    factor: flow.factor,
-    alpha: flow.state === "active" ? 1 : flow.state === "muted" ? 0.18 : 0.9
-  }));
+  return flows.map(flow => {
+    const bandIndex = flow.band ?? 0;
+    const bundleCssFull = BUNDLE_BAND_FULL_CSS_PX[Math.max(0, Math.min(BUNDLE_BAND_FULL_CSS_PX.length - 1, bandIndex))];
+    return {
+      flow,
+      p0: new THREE.Vector3(flow.from[0], flow.from[1], 0),
+      p1: new THREE.Vector3(flow.control[0], flow.control[1], 0),
+      p2: new THREE.Vector3(flow.to[0], flow.to[1], 0),
+      color: hexToRgb(flow.color),
+      bandWidth: flow.width * beamWidth,
+      bundleCssFull,
+      factor: flow.factor,
+      alpha: flow.state === "active" ? 1 : flow.state === "muted" ? 0.18 : 0.9
+    };
+  });
 }
 
 function aggregateEndpoints(flows: readonly BeamFlow[]): PreparedEndpoint[] {
@@ -190,11 +197,15 @@ function appendStrip(
   }
 }
 
-function buildBundle(flows: PreparedFlow[], filamentScale: number, dark: boolean): BundleGeometry {
+function buildBundle(flows: PreparedFlow[], filamentScale: number, dark: boolean, pxPerUnit: number): BundleGeometry {
   const bundle: BundleGeometry = { positions: [], colors: [], alphas: [], sides: [], indices: [] };
   for (const flow of flows) {
-    const { bandWidth, factor, alpha: flowAlpha, color } = flow;
+    const { factor, alpha: flowAlpha, color } = flow;
     if (flow.flow.state === "muted") continue;
+
+    // Bundle silhouette half-width in map units, converted from the CSS-px band
+    // profile so weak bundles stay ≥3px and adjacent bands keep the ≥1.6 ratio.
+    const halfMap = (flow.bundleCssFull / 2) / Math.max(1, pxPerUnit);
 
     // Dark additive field: raised halo / filament / core alpha so weak green
     // and blue strands stay readable; light scheme keeps its normal-composite
@@ -204,18 +215,18 @@ function buildBundle(flows: PreparedFlow[], filamentScale: number, dark: boolean
     const coreAlpha = dark ? 0.82 : 0.68;
 
     // Wide faint halo that defines the bundle silhouette.
-    appendStrip(bundle, flow, 0, bandWidth * 0.95, haloAlpha * flowAlpha, color);
+    appendStrip(bundle, flow, 0, halfMap * 0.95, haloAlpha * flowAlpha, color);
 
     // Dense thin filaments fanned across the bundle.
     const offsets = filamentOffsets(factor);
     const visibleFilaments = Math.max(1, Math.round(offsets.length * filamentScale));
     for (let index = 0; index < visibleFilaments; index += 1) {
-      const lane = offsets[index] * bandWidth;
+      const lane = offsets[index] * halfMap;
       appendStrip(bundle, flow, lane, 0.32, filamentAlpha * flowAlpha, color);
     }
 
     // Bright narrow core along the centre.
-    appendStrip(bundle, flow, 0, Math.max(0.3, bandWidth * 0.12), coreAlpha * flowAlpha, color);
+    appendStrip(bundle, flow, 0, Math.max(0.3, halfMap * 0.12), coreAlpha * flowAlpha, color);
   }
   return bundle;
 }
@@ -443,8 +454,16 @@ export function BeamWebGLLayer(props: WebGLProps) {
     const trailScale = LEVEL_TRAIL_SCALE[stateRef.current.level];
     const glowScale = LEVEL_GLOW_SCALE[stateRef.current.level];
 
+    // Measure the map viewport up front so bundle CSS-px widths convert to map
+    // units before the static strip geometry is baked.
+    const hostRect = host.getBoundingClientRect();
+    const initialSvg = host.ownerDocument.querySelector(".world-country-map");
+    const initialRect = initialSvg?.getBoundingClientRect() ?? hostRect;
+    const pxPerUnit = Math.max(1, initialRect.width / MAP_WIDTH);
+    pxPerUnitRef.current = pxPerUnit;
+
     /* ---- Static bundle strips ------------------------------------------ */
-    const bundleData = buildBundle(flows, filamentScale, stateRef.current.scheme !== "light");
+    const bundleData = buildBundle(flows, filamentScale, stateRef.current.scheme !== "light", pxPerUnit);
     const bundleGeometry = new THREE.BufferGeometry();
     bundleGeometry.setAttribute("position", new THREE.Float32BufferAttribute(bundleData.positions, 3));
     bundleGeometry.setAttribute("aColor", new THREE.Float32BufferAttribute(bundleData.colors, 3));

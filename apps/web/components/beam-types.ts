@@ -10,7 +10,9 @@ export type BeamFlow = {
   color: string;
   /** Normalised 0–1 mass factor; missing records keep a low baseline. */
   factor: number;
-  /** Bundle width in map units, already scaled by the user beam-width multiplier. */
+  /** Amount band 0–5 for the beam bundle width profile; null when no usable mass. */
+  band: number | null;
+  /** Bundle lane spread in map units, already scaled by the user beam-width multiplier. */
   width: number;
   state: BeamFlowState;
 };

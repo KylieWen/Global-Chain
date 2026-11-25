@@ -50,6 +50,15 @@ export const FLOW_SETTING_RANGES = {
   maxParticles: { min: 40, max: 600, default: 600 }
 } as const;
 
+/**
+ * Beam-layer bundle silhouette width (full width, CSS px) per amount band
+ * 0–5. Adjacent bands keep a ≥1.6 visual width ratio and the weakest bundle
+ * stays ≥3px equivalent. This profile applies to the particle beam renderer
+ * (WebGL primary + Canvas2D fallback) only; the classic arrow line widths
+ * are a separate contract locked by map-presentation tests and are unchanged.
+ */
+export const BUNDLE_BAND_FULL_CSS_PX: readonly number[] = [3, 4.8, 7.7, 12.3, 19.7, 31.5];
+
 export const FLOW_MODES: readonly FlowMode[] = ["beam", "classic"];
 
 function clampNumber(value: number, min: number, max: number, fallback: number): number {

@@ -78,15 +78,14 @@ function focusTransformForLines(
   const visibleWidth = viewportAspect < mapAspect ? mapWidth * (viewportAspect / mapAspect) : mapWidth;
   const visibleHeight = viewportAspect > mapAspect ? mapHeight * (mapAspect / viewportAspect) : mapHeight;
 
-  // Wide: keep the world whole; centre the envelope. The fit zooms the envelope
-  // to fill the viewport height so the empty ocean below the lowest endpoint
-  // stays within the spec budget.
+  // Wide: centre the flow envelope in both axes with balanced top/bottom
+  // margins. A thin full-width mid-latitude band leaves even ocean above and
+  // below instead of pushing the world into the lower frame.
   if (!narrow) {
-    const scale = Math.max(1, Math.min(1.5, (visibleHeight * 0.95) / bboxHeight, (visibleWidth * 0.92) / bboxWidth));
+    const scale = Math.max(1, Math.min(2.4, (visibleHeight * 0.9) / bboxHeight, (visibleWidth * 0.92) / bboxWidth));
     const cx = (minX + maxX) / 2;
     const cy = (minY + maxY) / 2;
-    const targetY = visibleHeight * 0.6;
-    return { scale, x: mapWidth / 2 - cx * scale, y: targetY - cy * scale };
+    return { scale, x: mapWidth / 2 - cx * scale, y: mapHeight / 2 - cy * scale };
   }
   // Narrow: fit the entire envelope with a small inset, capped so distant
   // geography stays reachable by dragging.
@@ -277,7 +276,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
       const factor = massFactor(band);
       const width = beamWidthFor(factor, mapTokens.line.minWidth, mapTokens.line.maxWidth, settings.beamWidth);
       const state = activeRecord?.id === line.id ? "active" : activeRecord ? "muted" : "normal";
-      result.push({ id: line.id, from, to, control, color: colors.get(line.itemId ?? "") ?? mapTokens.palette.itemColors[0], factor, width, state });
+      result.push({ id: line.id, from, to, control, color: colors.get(line.itemId ?? "") ?? mapTokens.palette.itemColors[0], factor, band, width, state });
     });
     return result;
   }, [beamActive, visibleLines, centers, quantityMode, mapTokens.line.minWidth, mapTokens.line.maxWidth, mapTokens.palette.itemColors, settings.beamWidth, activeRecord, colors]);
@@ -344,6 +343,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
     if (!country || !point || (renderedWidth < 600 && !priorityCodes.has(code))) return [];
     return [{ id: code, name: country.name, x: point[0] * transform.scale + transform.x, y: point[1] * transform.scale + transform.y }];
   }), labelFontSize);
+  const renderLabels = () => labels.map(label => <text key={label.id} x={coordinate(label.x + 3)} y={coordinate(label.y + labelFontSize + 2)} style={{fontSize:labelFontSize}}>{label.name}</text>);
   const selectedIndex = selectedRecord ? records.indexOf(selectedRecord) : -1;
   const selectAdjacentRecord = (offset: number) => { const next = records[selectedIndex + offset]; if (next) setSelectedRecordId(next.id); };
   const closeDetail = () => setSelectedRecordId(null);
@@ -424,9 +424,10 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
           })}</g>}
           {[...endpoints].map(code => { const point = centers.get(code); const country = byM49.get(code); if (!point || !country) return null; return <g className="atlas-endpoint" key={code} transform={`translate(${coordinate(point[0])},${coordinate(point[1])})`}><circle r={5 / transform.scale} /></g>; })}
         </g>
-        <g className="atlas-country-labels" aria-hidden="true">{labels.map(label => <text key={label.id} x={coordinate(label.x + 3)} y={coordinate(label.y + labelFontSize + 2)} style={{fontSize:labelFontSize}}>{label.name}</text>)}</g>
+        {!beamActive && <g className="atlas-country-labels" aria-hidden="true">{renderLabels()}</g>}
       </svg>
       {beamActive && <BeamFlowLayer flows={beamFlows} transform={transform} settings={settings} level={adaptiveLevel} nodeColor={tokens.palette.accent} scheme={tokens.scheme} onDiagnostics={handleDiagnostics} onFrameSample={handleFrameSample} />}
+      {beamActive && <svg className="atlas-label-overlay" viewBox={`0 0 ${mapWidth} ${mapHeight}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g className="atlas-country-labels">{renderLabels()}</g></svg>}
       <div className="atlas-map-caption"><span>{beamActive ? "粒子沿货物流向移动 · 双指缩放与移动" : "双指缩放与移动 · 放大后鼠标拖动"}</span></div></div>
       {isTrade && timelineYears.length > 1 && timeIndex >= 0 && (
         <div className="trade-timeline">

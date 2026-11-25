@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef } from "react";
 import type { MapTransform } from "../lib/map-geometry";
 import { allocateParticles, LEVEL_GLOW_SCALE, LEVEL_PARTICLE_SCALE, LEVEL_TRAIL_SCALE, type AdaptiveLevel } from "../lib/flow-encoding";
-import type { FlowSettings } from "../lib/flow-config";
+import { BUNDLE_BAND_FULL_CSS_PX, type FlowSettings } from "../lib/flow-config";
 import type { BeamDiagnostics, BeamFlow } from "./beam-types";
 
 type Particle = {
@@ -204,7 +204,9 @@ export function BeamCanvas2DLayer({
         if (flow.state === "muted" && mutedActive) continue;
 
         const alpha = flow.state === "active" ? 1 : flow.state === "muted" ? 0.18 : 0.9;
-        const bandWidth = flow.width * current.beamWidth;
+        const bandIndex = Math.max(0, Math.min(BUNDLE_BAND_FULL_CSS_PX.length - 1, flow.band ?? 0));
+        const bundleCssFull = BUNDLE_BAND_FULL_CSS_PX[bandIndex];
+        const halfMap = (bundleCssFull / 2) * dprRef.current / scaleX;
 
         if (particles.length > 0 || flow.state !== "muted") {
           context.lineJoin = "round";
@@ -212,7 +214,7 @@ export function BeamCanvas2DLayer({
 
           const haloAlpha = light ? 0.08 : 0.11;
           context.strokeStyle = withAlpha(flow.color, haloAlpha * alpha);
-          context.lineWidth = bandWidth * 1.9;
+          context.lineWidth = bundleCssFull * 0.95 * dprRef.current / scaleX;
           traceBezier(context, flow);
           context.stroke();
 
@@ -220,7 +222,7 @@ export function BeamCanvas2DLayer({
           const filamentAlpha = light ? 0.13 : 0.2;
           for (let index = 0; index < visibleFilaments; index += 1) {
             const fraction = filaments[index];
-            const lane = fraction * bandWidth;
+            const lane = fraction * halfMap;
             context.strokeStyle = withAlpha(flow.color, filamentAlpha * alpha);
             context.lineWidth = 0.7;
             context.beginPath();
@@ -234,7 +236,7 @@ export function BeamCanvas2DLayer({
 
           const coreAlpha = light ? 0.42 : 0.5;
           context.strokeStyle = withAlpha(flow.color, coreAlpha * alpha);
-          context.lineWidth = Math.max(0.5, bandWidth * 0.18);
+          context.lineWidth = Math.max(0.5, bundleCssFull * 0.18 * dprRef.current / scaleX);
           traceBezier(context, flow);
           context.stroke();
         }
@@ -252,7 +254,7 @@ export function BeamCanvas2DLayer({
             particle.t -= 1;
             particle.started = false;
           }
-          const lane = particle.laneFraction * bandWidth;
+          const lane = particle.laneFraction * halfMap;
           const [x, y] = bezier(flow, particle.t, lane);
           const prev: readonly [number, number] = particle.started ? [particle.prevX, particle.prevY] : [x, y];
 
