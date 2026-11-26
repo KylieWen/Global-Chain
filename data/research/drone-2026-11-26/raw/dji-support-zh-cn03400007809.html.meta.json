@@ -1,0 +1,27 @@
+{
+  "url": "https://support.dji.com/help/content?customId=zh-cn03400007809&spaceId=34&re=CN&lang=zh-CN",
+  "customId": "zh-cn03400007809",
+  "spaceId": "34",
+  "region": "CN",
+  "lang": "zh-CN",
+  "pageTitle": "DJI Mini 系列配件价格查询",
+  "requestedAtLocal": "2026-11-25T23:21:40+08:00",
+  "requestedAtUtc": "2026-11-25T15:21:40Z",
+  "completedAtUtc": "2026-11-25T15:21:42Z",
+  "serverDateGmt": "Wed, 25 Nov 2026 15:24:59 GMT",
+  "httpStatus": 200,
+  "statusDescription": "OK",
+  "contentType": "text/html; charset=utf-8",
+  "server": "Tengine",
+  "etag": "\"325f0-YF3qSbaLUObII+f2jekZR8/p/vI\"",
+  "cacheControl": "no-store, no-cache",
+  "contentLength": 206320,
+  "bytes": 206320,
+  "sha256": "FA9A97C31B3F6DF5E1875A9F20A81D680A49A31809CC564474D546D1726AB73D",
+  "retrievalMethod": "Invoke-WebRequest GET, browser User-Agent, -UseBasicParsing; raw response body saved verbatim.",
+  "rendering": "Nuxt server-rendered HTML; window.__NUXT__ state blob duplicates the tables in unicode-escaped form.",
+  "anomalies": [
+    "DJI Mini 4K 表中“核心板组件”单价字符串以 U+200E (LEFT-TO-RIGHT MARK) 开头，原始抽取保留该字符；数值仍为 639.00 CNY。"
+  ],
+  "scopeNote": "本页为 DJI Mini 系列维修配件报价页；单价为 CNY 维修/备件报价，不等同于通用无人机物料成本、利润或市场零售价。页面未发布物料材质、产地、供应商、产能或工艺路线。"
+}

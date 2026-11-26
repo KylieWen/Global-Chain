@@ -1,0 +1,611 @@
+{
+  "scannedAt": "2026-11-25T15:30:00Z",
+  "note": "Read-only inventory of local Comtrade snapshots; not new network collection. Missing snapshots are not zero trade.",
+  "droneRelated": [],
+  "allCodes": [
+    "120190",
+    "150710",
+    "150790",
+    "230400",
+    "250410",
+    "283691",
+    "380110",
+    "380190",
+    "382499",
+    "7403",
+    "741011",
+    "741012",
+    "7502",
+    "7601",
+    "760711",
+    "760719",
+    "8105",
+    "841510",
+    "841582",
+    "851713",
+    "871160"
+  ],
+  "files": [
+    {
+      "file": "data/raw/cotton-tshirt-2026-10-21/comtrade-356-610910-2024.json.meta.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/raw/cotton-tshirt-2026-10-21/comtrade-50-610910-2025.json.meta.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/raw/cotton-tshirt-2026-10-21/manifest.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/raw/ebike-research/comtrade-china-871160-2024.json",
+      "codes": [
+        "871160"
+      ],
+      "reporters": [
+        "156"
+      ],
+      "partners": [
+        "0",
+        "276",
+        "702"
+      ],
+      "periods": [
+        "2024"
+      ],
+      "flows": [
+        "X"
+      ],
+      "observationCount": 3
+    },
+    {
+      "file": "data/raw/ebike-research/comtrade-china-871160-2024.json.meta.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/raw/ebike-research/manifest.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/raw/home-ac-research/manifest.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/raw/home-ac-research/un-comtrade-china-hs8415-2024.json",
+      "codes": [
+        "841510",
+        "841582"
+      ],
+      "reporters": [
+        "156"
+      ],
+      "partners": [
+        "0",
+        "276",
+        "842"
+      ],
+      "periods": [
+        "2024"
+      ],
+      "flows": [
+        "M",
+        "X"
+      ],
+      "observationCount": 12
+    },
+    {
+      "file": "data/raw/soybean-oil-2026-10-21/comtrade-china-soy-2024.json",
+      "codes": [
+        "120190",
+        "150710",
+        "150790",
+        "230400"
+      ],
+      "reporters": [
+        "156"
+      ],
+      "partners": [
+        "0",
+        "76",
+        "842"
+      ],
+      "periods": [
+        "2024"
+      ],
+      "flows": [
+        "M",
+        "X"
+      ],
+      "observationCount": 17
+    },
+    {
+      "file": "data/raw/soybean-oil-2026-10-21/comtrade-china-soy-2024.json.meta.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/raw/soybean-oil-2026-10-21/manifest.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-152-0-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-152-0-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-152-156-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-152-156-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-156-0-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-156-0-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-156-276-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-156-276-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-156-410-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-156-410-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-156-842-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-156-842-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-180-156-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-180-156-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-276-0-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-276-0-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-276-156-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-276-156-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-36-0-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-36-0-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-36-156-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-36-156-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-360-0-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-360-0-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-360-156-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-360-156-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-392-0-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-392-0-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-410-0-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-410-0-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-842-0-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-842-0-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-842-156-2024.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/refresh-2026-09-16/comtrade-842-156-2025.json",
+      "codes": [],
+      "reporters": [],
+      "partners": [],
+      "periods": [],
+      "flows": [],
+      "observationCount": 0
+    },
+    {
+      "file": "data/published/raw/un-comtrade-hs2022-851713-2023.json",
+      "codes": [
+        "851713"
+      ],
+      "reporters": [
+        "36",
+        "152",
+        "156",
+        "276",
+        "360",
+        "392",
+        "410",
+        "842"
+      ],
+      "partners": [
+        "0"
+      ],
+      "periods": [
+        "2023"
+      ],
+      "flows": [
+        "M",
+        "X"
+      ],
+      "observationCount": 16
+    },
+    {
+      "file": "data/published/raw/un-comtrade-hs2022-851713-bilateral-2023.json",
+      "codes": [
+        "851713"
+      ],
+      "reporters": [
+        "156",
+        "842",
+        "276"
+      ],
+      "partners": [
+        "842",
+        "156",
+        "276"
+      ],
+      "periods": [
+        "2023"
+      ],
+      "flows": [
+        "M",
+        "X"
+      ],
+      "observationCount": 8
+    },
+    {
+      "file": "data/published/raw/un-comtrade-hs2022-material-intermediate-2023.json",
+      "codes": [
+        "380110",
+        "380190",
+        "382499",
+        "741011",
+        "741012",
+        "760711",
+        "760719"
+      ],
+      "reporters": [
+        "156"
+      ],
+      "partners": [
+        "410",
+        "842"
+      ],
+      "periods": [
+        "2023"
+      ],
+      "flows": [
+        "M",
+        "X"
+      ],
+      "observationCount": 28
+    },
+    {
+      "file": "data/published/raw/un-comtrade-hs2022-material-role-pairs-2023.json",
+      "codes": [
+        "283691",
+        "8105",
+        "7502",
+        "7403",
+        "7601",
+        "250410"
+      ],
+      "reporters": [
+        "36",
+        "180",
+        "360",
+        "152",
+        "156"
+      ],
+      "partners": [
+        "156",
+        "410"
+      ],
+      "periods": [
+        "2023"
+      ],
+      "flows": [
+        "M",
+        "X"
+      ],
+      "observationCount": 10
+    },
+    {
+      "file": "data/published/raw/un-comtrade-hs2022-materials-2023.json",
+      "codes": [
+        "250410",
+        "283691",
+        "7403",
+        "7502",
+        "7601",
+        "8105"
+      ],
+      "reporters": [
+        "156"
+      ],
+      "partners": [
+        "0",
+        "842"
+      ],
+      "periods": [
+        "2023"
+      ],
+      "flows": [
+        "M",
+        "X"
+      ],
+      "observationCount": 24
+    }
+  ]
+}

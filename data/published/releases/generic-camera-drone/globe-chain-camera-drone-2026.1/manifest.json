@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-camera-drone",
+      "path": "fixture.json",
+      "datasetVersion": "globe-chain-camera-drone-2026.1",
+      "fixtureSha256": "f3771c971d3cd9c28625cb85c830efd9ee43fe65628d025376625db846873ea7"
+    }
+  ],
+  "datasetVersion": "globe-chain-camera-drone-2026.1",
+  "generatedAt": "2026-11-25",
+  "fixtureSha256": "f3771c971d3cd9c28625cb85c830efd9ee43fe65628d025376625db846873ea7",
+  "notes": [
+    "结构参照 DJI Mini 系列官方维修部件表；本批无贸易、产地、材料、工序与供应商观测，相关维度保持空态并登记证据缺口。"
+  ],
+  "release": {
+    "productId": "generic-camera-drone",
+    "datasetVersion": "globe-chain-camera-drone-2026.1",
+    "releasePath": "releases/generic-camera-drone/globe-chain-camera-drone-2026.1",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "camera-drone-structure-2026-1",
+    "contentSource": "data/research/drone-2026-11-26/research-input.json",
+    "contentPathBase": "repository-root",
+    "contentSha256": "44854192e2c6e07360b386cddd618ba063d696fddbc97b562b2a47011366596a",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "e70a4d97cd07d1978be9b8d5bf8406a08ae966ffe4576a1bfcca54493a212402"
+  }
+}

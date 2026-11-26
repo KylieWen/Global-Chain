@@ -1,0 +1,549 @@
+{
+  "source": {
+    "url": "https://support.dji.com/help/content?customId=zh-cn03400007809&spaceId=34&re=CN&lang=zh-CN",
+    "pageTitle": "DJI Mini 系列配件价格查询",
+    "rawSnapshot": "raw/dji-support-zh-cn03400007809.html",
+    "rawSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+    "note": "Structures below are parsed from the server-rendered HTML tables; prices are DJI repair/quote prices in CNY for the named models, not generic drone facts."
+  },
+  "tables": [
+    {
+      "model": "DJI Mini 5 Pro",
+      "header": [
+        "分类",
+        "配件名称",
+        "单价 / CNY"
+      ],
+      "columnCount": 3,
+      "rowCount": 11,
+      "rows": [
+        {
+          "category": "飞行器部件",
+          "partName": "飞行器核心板组件",
+          "priceCNY": "1485.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "下视视觉组件",
+          "priceCNY": "105.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "飞行器 IMU 组件",
+          "priceCNY": "129.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "前视&后视视觉组件",
+          "priceCNY": "405.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "飞行器电调板组件",
+          "priceCNY": "109.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "飞行器后机臂组件",
+          "priceCNY": "109.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "飞行器前机臂组件",
+          "priceCNY": "119.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "飞行器云台组件",
+          "priceCNY": "1519.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台 P 轴臂组件",
+          "priceCNY": "59.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台 Y 轴臂组件",
+          "priceCNY": "69.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台 P 轴臂",
+          "priceCNY": "59.00"
+        }
+      ]
+    },
+    {
+      "model": "DJI Mini 4K",
+      "header": [
+        "分类",
+        "配件名称",
+        "单价/CNY"
+      ],
+      "columnCount": 3,
+      "rowCount": 11,
+      "rows": [
+        {
+          "category": "飞行器部件",
+          "partName": "GPS&IMU 组件",
+          "priceCNY": "109.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "左前机臂组件",
+          "priceCNY": "66.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "后机臂组件",
+          "priceCNY": "66.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "核心板组件",
+          "priceCNY": "‎639.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "下视视觉组件",
+          "priceCNY": "66.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "下视红外 TOF 组件",
+          "priceCNY": "69.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台相机组件",
+          "priceCNY": "539.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台轴臂组件",
+          "priceCNY": "149.00"
+        },
+        {
+          "category": "遥控器部件",
+          "partName": "RC-N1C 遥控器电池",
+          "priceCNY": "59.00"
+        },
+        {
+          "category": "遥控器部件",
+          "partName": "RC-N1C 遥控器核心板",
+          "priceCNY": "239.00"
+        },
+        {
+          "category": "遥控器部件",
+          "partName": "RC-N1C 遥控器拉伸件&天线组件",
+          "priceCNY": "69.00"
+        }
+      ]
+    },
+    {
+      "model": "DJI Mini 4 Pro",
+      "header": [
+        "分类",
+        "配件名称",
+        "单价 / CNY"
+      ],
+      "columnCount": 3,
+      "rowCount": 11,
+      "rows": [
+        {
+          "category": "飞行器部件",
+          "partName": "前机臂组件",
+          "priceCNY": "119.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "下视视觉组件",
+          "priceCNY": "105.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "前视&后视视觉组件",
+          "priceCNY": "405.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "GPS&IMU 组件",
+          "priceCNY": "129.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "核心板组件",
+          "priceCNY": "1485.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "后机臂组件",
+          "priceCNY": "109.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "下视红外 TOF 组件",
+          "priceCNY": "99.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台 Y 轴臂& Y 轴电机组件",
+          "priceCNY": "65.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台 P 轴电机组件",
+          "priceCNY": "59.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台相机组件",
+          "priceCNY": "1109.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台 R 轴电机组件",
+          "priceCNY": "59.00"
+        }
+      ]
+    },
+    {
+      "model": "DJI Mini 3 Pro",
+      "header": [
+        "分类",
+        "配件名称",
+        "单价/CNY"
+      ],
+      "columnCount": 3,
+      "rowCount": 12,
+      "rows": [
+        {
+          "category": "飞行器部件",
+          "partName": "后机臂组件",
+          "priceCNY": "109.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "前后视觉组件",
+          "priceCNY": "269.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "前机臂组件",
+          "priceCNY": "119.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "GPS&IMU 组件",
+          "priceCNY": "221.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "核心板组件",
+          "priceCNY": "1063.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "下视视觉组件",
+          "priceCNY": "195.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台 P 轴电机组件",
+          "priceCNY": "88.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台 R 轴电机组件",
+          "priceCNY": "92.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台 Y 轴轴臂组件",
+          "priceCNY": "135.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台相机组件",
+          "priceCNY": "1399.00"
+        },
+        {
+          "category": "遥控器部件",
+          "partName": "RC-N1 遥控器核心板",
+          "priceCNY": "239.00"
+        },
+        {
+          "category": "遥控器部件",
+          "partName": "RC-N1 遥控器拉伸件&天线组件",
+          "priceCNY": "69.00"
+        }
+      ]
+    },
+    {
+      "model": "DJI Mini 3",
+      "header": [
+        "分类",
+        "配件名称",
+        "单价 / CNY"
+      ],
+      "columnCount": 3,
+      "rowCount": 11,
+      "rows": [
+        {
+          "category": "飞行器部件",
+          "partName": "GPS&IMU 组件",
+          "priceCNY": "109.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "前机臂组件",
+          "priceCNY": "113.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "后机臂组件",
+          "priceCNY": "80.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "核心板组件",
+          "priceCNY": "683.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "下视视觉组件",
+          "priceCNY": "109.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台相机组件",
+          "priceCNY": "1285.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台 Y 轴臂& Y 轴电机组件",
+          "priceCNY": "135.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台 P 轴电机组件",
+          "priceCNY": "88.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台 R 轴电机组件",
+          "priceCNY": "92.00"
+        },
+        {
+          "category": "遥控器部件",
+          "partName": "RC-N1 遥控器核心板",
+          "priceCNY": "239.00"
+        },
+        {
+          "category": "遥控器部件",
+          "partName": "RC-N1 遥控器拉伸件&天线组件",
+          "priceCNY": "69.00"
+        }
+      ]
+    },
+    {
+      "model": "DJI Mini 2",
+      "header": [
+        "分类",
+        "配件名称",
+        "单价/CNY"
+      ],
+      "columnCount": 3,
+      "rowCount": 8,
+      "rows": [
+        {
+          "category": "飞行器部件",
+          "partName": "核心板组件",
+          "priceCNY": "699.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "下视视觉模组",
+          "priceCNY": "49.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "GPS&IMU 组件",
+          "priceCNY": "96.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台轴臂组件",
+          "priceCNY": "209.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台相机组件",
+          "priceCNY": "709.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "相机组件",
+          "priceCNY": "391.00"
+        },
+        {
+          "category": "遥控器部件",
+          "partName": "RC-N1 遥控器核心板",
+          "priceCNY": "239.00"
+        },
+        {
+          "category": "遥控器部件",
+          "partName": "RC-N1 遥控器拉伸件&天线组件",
+          "priceCNY": "69.00"
+        }
+      ]
+    },
+    {
+      "model": "DJI Mini 2 SE",
+      "header": [
+        "分类",
+        "配件名称",
+        "单价/CNY"
+      ],
+      "columnCount": 3,
+      "rowCount": 9,
+      "rows": [
+        {
+          "category": "飞行器部件",
+          "partName": "GPS&IMU 组件",
+          "priceCNY": "109.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "前机臂组件",
+          "priceCNY": "66.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "后机臂组件",
+          "priceCNY": "66.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "核心板组件",
+          "priceCNY": "635.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "下视视觉组件",
+          "priceCNY": "66.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台相机组件",
+          "priceCNY": "539.00"
+        },
+        {
+          "category": "云台部件",
+          "partName": "云台轴臂组件",
+          "priceCNY": "149.00"
+        },
+        {
+          "category": "遥控器部件",
+          "partName": "RC-N1 遥控器核心板",
+          "priceCNY": "239.00"
+        },
+        {
+          "category": "遥控器部件",
+          "partName": "RC-N1 遥控器拉伸件&天线组件",
+          "priceCNY": "69.00"
+        }
+      ]
+    },
+    {
+      "model": "DJI Mini SE",
+      "header": [
+        "分类",
+        "配件名称",
+        "单价/CNY"
+      ],
+      "columnCount": 3,
+      "rowCount": 6,
+      "rows": [
+        {
+          "category": "飞行器部件",
+          "partName": "电调板组件",
+          "priceCNY": "90.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "GPS&IMU 组件",
+          "priceCNY": "96.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "核心板组件",
+          "priceCNY": "376.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "相机组件",
+          "priceCNY": "528.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "云台轴臂组件",
+          "priceCNY": "133.00"
+        },
+        {
+          "category": "遥控器部件",
+          "partName": "遥控器主板",
+          "priceCNY": "79.00"
+        }
+      ]
+    },
+    {
+      "model": "御 Mavic Mini",
+      "header": [
+        "分类",
+        "配件名称",
+        "单价/CNY"
+      ],
+      "columnCount": 3,
+      "rowCount": 7,
+      "rows": [
+        {
+          "category": "飞行器部件",
+          "partName": "相机组件",
+          "priceCNY": "391.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "核心板组件（CE）",
+          "priceCNY": "529.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "云台轴臂组件",
+          "priceCNY": "209.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "云台相机组件",
+          "priceCNY": "709.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "核心板组件（FCC）",
+          "priceCNY": "529.00"
+        },
+        {
+          "category": "飞行器部件",
+          "partName": "下视视觉模组",
+          "priceCNY": "49.00"
+        },
+        {
+          "category": "遥控器部件",
+          "partName": "遥控器主板",
+          "priceCNY": "79.00"
+        }
+      ]
+    }
+  ]
+}

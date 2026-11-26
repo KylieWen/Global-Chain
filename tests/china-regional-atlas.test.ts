@@ -8,9 +8,21 @@ import geometry from "../apps/web/lib/geo/china-provinces.json";
 
 describe("independent China supply geography",()=>{
   const atlas=RegionalAtlasSchema.parse(data);
-  it("covers every published product and preserves raw-source hashes",()=>{
+  it("covers every product with regional evidence and preserves raw-source hashes",()=>{
     const manifest=JSON.parse(readFileSync('data/published/manifest.json','utf8'));
-    for(const product of manifest.fixtures)expect(atlas.nodes.filter(node=>node.productId===product.productId).length).toBeGreaterThan(1);
+    const activeProducts=manifest.fixtures.map(product=>product.productId);
+    // Regional atlas nodes must never reference a product absent from the active manifest.
+    for(const node of atlas.nodes)expect(activeProducts).toContain(node.productId);
+    // Products registered here ship a structure-only fixture whose China regional
+    // coverage is an open evidence gap; they must not receive fabricated regional nodes.
+    const pendingRegionalCoverage=["generic-camera-drone"];
+    for(const productId of activeProducts){
+      const count=atlas.nodes.filter(node=>node.productId===productId).length;
+      if(pendingRegionalCoverage.includes(productId))expect(count).toBe(0);
+      else expect(count).toBeGreaterThan(1);
+    }
+    const unregisteredPending=activeProducts.filter(id=>!pendingRegionalCoverage.includes(id)&&atlas.nodes.filter(node=>node.productId===id).length===0);
+    expect(unregisteredPending).toEqual([]);
     for(const source of atlas.sources)expect(createHash('sha256').update(readFileSync(source.rawPath)).digest('hex')).toBe(source.sha256);
   });
   it("keeps all province and South China Sea source geometry",()=>{

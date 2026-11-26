@@ -1,0 +1,1723 @@
+{
+  "schemaVersion": "camera-drone-review.v1",
+  "batchId": "camera-drone-structure-2026-1",
+  "reviewedAt": "2026-11-25T15:21:40.000Z",
+  "datasetVersion": "globe-chain-camera-drone-2026.1",
+  "inputs": {
+    "researchInput": {
+      "path": "data/research/drone-2026-11-26/research-input.json",
+      "sha256": "44854192e2c6e07360b386cddd618ba063d696fddbc97b562b2a47011366596a"
+    },
+    "partsTables": {
+      "path": "data/research/drone-2026-11-26/extracts/parts-tables.json",
+      "sha256": "28cb7eed8537a0f818974ea24716ce2db6069e9dcd274f0952ad05aac963fd33"
+    },
+    "snapshots": [
+      {
+        "alias": "dji-parts",
+        "path": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+        "sha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+        "retrievedAt": "2026-11-25T15:21:40Z",
+        "url": "https://support.dji.com/help/content?customId=zh-cn03400007809&spaceId=34&re=CN&lang=zh-CN"
+      },
+      {
+        "alias": "hs2022-h6",
+        "path": "data/raw/ebike-research/un-comtrade-H6.json",
+        "sha256": "e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15",
+        "retrievedAt": "2026-10-21T08:18:08Z",
+        "url": "https://comtradeapi.un.org/files/v1/app/reference/H6.json"
+      }
+    ]
+  },
+  "partsAudit": [
+    {
+      "auditId": "audit-drone-part-001",
+      "model": "DJI Mini 5 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "飞行器核心板组件",
+      "officialPriceCNY": "1485.00",
+      "officialPriceCNYNormalized": "1485.00",
+      "mappedNodeId": "drone-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "59df56e5260be925b8975ede8647192c5d285cb524931a1d8b7619853ccc614b",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "飞行器核心板组件",
+        "priceCNY": "1485.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-002",
+      "model": "DJI Mini 5 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "下视视觉组件",
+      "officialPriceCNY": "105.00",
+      "officialPriceCNYNormalized": "105.00",
+      "mappedNodeId": "drone-vision",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "b4661656fd22c4351e70c5237ad601b5423d8c906feccb264a3169dea2c903fe",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "下视视觉组件",
+        "priceCNY": "105.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-003",
+      "model": "DJI Mini 5 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "飞行器 IMU 组件",
+      "officialPriceCNY": "129.00",
+      "officialPriceCNYNormalized": "129.00",
+      "mappedNodeId": "drone-positioning-imu",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "a3dad96cd5f9ab8bbcd12cddc15b15530f848c6a1b40184145a3fcd5f9a00e16",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "飞行器 IMU 组件",
+        "priceCNY": "129.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-004",
+      "model": "DJI Mini 5 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "前视&后视视觉组件",
+      "officialPriceCNY": "405.00",
+      "officialPriceCNYNormalized": "405.00",
+      "mappedNodeId": "drone-vision",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "4968a0b6006a105bf1caa3710d98eea93a686a99b7f5b8b3e8b3f739ad7909ef",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "前视&后视视觉组件",
+        "priceCNY": "405.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-005",
+      "model": "DJI Mini 5 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "飞行器电调板组件",
+      "officialPriceCNY": "109.00",
+      "officialPriceCNYNormalized": "109.00",
+      "mappedNodeId": "drone-esc",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "e51c6bbc40a1d929047fc4b2d6d0eba783abba4731f97f82857dabd7b3439dd9",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "飞行器电调板组件",
+        "priceCNY": "109.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-006",
+      "model": "DJI Mini 5 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "飞行器后机臂组件",
+      "officialPriceCNY": "109.00",
+      "officialPriceCNYNormalized": "109.00",
+      "mappedNodeId": "drone-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "f42860187fd3eee2e19d977f07afeb3e302488a2bdaa0cdaba7b2f3a4f65583a",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "飞行器后机臂组件",
+        "priceCNY": "109.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-007",
+      "model": "DJI Mini 5 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "飞行器前机臂组件",
+      "officialPriceCNY": "119.00",
+      "officialPriceCNYNormalized": "119.00",
+      "mappedNodeId": "drone-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "11aa270b8263c67059edd5b30ec1402982c686f9f871ff7ffaa744d1ece6ccff",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "飞行器前机臂组件",
+        "priceCNY": "119.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-008",
+      "model": "DJI Mini 5 Pro",
+      "officialCategory": "云台部件",
+      "officialPartName": "飞行器云台组件",
+      "officialPriceCNY": "1519.00",
+      "officialPriceCNYNormalized": "1519.00",
+      "mappedNodeId": "drone-gimbal-assembly",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "1bf22ae350dc4fa335c12cf22ef282a5fa588eae93ecec4c2406a53d92b93d03",
+      "original": {
+        "category": "云台部件",
+        "partName": "飞行器云台组件",
+        "priceCNY": "1519.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-009",
+      "model": "DJI Mini 5 Pro",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台 P 轴臂组件",
+      "officialPriceCNY": "59.00",
+      "officialPriceCNYNormalized": "59.00",
+      "mappedNodeId": "drone-gimbal-axis-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "9e07257592f9994e74c612039ca77e30df92a67a7583a285c03482f4b251c3d8",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台 P 轴臂组件",
+        "priceCNY": "59.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-010",
+      "model": "DJI Mini 5 Pro",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台 Y 轴臂组件",
+      "officialPriceCNY": "69.00",
+      "officialPriceCNYNormalized": "69.00",
+      "mappedNodeId": "drone-gimbal-axis-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "316eb4ed988d8f2e7876461e632314bf35d5cc4974ec75f1e09cbb8848ba0470",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台 Y 轴臂组件",
+        "priceCNY": "69.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-011",
+      "model": "DJI Mini 5 Pro",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台 P 轴臂",
+      "officialPriceCNY": "59.00",
+      "officialPriceCNYNormalized": "59.00",
+      "mappedNodeId": "drone-gimbal-axis-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "2e954a65e274b2dca48715639597e36883800b4c888083294a2accbbe6d9267d",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台 P 轴臂",
+        "priceCNY": "59.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-012",
+      "model": "DJI Mini 4K",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "GPS&IMU 组件",
+      "officialPriceCNY": "109.00",
+      "officialPriceCNYNormalized": "109.00",
+      "mappedNodeId": "drone-positioning-imu",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "51a6efcc324a115cea347119feaf66f3fab24b49ca003b860cd70842a25ce6c2",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "GPS&IMU 组件",
+        "priceCNY": "109.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-013",
+      "model": "DJI Mini 4K",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "左前机臂组件",
+      "officialPriceCNY": "66.00",
+      "officialPriceCNYNormalized": "66.00",
+      "mappedNodeId": "drone-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "1a219abc7a71715a92cc74b6b8db9c5d01873482aa0a1ede7bc86f9a7ce61cfa",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "左前机臂组件",
+        "priceCNY": "66.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-014",
+      "model": "DJI Mini 4K",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "后机臂组件",
+      "officialPriceCNY": "66.00",
+      "officialPriceCNYNormalized": "66.00",
+      "mappedNodeId": "drone-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "2ddf5f5eae084974fa7a8de591f42f8bf7a2c6d6b1ee9d4f70f1114b309b1340",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "后机臂组件",
+        "priceCNY": "66.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-015",
+      "model": "DJI Mini 4K",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "核心板组件",
+      "officialPriceCNY": "‎639.00",
+      "officialPriceCNYNormalized": "639.00",
+      "mappedNodeId": "drone-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "b9c27dffb1e410f8d5f6c351745b94541f1be1c45efedaa2d9f8f3591059bcf5",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "核心板组件",
+        "priceCNY": "‎639.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-016",
+      "model": "DJI Mini 4K",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "下视视觉组件",
+      "officialPriceCNY": "66.00",
+      "officialPriceCNYNormalized": "66.00",
+      "mappedNodeId": "drone-vision",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "7496526b6df825b31734d84d14e1ce933cc426963d2ff5844b394b698b13a047",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "下视视觉组件",
+        "priceCNY": "66.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-017",
+      "model": "DJI Mini 4K",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "下视红外 TOF 组件",
+      "officialPriceCNY": "69.00",
+      "officialPriceCNYNormalized": "69.00",
+      "mappedNodeId": "drone-vision",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "1b5a0b852141fc6e1392c17f70913cbb7ceb8de9a093b3065596849f3894c48f",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "下视红外 TOF 组件",
+        "priceCNY": "69.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-018",
+      "model": "DJI Mini 4K",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台相机组件",
+      "officialPriceCNY": "539.00",
+      "officialPriceCNYNormalized": "539.00",
+      "mappedNodeId": "drone-gimbal-camera",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "b165ec780d88ed621aaa31877e0043e122fba47dece99cfd4285819832a56ea9",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台相机组件",
+        "priceCNY": "539.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-019",
+      "model": "DJI Mini 4K",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台轴臂组件",
+      "officialPriceCNY": "149.00",
+      "officialPriceCNYNormalized": "149.00",
+      "mappedNodeId": "drone-gimbal-axis-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "b14ba1cff406781058c91f2f1109c83261b133f83dbeaa00817eb5d672e646b7",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台轴臂组件",
+        "priceCNY": "149.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-020",
+      "model": "DJI Mini 4K",
+      "officialCategory": "遥控器部件",
+      "officialPartName": "RC-N1C 遥控器电池",
+      "officialPriceCNY": "59.00",
+      "officialPriceCNYNormalized": "59.00",
+      "mappedNodeId": "drone-remote-battery",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "32df136760ae12c5e0212ce01984f6bacd12aee52a205a51315ba22bd2b12e40",
+      "original": {
+        "category": "遥控器部件",
+        "partName": "RC-N1C 遥控器电池",
+        "priceCNY": "59.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-021",
+      "model": "DJI Mini 4K",
+      "officialCategory": "遥控器部件",
+      "officialPartName": "RC-N1C 遥控器核心板",
+      "officialPriceCNY": "239.00",
+      "officialPriceCNYNormalized": "239.00",
+      "mappedNodeId": "drone-remote-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "1645a87ab1e9c4624daa43a2a4c09d319531af9bcec6057b94736a7af860de5f",
+      "original": {
+        "category": "遥控器部件",
+        "partName": "RC-N1C 遥控器核心板",
+        "priceCNY": "239.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-022",
+      "model": "DJI Mini 4K",
+      "officialCategory": "遥控器部件",
+      "officialPartName": "RC-N1C 遥控器拉伸件&天线组件",
+      "officialPriceCNY": "69.00",
+      "officialPriceCNYNormalized": "69.00",
+      "mappedNodeId": "drone-remote-antenna",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "2faceb6dc05213939e253ecd00cc15d5fda446344a4423aa40d31ceb165283ee",
+      "original": {
+        "category": "遥控器部件",
+        "partName": "RC-N1C 遥控器拉伸件&天线组件",
+        "priceCNY": "69.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-023",
+      "model": "DJI Mini 4 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "前机臂组件",
+      "officialPriceCNY": "119.00",
+      "officialPriceCNYNormalized": "119.00",
+      "mappedNodeId": "drone-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "241fa8aa97c49bc6f335fd308aa081559cc808cd3457842ff95b3d33fde3812a",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "前机臂组件",
+        "priceCNY": "119.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-024",
+      "model": "DJI Mini 4 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "下视视觉组件",
+      "officialPriceCNY": "105.00",
+      "officialPriceCNYNormalized": "105.00",
+      "mappedNodeId": "drone-vision",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "b4661656fd22c4351e70c5237ad601b5423d8c906feccb264a3169dea2c903fe",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "下视视觉组件",
+        "priceCNY": "105.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-025",
+      "model": "DJI Mini 4 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "前视&后视视觉组件",
+      "officialPriceCNY": "405.00",
+      "officialPriceCNYNormalized": "405.00",
+      "mappedNodeId": "drone-vision",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "4968a0b6006a105bf1caa3710d98eea93a686a99b7f5b8b3e8b3f739ad7909ef",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "前视&后视视觉组件",
+        "priceCNY": "405.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-026",
+      "model": "DJI Mini 4 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "GPS&IMU 组件",
+      "officialPriceCNY": "129.00",
+      "officialPriceCNYNormalized": "129.00",
+      "mappedNodeId": "drone-positioning-imu",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "cabe7b7074c58dba2cf6606a8a83d659e5265697eb9550478de765b0f916ed06",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "GPS&IMU 组件",
+        "priceCNY": "129.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-027",
+      "model": "DJI Mini 4 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "核心板组件",
+      "officialPriceCNY": "1485.00",
+      "officialPriceCNYNormalized": "1485.00",
+      "mappedNodeId": "drone-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "076a7e4a291edcde4f21a7e6a1dae0d0871eeb6b61e78e7d5980bfcd243f9b20",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "核心板组件",
+        "priceCNY": "1485.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-028",
+      "model": "DJI Mini 4 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "后机臂组件",
+      "officialPriceCNY": "109.00",
+      "officialPriceCNYNormalized": "109.00",
+      "mappedNodeId": "drone-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "e98dc011b0be2e0f2fd8342e432c866ae6fb3f572c9b86b97a2bd033e65be02a",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "后机臂组件",
+        "priceCNY": "109.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-029",
+      "model": "DJI Mini 4 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "下视红外 TOF 组件",
+      "officialPriceCNY": "99.00",
+      "officialPriceCNYNormalized": "99.00",
+      "mappedNodeId": "drone-vision",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "018473b9064b2b43cf9c0d73edb864c1c6db7bf88f3d833434e53aedf71ffc59",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "下视红外 TOF 组件",
+        "priceCNY": "99.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-030",
+      "model": "DJI Mini 4 Pro",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台 Y 轴臂& Y 轴电机组件",
+      "officialPriceCNY": "65.00",
+      "officialPriceCNYNormalized": "65.00",
+      "mappedNodeId": "drone-gimbal-motor",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "0055c2c1fa0c8c57aec491ac05442af718f5cad164ac9f55e8223abe0d84445e",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台 Y 轴臂& Y 轴电机组件",
+        "priceCNY": "65.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-031",
+      "model": "DJI Mini 4 Pro",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台 P 轴电机组件",
+      "officialPriceCNY": "59.00",
+      "officialPriceCNYNormalized": "59.00",
+      "mappedNodeId": "drone-gimbal-motor",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "6c07cd6cd2e6a3798cb9f77a4284e2ee008c18beef73a34e8e47e0648a990678",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台 P 轴电机组件",
+        "priceCNY": "59.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-032",
+      "model": "DJI Mini 4 Pro",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台相机组件",
+      "officialPriceCNY": "1109.00",
+      "officialPriceCNYNormalized": "1109.00",
+      "mappedNodeId": "drone-gimbal-camera",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "08244f08c85061d49995648afde50dda8a2afce6b0bf41c4fe528d2ed08921f3",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台相机组件",
+        "priceCNY": "1109.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-033",
+      "model": "DJI Mini 4 Pro",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台 R 轴电机组件",
+      "officialPriceCNY": "59.00",
+      "officialPriceCNYNormalized": "59.00",
+      "mappedNodeId": "drone-gimbal-motor",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "8a4a8324baacd760248328b38b1a1f1f877f66d97cd27074e02dd87bd7a8bb5f",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台 R 轴电机组件",
+        "priceCNY": "59.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-034",
+      "model": "DJI Mini 3 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "后机臂组件",
+      "officialPriceCNY": "109.00",
+      "officialPriceCNYNormalized": "109.00",
+      "mappedNodeId": "drone-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "e98dc011b0be2e0f2fd8342e432c866ae6fb3f572c9b86b97a2bd033e65be02a",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "后机臂组件",
+        "priceCNY": "109.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-035",
+      "model": "DJI Mini 3 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "前后视觉组件",
+      "officialPriceCNY": "269.00",
+      "officialPriceCNYNormalized": "269.00",
+      "mappedNodeId": "drone-vision",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "5bd2e629f727718b6ae12284eb30e41f30b35d4dd802ce7f0672e898d5d5ad8b",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "前后视觉组件",
+        "priceCNY": "269.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-036",
+      "model": "DJI Mini 3 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "前机臂组件",
+      "officialPriceCNY": "119.00",
+      "officialPriceCNYNormalized": "119.00",
+      "mappedNodeId": "drone-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "241fa8aa97c49bc6f335fd308aa081559cc808cd3457842ff95b3d33fde3812a",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "前机臂组件",
+        "priceCNY": "119.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-037",
+      "model": "DJI Mini 3 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "GPS&IMU 组件",
+      "officialPriceCNY": "221.00",
+      "officialPriceCNYNormalized": "221.00",
+      "mappedNodeId": "drone-positioning-imu",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "20b391cba33547c411e56ad500d33a20a5b57fe708a30448e4330c3191f07e68",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "GPS&IMU 组件",
+        "priceCNY": "221.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-038",
+      "model": "DJI Mini 3 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "核心板组件",
+      "officialPriceCNY": "1063.00",
+      "officialPriceCNYNormalized": "1063.00",
+      "mappedNodeId": "drone-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "1157ddca0d88f9eefd109f0ff6435a11301606434d509d6422a48af57fec6971",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "核心板组件",
+        "priceCNY": "1063.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-039",
+      "model": "DJI Mini 3 Pro",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "下视视觉组件",
+      "officialPriceCNY": "195.00",
+      "officialPriceCNYNormalized": "195.00",
+      "mappedNodeId": "drone-vision",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "c95d14acda372163016f72cc925b71919c6e8ebe17387065576ad53dc317d5e8",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "下视视觉组件",
+        "priceCNY": "195.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-040",
+      "model": "DJI Mini 3 Pro",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台 P 轴电机组件",
+      "officialPriceCNY": "88.00",
+      "officialPriceCNYNormalized": "88.00",
+      "mappedNodeId": "drone-gimbal-motor",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "4f701118cf5e0865264d8949609d164f1fc1c3296c5e73e1d4bf0ff2ccc6d497",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台 P 轴电机组件",
+        "priceCNY": "88.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-041",
+      "model": "DJI Mini 3 Pro",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台 R 轴电机组件",
+      "officialPriceCNY": "92.00",
+      "officialPriceCNYNormalized": "92.00",
+      "mappedNodeId": "drone-gimbal-motor",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "74d1e8cd1cd7d1645ca077ee6370be9d2fbe947706024b2770db81a7f09a7437",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台 R 轴电机组件",
+        "priceCNY": "92.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-042",
+      "model": "DJI Mini 3 Pro",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台 Y 轴轴臂组件",
+      "officialPriceCNY": "135.00",
+      "officialPriceCNYNormalized": "135.00",
+      "mappedNodeId": "drone-gimbal-axis-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "1dbf8274c651da413456f2b55899afdcaa88ce9776246f61e72ba616433dae1f",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台 Y 轴轴臂组件",
+        "priceCNY": "135.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-043",
+      "model": "DJI Mini 3 Pro",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台相机组件",
+      "officialPriceCNY": "1399.00",
+      "officialPriceCNYNormalized": "1399.00",
+      "mappedNodeId": "drone-gimbal-camera",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "503deb6579ef35e2ba5335ab4881a22af49f541c3ca31c06f4444fee60fef92f",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台相机组件",
+        "priceCNY": "1399.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-044",
+      "model": "DJI Mini 3 Pro",
+      "officialCategory": "遥控器部件",
+      "officialPartName": "RC-N1 遥控器核心板",
+      "officialPriceCNY": "239.00",
+      "officialPriceCNYNormalized": "239.00",
+      "mappedNodeId": "drone-remote-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "4cbe504d75892355bcfd406fde3629de8a8e2d1a7b6fc4c145118d753246eadb",
+      "original": {
+        "category": "遥控器部件",
+        "partName": "RC-N1 遥控器核心板",
+        "priceCNY": "239.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-045",
+      "model": "DJI Mini 3 Pro",
+      "officialCategory": "遥控器部件",
+      "officialPartName": "RC-N1 遥控器拉伸件&天线组件",
+      "officialPriceCNY": "69.00",
+      "officialPriceCNYNormalized": "69.00",
+      "mappedNodeId": "drone-remote-antenna",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "2834265d7d304c1d96801a18b9a24e479bcf76faa972a9ba734a2caea7208df5",
+      "original": {
+        "category": "遥控器部件",
+        "partName": "RC-N1 遥控器拉伸件&天线组件",
+        "priceCNY": "69.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-046",
+      "model": "DJI Mini 3",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "GPS&IMU 组件",
+      "officialPriceCNY": "109.00",
+      "officialPriceCNYNormalized": "109.00",
+      "mappedNodeId": "drone-positioning-imu",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "51a6efcc324a115cea347119feaf66f3fab24b49ca003b860cd70842a25ce6c2",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "GPS&IMU 组件",
+        "priceCNY": "109.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-047",
+      "model": "DJI Mini 3",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "前机臂组件",
+      "officialPriceCNY": "113.00",
+      "officialPriceCNYNormalized": "113.00",
+      "mappedNodeId": "drone-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "249391688896d053871555604bad427acf3e4a24f2edfcc8c511a8d3d20b0a8f",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "前机臂组件",
+        "priceCNY": "113.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-048",
+      "model": "DJI Mini 3",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "后机臂组件",
+      "officialPriceCNY": "80.00",
+      "officialPriceCNYNormalized": "80.00",
+      "mappedNodeId": "drone-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "2e63bfde2db7766f424cb37736a7e9f41d403d6f59e1969c2b50995cde9b72ec",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "后机臂组件",
+        "priceCNY": "80.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-049",
+      "model": "DJI Mini 3",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "核心板组件",
+      "officialPriceCNY": "683.00",
+      "officialPriceCNYNormalized": "683.00",
+      "mappedNodeId": "drone-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "e8f4b3d490ba090f62a2afcd51e95f73cb96484edc9af61aebef20e8ddd51aaf",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "核心板组件",
+        "priceCNY": "683.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-050",
+      "model": "DJI Mini 3",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "下视视觉组件",
+      "officialPriceCNY": "109.00",
+      "officialPriceCNYNormalized": "109.00",
+      "mappedNodeId": "drone-vision",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "ec058ed27ab62af7099378be3b85942e0a4bbabb7e846dc6d7ba8ecfdf7ebd14",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "下视视觉组件",
+        "priceCNY": "109.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-051",
+      "model": "DJI Mini 3",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台相机组件",
+      "officialPriceCNY": "1285.00",
+      "officialPriceCNYNormalized": "1285.00",
+      "mappedNodeId": "drone-gimbal-camera",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "25bdc0065e7e989737e2d407831de86f27b759a329e3a892830fa958bd341a31",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台相机组件",
+        "priceCNY": "1285.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-052",
+      "model": "DJI Mini 3",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台 Y 轴臂& Y 轴电机组件",
+      "officialPriceCNY": "135.00",
+      "officialPriceCNYNormalized": "135.00",
+      "mappedNodeId": "drone-gimbal-motor",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "d8da93c7b8f860902fed12fc1bff5c79eb42d27f4f24b88b457998f16d410c30",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台 Y 轴臂& Y 轴电机组件",
+        "priceCNY": "135.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-053",
+      "model": "DJI Mini 3",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台 P 轴电机组件",
+      "officialPriceCNY": "88.00",
+      "officialPriceCNYNormalized": "88.00",
+      "mappedNodeId": "drone-gimbal-motor",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "4f701118cf5e0865264d8949609d164f1fc1c3296c5e73e1d4bf0ff2ccc6d497",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台 P 轴电机组件",
+        "priceCNY": "88.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-054",
+      "model": "DJI Mini 3",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台 R 轴电机组件",
+      "officialPriceCNY": "92.00",
+      "officialPriceCNYNormalized": "92.00",
+      "mappedNodeId": "drone-gimbal-motor",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "74d1e8cd1cd7d1645ca077ee6370be9d2fbe947706024b2770db81a7f09a7437",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台 R 轴电机组件",
+        "priceCNY": "92.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-055",
+      "model": "DJI Mini 3",
+      "officialCategory": "遥控器部件",
+      "officialPartName": "RC-N1 遥控器核心板",
+      "officialPriceCNY": "239.00",
+      "officialPriceCNYNormalized": "239.00",
+      "mappedNodeId": "drone-remote-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "4cbe504d75892355bcfd406fde3629de8a8e2d1a7b6fc4c145118d753246eadb",
+      "original": {
+        "category": "遥控器部件",
+        "partName": "RC-N1 遥控器核心板",
+        "priceCNY": "239.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-056",
+      "model": "DJI Mini 3",
+      "officialCategory": "遥控器部件",
+      "officialPartName": "RC-N1 遥控器拉伸件&天线组件",
+      "officialPriceCNY": "69.00",
+      "officialPriceCNYNormalized": "69.00",
+      "mappedNodeId": "drone-remote-antenna",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "2834265d7d304c1d96801a18b9a24e479bcf76faa972a9ba734a2caea7208df5",
+      "original": {
+        "category": "遥控器部件",
+        "partName": "RC-N1 遥控器拉伸件&天线组件",
+        "priceCNY": "69.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-057",
+      "model": "DJI Mini 2",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "核心板组件",
+      "officialPriceCNY": "699.00",
+      "officialPriceCNYNormalized": "699.00",
+      "mappedNodeId": "drone-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "5fd66b4050e9f0e0d20755ab638bdfa174f2e44c570a5957dfb375ae2e191731",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "核心板组件",
+        "priceCNY": "699.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-058",
+      "model": "DJI Mini 2",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "下视视觉模组",
+      "officialPriceCNY": "49.00",
+      "officialPriceCNYNormalized": "49.00",
+      "mappedNodeId": "drone-vision",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "2eee443a02a8d4dda6a058dea6bd2a44ec172d3729ef6349a9475e6314e4aea6",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "下视视觉模组",
+        "priceCNY": "49.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-059",
+      "model": "DJI Mini 2",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "GPS&IMU 组件",
+      "officialPriceCNY": "96.00",
+      "officialPriceCNYNormalized": "96.00",
+      "mappedNodeId": "drone-positioning-imu",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "bcfb2974f2fbf22165b865d5544deece238d587c296da024dc53713d4a11ee69",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "GPS&IMU 组件",
+        "priceCNY": "96.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-060",
+      "model": "DJI Mini 2",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台轴臂组件",
+      "officialPriceCNY": "209.00",
+      "officialPriceCNYNormalized": "209.00",
+      "mappedNodeId": "drone-gimbal-axis-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "1436166edfc7b6c1a55d429b2905b4bdc8fac255c510afec959f5ea174f55e1d",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台轴臂组件",
+        "priceCNY": "209.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-061",
+      "model": "DJI Mini 2",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台相机组件",
+      "officialPriceCNY": "709.00",
+      "officialPriceCNYNormalized": "709.00",
+      "mappedNodeId": "drone-gimbal-camera",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "8e7bacdda900b690bc7c3d4dfb6690d093817b58bb62b87e9a90e4da3de63855",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台相机组件",
+        "priceCNY": "709.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-062",
+      "model": "DJI Mini 2",
+      "officialCategory": "云台部件",
+      "officialPartName": "相机组件",
+      "officialPriceCNY": "391.00",
+      "officialPriceCNYNormalized": "391.00",
+      "mappedNodeId": "drone-gimbal-camera",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "5aba67ac45e8dd8a5cb711a5c59591afb882fe4f9f5e7147073d33de5a86ae68",
+      "original": {
+        "category": "云台部件",
+        "partName": "相机组件",
+        "priceCNY": "391.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-063",
+      "model": "DJI Mini 2",
+      "officialCategory": "遥控器部件",
+      "officialPartName": "RC-N1 遥控器核心板",
+      "officialPriceCNY": "239.00",
+      "officialPriceCNYNormalized": "239.00",
+      "mappedNodeId": "drone-remote-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "4cbe504d75892355bcfd406fde3629de8a8e2d1a7b6fc4c145118d753246eadb",
+      "original": {
+        "category": "遥控器部件",
+        "partName": "RC-N1 遥控器核心板",
+        "priceCNY": "239.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-064",
+      "model": "DJI Mini 2",
+      "officialCategory": "遥控器部件",
+      "officialPartName": "RC-N1 遥控器拉伸件&天线组件",
+      "officialPriceCNY": "69.00",
+      "officialPriceCNYNormalized": "69.00",
+      "mappedNodeId": "drone-remote-antenna",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "2834265d7d304c1d96801a18b9a24e479bcf76faa972a9ba734a2caea7208df5",
+      "original": {
+        "category": "遥控器部件",
+        "partName": "RC-N1 遥控器拉伸件&天线组件",
+        "priceCNY": "69.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-065",
+      "model": "DJI Mini 2 SE",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "GPS&IMU 组件",
+      "officialPriceCNY": "109.00",
+      "officialPriceCNYNormalized": "109.00",
+      "mappedNodeId": "drone-positioning-imu",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "51a6efcc324a115cea347119feaf66f3fab24b49ca003b860cd70842a25ce6c2",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "GPS&IMU 组件",
+        "priceCNY": "109.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-066",
+      "model": "DJI Mini 2 SE",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "前机臂组件",
+      "officialPriceCNY": "66.00",
+      "officialPriceCNYNormalized": "66.00",
+      "mappedNodeId": "drone-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "3909de8f67878921b6ae1f3db41801eca3e33dfdb661dc3d8f294db79bf624b3",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "前机臂组件",
+        "priceCNY": "66.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-067",
+      "model": "DJI Mini 2 SE",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "后机臂组件",
+      "officialPriceCNY": "66.00",
+      "officialPriceCNYNormalized": "66.00",
+      "mappedNodeId": "drone-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "2ddf5f5eae084974fa7a8de591f42f8bf7a2c6d6b1ee9d4f70f1114b309b1340",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "后机臂组件",
+        "priceCNY": "66.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-068",
+      "model": "DJI Mini 2 SE",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "核心板组件",
+      "officialPriceCNY": "635.00",
+      "officialPriceCNYNormalized": "635.00",
+      "mappedNodeId": "drone-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "22f39de1ae7019ae1a83e581826277f5278d6a80165a4ecf893b20a0498bf35f",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "核心板组件",
+        "priceCNY": "635.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-069",
+      "model": "DJI Mini 2 SE",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "下视视觉组件",
+      "officialPriceCNY": "66.00",
+      "officialPriceCNYNormalized": "66.00",
+      "mappedNodeId": "drone-vision",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "7496526b6df825b31734d84d14e1ce933cc426963d2ff5844b394b698b13a047",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "下视视觉组件",
+        "priceCNY": "66.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-070",
+      "model": "DJI Mini 2 SE",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台相机组件",
+      "officialPriceCNY": "539.00",
+      "officialPriceCNYNormalized": "539.00",
+      "mappedNodeId": "drone-gimbal-camera",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "b165ec780d88ed621aaa31877e0043e122fba47dece99cfd4285819832a56ea9",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台相机组件",
+        "priceCNY": "539.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-071",
+      "model": "DJI Mini 2 SE",
+      "officialCategory": "云台部件",
+      "officialPartName": "云台轴臂组件",
+      "officialPriceCNY": "149.00",
+      "officialPriceCNYNormalized": "149.00",
+      "mappedNodeId": "drone-gimbal-axis-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "b14ba1cff406781058c91f2f1109c83261b133f83dbeaa00817eb5d672e646b7",
+      "original": {
+        "category": "云台部件",
+        "partName": "云台轴臂组件",
+        "priceCNY": "149.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-072",
+      "model": "DJI Mini 2 SE",
+      "officialCategory": "遥控器部件",
+      "officialPartName": "RC-N1 遥控器核心板",
+      "officialPriceCNY": "239.00",
+      "officialPriceCNYNormalized": "239.00",
+      "mappedNodeId": "drone-remote-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "4cbe504d75892355bcfd406fde3629de8a8e2d1a7b6fc4c145118d753246eadb",
+      "original": {
+        "category": "遥控器部件",
+        "partName": "RC-N1 遥控器核心板",
+        "priceCNY": "239.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-073",
+      "model": "DJI Mini 2 SE",
+      "officialCategory": "遥控器部件",
+      "officialPartName": "RC-N1 遥控器拉伸件&天线组件",
+      "officialPriceCNY": "69.00",
+      "officialPriceCNYNormalized": "69.00",
+      "mappedNodeId": "drone-remote-antenna",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "2834265d7d304c1d96801a18b9a24e479bcf76faa972a9ba734a2caea7208df5",
+      "original": {
+        "category": "遥控器部件",
+        "partName": "RC-N1 遥控器拉伸件&天线组件",
+        "priceCNY": "69.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-074",
+      "model": "DJI Mini SE",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "电调板组件",
+      "officialPriceCNY": "90.00",
+      "officialPriceCNYNormalized": "90.00",
+      "mappedNodeId": "drone-esc",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "e983a6ec7c32528f27b8e4ffba2ea52382b66ebea6c0cd6c109ef5a54c347ede",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "电调板组件",
+        "priceCNY": "90.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-075",
+      "model": "DJI Mini SE",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "GPS&IMU 组件",
+      "officialPriceCNY": "96.00",
+      "officialPriceCNYNormalized": "96.00",
+      "mappedNodeId": "drone-positioning-imu",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "bcfb2974f2fbf22165b865d5544deece238d587c296da024dc53713d4a11ee69",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "GPS&IMU 组件",
+        "priceCNY": "96.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-076",
+      "model": "DJI Mini SE",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "核心板组件",
+      "officialPriceCNY": "376.00",
+      "officialPriceCNYNormalized": "376.00",
+      "mappedNodeId": "drone-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "042b798f033c307a6024d02aa62c2b9d8a3a57b41b74caa787c51f2ae4d3ccb3",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "核心板组件",
+        "priceCNY": "376.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-077",
+      "model": "DJI Mini SE",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "相机组件",
+      "officialPriceCNY": "528.00",
+      "officialPriceCNYNormalized": "528.00",
+      "mappedNodeId": "drone-gimbal-camera",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "27fab7b5ba731c6a77a8cf6efd2c35757ee826f8d762d6fd3d1e9a90dedf65fd",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "相机组件",
+        "priceCNY": "528.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-078",
+      "model": "DJI Mini SE",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "云台轴臂组件",
+      "officialPriceCNY": "133.00",
+      "officialPriceCNYNormalized": "133.00",
+      "mappedNodeId": "drone-gimbal-axis-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "0037278b8e39278b30ee2bb33eed7293aaaa06500c1e3294856cd3052edac2a9",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "云台轴臂组件",
+        "priceCNY": "133.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-079",
+      "model": "DJI Mini SE",
+      "officialCategory": "遥控器部件",
+      "officialPartName": "遥控器主板",
+      "officialPriceCNY": "79.00",
+      "officialPriceCNYNormalized": "79.00",
+      "mappedNodeId": "drone-remote-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "ec7bbd5f0a4f174b5adb9a45055b8dab503b0275b45f8574087435c3e4d50ce0",
+      "original": {
+        "category": "遥控器部件",
+        "partName": "遥控器主板",
+        "priceCNY": "79.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-080",
+      "model": "御 Mavic Mini",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "相机组件",
+      "officialPriceCNY": "391.00",
+      "officialPriceCNYNormalized": "391.00",
+      "mappedNodeId": "drone-gimbal-camera",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "a9823a90436d17fe4a4ffeda338e062582c62948bc6e0b2a602a1625baccf3a6",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "相机组件",
+        "priceCNY": "391.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-081",
+      "model": "御 Mavic Mini",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "核心板组件（CE）",
+      "officialPriceCNY": "529.00",
+      "officialPriceCNYNormalized": "529.00",
+      "mappedNodeId": "drone-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "2ca9418f862322db7b30c6e59cacc1784727f3a0c30449b8d2a2d8d85350bb40",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "核心板组件（CE）",
+        "priceCNY": "529.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-082",
+      "model": "御 Mavic Mini",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "云台轴臂组件",
+      "officialPriceCNY": "209.00",
+      "officialPriceCNYNormalized": "209.00",
+      "mappedNodeId": "drone-gimbal-axis-arm",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "61f06cc98de65c4eb7e9d5ebd8a45dbfc60bd0a9cc7bb54d4286f00408b7dc6a",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "云台轴臂组件",
+        "priceCNY": "209.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-083",
+      "model": "御 Mavic Mini",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "云台相机组件",
+      "officialPriceCNY": "709.00",
+      "officialPriceCNYNormalized": "709.00",
+      "mappedNodeId": "drone-gimbal-camera",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "53b3084bd36907ba6ee33d050269cf258d54ebd8f6397fcc690c038ebb02d544",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "云台相机组件",
+        "priceCNY": "709.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-084",
+      "model": "御 Mavic Mini",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "核心板组件（FCC）",
+      "officialPriceCNY": "529.00",
+      "officialPriceCNYNormalized": "529.00",
+      "mappedNodeId": "drone-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "2c777319ff318b9a9dce8d91ac8ae53667fa40d435e05113e40e028dcd2ee839",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "核心板组件（FCC）",
+        "priceCNY": "529.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-085",
+      "model": "御 Mavic Mini",
+      "officialCategory": "飞行器部件",
+      "officialPartName": "下视视觉模组",
+      "officialPriceCNY": "49.00",
+      "officialPriceCNYNormalized": "49.00",
+      "mappedNodeId": "drone-vision",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "2eee443a02a8d4dda6a058dea6bd2a44ec172d3729ef6349a9475e6314e4aea6",
+      "original": {
+        "category": "飞行器部件",
+        "partName": "下视视觉模组",
+        "priceCNY": "49.00"
+      }
+    },
+    {
+      "auditId": "audit-drone-part-086",
+      "model": "御 Mavic Mini",
+      "officialCategory": "遥控器部件",
+      "officialPartName": "遥控器主板",
+      "officialPriceCNY": "79.00",
+      "officialPriceCNYNormalized": "79.00",
+      "mappedNodeId": "drone-remote-core-board",
+      "sourceId": "source-dji-parts",
+      "snapshotPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "snapshotSha256": "fa9a97c31b3f6df5e1875a9f20a81d680a49a31809cc564474d546d1726ab73d",
+      "rawRowSha256": "ec7bbd5f0a4f174b5adb9a45055b8dab503b0275b45f8574087435c3e4d50ce0",
+      "original": {
+        "category": "遥控器部件",
+        "partName": "遥控器主板",
+        "priceCNY": "79.00"
+      }
+    }
+  ],
+  "purchaseNoteOnly": [
+    "电池",
+    "充电器",
+    "桨叶",
+    "遥控器",
+    "遥控器摇杆",
+    "遥控器转接线"
+  ],
+  "structuralReference": "官方备件表覆盖上述 9 个 DJI Mini 系列型号；其中 Mini 5 Pro 部件最全。通用抽象只借用表内实际出现的部件类别，不把任一型号的全部配件写成每架通用无人机必有。",
+  "classification": {
+    "classCode": "H6",
+    "className": "HS2022",
+    "original": {
+      "id": "8806",
+      "text": "8806 - Unmanned aircraft",
+      "parent": "88",
+      "isLeaf": "0",
+      "aggrlevel": 4,
+      "standardUnitAbbr": "n/a"
+    },
+    "subheadings": [
+      {
+        "id": "880610",
+        "text": "880610 - Unmanned aircraft; for carriage of passengers",
+        "parent": "8806",
+        "isLeaf": "1",
+        "aggrlevel": 6,
+        "standardUnitAbbr": "u"
+      },
+      {
+        "id": "880621",
+        "text": "880621 - Unmanned aircraft; for remote-controlled flight only, for other than for carriage of passengers, with the maximum take-off weight of not more than 250g",
+        "parent": "8806",
+        "isLeaf": "1",
+        "aggrlevel": 6,
+        "standardUnitAbbr": "u"
+      },
+      {
+        "id": "880622",
+        "text": "880622 - Unmanned aircraft; for remote-controlled flight only, for other than for carriage of passengers, with the maximum take-off weight of more than 250g but not more than 7kg",
+        "parent": "8806",
+        "isLeaf": "1",
+        "aggrlevel": 6,
+        "standardUnitAbbr": "u"
+      },
+      {
+        "id": "880623",
+        "text": "880623 - Unmanned aircraft; for remote-controlled flight only, for other than for carriage of passengers, with the maximum take-off weight of more than 7kg but not more than 25kg",
+        "parent": "8806",
+        "isLeaf": "1",
+        "aggrlevel": 6,
+        "standardUnitAbbr": "u"
+      },
+      {
+        "id": "880624",
+        "text": "880624 - Unmanned aircraft; for remote-controlled flight only, for other than for carriage of passengers, with the maximum take-off weight of more than 25kg but not more than 150kg",
+        "parent": "8806",
+        "isLeaf": "1",
+        "aggrlevel": 6,
+        "standardUnitAbbr": "u"
+      },
+      {
+        "id": "880629",
+        "text": "880629 - Unmanned aircraft; for remote-controlled flight only, for other than for carriage of passengers, with the maximum take-off weight of more than 150kg",
+        "parent": "8806",
+        "isLeaf": "1",
+        "aggrlevel": 6,
+        "standardUnitAbbr": "u"
+      },
+      {
+        "id": "880691",
+        "text": "880691 - Unmanned aircraft; for other than remote-controlled flight and other than for carriage of passengers with a maximum take-off weight not more than 250g",
+        "parent": "8806",
+        "isLeaf": "1",
+        "aggrlevel": 6,
+        "standardUnitAbbr": "u"
+      },
+      {
+        "id": "880692",
+        "text": "880692 - Unmanned aircraft; for other than remote-controlled flight and other than for carriage of passengers with a maximum take-off weight more than 250g but not more than 7kg",
+        "parent": "8806",
+        "isLeaf": "1",
+        "aggrlevel": 6,
+        "standardUnitAbbr": "u"
+      },
+      {
+        "id": "880693",
+        "text": "880693 - Unmanned aircraft; for other than remote-controlled flight and other than for carriage of passengers with a maximum take-off weight more than 7kg but not more than 25kg",
+        "parent": "8806",
+        "isLeaf": "1",
+        "aggrlevel": 6,
+        "standardUnitAbbr": "u"
+      },
+      {
+        "id": "880694",
+        "text": "880694 - Unmanned aircraft; for other than remote-controlled flight and other than for carriage of passengers with a maximum take-off weight more than 25kg but not more than 150kg",
+        "parent": "8806",
+        "isLeaf": "1",
+        "aggrlevel": 6,
+        "standardUnitAbbr": "u"
+      },
+      {
+        "id": "880699",
+        "text": "880699 - Unmanned aircraft; for other than remote-controlled flight and other than for carriage of passengers with a maximum take-off weight more than 150kg",
+        "parent": "8806",
+        "isLeaf": "1",
+        "aggrlevel": 6,
+        "standardUnitAbbr": "u"
+      }
+    ],
+    "mappingType": "aggregate"
+  },
+  "counts": {
+    "items": 16,
+    "modules": 3,
+    "components": 12,
+    "storyNodes": 16,
+    "storyFlows": 0,
+    "partsRows": 86,
+    "mappedRows": 86,
+    "unmappedRows": 0,
+    "distinctOfficialNames": 35,
+    "models": 9,
+    "officialCategories": 3,
+    "tradeObservations": 0,
+    "entities": 0,
+    "evidenceGaps": 4
+  },
+  "validation": {
+    "offline": true,
+    "activeManifestChanged": false,
+    "sourceHashesVerified": true,
+    "absentTradeRecordIsZero": false,
+    "publication": "candidate first; activation only through the official release tooling"
+  },
+  "limitations": [
+    "部件层级来自 DJI Mini 系列维修表，是结构参照，不等于任一具体型号的完整物料清单。",
+    "未核验各部件材质、牌号、重量占比、产地国家/地区、供应商或产能。",
+    "未核验制造工序、产线设备与装配关系；五级框架中的材料层本批空缺。",
+    "无国家角色与双边贸易证据，故事图不含国家连线或市场节点。"
+  ]
+}

@@ -1,0 +1,364 @@
+{
+  "schemaVersion": "camera-drone-research-input.v1",
+  "identity": {
+    "productId": "generic-camera-drone",
+    "name": "航拍无人机",
+    "theme": "一架无人机如何连接世界",
+    "productCategory": "交通设备",
+    "datasetVersion": {
+      "id": "dataset-camera-drone-2026-1",
+      "version": "globe-chain-camera-drone-2026.1",
+      "name": "航拍无人机：官方维修部件结构参照（无贸易、产地、材料与工序观测）",
+      "status": "published",
+      "publishedAt": "2026-11-25T15:21:40.000Z"
+    },
+    "contentVersion": {
+      "id": "content-camera-drone-2026-1",
+      "version": "camera-drone-structure-2026.1",
+      "status": "published",
+      "publishedAt": "2026-11-25T15:21:40.000Z"
+    },
+    "period": {
+      "granularity": "monthly",
+      "start": "2026-11-01",
+      "end": "2026-11-30",
+      "label": "2026-11（官方备件表快照）"
+    }
+  },
+  "sources": [
+    {
+      "id": "source-dji-parts",
+      "name": "DJI 支持：DJI Mini 系列配件价格查询",
+      "publisher": "DJI（大疆）",
+      "url": "https://support.dji.com/help/content?customId=zh-cn03400007809&spaceId=34&re=CN&lang=zh-CN",
+      "license": "官方公开资料；发布机构使用条款适用。仅摘编官方部件分类、配件名称与维修备件报价；报价为维修备件事实，不作为成本、利润或零售价。",
+      "retrievedAt": "2026-11-25T15:21:40Z",
+      "datasetVersion": "dji-mini-parts-2026-11",
+      "notes": "原始快照 data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html；SHA-256 FA9A97C31B3F6DF5E1875A9F20A81D680A49A31809CC564474D546D1726AB73D；HTTP 200，text/html; charset=utf-8。",
+      "rawPath": "data/research/drone-2026-11-26/raw/dji-support-zh-cn03400007809.html",
+      "rawSha256": "FA9A97C31B3F6DF5E1875A9F20A81D680A49A31809CC564474D546D1726AB73D"
+    },
+    {
+      "id": "source-hs2022-h6",
+      "name": "UN Comtrade HS2022 商品分类字典（H6）",
+      "publisher": "United Nations Statistics Division",
+      "url": "https://comtradeapi.un.org/files/v1/app/reference/H6.json",
+      "license": "官方公开分类参考；机构使用条款适用。",
+      "retrievedAt": "2026-10-21T08:18:08Z",
+      "datasetVersion": "hs2022-h6-shared-2026-10",
+      "notes": "本地共享快照 data/raw/ebike-research/un-comtrade-H6.json；SHA-256 e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15。仅作 HS 分类参考，不构成任何贸易观测。",
+      "rawPath": "data/raw/ebike-research/un-comtrade-H6.json",
+      "rawSha256": "e266823e1299d1307c5d7986eb738b83aa5e5bd9af675bf19bf372220660be15"
+    },
+    {
+      "id": "source-drone-curation",
+      "name": "GlobeChain 通用部件层级整理",
+      "publisher": "GlobeChain 研究整理",
+      "url": null,
+      "license": "内部策展记录；结构映射依据官方备件表，不引入外部产地、材料或供应商结论。",
+      "retrievedAt": "2026-11-25T15:21:40Z",
+      "datasetVersion": "camera-drone-structure-2026.1",
+      "notes": "通用商品抽象层：把同一类官方配件名合并为一个通用组件节点；官方型号差异、版本后缀（CE/FCC）与维修报价保留在审计记录中。"
+    }
+  ],
+  "officialTable": {
+    "snapshotPath": "data/research/drone-2026-11-26/extracts/parts-tables.json",
+    "models": [
+      "DJI Mini 5 Pro",
+      "DJI Mini 4K",
+      "DJI Mini 4 Pro",
+      "DJI Mini 3 Pro",
+      "DJI Mini 3",
+      "DJI Mini 2",
+      "DJI Mini 2 SE",
+      "DJI Mini SE",
+      "御 Mavic Mini"
+    ],
+    "officialCategories": ["飞行器部件", "云台部件", "遥控器部件"],
+    "structuralReference": "官方备件表覆盖上述 9 个 DJI Mini 系列型号；其中 Mini 5 Pro 部件最全。通用抽象只借用表内实际出现的部件类别，不把任一型号的全部配件写成每架通用无人机必有。",
+    "purchaseNoteOnly": [
+      "电池",
+      "充电器",
+      "桨叶",
+      "遥控器",
+      "遥控器摇杆",
+      "遥控器转接线"
+    ],
+    "purchaseNoteNote": "以上项目仅出现在页首购买提示（引导至 DJI 商城），未列入维修报价表；本批不据此建立 BOM 节点。"
+  },
+  "bom": [
+    {
+      "id": "generic-camera-drone",
+      "depth": 0,
+      "itemType": "final_product",
+      "parentItemId": null,
+      "name": "航拍无人机",
+      "description": "以多旋翼航拍平台为参照的通用无人机整机；结构依据官方维修部件表整理，用于展示部件层级与来源链。",
+      "officialCategory": null,
+      "officialNames": []
+    },
+    {
+      "id": "drone-airframe",
+      "depth": 1,
+      "itemType": "component",
+      "parentItemId": "generic-camera-drone",
+      "name": "飞行器主体与飞控结构",
+      "description": "官方表“飞行器部件”对应的机身、飞控核心板、视觉与定位惯性、电调与机臂结构组。",
+      "officialCategory": "飞行器部件",
+      "officialNames": []
+    },
+    {
+      "id": "drone-core-board",
+      "depth": 2,
+      "itemType": "component",
+      "parentItemId": "drone-airframe",
+      "name": "核心板组件（飞控板）",
+      "description": "飞行器核心板/飞控主板组件；官方表区分 CE、FCC 地区版本后缀。",
+      "officialCategory": "飞行器部件",
+      "officialNames": ["飞行器核心板组件", "核心板组件", "核心板组件（CE）", "核心板组件（FCC）"]
+    },
+    {
+      "id": "drone-vision",
+      "depth": 2,
+      "itemType": "component",
+      "parentItemId": "drone-airframe",
+      "name": "视觉组件（下视/前后视/红外 TOF）",
+      "description": "下视视觉、前视/后视视觉与下视红外 TOF 等环境感知组件。",
+      "officialCategory": "飞行器部件",
+      "officialNames": ["下视视觉组件", "下视视觉模组", "前视&后视视觉组件", "前后视觉组件", "下视红外 TOF 组件"]
+    },
+    {
+      "id": "drone-positioning-imu",
+      "depth": 2,
+      "itemType": "component",
+      "parentItemId": "drone-airframe",
+      "name": "定位与惯性测量组件",
+      "description": "IMU 与 GPS&IMU 组合的定位、姿态测量组件。",
+      "officialCategory": "飞行器部件",
+      "officialNames": ["飞行器 IMU 组件", "GPS&IMU 组件"]
+    },
+    {
+      "id": "drone-esc",
+      "depth": 2,
+      "itemType": "component",
+      "parentItemId": "drone-airframe",
+      "name": "电调板组件",
+      "description": "电机调速用电调板组件。",
+      "officialCategory": "飞行器部件",
+      "officialNames": ["飞行器电调板组件", "电调板组件"]
+    },
+    {
+      "id": "drone-arm",
+      "depth": 2,
+      "itemType": "component",
+      "parentItemId": "drone-airframe",
+      "name": "机臂组件",
+      "description": "前、后及左前机臂组件，承载电机与桨座结构。",
+      "officialCategory": "飞行器部件",
+      "officialNames": ["飞行器前机臂组件", "飞行器后机臂组件", "前机臂组件", "后机臂组件", "左前机臂组件"]
+    },
+    {
+      "id": "drone-gimbal",
+      "depth": 1,
+      "itemType": "component",
+      "parentItemId": "generic-camera-drone",
+      "name": "云台影像系统",
+      "description": "官方表“云台部件”对应的云台总成、相机、轴臂与轴电机组。",
+      "officialCategory": "云台部件",
+      "officialNames": []
+    },
+    {
+      "id": "drone-gimbal-assembly",
+      "depth": 2,
+      "itemType": "component",
+      "parentItemId": "drone-gimbal",
+      "name": "云台总成",
+      "description": "飞行器云台整体组件。",
+      "officialCategory": "云台部件",
+      "officialNames": ["飞行器云台组件"]
+    },
+    {
+      "id": "drone-gimbal-camera",
+      "depth": 2,
+      "itemType": "component",
+      "parentItemId": "drone-gimbal",
+      "name": "云台相机组件",
+      "description": "云台搭载的相机成像组件。",
+      "officialCategory": "云台部件",
+      "officialNames": ["云台相机组件", "相机组件"]
+    },
+    {
+      "id": "drone-gimbal-axis-arm",
+      "depth": 2,
+      "itemType": "component",
+      "parentItemId": "drone-gimbal",
+      "name": "云台轴臂组件",
+      "description": "云台 P/Y 轴臂及组合轴臂结构件。",
+      "officialCategory": "云台部件",
+      "officialNames": ["云台 P 轴臂组件", "云台 Y 轴臂组件", "云台 P 轴臂", "云台轴臂组件", "云台 Y 轴轴臂组件"]
+    },
+    {
+      "id": "drone-gimbal-motor",
+      "depth": 2,
+      "itemType": "component",
+      "parentItemId": "drone-gimbal",
+      "name": "云台轴电机组件",
+      "description": "云台 P/R/Y 轴驱动电机及电机轴臂组合。",
+      "officialCategory": "云台部件",
+      "officialNames": ["云台 Y 轴臂& Y 轴电机组件", "云台 P 轴电机组件", "云台 R 轴电机组件"]
+    },
+    {
+      "id": "drone-remote",
+      "depth": 1,
+      "itemType": "component",
+      "parentItemId": "generic-camera-drone",
+      "name": "配套遥控器系统",
+      "description": "官方表“遥控器部件”对应的遥控器主板、天线拉伸件与遥控器电池；为整机配套遥控设备。",
+      "officialCategory": "遥控器部件",
+      "officialNames": []
+    },
+    {
+      "id": "drone-remote-core-board",
+      "depth": 2,
+      "itemType": "component",
+      "parentItemId": "drone-remote",
+      "name": "遥控器核心板（主板）",
+      "description": "遥控器主控板/主板组件。",
+      "officialCategory": "遥控器部件",
+      "officialNames": ["RC-N1C 遥控器核心板", "RC-N1 遥控器核心板", "遥控器主板"]
+    },
+    {
+      "id": "drone-remote-antenna",
+      "depth": 2,
+      "itemType": "component",
+      "parentItemId": "drone-remote",
+      "name": "遥控器拉伸件与天线组件",
+      "description": "遥控器拉伸结构与天线组合件。",
+      "officialCategory": "遥控器部件",
+      "officialNames": ["RC-N1C 遥控器拉伸件&天线组件", "RC-N1 遥控器拉伸件&天线组件"]
+    },
+    {
+      "id": "drone-remote-battery",
+      "depth": 2,
+      "itemType": "component",
+      "parentItemId": "drone-remote",
+      "name": "遥控器电池",
+      "description": "遥控器内置电池组件。",
+      "officialCategory": "遥控器部件",
+      "officialNames": ["RC-N1C 遥控器电池"]
+    }
+  ],
+  "classification": {
+    "system": "HS",
+    "version": "2022",
+    "headingCode": "8806",
+    "headingLabel": "8806 - Unmanned aircraft",
+    "mappingType": "aggregate",
+    "limitation": "8806 为品目层宽口径分类；具体六位子目取决于最大起飞重量与操控方式，本批无重量与操控观测，停留品目层。分类不证明最终用途或指定供应链关系。"
+  },
+  "story": {
+    "representativeStatement": "依据 DJI Mini 系列官方维修部件表，整理通用航拍无人机的飞行器、云台与遥控器部件层级；产地、材料、供应商、制造工序与贸易流向本批均未观测。",
+    "methodology": [
+      "以官方备件表快照为唯一部件结构来源；同类别不同型号、版本后缀的配件名合并为一个通用组件节点，原文措辞保留在审计记录。",
+      "HS2022 品目 8806 仅作分类参考；未采集任何 8806 贸易观察，贸易账本保持空态。",
+      "官方报价为维修备件 CNY 报价，仅作为备件事实留存于审计，不进入成本、利润或零售价结论。"
+    ],
+    "limitations": [
+      "部件层级来自 DJI Mini 系列维修表，是结构参照，不等于任一具体型号的完整物料清单。",
+      "未核验各部件材质、牌号、重量占比、产地国家/地区、供应商或产能。",
+      "未核验制造工序、产线设备与装配关系；五级框架中的材料层本批空缺。",
+      "无国家角色与双边贸易证据，故事图不含国家连线或市场节点。"
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "title": "从整机到三类官方部件",
+        "description": "官方维修表把部件分为飞行器、云台与遥控器三类；本步仅呈现部件层级，不含产地、材料、工序或贸易连线。",
+        "nodeRefs": ["generic-camera-drone", "drone-airframe", "drone-gimbal", "drone-remote"]
+      }
+    ]
+  },
+  "gaps": [
+    {
+      "id": "gap-drone-trade-8806",
+      "title": "缺少 HS2022 8806 贸易观测",
+      "currentClaim": "本地无 HS2022 8806 无人驾驶航空器的分报告方/伙伴/方向/年度贸易金额与数量快照。",
+      "missingEvidence": "官方海关或 UN Comtrade 的 8806 原始贸易观察（含报告方、伙伴、方向、期间、金额、数量与质量标记）。",
+      "acceptableEvidenceTypes": ["trade_observation", "bilateral_flow"],
+      "candidateSources": [
+        {
+          "name": "UN Comtrade Preview API",
+          "publisher": "United Nations Statistics Division",
+          "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS",
+          "license": "官方公开数据；机构使用条款适用。",
+          "notes": "按 reporter/partner/cmdCode=8806/flow/period 一次性采集并逐条审计；接口缺返回或空结果按未知处理，不记为零。"
+        }
+      ],
+      "nonInferences": [
+        "不把缺失快照当作零贸易或零出口。",
+        "不臆测出口国、进口国或双边供货关系。",
+        "不把品目 8806 的宽口径金额摊到本通用机型。"
+      ]
+    },
+    {
+      "id": "gap-drone-materials",
+      "title": "缺少部件材质与材料配比证据",
+      "currentClaim": "各组件使用的材质、牌号与材料配比未核验。",
+      "missingEvidence": "官方规格书、拆解报告或材料化验等可追溯的部件级材料来源。",
+      "acceptableEvidenceTypes": ["process_context", "trade_observation"],
+      "candidateSources": [
+        {
+          "name": "DJI 官方产品规格与支持资料",
+          "publisher": "DJI（大疆）",
+          "url": "https://support.dji.com/",
+          "license": "官方公开资料；发布机构使用条款适用。",
+          "notes": "仅在官方明确公布材质或重量时登记；常见电子、塑料、金属材料不默认套用。"
+        }
+      ],
+      "nonInferences": [
+        "不标注部件材质、牌号或配比。",
+        "不把常见电子、塑料或金属材料默认为本机型用料。"
+      ]
+    },
+    {
+      "id": "gap-drone-origins",
+      "title": "缺少产地国家/地区与供应商证据",
+      "currentClaim": "部件或整机的产地国家/地区、具体供应商与供货关系未核验。",
+      "missingEvidence": "可追溯的企业/产地登记、官方供应链披露或双边贸易观察。",
+      "acceptableEvidenceTypes": ["country_role", "manufacturer_capability", "commercial_relationship"],
+      "candidateSources": [
+        {
+          "name": "企业公开能力与官方供应链披露",
+          "publisher": "公开企业资料与官方披露",
+          "url": null,
+          "license": "公开资料；以发布方来源为准。",
+          "notes": "企业公开提供某类设备不等于向指定客户或本机型实际供货。"
+        }
+      ],
+      "nonInferences": [
+        "不标注产地国家/地区或具体供应商。",
+        "企业能力记录不写作供货关系。"
+      ]
+    },
+    {
+      "id": "gap-drone-process",
+      "title": "缺少制造工序、设备与产能证据",
+      "currentClaim": "装配工序、产线设备、节拍与产能未核验。",
+      "missingEvidence": "可追溯的工序记录、设备类别清单与产能披露。",
+      "acceptableEvidenceTypes": ["process_context", "manufacturer_capability"],
+      "candidateSources": [
+        {
+          "name": "官方制造与工艺披露",
+          "publisher": "公开制造资料",
+          "url": null,
+          "license": "公开资料；以发布方来源为准。",
+          "notes": "工序与设备须逐条挂接来源与期间后再登记。"
+        }
+      ],
+      "nonInferences": [
+        "不编造工序、产线设备或产能。",
+        "通用部件层级不替代装配工艺记录。"
+      ]
+    }
+  ]
+}

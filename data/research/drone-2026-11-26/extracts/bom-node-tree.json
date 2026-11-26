@@ -1,0 +1,193 @@
+[
+  {
+    "id": "generic-camera-drone",
+    "depth": 0,
+    "itemType": "final_product",
+    "parentItemId": null,
+    "name": "航拍无人机",
+    "officialCategory": null,
+    "mappedOfficialNames": []
+  },
+  {
+    "id": "drone-airframe",
+    "depth": 1,
+    "itemType": "component",
+    "parentItemId": "generic-camera-drone",
+    "name": "飞行器主体与飞控结构",
+    "officialCategory": "飞行器部件",
+    "mappedOfficialNames": []
+  },
+  {
+    "id": "drone-core-board",
+    "depth": 2,
+    "itemType": "component",
+    "parentItemId": "drone-airframe",
+    "name": "核心板组件（飞控板）",
+    "officialCategory": "飞行器部件",
+    "mappedOfficialNames": [
+      "飞行器核心板组件",
+      "核心板组件",
+      "核心板组件（CE）",
+      "核心板组件（FCC）"
+    ]
+  },
+  {
+    "id": "drone-vision",
+    "depth": 2,
+    "itemType": "component",
+    "parentItemId": "drone-airframe",
+    "name": "视觉组件（下视/前后视/红外 TOF）",
+    "officialCategory": "飞行器部件",
+    "mappedOfficialNames": [
+      "下视视觉组件",
+      "下视视觉模组",
+      "前视&后视视觉组件",
+      "前后视觉组件",
+      "下视红外 TOF 组件"
+    ]
+  },
+  {
+    "id": "drone-positioning-imu",
+    "depth": 2,
+    "itemType": "component",
+    "parentItemId": "drone-airframe",
+    "name": "定位与惯性测量组件",
+    "officialCategory": "飞行器部件",
+    "mappedOfficialNames": [
+      "飞行器 IMU 组件",
+      "GPS&IMU 组件"
+    ]
+  },
+  {
+    "id": "drone-esc",
+    "depth": 2,
+    "itemType": "component",
+    "parentItemId": "drone-airframe",
+    "name": "电调板组件",
+    "officialCategory": "飞行器部件",
+    "mappedOfficialNames": [
+      "飞行器电调板组件",
+      "电调板组件"
+    ]
+  },
+  {
+    "id": "drone-arm",
+    "depth": 2,
+    "itemType": "component",
+    "parentItemId": "drone-airframe",
+    "name": "机臂组件",
+    "officialCategory": "飞行器部件",
+    "mappedOfficialNames": [
+      "飞行器前机臂组件",
+      "飞行器后机臂组件",
+      "前机臂组件",
+      "后机臂组件",
+      "左前机臂组件"
+    ]
+  },
+  {
+    "id": "drone-gimbal",
+    "depth": 1,
+    "itemType": "component",
+    "parentItemId": "generic-camera-drone",
+    "name": "云台影像系统",
+    "officialCategory": "云台部件",
+    "mappedOfficialNames": []
+  },
+  {
+    "id": "drone-gimbal-assembly",
+    "depth": 2,
+    "itemType": "component",
+    "parentItemId": "drone-gimbal",
+    "name": "云台总成",
+    "officialCategory": "云台部件",
+    "mappedOfficialNames": [
+      "飞行器云台组件"
+    ]
+  },
+  {
+    "id": "drone-gimbal-camera",
+    "depth": 2,
+    "itemType": "component",
+    "parentItemId": "drone-gimbal",
+    "name": "云台相机组件",
+    "officialCategory": "云台部件",
+    "mappedOfficialNames": [
+      "云台相机组件",
+      "相机组件"
+    ]
+  },
+  {
+    "id": "drone-gimbal-axis-arm",
+    "depth": 2,
+    "itemType": "component",
+    "parentItemId": "drone-gimbal",
+    "name": "云台轴臂组件",
+    "officialCategory": "云台部件",
+    "mappedOfficialNames": [
+      "云台 P 轴臂组件",
+      "云台 Y 轴臂组件",
+      "云台 P 轴臂",
+      "云台轴臂组件",
+      "云台 Y 轴轴臂组件"
+    ]
+  },
+  {
+    "id": "drone-gimbal-motor",
+    "depth": 2,
+    "itemType": "component",
+    "parentItemId": "drone-gimbal",
+    "name": "云台轴电机组件",
+    "officialCategory": "云台部件",
+    "mappedOfficialNames": [
+      "云台 Y 轴臂& Y 轴电机组件",
+      "云台 P 轴电机组件",
+      "云台 R 轴电机组件"
+    ]
+  },
+  {
+    "id": "drone-remote",
+    "depth": 1,
+    "itemType": "component",
+    "parentItemId": "generic-camera-drone",
+    "name": "配套遥控器系统",
+    "officialCategory": "遥控器部件",
+    "mappedOfficialNames": []
+  },
+  {
+    "id": "drone-remote-core-board",
+    "depth": 2,
+    "itemType": "component",
+    "parentItemId": "drone-remote",
+    "name": "遥控器核心板（主板）",
+    "officialCategory": "遥控器部件",
+    "mappedOfficialNames": [
+      "RC-N1C 遥控器核心板",
+      "RC-N1 遥控器核心板",
+      "遥控器主板"
+    ]
+  },
+  {
+    "id": "drone-remote-antenna",
+    "depth": 2,
+    "itemType": "component",
+    "parentItemId": "drone-remote",
+    "name": "遥控器拉伸件与天线组件",
+    "officialCategory": "遥控器部件",
+    "mappedOfficialNames": [
+      "RC-N1C 遥控器拉伸件&天线组件",
+      "RC-N1 遥控器拉伸件&天线组件"
+    ]
+  },
+  {
+    "id": "drone-remote-battery",
+    "depth": 2,
+    "itemType": "component",
+    "parentItemId": "drone-remote",
+    "name": "遥控器电池",
+    "officialCategory": "遥控器部件",
+    "mappedOfficialNames": [
+      "RC-N1C 遥控器电池"
+    ]
+  }
+]
