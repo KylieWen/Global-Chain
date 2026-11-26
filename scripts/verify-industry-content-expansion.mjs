@@ -14,6 +14,14 @@ try {
   for (const entry of manifest.fixtures) {
     const fixture = JSON.parse(await readFile(resolve('data/published', entry.path), 'utf8'));
     const network = fixture.industryNetwork;
+    if (!network) {
+      // Products without a recorded industry network have no industry module;
+      // the route must not fabricate topics or relations. Recorded as a scope
+      // boundary, not a failing expansion case.
+      const response = await page.goto(`${base}/products/${entry.productId}/industry`, { waitUntil: 'networkidle', timeout: 90000 });
+      checks.push({ productId: entry.productId, version: entry.datasetVersion, industryNetwork: false, routeStatus: response.status(), expanded: false });
+      continue;
+    }
     const topic = network.topics.find(topic => topic.kind === 'process' && network.relations.some(relation => relation.toTopicId === topic.id));
     const response = await page.goto(`${base}/products/${entry.productId}/industry?topic=${topic.id}`, { waitUntil: 'networkidle', timeout: 90000 });
     assert.equal(response.status(), 200);

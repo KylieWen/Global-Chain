@@ -9,6 +9,17 @@ const output = resolve(process.env.REVIEW_OUTPUT_DIR ?? 'output/qa/browser-smoke
 await mkdir(output, { recursive: true });
 const manifest = JSON.parse(await readFile('data/published/manifest.json', 'utf8'));
 const navigation = JSON.parse(await readFile('content/demo-navigation.json', 'utf8'));
+// Products with recorded China regional nodes come from the regional atlas
+// snapshot; products without nodes must render the explicit empty state.
+const atlas = JSON.parse(await readFile('content/geography/china-supply-atlas-2026-10-23.json', 'utf8'));
+const coveredChinaProducts = new Set(atlas.nodes.map(node => node.productId));
+// Products with recorded trade observations populate the country selector;
+// products without observations keep the map unselected and show the empty scope.
+const tradeProducts = new Set();
+for (const entry of manifest.fixtures) {
+  const fixture = JSON.parse(await readFile(resolve('data/published', entry.path), 'utf8'));
+  if ((fixture.tradeObservations ?? []).length > 0) tradeProducts.add(entry.productId);
+}
 const browser = await chromium.launch({ channel: process.env.CI ? undefined : 'chrome' });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
 const pageErrors = [];
@@ -46,19 +57,44 @@ try {
     await go(`/products/${productId}`);
     await go(`/map?product=${productId}`);
     assert.equal(await page.locator('.map-country-shape.selected').count(), 0, productId);
-    const countries = page.getByRole('combobox', { name: '选择国家', exact: true });
-    const country = await countries.locator('option').evaluateAll(options => options.find(option => option.value && !option.disabled)?.value);
-    assert.ok(country, `${productId}: country options`);
-    await countries.selectOption(country);
-    await page.waitForURL(url => url.searchParams.get('country') === country);
-    await page.locator('.atlas-workspace[aria-busy="false"]').waitFor();
-    assert.equal(await page.locator('.map-country-shape.selected').count(), 1, productId);
+    if (tradeProducts.has(productId)) {
+      // The country combobox lives inside the collapsed filter capsule; expand it
+      // before reading/selecting options instead of assuming it is always open.
+      const filterToggle = page.locator('.atlas-filters-toggle');
+      if (await filterToggle.count() && await filterToggle.getAttribute('aria-expanded') === 'false') {
+        await filterToggle.click();
+        await page.locator('#atlas-filters-body:visible').waitFor({ timeout: 3000 });
+      }
+      const countries = page.getByRole('combobox', { name: '选择国家', exact: true });
+      const country = await countries.locator('option').evaluateAll(options => options.find(option => option.value && !option.disabled)?.value);
+      assert.ok(country, `${productId}: country options`);
+      await countries.selectOption(country);
+      await page.waitForURL(url => url.searchParams.get('country') === country);
+      await page.locator('.atlas-workspace[aria-busy="false"]').waitFor();
+      assert.equal(await page.locator('.map-country-shape.selected').count(), 1, productId);
+    } else {
+      // No recorded trade observation: no country should be selectable or selected.
+      const country = await page.getByRole('combobox', { name: '选择国家', exact: true }).locator('option').evaluateAll(options => options.find(option => option.value && !option.disabled)?.value);
+      assert.ok(!country, `${productId}: no trade country options`);
+    }
     await go(`/map/china?product=${productId}`);
-    assert.ok(await page.locator('.regional-node').count() > 0, productId);
-    const markers = await page.locator('.regional-node').evaluateAll(nodes => nodes.map(node => node.getAttribute('aria-label')));
-    for (const label of markers) {
-      await page.locator('.regional-node').and(page.getByRole('button', { name: label, exact: true })).click();
-      assert.equal(await page.locator('.regional-node[aria-pressed="true"]').getAttribute('aria-label'), label);
+    const provinceCount = await page.locator('.china-province[role="button"]').count();
+    assert.equal(provinceCount, 34, `${productId}: China map renders provinces`);
+    if (coveredChinaProducts.has(productId)) {
+      assert.ok(await page.locator('.regional-node').count() > 0, `${productId}: China map shows regional nodes`);
+      const markers = await page.locator('.regional-node').evaluateAll(nodes => nodes.map(node => node.getAttribute('aria-label')));
+      for (const label of markers) {
+        // SVG marker hit circle is a descendant of the role=g group; force click
+        // avoids Playwright's descendant-interceptor actionability false positive.
+        await page.locator('.regional-node').and(page.getByRole('button', { name: label, exact: true })).click({ force: true });
+        assert.equal(await page.locator('.regional-node[aria-pressed="true"]').getAttribute('aria-label'), label);
+      }
+    } else {
+      // No recorded regional entity for this product: the map must show the
+      // explicit empty state rather than an empty marker layer.
+      assert.equal(await page.locator('.regional-node').count(), 0, `${productId}: uncovered product has no regional node`);
+      assert.equal(await page.locator('.regional-connection').count(), 0, `${productId}: uncovered product has no regional edge`);
+      assert.ok(await page.locator('.regional-empty[role="status"]').count() > 0, `${productId}: uncovered product shows the regional empty state`);
     }
     const exported = await browserResearchExport(page, `/api/products/${productId}/research-export`);
     assert.equal(exported.status, 200);
@@ -100,7 +136,11 @@ try {
     await page.setViewportSize({ width, height: 900 });
     await go('/map/china');
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
-    await page.locator('.nav-group > summary').filter({ hasText: '数据与指南' }).click();
+    // Narrow headers collapse grouped nav into the single 菜单 panel.
+    const navSummary = width <= 640
+      ? page.locator('.nav-group--menu > summary')
+      : page.locator('.nav-group--groups > summary').filter({ hasText: '数据与指南' });
+    await navSummary.click();
     await page.getByRole('navigation', { name: '主导航' }).getByRole('link', { name: /数据版本/ }).waitFor();
     assert.equal(await page.locator('nav[aria-label="主导航"] a[href="/demo"]').count(), 0);
     await page.screenshot({ path: resolve(output, `menu-${width}.png`), fullPage: true });

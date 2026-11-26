@@ -41,8 +41,10 @@ export default function Link({ href, onClick, ...props }: ComponentProps<"a"> & 
     const productPath = `/products/${encodeURIComponent(map.product)}`;
     const isCurrentProduct = target.pathname === productPath || target.pathname.startsWith(`${productPath}/`);
     if (target.origin === window.location.origin && isCurrentProduct && target.pathname !== `${productPath}/supply-chain`) {
-      if (map.search) target.searchParams.set("map", map.search);
-      if (map.china && target.pathname === `${productPath}/industry`) target.searchParams.set("china", map.china);
+      // The component href already encodes its own nested cross-map state; the
+      // navigation context only fills parameters the href did not carry over.
+      if (map.search && !target.searchParams.has("map")) target.searchParams.set("map", map.search);
+      if (map.china && target.pathname === `${productPath}/industry` && !target.searchParams.has("china")) target.searchParams.set("china", map.china);
       destination = target.pathname + target.search + target.hash;
     }
   }

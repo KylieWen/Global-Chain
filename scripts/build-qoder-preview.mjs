@@ -35,10 +35,14 @@ await build({
   define: { "process.env.NODE_ENV": '"production"' }
 });
 await writeFile(resolve(output, "fixtures.json"), JSON.stringify(fixtures));
+const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#102b3a"/><circle cx="16" cy="16" r="9" fill="none" stroke="#5fc9b8" stroke-width="1.6"/><path d="M7 16h18M16 7c3 2.5 3 15.5 0 18M16 7c-3 2.5-3 15.5 0 18" fill="none" stroke="#5fc9b8" stroke-width="1.2"/></svg>`;
+await writeFile(resolve(output, "favicon.svg"), faviconSvg);
+const themeBootScript = `(function(){try{var k="globechain-theme";var raw=null;try{raw=window.localStorage.getItem(k)}catch(e){}var mode="dark";if(raw){try{var c=JSON.parse(raw);if(c&&(c.mode==="dark"||c.mode==="light"||c.mode==="system")){mode=c.mode}}catch(e){}}var sysDark=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;var dark=mode==="dark"||(mode==="system"&&sysDark);var r=document.documentElement;r.dataset.theme=dark?"dark":"light";r.style.colorScheme=r.dataset.theme;}catch(e){document.documentElement.dataset.theme="dark"}})();`;
 await writeFile(resolve(output, "index.html"), `<!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="zh-CN" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="在地图上比较商品与上下游贸易流，查看统计金额、数量与来源">
-<title>Global Chain · 全球贸易地图</title><link rel="stylesheet" href="/preview.css"></head>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<title>Global Chain · 全球贸易地图</title><link rel="stylesheet" href="/preview.css"><script>${themeBootScript}</script></head>
 <body><div id="root"><main class="competition-card"><h1>Global Chain</h1><p>正在加载贸易地图…</p></main></div><script src="/preview.js" defer></script></body></html>
 `);
 console.log(`Built ${fixtures.length} published snapshots to ${output}`);

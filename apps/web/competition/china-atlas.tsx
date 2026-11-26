@@ -22,7 +22,7 @@ export function CompetitionChinaAtlas({ product, products, industry, worldSearch
     id: org.id, name: org.name, description: org.description, links: org.links, topicId: org.entryTopicId
   })) ?? [];
   return <ChinaSupplyMap key={product} atlas={atlas} productId={product} productName={productName}
-    products={products} organizations={organizations} context={{}} navigate={(href, options) => {
+    products={products} organizations={organizations} context={{}} originMap={worldSearch} navigate={(href, options) => {
       const target = new URL(href, window.location.origin);
       if (worldSearch) target.searchParams.set("map", worldSearch);
       const destination = target.pathname + target.search;

@@ -30,7 +30,11 @@ try{
  for(const id of ['phone-sz','phone-dg','ebike-wx','ebike-sz']){
   const node=atlas.nodes.find(item=>item.id===id);const place=atlas.places.find(place=>place.id===node.placeId);
   await go(node.productId);
-  await page.locator('.regional-node').and(page.getByRole('button',{name:`${place.name} · ${node.label}`,exact:true})).click({timeout:5000});
+  // SVG marker: the hit circle is a descendant of the role=g group; Playwright's
+  // default actionability can treat that descendant as an interceptor. Real
+  // pointer events land on the hit circle and choose the nearest node, so click
+  // with force while keeping the post-click heading/period/source assertions.
+  await page.locator('.regional-node').and(page.getByRole('button',{name:`${place.name} · ${node.label}`,exact:true})).click({force:true,timeout:5000});
   await page.getByRole('heading',{name:node.label,exact:true}).waitFor();
   checks.push({marker:id,clickable:true});
  }

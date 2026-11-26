@@ -47,12 +47,22 @@ try {
       await page.locator('.persona-switcher-menu').getByRole('button', { name: /高校研究者/ }).click();
       assert.equal(page.url(), originalURL, 'Changing perspective preserves the current map filters');
       await page.reload({ waitUntil: 'networkidle' });
-      assert.match(await page.locator('.persona-switcher > summary').innerText(), /高校研究者/);
+      // Wait for the persisted identity to finish hydrating. On narrow widths the
+      // visible label span is hidden by the compact header CSS, so the accessible
+      // name (aria-label) is the stable assertion for the persisted persona.
+      await page.waitForFunction(() => {
+        const summary = document.querySelector('.persona-switcher > summary');
+        return summary && /高校研究者/.test(summary.getAttribute('aria-label') || '');
+      }, { timeout: 5000 }).catch(() => {});
+      assert.match(await page.locator('.persona-switcher > summary').getAttribute('aria-label'), /高校研究者/);
       await noOverflow();
       checks.push({ width, role: role.id, recommendationOrder: true, persistedOnSubpage: true });
     }
   }
-  const firstNavSummary = page.locator('.nav-group > summary').first();
+  // The grouped nav summaries are hidden in the compact mobile header; run the
+  // desktop keyboard mutual-exclusion check at a desktop viewport.
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  const firstNavSummary = page.locator('.nav-group--groups > summary').first();
   await firstNavSummary.focus();
   await page.keyboard.press('Enter');
   await page.locator('.nav-group[open]').waitFor();
@@ -98,7 +108,7 @@ try {
   await restrictedPage.locator('.persona-home[data-persona="industry"]').waitFor();
   await restrictedPage.locator('.persona-recommendations a').first().click();
   await restrictedPage.waitForLoadState('networkidle');
-  assert.match(await restrictedPage.locator('.persona-switcher > summary').innerText(), /产业参与者/);
+  assert.match(await restrictedPage.locator('.persona-switcher > summary').getAttribute('aria-label'), /产业参与者/);
   await restricted.close();
   checks.push('Storage-disabled browsers can switch and continue navigating');
   assert.deepEqual(errors, []);

@@ -2,6 +2,16 @@
 
 恢复长任务先读 [任务目的与当前接续](INTENT.md)，核对用户原意、已确认方向、候选方案及时间轴的本地和公开状态，再按下方记录定位工程细节。
 
+## 2026-11-26 · 六商品最终版同站发布完成，独立 QA 复验通过（总收尾）
+
+- **发布**：用户已批准发布；复用既有 project/site，未新建站。公开站 https://globechain-lwf8uwcgl59.qoder.zone/ 已更新至六商品最终版（智能手机 2026.7、棉质 T 恤 2026.3、大豆食用油 2026.3、电动自行车 2026.3、家用空调 2026.6、航拍无人机 2026.1）。
+- **QA 最终成绩**：公网 `verify-public-acceptance` **34/34**、0 错误；regional 9/9；china-nav 4/4。本地 4323 最新 Next 生产构建回归 **19/19 探针、1205/1205 检查**、0 错误；4322 静态候选定向检查与 34 项本地静态验收通过。
+- **本批源码/探针**：`apps/web/app/atlas-navigation.css`（命中圆特异性修复）；`apps/web/competition/main.tsx`（顶层中国导航重置临时选中、补世界→中国目录链接、chinaHref 只从嵌套 china= 恢复）；`navigation.tsx`（href 自带 map=/china= 嵌套参数不被上下文覆盖）；`china-atlas.tsx`（前传上游世界筛选 originMap）；`competition/preview.css`、`scripts/build-qoder-preview.mjs`（主题 boot、favicon、工作台/路线卡样式）。探针适配 8 个既有 verify 脚本；新增 `scripts/verify-public-acceptance.mjs`、`scripts/serve-qoder-preview.mjs`。
+- **回执与回退**：脱敏回执与线上哈希 `output/qa/overnight-2026-11-26/public-release/deployment-final2/`（`deployment-receipt.md`、`hash-verification.json`、`verify-live/`）；旧五商品回退基线 `output/qa/overnight-2026-11-26/public-release/rollback-baseline/`；上一轮回执 `deployment-final/`。本地=线上哈希：preview.js `8E1E72D8…FE130AB`、preview.css `02DFDB79…01FED5`、fixtures.json `00AFFFE0…28958F`、favicon.svg `18B13D4E…7824981`；index.html 仅差平台注入水印/分析脚本。
+- **归属**：Qoder 模型 403、`num_turns=0`，未参与本轮推理；Qoder Sites 部署真实完成（prepare/publish 回执回读 completed/published=true/committed=true/blockers=[]）。无人机部件结构与本地打磨在本地开发环境完成，不记为 Qoder 编码。
+- **本地预览**：收尾核对命令行后，停止本任务拥有的 4322 静态候选（PID 32688，`serve-qoder-preview.mjs`）与 4323 Next 生产实例（PID 9336，`next start --port 4323`）；4320 已无监听（此前已停）。三端口均无监听、无残留 node 子进程。公开站为云端托管，不受本地停止影响。
+- **未做**：未 git push、未发天池作品帖、未调模型、未再改产品；未启动光伏组件/锂离子电池。备份 tag `backup/overnight-2026-11-26` 指向本批收尾提交。
+
 ## 2026-11-26 · 无人机双母版参考复刻最终候选（待主模型验收）
 
 - 规格 `docs/visual-specs/2026-11-26-drone-reference-replica.md`；范围仅限 drone 专用几何 / 工作台 / 必要分支样式与定向测试，未改 fixture / release、其他商品与数据。

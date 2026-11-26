@@ -117,6 +117,16 @@ try {
   observe("manifest-read", { error: String(e?.message ?? e), fallback: FALLBACK_PRODUCTS });
 }
 const products = manifestProducts.length ? manifestProducts : FALLBACK_PRODUCTS;
+
+// Products with recorded China regional nodes come from the regional atlas
+// snapshot; uncovered products must render the explicit empty state.
+let coveredChinaProducts = new Set();
+try {
+  const atlas = JSON.parse(await readFile(resolve(process.cwd(), "content/geography/china-supply-atlas-2026-10-23.json"), "utf8"));
+  coveredChinaProducts = new Set(atlas.nodes.map((node) => node.productId));
+} catch (e) {
+  observe("atlas-read", { error: String(e?.message ?? e) });
+}
 observe("product-registry", { products, source: manifestProducts.length ? "data/published/manifest.json" : "fallback list" });
 
 // ---------------------------------------------------------------------------
@@ -288,6 +298,7 @@ async function probeChinaRedline(page, product) {
     const edges = [...document.querySelectorAll(".regional-connection")];
     const nodes = [...document.querySelectorAll(".regional-node")];
     const provinces = [...document.querySelectorAll(".china-province[role=button]")];
+    const emptyState = document.querySelectorAll('.regional-empty[role="status"]').length;
     const edgesReport = edges.map((edge) => {
       const attrs = [...edge.attributes].map((a) => a.name);
       const title = edge.querySelector("title")?.textContent ?? "";
@@ -304,6 +315,7 @@ async function probeChinaRedline(page, product) {
       edgeCount: edges.length,
       nodeCount: nodes.length,
       provinceCount: provinces.length,
+      emptyState,
       edges: edgesReport,
       anyForbiddenAttr: edgesReport.some((e) => e.forbiddenAttrs.length > 0),
       anyAmountText: edgesReport.some((e) => e.hasAmountText),
@@ -380,7 +392,13 @@ async function visitMatrixPage(page, vp, theme, product, kind) {
     ok(`${label} domestic edges carry no amount/width/share encoding`, !redline.anyForbiddenAttr, redline);
     ok(`${label} domestic edges show no tonnage/amount text`, !redline.anyAmountText, redline);
     ok(`${label} edges are labelled representative connections`, redline.nonRepresentativeTitles.length === 0, redline);
-    ok(`${label} renders provinces and nodes`, redline.provinceCount === 34 && redline.nodeCount >= 2, redline);
+    if (coveredChinaProducts.has(product)) {
+      ok(`${label} renders provinces and recorded regional nodes`, redline.provinceCount === 34 && redline.nodeCount >= 2, redline);
+    } else {
+      // No recorded regional entity for this product: provinces still render,
+      // but the marker/edge layer must be empty and the empty state must show.
+      ok(`${label} uncovered product shows the regional empty state`, redline.provinceCount === 34 && redline.nodeCount === 0 && redline.edgeCount === 0 && redline.emptyState > 0, redline);
+    }
   }
 
   const shotName = `${vp.name}-${theme}-${product}-${kind.id}.png`;
@@ -435,7 +453,7 @@ try {
         }))
       }));
       ok(`${homeLabel} loads HTTP 200`, homeStatus === 200, { status: homeStatus });
-      ok(`${homeLabel} lists five product entries`, homeMeta.entries.length === 5, homeMeta);
+      ok(`${homeLabel} lists ${products.length} product entries`, homeMeta.entries.length === products.length, { ...homeMeta, expected: products.length });
       ok(`${homeLabel} entries point to the world map`, homeMeta.entries.every((e) => e.href.startsWith("/map?product=")), homeMeta);
       ok(`${homeLabel} no pageerror`, homeErrors.pageErrorCount === 0, homeErrors);
       ok(`${homeLabel} no console error`, homeErrors.consoleErrorCount === 0, homeErrors);

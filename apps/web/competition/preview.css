@@ -9,6 +9,10 @@
 }
 .competition-header a { color:#fff; font-weight:750; font-size:1.2rem; }
 .competition-header span { font-size:.86rem; }
+.competition-header .theme-switcher { margin-inline-start:auto; }
+.route-story .step-stack { display:grid; gap:.75rem; margin-top:1rem; }
+.competition-card.route-story { background:var(--surface); border-color:var(--line); }
+.competition-card.route-story h2 { color:var(--ink); }
 .product-level-nav .competition-timeline-link {
   margin-inline-start:auto;
   background:var(--teal-soft);

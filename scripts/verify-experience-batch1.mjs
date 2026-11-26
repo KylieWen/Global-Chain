@@ -19,12 +19,16 @@
  *     /products/[id] -> 路线 step -> supply-chain -> 账本 step -> countries.
  */
 import { chromium } from "playwright";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
 const base = process.env.REVIEW_BASE_URL ?? "http://127.0.0.1:4317";
 const output = resolve(process.env.REVIEW_OUTPUT_DIR ?? "output/qa/experience-rebuild-2026-11/batch-1");
 await mkdir(output, { recursive: true });
+
+// Home entry count follows the published manifest, not a fixed legacy total.
+const manifest = JSON.parse(await readFile(resolve(process.cwd(), "data/published/manifest.json"), "utf8"));
+const expectedProductEntries = (manifest.fixtures ?? []).length;
 
 const results = {
   base,
@@ -254,7 +258,7 @@ try {
     claimBox: (() => { const r = document.querySelector(".home-hero-claim")?.getBoundingClientRect(); return r ? { w: Math.round(r.width), h: Math.round(r.height) } : null; })()
   }));
   results.observations.push({ section: "home-meta", ...homeMeta });
-  ok("home shows five product entries", homeMeta.productEntries.length === 5, { count: homeMeta.productEntries.length });
+  ok(`home shows ${expectedProductEntries} product entries`, homeMeta.productEntries.length === expectedProductEntries, { count: homeMeta.productEntries.length, expected: expectedProductEntries });
   const entriesPointToMap = homeMeta.productEntries.every(e => e.href.startsWith("/map?product="));
   ok("home product entries link to map (not breakdown page)", entriesPointToMap, { entries: homeMeta.productEntries });
   ok("home map preview has substantial area", Boolean(homeMeta.mapBox && homeMeta.mapBox.w > 300 && homeMeta.mapBox.h > 200), homeMeta.mapBox);
@@ -333,7 +337,7 @@ try {
   const homeEntryCount = await dPage.locator(".home-product-entry").count();
   results.observations.push({ section: "home-entry-cta", homeCtaHref, entryCount: homeEntryCount });
   ok("home exposes map CTA and product entries for the journey",
-    Boolean(homeCtaHref) && homeEntryCount === 5, { homeCtaHref, homeEntryCount });
+    Boolean(homeCtaHref) && homeEntryCount === expectedProductEntries, { homeCtaHref, homeEntryCount, expected: expectedProductEntries });
   ok("home primary CTA points to the world map", Boolean(homeCtaHref && homeCtaHref.startsWith("/map")), { homeCtaHref });
 
   // Toggle to light, verify dataset.theme + persisted storage + reload persistence

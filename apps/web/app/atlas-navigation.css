@@ -46,7 +46,7 @@
 .regional-connection.muted { opacity:.2; }
 .regional-role-arrow path { fill:var(--regional-connection, #79dfc9); }
 .regional-node { cursor:pointer; }
-.regional-node-hit { fill:transparent; pointer-events:all; }
+.regional-node circle.regional-node-hit { fill:transparent; pointer-events:all; }
 .regional-node circle { pointer-events:none; }
 .regional-node-halo { opacity:.19; stroke:none; }
 .regional-node circle:not(.regional-node-halo) { stroke:var(--regional-node-stroke, #e9f8ec); stroke-width:1; }
