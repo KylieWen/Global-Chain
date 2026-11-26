@@ -2,6 +2,16 @@
 
 恢复长任务先读 [任务目的与当前接续](INTENT.md)，核对用户原意、已确认方向、候选方案及时间轴的本地和公开状态，再按下方记录定位工程细节。
 
+## 2026-11-26 · 整站一致性批次 2（地图图例 / 手机 hero）
+
+- **规格**：`docs/visual-specs/2026-11-26-site-mobile-batch2.md`。
+- **地图**：`.atlas-below-map` 的 `bottom` 从 0.9rem 抬到 2.5rem，图例面板浮在手势提示行上方；此前提示文字被面板压住、末字从右缘露出（`apps/web/app/map-flow.css`）。
+- **手机首页控件**：≤640 时「展开其余 N 条流向」与「+ / − / 复位」从 bottom 9.5rem / 6.5rem 移到 `top: 10.4rem`（切换 chip 下方、左右分列），不再压「走进中国供应链」与产业导览链接（`apps/web/app/home.css`）。
+- **手机首页地图**：`preserveAspectRatio` 宽屏保持 `slice`，窄屏改 `meet` 并配 1× 初始缩放与居中聚焦；`.map-ocean` 上下外扩 3 个画布高填补 letterbox 接缝（`apps/web/components/home-atlas-preview.tsx`）。竖屏 slice 时横向只剩约 31% 世界宽度，流向落点被裁掉，是本次改动的直接原因。
+- **验证**：四包 typecheck 0 错、lint 0 warning；生产 4326 `verify-renderer-branches` 33/33、0 控制台错误；map/home 在 1440 与 390 `overflowX = 0`。证据 `output/qa/batch2/`。
+- **遗留（下一批首要）**：390 世界地图页浮动工具条（筛选条件 / 粒子流 / 经典箭头 / 记录 / 大图）整块压在子导航上，并露出后面另一行按钮，需单独排查窄屏工具条布局。
+- **未做**：未覆盖公开站、未发天池、未 git push；Qoder 403 未参与。
+
 ## 2026-11-26 · 无人机外形与取景重做（批次 1，待用户验收）
 
 - **触发**：主模型亲看旧版并排图后判定形态不对——机身是"宽钝前脸 + 窄尾"的圆角夹心板；根因是 `bodyPlan` 的 v 轴经 `rotateX(-π/2)` 反向后把"鼻端窄"写到了最宽处。本批只修无人机，不动数据/发布/其他商品。
