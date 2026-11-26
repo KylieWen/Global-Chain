@@ -2,6 +2,17 @@
 
 恢复长任务先读 [任务目的与当前接续](INTENT.md)，核对用户原意、已确认方向、候选方案及时间轴的本地和公开状态，再按下方记录定位工程细节。
 
+## 2026-11-26 · 第二阶段：航拍无人机真实商品与程序化拆解
+
+- 本阶段只新增 `generic-camera-drone`（航拍无人机），未启动光伏/锂电，未发布公开站或 Qoder。分段提交：数据与不可变 release `e5326d0`、程序化外观与展示 `9f0464b`、无国家商品的待核验账本 `116c5b2`、生产取景边距修正 `2ac3265`。规格在 `docs/visual-specs/2026-11-26-drone.md`。
+- 数据来自已 pin 的 DJI Mini 系列官方维修部件快照（9 型号、3 分类、86 行、35 个不同配件名），86/86 行均完成节点映射和行级审计。通用 BOM 为 16 节点（整机 1、模块 3、组件 12，depth 0–2）；维修 CNY 报价仅留审计，不进入成本、利润或零售价。`scripts/build-drone.mjs` 离线且确定性可复跑，active `globe-chain-camera-drone-2026.1` 可由当前输入字节级重现，fixture SHA-256 `f3771c971d3cd9c28625cb85c830efd9ee43fe65628d025376625db846873ea7`。研究摘要与来源/复跑说明在 `data/research/drone-2026-11-26/research-summary.md`。
+- HS2022 8806 仅作品目分类参考；贸易、材料/配比、产地/供应商、工序/设备/产能 4 项缺口均 open。fixture 的贸易观测、国家、组织、工序、设备与连线为空态，缺失未写成 0。FPV-Viewver 未确认许可证，未复制代码或模型；mechanism 只借鉴尺寸证据纪律；未使用 Sketchfab 改作素材。
+- 外观由真实 BOM 和 `content/exploded-appearance.json` 驱动，核心组件无商品 ID 分支：通用 drone-body/drone-arm、折叠机臂简化剪影、双叶桨装饰、可见云台镜头、配套遥控器簇及 2D 回退；桨叶只是机臂装饰，不伪造 BOM 节点。每商品 viewer 覆盖只调整无人机取景，手机 round-7 机位保持不变。
+- 第一轮贴边/叠机身没有直接放行；第二轮调整模块角色与取景。生产 1.14 又发现浅色底边 7.4%，最终以 1.16 复测：1440 深/浅占高 63.9%/66.1%，390 深/浅 63.7%/65.9%，底边留白最低 8.1%，均不触底不右裁；390 无横溢、滑杆可用、云台选中联动正确，console/page error 为空。第四组桨叶侧转后的辨识度有限，外观仍是结构示意而非品牌 CAD。
+- 主线已走通首页 → 世界地图 → 拆解 → 代表性路线/材料 → 国家账本。无贸易部分显示真实空态；新增通用 `country-unknown` 待核验账本，仅用于没有任何国家账本的商品，说明未收录不等于 0 并展示真实版本；`country-cn` 等无实体深链仍 notFound，不虚构国家。
+- 门禁：typecheck 四包 0 错、lint 0 warning；全量 67 文件 380 项通过（另有 8 项既有 skipped；一次并发 HVAC 钩子超时在单跑与全量复跑均通过）；最终定向 3 文件 20 项通过；生产构建成功。受影响生产回归 renderer-branches **33/33**、batch3 **83/83**。`scripts/build-qoder-preview.mjs` 成功打入 6 个发布快照，含无人机 2026.1。
+- 生产证据在 `output/qa/overnight-2026-11-26/drone-prod/`：`acceptance-report.md`、`results-prod.json`、`walkthrough-prod.json`、1440/390 深浅拆解图、首页/地图/路线/材料/`ledger-pending.png` 等。夜间最终全量浏览器回归与 `backup/overnight-2026-11-26` 留到总收尾；公开站/Qoder 仍需明确授权。
+
 ## 2026-11-25 · 换模型后视觉迭代 + 规格驱动对照试验（世界地图、爆炸图）
 
 - 本轮分两段。前段按口头要求迭代：爆炸图引入 three.js 真三维（`apps/web/components/exploded-three-viewer.tsx`，动态 `import("three")`），双栏舞台 + 右栏详情/节点列表，390 材料改单行横滑色带 14/14；地图重建纤维束（halo + 细丝 + 亮芯 + 实例化粒子 + 端点辉光），深色提亮、构图重心下移；首页 Hero 改按金额降序前 8 条精选 + 展开其余 12 条；浅色顶栏对比度修复。依赖只加 `three ^0.187.0` 与 `@types/three`（devDep），两处渲染均为懒加载 chunk（gzip 101.4kB / 86.8kB），不进首屏。
