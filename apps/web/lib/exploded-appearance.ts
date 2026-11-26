@@ -39,7 +39,9 @@ export type ShapeKind =
   | "sheet"
   | "wire"
   | "note"
-  | "material";
+  | "material"
+  | "drone-body"
+  | "drone-arm";
 
 export type ExplodedLayer = "front" | "mid" | "rear";
 
@@ -62,6 +64,7 @@ type ProductAppearance = {
   readonly bodySize?: readonly [number, number, number];
   readonly fallbackByType: Readonly<Record<string, NodeRoleConfig>>;
   readonly nodeRoles: Readonly<Record<string, NodeRoleConfig>>;
+  readonly viewer?: Partial<ViewerConfig>;
 };
 
 type ViewerCameraConfig = {
@@ -116,21 +119,22 @@ const DEFAULT_VIEWER: ViewerConfig = {
   fitBodyHeightRatio: 0.65
 };
 
-/** 3D viewer presentation parameters from content config, with spec defaults. */
-export function viewerConfig(): ViewerConfig {
-  const v = config.viewer;
+/** 3D viewer presentation parameters: global content block, then per-product override, then defaults. */
+export function viewerConfig(productId?: string): ViewerConfig {
+  const product = productId ? productAppearance(productId)?.viewer : undefined;
+  const v: Partial<ViewerConfig> = { ...config.viewer, ...product };
   return {
-    camera: { ...DEFAULT_VIEWER.camera, ...v?.camera },
-    defaultExplosion: v?.defaultExplosion ?? DEFAULT_VIEWER.defaultExplosion,
-    layerOffsetRatio: { ...DEFAULT_VIEWER.layerOffsetRatio, ...v?.layerOffsetRatio },
-    partThicknessRatio: v?.partThicknessRatio ?? DEFAULT_VIEWER.partThicknessRatio,
-    cornerRadius: v?.cornerRadius ?? DEFAULT_VIEWER.cornerRadius,
-    orbit: { ...DEFAULT_VIEWER.orbit, ...v?.orbit },
-    labelMaxPersistent: v?.labelMaxPersistent ?? DEFAULT_VIEWER.labelMaxPersistent,
-    labelLeaderMax: v?.labelLeaderMax ?? DEFAULT_VIEWER.labelLeaderMax,
-    fitMargin: v?.fitMargin ?? DEFAULT_VIEWER.fitMargin,
-    fitZoom: v?.fitZoom ?? DEFAULT_VIEWER.fitZoom,
-    fitBodyHeightRatio: v?.fitBodyHeightRatio ?? DEFAULT_VIEWER.fitBodyHeightRatio
+    camera: { ...DEFAULT_VIEWER.camera, ...v.camera },
+    defaultExplosion: v.defaultExplosion ?? DEFAULT_VIEWER.defaultExplosion,
+    layerOffsetRatio: { ...DEFAULT_VIEWER.layerOffsetRatio, ...v.layerOffsetRatio },
+    partThicknessRatio: v.partThicknessRatio ?? DEFAULT_VIEWER.partThicknessRatio,
+    cornerRadius: v.cornerRadius ?? DEFAULT_VIEWER.cornerRadius,
+    orbit: { ...DEFAULT_VIEWER.orbit, ...v.orbit },
+    labelMaxPersistent: v.labelMaxPersistent ?? DEFAULT_VIEWER.labelMaxPersistent,
+    labelLeaderMax: v.labelLeaderMax ?? DEFAULT_VIEWER.labelLeaderMax,
+    fitMargin: v.fitMargin ?? DEFAULT_VIEWER.fitMargin,
+    fitZoom: v.fitZoom ?? DEFAULT_VIEWER.fitZoom,
+    fitBodyHeightRatio: v.fitBodyHeightRatio ?? DEFAULT_VIEWER.fitBodyHeightRatio
   };
 }
 
@@ -174,7 +178,9 @@ const SHAPE_SIZE: Record<ShapeKind, Vec3> = {
   sheet: [0.32, 0.24, 0.05],
   wire: [0.34, 0.1, 0.05],
   note: [0.36, 0.24, 0.04],
-  material: [0.34, 0.26, 0.06]
+  material: [0.34, 0.26, 0.06],
+  "drone-body": [1.7, 1.15, 0.36],
+  "drone-arm": [0.85, 0.18, 0.09]
 };
 
 /** Shapes that share the body footprint: they stack on the body axis along depth. */
@@ -220,7 +226,9 @@ const SHAPE_RADIUS: Partial<Record<ShapeKind, number>> = {
   garment: 0.06,
   "ac-unit": 0.08,
   "battery-pack": 0.08,
-  module: 0.06
+  module: 0.06,
+  "drone-body": 0.16,
+  "drone-arm": 0.08
 };
 
 export function shapeRadius(shape: ShapeKind): number {

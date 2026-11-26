@@ -6,4 +6,5 @@ it("normalizes navigation labels without changing source items or future product
   expect(itemLabel(original)).toBe("家用空调");
   expect(original.name).toBe("家用房间空调");
   expect(itemLabel({ id: "future-product", name: "新增商品" })).toBe("新增商品");
+  expect(itemLabel({ id: "generic-camera-drone", name: "通用航拍无人机" })).toBe("航拍无人机");
 });

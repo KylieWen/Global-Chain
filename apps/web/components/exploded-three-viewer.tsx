@@ -107,6 +107,33 @@ function roundedRectShape(THREE: typeof import("three"), w: number, h: number, r
   return shape;
 }
 
+/**
+ * Decorative two-blade rotor: a hub cylinder plus one crossed blade pair. This is
+ * non-node presentation geometry attached to an arm/body mesh; it never adds a
+ * BOM node or a priced part.
+ */
+function addRotorDecoration(
+  THREE: typeof import("three"),
+  parent: THREE.Object3D,
+  x: number,
+  y: number,
+  z: number,
+  bladeScale: number
+): void {
+  const hubMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(0x3a465c), metalness: 0.6, roughness: 0.35 });
+  const bladeMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(0x2a323d), metalness: 0.1, roughness: 0.8 });
+  const hub = new THREE.Mesh(new THREE.CylinderGeometry(0.095, 0.095, 0.08, 20), hubMat);
+  hub.rotation.x = Math.PI / 2;
+  hub.position.set(x, y, z);
+  const bladeGeo = new THREE.BoxGeometry(0.4 * bladeScale, 0.055 * bladeScale, 0.025);
+  const bladeOne = new THREE.Mesh(bladeGeo, bladeMat);
+  bladeOne.position.set(x, y, z + 0.045);
+  const bladeTwo = new THREE.Mesh(bladeGeo.clone(), bladeMat);
+  bladeTwo.rotation.z = Math.PI / 2;
+  bladeTwo.position.set(x, y, z + 0.045);
+  parent.add(hub, bladeOne, bladeTwo);
+}
+
 function buildGeometry(
   THREE: typeof import("three"),
   shape: ResolvedRole["shape"],
@@ -141,7 +168,9 @@ function buildGeometry(
     "wafer",
     "camera-bump",
     "sheet",
-    "note"
+    "note",
+    "drone-body",
+    "drone-arm"
   ]);
   if (flatExtrude.has(shape)) {
     const geo = new THREE.ExtrudeGeometry(roundedRectShape(THREE, w, h, radius), {
@@ -416,11 +445,14 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
             }
             mesh.add(plate);
           }
+          if (role.shape === "drone-arm") {
+            addRotorDecoration(THREE, mesh, box.size[0] / 2 - 0.08, 0, 0.05, 0.7);
+          }
         });
 
-        // Decorative root details: speaker slit and front camera dot.
+        // Decorative root details, chosen by reusable silhouette role.
         const rootRecord = state.meshes.get(model.root.id);
-        if (rootRecord) {
+        if (rootRecord && rootRecord.role.shape === "frame") {
           const slit = new THREE.Mesh(
             new THREE.BoxGeometry(0.22, 0.03, 0.02),
             new THREE.MeshStandardMaterial({ color: new THREE.Color(0x0b1220), roughness: 0.5 })
@@ -434,6 +466,36 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
           dot.rotation.x = Math.PI / 2;
           dot.position.set(0.28, rootRecord.box.size[1] / 2 - 0.18, rootRecord.box.size[2] / 2 + 0.01);
           rootRecord.mesh.add(dot);
+        } else if (rootRecord && rootRecord.role.shape === "drone-body") {
+          // Folded quad arms with decorative two-blade rotors and the under-body
+          // camera pod. These mirror the real BOM arm/gimbal nodes; no extra part
+          // or priced component is introduced here.
+          const [bodyW, bodyH, bodyD] = rootRecord.box.size;
+          const armMat = new THREE.MeshStandardMaterial({
+            color: (rootRecord.mesh.material as THREE.MeshStandardMaterial).color.clone(),
+            metalness: 0.2,
+            roughness: 0.55
+          });
+          const armDirections: [number, number][] = [[1, 1], [1, -1], [-1, 1], [-1, -1]];
+          for (const [sx, sy] of armDirections) {
+            const hubX = sx * (bodyW / 2 - 0.06);
+            const hubY = sy * (bodyH / 2 - 0.08);
+            const beamLen = Math.hypot(hubX, hubY) - Math.min(bodyW, bodyH) * 0.16;
+            const beam = new THREE.Mesh(new THREE.BoxGeometry(beamLen, 0.13, 0.08), armMat);
+            beam.position.set(hubX / 2, hubY / 2, 0);
+            beam.rotation.z = Math.atan2(hubY, hubX);
+            rootRecord.mesh.add(beam);
+            addRotorDecoration(THREE, rootRecord.mesh, hubX, hubY, bodyD / 2, 1);
+          }
+          const podMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(0x5d6c88), metalness: 0.2, roughness: 0.55 });
+          const lensMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(0x0b1424), metalness: 0.2, roughness: 0.1 });
+          const podY = -bodyH / 2 - 0.05;
+          const pod = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.2, 0.18), podMat);
+          pod.position.set(0, podY, bodyD / 2 + 0.02);
+          const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.05, 24), lensMat);
+          lens.rotation.x = Math.PI / 2;
+          lens.position.set(0, podY, bodyD / 2 + 0.13);
+          rootRecord.mesh.add(pod, lens);
         }
 
         // Fit the whole assembled bounding box by projecting its eight corners
@@ -474,6 +536,8 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
           const yReq = Math.abs(offset.dot(up)) / (tanV * FIT_MARGIN) + depthAlong;
           required = Math.max(required, xReq, yReq);
         }
+        // Per-product presentation override (content-driven; no id branch here).
+        const cfg = viewerConfig(productId);
         // Body-height anchor: keep the main body at the configured share of
         // canvas height (spec range 62–72%) instead of zooming into a tight
         // exploded bounding box.
@@ -484,12 +548,12 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
           const topOffset = bodyRecord.mesh.position.clone().add(new THREE.Vector3(0, halfY, 0)).sub(center);
           const bottomOffset = bodyRecord.mesh.position.clone().add(new THREE.Vector3(0, -halfY, 0)).sub(center);
           const upExtent = Math.max(Math.abs(topOffset.dot(up)), Math.abs(bottomOffset.dot(up)));
-          bodyDistance = upExtent / (tanV * VIEWER.fitBodyHeightRatio);
+          bodyDistance = upExtent / (tanV * cfg.fitBodyHeightRatio);
         }
         // Round-7 framing: fit the whole exploded bounding box, then apply the
         // closeness multiplier so the body reads at the manual-view scale
         // instead of sitting small inside a wide reserved box.
-        const fittedRequired = required * VIEWER.fitZoom;
+        const fittedRequired = required * cfg.fitZoom;
         state.baseDistance = Math.max(fittedRequired, bodyDistance);
         state.distance = state.baseDistance;
 

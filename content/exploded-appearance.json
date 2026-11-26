@@ -173,6 +173,36 @@
         "ac-uncharged-unit": { "shape": "ac-unit", "material": "appliance", "layer": "mid" },
         "ac-charged-unit": { "shape": "ac-unit", "material": "appliance", "layer": "mid" }
       }
+    },
+    "generic-camera-drone": {
+      "prototype": "drone",
+      "bodySize": [1.7, 1.15, 0.36],
+      "viewer": { "fitZoom": 1.14 },
+      "fallbackByType": {
+        "final_product": { "shape": "drone-body", "material": "frame", "layer": "mid" },
+        "component": { "shape": "module", "material": "module", "layer": "mid" },
+        "material": { "shape": "sheet", "material": "material", "layer": "mid" },
+        "raw_material": { "shape": "sheet", "material": "material", "layer": "mid" },
+        "service": { "shape": "note", "material": "material", "layer": "mid" }
+      },
+      "nodeRoles": {
+        "generic-camera-drone": { "shape": "drone-body", "material": "frame", "layer": "mid" },
+        "drone-airframe": { "shape": "module", "material": "frame", "layer": "mid", "flank": "left" },
+        "drone-core-board": { "shape": "board-small", "material": "pcb", "layer": "mid" },
+        "drone-vision": { "shape": "lens", "material": "glass-mat", "layer": "mid" },
+        "drone-positioning-imu": { "shape": "chip", "material": "chip", "layer": "mid" },
+        "drone-esc": { "shape": "board-small", "material": "pcb", "layer": "mid" },
+        "drone-arm": { "shape": "drone-arm", "material": "carbon", "layer": "mid" },
+        "drone-gimbal": { "shape": "module", "material": "aluminum", "layer": "mid", "flank": "right" },
+        "drone-gimbal-assembly": { "shape": "module", "material": "aluminum", "layer": "mid" },
+        "drone-gimbal-camera": { "shape": "lens", "material": "glass-mat", "layer": "front" },
+        "drone-gimbal-axis-arm": { "shape": "sheet", "material": "aluminum", "layer": "mid" },
+        "drone-gimbal-motor": { "shape": "motor", "material": "metal", "layer": "mid" },
+        "drone-remote": { "shape": "module", "material": "polymer", "layer": "mid", "flank": "right" },
+        "drone-remote-core-board": { "shape": "board-small", "material": "pcb", "layer": "mid" },
+        "drone-remote-antenna": { "shape": "wire", "material": "polymer", "layer": "mid" },
+        "drone-remote-battery": { "shape": "battery-pack", "material": "battery", "layer": "mid" }
+      }
     }
   },
   "materials": {

@@ -26,6 +26,7 @@ const ROW_GAP_MAX = 112;
 
 /** Decorative prototype silhouettes for the root fallback; not extra BOM parts. */
 function PrototypeGlyph({ prototype, color }: { prototype: string | null; color: string }) {
+  const stroke = color;
   const common = {
     fill: "none",
     stroke: color,
@@ -64,6 +65,19 @@ function PrototypeGlyph({ prototype, color }: { prototype: string | null; color:
           <rect x="3" y="5.5" width="18" height="6.5" rx="2" />
           <line x1="5.5" y1="9.5" x2="18.5" y2="9.5" />
           <rect x="3" y="15" width="8" height="6" rx="1.2" />
+        </g>
+      )}
+      {prototype === "drone" && (
+        <g {...common}>
+          <rect x="8" y="8" width="8" height="8" rx="1.6" />
+          <line x1="8" y1="8" x2="4.6" y2="4.6" />
+          <line x1="16" y1="8" x2="19.4" y2="4.6" />
+          <line x1="8" y1="16" x2="4.6" y2="19.4" />
+          <line x1="16" y1="16" x2="19.4" y2="19.4" />
+          <circle cx="4.6" cy="4.6" r="1.3" fill={stroke} stroke="none" />
+          <circle cx="19.4" cy="4.6" r="1.3" fill={stroke} stroke="none" />
+          <circle cx="4.6" cy="19.4" r="1.3" fill={stroke} stroke="none" />
+          <circle cx="19.4" cy="19.4" r="1.3" fill={stroke} stroke="none" />
         </g>
       )}
       {!prototype && <circle cx="12" cy="12" r="4" {...common} />}
@@ -174,6 +188,25 @@ function RoleGlyph({ shape, color }: { shape: ShapeKind; color: string }) {
       {shape === "wire" && <polyline points="5,15 9,9 15,13 19,7" {...common} fill="none" />}
       {shape === "note" && <rect x="6" y="7" width="12" height="10" rx="1" {...common} />}
       {shape === "material" && <rect x="7" y="8" width="10" height="8" rx="1.4" {...common} />}
+      {shape === "drone-body" && (
+        <g {...common}>
+          <rect x="8" y="8" width="8" height="8" rx="1.6" />
+          <line x1="8" y1="8" x2="4.6" y2="4.6" />
+          <line x1="16" y1="8" x2="19.4" y2="4.6" />
+          <line x1="8" y1="16" x2="4.6" y2="19.4" />
+          <line x1="16" y1="16" x2="19.4" y2="19.4" />
+          <circle cx="4.6" cy="4.6" r="1.3" fill={stroke} stroke="none" />
+          <circle cx="19.4" cy="4.6" r="1.3" fill={stroke} stroke="none" />
+          <circle cx="4.6" cy="19.4" r="1.3" fill={stroke} stroke="none" />
+          <circle cx="19.4" cy="19.4" r="1.3" fill={stroke} stroke="none" />
+        </g>
+      )}
+      {shape === "drone-arm" && (
+        <g {...common}>
+          <line x1="4" y1="12" x2="17" y2="12" />
+          <circle cx="18.5" cy="12" r="2.2" />
+        </g>
+      )}
     </svg>
   );
 }

@@ -1,4 +1,5 @@
 import { resolve } from "node:path";
+import { readFile } from "node:fs/promises";
 import { beforeAll, describe, expect, it } from "vitest";
 import { loadFixtureRepositoryFromManifest } from "@globe-chain/db";
 import { createProductQueryService, type ProductQueryService } from "@globe-chain/domain";
@@ -6,6 +7,7 @@ import { buildExplodedModel, type ExplodedModel } from "../apps/web/lib/exploded
 import { layoutExplodedBoxes, layoutIsoSlots } from "../apps/web/lib/exploded-layout";
 import { explodedLinks } from "../apps/web/lib/exploded-links";
 import { createMapView } from "../apps/web/lib/map-view-model";
+import { productBodySize, resolveNodeRole } from "../apps/web/lib/exploded-appearance";
 
 const PRODUCT_IDS = [
   "generic-smartphone",
@@ -140,6 +142,28 @@ describe("batch 3 exploded model derivation", () => {
     expect(phone.nodeCount).toBeLessThanOrEqual(60);
   });
 
+  it("maps the generic camera drone onto the procedural 3D path through appearance roles only", () => {
+    const drone = modelFor(queries, "generic-camera-drone");
+    expect(drone.renderMode).toBe("procedural-3d");
+    expect(drone.maxDepth).toBe(2);
+    expect(drone.nodeCount).toBe(16);
+
+    const byId = new Map(drone.nodes.map((node) => [node.id, node]));
+    const roleFor = (id: string) => resolveNodeRole("generic-camera-drone", byId.get(id)!);
+    expect(roleFor("generic-camera-drone").shape).toBe("drone-body");
+    expect(roleFor("drone-arm").shape).toBe("drone-arm");
+    expect(roleFor("drone-gimbal-camera").shape).toBe("lens");
+    expect(roleFor("drone-vision").shape).toBe("lens");
+    expect(roleFor("drone-remote-battery").shape).toBe("battery-pack");
+    expect(productBodySize("generic-camera-drone")).toEqual([1.7, 1.15, 0.36]);
+
+    const boxes = layoutExplodedBoxes(drone, 0.85, "generic-camera-drone");
+    expect(boxes.size).toBe(drone.nodeCount);
+    for (const box of boxes.values()) {
+      expect([box.anchor[0], box.anchor[1], box.anchor[2]].every(Number.isFinite)).toBe(true);
+    }
+  });
+
   it("produces deterministic layout slots and anchors for every node", () => {
     const model = modelFor(queries, "generic-smartphone");
     const first = layoutExplodedBoxes(model, 0.62);
@@ -154,8 +178,7 @@ describe("batch 3 exploded model derivation", () => {
     expect(iso.size).toBe(model.nodeCount);
   });
 
-  it("keeps the six batch-3 deep chains resolvable against real queries", () => {
-    const batteryStory = queries.getSupplyChainStory("generic-smartphone", { focusItemId: "battery" });
+  it("keeps the six batch-3 deep chains resolvable against real queries", () => {    const batteryStory = queries.getSupplyChainStory("generic-smartphone", { focusItemId: "battery" });
     const lithiumStory = queries.getSupplyChainStory("generic-smartphone", { focusItemId: "lithium" });
     expect(batteryStory).not.toBeNull();
     expect(lithiumStory).not.toBeNull();
@@ -172,5 +195,25 @@ describe("batch 3 exploded model derivation", () => {
 
     const ledger = queries.getCountryLedger("generic-smartphone", "country-au");
     expect(ledger).not.toBeNull();
+  });
+});
+
+describe("exploded viewer core components stay product-id agnostic", () => {
+  const coreSources = [
+    "apps/web/components/exploded-three-viewer.tsx",
+    "apps/web/components/exploded-explorer.tsx",
+    "apps/web/components/exploded-canvas-viewer.tsx",
+    "apps/web/components/exploded-iso-view.tsx",
+    "apps/web/lib/exploded-appearance.ts",
+    "apps/web/lib/exploded-layout.ts",
+    "apps/web/lib/exploded-model.ts"
+  ];
+
+  it("does not branch on a specific product or item id in reusable code", async () => {
+    for (const relative of coreSources) {
+      const source = await readFile(resolve(relative), "utf8");
+      expect(source, relative).not.toContain("generic-camera-drone");
+      expect(source, relative).not.toContain("generic-smartphone");
+    }
   });
 });

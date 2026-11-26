@@ -18,5 +18,9 @@
   "generic-home-air-conditioner": {
     "image": "/images/products/home-air-conditioner.svg",
     "alt": "暖白色壁挂室内机与带风扇室外机的家用分体空调插画"
+  },
+  "generic-camera-drone": {
+    "image": "/images/products/camera-drone.svg",
+    "alt": "带中央机身、四条机臂与桨叶、前置云台相机的无品牌航拍无人机插画"
   }
 }

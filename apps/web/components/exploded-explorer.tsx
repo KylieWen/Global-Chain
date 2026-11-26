@@ -39,7 +39,7 @@ export function ExplodedExplorer({ model, productId, context, initialFocus }: Pr
   const { tokens, reducedMotion } = useThemePreference();
   const initialNode = initialFocus && model.nodes.some((node) => node.id === initialFocus) ? initialFocus : model.root.id;
   const [selectedId, setSelectedId] = useState<string | null>(initialNode);
-  const [explosion, setExplosion] = useState(DEFAULT_EXPLOSION);
+  const [explosion, setExplosion] = useState(() => viewerConfig(productId).defaultExplosion || DEFAULT_EXPLOSION);
   const viewerRef = useRef<ExplodedViewerHandle | null>(null);
   // Keep the first render identical on server and client; the stored renderer is
   // read in an effect after mount so a forced fallback cannot cause a hydration mismatch.
