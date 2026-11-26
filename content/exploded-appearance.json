@@ -177,7 +177,7 @@
     "generic-camera-drone": {
       "prototype": "drone",
       "bodySize": [1.7, 1.15, 0.36],
-      "viewer": { "fitZoom": 1.14 },
+      "viewer": { "fitZoom": 1.16 },
       "fallbackByType": {
         "final_product": { "shape": "drone-body", "material": "frame", "layer": "mid" },
         "component": { "shape": "module", "material": "module", "layer": "mid" },
