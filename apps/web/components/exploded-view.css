@@ -151,6 +151,10 @@
   white-space: nowrap;
   transform-origin: 0 0;
   will-change: transform;
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 5px;
 }
 
 .exploded-three-label.selected {

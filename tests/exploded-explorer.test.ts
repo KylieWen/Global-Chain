@@ -157,7 +157,7 @@ describe("batch 3 exploded model derivation", () => {
     expect(roleFor("drone-gimbal-camera").shape).toBe("lens");
     expect(roleFor("drone-vision").shape).toBe("lens");
     expect(roleFor("drone-remote-battery").shape).toBe("battery-pack");
-    expect(productBodySize("generic-camera-drone")).toEqual([1.7, 1.15, 0.36]);
+    expect(productBodySize("generic-camera-drone")).toEqual([1.05, 0.82, 0.34]);
 
     const boxes = layoutExplodedBoxes(drone, 0.85, "generic-camera-drone");
     expect(boxes.size).toBe(drone.nodeCount);

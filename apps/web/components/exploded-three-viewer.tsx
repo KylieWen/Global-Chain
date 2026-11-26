@@ -108,7 +108,8 @@ function roundedRectShape(THREE: typeof import("three"), w: number, h: number, r
 }
 
 /**
- * Decorative two-blade rotor: a hub cylinder plus one crossed blade pair. This is
+ * Decorative two-blade rotor: a motor hub plus one straight rounded blade bar
+ * with two opposite tips on a single axis (no perpendicular cross). This is
  * non-node presentation geometry attached to an arm/body mesh; it never adds a
  * BOM node or a priced part.
  */
@@ -118,20 +119,26 @@ function addRotorDecoration(
   x: number,
   y: number,
   z: number,
-  bladeScale: number
+  bladeScale: number,
+  bladeAngle = 0
 ): void {
-  const hubMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(0x3a465c), metalness: 0.6, roughness: 0.35 });
-  const bladeMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(0x2a323d), metalness: 0.1, roughness: 0.8 });
-  const hub = new THREE.Mesh(new THREE.CylinderGeometry(0.095, 0.095, 0.08, 20), hubMat);
+  const hubMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(0x66778f), metalness: 0.6, roughness: 0.35 });
+  const bladeMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(0x8b9ab0), metalness: 0.15, roughness: 0.75 });
+  const hubR = 0.095 * bladeScale;
+  const hub = new THREE.Mesh(new THREE.CylinderGeometry(hubR, hubR * 1.1, 0.09 * bladeScale, 20), hubMat);
   hub.rotation.x = Math.PI / 2;
   hub.position.set(x, y, z);
-  const bladeGeo = new THREE.BoxGeometry(0.4 * bladeScale, 0.055 * bladeScale, 0.025);
-  const bladeOne = new THREE.Mesh(bladeGeo, bladeMat);
-  bladeOne.position.set(x, y, z + 0.045);
-  const bladeTwo = new THREE.Mesh(bladeGeo.clone(), bladeMat);
-  bladeTwo.rotation.z = Math.PI / 2;
-  bladeTwo.position.set(x, y, z + 0.045);
-  parent.add(hub, bladeOne, bladeTwo);
+  const bladeLen = 0.5 * bladeScale;
+  const bladeW = 0.1 * bladeScale;
+  const bladeGeo = new THREE.ExtrudeGeometry(
+    roundedRectShape(THREE, bladeLen, bladeW, bladeW / 2),
+    { depth: 0.022, bevelEnabled: false, curveSegments: 8 }
+  );
+  bladeGeo.translate(0, 0, -0.011);
+  const blade = new THREE.Mesh(bladeGeo, bladeMat);
+  blade.position.set(x, y, z + 0.06 * bladeScale);
+  blade.rotation.z = bladeAngle;
+  parent.add(hub, blade);
 }
 
 function buildGeometry(
@@ -389,6 +396,23 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
         state.narrow = narrow;
         placeMaterials(boxes, narrow, boxes.get(model.root.id));
 
+        // Parent chain for label clearance: a label may sit over its own
+        // descendant assemblies, but must not overlap other modules' parts.
+        const parentById = new Map<string, string>();
+        const walkParent = (node: ExplodedNode, parent: ExplodedNode | null) => {
+          if (parent) parentById.set(node.id, parent.id);
+          node.children.forEach((child) => walkParent(child, node));
+        };
+        walkParent(model.root, null);
+        const isSelfOrDescendant = (ancestorId: string, nodeId: string): boolean => {
+          let cur: string | undefined = nodeId;
+          while (cur) {
+            if (cur === ancestorId) return true;
+            cur = parentById.get(cur);
+          }
+          return false;
+        };
+
         boxes.forEach((box, id) => {
           const node = model.nodes.find((n) => n.id === id);
           if (!node) return;
@@ -446,7 +470,7 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
             mesh.add(plate);
           }
           if (role.shape === "drone-arm") {
-            addRotorDecoration(THREE, mesh, box.size[0] / 2 - 0.08, 0, 0.05, 0.7);
+            addRotorDecoration(THREE, mesh, box.size[0] / 2 - 0.1, 0, 0.05, 0.6, Math.PI / 2);
           }
         });
 
@@ -467,9 +491,9 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
           dot.position.set(0.28, rootRecord.box.size[1] / 2 - 0.18, rootRecord.box.size[2] / 2 + 0.01);
           rootRecord.mesh.add(dot);
         } else if (rootRecord && rootRecord.role.shape === "drone-body") {
-          // Folded quad arms with decorative two-blade rotors and the under-body
-          // camera pod. These mirror the real BOM arm/gimbal nodes; no extra part
-          // or priced component is introduced here.
+          // Four outboard arms with decorative two-blade rotors plus the
+          // separated under-body camera pod. These mirror the real BOM
+          // arm/gimbal nodes; no extra part or priced component is introduced.
           const [bodyW, bodyH, bodyD] = rootRecord.box.size;
           const armMat = new THREE.MeshStandardMaterial({
             color: (rootRecord.mesh.material as THREE.MeshStandardMaterial).color.clone(),
@@ -477,25 +501,43 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
             roughness: 0.55
           });
           const armDirections: [number, number][] = [[1, 1], [1, -1], [-1, 1], [-1, -1]];
-          for (const [sx, sy] of armDirections) {
-            const hubX = sx * (bodyW / 2 - 0.06);
-            const hubY = sy * (bodyH / 2 - 0.08);
-            const beamLen = Math.hypot(hubX, hubY) - Math.min(bodyW, bodyH) * 0.16;
-            const beam = new THREE.Mesh(new THREE.BoxGeometry(beamLen, 0.13, 0.08), armMat);
-            beam.position.set(hubX / 2, hubY / 2, 0);
-            beam.rotation.z = Math.atan2(hubY, hubX);
+          const hubSpanX = bodyW * 1.02;
+          const hubSpanY = bodyH * 1.05;
+          armDirections.forEach(([sx, sy], index) => {
+            const hubX = sx * hubSpanX;
+            const hubY = sy * hubSpanY;
+            const rootX = sx * bodyW * 0.3;
+            const rootY = sy * bodyH * 0.3;
+            const beamLen = Math.hypot(hubX - rootX, hubY - rootY);
+            const beam = new THREE.Mesh(new THREE.BoxGeometry(beamLen, 0.1, 0.07), armMat);
+            beam.position.set((hubX + rootX) / 2, (hubY + rootY) / 2, bodyD / 2 - 0.03);
+            beam.rotation.z = Math.atan2(hubY - rootY, hubX - rootX);
             rootRecord.mesh.add(beam);
-            addRotorDecoration(THREE, rootRecord.mesh, hubX, hubY, bodyD / 2, 1);
-          }
-          const podMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(0x5d6c88), metalness: 0.2, roughness: 0.55 });
+            const armAngle = Math.atan2(hubY, hubX);
+            addRotorDecoration(THREE, rootRecord.mesh, hubX, hubY, bodyD / 2 + 0.02, 1, armAngle + Math.PI / 2 + index * 0.12);
+          });
+          // Front-underbelly gimbal pod: a short neck drops from the fuselage
+          // belly to a separated rounded pod with a bezel and dark lens.
+          const podMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(0x6b7c95), metalness: 0.25, roughness: 0.5 });
+          const bezelMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(0x3a465c), metalness: 0.6, roughness: 0.3 });
           const lensMat = new THREE.MeshStandardMaterial({ color: new THREE.Color(0x0b1424), metalness: 0.2, roughness: 0.1 });
-          const podY = -bodyH / 2 - 0.05;
-          const pod = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.2, 0.18), podMat);
-          pod.position.set(0, podY, bodyD / 2 + 0.02);
-          const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.05, 24), lensMat);
+          const podY = -bodyH / 2 - 0.26;
+          const neck = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.2, 0.08), armMat);
+          neck.position.set(0, -bodyH / 2 - 0.09, bodyD / 2 + 0.03);
+          const podGeo = new THREE.ExtrudeGeometry(
+            roundedRectShape(THREE, 0.34, 0.24, 0.06),
+            { depth: 0.26, bevelEnabled: true, bevelThickness: 0.01, bevelSize: 0.01, curveSegments: 10 }
+          );
+          podGeo.translate(0, 0, -0.13);
+          const pod = new THREE.Mesh(podGeo, podMat);
+          pod.position.set(0, podY, bodyD / 2 + 0.1);
+          const bezel = new THREE.Mesh(new THREE.CylinderGeometry(0.115, 0.115, 0.05, 24), bezelMat);
+          bezel.rotation.x = Math.PI / 2;
+          bezel.position.set(0, podY, bodyD / 2 + 0.24);
+          const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.085, 0.085, 0.06, 24), lensMat);
           lens.rotation.x = Math.PI / 2;
-          lens.position.set(0, podY, bodyD / 2 + 0.13);
-          rootRecord.mesh.add(pod, lens);
+          lens.position.set(0, podY, bodyD / 2 + 0.29);
+          rootRecord.mesh.add(neck, pod, bezel, lens);
         }
 
         // Fit the whole assembled bounding box by projecting its eight corners
@@ -623,8 +665,9 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
             persistent.push(label);
           });
           // Persistent label cap: keep the shallowest current-layer labels;
-          // the rest stay hidden until hovered or selected.
-          const cap = VIEWER.labelMaxPersistent;
+          // the rest stay hidden until hovered or selected. Narrow stages carry
+          // fewer persistent labels; selected/hovered labels bypass this cap.
+          const cap = state.narrow ? Math.min(VIEWER.labelMaxPersistent, 4) : VIEWER.labelMaxPersistent;
           persistent
             .sort((a, b) => {
               const ra = state.meshes.get(a.nodeId);
@@ -709,9 +752,10 @@ export const ExplodedThreeViewer = forwardRef<ExplodedViewerHandle, Props>(
             if (rect.left < 6 || rect.right > width - 6 || rect.top < 6 || rect.bottom > height - 6) return false;
             for (const [id, sil] of silMap) {
               if (id === ownId) continue;
-              // Descendant sub-parts belong to the labeled assembly; their small
-              // projected boxes do not count as a foreign part for label clearance.
-              if (sil.depth > 1) continue;
+              // Own descendant sub-parts belong to the labeled assembly; their
+              // projected boxes do not count as foreign clearance. Other modules'
+              // depth-2 parts still do, so a label cannot rest on them.
+              if (isSelfOrDescendant(ownId, id)) continue;
               const silRect = { left: sil.minX, top: sil.minY, right: sil.maxX, bottom: sil.maxY };
               if (rectsOverlap(rect, silRect, LABEL_SIL_PAD)) return false;
             }

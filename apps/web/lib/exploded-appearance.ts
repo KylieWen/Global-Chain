@@ -179,7 +179,7 @@ const SHAPE_SIZE: Record<ShapeKind, Vec3> = {
   wire: [0.34, 0.1, 0.05],
   note: [0.36, 0.24, 0.04],
   material: [0.34, 0.26, 0.06],
-  "drone-body": [1.7, 1.15, 0.36],
+  "drone-body": [1.05, 0.82, 0.34],
   "drone-arm": [0.85, 0.18, 0.09]
 };
 
