@@ -9,7 +9,9 @@ import { ProductArtwork } from "../../../components/product-artwork";
 import { industryPath, manufacturingProcessPath, mapPath, materialObservationsPath, provenancePath, supplyChainPath, tradeGuidePath } from "../../../lib/paths";
 import { contextMismatch, firstParam, readPageContext, type SearchParamsLike } from "../../../lib/context";
 import { buildExplodedModel } from "../../../lib/exploded-model";
+import { productPrototype } from "../../../lib/exploded-appearance";
 import { ExplodedExplorer } from "../../../components/exploded-explorer";
+import { DroneWorkstation } from "../../../components/drone-workstation";
 import {
   StatusBadge,
   WarningList
@@ -49,6 +51,7 @@ export default async function ProductOverviewPage({
       ledgerEntitiesByItem[storyNode.item.id] = list;
     }
   }
+  const isDronePrototype = productPrototype(productId) === "drone";
   const explodedModel = buildExplodedModel({
     root: breakdown,
     componentCoverage: overview.componentCoverage,
@@ -63,7 +66,7 @@ export default async function ProductOverviewPage({
     <SiteShell>
       <div className="content-column product-overview-page">
         <ProductNavigation productId={productId} context={routeContext} active="overview" hasIndustry={Boolean(industry)} hasMaterials={hasMaterialTrade}/>
-        <div className="product-overview-intro product-overview-intro--compact">
+        <div className={`product-overview-intro product-overview-intro--compact${isDronePrototype ? " drone-intro" : ""}`}>
         <PageIntro
           eyebrow={overview.product.category}
           title={itemLabel(overview.product)}
@@ -71,10 +74,14 @@ export default async function ProductOverviewPage({
           meta={<ContextBanner period={overview.period.label} datasetVersion={overview.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />}
           actions={<>{industry && <Link className="button button-primary" href={industryPath(productId, undefined, routeContext)}>查找中国产业上下游</Link>}<Link className="button button-primary" href={supplyChainPath(productId, undefined, routeContext)}>查看供应链路线</Link><Link className="button button-secondary" href={mapPath({ ...routeContext, product: productId, layer: "supply-chain" })}>在地图上探索</Link>{hasGuides && <Link className="button button-secondary" href={tradeGuidePath({ product: productId, ...pageContext })}>查进出口要求</Link>}{hasMaterialTrade && <Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link>}</>}
         />
-        <ProductArtwork productId={productId} variant="overview" />
+        {!isDronePrototype && <ProductArtwork productId={productId} variant="overview" />}
         </div>
 
-        <ExplodedExplorer model={explodedModel} productId={productId} context={routeContext} initialFocus={focusParam} />
+        {productPrototype(productId) === "drone" ? (
+          <DroneWorkstation model={explodedModel} productId={productId} context={routeContext} initialFocus={focusParam} evidenceGapCount={provenance.evidenceGaps.length} />
+        ) : (
+          <ExplodedExplorer model={explodedModel} productId={productId} context={routeContext} initialFocus={focusParam} />
+        )}
 
         <section className="section-block" aria-labelledby="children-title">
           <div className="section-heading">

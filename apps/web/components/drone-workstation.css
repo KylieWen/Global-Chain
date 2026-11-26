@@ -1,0 +1,290 @@
+/* Drone workstation: full-bleed full-height dark teal-black workspace inside the existing nav. */
+
+/* Compact the duplicated drone product hero so the workspace keeps stage height. */
+
+.drone-intro {
+  margin: 0.5rem 0 0.75rem;
+}
+
+.drone-intro .page-intro {
+  margin: 0;
+  align-items: flex-end;
+}
+
+.drone-intro .page-intro h1 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+}
+
+.drone-intro .intro-copy {
+  display: none;
+}
+
+.drone-intro .intro-actions {
+  margin-top: 0.5rem;
+}
+
+.drone-workstation {
+  display: grid;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  /* Break out of the centered content card to a full-bleed workspace band. */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding: 0 var(--space-md);
+  align-items: stretch;
+}
+
+@media (min-width: 861px) {
+  .drone-workstation {
+    grid-template-columns: 250px minmax(0, 1fr) 300px;
+    grid-template-rows: auto auto;
+    min-height: 0;
+  }
+  .drone-topbar { grid-column: 1 / -1; grid-row: 1; }
+  .drone-tree { grid-column: 1; grid-row: 2; }
+  .drone-stage-column { grid-column: 2; grid-row: 2; }
+  .drone-detail { grid-column: 3; grid-row: 2; }
+}
+
+/* Top bar: product title + real model metrics. */
+
+.drone-topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--space-md);
+}
+
+.drone-topbar-title h2 {
+  margin: 0.2rem 0 0;
+  font-size: 1.25rem;
+}
+
+.drone-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin: 0;
+}
+
+.drone-metric dt {
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+.drone-metric dd {
+  margin: 0.15rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Left module tree: internal scroll inside the workspace row. */
+
+.drone-tree {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--space-sm);
+  min-width: 0;
+  max-height: clamp(340px, 58vh, 560px);
+  overflow-y: auto;
+}
+
+.drone-tree-root,
+.drone-tree-children {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.drone-tree-children {
+  margin-top: 0.15rem;
+}
+
+.drone-tree-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  text-align: left;
+  padding: 0.35rem 0.6rem;
+}
+
+.drone-tree-button:hover {
+  background: var(--surface-raised);
+}
+
+.drone-tree-button.selected {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.drone-tree-swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  background: var(--accent);
+  flex: 0 0 auto;
+}
+
+.drone-tree-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Center stage column: stage fills the row, controls pinned below it. */
+
+.drone-stage-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 0;
+  min-height: 0;
+}
+
+.drone-stage {
+  position: relative;
+  flex: 0 1 auto;
+  height: clamp(340px, 58vh, 560px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 32%, #182838 0%, #0d1622 58%, #0a1019 100%);
+}
+
+.drone-stage-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.drone-stage-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+}
+
+.drone-stage-wrap canvas:active {
+  cursor: grabbing;
+}
+
+/* Bottom controls: always reachable under the stage. */
+
+.drone-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--space-sm) var(--space-md);
+  flex: 0 0 auto;
+}
+
+.drone-controls-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+  min-height: 44px;
+}
+
+.drone-play,
+.drone-reset {
+  min-height: 44px;
+}
+
+.drone-slider {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: 44px;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+
+.drone-slider input[type="range"] {
+  width: 180px;
+  accent-color: var(--accent);
+}
+
+/* Right detail panel: internal scroll inside the workspace row. */
+
+.drone-detail {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: var(--space-md);
+  min-width: 0;
+  max-height: clamp(340px, 58vh, 560px);
+  overflow-y: auto;
+}
+
+/* Narrow screens: stage first, controls reachable, panels simplified. */
+
+@media (max-width: 860px) {
+  .drone-workstation {
+    width: 100%;
+    margin-left: 0;
+    padding: 0;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .drone-stage-column { order: 1; min-height: 0; }
+  .drone-tree { order: 2; overflow-y: visible; }
+  .drone-detail { order: 3; overflow-y: visible; }
+  .drone-stage {
+    height: clamp(280px, 44vh, 360px);
+    min-height: clamp(280px, 44vh, 360px);
+  }
+}
+
+@media (max-width: 640px) {
+  .drone-topbar {
+    padding: var(--space-sm);
+  }
+  .drone-metrics {
+    gap: var(--space-sm) var(--space-md);
+  }
+  .drone-stage {
+    height: clamp(260px, 40vh, 320px);
+    min-height: clamp(260px, 40vh, 320px);
+    border-radius: 12px;
+  }
+  .drone-controls {
+    padding: var(--space-sm);
+  }
+  .drone-controls-main {
+    gap: var(--space-sm);
+  }
+  .drone-slider {
+    flex: 1 1 100%;
+    min-height: 36px;
+  }
+  .drone-slider input[type="range"] {
+    width: 100%;
+    min-height: 32px;
+  }
+  .drone-detail,
+  .drone-tree {
+    padding: var(--space-sm);
+  }
+}

@@ -2,6 +2,15 @@
 
 恢复长任务先读 [任务目的与当前接续](INTENT.md)，核对用户原意、已确认方向、候选方案及时间轴的本地和公开状态，再按下方记录定位工程细节。
 
+## 2026-11-26 · 无人机双母版参考复刻最终候选（待主模型验收）
+
+- 规格 `docs/visual-specs/2026-11-26-drone-reference-replica.md`；范围仅限 drone 专用几何 / 工作台 / 必要分支样式与定向测试，未改 fixture / release、其他商品与数据。
+- 本批文件：新增 `apps/web/components/drone-stage.tsx`、`apps/web/components/drone-workstation.tsx`、`apps/web/components/drone-workstation.css`、`apps/web/lib/drone-geometry.ts`、`apps/web/lib/drone-workspace-layout.ts`、`tests/drone-workspace-layout.test.ts`；改 `apps/web/app/products/[productId]/page.tsx`（`productPrototype === "drone"` 分支渲染 `DroneWorkstation`，缺口计数取 `provenance.evidenceGaps.length`，fixture 实测 4 条 open）。
+- 最终候选返修要点：默认机位 pitch 0.34 → 0.10（低前侧略俯视）；流线鼻尖薄壳 + 前竖黑传感带 + 盖顶散热口 + 着陆支腿；云台缩为小相机（壳体 0.16×0.14×0.12，镜圈 r0.065 / 玻璃 r0.05）；臂四角径向（tip X0.66/Z0.6，spread X1.0/Z0.88）；爆炸分层核心板 / 视觉 / IMU / 电调 / 云台；drone 页压缩重复 hero 与指标卡；遥控器装配态淡出并排除出取景框。
+- 门禁：定向 12/12；四包 typecheck 0 错、lint 0 warning；renderer-branches 33/33（`final-candidate/regression/result.json`）；生产构建成功；预览包 6 快照重建。控制台 0 错误 0 警告；390 装配 / 爆炸滑块均入屏、无横溢；手机对照占宽 0.448 / 占高 0.657 未回归；深链 `?focus=drone-gimbal-camera` 选中联动正常。
+- 证据：`output/qa/overnight-2026-11-26/drone-reference-replica/final-candidate/`（截图 + `results.json` + 回归）与 `master-compare-candidate/`（并排图 + `probe-report.json`）；残留项见 `implementation-report.md` 第 5 节——机身仍是程序化抽象非品牌 CAD、云台壳体偏方块、前侧臂桨部分遮挡、depth-2 标签仅选中 / 悬停显示。
+- 状态：4320 生产实例保留待复核，4321 未启动；未 git 提交、未发布、未改帖子 / Qoder 记录；Qoder 403 未参与。
+
 ## 2026-11-26 · 参赛收口前置批次：无人机四旋翼剪影与 Qoder 审查检查点
 
 - 本批只做无人机默认态辨识度、接续和作品帖草稿，不启动光伏/锂电、不发布公开站或天池。小规格 `docs/visual-specs/2026-11-26-drone-quad-silhouette.md`；视觉代码提交 `4ce25aa`。正式数据版本不变：无人机 `globe-chain-camera-drone-2026.1`，手机对照 `globe-chain-smartphone-2026.7`。
