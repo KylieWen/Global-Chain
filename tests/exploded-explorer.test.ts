@@ -3,11 +3,12 @@ import { readFile } from "node:fs/promises";
 import { beforeAll, describe, expect, it } from "vitest";
 import { loadFixtureRepositoryFromManifest } from "@globe-chain/db";
 import { createProductQueryService, type ProductQueryService } from "@globe-chain/domain";
-import { buildExplodedModel, type ExplodedModel } from "../apps/web/lib/exploded-model";
+import { buildExplodedModel, modelHasLedger, type ExplodedModel } from "../apps/web/lib/exploded-model";
 import { layoutExplodedBoxes, layoutIsoSlots } from "../apps/web/lib/exploded-layout";
-import { explodedLinks } from "../apps/web/lib/exploded-links";
+import { explodedLinks, ledgerFallbackHref } from "../apps/web/lib/exploded-links";
 import { createMapView } from "../apps/web/lib/map-view-model";
 import { productBodySize, resolveNodeRole } from "../apps/web/lib/exploded-appearance";
+import { UNKNOWN_LEDGER_ENTITY_ID } from "../apps/web/lib/paths";
 
 const PRODUCT_IDS = [
   "generic-smartphone",
@@ -140,6 +141,7 @@ describe("batch 3 exploded model derivation", () => {
     const phone = modelFor(queries, "generic-smartphone");
     expect(phone.renderMode).toBe("procedural-3d");
     expect(phone.nodeCount).toBeLessThanOrEqual(60);
+    expect(modelHasLedger(phone)).toBe(true);
   });
 
   it("maps the generic camera drone onto the procedural 3D path through appearance roles only", () => {
@@ -162,6 +164,10 @@ describe("batch 3 exploded model derivation", () => {
     for (const box of boxes.values()) {
       expect([box.anchor[0], box.anchor[1], box.anchor[2]].every(Number.isFinite)).toBe(true);
     }
+
+    expect(modelHasLedger(drone)).toBe(false);
+    expect(drone.nodes.every((node) => node.ledgerEntities.length === 0)).toBe(true);
+    expect(ledgerFallbackHref("generic-camera-drone", {})).toBe(`/products/generic-camera-drone/ledger/${UNKNOWN_LEDGER_ENTITY_ID}`);
   });
 
   it("produces deterministic layout slots and anchors for every node", () => {

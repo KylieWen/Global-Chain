@@ -1,5 +1,8 @@
 import { contextQuery, type PageContext } from "./context";
 
+/** Reserved entity id for products with no published country/region ledger yet. */
+export const UNKNOWN_LEDGER_ENTITY_ID = "country-unknown";
+
 function segment(value: string): string {
   return encodeURIComponent(value);
 }

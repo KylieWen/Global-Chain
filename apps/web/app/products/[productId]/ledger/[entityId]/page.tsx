@@ -3,6 +3,7 @@ import { ProductNavigation } from "../../../../../components/product-navigation"
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQueryService } from "../../../../../lib/data";
+import { productHasReachableLedger } from "../../../../../lib/ledger-empty-state";
 import { ContextBanner, PageIntro, SiteShell } from "../../../../../components/site-shell";
 import { contextMismatch, readPageContext } from "../../../../../lib/context";
 import {
@@ -18,7 +19,16 @@ import {
   ValueDisplay,
   WarningList
 } from "../../../../../components/data-display";
-import { ledgerPath, mapPath, nodePath, supplyChainPath } from "../../../../../lib/paths";
+import {
+  evidenceGapsPath,
+  ledgerPath,
+  mapPath,
+  materialObservationsPath,
+  nodePath,
+  productPath,
+  supplyChainPath,
+  UNKNOWN_LEDGER_ENTITY_ID
+} from "../../../../../lib/paths";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -51,12 +61,37 @@ export default async function CountryLedgerPage({
   const queries = await getQueryService(pageContext.datasetVersion);
   const overview = queries.getProductOverview(productId);
   if (!overview) notFound();
+  const provenance = queries.getProvenance(productId);
+  if (!provenance) notFound();
+  const reachableLedger = productHasReachableLedger(queries.listCountries(), productId);
+
+  if (entityId === UNKNOWN_LEDGER_ENTITY_ID && !reachableLedger) {
+    const hasMaterialTrade = queries.getMaterialTradeObservations(productId).length > 0;
+    return (
+      <SiteShell>
+        <div className="content-column wide-column ledger-page">
+          <ProductNavigation productId={productId} context={pageContext} active="ledger" hasIndustry={Boolean(queries.getIndustryNetwork(productId))} hasMaterials={hasMaterialTrade} entityId={entityId} />
+          <PageIntro
+            eyebrow="国家贸易账本"
+            title="国家账本 · 待核验"
+            description="当前商品尚无已收录国家/地区贸易账本；未收录不等于 0。"
+            meta={<ContextBanner period={overview.period.label} datasetVersion={overview.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} />}
+            actions={<><Link className="button button-primary" href={productPath(productId, pageContext)}>返回商品拆解</Link>{hasMaterialTrade && <Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link>}<Link className="button button-secondary" href={evidenceGapsPath(productId, pageContext)}>查看证据缺口</Link></>}
+          />
+          <section className="empty-state large-empty">
+            <p>当前商品尚无已收录的国家/地区贸易账本；现有资料未发布产地、贸易伙伴或金额记录。未收录不等于贸易额为 0，也不代表没有生产或流通环节。</p>
+          </section>
+          <section className="hierarchy-next-step"><strong>继续探索</strong><span>先从部件组成与材料记录入手；后续收录账本后可再回到这里。</span><Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>进入供应链路线 →</Link></section>
+        </div>
+      </SiteShell>
+    );
+  }
+
   const ledger = queries.getCountryLedger(productId, entityId, {
     label,
     itemId: productId
   });
-  const provenance = queries.getProvenance(productId);
-  if (!ledger || !provenance) notFound();
+  if (!ledger) notFound();
   const contextMismatches = contextMismatch(pageContext, {
     period: ledger.period.label,
     datasetVersion: ledger.datasetVersion.version,

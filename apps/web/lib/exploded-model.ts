@@ -246,6 +246,11 @@ export function buildExplodedModel(input: ExplodedModelInput): ExplodedModel {
   };
 }
 
+/** True when any node in the model links to a real published ledger entity. */
+export function modelHasLedger(model: ExplodedModel): boolean {
+  return model.nodes.some((node) => node.ledgerEntities.length > 0);
+}
+
 /** Deterministic palette assignment: tree order maps onto the theme item palette. */
 export function explodedColorIndex(nodes: readonly ExplodedNode[], id: string): number {
   const index = nodes.findIndex((node) => node.id === id);

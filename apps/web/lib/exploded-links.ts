@@ -4,7 +4,8 @@ import {
   manufacturingProcessPath,
   mapPath,
   materialObservationsPath,
-  supplyChainPath
+  supplyChainPath,
+  UNKNOWN_LEDGER_ENTITY_ID
 } from "./paths";
 import type { ExplodedNode, LedgerEntityRef } from "./exploded-model";
 
@@ -44,4 +45,13 @@ export function explodedLinks(
     href: ledgerPath(productId, entity.id, context)
   }));
   return { routeHref, processHref, tradeMapHref, materialHref, ledgerHrefs };
+}
+
+/**
+ * Reserved destination for products without a published ledger entity. The
+ * ledger page renders a generic pending-verification empty state for this id;
+ * it never stands in for a real country or region.
+ */
+export function ledgerFallbackHref(productId: string, context: PageContext): string {
+  return ledgerPath(productId, UNKNOWN_LEDGER_ENTITY_ID, context);
 }

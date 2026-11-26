@@ -3,8 +3,8 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { PageContext } from "../lib/context";
-import type { ExplodedModel } from "../lib/exploded-model";
-import { explodedLinks } from "../lib/exploded-links";
+import { modelHasLedger, type ExplodedModel } from "../lib/exploded-model";
+import { explodedLinks, ledgerFallbackHref } from "../lib/exploded-links";
 import { useThemePreference } from "./theme-preference";
 import { StatusBadge } from "./data-display";
 import { ExplodedCanvasViewer, type ExplodedViewerHandle } from "./exploded-canvas-viewer";
@@ -53,6 +53,7 @@ export function ExplodedExplorer({ model, productId, context, initialFocus }: Pr
   const nodeById = useMemo(() => new Map(model.nodes.map((node) => [node.id, node])), [model]);
   const selected = selectedId ? nodeById.get(selectedId) ?? model.root : model.root;
   const links = explodedLinks(productId, selected, context);
+  const hasLedger = modelHasLedger(model);
   const mounted = useRef(false);
   const isProcedural = model.renderMode === "procedural-3d";
 
@@ -228,6 +229,11 @@ export function ExplodedExplorer({ model, productId, context, initialFocus }: Pr
               国家账本 · {ledger.name} →
             </Link>
           ))}
+          {!hasLedger && (
+            <Link className="button button-secondary" href={ledgerFallbackHref(productId, context)}>
+              国家账本 · 待核验 →
+            </Link>
+          )}
           {!selected.explorable && <p className="muted exploded-no-route">该部件尚无已发布的路线、工序或贸易记录。</p>}
         </div>
 
