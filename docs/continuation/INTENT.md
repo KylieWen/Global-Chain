@@ -4,7 +4,17 @@
 
 用户在 8 月 23 日从一部手机讲起，希望沿部件、材料、加工地和跨国贸易走到国家账本，看懂世界经济怎样运作。用户近期把想获得的体验概括为“直观了解贸易，进一步创造世界供应链流转直觉”。让人能自己顺着一件商品追到相关产业、国家与时间变化，是判断一次改动有没有用的依据。[最初口述](../../output/review/claude-2026-10-22/originals/用户原文.md) · [多选地图需求原话](FLOW-MAP-DIRECTION-2026-10-24.md)
 
-## 当前状态（2026-11-26 · 六商品最终版已同站公开，独立 QA 复验通过；权威口径以此段为准）
+## 当前状态（2026-11-26 晚 · 无人机外形批次 1 完成，待用户验收；权威口径以此段为准）
+
+- **本批性质**：只做无人机工作台的机体外形、取景与标注，六商品数据、路由、release 与发布体系未动；未新增商品、未改公开站、未发天池。
+- **已改文件**：`apps/web/lib/drone-geometry.ts`（机体剖面重写，尾部宽鼻尖窄，机长 0.59 / 机宽 0.40，桨叶半径 0.192）、`apps/web/lib/drone-workspace-layout.ts`（爆炸位移收紧、云台分部件）、`apps/web/components/drone-stage.tsx`（屏幕空间拟合 0.80/0.87、烘染 + 环境反射、爆炸态机位抬升、标注重做、内部件按爆炸度隐藏）、`apps/web/components/drone-workstation.css`（舞台辉光、390 滑杆栅格）。
+- **规格**：`docs/visual-specs/2026-11-26-drone-shape-2.md`。
+- **验证**：四包 typecheck 0 错、lint 0 warning、`tests/drone-workspace-layout.test.ts` 2/2；生产 `next start` 4326 上 `verify-renderer-branches` **33/33**、0 控制台错误；无人机探针 1440/390 `overflowX=0`，装配态 2 标签 / 爆炸态 14 标签、重叠 0。
+- **证据**：`output/qa/drone-shape-2026-11-26/`（`final-prod/zoom`、`final-prod/full`、`prod-regression`、逐轮 `round-a1…a16` / `round-b1` / `round-b2`）。
+- **已知差距**：机体仍是程序化抽象、无品牌 CAD 折线与面板分缝；爆炸态 13 个部件里有一条机臂被主体遮挡、"机臂组件"引线偏长；母版无遥控器节点，本站按 BOM 保留在侧后。不得宣称与母版视频"一模一样"。
+- **待办与红线**：下一批做整站一致性（手机拆解页标注压主体、地图底部时间轴/图例右缘、首页粒子束、390 顶栏占比）；覆盖公开站与天池发帖仍需用户明确确认；Qoder 模型仍 403，如实记录不探测不冒称；截止 2026-11-30 18:00；额度红线 2000。
+
+## 上一状态（2026-11-26 · 六商品最终版已同站公开，独立 QA 复验通过）
 
 - **发布状态**：用户已批准发布；既有公开站同站更新至六商品最终版（智能手机、棉质 T 恤、大豆食用油、电动自行车、家用空调、航拍无人机），未新建站点。公开 URL：https://globechain-lwf8uwcgl59.qoder.zone/
 - **最终复验（独立 QA）**：公网 `public-acceptance-verified` **34/34**、0 错误；regional **9/9**、china-nav **4/4**；本地 4323 最新 Next 构建 `final-browser-regression-verified` **19/19、1205/1205**、0 错误。

@@ -54,15 +54,19 @@ type LabelRecord = {
   line: SVGLineElement;
 };
 
-const DEFAULT_YAW = 0.55;
-const DEFAULT_PITCH = 0.1;
-const MIN_PITCH = -0.15;
+const DEFAULT_YAW = 0.66;
+const DEFAULT_PITCH = 0.44;
+const MIN_PITCH = -0.12;
 const MAX_PITCH = 1.1;
-const FOV = 34;
-const FIT_MARGIN = 0.2;
-const BASE_DISTANCE = 4.3;
+const FOV = 30;
+/** Share of the stage half-extent the model should occupy on screen. */
+const FRAME_FILL = 0.8;
+const BASE_DISTANCE = 3.2;
 const ROT_YAW_FACTOR = 0.075;
 const ROT_PITCH_FACTOR = 0.0625;
+const LABEL_GAP = 10;
+const LABEL_NUDGE = 18;
+const LABEL_NUDGE_TRIES = 5;
 const REMOTE_IDS = new Set([
   "drone-remote",
   "drone-remote-core-board",
@@ -183,45 +187,62 @@ export const DroneStage = forwardRef<DroneStageHandle, Props>(function DroneStag
       renderer.setSize(width, height, false);
       renderer.shadowMap.enabled = true;
       renderer.shadowMap.type = ns.PCFShadowMap;
+      // Filmic tone mapping keeps white shells from clipping to flat paper.
+      renderer.toneMapping = ns.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.05;
       renderer.domElement.style.display = "block";
       renderer.domElement.style.width = "100%";
       renderer.domElement.style.height = "100%";
       host.appendChild(renderer.domElement);
 
       const scene = new ns.Scene();
-      scene.fog = new ns.Fog(0x0b1220, 6, 15);
+      scene.fog = new ns.Fog(0x0b1220, 4.2, 12);
       const camera = new ns.PerspectiveCamera(FOV, width / height, 0.1, 100);
 
+      // Studio reflections: a procedural room environment makes the white shell
+      // and the metal arms read as product renders rather than flat plastic.
+      // Purely generated in-browser; no external HDR or asset is fetched.
+      try {
+        const { RoomEnvironment } = await import("three/examples/jsm/environments/RoomEnvironment.js");
+        const pmrem = new ns.PMREMGenerator(renderer);
+        scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.05).texture;
+        scene.environmentIntensity = 0.45;
+        pmrem.dispose();
+      } catch {
+        /* environment is optional; directional lights still carry the shot */
+      }
+
       // Cool workstation lighting: soft hemisphere, key with shadow, cyan-blue rim.
-      const hemisphere = new ns.HemisphereLight(0xbfd0e6, 0x14202f, 0.85);
-      const key = new ns.DirectionalLight(0xffffff, 1.7);
-      key.position.set(3, 5, 4);
+      const hemisphere = new ns.HemisphereLight(0xc6d6e8, 0x16222f, 0.9);
+      const key = new ns.DirectionalLight(0xffffff, 1.55);
+      key.position.set(1.4, 4.4, 1.9);
       key.castShadow = true;
       key.shadow.mapSize.set(1024, 1024);
       key.shadow.camera.near = 1;
-      key.shadow.camera.far = 14;
-      key.shadow.camera.left = -3;
-      key.shadow.camera.right = 3;
-      key.shadow.camera.top = 3;
-      key.shadow.camera.bottom = -3;
-      const rim = new ns.DirectionalLight(0x5ec8e6, 1.4);
-      rim.position.set(-3, 2.5, -4);
-      const fill = new ns.DirectionalLight(0x9fb6d8, 0.4);
-      fill.position.set(-2, 1, 3);
+      key.shadow.camera.far = 10;
+      key.shadow.camera.left = -1.6;
+      key.shadow.camera.right = 1.6;
+      key.shadow.camera.top = 1.6;
+      key.shadow.camera.bottom = -1.6;
+      const rim = new ns.DirectionalLight(0x6fc6de, 0.95);
+      rim.position.set(-2.6, 1.8, -2.8);
+      const fill = new ns.DirectionalLight(0xa8bcd8, 0.45);
+      fill.position.set(-1.6, 0.8, 2.4);
       scene.add(hemisphere, key, rim, fill);
 
       // Ground: soft shadow catcher plus circular刻度 rings, ticks and a faint grid.
+      const GROUND_Y = -0.145;
       const ground = new ns.Mesh(
-        new ns.PlaneGeometry(12, 12),
-        new ns.ShadowMaterial({ opacity: 0.32 })
+        new ns.PlaneGeometry(9, 9),
+        new ns.ShadowMaterial({ opacity: 0.34 })
       );
       ground.rotation.x = -Math.PI / 2;
-      ground.position.y = -0.28;
+      ground.position.y = GROUND_Y;
       ground.receiveShadow = true;
       scene.add(ground);
 
-      const ringMat = new ns.LineBasicMaterial({ color: 0x2e4b63, transparent: true, opacity: 0.55 });
-      for (const radius of [0.85, 1.25, 1.65, 2.05]) {
+      const ringMat = new ns.LineBasicMaterial({ color: 0x33566f, transparent: true, opacity: 0.62 });
+      for (const radius of [0.62, 0.95, 1.28, 1.62]) {
         const ringPoints = circlePoints(ns, radius);
         const ringGeo = new ns.BufferGeometry();
         ringGeo.setAttribute(
@@ -229,28 +250,28 @@ export const DroneStage = forwardRef<DroneStageHandle, Props>(function DroneStag
           new ns.BufferAttribute(new Float32Array(ringPoints.flatMap((p) => [p.x, p.y, p.z])), 3)
         );
         const ring = new ns.LineLoop(ringGeo, ringMat);
-        ring.position.y = -0.275;
+        ring.position.y = GROUND_Y + 0.001;
         scene.add(ring);
       }
-      const tickMat = new ns.LineBasicMaterial({ color: 0x38597a, transparent: true, opacity: 0.5 });
+      const tickMat = new ns.LineBasicMaterial({ color: 0x3d6485, transparent: true, opacity: 0.55 });
       const tickCount = 24;
       for (let i = 0; i < tickCount; i += 1) {
         const angle = (i / tickCount) * Math.PI * 2;
-        const inner = 1.95;
-        const outer = i % 6 === 0 ? 2.15 : 2.05;
+        const inner = 1.55;
+        const outer = i % 6 === 0 ? 1.78 : 1.66;
         const positions = new Float32Array([
-          Math.cos(angle) * inner, -0.274, Math.sin(angle) * inner,
-          Math.cos(angle) * outer, -0.274, Math.sin(angle) * outer
+          Math.cos(angle) * inner, GROUND_Y + 0.001, Math.sin(angle) * inner,
+          Math.cos(angle) * outer, GROUND_Y + 0.001, Math.sin(angle) * outer
         ]);
         const geo = new ns.BufferGeometry();
         geo.setAttribute("position", new ns.BufferAttribute(positions, 3));
         scene.add(new ns.Line(geo, tickMat));
       }
-      const grid = new ns.GridHelper(4.4, 22, 0x26344a, 0x1c2a3d);
-      grid.position.y = -0.278;
+      const grid = new ns.GridHelper(3.6, 24, 0x2a3a4e, 0x1f2c3d);
+      grid.position.y = GROUND_Y - 0.001;
       const gridMat = grid.material as Three.LineBasicMaterial;
       gridMat.transparent = true;
-      gridMat.opacity = 0.12;
+      gridMat.opacity = 0.14;
       scene.add(grid);
 
       const root = new ns.Group();
@@ -258,19 +279,20 @@ export const DroneStage = forwardRef<DroneStageHandle, Props>(function DroneStag
 
       const materials = schemeMaterials(scheme);
       const palette: DronePalette = {
-        hull: "#e9eef2",
-        hullLight: "#c7d2da",
-        sensorDark: "#10161f",
-        arm: "#b7c4cd",
-        motor: "#3a4656",
-        prop: "#39434f",
-        pod: "#8fa0ae",
-        glass: "#0b1424",
+        hull: "#e3e9ed",
+        hullLight: "#c2ccd4",
+        sensorDark: "#0f151d",
+        arm: "#b6c1ca",
+        motor: "#39434f",
+        prop: "#2e3742",
+        propTip: "#d9b552",
+        pod: "#3f4855",
+        glass: "#071019",
         module: materials.module ?? "#8fa0ae",
         board: materials.pcb ?? "#3f6b58",
         chip: materials.chip ?? "#b6c2d4",
-        metal: "#6b7c90",
-        remote: "#c2cdd5"
+        metal: "#78889a",
+        remote: "#c8d2da"
       };
 
       const collectMeshes = (object: Three.Object3D, nodeId: string, into: Three.Mesh[]) => {
@@ -330,6 +352,9 @@ export const DroneStage = forwardRef<DroneStageHandle, Props>(function DroneStag
       const svg = svgRef.current;
       if (labelLayer && svg) {
         state.records.forEach((record, nodeId) => {
+          // The product name already sits in the header and the module tree;
+          // a floating root tag on top of the fuselage only adds clutter.
+          if (nodeId === model.root.id) return;
           const slot = record.slots[0];
           const el = document.createElement("div");
           el.className = "exploded-three-label";
@@ -342,54 +367,191 @@ export const DroneStage = forwardRef<DroneStageHandle, Props>(function DroneStag
         });
       }
 
+      const scratchBox = new ns.Box3();
+      const corner = new ns.Vector3();
+      const placed: Array<{ left: number; top: number; right: number; bottom: number }> = [];
+      const clamp = (value: number, low: number, high: number) => Math.min(Math.max(value, low), high);
+
       const projectLabel = () => {
         if (!state.scene || !state.camera) return;
         const activeCamera = state.camera;
         const rect = renderer.domElement.getBoundingClientRect();
         const width = rect.width;
         const height = rect.height;
+        placed.length = 0;
+
+        // Screen bounds of the whole aircraft, used as the callout envelope so
+        // tags land around the silhouette (workstation style) instead of on it.
+        scratchBox.makeEmpty();
+        state.records.forEach((record, nodeId) => {
+          if (REMOTE_IDS.has(nodeId) && explosionRef.current < 0.3) return;
+          record.groups.forEach((group) => {
+            if (group.visible) scratchBox.expandByObject(group);
+          });
+        });
+        let envMinX = Infinity;
+        let envMinY = Infinity;
+        let envMaxX = -Infinity;
+        let envMaxY = -Infinity;
+        if (!scratchBox.isEmpty()) {
+          for (let i = 0; i < 8; i += 1) {
+            corner
+              .set(
+                i & 1 ? scratchBox.max.x : scratchBox.min.x,
+                i & 2 ? scratchBox.max.y : scratchBox.min.y,
+                i & 4 ? scratchBox.max.z : scratchBox.min.z
+              )
+              .project(activeCamera);
+            const px = (corner.x * 0.5 + 0.5) * width;
+            const py = (-corner.y * 0.5 + 0.5) * height;
+            if (px < envMinX) envMinX = px;
+            if (px > envMaxX) envMaxX = px;
+            if (py < envMinY) envMinY = py;
+            if (py > envMaxY) envMaxY = py;
+          }
+        }
+        const envCX = (envMinX + envMaxX) / 2;
+        const envCY = (envMinY + envMaxY) / 2;
+
+        const rayBoxDistance = (x: number, y: number, dx: number, dy: number) => {
+          let t = Infinity;
+          if (dx > 0.0001) t = Math.min(t, (envMaxX - x) / dx);
+          if (dx < -0.0001) t = Math.min(t, (envMinX - x) / dx);
+          if (dy > 0.0001) t = Math.min(t, (envMaxY - y) / dy);
+          if (dy < -0.0001) t = Math.min(t, (envMinY - y) / dy);
+          return Number.isFinite(t) ? Math.max(t, 0) : 0;
+        };
 
         state.labels.forEach((label) => {
           const record = state.records.get(label.nodeId);
           if (!record) return;
-          const remoteHidden = REMOTE_IDS.has(label.nodeId) && explosionRef.current < 0.3;
+          const explosionNow = explosionRef.current;
+          const remoteHidden = REMOTE_IDS.has(label.nodeId) && explosionNow < 0.3;
           const active = selectedRef.current === label.nodeId || hoveredRef.current === label.nodeId;
-          const persistent = record.node.depth === 1;
+          // Module callouts stay on at rest; part callouts only once the
+          // assembly has visibly opened up. Narrow stages have no room for a
+          // full label ring, so only the active part and its modules show.
+          const narrow = width < 640;
+          const persistent = record.node.depth === 1 || (!narrow && record.node.depth === 2 && explosionNow >= 0.32);
           if (remoteHidden || (!active && !persistent)) {
             label.el.style.display = "none";
             label.line.style.display = "none";
             return;
           }
-          label.el.style.display = "";
-          label.line.style.display = "";
 
-          const anchor = record.groups[0].getWorldPosition(new ns.Vector3());
-          const p = anchor.project(activeCamera);
-          const sx = (p.x * 0.5 + 0.5) * width;
-          const sy = (-p.y * 0.5 + 0.5) * height;
+          // Screen-space bounds of the part itself, so the callout can sit
+          // outside the silhouette instead of on top of it.
+          scratchBox.makeEmpty();
+          record.groups.forEach((group) => {
+            if (group.visible) scratchBox.expandByObject(group);
+          });
+          if (scratchBox.isEmpty()) {
+            label.el.style.display = "none";
+            label.line.style.display = "none";
+            return;
+          }
+          let minX = Infinity;
+          let minY = Infinity;
+          let maxX = -Infinity;
+          let maxY = -Infinity;
+          for (let i = 0; i < 8; i += 1) {
+            corner
+              .set(
+                i & 1 ? scratchBox.max.x : scratchBox.min.x,
+                i & 2 ? scratchBox.max.y : scratchBox.min.y,
+                i & 4 ? scratchBox.max.z : scratchBox.min.z
+              )
+              .project(activeCamera);
+            const px = (corner.x * 0.5 + 0.5) * width;
+            const py = (-corner.y * 0.5 + 0.5) * height;
+            if (px < minX) minX = px;
+            if (px > maxX) maxX = px;
+            if (py < minY) minY = py;
+            if (py > maxY) maxY = py;
+          }
+          if (maxX < -20 || minX > width + 20 || maxY < -20 || minY > height + 20) {
+            label.el.style.display = "none";
+            label.line.style.display = "none";
+            return;
+          }
 
           const lw = label.el.offsetWidth || 64;
-          const lh = label.el.offsetHeight || 16;
-          let left = sx - lw / 2;
-          let top = sy - lh / 2 - 14;
-          if (label.side === "left") left = sx - lw - 14;
-          if (label.side === "right") left = sx + 14;
-          if (label.side === "bottom") top = sy + 14;
-          left = Math.min(Math.max(left, 6), width - lw - 6);
-          top = Math.min(Math.max(top, 6), height - lh - 6);
+          const lh = label.el.offsetHeight || 18;
+          const side = label.side;
+          const anchorX = (minX + maxX) / 2;
+          const anchorY = (minY + maxY) / 2;
+
+          // Direction from the aircraft centre through this part. Centred parts
+          // fall back to their configured side.
+          let dirX = anchorX - envCX;
+          let dirY = anchorY - envCY;
+          const dirLen = Math.hypot(dirX, dirY);
+          if (dirLen < 26) {
+            dirX = side === "left" ? -1 : side === "right" ? 1 : 0;
+            dirY = side === "top" ? -1 : side === "bottom" ? 1 : 0;
+            if (dirX === 0 && dirY === 0) dirY = -1;
+          } else {
+            dirX /= dirLen;
+            dirY /= dirLen;
+          }
+          const reach = rayBoxDistance(anchorX, anchorY, dirX, dirY);
+          const halfDiag = Math.hypot(lw, lh) / 2;
+          // Assembled shot: tags sit on the aircraft envelope so they clear the
+          // silhouette. Exploded shot: tags hug their own part, which keeps the
+          // many leaders short and readable instead of crossing the stage.
+          const nearPart = explosionNow >= 0.32;
+          const partReach = nearPart
+            ? Math.min(
+                dirX > 0.0001 ? (maxX - anchorX) / dirX : Infinity,
+                dirX < -0.0001 ? (minX - anchorX) / dirX : Infinity,
+                dirY > 0.0001 ? (maxY - anchorY) / dirY : Infinity,
+                dirY < -0.0001 ? (minY - anchorY) / dirY : Infinity
+              )
+            : reach;
+          const baseReach = Number.isFinite(partReach) ? Math.max(partReach, 0) : reach;
+
+          let left = 0;
+          let top = 0;
+          let settled = false;
+          for (let attempt = 0; attempt <= LABEL_NUDGE_TRIES; attempt += 1) {
+            const push = baseReach + LABEL_GAP + halfDiag + (nearPart ? 6 : 10) + attempt * LABEL_NUDGE;
+            left = anchorX + dirX * push - lw / 2;
+            top = anchorY + dirY * push - lh / 2;
+            left = clamp(left, 6, width - lw - 6);
+            top = clamp(top, 4, height - lh - 4);
+            const box = { left, top, right: left + lw, bottom: top + lh };
+            const hitsLabel = placed.some(
+              (other) => !(box.right <= other.left || box.left >= other.right || box.bottom <= other.top || box.top >= other.bottom)
+            );
+            const coversPart = !(box.right <= minX || box.left >= maxX || box.bottom <= minY || box.top >= maxY);
+            if (!hitsLabel && (!coversPart || active)) {
+              settled = true;
+              break;
+            }
+          }
+          if (!settled && !active) {
+            label.el.style.display = "none";
+            label.line.style.display = "none";
+            return;
+          }
+
+          placed.push({ left, top, right: left + lw, bottom: top + lh });
+          label.el.style.display = "";
+          label.line.style.display = "";
           label.el.style.transform = `translate(${left}px, ${top}px)`;
           label.el.classList.toggle("selected", selectedRef.current === label.nodeId);
 
-          const edge = {
-            top: { x: left + lw / 2, y: top + lh },
-            bottom: { x: left + lw / 2, y: top },
-            left: { x: left + lw, y: top + lh / 2 },
-            right: { x: left, y: top + lh / 2 }
-          }[label.side];
-          label.line.setAttribute("x1", String(sx));
-          label.line.setAttribute("y1", String(sy));
-          label.line.setAttribute("x2", String(edge.x));
-          label.line.setAttribute("y2", String(edge.y));
+          // Leader starts on the part edge facing the tag and ends on the tag's
+          // back edge, so the line never runs through the part itself.
+          const partT = rayBoxDistance(anchorX, anchorY, dirX, dirY) * 0.62;
+          const startX = clamp(anchorX + dirX * partT, minX, maxX);
+          const startY = clamp(anchorY + dirY * partT, minY, maxY);
+          const endX = clamp(left + lw / 2 - dirX * (lw / 2), left, left + lw);
+          const endY = clamp(top + lh / 2 - dirY * (lh / 2), top, top + lh);
+          label.line.setAttribute("x1", String(startX));
+          label.line.setAttribute("y1", String(startY));
+          label.line.setAttribute("x2", String(endX));
+          label.line.setAttribute("y2", String(endY));
         });
       };
 
@@ -416,6 +578,19 @@ export const DroneStage = forwardRef<DroneStageHandle, Props>(function DroneStag
           });
         });
 
+        // Internal boards sit inside the closed hull; showing them at rest only
+        // produces stray slivers through the shell, so they appear with the
+        // explosion (or when explicitly selected from the tree).
+        const showInternal = explosionRef.current > 0.08;
+        state.records.forEach((record, nodeId) => {
+          const kind = record.slots[0]?.kind;
+          if (kind !== "board" && kind !== "esc" && kind !== "chip" && kind !== "sensor") return;
+          const forceShow = selectedRef.current === nodeId || hoveredRef.current === nodeId;
+          record.groups.forEach((group) => {
+            group.visible = showInternal || forceShow;
+          });
+        });
+
         // Remote cluster stays out of the assembled shot; fades in with the
         // exploded side cluster instead of competing with the fuselage.
         const remoteFade = Math.min(1, explosionRef.current / 0.3);
@@ -430,8 +605,9 @@ export const DroneStage = forwardRef<DroneStageHandle, Props>(function DroneStag
           });
         });
 
-        // Auto-fit: frame the current assembly/explosion bounding sphere with a
-        // fixed safety margin; manual wheel zoom multiplies the fit distance.
+        // Frame by projecting the actual bounds: a flat aircraft needs a closer
+        // camera than a bounding-sphere fit allows, and the exploded spread
+        // still has to stay fully inside the stage.
         const fitBox = new ns.Box3();
         const excludeRemote = explosionRef.current < 0.3;
         state.records.forEach((record, nodeId) => {
@@ -439,19 +615,42 @@ export const DroneStage = forwardRef<DroneStageHandle, Props>(function DroneStag
           record.groups.forEach((group) => fitBox.expandByObject(group));
         });
         if (!fitBox.isEmpty() && state.camera) {
+          const activeCamera = state.camera;
           const sphere = fitBox.getBoundingSphere(new ns.Sphere());
-          const vFov = (FOV * Math.PI) / 180;
-          const hFov = 2 * Math.atan(Math.tan(vFov / 2) * state.camera.aspect);
-          const fitRadius = sphere.radius / Math.max(Math.sin(vFov / 2), Math.sin(hFov / 2));
-          state.fitDistance = fitRadius / (1 - FIT_MARGIN);
+          // Exploded view reads better from higher up: at the assembled pitch the
+          // two shells flatten into a pair of pancakes and the parts between them
+          // disappear. Lift the camera with the slider without touching user orbit.
+          const explodeLift = explosionRef.current * 0.26;
+          const viewPitch = Math.min(MAX_PITCH, state.pitch + explodeLift);
           const dir = new ns.Vector3(
-            Math.sin(state.yaw) * Math.cos(state.pitch),
-            Math.sin(state.pitch),
-            Math.cos(state.yaw) * Math.cos(state.pitch)
+            Math.sin(state.yaw) * Math.cos(viewPitch),
+            Math.sin(viewPitch),
+            Math.cos(state.yaw) * Math.cos(viewPitch)
           ).normalize();
-          const dist = state.fitDistance * state.zoom;
-          state.camera.position.copy(sphere.center).addScaledVector(dir, dist);
-          state.camera.lookAt(sphere.center);
+          let dist = Math.max(sphere.radius * 1.05, 1.2);
+          const probe = new ns.Vector3();
+          for (let pass = 0; pass < 3; pass += 1) {
+            activeCamera.position.copy(sphere.center).addScaledVector(dir, dist);
+            activeCamera.lookAt(sphere.center);
+            activeCamera.updateMatrixWorld();
+            let fill = 0;
+            for (let i = 0; i < 8; i += 1) {
+              probe
+                .set(
+                  i & 1 ? fitBox.max.x : fitBox.min.x,
+                  i & 2 ? fitBox.max.y : fitBox.min.y,
+                  i & 4 ? fitBox.max.z : fitBox.min.z
+                )
+                .project(activeCamera);
+              fill = Math.max(fill, Math.abs(probe.x), Math.abs(probe.y));
+            }
+            if (fill < 0.001) break;
+            dist *= fill / (explosionRef.current > 0.3 ? 0.87 : FRAME_FILL);
+          }
+          state.fitDistance = dist;
+          const finalDist = dist * state.zoom;
+          activeCamera.position.copy(sphere.center).addScaledVector(dir, finalDist);
+          activeCamera.lookAt(sphere.center);
         }
         renderer.render(scene, camera);
         projectLabel();

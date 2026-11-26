@@ -51,21 +51,21 @@ export const DRONE_ARM_DIRS: readonly Vec3[] = [
   [-1, 0, -1]
 ];
 
-const ARM_ROOT_X = 0.18;
-const ARM_ROOT_Z = 0.24;
-const ARM_TIP_X = 0.66;
-const ARM_TIP_Z = 0.6;
-const ARM_SPREAD_X = 1.0;
-const ARM_SPREAD_Z = 0.88;
+const ARM_ROOT_X = 0.125;
+const ARM_ROOT_Z = 0.16;
+const ARM_TIP_X = 0.46;
+const ARM_TIP_Z = 0.365;
+const ARM_SPREAD_X = 0.36;
+const ARM_SPREAD_Z = 0.28;
 
 function armSlot(index: number): DroneSlot {
   const [sx, , sz] = DRONE_ARM_DIRS[index];
   return {
     nodeId: "drone-arm",
     kind: "arm",
-    home: [sx * ARM_ROOT_X, 0.14, sz * ARM_ROOT_Z],
-    spread: [sx * ARM_SPREAD_X, 0.14, sz * ARM_SPREAD_Z],
-    tip: [sx * ARM_TIP_X, 0.14, sz * ARM_TIP_Z],
+    home: [sx * ARM_ROOT_X, 0.02, sz * ARM_ROOT_Z],
+    spread: [sx * ARM_SPREAD_X, 0.17, sz * ARM_SPREAD_Z],
+    tip: [sx * ARM_TIP_X, 0.02, sz * ARM_TIP_Z],
     armIndex: index,
     labelSide: sx > 0 ? "right" : "left"
   };
@@ -79,92 +79,92 @@ function armSlot(index: number): DroneSlot {
 const SLOTS: Record<string, Omit<DroneSlot, "nodeId">> = {
   "generic-camera-drone": {
     kind: "hull",
-    home: [0, 0.12, 0],
-    spread: [0, 0.12, 0],
+    home: [0, 0, 0],
+    spread: [0, 0, 0],
     labelSide: "bottom"
   },
   "drone-airframe": {
     kind: "shell",
-    home: [0, 0.18, 0],
-    spread: [0, 0.55, 0],
+    home: [0, 0, 0],
+    spread: [0, 0.36, 0],
     labelSide: "top"
   },
   "drone-core-board": {
     kind: "board",
-    home: [0, 0.02, -0.04],
-    spread: [0, -0.32, -0.18],
+    home: [0, 0.002, -0.06],
+    spread: [0, -0.14, -0.1],
     labelSide: "bottom"
   },
   "drone-vision": {
     kind: "sensor",
-    home: [0, 0.02, 0.24],
-    spread: [0.14, -0.08, 0.55],
+    home: [0, 0.006, 0.17],
+    spread: [0.13, -0.12, 0.42],
     labelSide: "top"
   },
   "drone-positioning-imu": {
     kind: "chip",
-    home: [-0.12, 0.02, -0.06],
-    spread: [-0.34, 0.08, -0.08],
+    home: [-0.07, 0.004, -0.08],
+    spread: [-0.2, 0.02, -0.1],
     labelSide: "left"
   },
   "drone-esc": {
     kind: "esc",
-    home: [0.12, 0.02, -0.06],
-    spread: [0.38, -0.2, -0.08],
+    home: [0.075, 0.002, -0.07],
+    spread: [0.2, -0.1, -0.06],
     labelSide: "right"
   },
   "drone-gimbal": {
     kind: "gimbal-bracket",
-    home: [0, -0.04, 0.42],
-    spread: [0, -0.14, 0.78],
+    home: [0, -0.026, 0.15],
+    spread: [0, -0.14, 0.2],
     labelSide: "bottom"
   },
   "drone-gimbal-assembly": {
     kind: "pod",
-    home: [0, -0.12, 0.55],
-    spread: [0, -0.22, 0.92],
+    home: [0, -0.078, 0.175],
+    spread: [0, -0.24, 0.32],
     labelSide: "bottom"
   },
   "drone-gimbal-camera": {
     kind: "lens",
-    home: [0, -0.12, 0.66],
-    spread: [0, -0.26, 1.06],
+    home: [0, -0.082, 0.228],
+    spread: [0, -0.24, 0.44],
     labelSide: "bottom"
   },
   "drone-gimbal-axis-arm": {
     kind: "axis-arm",
-    home: [0.09, -0.04, 0.5],
-    spread: [0.26, -0.12, 0.8],
+    home: [0.075, -0.036, 0.155],
+    spread: [0.17, -0.2, 0.28],
     labelSide: "right"
   },
   "drone-gimbal-motor": {
     kind: "gimbal-motor",
-    home: [-0.09, -0.04, 0.5],
-    spread: [-0.26, -0.12, 0.8],
+    home: [-0.075, -0.036, 0.155],
+    spread: [-0.17, -0.2, 0.28],
     labelSide: "left"
   },
   "drone-remote": {
     kind: "remote",
-    home: [-0.86, 0.02, -0.4],
-    spread: [-0.95, 0.0, -0.45],
+    home: [-0.72, 0.02, -0.33],
+    spread: [-0.56, 0.0, -0.3],
     labelSide: "left"
   },
   "drone-remote-core-board": {
     kind: "remote-board",
-    home: [-0.86, 0.08, -0.4],
-    spread: [-0.98, 0.12, -0.4],
+    home: [-0.72, 0.072, -0.33],
+    spread: [-0.6, 0.1, -0.26],
     labelSide: "left"
   },
   "drone-remote-antenna": {
     kind: "antenna",
-    home: [-0.78, 0.14, -0.4],
-    spread: [-0.9, 0.22, -0.44],
+    home: [-0.66, 0.128, -0.33],
+    spread: [-0.56, 0.2, -0.3],
     labelSide: "left"
   },
   "drone-remote-battery": {
     kind: "battery-pack",
-    home: [-0.94, 0.0, -0.4],
-    spread: [-1.0, -0.06, -0.48],
+    home: [-0.78, 0.0, -0.33],
+    spread: [-0.64, -0.05, -0.34],
     labelSide: "left"
   }
 };

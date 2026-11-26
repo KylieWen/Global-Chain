@@ -2,6 +2,20 @@
 
 恢复长任务先读 [任务目的与当前接续](INTENT.md)，核对用户原意、已确认方向、候选方案及时间轴的本地和公开状态，再按下方记录定位工程细节。
 
+## 2026-11-26 · 无人机外形与取景重做（批次 1，待用户验收）
+
+- **触发**：主模型亲看旧版并排图后判定形态不对——机身是"宽钝前脸 + 窄尾"的圆角夹心板；根因是 `bodyPlan` 的 v 轴经 `rotateX(-π/2)` 反向后把"鼻端窄"写到了最宽处。本批只修无人机，不动数据/发布/其他商品。
+- **规格**：`docs/visual-specs/2026-11-26-drone-shape-2.md`。
+- **几何**：`drone-geometry.ts` 重写机体剖面（尾部半宽 0.20、鼻端 0.07，机长 0.59）、薄下壳 + 尾甲板 + 薄鼻梁 + 深色前传感带与两只前视眼 + 尾部散热口 + 四根起落撑；锥形圆管机臂、`r0.042` 电机 + 金属顶盖、细双叶桨（迎角 ±0.13、黄色桨尖、四臂相位各异）；云台拆成小吊舱 + 独立镜头。桨叶半径 0.192，修正"机身小、机臂长"的比例。
+- **布局**：`drone-workspace-layout.ts` 机臂 spread 0.36/0.28、爆炸抬升 y=0.17；云台 bracket/pod/lens 收在鼻下并分散（pod `[0,-0.24,0.32]`、lens `[0,-0.24,0.44]`）；遥控器簇收近到 x −0.56…−0.64。
+- **舞台**：`drone-stage.tsx` 屏幕空间迭代拟合 `FRAME_FILL` 0.80（爆炸 0.87）；`ACESFilmicToneMapping` + exposure 1.05；`RoomEnvironment` + `PMREMGenerator` 程序化环境反射（intensity 0.45，失败静默兜底，不引外部 HDR）；爆炸态机位随机位抬升 0.26 rad（上限 `MAX_PITCH`），让夹层与部件可见；标注重做（装配态推到包络外、爆炸态贴部件外 6px、每帧碰撞避让、窄舞台只留深度 1 与选中项）；内部件在 `explosion<0.08` 且未选中/悬停时隐藏，消除穿模绿边。
+- **样式**：`drone-workstation.css` 舞台中心径向辉光 + 底部内阴影；≤640 滑杆改 grid，修掉"爆炸程度"换行。
+- **验证**：四包 typecheck 0 错、lint 0 warning；`tests/drone-workspace-layout.test.ts` 2/2；生产 `next start` 4326 上 `verify-renderer-branches` **33/33**、0 控制台/页面错误；无人机探针 `overflowX=0`（1440 深浅 + 390）、装配态 2 标签、爆炸态 14 标签、重叠 0。
+- **证据**：`output/qa/drone-shape-2026-11-26/`——`final-prod/zoom`（2x 舞台特写）、`final-prod/full`（1440 深浅 / 390 / 云台选中 / 手机对照 + `results.json`）、`prod-regression`（33 项回归 + 截图）、逐轮 `round-a1…a16`、`round-b1`、`round-b2`。母版对照帧仍在 `tmp/overnight-2026-11-26/drone-reference-replica/`。
+- **工程提示**：`next dev` 与 `next build` 共用 `apps/web/.next`，同时进行会让生产产物缺 vendor chunk（`Cannot find module './vendor-chunks/…'`，500）。复现/修法：停 dev → 删 `.next` → 重新 `pnpm run build` → `next start` 独立端口（本次用 4326）。
+- **已知差距（如实保留）**：机体仍是程序化抽象，无品牌 CAD 前脸折线与面板分缝；爆炸态一条机臂被主体遮住、"机臂组件"引线偏长；母版无遥控器节点，本站按 BOM 保留在侧后。不宣称与母版"一模一样"。
+- **未做**：未 git push、未覆盖公开站、未发天池作品帖、未启动光伏/锂电；Qoder 模型仍 403，未参与本轮。
+
 ## 2026-11-26 · 六商品最终版同站发布完成，独立 QA 复验通过（总收尾）
 
 - **发布**：用户已批准发布；复用既有 project/site，未新建站。公开站 https://globechain-lwf8uwcgl59.qoder.zone/ 已更新至六商品最终版（智能手机 2026.7、棉质 T 恤 2026.3、大豆食用油 2026.3、电动自行车 2026.3、家用空调 2026.6、航拍无人机 2026.1）。
