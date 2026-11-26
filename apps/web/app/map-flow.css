@@ -694,11 +694,12 @@
   justify-content: flex-end;
 }
 
-/* Legend chips and the supply-chain link float over the bottom-right corner. */
+/* Legend chips and the supply-chain link float over the bottom-right corner,
+   stacked above the gesture caption line so neither clips the other. */
 .atlas-workspace .atlas-below-map {
   position: absolute;
   right: 1.25rem;
-  bottom: 0.9rem;
+  bottom: 2.5rem;
   z-index: 12;
   display: flex;
   flex-wrap: wrap;

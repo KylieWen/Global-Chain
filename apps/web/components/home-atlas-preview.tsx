@@ -112,8 +112,11 @@ function focusTransformFor(lines: HomeSummary["lines"], centerMap: Map<string, P
     coords.reduce((sum, p) => sum + p[0], 0) / coords.length,
     coords.reduce((sum, p) => sum + p[1], 0) / coords.length
   ];
-  const scale = 1.5;
-  const x = MAP_WIDTH * 0.56 - point[0] * scale;
+  // A tall phone viewport already crops the sliced world map, so the old 1.5x
+  // zoom pushed both ends of every flow off screen. Keep the map at 1x and
+  // centre the converging endpoint instead, so lines from China stay in frame.
+  const scale = 1;
+  const x = MAP_WIDTH * 0.5 - point[0] * scale;
   const y = MAP_HEIGHT / 2 - point[1] * scale;
   return { scale, x, y };
 }
@@ -198,7 +201,7 @@ export function HomeHeroMap({ products, featuredId }: { products: HomeSummary[];
         <svg
           ref={svgRef}
           viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`}
-          preserveAspectRatio="xMidYMid slice"
+          preserveAspectRatio={wide ? "xMidYMid slice" : "xMidYMid meet"}
           role="group"
           aria-label="由已收录生产环节生成的世界供应链预览，可缩放与选择国家"
           onPointerDown={onPointerDown}
@@ -206,7 +209,9 @@ export function HomeHeroMap({ products, featuredId }: { products: HomeSummary[];
           onPointerUp={stopDrag}
           onPointerCancel={stopDrag}
         >
-          <rect className="map-ocean" width={MAP_WIDTH} height={MAP_HEIGHT} />
+          {/* Tall phone viewports letterbox the map, so the ocean fill is
+              extended past the viewBox to avoid a visible seam. */}
+          <rect className="map-ocean" x={0} y={-MAP_HEIGHT * 3} width={MAP_WIDTH} height={MAP_HEIGHT * 5} />
           <g transform={`translate(${transform.x} ${transform.y}) scale(${transform.scale})`}>
             {features.map((feature, featureIndex) => (
               <path
