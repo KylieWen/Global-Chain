@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-home-air-conditioner",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-home-air-conditioner-2026.7",
+  "generatedAt": "2026-11-27",
+  "fixtureSha256": "fd2c75107c8d8e76eee99ae8ade970bda19b0a428875f5e115ce142975ec0725",
+  "release": {
+    "productId": "generic-home-air-conditioner",
+    "datasetVersion": "globe-chain-home-air-conditioner-2026.7",
+    "releasePath": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.7",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "bilateral-expansion-2026-11-27",
+    "baseDatasetVersion": "globe-chain-home-air-conditioner-2026.6",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "f77ad9ae34a98406f70160850c978898d56d82104887452ed9460832eb633d45"
+  },
+  "notes": [
+    "按 UN Comtrade 2023 年中国口径补齐与 22 个伙伴的双边贸易观察（39 条）。"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-camera-drone",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-camera-drone-2026.2",
+  "generatedAt": "2026-11-27",
+  "fixtureSha256": "49dee2eec6b34f7e0c59c15e509d9a6932c42bfa3c68881163a7ff45ca42f44e",
+  "release": {
+    "productId": "generic-camera-drone",
+    "datasetVersion": "globe-chain-camera-drone-2026.2",
+    "releasePath": "releases/generic-camera-drone/globe-chain-camera-drone-2026.2",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "bilateral-expansion-2026-11-27",
+    "baseDatasetVersion": "globe-chain-camera-drone-2026.1",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "67926eb0e4e0660197acc7f85bc3b5cf252452b5e1727616a7c486de3ba98d79"
+  },
+  "notes": [
+    "按 UN Comtrade 2023 年中国口径补齐与 22 个伙伴的双边贸易观察（28 条）。"
+  ]
+}

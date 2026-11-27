@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-smartphone",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-smartphone-2026.8",
+  "generatedAt": "2026-11-27",
+  "fixtureSha256": "431dd5b30092c41701c1edc65403530189733089d5e257e4b64bd3a8808ee306",
+  "release": {
+    "productId": "generic-smartphone",
+    "datasetVersion": "globe-chain-smartphone-2026.8",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2026.8",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "bilateral-expansion-2026-11-27",
+    "baseDatasetVersion": "globe-chain-smartphone-2026.7",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "8f4d52d5caa1b35570c0878e4593336774d7fa04eb220ee113d8aebb87d27a0d"
+  },
+  "notes": [
+    "按 UN Comtrade 2023 年中国口径补齐与 20 个伙伴的双边贸易观察（33 条）。"
+  ]
+}

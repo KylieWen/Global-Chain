@@ -955,12 +955,25 @@
     padding: 0.5rem;
   }
 
-  /* Persistent controls: segmented mode + filter entry + zoom / focus wrap
-     onto a second line instead of forcing the overlay past the viewport. */
+  /* Persistent controls: one scrollable row on a phone. Wrapping them into
+     three stacked rows used to push a 163px card over the map chrome. */
   .atlas-compact-filters-actions {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.35rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 0.1rem;
+  }
+
+  .atlas-compact-filters-actions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .atlas-compact-filters-actions .flow-mode-controls,
+  .atlas-compact-filters-actions button {
+    flex: 0 0 auto;
+    white-space: nowrap;
   }
 
   .flow-mode-controls {
@@ -1065,7 +1078,7 @@
   }
 
   .atlas-workspace .atlas-compact-filters-actions {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 
   .flow-mode-controls button,

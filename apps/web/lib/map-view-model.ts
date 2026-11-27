@@ -130,8 +130,10 @@ export function createMapView(queries: ProductQueryService, filters: MapFilters 
   const years = [...new Set(layer === "trade"
     ? tradeCoverage.filter(matchesScope).map(record => record.period.label)
     : [...(baseStory?.nodes.map(view => view.period.label) ?? []), ...(baseStory?.flows.map(view => view.flow.period.label) ?? [])])].sort().reverse();
-  const coverageByYear = new Map(years.map(year => [year, new Set(tradeCoverage.filter(record => matchesScope(record) && record.period.label === year).map(record => record.item?.id)).size]));
-  const bestYear = [...years].sort((a, b) => coverageByYear.get(b)! - coverageByYear.get(a)!)[0];
+  // Default year = the year with the densest record set, so a product opens on
+  // its richest map instead of a sparse later year with only world totals.
+  const coverageByYear = new Map(years.map(year => [year, tradeCoverage.filter(record => matchesScope(record) && record.period.label === year).length]));
+  const bestYear = [...years].sort((a, b) => coverageByYear.get(b)! - coverageByYear.get(a)! || b.localeCompare(a))[0];
   const selectedYear = filters.year ?? (compareTrade ? bestYear : undefined);
   const currencies = [...new Set(tradeCoverage.filter(record => matchesScope(record) && record.period.label === selectedYear).flatMap(record => record.currency ?? []))].sort();
   const selectedCurrency = filters.currency && currencies.includes(filters.currency) ? filters.currency : currencies[0];

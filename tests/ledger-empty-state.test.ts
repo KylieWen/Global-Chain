@@ -5,35 +5,34 @@ import { createProductQueryService, type ProductQueryService } from "@globe-chai
 import { productHasReachableLedger } from "../apps/web/lib/ledger-empty-state";
 import { ledgerPath, UNKNOWN_LEDGER_ENTITY_ID } from "../apps/web/lib/paths";
 
-describe("country ledger pending-verification empty state", () => {
+// The drone used to carry no country at all, so its ledger page could only ever
+// show the reserved empty state. The 2026-11-27 China-hub batch gives it a real
+// 2023 ledger, so this file now guards that transition instead of the absence.
+describe("country ledger availability", () => {
   let queries: ProductQueryService;
 
   beforeAll(async () => {
     queries = createProductQueryService(await loadFixtureRepositoryFromManifest(resolve("data/published/manifest.json")));
   });
 
-  it("keeps a product without any story role or trade ledger on the reserved unknown entity", () => {
+  it("resolves a real ledger for the drone now that China-hub trade is published", () => {
     const productId = "generic-camera-drone";
     expect(queries.getProductOverview(productId)).not.toBeNull();
     expect(queries.getProvenance(productId)).not.toBeNull();
-
-    expect(productHasReachableLedger(queries.listCountries(), productId)).toBe(false);
-    for (const country of queries.listCountries()) {
-      expect(country.productIds).not.toContain(productId);
-      expect(country.ledgerProductIds).not.toContain(productId);
-    }
-
-    // The reserved unknown id and any real-looking country code both resolve to
-    // no ledger record; the page renders the generic empty state only for the
-    // reserved id, and stays 404 for other unknown entities.
-    expect(queries.getCountryLedger(productId, UNKNOWN_LEDGER_ENTITY_ID)).toBeNull();
-    expect(queries.getCountryLedger(productId, "country-cn")).toBeNull();
-    expect(ledgerPath(productId, UNKNOWN_LEDGER_ENTITY_ID, {})).toBe(`/products/${productId}/ledger/country-unknown`);
+    expect(productHasReachableLedger(queries.listCountries(), productId)).toBe(true);
+    expect(queries.getCountryLedger(productId, "country-cn")).not.toBeNull();
   });
 
-  it("still resolves real published ledgers and does not treat the unknown id as an entity", () => {
+  it("keeps the reserved unknown id out of every ledger", () => {
+    for (const productId of ["generic-camera-drone", "generic-smartphone"]) {
+      expect(queries.getCountryLedger(productId, UNKNOWN_LEDGER_ENTITY_ID)).toBeNull();
+      expect(queries.getCountryLedger(productId, "country-zz")).toBeNull();
+    }
+    expect(ledgerPath("generic-camera-drone", UNKNOWN_LEDGER_ENTITY_ID, {})).toBe("/products/generic-camera-drone/ledger/country-unknown");
+  });
+
+  it("still resolves published ledgers for the smartphone", () => {
     expect(productHasReachableLedger(queries.listCountries(), "generic-smartphone")).toBe(true);
     expect(queries.getCountryLedger("generic-smartphone", "country-au")).not.toBeNull();
-    expect(queries.getCountryLedger("generic-smartphone", UNKNOWN_LEDGER_ENTITY_ID)).toBeNull();
   });
 });

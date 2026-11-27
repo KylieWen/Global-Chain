@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-cotton-tshirt",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-cotton-tshirt-2026.4",
+  "generatedAt": "2026-11-27",
+  "fixtureSha256": "de3c44489517e883727e0302e6a9bc92a8e3494b64382e66b3a76ba285fa3168",
+  "release": {
+    "productId": "generic-cotton-tshirt",
+    "datasetVersion": "globe-chain-cotton-tshirt-2026.4",
+    "releasePath": "releases/generic-cotton-tshirt/globe-chain-cotton-tshirt-2026.4",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "bilateral-expansion-2026-11-27",
+    "baseDatasetVersion": "globe-chain-cotton-tshirt-2026.3",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "d95a29bf05c4d5da58c26403ab61505efd65d27465c293f99209139a3110f408"
+  },
+  "notes": [
+    "按 UN Comtrade 2023 年中国口径补齐与 22 个伙伴的双边贸易观察（44 条）。"
+  ]
+}

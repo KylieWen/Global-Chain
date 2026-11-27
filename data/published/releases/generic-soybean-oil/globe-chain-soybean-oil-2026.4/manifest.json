@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-soybean-oil",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-soybean-oil-2026.4",
+  "generatedAt": "2026-11-27",
+  "fixtureSha256": "7191d7d6851d0960a08d65517829a0dd81a0a1040d5d7f2ec65f0690a1217450",
+  "release": {
+    "productId": "generic-soybean-oil",
+    "datasetVersion": "globe-chain-soybean-oil-2026.4",
+    "releasePath": "releases/generic-soybean-oil/globe-chain-soybean-oil-2026.4",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "bilateral-expansion-2026-11-27",
+    "baseDatasetVersion": "globe-chain-soybean-oil-2026.3",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "2cf1e490dc59d7a1335cb177358ad7670a7b73d1e4bb4cadd2a98b395a819f8b"
+  },
+  "notes": [
+    "按 UN Comtrade 2023 年中国口径补齐与 16 个伙伴的双边贸易观察（20 条）。"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-electric-bicycle",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-electric-bicycle-2026.4",
+  "generatedAt": "2026-11-27",
+  "fixtureSha256": "ef4e428fa1eec234449c2bf318aaeaf66d84b971f719bd154007bb38b14315e2",
+  "release": {
+    "productId": "generic-electric-bicycle",
+    "datasetVersion": "globe-chain-electric-bicycle-2026.4",
+    "releasePath": "releases/generic-electric-bicycle/globe-chain-electric-bicycle-2026.4",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "bilateral-expansion-2026-11-27",
+    "baseDatasetVersion": "globe-chain-electric-bicycle-2026.3",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "2ae42d77dfbd175c3bc8b7129a570307727d950e13eca7a3e045578a11d39075"
+  },
+  "notes": [
+    "按 UN Comtrade 2023 年中国口径补齐与 22 个伙伴的双边贸易观察（35 条）。"
+  ]
+}
