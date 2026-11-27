@@ -2,6 +2,17 @@
 
 恢复长任务先读 [任务目的与当前接续](INTENT.md)，核对用户原意、已确认方向、候选方案及时间轴的本地和公开状态，再按下方记录定位工程细节。
 
+## 2026-11-27 · 六商品 UX 文案小批次（本地完成，待主模型复看；未提交）
+
+- **范围**：只改界面文案及其容器，不动布局、配色、功能、路由、数据与 release 事实。基线 HEAD `6ad1354`；工作树改动未 commit，公开站 / 天池未改，Qoder 与模型未调用。
+- **文案决定**：首页 h1「一件商品，一个相连的世界。」为唯一品牌句，删眉题与氛围副标题；导航标准入口二级 copy 整列删除（「五类商品」过期数字随删消除）；页面 / 图层统一「代表性路线」，「官方贸易统计」名称不变；拆解台统一「展开部件 / 复原部件 / 展开程度」，去「程序化」等实现词；卡片计数只留一行，真实 16 / 3 / 12 与缺口指标不动；账本待核验空态「未收录≠0」只留一处；证据等级枚举码走固定中文映射（产地资料 / 双边记录 / 代表性连接 / 研究中），只改展示层。
+- **源码位置**：`apps/web/app/page.tsx`、`map/page.tsx`、`help/page.tsx`、`search/page.tsx`、`error.tsx`、`not-found.tsx`、`products/[productId]/*`（overview / supply-chain / materials / ledger / nodes / provenance / evidence-gaps）；`apps/web/components/`（site-navigation、product-navigation、product-tree、home-atlas-preview、drone-workstation、exploded-explorer、exploded-canvas-viewer、first-visit-guide、world-country-map、map-record-details、supply-chain-graph、data-display、product-catalog、trade-guide、china-supply-map）；`apps/web/competition/`（country-ledger、main、product-explorer）。
+- **探针同步**：`scripts/verify-experience-batch1.mjs`、`verify-experience-batch4.mjs`、`verify-china-atlas.mjs`、`verify-qoder-competition.mjs` 随改名更新标签断言；功能断言未删。
+- **门禁与验收（本地 4326 生产实例）**：typecheck 四包 0 错、lint 0 warning；单测 68 文件 / 383 用例全过；`pnpm build` 成功。公开验收 34/34；batch4 746/746；batch3 83/83；china-atlas `errors: []`；batch1 98/99，唯一失败为既有 reduced-motion 下 `.theme-switcher` 过渡时长未归零（CSS 动效，非文案，本批未改样式）。
+- **遗留 / 未处理**：① 无人机 `/products/generic-camera-drone/ledger/country-unknown` 软 200 落通用未找到页，未进商品级待核验空态，路由问题留后续批次；② 两套证据标签映射（`mapEvidenceLabel` 与徽章映射）待合并；③ persona 符号、HS / IMU / GPS / TOF / 轴术语白话解释为范围外后续项；④ `verify-qoder-competition.mjs` 面向静态竞争包，需下一次发布快照后对部署环境复跑。
+- **证据与文档**：策略与前后对照见 `docs/reviews/2026-11-27-ux-writing.md`；阶段 1–2 盘点 `output/qa/ux-writing-2026-11-27/strategy-and-scope.md`；修改前基线 `output/qa/ux-writing-2026-11-27/before/`。
+- **未做**：未 git push、未覆盖公开站、未发天池、未调 Qoder；4325 既有实例未干扰，4326 为本次本地生产实例。
+
 ## 2026-11-26 · 整站一致性批次 2（地图图例 / 手机 hero）
 
 - **规格**：`docs/visual-specs/2026-11-26-site-mobile-batch2.md`。
