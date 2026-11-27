@@ -510,7 +510,7 @@ export function BeamWebGLLayer(props: WebGLProps) {
         const headHalfCss = 0.6 + pf.flow.factor * 0.3;
         pData.push(laneFraction, speed, phase, headHalfCss);
         pBand.push(pf.bandWidth);
-        pTrail.push((2.5 + stateRef.current.settings.trail * 5) * trailScale);
+        pTrail.push((2.5 + stateRef.current.settings.trail * 5) * trailScale * (0.5 + pf.flow.factor * 0.9));
         particleTotal += 1;
       }
     });

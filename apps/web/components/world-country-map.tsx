@@ -27,6 +27,8 @@ import {
   type AdaptiveLevel
 } from "../lib/flow-encoding";
 import { BeamFlowLayer, type BeamFlow } from "./beam-flow-layer";
+import { MapFocusFilters } from "./map-focus-filters";
+import { defaultFocusFilters, filterFocusLines, type FocusFilterState } from "../lib/trade-focus-filters";
 import { FlowSettingsDrawer } from "./flow-settings-drawer";
 
 const mapWidth = 1000;
@@ -131,6 +133,8 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   const [isPending, startTransition] = useTransition();
   const [transform, setTransform] = useState<MapTransform>({ x: 0, y: 0, scale: 1 });
   const [hoveredCountryId, setHoveredCountryId] = useState<string | null>(null);
+  const [focusFilters, setFocusFilters] = useState<FocusFilterState>(defaultFocusFilters);
+  useEffect(() => { setFocusFilters(defaultFocusFilters); }, [filters.country]);
   const [pointer, setPointer] = useState<{ x: number; y: number } | null>(null);
   const [hoveredRecordId, setHoveredRecordId] = useState<string | null>(null);
   const [selectedRecordId, setSelectedRecordId] = useState<string | null>(null);
@@ -246,6 +250,11 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   const quantityMode = compareTrade && filters.measure === "quantity";
   const widthUnit = quantityMode ? selectedUnit : tradeCurrency;
   const visibleLines = quantityMode ? lines.filter(line => line.unit === selectedUnit && selectedUnit) : lines;
+  const focusedCountryName = countries.find(country => country.id === filters.country)?.name ?? "该国";
+  const displayLines = useMemo(() => {
+    if (!filters.country) return visibleLines;
+    return filterFocusLines(visibleLines, focusFilters, filters.country, line => line.value);
+  }, [visibleLines, focusFilters, filters.country]);
   const defaultTransform = useMemo(() => {
     const viewport = typeof window === "undefined"
       ? { width: 1440, height: 960 }
@@ -293,7 +302,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
     if (!beamActive) return [];
     const laneIndex = new Map<string, number>();
     const result: BeamFlow[] = [];
-    visibleLines.forEach((line) => {
+    displayLines.forEach((line) => {
       const from = centers.get(line.fromM49);
       const to = centers.get(line.toM49);
       if (!from || !to) return;
@@ -314,10 +323,13 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
       const factor = massFactor(band);
       const width = beamWidthFor(factor, mapTokens.line.minWidth, mapTokens.line.maxWidth, settings.beamWidth);
       const state = activeRecord?.id === line.id ? "active" : activeRecord ? "muted" : "normal";
-      result.push({ id: line.id, from, to, control, color: colors.get(line.itemId ?? "") ?? mapTokens.palette.itemColors[0], factor, band, width, state });
+      // Direction is a first-class read: inbound lanes warm, outbound lanes cool,
+      // so a dense hub still shows which way the goods move.
+      const directionColor = line.direction === "import" ? "#d8bb84" : "#8be4c4";
+      result.push({ id: line.id, from, to, control, color: compareTrade ? colors.get(line.itemId ?? "") ?? mapTokens.palette.itemColors[0] : directionColor, factor, band, width, state });
     });
     return result;
-  }, [beamActive, visibleLines, centers, quantityMode, mapTokens.line.minWidth, mapTokens.line.maxWidth, mapTokens.palette.itemColors, settings.beamWidth, activeRecord, colors]);
+  }, [beamActive, displayLines, centers, quantityMode, mapTokens.line.minWidth, mapTokens.line.maxWidth, mapTokens.palette.itemColors, settings.beamWidth, activeRecord, colors, compareTrade]);
 
   const diagnosticsRef = useRef<{ particleCount: number; level: number; cap: number }>({ particleCount: 0, level: adaptiveLevel, cap: settings.maxParticles });
   const handleDiagnostics = useCallback((info: { particleCount: number; level: number; cap: number }) => {
@@ -382,6 +394,28 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
     return [{ id: code, name: country.name, x: point[0] * transform.scale + transform.x, y: point[1] * transform.scale + transform.y }];
   }), labelFontSize);
   const renderLabels = () => labels.map(label => <text key={label.id} x={coordinate(label.x + 3)} y={coordinate(label.y + labelFontSize + 2)} style={{fontSize:labelFontSize}}>{label.name}</text>);
+  const flowLabels = useMemo(() => {
+    if (!filters.country) return [] as { id: string; x: number; y: number; text: string }[];
+    return [...displayLines]
+      .sort((left, right) => Math.abs(right.value ?? 0) - Math.abs(left.value ?? 0))
+      .slice(0, 5)
+      .flatMap((line, index) => {
+        const from = centers.get(line.fromM49); const to = centers.get(line.toM49);
+        if (!from || !to) return [];
+        const control = arcControl(from, to, 0);
+        // Stagger the sample point so stacked lanes do not print on top of each other.
+        const t = 0.42 + index * 0.11;
+        const x = (1 - t) * (1 - t) * from[0] + 2 * (1 - t) * t * control[0] + t * t * to[0];
+        const y = (1 - t) * (1 - t) * from[1] + 2 * (1 - t) * t * control[1] + t * t * to[1];
+        const partnerId = line.fromCountryId === filters.country ? line.toCountryId : line.fromCountryId;
+        const partner = (partnerId ? byId.get(partnerId) : undefined) ?? byM49.get(line.fromCountryId === filters.country ? line.toM49 ?? "" : line.fromM49 ?? "");
+        return [{
+          id: line.id, x, y,
+          text: `${partner?.name ?? ""} ${mapValue(line.value, line.valueDataStatus, line.currency, true)}`.trim()
+        }];
+      });
+  }, [filters.country, displayLines, centers, byId, byM49]);
+  const renderFlowLabels = () => flowLabels.map(label => <text key={label.id} className="atlas-flow-label" x={coordinate(label.x * transform.scale + transform.x)} y={coordinate(label.y * transform.scale + transform.y)} style={{fontSize:labelFontSize * 0.92}}>{label.text}</text>);
   const selectedIndex = selectedRecord ? records.indexOf(selectedRecord) : -1;
   const selectAdjacentRecord = (offset: number) => { const next = records[selectedIndex + offset]; if (next) setSelectedRecordId(next.id); };
   const closeDetail = () => setSelectedRecordId(null);
@@ -447,7 +481,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
             const name = country?.name ?? (item.properties as {name?:string} | null)?.name ?? "该国家或地区";
             return <path key={featureKey} d={pathGenerator(item as GeoPermissibleObjects) ?? undefined} className={`map-country-shape${country ? " has-data" : ""}${country && !hasLayerRecords(country) ? " atlas-country-limited" : ""}${isSelected ? " selected" : ""}${country && country.id === hoveredCountryId ? " hovered" : ""}${recordActive ? " atlas-record-country" : ""}`} role="button" aria-label={`${name} · ${country ? coverageLabel(country) : "当前商品未收录"}`} aria-pressed={isSelected} tabIndex={0} onMouseEnter={() => country && setHoveredCountryId(country.id)} onMouseLeave={() => setHoveredCountryId(null)} onFocus={() => country && setHoveredCountryId(country.id)} onBlur={() => setHoveredCountryId(null)} onClick={() => chooseCountry(country, name, featureKey)} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); suppressClick.current = false; chooseCountry(country, name, featureKey); } }}><title>{`${name} · ${country ? coverageLabel(country) : "当前商品未收录"}`}</title></path>;
           })}
-          {!isWorld && <g className="map-trade-layer" aria-label={isTrade ? "双边贸易观察" : "代表性路线连接"}>{visibleLines.map((line, index) => {
+          {!isWorld && <g className="map-trade-layer" aria-label={isTrade ? "双边贸易观察" : "代表性路线连接"}>{displayLines.map((line, index) => {
             const from = centers.get(line.fromM49); const to = centers.get(line.toM49);
             if (!from || !to) return null;
             const length = Math.hypot(to[0] - from[0], to[1] - from[1]);
@@ -464,10 +498,11 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
           })}</g>}
           {[...endpoints].map(code => { const point = centers.get(code); const country = byM49.get(code); if (!point || !country) return null; return <g className="atlas-endpoint" key={code} transform={`translate(${coordinate(point[0])},${coordinate(point[1])})`}><circle r={5 / transform.scale} /></g>; })}
         </g>
-        {!beamActive && <g className="atlas-country-labels" aria-hidden="true">{renderLabels()}</g>}
+        {!beamActive && <g className="atlas-country-labels" aria-hidden="true">{renderLabels()}{renderFlowLabels()}</g>}
       </svg>
       {beamActive && <BeamFlowLayer flows={beamFlows} transform={transform} settings={settings} level={adaptiveLevel} nodeColor={tokens.palette.accent} scheme={tokens.scheme} onDiagnostics={handleDiagnostics} onFrameSample={handleFrameSample} />}
-      {beamActive && <svg className="atlas-label-overlay" viewBox={`0 0 ${mapWidth} ${mapHeight}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g className="atlas-country-labels">{renderLabels()}</g></svg>}
+      {beamActive && <svg className="atlas-label-overlay" viewBox={`0 0 ${mapWidth} ${mapHeight}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g className="atlas-country-labels">{renderLabels()}{renderFlowLabels()}</g></svg>}
+      {filters.country && <MapFocusFilters state={focusFilters} onChange={setFocusFilters} kept={displayLines.length} total={visibleLines.length} countryName={focusedCountryName} />}
       <div className="atlas-map-caption"><span>{beamActive ? "粒子沿货物流向移动 · 双指缩放与移动" : "双指缩放与移动 · 放大后鼠标拖动"}</span></div>
       {activeCountry && hoveredCountryId && pointer && (
         <div className="atlas-hover-tip" style={{ left: pointer.x + 14, top: pointer.y + 16 }} role="status">

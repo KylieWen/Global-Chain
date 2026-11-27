@@ -1236,3 +1236,119 @@
 .atlas-canvas:has(.atlas-country-context) .atlas-below-map {
   bottom: 5.4rem;
 }
+
+/* Focus filter panel: appears only after a country is picked, bottom-left of
+   the canvas, above the country context bar. */
+.atlas-workspace .atlas-focus-filters {
+  position: absolute;
+  left: 1.1rem;
+  bottom: 8.5rem;
+  z-index: 6;
+  width: min(24rem, calc(100% - 2.2rem));
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--line-strong, #2c4a55);
+  border-radius: 0.9rem;
+  background: rgba(11, 30, 40, 0.86);
+  backdrop-filter: blur(10px);
+  color: #e8f4f1;
+  font-size: 0.78rem;
+}
+
+.atlas-workspace .atlas-focus-filters[data-active="true"] {
+  border-color: #7fd7c2;
+  box-shadow: 0 0 0 1px rgba(127, 215, 194, 0.25), 0 10px 24px rgba(4, 18, 28, 0.35);
+}
+
+.atlas-focus-filters-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.atlas-focus-filters-toggle {
+  flex: 1 1 auto;
+  min-height: 2.1rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid #33555f;
+  border-radius: 0.6rem;
+  background: #12303c;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.atlas-focus-filters-count {
+  flex: none;
+  color: #9fd8cb;
+  font-variant-numeric: tabular-nums;
+}
+
+.atlas-focus-filters-reset {
+  flex: none;
+  min-height: 2.1rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid #7fd7c2;
+  border-radius: 0.6rem;
+  background: transparent;
+  color: #bff0e2;
+  font: inherit;
+  cursor: pointer;
+}
+
+.atlas-focus-filters-body {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.55rem;
+}
+
+.atlas-focus-filters-body fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.atlas-focus-filters-body legend {
+  flex: 0 0 4.6rem;
+  color: #8fb4b8;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+
+.atlas-focus-filters-body button {
+  padding: 0.22rem 0.5rem;
+  border: 1px solid #2f4c56;
+  border-radius: 999px;
+  background: transparent;
+  color: #d7ece7;
+  font: inherit;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.atlas-focus-filters-body button[aria-pressed="true"] {
+  border-color: #7fd7c2;
+  background: rgba(127, 215, 194, 0.16);
+  color: #eafff9;
+}
+
+.atlas-focus-filters-note {
+  margin: 0;
+  color: #7fa3a8;
+  font-size: 0.66rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 759px) {
+  .atlas-workspace .atlas-focus-filters {
+    left: 0.7rem;
+    right: 0.7rem;
+    bottom: 9.5rem;
+    width: auto;
+    font-size: 0.74rem;
+  }
+}

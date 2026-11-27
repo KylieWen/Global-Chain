@@ -617,3 +617,9 @@ Qoder 本次同站更新使用会话 074d72f8-fcb7-43ff-83c4-b8ad295d8688、动�
 - **窄屏工具条**：≤759px 地图浮动控件改单行横向滚动，高度 163px → 64px，不再压子导航。
 - **验证**：四包 typecheck 0 错、lint 0 warning、68 文件 383 用例全绿；六商品 1440 渲染 42–66 条线、控制台 0 错误、390 横溢 0。证据 `output/qa/focus-2026-11-27/`。
 - **注意**：`next dev` 与 `next build` 仍共用 `apps/web/.next`，本轮 dev 再次损坏（icon.svg 500），修复=停 dev → 删 `.next` → 重启 dev。
+
+### 2026-11-27 追加 · 选中国家筛选菜单与粒子强度
+
+- 新增 `apps/web/lib/trade-focus-filters.ts` + `apps/web/components/map-focus-filters.tsx`：流向（流入/流出）、伙伴地区（10 组）、贸易关系（顺差/逆差）、伙伴规模（≥1/10/100 亿美元）四组可组合筛选，面板显示保留条数并可一键清除；换国家自动重置。
+- 粒子：`flow-encoding.ts` 权重 √→^1.6；WebGL/Canvas2D 尾迹按 factor 放大；单商品下按进出口分色（流出冷绿 / 流入暖金）；聚焦国家时标注前 5 大流向金额。
+- 规格：`docs/visual-specs/2026-11-27-focus-filters-and-particles.md`。生产构建 + 33 项渲染回归 0 失败。

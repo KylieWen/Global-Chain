@@ -246,7 +246,7 @@ export function BeamCanvas2DLayer({
         // Head radius in CSS px (diameter 1.2–1.8px), converted to map units.
         const radiusCss = 0.6 + flow.factor * 0.3;
         const radius = (radiusCss * dprRef.current) / scaleX;
-        const trailAlpha = ((light ? 0.26 : 0.32) + current.trail * (light ? 0.45 : 0.5)) * trailScale;
+        const trailAlpha = ((light ? 0.26 : 0.32) + current.trail * (light ? 0.45 : 0.5)) * trailScale * (0.55 + flow.factor * 0.8);
 
         for (const particle of particles) {
           particle.t += baseSpeed * particle.speed * (dt / 1000);

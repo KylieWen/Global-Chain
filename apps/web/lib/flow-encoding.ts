@@ -72,7 +72,9 @@ export function allocateParticles(
   // particles, only the strongest flows receive particles; the rest stay
   // visible through the faint guide arc / classic line instead of breaking the cap.
   const budget = Math.max(0, Math.min(maxParticles, Math.round(maxParticles * cappedDensity)));
-  const weights = entries.map(entry => Math.sqrt(Math.max(0.05, entry.factor)));
+  // Steeper than sqrt: a 10x heavier flow should visibly carry far more traffic
+  // than a thin one, otherwise every lane reads as the same brightness.
+  const weights = entries.map(entry => Math.pow(Math.max(0.05, entry.factor), 1.6));
   const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
   const floor = entries.length <= budget
     ? Math.min(floorPerFlow, Math.max(1, Math.floor(budget / entries.length)))
