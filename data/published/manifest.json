@@ -3,44 +3,44 @@
   "fixtures": [
     {
       "productId": "generic-smartphone",
-      "path": "releases/generic-smartphone/globe-chain-smartphone-2026.8/fixture.json",
-      "datasetVersion": "globe-chain-smartphone-2026.8",
-      "fixtureSha256": "431dd5b30092c41701c1edc65403530189733089d5e257e4b64bd3a8808ee306"
+      "path": "releases/generic-smartphone/globe-chain-smartphone-2026.9/fixture.json",
+      "datasetVersion": "globe-chain-smartphone-2026.9",
+      "fixtureSha256": "d3971c17010d266129b50df16f0691257580a64a5b841e7845152c0d9d7ac131"
     },
     {
       "productId": "generic-cotton-tshirt",
-      "path": "releases/generic-cotton-tshirt/globe-chain-cotton-tshirt-2026.4/fixture.json",
-      "datasetVersion": "globe-chain-cotton-tshirt-2026.4",
-      "fixtureSha256": "de3c44489517e883727e0302e6a9bc92a8e3494b64382e66b3a76ba285fa3168"
+      "path": "releases/generic-cotton-tshirt/globe-chain-cotton-tshirt-2026.5/fixture.json",
+      "datasetVersion": "globe-chain-cotton-tshirt-2026.5",
+      "fixtureSha256": "f2529a94f5e5b8d6721bc7c2d68dce693ef3bb2a1eb6951e04df8deae8f5a742"
     },
     {
       "productId": "generic-soybean-oil",
-      "path": "releases/generic-soybean-oil/globe-chain-soybean-oil-2026.4/fixture.json",
-      "datasetVersion": "globe-chain-soybean-oil-2026.4",
-      "fixtureSha256": "7191d7d6851d0960a08d65517829a0dd81a0a1040d5d7f2ec65f0690a1217450"
+      "path": "releases/generic-soybean-oil/globe-chain-soybean-oil-2026.5/fixture.json",
+      "datasetVersion": "globe-chain-soybean-oil-2026.5",
+      "fixtureSha256": "37adcffb0e254e1270343550accc036ae3be94c3bba1fcfb03efecd78236e392"
     },
     {
       "productId": "generic-electric-bicycle",
-      "path": "releases/generic-electric-bicycle/globe-chain-electric-bicycle-2026.4/fixture.json",
-      "datasetVersion": "globe-chain-electric-bicycle-2026.4",
-      "fixtureSha256": "ef4e428fa1eec234449c2bf318aaeaf66d84b971f719bd154007bb38b14315e2"
+      "path": "releases/generic-electric-bicycle/globe-chain-electric-bicycle-2026.5/fixture.json",
+      "datasetVersion": "globe-chain-electric-bicycle-2026.5",
+      "fixtureSha256": "e2f4a39b163844c42d377ed28bee591f5c13812d846301d690e68adb9bb787ef"
     },
     {
       "productId": "generic-home-air-conditioner",
-      "path": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.7/fixture.json",
-      "datasetVersion": "globe-chain-home-air-conditioner-2026.7",
-      "fixtureSha256": "fd2c75107c8d8e76eee99ae8ade970bda19b0a428875f5e115ce142975ec0725"
+      "path": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.8/fixture.json",
+      "datasetVersion": "globe-chain-home-air-conditioner-2026.8",
+      "fixtureSha256": "334397be75cd0b3d6ed734d44c823dc33a7decb3af058ca26f5e3fc89f89e3ab"
     },
     {
       "productId": "generic-camera-drone",
-      "path": "releases/generic-camera-drone/globe-chain-camera-drone-2026.2/fixture.json",
-      "datasetVersion": "globe-chain-camera-drone-2026.2",
-      "fixtureSha256": "49dee2eec6b34f7e0c59c15e509d9a6932c42bfa3c68881163a7ff45ca42f44e"
+      "path": "releases/generic-camera-drone/globe-chain-camera-drone-2026.3/fixture.json",
+      "datasetVersion": "globe-chain-camera-drone-2026.3",
+      "fixtureSha256": "cb93d977905047bba39e2bc91f4855ca7467f21de554a91ddfb4fc69a839927e"
     }
   ],
-  "datasetVersion": "globe-chain-camera-drone-2026.2",
+  "datasetVersion": "globe-chain-camera-drone-2026.3",
   "generatedAt": "2026-11-27",
-  "fixtureSha256": "49dee2eec6b34f7e0c59c15e509d9a6932c42bfa3c68881163a7ff45ca42f44e",
+  "fixtureSha256": "cb93d977905047bba39e2bc91f4855ca7467f21de554a91ddfb4fc69a839927e",
   "routeContentVersion": "smartphone-route-2026.1",
   "routeContentSha256": "f44dc5485d9a03c4be0ea8927ff59ae372485e303ce509795db9033a27ffb5df",
   "contentSources": [
@@ -100,24 +100,24 @@
     "raw/refresh-2026-09-16/wdi-FI.RES.TOTL.CD.json"
   ],
   "notes": [
-    "按 UN Comtrade 2023 年中国口径补齐与 22 个伙伴的双边贸易观察（28 条）。"
+    "把中国口径双边观察扩到 2022–2025 年、41 个伙伴，新增 163 条。"
   ],
   "release": {
     "productId": "generic-camera-drone",
-    "datasetVersion": "globe-chain-camera-drone-2026.2",
-    "releasePath": "releases/generic-camera-drone/globe-chain-camera-drone-2026.2",
+    "datasetVersion": "globe-chain-camera-drone-2026.3",
+    "releasePath": "releases/generic-camera-drone/globe-chain-camera-drone-2026.3",
     "immutable": true
   },
   "refreshContentSource": "content/refresh-2026-09-16.json",
   "refreshContentPathBase": "repository-root",
   "refreshContentSha256": "4be2f302a28da81ff549e739b00617ec484a064e768cfd7915796fa71ee40520",
-  "activeDatasetVersion": "globe-chain-camera-drone-2026.2",
+  "activeDatasetVersion": "globe-chain-camera-drone-2026.3",
   "activeManifest": true,
   "evidenceReview": {
-    "batchId": "bilateral-expansion-2026-11-27",
-    "baseDatasetVersion": "globe-chain-camera-drone-2026.1",
+    "batchId": "bilateral-years-2026-11-27",
+    "baseDatasetVersion": "globe-chain-camera-drone-2026.2",
     "auditPath": "review-audit.json",
     "auditPathBase": "release-directory",
-    "auditSha256": "67926eb0e4e0660197acc7f85bc3b5cf252452b5e1727616a7c486de3ba98d79"
+    "auditSha256": "8a198ba3fa2ea32884f4ba80ca05b293a7e4376074f47579df72cb489b8bb38b"
   }
 }

@@ -594,3 +594,15 @@ Qoder 本次同站更新使用会话 074d72f8-fcb7-43ff-83c4-b8ad295d8688、动�
 ## 已知限制
 
 额度接口是轮询快照，可能滞后；五小时12%与周3%均为收束阈值，不是平台强制熔断。自动接续取决于本机开机、应用运行、项目仍可访问以及账户额度。五小时接续不表示额度一定已重置，周额度需独立判断。
+
+## 2026-11-27 · 国家聚焦、悬停信息与双边数据（批次 3–5）
+
+- **规格**：`docs/visual-specs/2026-11-27-focus-and-data-batch3.md`、`2026-11-27-bilateral-density-batch4.md`。
+- **聚焦**：`world-country-map.tsx` 用国界包围盒把镜头推近（1.35–3.2×，520ms 缓动），非选中陆块 0.22、无关流向 0.18 + 0.7px 模糊；海洋底色外扩三倍消除缩放露边。
+- **悬停**：国界悬停出跟随光标的卡片（国名、收录状态、前两条流向、点击聚焦提示），证据 `output/qa/focus-2026-11-27/hover-cn-ok.png`。
+- **数据**：`fetch-bilateral-expansion.mjs`（24 伙伴 / 2023）与 `fetch-bilateral-years.mjs`（44 伙伴 / 2022–2025）抓 UN Comtrade 中国口径；`build-bilateral-expansion.mjs`、`build-bilateral-years.mjs` 转成观察并发布。只提升中国申报行，镜像申报不入图。六商品当前版本：smartphone 2026.9、cotton-tshirt 2026.5、soybean-oil 2026.5、electric-bicycle 2026.5、home-air-conditioner 2026.8、camera-drone 2026.3；每年 42–82 条双边观察。
+- **默认年份**：`map-view-model.ts` 改选记录最多的年份，避免开屏落在只有世界总计的年份。
+- **动效**：`interaction.css` 追加按钮/记录行/步骤卡 hover 抬升、按压回落、国界 hover 描边发光、航线 hover 提亮，均遵守 reduced-motion。
+- **窄屏工具条**：≤759px 地图浮动控件改单行横向滚动，高度 163px → 64px，不再压子导航。
+- **验证**：四包 typecheck 0 错、lint 0 warning、68 文件 383 用例全绿；六商品 1440 渲染 42–66 条线、控制台 0 错误、390 横溢 0。证据 `output/qa/focus-2026-11-27/`。
+- **注意**：`next dev` 与 `next build` 仍共用 `apps/web/.next`，本轮 dev 再次损坏（icon.svg 500），修复=停 dev → 删 `.next` → 重启 dev。

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-camera-drone",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-camera-drone-2026.3",
+  "generatedAt": "2026-11-27",
+  "fixtureSha256": "cb93d977905047bba39e2bc91f4855ca7467f21de554a91ddfb4fc69a839927e",
+  "release": {
+    "productId": "generic-camera-drone",
+    "datasetVersion": "globe-chain-camera-drone-2026.3",
+    "releasePath": "releases/generic-camera-drone/globe-chain-camera-drone-2026.3",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "bilateral-years-2026-11-27",
+    "baseDatasetVersion": "globe-chain-camera-drone-2026.2",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "8a198ba3fa2ea32884f4ba80ca05b293a7e4376074f47579df72cb489b8bb38b"
+  },
+  "notes": [
+    "把中国口径双边观察扩到 2022–2025 年、41 个伙伴，新增 163 条。"
+  ]
+}

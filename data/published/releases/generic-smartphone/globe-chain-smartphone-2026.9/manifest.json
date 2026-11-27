@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-smartphone",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-smartphone-2026.9",
+  "generatedAt": "2026-11-27",
+  "fixtureSha256": "d3971c17010d266129b50df16f0691257580a64a5b841e7845152c0d9d7ac131",
+  "release": {
+    "productId": "generic-smartphone",
+    "datasetVersion": "globe-chain-smartphone-2026.9",
+    "releasePath": "releases/generic-smartphone/globe-chain-smartphone-2026.9",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "bilateral-years-2026-11-27",
+    "baseDatasetVersion": "globe-chain-smartphone-2026.8",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "19344307be94cf294ec8ef82d51a8f0a19f6d7bdd74fa5b767eb3e2c5d83a18e"
+  },
+  "notes": [
+    "把中国口径双边观察扩到 2022–2025 年、41 个伙伴，新增 215 条。"
+  ]
+}

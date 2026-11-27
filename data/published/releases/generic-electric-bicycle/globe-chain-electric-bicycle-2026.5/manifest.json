@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-electric-bicycle",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-electric-bicycle-2026.5",
+  "generatedAt": "2026-11-27",
+  "fixtureSha256": "e2f4a39b163844c42d377ed28bee591f5c13812d846301d690e68adb9bb787ef",
+  "release": {
+    "productId": "generic-electric-bicycle",
+    "datasetVersion": "globe-chain-electric-bicycle-2026.5",
+    "releasePath": "releases/generic-electric-bicycle/globe-chain-electric-bicycle-2026.5",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "bilateral-years-2026-11-27",
+    "baseDatasetVersion": "globe-chain-electric-bicycle-2026.4",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "0d6c9c864ef1f32cadc94644f5c49015e019eaead55c5ef4348723bf6dd83a7d"
+  },
+  "notes": [
+    "把中国口径双边观察扩到 2022–2025 年、41 个伙伴，新增 186 条。"
+  ]
+}

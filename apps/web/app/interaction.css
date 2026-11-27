@@ -28,3 +28,78 @@
 .map-pending { position:absolute; z-index:8; top:.5rem; right:.5rem; padding:.45rem .8rem; border:1px solid #b7d4d2; border-radius:.5rem; background:#f0faf8; color:#006d72; box-shadow:0 3px 12px #102a4320; }
 .page-loading { display:flex; align-items:center; gap:.7rem; padding:2rem 0; color:#36516e; }
 .loading-dot { width:.65rem; height:.65rem; border-radius:50%; background:#007d83; }
+
+/* -------------------------------------------------------------------------- */
+/* 2026-11-27 interaction polish: lift on hover, settle on press, glow on the  */
+/* selected map country. Kept short and motion-preference aware.               */
+/* -------------------------------------------------------------------------- */
+:root { --globe-ease: cubic-bezier(.22,.61,.36,1); }
+
+.button,
+button:not(:disabled),
+.atlas-filters-toggle,
+.atlas-record,
+.step-card {
+  transition: transform 160ms var(--globe-ease), box-shadow 160ms var(--globe-ease),
+    border-color 160ms var(--globe-ease), background-color 160ms var(--globe-ease);
+}
+
+.button:hover,
+button:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(6, 26, 38, .20);
+}
+
+.button:active,
+button:not(:disabled):active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(6, 26, 38, .16);
+}
+
+.atlas-record:hover,
+.step-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(8, 30, 44, .14);
+  border-left-color: #7fd7c2;
+}
+
+/* Country hover reads as a lit border rather than a flat fill swap. */
+.atlas-workspace .map-country-shape {
+  transition: fill 180ms ease, stroke 180ms ease, stroke-width 180ms ease, opacity 260ms ease;
+}
+
+.atlas-workspace .map-country-shape:hover,
+.atlas-workspace .map-country-shape.hovered {
+  stroke-width: 1.6;
+  filter: drop-shadow(0 0 5px rgba(150, 235, 210, .35));
+}
+
+.atlas-workspace .map-country-shape.selected {
+  filter: drop-shadow(0 0 8px rgba(150, 235, 210, .45));
+}
+
+/* A lane brightens when the pointer lands on it, so a dense map stays readable. */
+.country-trade-line:hover path.atlas-line-visible,
+.country-trade-line:focus-visible path.atlas-line-visible {
+  opacity: 1;
+  filter: drop-shadow(0 0 4px rgba(140, 230, 205, .5));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  button,
+  .atlas-record,
+  .step-card,
+  .map-country-shape,
+  .country-trade-line {
+    transition: none;
+  }
+  .button:hover,
+  button:not(:disabled):hover,
+  .atlas-record:hover,
+  .step-card:hover,
+  button:not(:disabled):active,
+  .button:active {
+    transform: none;
+  }
+}

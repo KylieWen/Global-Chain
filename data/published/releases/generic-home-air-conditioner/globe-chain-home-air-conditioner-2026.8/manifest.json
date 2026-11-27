@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-home-air-conditioner",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-home-air-conditioner-2026.8",
+  "generatedAt": "2026-11-27",
+  "fixtureSha256": "334397be75cd0b3d6ed734d44c823dc33a7decb3af058ca26f5e3fc89f89e3ab",
+  "release": {
+    "productId": "generic-home-air-conditioner",
+    "datasetVersion": "globe-chain-home-air-conditioner-2026.8",
+    "releasePath": "releases/generic-home-air-conditioner/globe-chain-home-air-conditioner-2026.8",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "bilateral-years-2026-11-27",
+    "baseDatasetVersion": "globe-chain-home-air-conditioner-2026.7",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "1781f9f76f7ee929135da0b5565ac3e73e70f786203fa880f08c646e6a352ef9"
+  },
+  "notes": [
+    "把中国口径双边观察扩到 2022–2025 年、41 个伙伴，新增 219 条。"
+  ]
+}

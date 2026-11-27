@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-soybean-oil",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-soybean-oil-2026.5",
+  "generatedAt": "2026-11-27",
+  "fixtureSha256": "37adcffb0e254e1270343550accc036ae3be94c3bba1fcfb03efecd78236e392",
+  "release": {
+    "productId": "generic-soybean-oil",
+    "datasetVersion": "globe-chain-soybean-oil-2026.5",
+    "releasePath": "releases/generic-soybean-oil/globe-chain-soybean-oil-2026.5",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "bilateral-years-2026-11-27",
+    "baseDatasetVersion": "globe-chain-soybean-oil-2026.4",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "bee6c69fa5375e417336c79c559396c513e9fd75ab77e429ef820c432a7a29eb"
+  },
+  "notes": [
+    "把中国口径双边观察扩到 2022–2025 年、26 个伙伴，新增 75 条。"
+  ]
+}

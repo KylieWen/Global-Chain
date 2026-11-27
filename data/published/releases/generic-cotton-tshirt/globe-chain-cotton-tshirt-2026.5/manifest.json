@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "fixture-manifest.v1",
+  "fixtures": [
+    {
+      "productId": "generic-cotton-tshirt",
+      "path": "fixture.json"
+    }
+  ],
+  "datasetVersion": "globe-chain-cotton-tshirt-2026.5",
+  "generatedAt": "2026-11-27",
+  "fixtureSha256": "f2529a94f5e5b8d6721bc7c2d68dce693ef3bb2a1eb6951e04df8deae8f5a742",
+  "release": {
+    "productId": "generic-cotton-tshirt",
+    "datasetVersion": "globe-chain-cotton-tshirt-2026.5",
+    "releasePath": "releases/generic-cotton-tshirt/globe-chain-cotton-tshirt-2026.5",
+    "immutable": true
+  },
+  "evidenceReview": {
+    "batchId": "bilateral-years-2026-11-27",
+    "baseDatasetVersion": "globe-chain-cotton-tshirt-2026.4",
+    "auditPath": "review-audit.json",
+    "auditPathBase": "release-directory",
+    "auditSha256": "884c3b2c8a4cd09742c4aeb7e0a86cf613f39b79162ff549c686b2c23c53fa1d"
+  },
+  "notes": [
+    "把中国口径双边观察扩到 2022–2025 年、41 个伙伴，新增 275 条。"
+  ]
+}
