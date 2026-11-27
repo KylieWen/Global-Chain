@@ -1352,3 +1352,17 @@
     font-size: 0.74rem;
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/* Straight pulse lane (variant M)                                             */
+/* -------------------------------------------------------------------------- */
+
+.beams-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+}

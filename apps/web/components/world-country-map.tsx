@@ -26,7 +26,8 @@ import {
   type AdaptiveHint,
   type AdaptiveLevel
 } from "../lib/flow-encoding";
-import { BeamFlowLayer, type BeamFlow } from "./beam-flow-layer";
+import { type BeamFlow } from "./beam-flow-layer";
+import { StraightFlowLayer } from "./straight-flow-layer";
 import { MapFocusFilters } from "./map-focus-filters";
 import { defaultFocusFilters, filterFocusLines, type FocusFilterState } from "../lib/trade-focus-filters";
 import { FlowSettingsDrawer } from "./flow-settings-drawer";
@@ -98,9 +99,10 @@ function focusTransformForLines(
 }
 
 /**
- * Shared arc control point for the SVG guide line and the WebGL/Canvas beam.
- * Same-pair flows fan out with a stable perpendicular offset plus a lane-scaled
- * curvature, so multiple items between the two countries stay separable.
+ * Shared control point for the SVG guide line and the WebGL/Canvas beam.
+ * Straight form: the control point sits on the chord itself, so the rendered
+ * path is a straight line between the two country centres. Same-pair flows
+ * still fan out by a few pixels per lane so parallel items stay separable.
  */
 function arcControl(
   from: readonly [number, number],
@@ -110,15 +112,10 @@ function arcControl(
   const dx = to[0] - from[0];
   const dy = to[1] - from[1];
   const length = Math.hypot(dx, dy) || 1;
-  // Same origin/destination lanes fan to alternating sides of the chord; the
-  // perpendicular step grows with the lane so adjacent arcs keep a stable
-  // ≥14px screen separation instead of overlapping (e.g. Brazil→China).
   const side = lane % 2 === 0 ? 1 : -1;
-  const bend = side * (24 + lane * 11);
-  const fanOffset = side * lane * 5;
+  const displacement = lane === 0 ? 0 : side * (6 + Math.floor(lane / 2) * 5);
   const nx = -dy / length;
   const ny = dx / length;
-  const displacement = bend + fanOffset;
   return [(from[0] + to[0]) / 2 + nx * displacement, (from[1] + to[1]) / 2 + ny * displacement];
 }
 
@@ -321,7 +318,10 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
         measure: quantityMode ? "quantity" : "amount"
       });
       const factor = massFactor(band);
-      const width = beamWidthFor(factor, mapTokens.line.minWidth, mapTokens.line.maxWidth, settings.beamWidth);
+      // Zoom multiplies map-unit widths; damp them so the focused view does not
+      // blow out into a white starburst at the origin.
+      const zoomDamp = 1 / Math.max(1, Math.pow(transform.scale, 0.55));
+      const width = beamWidthFor(factor, mapTokens.line.minWidth, mapTokens.line.maxWidth, settings.beamWidth) * zoomDamp;
       const state = activeRecord?.id === line.id ? "active" : activeRecord ? "muted" : "normal";
       // Direction is a first-class read: inbound lanes warm, outbound lanes cool,
       // so a dense hub still shows which way the goods move.
@@ -329,7 +329,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
       result.push({ id: line.id, from, to, control, color: compareTrade ? colors.get(line.itemId ?? "") ?? mapTokens.palette.itemColors[0] : directionColor, factor, band, width, state });
     });
     return result;
-  }, [beamActive, displayLines, centers, quantityMode, mapTokens.line.minWidth, mapTokens.line.maxWidth, mapTokens.palette.itemColors, settings.beamWidth, activeRecord, colors, compareTrade]);
+  }, [beamActive, displayLines, centers, quantityMode, mapTokens.line.minWidth, mapTokens.line.maxWidth, mapTokens.palette.itemColors, settings.beamWidth, activeRecord, colors, compareTrade, transform.scale]);
 
   const diagnosticsRef = useRef<{ particleCount: number; level: number; cap: number }>({ particleCount: 0, level: adaptiveLevel, cap: settings.maxParticles });
   const handleDiagnostics = useCallback((info: { particleCount: number; level: number; cap: number }) => {
@@ -403,8 +403,9 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
         const from = centers.get(line.fromM49); const to = centers.get(line.toM49);
         if (!from || !to) return [];
         const control = arcControl(from, to, 0);
-        // Stagger the sample point so stacked lanes do not print on top of each other.
-        const t = 0.42 + index * 0.11;
+        // Straight lanes converge at the origin, so labels belong near the
+        // destination end where the partners are already spread apart.
+        const t = Math.min(0.92, 0.84 + index * 0.015);
         const x = (1 - t) * (1 - t) * from[0] + 2 * (1 - t) * t * control[0] + t * t * to[0];
         const y = (1 - t) * (1 - t) * from[1] + 2 * (1 - t) * t * control[1] + t * t * to[1];
         const partnerId = line.fromCountryId === filters.country ? line.toCountryId : line.fromCountryId;
@@ -500,7 +501,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
         </g>
         {!beamActive && <g className="atlas-country-labels" aria-hidden="true">{renderLabels()}{renderFlowLabels()}</g>}
       </svg>
-      {beamActive && <BeamFlowLayer flows={beamFlows} transform={transform} settings={settings} level={adaptiveLevel} nodeColor={tokens.palette.accent} scheme={tokens.scheme} onDiagnostics={handleDiagnostics} onFrameSample={handleFrameSample} />}
+      {beamActive && <StraightFlowLayer flows={beamFlows} transform={transform} mapWidth={mapWidth} renderedWidth={renderedWidth} reducedMotion={reducedMotion} onDiagnostics={handleDiagnostics} onFrameSample={handleFrameSample} />}
       {beamActive && <svg className="atlas-label-overlay" viewBox={`0 0 ${mapWidth} ${mapHeight}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g className="atlas-country-labels">{renderLabels()}{renderFlowLabels()}</g></svg>}
       {filters.country && <MapFocusFilters state={focusFilters} onChange={setFocusFilters} kept={displayLines.length} total={visibleLines.length} countryName={focusedCountryName} />}
       <div className="atlas-map-caption"><span>{beamActive ? "粒子沿货物流向移动 · 双指缩放与移动" : "双指缩放与移动 · 放大后鼠标拖动"}</span></div>

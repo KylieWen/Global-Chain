@@ -27,7 +27,7 @@ const balanceOptions: { id: TradeBalance; label: string }[] = [
 ];
 
 export function MapFocusFilters({ state, onChange, kept, total, countryName }: Props) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const active = focusFilterCount(state);
   const toggleRegion = (id: string) => {
     const next = state.regions.includes(id)

@@ -55,6 +55,16 @@ export function beamWidthFor(factor: number, minWidth: number, maxWidth: number,
 export type ParticleEntry = { id: string; factor: number };
 
 /**
+ * Head speed as a one-way function of the mass factor: a 1 亿 flow drifts at
+ * half speed, a 1 000 亿 flow sprints. Speed carries magnitude on top of
+ * density, so a heavy lane reads as both busier and faster.
+ */
+export function particleSpeed(factor: number): number {
+  const clamped = Math.min(1, Math.max(0, factor));
+  return 0.5 + clamped * 1.35;
+}
+
+/**
  * Distribute the particle budget across flows. Square-root weighting keeps large
  * flows from drowning small ones; every visible flow keeps at least one particle.
  * The total never exceeds the configured cap.

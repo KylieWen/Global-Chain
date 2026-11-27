@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef } from "react";
 import type { MapTransform } from "../lib/map-geometry";
-import { allocateParticles, LEVEL_GLOW_SCALE, LEVEL_PARTICLE_SCALE, LEVEL_TRAIL_SCALE, type AdaptiveLevel } from "../lib/flow-encoding";
+import { allocateParticles, particleSpeed, LEVEL_GLOW_SCALE, LEVEL_PARTICLE_SCALE, LEVEL_TRAIL_SCALE, type AdaptiveLevel } from "../lib/flow-encoding";
 import { BUNDLE_BAND_FULL_CSS_PX, type FlowSettings } from "../lib/flow-config";
 import type { BeamDiagnostics, BeamFlow } from "./beam-types";
 
@@ -112,8 +112,10 @@ export function BeamCanvas2DLayer({
       const particles: Particle[] = Array.from({ length: count }, (_, index) => {
         const filament = filaments[index % filaments.length] ?? 0;
         return {
-          t: (index / Math.max(1, count)) + Math.random() * 0.2,
-          speed: 0.75 + Math.random() * 0.5,
+          // Pulse grouping (variant M): three heads per train, evenly spaced clusters.
+          t: Math.floor(index / 3) / Math.max(1, Math.ceil(count / 3)) + Math.random() * 0.04 + (index % 3) * 0.018,
+          // Same mass-to-speed function as the WebGL path.
+          speed: particleSpeed(flow.factor) * (0.94 + Math.random() * 0.12),
           laneFraction: filament + (Math.random() - 0.5) * 0.08,
           prevX: 0,
           prevY: 0,

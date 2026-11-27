@@ -623,3 +623,11 @@ Qoder 本次同站更新使用会话 074d72f8-fcb7-43ff-83c4-b8ad295d8688、动�
 - 新增 `apps/web/lib/trade-focus-filters.ts` + `apps/web/components/map-focus-filters.tsx`：流向（流入/流出）、伙伴地区（10 组）、贸易关系（顺差/逆差）、伙伴规模（≥1/10/100 亿美元）四组可组合筛选，面板显示保留条数并可一键清除；换国家自动重置。
 - 粒子：`flow-encoding.ts` 权重 √→^1.6；WebGL/Canvas2D 尾迹按 factor 放大；单商品下按进出口分色（流出冷绿 / 流入暖金）；聚焦国家时标注前 5 大流向金额。
 - 规格：`docs/visual-specs/2026-11-27-focus-filters-and-particles.md`。生产构建 + 33 项渲染回归 0 失败。
+
+## 2026-11-27 批次 7：直线脉冲流（用户选 M）
+
+- 用户在多版粒子实验室中选定 M（脉冲串），并要求数量、速度与金额建立函数关系。
+- 新增 `apps/web/components/straight-flow-layer.tsx`（Canvas2D 直线脉冲），地图粒子模式改挂它；`arcControl` 改为直线控制点。
+- `flow-encoding.ts` 新增 `particleSpeed(factor) = 0.5 + 1.35 * factor`，WebGL/Canvas2D 旧路径同步。
+- 端点渐隐 + 缩放束宽衰减 + 度数阻尼，解决聚焦态白斑。
+- 规格见 `docs/visual-specs/2026-11-27-straight-pulse-map.md`；粒子实验室在 `/lab/particles`（14 版，`docs/visual-specs/2026-11-27-particle-line-lab.md`）。

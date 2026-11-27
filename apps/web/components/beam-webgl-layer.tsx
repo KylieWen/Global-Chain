@@ -5,6 +5,7 @@ import * as THREE from "three";
 import type { MapTransform } from "../lib/map-geometry";
 import {
   allocateParticles,
+  particleSpeed,
   LEVEL_GLOW_SCALE,
   LEVEL_PARTICLE_SCALE,
   LEVEL_TRAIL_SCALE,
@@ -84,13 +85,28 @@ type PreparedFlow = {
   /** Bundle silhouette full width in CSS px, driven by the amount-band profile. */
   bundleCssFull: number;
   factor: number;
+  /** Degree damping for a busy hub, 1 for a lone lane. */
+  damp: number;
   alpha: number;
 };
 
 type PreparedEndpoint = { x: number; y: number; degree: number; strength: number };
 
 function prepareFlows(flows: readonly BeamFlow[], beamWidth: number): PreparedFlow[] {
+  // A focused hub can carry 60+ lanes into one point; additive blending then
+  // turns the origin into a white blob. Damp every flow by the square root of
+  // the highest degree it touches, so brightness stays readable per lane.
+  const degree = new Map<string, number>();
+  const keyOf = (point: readonly [number, number]) => `${Math.round(point[0])},${Math.round(point[1])}`;
+  flows.forEach(flow => {
+    for (const point of [flow.from, flow.to]) {
+      const key = keyOf(point);
+      degree.set(key, (degree.get(key) ?? 0) + 1);
+    }
+  });
   return flows.map(flow => {
+    const heaviest = Math.max(degree.get(keyOf(flow.from)) ?? 1, degree.get(keyOf(flow.to)) ?? 1);
+    const damp = 1 / Math.max(1, Math.sqrt(heaviest / 6));
     const bandIndex = flow.band ?? 0;
     const bundleCssFull = BUNDLE_BAND_FULL_CSS_PX[Math.max(0, Math.min(BUNDLE_BAND_FULL_CSS_PX.length - 1, bandIndex))];
     return {
@@ -102,7 +118,8 @@ function prepareFlows(flows: readonly BeamFlow[], beamWidth: number): PreparedFl
       bandWidth: flow.width * beamWidth,
       bundleCssFull,
       factor: flow.factor,
-      alpha: flow.state === "active" ? 1 : flow.state === "muted" ? 0.18 : 0.9
+      alpha: (flow.state === "active" ? 1 : flow.state === "muted" ? 0.18 : 0.9) * damp,
+      damp
     };
   });
 }
@@ -504,10 +521,17 @@ export function BeamWebGLLayer(props: WebGLProps) {
         p2.push(pf.p2.x, pf.p2.y, pf.p2.z);
         pColor.push(...pf.color);
         const laneFraction = (i / Math.max(1, count) - 0.5) + (Math.random() - 0.5) * 0.08;
-        const speed = 0.75 + Math.random() * 0.5;
-        const phase = i / Math.max(1, count) + Math.random() * 0.2;
+        // Speed is a function of the flow's mass factor, not a random draw:
+        // heavy lanes visibly outrun thin ones.
+        const speed = particleSpeed(pf.flow.factor) * (0.94 + Math.random() * 0.12);
+        // Pulse grouping (variant M): heads travel in short trains of three,
+        // so a lane reads as a repeating pulse rather than an even sprinkle.
+        const clusterSize = 3;
+        const clusterIndex = Math.floor(i / clusterSize);
+        const clusters = Math.max(1, Math.ceil(count / clusterSize));
+        const phase = clusterIndex / clusters + Math.random() * 0.04 + (i % clusterSize) * 0.018;
         // Half-width in CSS px: head diameter lands in the 1.2–1.8px spec band.
-        const headHalfCss = 0.6 + pf.flow.factor * 0.3;
+        const headHalfCss = (0.6 + pf.flow.factor * 0.3) * Math.max(0.55, pf.damp);
         pData.push(laneFraction, speed, phase, headHalfCss);
         pBand.push(pf.bandWidth);
         pTrail.push((2.5 + stateRef.current.settings.trail * 5) * trailScale * (0.5 + pf.flow.factor * 0.9));
