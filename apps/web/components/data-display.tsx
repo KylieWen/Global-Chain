@@ -94,6 +94,18 @@ const evidenceLevelCodeLabels: Record<
   none: "暂无支持"
 };
 
+/** Fixed Chinese labels for evidence-level codes shown outside the gap registry. */
+const evidenceBadgeLabels: Record<string, string> = {
+  role_supported: "产地资料",
+  bilateral_supported: "双边记录",
+  representative: "代表性连接",
+  none: "研究中"
+};
+
+export function evidenceLevelLabel(code: string | null | undefined): string {
+  return code ? (evidenceBadgeLabels[code] ?? code) : "研究中";
+}
+
 const mappingTypeLabels: Record<
   EvidenceScopeView["classificationCodes"][number]["mappingType"],
   string
@@ -177,7 +189,7 @@ export function EvidenceLevelBadge({
       title={level.description}
       aria-label={`证据等级：${level.label}`}
     >
-      {{ role_supported: "产地资料", bilateral_supported: "双边记录", representative: "代表性连接", none: "研究中" }[level.code]}
+      {evidenceLevelLabel(level.code)}
     </span>
   );
 }
@@ -190,7 +202,7 @@ export function EvidenceLevelLegend({
   const uniqueLevels = [...new Map(levels.map((level) => [level.code, level])).values()];
   if (uniqueLevels.length === 0) return null;
   return (
-    <div className="evidence-level-legend" aria-label="供应链证据等级说明">
+    <div className="evidence-level-legend" aria-label="路线证据等级说明">
       {uniqueLevels.map((level) => (
         <div className="evidence-level-legend-item" key={level.code}>
           <EvidenceLevelBadge level={level} />

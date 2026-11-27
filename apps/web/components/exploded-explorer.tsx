@@ -93,11 +93,11 @@ export function ExplodedExplorer({ model, productId, context, initialFocus }: Pr
       <div className="exploded-stage">
         <div className="exploded-stage-heading">
           <div>
-            <p className="eyebrow">程序化拆解</p>
+            <p className="eyebrow">拆解工作台</p>
             <h2 id="exploded-title">商品拆解图</h2>
           </div>
           <span className="exploded-mode-badge">
-            {isProcedural ? "可旋转 3D 爆炸图" : "等距分层图"}
+            {isProcedural ? "可旋转 3D 展开图" : "等距分层图"}
           </span>
         </div>
 
@@ -182,7 +182,7 @@ export function ExplodedExplorer({ model, productId, context, initialFocus }: Pr
               </button>
             )}
             <label className="exploded-slider">
-              <span>爆炸程度</span>
+              <span>展开程度</span>
               <input
                 type="range"
                 min={0}
@@ -234,7 +234,7 @@ export function ExplodedExplorer({ model, productId, context, initialFocus }: Pr
               国家账本 · 待核验 →
             </Link>
           )}
-          {!selected.explorable && <p className="muted exploded-no-route">该部件尚无已发布的路线、工序或贸易记录。</p>}
+          {!selected.explorable && <p className="muted exploded-no-route">该部件还没有已发布的路线或贸易记录。</p>}
         </div>
 
         {descendantMaterials.length > 0 && (

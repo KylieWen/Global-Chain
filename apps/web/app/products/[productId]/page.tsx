@@ -14,7 +14,8 @@ import { ExplodedExplorer } from "../../../components/exploded-explorer";
 import { DroneWorkstation } from "../../../components/drone-workstation";
 import {
   StatusBadge,
-  WarningList
+  WarningList,
+  evidenceLevelLabel
 } from "../../../components/data-display";
 
 export default async function ProductOverviewPage({
@@ -70,9 +71,9 @@ export default async function ProductOverviewPage({
         <PageIntro
           eyebrow={overview.product.category}
           title={itemLabel(overview.product)}
-          description="从部件组成出发，沿供应链探索各国的生产与贸易联系。"
+          description="从部件组成出发，沿代表性路线查看各国的生产与贸易联系。"
           meta={<ContextBanner period={overview.period.label} datasetVersion={overview.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />}
-          actions={<>{industry && <Link className="button button-primary" href={industryPath(productId, undefined, routeContext)}>查找中国产业上下游</Link>}<Link className="button button-primary" href={supplyChainPath(productId, undefined, routeContext)}>查看供应链路线</Link><Link className="button button-secondary" href={mapPath({ ...routeContext, product: productId, layer: "supply-chain" })}>在地图上探索</Link>{hasGuides && <Link className="button button-secondary" href={tradeGuidePath({ product: productId, ...pageContext })}>查进出口要求</Link>}{hasMaterialTrade && <Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link>}</>}
+          actions={<>{industry && <Link className="button button-primary" href={industryPath(productId, undefined, routeContext)}>查找中国产业上下游</Link>}<Link className="button button-primary" href={supplyChainPath(productId, undefined, routeContext)}>查看代表性路线</Link><Link className="button button-secondary" href={mapPath({ ...routeContext, product: productId, layer: "supply-chain" })}>在地图上探索</Link>{hasGuides && <Link className="button button-secondary" href={tradeGuidePath({ product: productId, ...pageContext })}>查进出口要求</Link>}{hasMaterialTrade && <Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link>}</>}
         />
         {!isDronePrototype && <ProductArtwork productId={productId} variant="overview" />}
         </div>
@@ -89,7 +90,7 @@ export default async function ProductOverviewPage({
               <p className="eyebrow">商品组成</p>
               <h2 id="children-title">商品由哪些部分组成？</h2>
             </div>
-            <span className="section-caption">先看组件，再进入对应的供应链路线</span>
+            <span className="section-caption">先看组件，再进入对应的代表性路线</span>
           </div>
           <div className="component-grid">
             {overview.directChildren.map((item) => {
@@ -103,14 +104,14 @@ export default async function ProductOverviewPage({
                 {item.description ? <p>{item.description}</p> : null}
                 <span className="muted">{hasInspectableStory ? `${coverage?.nodeCount} 个生产环节` : processChain ? `${processChain.stepCount} 道制造工序` : ""}</span>
                 <StatusBadge status={item.dataStatus} method={item.method} />
-                <span className="card-footer">{hasInspectableStory ? "探索生产路线" : processChain ? "查看制造工序" : "查看贸易地图"} <span>→</span></span>
+                <span className="card-footer">{hasInspectableStory ? "查看代表性路线" : processChain ? "查看制造工序" : "查看贸易地图"} <span>→</span></span>
               </Link> : <article className="component-card component-card-disabled" key={item.id}>
                 <span className="card-kicker">{item.category}</span>
                 <h3>{item.name}</h3>
                 {item.description ? <p>{item.description}</p> : null}
                 <span className="muted">{hasInspectableStory ? `${coverage?.nodeCount} 个生产环节` : processChain ? `${processChain.stepCount} 道制造工序` : ""}</span>
                 <StatusBadge status={item.dataStatus} method={item.method} />
-                <span className="card-footer">尚无已发布供应链路线</span>
+                <span className="card-footer">尚无已发布代表性路线</span>
               </article>;
             })}
           </div>
@@ -149,7 +150,7 @@ export default async function ProductOverviewPage({
                 <span className={`coverage-status coverage-status-${coverage.status}`}>{coverage.statusLabel}</span>
                 <span className="muted">节点 {coverage.nodeCount} · 连接 {coverage.flowCount} · 缺口 {coverage.evidenceGapCount}</span>
                 <span className="muted">{coverage.statusDescription}</span>
-                <span className="muted">证据：{coverage.evidenceLevels.length ? coverage.evidenceLevels.join("、") : "尚无路线证据"}</span>
+                <span className="muted">证据：{coverage.evidenceLevels.length ? coverage.evidenceLevels.map(evidenceLevelLabel).join("、") : "尚无路线证据"}</span>
                 {coverage.classificationMappings.length > 0 && <div className="muted">
                   分类候选：{coverage.classificationMappings.map(({ classification, mappingType }) => `${classification.system} ${classification.version}/${classification.code} · ${mappingType}`).join("；")}
                   <br />限制：{coverage.classificationMappings.map(({ limitation }) => limitation).join("；")}
@@ -167,12 +168,12 @@ export default async function ProductOverviewPage({
             <h2>如何阅读这张链路</h2>
           </div>
           <WarningList warnings={overview.warnings} />
-          <p>供应链流是人工整理的代表性内容；贸易观察与宏观指标是独立事实类型。路线金额或数量只在数据明确发布时展示，缺失值不会被补成零。</p>
+          <p>代表性路线是人工整理的分工内容；贸易观察与宏观指标是独立事实类型。路线金额或数量只在数据明确发布时展示，缺失值不会被补成零。</p>
           <Link className="button button-secondary" href={provenancePath(productId, pageContext)}>查看来源与版本</Link>
           </div>
         </details>
 
-        <section className="hierarchy-next-step"><strong>继续探索</strong><span>选择一个组件，沿着路线继续探索。</span><Link className="button button-primary" href={supplyChainPath(productId, undefined, routeContext)}>进入供应链路线 →</Link></section>
+        <section className="hierarchy-next-step"><strong>继续探索</strong><span>选择一个组件，沿代表性路线继续查看。</span><Link className="button button-primary" href={supplyChainPath(productId, undefined, routeContext)}>进入代表性路线 →</Link></section>
       </div>
     </SiteShell>
   );

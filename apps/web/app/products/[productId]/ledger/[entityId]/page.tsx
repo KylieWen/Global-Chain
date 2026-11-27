@@ -74,14 +74,14 @@ export default async function CountryLedgerPage({
           <PageIntro
             eyebrow="国家贸易账本"
             title="国家账本 · 待核验"
-            description="当前商品尚无已收录国家/地区贸易账本；未收录不等于 0。"
+            description="当前商品尚无已收录的国家/地区贸易账本。"
             meta={<ContextBanner period={overview.period.label} datasetVersion={overview.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} />}
             actions={<><Link className="button button-primary" href={productPath(productId, pageContext)}>返回商品拆解</Link>{hasMaterialTrade && <Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link>}<Link className="button button-secondary" href={evidenceGapsPath(productId, pageContext)}>查看证据缺口</Link></>}
           />
           <section className="empty-state large-empty">
-            <p>当前商品尚无已收录的国家/地区贸易账本；现有资料未发布产地、贸易伙伴或金额记录。未收录不等于贸易额为 0，也不代表没有生产或流通环节。</p>
+            <p>现有资料未发布产地、贸易伙伴或金额记录；未收录不等于贸易额为 0，也不代表没有生产或流通环节。</p>
           </section>
-          <section className="hierarchy-next-step"><strong>继续探索</strong><span>先从部件组成与材料记录入手；后续收录账本后可再回到这里。</span><Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>进入供应链路线 →</Link></section>
+          <section className="hierarchy-next-step"><strong>继续探索</strong><span>先从部件组成或材料记录入手。</span><Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>进入代表性路线 →</Link></section>
         </div>
       </SiteShell>
     );
@@ -110,7 +110,7 @@ export default async function CountryLedgerPage({
           title={`${ledger.entity.name} · 国家账本`}
           description="查看已收录的产业与贸易数据，继续探索商品、生产环节与贸易伙伴。"
           meta={<ContextBanner period={ledger.period.label} datasetVersion={ledger.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={contextMismatches} />}
-          actions={<Link className="button button-secondary" href={firstRelatedNode ? nodePath(productId, firstRelatedNode.node.id, pageContext) : supplyChainPath(productId, undefined, pageContext)}>查看供应链</Link>}
+          actions={<Link className="button button-secondary" href={firstRelatedNode ? nodePath(productId, firstRelatedNode.node.id, pageContext) : supplyChainPath(productId, undefined, pageContext)}>查看代表性路线</Link>}
         />
 
 
@@ -219,8 +219,8 @@ export default async function CountryLedgerPage({
 
         {ledger.relatedNodes.length > 0 && <section className="section-block" aria-labelledby="related-title">
           <div className="section-heading">
-            <div><p className="eyebrow">关联阅读</p><h2 id="related-title">关联供应链节点</h2></div>
-            <Link className="text-link" href={supplyChainPath(productId, undefined, pageContext)}>查看完整路径 →</Link>
+            <div><p className="eyebrow">关联阅读</p><h2 id="related-title">关联路线节点</h2></div>
+            <Link className="text-link" href={supplyChainPath(productId, undefined, pageContext)}>查看完整路线 →</Link>
           </div>
             <div className="node-grid compact-grid">
               {ledger.relatedNodes.map((node) => (

@@ -44,7 +44,7 @@ export default async function SupplyChainNodePage({
       <div className="content-column wide-column">
         <ProductNavigation productId={productId} context={routeContext} active="route" hasIndustry={Boolean(queries.getIndustryNetwork(productId))} hasMaterials={queries.getMaterialTradeObservations(productId).length>0}/>
         <PageIntro
-          eyebrow="供应链环节"
+          eyebrow="路线环节"
           title={node.node.node.label}
           description="查看这个环节用到什么、产出什么，以及它连接的上下游。"
           meta={<ContextBanner period={node.node.period.label} datasetVersion={node.datasetVersion.version} contentVersion={node.node.contentVersion?.version} mismatches={contextMismatches} />}

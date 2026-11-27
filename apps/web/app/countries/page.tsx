@@ -20,7 +20,7 @@ export default async function CountriesPage() {
           <div className="country-card-top"><span className="iso-chip">{entity.iso3 ?? entity.name}</span></div>
           <h3>{entity.name}</h3>
           {roles.length > 0 && <div className="country-role-list">{roles.slice(0, 3).map((role) => <span className="role-chip" key={role}>{role}</span>)}</div>}
-          <div className="country-card-meta">{relatedNodeCount > 0 && <span>{relatedNodeCount} 个供应链环节</span>}<span>{productIds.length} 个相关商品</span></div>
+          <div className="country-card-meta">{relatedNodeCount > 0 && <span>{relatedNodeCount} 个路线环节</span>}<span>{productIds.length} 个相关商品</span></div>
           {targetProduct ? <div className="country-card-actions">
             <Link className="card-footer" href={hasTradeLedger ? ledgerPath(targetProduct, entity.id) : productPath(targetProduct)}>{hasTradeLedger ? "打开贸易账本" : "探索相关商品"} <span>→</span></Link>
             {guideProduct && <Link className="text-link" href={tradeGuidePath({ product: guideProduct, jurisdiction: entity.id })}>进出口指南</Link>}

@@ -338,7 +338,7 @@ const PAGE_KINDS = [
   },
   {
     id: "route",
-    label: "生产路线",
+    label: "代表性路线",
     path: (p) => `/products/${p}/supply-chain`,
     wait: ".route-page, .product-level-nav, .route-graph-shell, .filter-strip"
   },
@@ -518,7 +518,7 @@ try {
     // Rebaseline: the old .path-steps strip was removed; the equivalent journey
     // step now goes through the product level nav (.product-level-nav). Ledger
     // links on route pages live in the node link block, so fall back there.
-    const NAV_LABEL_BY_STEP = { "拆解": "商品拆解", "路线": "生产路线", "账本": "国家账本" };
+    const NAV_LABEL_BY_STEP = { "拆解": "商品拆解", "路线": "代表性路线", "账本": "国家账本" };
     const clickStep = async (label) => {
       const navLabel = NAV_LABEL_BY_STEP[label] ?? label;
       const before = jPage.url();

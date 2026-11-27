@@ -51,7 +51,7 @@ function TreeNode({
   const hasRoute = node.depth === 0 || coverage?.hasInspectableStory === true || explorableItemIds?.includes(node.item.id) === true;
   const processChain = coverage?.processChains[0];
   const canExplore = hasRoute || Boolean(processChain);
-  const actionLabel = !hasRoute ? "查看制造工序" : node.depth === 0 ? "查看全部环节" : "查看生产路线";
+  const actionLabel = !hasRoute ? "查看制造工序" : node.depth === 0 ? "查看全部环节" : "查看代表性路线";
   return (
     <li>
       <div className={`tree-node ${node.depth === 0 ? "tree-root" : ""}`}>

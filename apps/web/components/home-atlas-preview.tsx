@@ -291,10 +291,6 @@ export function HomeProductStrip({ products }: { products: HomeSummary[] }) {
             <span className="home-product-facts">
               {product.entryCount > 0 ? `拆解 ${product.entryCount} 个部件与材料条目 · ` : ""}{product.countryCount} 个国家与地区{product.yearLabel ? ` · ${product.yearLabel}` : ""}
             </span>
-            <span className="home-product-facts-sub">
-              {product.componentCount > 0 ? `${product.componentCount} 个直接组成部分 · ` : ""}{product.recordCount} 条路线与记录
-            </span>
-            <span className="home-product-link">在世界地图上探索 ↗</span>
           </div>
         </Link>
       ))}

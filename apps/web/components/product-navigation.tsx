@@ -31,7 +31,7 @@ export function ProductNavigation({productId,context,active,hasIndustry=false,ha
     {id:'overview',label:'商品拆解',href:productPath(productId,context)},
     {id:'world',label:'世界地图',href:mapPath({...context,product:productId,...worldFilters})},
     {id:'china',label:'中国供应链',href:chinaMapPath({...context,product:productId,...chinaNested,map:worldSearch})},
-    {id:'route',label:'生产路线',href:supplyChainPath(productId,undefined,context)},
+    {id:'route',label:'代表性路线',href:supplyChainPath(productId,undefined,context)},
     ...(hasIndustry?[{id:'industry',label:'产业与企业',href:industryPath(productId,undefined,context,{china:chinaSearch})}]:[]),
     ...(hasMaterials?[{id:'materials',label:'材料贸易',href:materialObservationsPath(productId,context)}]:[]),
     ...(entityId?[{id:'ledger',label:'国家账本',href:ledgerPath(productId,entityId,context)}]:[]),

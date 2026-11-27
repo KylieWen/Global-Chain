@@ -29,7 +29,7 @@ export function ProductCatalogPage({ products }: { products: readonly ProductCat
           {products.length === 0 ? (
             <div className="empty-state large-empty">
               <strong>当前没有已发布商品</strong>
-              <p>新商品正在整理中，请稍后查看。</p>
+              <p>当前版本尚未收录其他商品。</p>
             </div>
           ) : (
             <div className="product-grid">

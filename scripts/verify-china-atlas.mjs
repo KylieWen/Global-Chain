@@ -13,7 +13,7 @@ const go=async path=>{const response=await page.goto(base+path,{waitUntil:'netwo
 const screenshot=name=>page.screenshot({path:resolve(output,name+'.png'),fullPage:true});
 try {
   await go('/');
-  const heroCta=page.getByRole('link',{name:'从世界地图开始 →'});
+  const heroCta=page.getByRole('link',{name:'进入世界地图'});
   if(await heroCta.count()===0){
     // Static competition shell renders the map directly; its nav carries the world-map entry.
     await page.locator('a[href^="/map"]').first().waitFor();

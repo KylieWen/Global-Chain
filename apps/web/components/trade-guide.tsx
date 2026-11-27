@@ -29,7 +29,7 @@ export function TradeGuideSummaryCard({ view, productId, context }: { view: Trad
 }
 
 export function TradeGuideDirectory({ views, productId, context }: { views: readonly TradeGuideView[]; productId: string; context?: PageContext }) {
-  if (views.length === 0) return <div className="empty-state large-empty"><strong>当前没有已发布指南</strong><p>可以先选择其他商品或等待新的国家/地区指南发布。</p></div>;
+  if (views.length === 0) return <div className="empty-state large-empty"><strong>当前没有已发布指南</strong><p>可以先选择其他商品。</p></div>;
   return <div className="trade-guide-directory">{views.map((view) => <TradeGuideSummaryCard view={view} productId={productId} context={context} key={view.guide.id} />)}</div>;
 }
 

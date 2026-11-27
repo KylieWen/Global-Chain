@@ -129,7 +129,7 @@ export function DroneWorkstation({ model, productId, context, initialFocus, evid
     <section className="drone-workstation" aria-labelledby="drone-workstation-title" data-fallback={fallbackReason ?? ""}>
       <header className="drone-topbar">
         <div className="drone-topbar-title">
-          <p className="eyebrow" id="drone-workstation-title">程序化拆解 · 通用四旋翼</p>
+          <p className="eyebrow" id="drone-workstation-title">拆解工作台</p>
         </div>
         <dl className="drone-metrics">
           <div className="drone-metric">
@@ -186,13 +186,13 @@ export function DroneWorkstation({ model, productId, context, initialFocus, evid
               onClick={handlePlay}
               aria-pressed={playing}
             >
-              {playing ? "暂停" : explosion > 0 ? "复原动画" : "爆炸演示"}
+              {playing ? "暂停" : explosion > 0 ? "复原部件" : "展开部件"}
             </button>
             <button type="button" className="button button-secondary drone-reset" onClick={handleReset}>
-              复原
+              复位视图
             </button>
             <label className="drone-slider">
-              <span>爆炸程度</span>
+              <span>展开程度</span>
               <input
                 type="range"
                 min={0}
@@ -206,7 +206,7 @@ export function DroneWorkstation({ model, productId, context, initialFocus, evid
                 aria-label="调节部件展开程度"
               />
             </label>
-            <span className="exploded-hint">拖动旋转 · 滚轮缩放 · 点击部件</span>
+            <span className="exploded-hint">拖动旋转 · 点击部件</span>
           </div>
           <div className="exploded-lanes" aria-label="拆解层级">
             {model.lanes.map((lane) => (
@@ -228,7 +228,7 @@ export function DroneWorkstation({ model, productId, context, initialFocus, evid
           <div className="exploded-detail-badges">
             <StatusBadge status={selected.dataStatus} method={selected.method} />
           </div>
-          <p className="exploded-detail-stats muted">第 {selected.depth + 1} 层 · {selected.routeNodeCount} 个路线节点 · {selected.routeFlowCount} 条连接</p>
+          <p className="exploded-detail-stats muted">第 {selected.depth + 1} 层{selected.routeNodeCount > 0 ? ` · ${selected.routeNodeCount} 个路线节点` : ""}{selected.routeFlowCount > 0 ? ` · ${selected.routeFlowCount} 条连接` : ""}</p>
           {selected.gapNote ? <p className="exploded-detail-gap">{selected.gapNote}</p> : null}
         </header>
 
@@ -247,7 +247,7 @@ export function DroneWorkstation({ model, productId, context, initialFocus, evid
               国家账本 · 待核验 →
             </Link>
           )}
-          {!selected.explorable && <p className="muted exploded-no-route">该部件尚无已发布的路线、工序或贸易记录。</p>}
+          {!selected.explorable && <p className="muted exploded-no-route">该部件还没有已发布的路线或贸易记录。</p>}
         </div>
       </aside>
     </section>

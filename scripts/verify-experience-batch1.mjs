@@ -204,7 +204,7 @@ async function navState(page) {
 }
 
 /** Old path-strip step label -> equivalent product-level-nav label. */
-const NAV_LABEL_BY_STEP = { "拆解": "商品拆解", "路线": "生产路线", "账本": "国家账本" };
+const NAV_LABEL_BY_STEP = { "拆解": "商品拆解", "路线": "代表性路线", "账本": "国家账本" };
 
 async function clickStep(page, label) {
   const navLabel = NAV_LABEL_BY_STEP[label] ?? label;
@@ -397,7 +397,7 @@ try {
   const routeNav = await navState(dPage);
   results.observations.push({ section: "journey-route", ...routeNav, url: dPage.url() });
   ok("路线 step opens supply-chain page", /\/supply-chain/.test(new URL(dPage.url()).pathname), { url: dPage.url() });
-  ok("supply-chain page marks 生产路线 active", routeNav.active === "生产路线", { routeActive: routeNav.active });
+  ok("supply-chain page marks 代表性路线 active", routeNav.active === "代表性路线", { routeActive: routeNav.active });
 
   await clickStep(dPage, "账本");
   await dPage.locator(".country-card, .ledger-page, .page-intro h1").first().waitFor({ timeout: 10000 });

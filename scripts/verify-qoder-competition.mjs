@@ -63,8 +63,8 @@ try {
       await details.getByText("资料与方法", { exact: true }).click();
       await details.getByText("数据版本", { exact: true }).waitFor();
       await demoPage.screenshot({ path: output + "/desktop-source.png" });
-      await details.getByRole("link", { name: "报告国账本 →" }).click();
-      await demoPage.getByRole("heading", { name: "报告国账本", exact: true }).waitFor();
+      await details.getByRole("link", { name: "国家账本 →" }).click();
+      await demoPage.getByRole("heading", { name: "国家账本", exact: true }).waitFor();
       await demoPage.goBack();
       await demoPage.locator(".world-country-map").waitFor();
     }

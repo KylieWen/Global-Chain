@@ -78,9 +78,9 @@ export default async function SupplyChainPage({
       <div className="content-column wide-column route-page">
         <ProductNavigation productId={productId} context={pageContext} active="route" hasIndustry={Boolean(industry)} hasMaterials={queries.getMaterialTradeObservations(productId).length>0}/>
         <PageIntro
-          eyebrow="生产路线"
+          eyebrow="代表性路线"
           title={`${itemLabel(overview.product)} · ${focusName}`}
-          description="从材料、部件到整机，点击生产环节继续向上下游探索。"
+          description="沿材料、部件到整机，查看各生产环节。"
           meta={<ContextBanner period={story.period.label} datasetVersion={story.datasetVersion.version} contentVersion={story.route.contentVersion?.version} mismatches={contextMismatches} />}
           actions={(
             <>
@@ -112,7 +112,7 @@ export default async function SupplyChainPage({
         </section>
 
         <SupplyChainGraph story={story} productId={productId} context={pageContext} />
-        {!requestedFocusItemId && suggestedFocus && <p className="route-focus-choice">{fullGraph ? "当前展示全部代表性路径。" : "先从一个部件分支开始阅读，可随时展开完整路线。"}<Link className="text-link" href={fullGraph ? supplyChainPath(productId,suggestedFocus,pageContext) : supplyChainPath(productId,undefined,{...pageContext,...{view:"all"}})}> {fullGraph ? "聚焦一个部件 →" : "展开全部分支 →"}</Link></p>}
+        {!requestedFocusItemId && suggestedFocus && <p className="route-focus-choice">{fullGraph ? "当前展示全部代表性路线。" : "先从一个部件分支开始阅读，可随时展开完整路线。"}<Link className="text-link" href={fullGraph ? supplyChainPath(productId,suggestedFocus,pageContext) : supplyChainPath(productId,undefined,{...pageContext,...{view:"all"}})}> {fullGraph ? "聚焦一个部件 →" : "展开全部分支 →"}</Link></p>}
 
         {story.warnings.length > 0 && <details className="detail-collapsible compact-detail">
           <summary className="detail-summary"><strong>阅读提示与限制</strong><span>{story.warnings.length} 条</span></summary>
@@ -160,7 +160,7 @@ export default async function SupplyChainPage({
                 <details className="step-card step-card-collapsible" id={`route-step-${step.id}`} key={step.id} open={index === 0}>
                   <summary className="step-summary">
                     <span className="step-marker">{String(index + 1).padStart(2, "0")}</span>
-                    <span className="step-summary-copy"><strong>{step.title}</strong><small>{step.description}</small><em>第 {index + 1} 步 / 共 {readingSteps.length} 步</em></span>
+                    <span className="step-summary-copy"><strong>{step.title}</strong><small>{step.description}</small></span>
                   </summary>
                   <div className="step-body">
                     <div className="step-heading">
@@ -231,7 +231,7 @@ export default async function SupplyChainPage({
           </div>
           {story.nodes.length > 6 ? <div className="hierarchy-card compact-hierarchy-card"><span>还有 {story.nodes.length - 6} 个节点详情。</span><Link className="text-link" href={nodePath(productId, story.nodes[6].node.id, pageContext)}>从节点索引继续探索 →</Link></div> : null}
         </section>
-        <section className="hierarchy-next-step"><strong>下一层</strong><span>想进一步了解这些环节？</span><Link className="button button-primary" href={provenancePath(productId, pageContext)}>查看相关资料 →</Link></section>
+        <section className="hierarchy-next-step"><strong>继续探索</strong><span>查看来源与版本。</span><Link className="button button-primary" href={provenancePath(productId, pageContext)}>查看相关资料 →</Link></section>
       </div>
     </SiteShell>
   );

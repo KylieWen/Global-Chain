@@ -155,7 +155,7 @@ function App({ fixtures, queries, timelines }: { fixtures: readonly ReadonlyProd
         {isIndustry && <Link className="text-link" href={chinaHref}>← 返回中国供应链</Link>}
         {isMap && <nav className="atlas-layer-switch" aria-label="地图图层">
           <Link aria-current={layer === "trade" ? "page" : undefined} href={mapPath({ ...filters, layer: "trade", year: undefined })}>官方贸易统计</Link>
-          <Link aria-current={layer === "supply-chain" ? "page" : undefined} href={mapPath({ ...filters, layer: "supply-chain", year: undefined, direction: undefined, scope: undefined })}>代表性供应链</Link>
+          <Link aria-current={layer === "supply-chain" ? "page" : undefined} href={mapPath({ ...filters, layer: "supply-chain", year: undefined, direction: undefined, scope: undefined })}>代表性路线</Link>
         </nav>}
         {isMap && <Link className="text-link atlas-directory-link" href={chinaHref}>走进中国供应链 →</Link>}
       </header>

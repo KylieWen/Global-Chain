@@ -118,7 +118,7 @@ export function CountryLedger({ ledger, materials, initialItem, initialYear }: {
 
   return <section className="competition-card competition-ledger" aria-labelledby="competition-ledger-heading">
     <header className="competition-ledger-heading">
-      <div><h2 id="competition-ledger-heading">报告国账本</h2><p>{ledger.entity.name} · {itemLabel(ledger.product)}</p></div>
+      <div><h2 id="competition-ledger-heading">国家账本</h2><p>{ledger.entity.name} · {itemLabel(ledger.product)}</p></div>
       <small>数据版本 {ledger.datasetVersion.version}</small>
     </header>
     {rows.length > 0 ? <>
@@ -137,7 +137,7 @@ export function CountryLedger({ ledger, materials, initialItem, initialYear }: {
         <h3>{group.title}</h3>
         <ul>{group.rows.map(row => <LedgerEntry key={row.id} row={row} ledger={ledger} />)}</ul>
       </section>)}
-      {!visibleRows.length && <p>当前物品和年份组合未收录贸易记录。</p>}
+      {!visibleRows.length && <p>这一物品和年份组合下没有贸易记录。</p>}
     </> : <p>当前快照未收录{ledger.entity.name}报告的贸易记录。</p>}
   </section>;
 }
@@ -145,5 +145,5 @@ export function CountryLedger({ ledger, materials, initialItem, initialYear }: {
 export function MaterialLedgerLink({ product, material }: { product: string; material: MaterialTradeObservationView }) {
   if (!material.reporter) return null;
   const context = { focus: material.item?.id, label: material.observation.period.label };
-  return <Link href={ledgerPath(product, material.reporter.id, context)}>{material.reporter.name}报告国账本 →</Link>;
+  return <Link href={ledgerPath(product, material.reporter.id, context)}>{material.reporter.name}的国家账本 →</Link>;
 }

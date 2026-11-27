@@ -38,7 +38,7 @@ export default async function ProductEvidenceGapsPage({
           meta={<ContextBanner period={overview.period.label} datasetVersion={provenance.datasetVersion.version} contentVersion={provenance.route.contentVersion?.version} mismatches={mismatches} />}
           actions={(
             <>
-              <Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>供应链路径</Link>
+              <Link className="button button-primary" href={supplyChainPath(productId, undefined, pageContext)}>代表性路线</Link>
               <Link className="button button-secondary" href={provenancePath(productId, pageContext)}>来源与版本</Link>
               <Link className="button button-secondary" href={materialObservationsPath(productId, pageContext)}>材料贸易观察</Link>
             </>

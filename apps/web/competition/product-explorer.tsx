@@ -86,7 +86,7 @@ export function ProductExplorer({ breakdown, queries }: { breakdown: ProductBrea
           {(trade || hasProduction) && (
             <div className="product-explorer-actions">
               {trade && <Link href={trade.href}>{trade.scope === "world" ? "查看贸易总计" : "查看双边贸易"} <span aria-hidden="true">↗</span></Link>}
-              {hasProduction && <Link href={mapPath({ product, focus: item, layer: "supply-chain" })}>查看代表性供应链 <span aria-hidden="true">↗</span></Link>}
+              {hasProduction && <Link href={mapPath({ product, focus: item, layer: "supply-chain" })}>查看代表性路线 <span aria-hidden="true">↗</span></Link>}
             </div>
           )}
         </div>

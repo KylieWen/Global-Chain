@@ -14,7 +14,7 @@ export function mapValue(value: number | null, status: string, unit: string | nu
 
 export function mapRecordTitle(record: MapRecord, countries: readonly MapCountry[]) {
   if (record.partnerScope === "world_total") return `${record.reporterName} · 世界${record.direction === "export" ? "出口" : "进口"}`;
-  const endpointName = (id: string | null, label?: string | null) => countries.find(country => country.id === id)?.name ?? label ?? "供应链环节";
+  const endpointName = (id: string | null, label?: string | null) => countries.find(country => country.id === id)?.name ?? label ?? "路线环节";
   return `${endpointName(record.fromCountryId, record.fromLabel)} → ${endpointName(record.toCountryId, record.toLabel)}`;
 }
 
@@ -61,10 +61,10 @@ export function MapRecordDetails({ record, countries, productId, context }: { re
     </details>
     <div className="atlas-detail-actions">
       {record.recordKind === "material_trade" ? <Link className="text-link" href={materialObservationPath(productId, record.observationId, recordContext)}>材料统计详情 →</Link>
-        : record.kind === "trade" && record.reporterId ? <Link className="text-link" href={ledgerPath(productId, record.reporterId, recordContext)}>报告国账本 →</Link> : <>
+        : record.kind === "trade" && record.reporterId ? <Link className="text-link" href={ledgerPath(productId, record.reporterId, recordContext)}>国家账本 →</Link> : <>
           {record.fromNodeId && <Link className="text-link" href={nodePath(productId, record.fromNodeId, recordContext)}>起点环节 →</Link>}
           {record.toNodeId && <Link className="text-link" href={nodePath(productId, record.toNodeId, recordContext)}>终点环节 →</Link>}
-          <Link className="text-link" href={supplyChainPath(productId, record.itemId ?? undefined, recordContext)}>展开供应链 →</Link>
+          <Link className="text-link" href={supplyChainPath(productId, record.itemId ?? undefined, recordContext)}>展开代表性路线 →</Link>
         </>}
     </div>
   </section>;

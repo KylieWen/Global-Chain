@@ -40,7 +40,7 @@ export function SupplyChainGraph({ story, productId, context }: { story: SupplyC
   const isEvidenceOnly = story.interpretationSummary.mode === "evidence_only";
 
   return <section className="section-block visual-graph-section" aria-labelledby="visual-graph-title">
-    <div className="section-heading"><div><p className="eyebrow">{isEvidenceOnly ? "生产环节" : "路线探索"}</p><h2 id="visual-graph-title">{isEvidenceOnly ? "生产环节" : "供应链路线图"}</h2></div><span className="section-caption">点击节点或连接，继续探索</span></div>
+    <div className="section-heading"><div><p className="eyebrow">{isEvidenceOnly ? "生产环节" : "路线探索"}</p><h2 id="visual-graph-title">{isEvidenceOnly ? "生产环节" : "代表性路线图"}</h2></div><span className="section-caption">点击节点或连接，继续探索</span></div>
     <div className="graph-reading-key" aria-label="路线图例">
       <span><i className="graph-key-node" />国家或生产环节</span>
       <span><i className="graph-key-line graph-key-line-direct" />直接双边证据</span>
@@ -55,7 +55,7 @@ export function SupplyChainGraph({ story, productId, context }: { story: SupplyC
       <span className="filter-note">{stageFilter === null ? "完整路线" : `当前聚焦：${stageInfo.find((stage) => stage.order === stageFilter)?.label ?? "当前阶段"}`}</span>
     </div>
     <div className="route-graph-shell">
-      <svg className="route-graph" viewBox={`0 0 ${graphWidth} ${graphHeight}`} style={{ width: graphWidth, minWidth: graphWidth }} role="img" aria-label="供应链代表性路线图">
+      <svg className="route-graph" viewBox={`0 0 ${graphWidth} ${graphHeight}`} style={{ width: graphWidth, minWidth: graphWidth }} role="img" aria-label="代表性路线图">
         <defs><marker id="route-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9aa9bf" /></marker></defs>
         {layout.stages.map(stage => <g key={stage.order} className="graph-stage-band"><rect x={stage.x - 16} y={30} width={stage.width} height={graphHeight - 42} rx={12} /><text className="graph-stage-label" x={stage.x} y={18}>{stageInfo.find(info => info.order === stage.order)?.label}</text></g>)}
         {visibleFlows.map((flow, index) => {
