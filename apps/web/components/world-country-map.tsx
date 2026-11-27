@@ -131,6 +131,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
   const [isPending, startTransition] = useTransition();
   const [transform, setTransform] = useState<MapTransform>({ x: 0, y: 0, scale: 1 });
   const [hoveredCountryId, setHoveredCountryId] = useState<string | null>(null);
+  const [pointer, setPointer] = useState<{ x: number; y: number } | null>(null);
   const [hoveredRecordId, setHoveredRecordId] = useState<string | null>(null);
   const [selectedRecordId, setSelectedRecordId] = useState<string | null>(null);
   const [uncoveredCountry, setUncoveredCountry] = useState<{name:string;featureKey:string} | null>(null);
@@ -178,6 +179,43 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
     return () => mq.removeEventListener("change", updateNarrow);
   }, []);
   useMapWheel(svgRef, setTransform, mapWidth, mapHeight, transform, suppressClick);
+  // Country focus: picking a country eases the camera onto its outline and dims
+  // the rest of the world, so "this country" reads as a place, not a dot.
+  const focusRaf = useRef<number | null>(null);
+  const transformRef = useRef(transform);
+  transformRef.current = transform;
+  useEffect(() => {
+    if (focusRaf.current !== null) {
+      cancelAnimationFrame(focusRaf.current);
+      focusRaf.current = null;
+    }
+    if (!filters.country || reducedMotion) return;
+    const country = countries.find(item => item.id === filters.country);
+    const feature = country?.m49 ? features.find(item => String(item.id).padStart(3, "0") === country.m49) : undefined;
+    if (!feature) return;
+    const [[x0, y0], [x1, y1]] = pathGenerator.bounds(feature as GeoPermissibleObjects);
+    const width = Math.max(1, x1 - x0);
+    const height = Math.max(1, y1 - y0);
+    const centre = projection(geoCentroid(feature as GeoPermissibleObjects)) ?? [mapWidth / 2, mapHeight / 2];
+    const scale = Math.max(1.35, Math.min(3.2, (mapWidth * 0.34) / width, (mapHeight * 0.42) / height));
+    const target = clampMapTransform({ x: mapWidth / 2 - centre[0] * scale, y: mapHeight / 2 - centre[1] * scale, scale }, mapWidth, mapHeight);
+    const from = transformRef.current;
+    const startedAt = performance.now();
+    const duration = 520;
+    const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+    const step = (now: number) => {
+      const t = Math.min(1, (now - startedAt) / duration);
+      const k = ease(t);
+      setTransform({ x: from.x + (target.x - from.x) * k, y: from.y + (target.y - from.y) * k, scale: from.scale + (target.scale - from.scale) * k });
+      focusRaf.current = t < 1 ? requestAnimationFrame(step) : null;
+    };
+    focusRaf.current = requestAnimationFrame(step);
+    return () => {
+      if (focusRaf.current !== null) cancelAnimationFrame(focusRaf.current);
+      focusRaf.current = null;
+    };
+  }, [filters.country, countries, reducedMotion]);
+
   const byM49 = useMemo(() => new Map(countries.filter(country => country.m49).map(country => [country.m49!, country])), [countries]);
   const byId = useMemo(() => new Map(countries.map(country => [country.id, country])), [countries]);
   const centers = useMemo(() => new Map(features.map(item => [String(item.id).padStart(3, "0"), projection(geoCentroid(item))])), []);
@@ -390,13 +428,15 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
       </div>
     </div>
     <div className="atlas-layout"><div className="atlas-canvas">
-      <div className="map-viewport"><svg ref={svgRef} className="world-country-map" data-zoomed={transform.scale > 1} viewBox={`0 0 ${mapWidth} ${mapHeight}`} preserveAspectRatio="xMidYMid slice" role="group" aria-labelledby="world-country-map-title" aria-describedby="world-country-map-description" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={stopDrag} onPointerCancel={stopDrag}>
+      <div className="map-viewport"><svg ref={svgRef} className="world-country-map" data-zoomed={transform.scale > 1} viewBox={`0 0 ${mapWidth} ${mapHeight}`} preserveAspectRatio="xMidYMid slice" role="group" aria-labelledby="world-country-map-title" aria-describedby="world-country-map-description" onPointerDown={onPointerDown} onPointerMove={event => { onPointerMove(event); setPointer({ x: event.clientX, y: event.clientY }); }} onPointerUp={stopDrag} onPointerCancel={stopDrag} onPointerLeave={() => setPointer(null)}>
         <title id="world-country-map-title">{isTrade ? isWorld ? "国家世界贸易总计地图" : "官方双边贸易统计地图" : "代表性供应链地图"}</title>
         <desc id="world-country-map-description">选择国家查看相关记录。连线与列表均可通过鼠标或键盘打开详情。</desc>
         <defs>{[{id:"atlas-selected-arrow",fill:"#aee9db"},{id:"atlas-export-arrow",fill:"#8be4c4"},{id:"atlas-import-arrow",fill:"#d7b880"}].map(marker => <marker key={marker.id} id={marker.id} viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth={9 / transform.scale} markerHeight={9 / transform.scale} orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill={marker.fill} /></marker>)}</defs>
         {compareTrade && <defs>{[...new Set(lines.map(line => line.itemId))].map(id => <marker key={id} id={`atlas-item-${id}`} viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth={9 / transform.scale} markerHeight={9 / transform.scale} orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill={colorFor(id)} /></marker>)}</defs>}
-        <rect className="map-ocean" width={mapWidth} height={mapHeight} />
-        <g transform={`translate(${transform.x} ${transform.y}) scale(${transform.scale})`}>
+        {/* Oversized ocean fill: at country-zoom the 1:1 rect would end inside
+            the viewport and leave a visible rectangle edge. */}
+        <rect className="map-ocean" x={-mapWidth} y={-mapHeight} width={mapWidth * 3} height={mapHeight * 3} />
+        <g transform={`translate(${transform.x} ${transform.y}) scale(${transform.scale})`} data-country-focus={filters.country ? "on" : "off"}>
           <path className="atlas-graticule" d={pathGenerator(geoGraticule10()) ?? undefined} />
           {features.map((item, index) => {
             const code = String(item.id).padStart(3, "0");
@@ -420,7 +460,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
               : `M${coordinate(from[0])},${coordinate(from[1])} Q${coordinate(cx)},${coordinate(cy)} ${coordinate(to[0])},${coordinate(to[1])}`;
             const label = `${mapRecordTitle(line, countries)}，${line.itemName}，${line.periodLabel}${isTrade ? `，${mapValue(line.value, line.valueDataStatus, line.currency, true)}` : ""}`;
             const amountWidth = isTrade && widthUnit ? quantityMode ? tradeAmountWidth(line.quantity, line.quantityDataStatus) : tradeAmountWidth(line.value, line.valueDataStatus) : null;
-            return <g key={line.id} className={`country-trade-line country-trade-${line.direction ?? "route"}${activeRecord?.id === line.id ? " is-active" : ""}${activeRecord && activeRecord.id !== line.id ? " is-muted" : ""}`} role="button" tabIndex={0} aria-label={label} aria-pressed={selectedRecordId === line.id} onMouseEnter={() => setHoveredRecordId(line.id)} onMouseLeave={() => setHoveredRecordId(null)} onFocus={() => setHoveredRecordId(line.id)} onBlur={() => setHoveredRecordId(null)} onClick={() => chooseRecord(line.id)} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); suppressClick.current = false; chooseRecord(line.id); } }}><path className="atlas-line-hit" d={d} vectorEffect="non-scaling-stroke" /><path className="atlas-line-visible" d={d} vectorEffect="non-scaling-stroke" style={isTrade ? {strokeWidth: amountWidth ?? 1.4, stroke: compareTrade ? colorFor(line.itemId) : undefined, strokeDasharray: compareTrade ? amountWidth === null ? "4 4" : "none" : undefined} : undefined} markerEnd={beamActive ? undefined : compareTrade ? `url(#atlas-item-${line.itemId})` : isTrade ? `url(#atlas-${line.direction}-arrow)` : activeRecord?.id === line.id ? "url(#atlas-selected-arrow)" : undefined}><title>{label}</title></path></g>;
+            return <g key={line.id} className={`country-trade-line country-trade-${line.direction ?? "route"}${filters.country && (line.fromCountryId === filters.country || line.toCountryId === filters.country) ? " is-focus" : ""}${activeRecord?.id === line.id ? " is-active" : ""}${activeRecord && activeRecord.id !== line.id ? " is-muted" : ""}`} role="button" tabIndex={0} aria-label={label} aria-pressed={selectedRecordId === line.id} onMouseEnter={() => setHoveredRecordId(line.id)} onMouseLeave={() => setHoveredRecordId(null)} onFocus={() => setHoveredRecordId(line.id)} onBlur={() => setHoveredRecordId(null)} onClick={() => chooseRecord(line.id)} onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); suppressClick.current = false; chooseRecord(line.id); } }}><path className="atlas-line-hit" d={d} vectorEffect="non-scaling-stroke" /><path className="atlas-line-visible" d={d} vectorEffect="non-scaling-stroke" style={isTrade ? {strokeWidth: amountWidth ?? 1.4, stroke: compareTrade ? colorFor(line.itemId) : undefined, strokeDasharray: compareTrade ? amountWidth === null ? "4 4" : "none" : undefined} : undefined} markerEnd={beamActive ? undefined : compareTrade ? `url(#atlas-item-${line.itemId})` : isTrade ? `url(#atlas-${line.direction}-arrow)` : activeRecord?.id === line.id ? "url(#atlas-selected-arrow)" : undefined}><title>{label}</title></path></g>;
           })}</g>}
           {[...endpoints].map(code => { const point = centers.get(code); const country = byM49.get(code); if (!point || !country) return null; return <g className="atlas-endpoint" key={code} transform={`translate(${coordinate(point[0])},${coordinate(point[1])})`}><circle r={5 / transform.scale} /></g>; })}
         </g>
@@ -428,7 +468,17 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
       </svg>
       {beamActive && <BeamFlowLayer flows={beamFlows} transform={transform} settings={settings} level={adaptiveLevel} nodeColor={tokens.palette.accent} scheme={tokens.scheme} onDiagnostics={handleDiagnostics} onFrameSample={handleFrameSample} />}
       {beamActive && <svg className="atlas-label-overlay" viewBox={`0 0 ${mapWidth} ${mapHeight}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g className="atlas-country-labels">{renderLabels()}</g></svg>}
-      <div className="atlas-map-caption"><span>{beamActive ? "粒子沿货物流向移动 · 双指缩放与移动" : "双指缩放与移动 · 放大后鼠标拖动"}</span></div></div>
+      <div className="atlas-map-caption"><span>{beamActive ? "粒子沿货物流向移动 · 双指缩放与移动" : "双指缩放与移动 · 放大后鼠标拖动"}</span></div>
+      {activeCountry && hoveredCountryId && pointer && (
+        <div className="atlas-hover-tip" style={{ left: pointer.x + 14, top: pointer.y + 16 }} role="status">
+          <strong>{activeCountry.name}</strong>
+          <em>{coverageLabel(activeCountry)}</em>
+          {lines.filter(line => line.fromCountryId === activeCountry.id || line.toCountryId === activeCountry.id).sort((a, b) => Math.abs(b.value ?? 0) - Math.abs(a.value ?? 0)).slice(0, 2).map(line => (
+            <span key={line.id}>{mapRecordTitle(line, countries)} · {mapValue(line.value, line.valueDataStatus, line.currency, true)}</span>
+          ))}
+          <small>点击聚焦该国</small>
+        </div>
+      )}</div>
       {isTrade && timelineYears.length > 1 && timeIndex >= 0 && (
         <div className="trade-timeline">
           <span className="trade-timeline-head">

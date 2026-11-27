@@ -1160,3 +1160,66 @@
     margin-left: 0;
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/* Country focus: dim the world and keep the chosen country + its lanes sharp  */
+/* -------------------------------------------------------------------------- */
+.atlas-workspace svg g[data-country-focus="on"] .map-country-shape {
+  opacity: 0.22;
+  transition: opacity 0.35s ease;
+}
+
+.atlas-workspace svg g[data-country-focus="on"] .map-country-shape.selected,
+.atlas-workspace svg g[data-country-focus="on"] .map-country-shape.hovered {
+  opacity: 1;
+}
+
+.atlas-workspace svg g[data-country-focus="on"] .country-trade-line:not(.is-focus) {
+  opacity: 0.18;
+  filter: blur(0.7px);
+  transition: opacity 0.35s ease, filter 0.35s ease;
+}
+
+.atlas-workspace svg g[data-country-focus="on"] .country-trade-line.is-focus {
+  opacity: 1;
+}
+
+.atlas-workspace svg g[data-country-focus="on"] .atlas-country-shape,
+.atlas-workspace svg g[data-country-focus="on"] .atlas-graticule {
+  opacity: 0.3;
+  transition: opacity 0.35s ease;
+}
+
+.atlas-workspace svg g[data-country-focus="on"] .atlas-endpoint {
+  opacity: 0.35;
+}
+
+/* Cursor-following country tooltip: name, coverage and the two biggest lanes. */
+.atlas-hover-tip {
+  position: fixed;
+  z-index: 40;
+  display: grid;
+  gap: 0.15rem;
+  max-width: 16rem;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.55rem;
+  background: color-mix(in srgb, var(--bg-elevated) 94%, transparent);
+  box-shadow: var(--shadow);
+  color: var(--ink);
+  font-size: 0.72rem;
+  line-height: 1.45;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+}
+
+.atlas-hover-tip strong { font-size: 0.82rem; }
+.atlas-hover-tip em { color: var(--accent); font-style: normal; font-size: 0.68rem; }
+.atlas-hover-tip span { color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.atlas-hover-tip small { color: var(--muted); font-size: 0.64rem; }
+
+/* With a selected country the context bar owns the bottom row; lift the
+   floating legend above it instead of stacking buttons on top of each other. */
+.atlas-canvas:has(.atlas-country-context) .atlas-below-map {
+  bottom: 5.4rem;
+}
