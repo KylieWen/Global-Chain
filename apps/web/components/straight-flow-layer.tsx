@@ -106,6 +106,7 @@ export function StraightFlowLayer({ flows, transform, mapWidth, renderedWidth, r
       context.setTransform(1, 0, 0, 1, 0, 0);
       context.clearRect(0, 0, canvas.width, canvas.height);
       const zoomDamp = 1 / Math.max(1, Math.pow(transform.scale, 0.55));
+      const pxPerUnit = unit * transform.scale;
       context.setTransform(
         unit * transform.scale * dpr, 0, 0, unit * transform.scale * dpr,
         unit * transform.x * dpr, unit * transform.y * dpr
@@ -115,7 +116,9 @@ export function StraightFlowLayer({ flows, transform, mapWidth, renderedWidth, r
         const { flow } = lane;
         const faded = flow.state === "muted" ? 0.18 : 1;
         const alpha = Math.min(0.92, (0.18 + flow.factor * 0.5) * faded);
-        const half = laneWidthFor(flow.factor, zoomDamp);
+        // Widths and radii are specified in CSS pixels and converted back to map
+        // units, so a phone and a desktop see the same optical size.
+        const half = (laneWidthFor(flow.factor, zoomDamp) * 1.2) / pxPerUnit;
         const [fx, fy] = flow.from;
         const [tx, ty] = flow.to;
         const dx = tx - fx;
@@ -125,14 +128,14 @@ export function StraightFlowLayer({ flows, transform, mapWidth, renderedWidth, r
         // Base lane: a thin, straight ribbon whose width follows the amount.
         context.globalAlpha = alpha * 0.45;
         context.strokeStyle = flow.color;
-        context.lineWidth = Math.max(0.7, half * 0.9);
+        context.lineWidth = Math.max(0.7 / pxPerUnit, half * 1.4);
         context.beginPath();
         context.moveTo(fx, fy);
         context.lineTo(tx, ty);
         context.stroke();
 
         // Pulse trains.
-        const trailLen = (6 + flow.factor * 30) / (unit * transform.scale);
+        const trailLen = (6 + flow.factor * 30) / pxPerUnit;
         context.globalAlpha = Math.min(1, alpha + 0.15);
         lane.pulses.forEach(pulse => {
           if (!reducedMotion) pulse.t += pulse.speed * dt * 0.22;
@@ -141,21 +144,23 @@ export function StraightFlowLayer({ flows, transform, mapWidth, renderedWidth, r
           const x = fx + dx * t;
           const y = fy + dy * t;
           // Fade pulses in and out near both endpoints, otherwise 60 lanes
-          // meeting at one hub stack into a white smear.
-          const edge = Math.min(t, 1 - t);
-          const edgeAlpha = edge < 0.06 ? Math.max(0.12, edge / 0.06) : 1;
+          // meeting at one hub stack into a white smear. The ramp is measured in
+          // screen pixels, so long and short lanes fade over the same distance.
+          const edgePx = Math.min(t, 1 - t) * span * unit * transform.scale;
+          const edgeAlpha = Math.max(0.1, Math.min(1, edgePx / 46));
           // Short trail behind the head, brightest at the tip.
           const tailX = x - (dx / span) * Math.min(trailLen, span * 0.4);
           const tailY = y - (dy / span) * Math.min(trailLen, span * 0.4);
           context.strokeStyle = flow.color;
-          context.lineWidth = Math.max(0.6, half * 0.8);
+          context.lineWidth = Math.max(0.6 / pxPerUnit, half * 1.1);
           context.globalAlpha = alpha * 0.5 * edgeAlpha;
           context.beginPath();
           context.moveTo(tailX, tailY);
           context.lineTo(x, y);
           context.stroke();
           context.globalAlpha = Math.min(1, (alpha + 0.25) * edgeAlpha);
-          const radius = Math.max(0.9, (0.9 + flow.factor * 2.2) * zoomDamp);
+          // Shrink as the pulse approaches a hub, where dozens of lanes overlap.
+          const radius = Math.max(0.5 / pxPerUnit, ((1.0 + flow.factor * 2.6) * (0.35 + 0.65 * edgeAlpha)) / pxPerUnit);
           context.beginPath();
           context.arc(x, y, radius, 0, Math.PI * 2);
           context.fillStyle = "#f2fffb";

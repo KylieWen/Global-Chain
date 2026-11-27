@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   focusFilterCount, regionOptions, valueThresholds,
   type FocusFilterState, type TradeBalance, type TradeFlowDirection
@@ -27,7 +27,10 @@ const balanceOptions: { id: TradeBalance; label: string }[] = [
 ];
 
 export function MapFocusFilters({ state, onChange, kept, total, countryName }: Props) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  // Open by default on wide screens where the panel fits beside the map; on
+  // phones it would cover the map, so it starts collapsed.
+  useEffect(() => { setOpen(window.innerWidth >= 900); }, []);
   const active = focusFilterCount(state);
   const toggleRegion = (id: string) => {
     const next = state.regions.includes(id)

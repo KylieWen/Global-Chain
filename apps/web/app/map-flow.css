@@ -951,7 +951,8 @@
   .atlas-workspace .atlas-compact-filters {
     left: 1rem;
     right: 1rem;
-    top: 0.6rem;
+    /* Clears the product sub-navigation row that sits above the map on phones. */
+    top: 3.7rem;
     padding: 0.5rem;
   }
 

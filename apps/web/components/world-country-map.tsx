@@ -198,7 +198,10 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
     const width = Math.max(1, x1 - x0);
     const height = Math.max(1, y1 - y0);
     const centre = projection(geoCentroid(feature as GeoPermissibleObjects)) ?? [mapWidth / 2, mapHeight / 2];
-    const scale = Math.max(1.35, Math.min(3.2, (mapWidth * 0.34) / width, (mapHeight * 0.42) / height));
+    // Phones get a gentler push-in: at 3.2x a whole continent fills a 390px
+    // viewport and the amount labels end up clipped at the edges.
+    const maxScale = renderedWidth < 600 ? 2.1 : 3.2;
+    const scale = Math.max(1.35, Math.min(maxScale, (mapWidth * 0.34) / width, (mapHeight * 0.42) / height));
     const target = clampMapTransform({ x: mapWidth / 2 - centre[0] * scale, y: mapHeight / 2 - centre[1] * scale, scale }, mapWidth, mapHeight);
     const from = transformRef.current;
     const startedAt = performance.now();
@@ -215,7 +218,7 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
       if (focusRaf.current !== null) cancelAnimationFrame(focusRaf.current);
       focusRaf.current = null;
     };
-  }, [filters.country, countries, reducedMotion]);
+  }, [filters.country, countries, reducedMotion, renderedWidth]);
 
   const byM49 = useMemo(() => new Map(countries.filter(country => country.m49).map(country => [country.m49!, country])), [countries]);
   const byId = useMemo(() => new Map(countries.map(country => [country.id, country])), [countries]);
@@ -394,28 +397,53 @@ export function WorldCountryMap({ view, filters, products, regionalLinks=[] }: P
     return [{ id: code, name: country.name, x: point[0] * transform.scale + transform.x, y: point[1] * transform.scale + transform.y }];
   }), labelFontSize);
   const renderLabels = () => labels.map(label => <text key={label.id} x={coordinate(label.x + 3)} y={coordinate(label.y + labelFontSize + 2)} style={{fontSize:labelFontSize}}>{label.name}</text>);
-  const flowLabels = useMemo(() => {
+  // Straight lanes converge at the origin, so amount labels sit near the
+  // destination. Each candidate is checked against the country labels already
+  // drawn and against earlier amount labels; colliding candidates step back
+  // along the lane, and a label that cannot fit anywhere is dropped rather than
+  // printed on top of a country name.
+  const flowLabels = (() => {
     if (!filters.country) return [] as { id: string; x: number; y: number; text: string }[];
+    const boxes: { x1: number; y1: number; x2: number; y2: number }[] = labels.map(label => ({
+      x1: label.x, y1: label.y - labelFontSize,
+      x2: label.x + label.name.length * labelFontSize * 0.62, y2: label.y + labelFontSize * 0.35
+    }));
+    const overlaps = (box: { x1: number; y1: number; x2: number; y2: number }) =>
+      boxes.some(other => box.x1 < other.x2 + 10 && box.x2 + 10 > other.x1 && box.y1 < other.y2 + 7 && box.y2 + 7 > other.y1);
     return [...displayLines]
       .sort((left, right) => Math.abs(right.value ?? 0) - Math.abs(left.value ?? 0))
       .slice(0, 5)
-      .flatMap((line, index) => {
+      .flatMap(line => {
         const from = centers.get(line.fromM49); const to = centers.get(line.toM49);
         if (!from || !to) return [];
-        const control = arcControl(from, to, 0);
-        // Straight lanes converge at the origin, so labels belong near the
-        // destination end where the partners are already spread apart.
-        const t = Math.min(0.92, 0.84 + index * 0.015);
-        const x = (1 - t) * (1 - t) * from[0] + 2 * (1 - t) * t * control[0] + t * t * to[0];
-        const y = (1 - t) * (1 - t) * from[1] + 2 * (1 - t) * t * control[1] + t * t * to[1];
         const partnerId = line.fromCountryId === filters.country ? line.toCountryId : line.fromCountryId;
         const partner = (partnerId ? byId.get(partnerId) : undefined) ?? byM49.get(line.fromCountryId === filters.country ? line.toM49 ?? "" : line.fromM49 ?? "");
-        return [{
-          id: line.id, x, y,
-          text: `${partner?.name ?? ""} ${mapValue(line.value, line.valueDataStatus, line.currency, true)}`.trim()
-        }];
+        const text = `${partner?.name ?? ""} ${mapValue(line.value, line.valueDataStatus, line.currency, true)}`.trim();
+        const width = text.length * labelFontSize * 0.6;
+        const span = Math.hypot(to[0] - from[0], to[1] - from[1]) || 1;
+        const perpX = -(to[1] - from[1]) / span;
+        const perpY = (to[0] - from[0]) / span;
+        // Candidates step back along the lane, then lift off it sideways, so the
+        // biggest amounts keep their label even in a crowded neighbourhood.
+        for (const t of [0.86, 0.72, 0.58]) {
+          for (const offset of [0, 13, -13, 26, -26, 39]) {
+            const sx = from[0] + (to[0] - from[0]) * t + perpX * (offset / transform.scale);
+            const sy = from[1] + (to[1] - from[1]) * t + perpY * (offset / transform.scale);
+            const box = {
+              x1: sx * transform.scale + transform.x, y1: sy * transform.scale + transform.y - labelFontSize,
+              x2: sx * transform.scale + transform.x + width, y2: sy * transform.scale + transform.y + labelFontSize * 0.3
+            };
+            // Skip labels that would land outside the visible world, so an off-screen
+            // partner does not consume a slot.
+            if (box.x1 < 6 || box.x2 > 994 || box.y1 < 2 || box.y2 > mapHeight - 2) continue;
+            if (overlaps(box)) continue;
+            boxes.push(box);
+            return [{ id: line.id, x: sx, y: sy, text }];
+          }
+        }
+        return [];
       });
-  }, [filters.country, displayLines, centers, byId, byM49]);
+  })();
   const renderFlowLabels = () => flowLabels.map(label => <text key={label.id} className="atlas-flow-label" x={coordinate(label.x * transform.scale + transform.x)} y={coordinate(label.y * transform.scale + transform.y)} style={{fontSize:labelFontSize * 0.92}}>{label.text}</text>);
   const selectedIndex = selectedRecord ? records.indexOf(selectedRecord) : -1;
   const selectAdjacentRecord = (offset: number) => { const next = records[selectedIndex + offset]; if (next) setSelectedRecordId(next.id); };
