@@ -29,7 +29,7 @@ const products = [
   { productId: "generic-soybean-oil", code: "150790" },
   { productId: "generic-electric-bicycle", code: "871160" },
   { productId: "generic-home-air-conditioner", code: "841510" },
-  { productId: "generic-camera-drone", code: "880610" }
+  { productId: "generic-camera-drone", code: "8806" }
 ];
 const only = process.argv.includes("--only") ? process.argv[process.argv.indexOf("--only") + 1] : null;
 const sha256 = (text) => createHash("sha256").update(text).digest("hex");
